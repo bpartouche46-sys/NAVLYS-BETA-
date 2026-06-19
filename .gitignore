@@ -1,0 +1,29 @@
+# Secrets — ne JAMAIS committer
+.env
+.env.*
+*.key
+*.pem
+secrets/
+credentials*.json
+
+# Dépendances
+node_modules/
+vendor/
+.venv/
+__pycache__/
+
+# Build / sortie
+dist/
+build/
+.next/
+out/
+
+# Système / éditeurs
+.DS_Store
+Thumbs.db
+*.log
+.vscode/
+.idea/
+
+# Réglages locaux Claude (perso, non partagés)
+.claude/settings.local.json
