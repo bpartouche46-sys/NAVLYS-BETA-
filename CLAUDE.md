@@ -23,14 +23,20 @@ Si une de ces étapes est sautée, le travail est considéré comme **non valide
 ## 1. À quoi sert ce projet
 
 NAVLYS — gestion et modification de sites web.
-*(À compléter : décrire ici précisément chaque site, son URL, sa techno, son hébergeur.)*
+Les sites publics sont déployés sur **Vercel** (équipe `NAVLYS`). Carte détaillée et à
+jour : **`docs/CARTE-SITES.md`**. ⚠️ Aucun projet n'est relié à GitHub (code non versionné).
 
-| Site | URL | Techno | Hébergeur | Statut |
-|------|-----|--------|-----------|--------|
-| _(à remplir)_ | | | | |
+| Site (projet Vercel) | Domaine principal | Hébergeur | Dépôt GitHub | Statut |
+|------|-----|--------|------|--------|
+| navlys-app | navlys.com | Vercel | ❌ non relié | 🟢 actif |
+| brunopartouche | brunopartouche.com | Vercel | ❌ non relié | 🟢 actif |
+| navbio | navbiolife.com / navbiolive.com | Vercel | ❌ non relié | 🟢 actif |
+| navlys-io | navlys.io | Vercel | ❌ non relié | 🟠 non-live ? |
+| navlys-teaser | navlys-teaser.vercel.app | Vercel | ❌ non relié | 🟢 actif |
+| brunopartouche-teaser | brunopartouche-teaser.vercel.app | Vercel | ❌ non relié | 🟠 non-live ? |
 
-> ⚠️ Tant que ce tableau est vide, Claude ne peut PAS « voir vos sites » :
-> il faut soit mettre le code des sites dans ce dépôt, soit indiquer ici où il se trouve.
+> Équipe Vercel : `NAVLYS` / `team_nBtY5FOQMPIT4J8Bmf7wvBSC` — compte bpartouche46@gmail.com.
+> Le « core central » Hetzner est un système distinct des sites Vercel (à clarifier).
 
 ### Infrastructure connue
 
