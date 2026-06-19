@@ -44,6 +44,13 @@
 - ⚠️ À NE PAS oublier : je (Claude) **ne connais PAS** les sites de l'utilisateur. Le dépôt
   est vide ; ils doivent être documentés/importés (tableau `CLAUDE.md` §1). Ne rien inventer.
 
+### ▶️ PHASE 0 EN COURS (2026-06-19) — Sécuriser
+- ✅ Découverte : déploiements `source: cli` (pas de Git). navlys-app = app Node.js, protégée (403).
+- 🔧 Action utilisateur en cours : snapshot Hetzner + retrouver le code des sites sur l'ANCIEN PC.
+- 📄 Guide fourni : `docs/SAUVEGARDE-CODE-VERCEL.md` (rapatrier le code dans GitHub via GitHub Desktop).
+- ⚠️ Le code source n'existe QUE sur l'ancien PC → priorité absolue à le sauvegarder.
+- Prochain point d'attente : confirmation que navlys-app est publié dans GitHub.
+
 ### 🧭 Plan d'ensemble établi (2026-06-19) → voir `docs/PLAN-DENSEMBLE.md`
 - Architecture cible : core Hetzner (API + données) ← appelé en API par les sites Vercel ;
   GitHub garde une copie sûre du code.

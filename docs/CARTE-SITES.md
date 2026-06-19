@@ -8,6 +8,10 @@
 - **Équipe Vercel** : `NAVLYS` (slug `navlys`, id `team_nBtY5FOQMPIT4J8Bmf7wvBSC`)
 - **Compte** : bpartouche46@gmail.com — utilisateur de déploiement : `claudenavlys`
 - **Runtime** : Node.js 24.x — **Framework déclaré : aucun** (à clarifier projet par projet)
+- **Mode de déploiement** : `source: cli` → déployé **en direct depuis un ordinateur**
+  (PAS depuis GitHub). ⚠️ Le code source n'est donc récupérable que **sur l'ancien PC**.
+- **navlys-app (navlys.com)** : application **Node.js** (déploiement type « LAMBDAS »,
+  région iad1). Répond **403 (protégé)** aux visiteurs non connectés → contrôle d'accès actif.
 
 ## Les 6 projets
 
