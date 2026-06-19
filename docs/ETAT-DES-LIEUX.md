@@ -25,8 +25,23 @@
 - ❓ **Aucun code de site n'est présent dans ce dépôt.**
 - ❓ Comment relier le « core central » Hetzner à ce dépôt (export du code ? accès ?).
 
+### Décisions prises (2026-06-19)
+- Le « core central » Hetzner contient **tout** : base de données, API/back-end, sites, back-office.
+- Accès au serveur : **SSH**.
+- **Objectif n°1 : SAUVEGARDER l'existant avant toute modification.**
+
+### Plan de sauvegarde fourni → voir `docs/SAUVEGARDE.md`
+- 🥇 Niveau 1 : **Snapshot Hetzner** (à faire en premier, depuis console.hetzner.cloud).
+- 🥈 Niveau 2 : **`scripts/backup.sh`** (dumps BDD + archive fichiers, non destructif).
+- 🥉 Niveau 3 : mettre le **code sous Git** (sans secrets) pour pouvoir modifier proprement.
+
+### En attente côté utilisateur
+- [ ] Faire le **snapshot Hetzner** (filet de sécurité immédiat).
+- [ ] Lancer `scripts/backup.sh` sur le serveur et télécharger l'archive.
+- [ ] M'indiquer la stack précise (PostgreSQL/MySQL ? Docker ? Nginx ? chemins des sites).
+
 ### Prochaine étape recommandée
-1. Préciser l'infrastructure Hetzner dans `CLAUDE.md` (§1) : accès, OS, contenu du core.
-2. Décider la méthode de travail (via Git de préférence, pas en direct sur la prod).
-3. Importer / brancher le code du premier site à modifier.
+1. Snapshot Hetzner (Niveau 1).
+2. Exécuter `scripts/backup.sh` (Niveau 2) et vérifier l'archive.
+3. Rapatrier le code sous Git (Niveau 3).
 4. Lancer `/controle` avant chaque modification.
