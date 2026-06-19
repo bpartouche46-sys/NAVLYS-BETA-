@@ -35,6 +35,19 @@
 - 🥈 Niveau 2 : **`scripts/backup.sh`** (dumps BDD + archive fichiers, non destructif).
 - 🥉 Niveau 3 : mettre le **code sous Git** (sans secrets) pour pouvoir modifier proprement.
 
+### 🔌 Blocage en cours : accès au serveur depuis le NOUVEL ordinateur
+- L'utilisateur a un **nouvel ordinateur** ; il n'arrive plus à se connecter au serveur
+  central (le « cowork » = le serveur central lui-même). « Il ne répond plus ».
+- ✅ L'**ancien ordinateur** fonctionne encore et peut (pouvait) se connecter → porte d'entrée sûre.
+- Cause probable : la **clé SSH** est sur l'ancien PC, pas sur le neuf.
+- 📄 Procédure de résolution complète : **`docs/ACCES-SERVEUR.md`**.
+- ⚠️ À NE PAS oublier : je (Claude) **ne connais PAS** les sites de l'utilisateur. Le dépôt
+  est vide ; ils doivent être documentés/importés (tableau `CLAUDE.md` §1). Ne rien inventer.
+
+### Objectif global confirmé par l'utilisateur
+- Tout recentraliser sur le **serveur central** et **tout reconnecter en API**.
+- → Cela se fera APRÈS : (1) récupérer l'accès depuis le nouveau PC, (2) sauvegarder l'existant.
+
 ### En attente côté utilisateur
 - [ ] Faire le **snapshot Hetzner** (filet de sécurité immédiat).
 - [ ] Lancer `scripts/backup.sh` sur le serveur et télécharger l'archive.
