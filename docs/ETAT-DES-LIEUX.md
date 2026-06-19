@@ -44,6 +44,13 @@
 - ⚠️ À NE PAS oublier : je (Claude) **ne connais PAS** les sites de l'utilisateur. Le dépôt
   est vide ; ils doivent être documentés/importés (tableau `CLAUDE.md` §1). Ne rien inventer.
 
+### 🗺️ Carte des sites établie (2026-06-19) → voir `docs/CARTE-SITES.md`
+- Les sites sont sur **Vercel**, équipe NAVLYS, **6 projets** : navlys-app (navlys.com),
+  brunopartouche (brunopartouche.com), navbio (navbiolife/navbiolive.com), navlys-io (navlys.io),
+  navlys-teaser, brunopartouche-teaser.
+- ⚠️ **Aucun projet relié à GitHub** → le code n'est versionné nulle part = risque majeur.
+- Hetzner (core central) et Vercel (sites) sont deux mondes séparés → à clarifier.
+
 ### Objectif global confirmé par l'utilisateur
 - Tout recentraliser sur le **serveur central** et **tout reconnecter en API**.
 - → Cela se fera APRÈS : (1) récupérer l'accès depuis le nouveau PC, (2) sauvegarder l'existant.
