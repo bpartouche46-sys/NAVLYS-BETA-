@@ -14,13 +14,19 @@
   - `docs/ETAT-DES-LIEUX.md` (ce fichier)
   - Agent `.claude/agents/gardien.md` + commande `.claude/commands/controle.md`
 
+### Infrastructure (nouvellement connue)
+- ☁️ Un **cloud Hetzner (Allemagne)** héberge le **« core central »** de NAVLYS.
+- À préciser : type de serveur, mode d'accès (SSH / panneau), OS, contenu exact du core.
+- ⚠️ Depuis l'environnement isolé de Claude, l'accès réseau direct au serveur Hetzner
+  n'est PAS garanti (politique réseau). Méthode sûre privilégiée : faire transiter le
+  code/la config par ce dépôt Git plutôt que de se connecter en direct à la production.
+
 ### Ce qui n'est PAS encore fait / à décider
-- ❓ **Aucun code de site n'est présent dans ce dépôt.** Il faut décider :
-  - soit importer ici le code des sites NAVLYS,
-  - soit indiquer dans `CLAUDE.md` (tableau §1) où se trouve chaque site
-    (URL, techno, hébergeur) pour pouvoir les modifier.
+- ❓ **Aucun code de site n'est présent dans ce dépôt.**
+- ❓ Comment relier le « core central » Hetzner à ce dépôt (export du code ? accès ?).
 
 ### Prochaine étape recommandée
-1. Remplir le tableau des sites dans `CLAUDE.md` (§1).
-2. Importer / brancher le code du premier site à modifier.
-3. Lancer `/controle` avant chaque modification.
+1. Préciser l'infrastructure Hetzner dans `CLAUDE.md` (§1) : accès, OS, contenu du core.
+2. Décider la méthode de travail (via Git de préférence, pas en direct sur la prod).
+3. Importer / brancher le code du premier site à modifier.
+4. Lancer `/controle` avant chaque modification.

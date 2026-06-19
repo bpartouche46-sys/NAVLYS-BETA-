@@ -32,6 +32,20 @@ NAVLYS — gestion et modification de sites web.
 > ⚠️ Tant que ce tableau est vide, Claude ne peut PAS « voir vos sites » :
 > il faut soit mettre le code des sites dans ce dépôt, soit indiquer ici où il se trouve.
 
+### Infrastructure connue
+
+| Élément | Détail |
+|---------|--------|
+| **Cloud principal** | Hetzner (Allemagne) |
+| **Rôle** | Héberge le **« core central »** de NAVLYS (système central) |
+| Type de serveur | _(à préciser : Cloud VPS / dédié ?)_ |
+| Accès | _(à préciser : SSH ? panneau type Coolify/Plesk/Portainer ? Docker ?)_ |
+| OS | _(à préciser : Ubuntu / Debian … ?)_ |
+| Ce que contient le « core central » | _(à préciser : API ? base de données ? back-office ? sites ?)_ |
+
+> 🔐 **Sécurité** : aucun identifiant, IP, clé SSH ou mot de passe ne doit être écrit
+> dans ce dépôt. Ces secrets restent en dehors de Git (voir `.gitignore`).
+
 ---
 
 ## 2. Comment on travaille (règles de fond)
