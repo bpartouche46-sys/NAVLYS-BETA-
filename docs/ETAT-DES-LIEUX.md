@@ -44,6 +44,13 @@
 - ⚠️ À NE PAS oublier : je (Claude) **ne connais PAS** les sites de l'utilisateur. Le dépôt
   est vide ; ils doivent être documentés/importés (tableau `CLAUDE.md` §1). Ne rien inventer.
 
+### 🧭 Plan d'ensemble établi (2026-06-19) → voir `docs/PLAN-DENSEMBLE.md`
+- Architecture cible : core Hetzner (API + données) ← appelé en API par les sites Vercel ;
+  GitHub garde une copie sûre du code.
+- Feuille de route en 5 phases : 0) Sécuriser, 1) Comprendre, 2) Accès, 3) Reconnecter API, 4) Modifier.
+- En attente : validation du plan par l'utilisateur, puis démarrage Phase 0
+  (snapshot Hetzner + sauvegarde du code de navlys-app dans GitHub).
+
 ### 🗺️ Carte des sites établie (2026-06-19) → voir `docs/CARTE-SITES.md`
 - Les sites sont sur **Vercel**, équipe NAVLYS, **6 projets** : navlys-app (navlys.com),
   brunopartouche (brunopartouche.com), navbio (navbiolife/navbiolive.com), navlys-io (navlys.io),
