@@ -2,7 +2,37 @@
 
 > Mis à jour à la fin de chaque session pour que la suivante reprenne sans tout relire.
 
-## Dernière mise à jour : 2026-06-19
+## Session 2026-06-19 — QA pré-lancement + brief design
+
+### Découverte majeure : où vivent les sites
+- Les sites NAVLYS sont déployés sur **Vercel** (équipe « NAVLYS »), **PAS** sur GitHub.
+- 6 projets : **navlys-app (navlys.com)**, navlys-teaser, brunopartouche-teaser,
+  **navlys-io (navlys.io)**, **brunopartouche (brunopartouche.com)**, **navbio (navbiolife.com / navbiolive.com)**.
+- Tous déployés via **Vercel CLI** (user `claudenavlys`) → la source vit dans un **dossier local**
+  (probablement l'ancien PC), rien n'est versionné. « Reconnecter » = récupérer ce dossier sous Git.
+- Base **Supabase « navlys-core »** (région eu-west-3 / Paris), RLS activé sur toutes les tables.
+  La home navlys.com poste les inscriptions dans la table `inscriptions` via la **clé anon publique** (OK par design).
+
+### QA pré-lancement = NO-GO (rapport complet fait)
+Bloquants relevés : « Jérusalem » dans la meta navbiolife.com ; « +8 à 12% par an » sur brunopartouche.com/bio ;
+/cgu et /privacy en 404 sur navbiolife.com ; comptes à rebours périmés (1ᵉʳ juin) ; bouton « Écoutez Bruno » inexistant ;
+texte centré (charte = aligné à gauche). Sécurité globalement saine.
+
+### Décidé / en cours
+- ✅ 4 corrections conformité **validées** par Bruno → voir `docs/CORRECTIONS-CONFORMITE.md` (à appliquer, pas encore déployées).
+- ✅ Brief design **validé** (inspiration partouche.com, empreinte jeu·plaisir·bien-être) → `docs/DESIGN-NAVLYS.md`.
+- ✅ Prototype maquette commune v2 → `proto/navlys-v2.html` (NON déployé, à valider demain).
+- Branche de travail : `claude/pre-launch-qa-lcd1pf` (PR brouillon ouverte).
+
+### Prochaine étape (demain)
+1. Bruno ouvre `proto/navlys-v2.html` et valide / ajuste (questions ouvertes dans DESIGN-NAVLYS.md §6).
+2. Décliner la maquette validée sur les 4 sites + appliquer les corrections conformité.
+3. Récupérer le dossier source local sous Git (accès serveur/ancien PC).
+4. **Aucun déploiement prod sans feu vert explicite de Bruno.**
+
+---
+
+## Mise à jour précédente : 2026-06-19
 
 ### Ce qui est fait
 - Dépôt NAVLYS-BETA- initialisé (il était entièrement vide).
