@@ -43,5 +43,5 @@
 ## 6. Questions ouvertes (à trancher avec Bruno)
 1. Menu icônes : **haut OU bas OU les deux** ? (proto = les deux pour comparer).
 2. « Moitié d'écran » : zone live **fixe** en haut + scroll en bas (proto) — OK ?
-3. L'encadré live = **vraies vidéos** (lesquelles ? poids ?) ou animations CSS only ?
+3. ✅ TRANCHÉ : zone live = **vraie vidéo** (élément `<video>` muet/auto/boucle) + **mini-vidéos qui défilent** + **messages qui défilent**. Reste à fournir : quelle(s) vidéo(s) ? (navlys.com a déjà `/media/presentation.mp4`).
 4. Ordre de déclinaison des 4 sites + date de lancement réelle (les comptes à rebours actuels sont périmés).
