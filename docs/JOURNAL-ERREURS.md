@@ -35,7 +35,18 @@ Copier ce modèle pour chaque nouvelle erreur :
 - **Garde-fou** : RÈGLE D'OR du `CLAUDE.md` — tout ce qui compte est écrit dans un
   fichier ; `docs/ETAT-DES-LIEUX.md` mis à jour à chaque fin de session.
 
-### ERR-002 — Mentions interdites / promesses en clair sur les sites publics
+### ERR-002 — Sites déployés sans Git : aucune sauvegarde du code
+- **Date** : 2026-06-19
+- **Contexte** : analyse des 6 projets Vercel de NAVLYS.
+- **Symptôme** : aucun projet n'est relié à GitHub ; les déploiements sont `source: cli`
+  (envoyés en direct depuis un ordinateur). Le code source n'existe nulle part en sauvegarde.
+- **Cause** : déploiements faits à la main depuis l'ancien PC sans versionnage Git.
+- **Correction appliquée** : Phase 0 du plan = rapatrier le code de chaque site (depuis
+  l'ancien PC) dans GitHub. Procédure : `docs/SAUVEGARDE-CODE-VERCEL.md`.
+- **Garde-fou** : à l'avenir, **chaque site doit être relié à un dépôt GitHub** et déployé
+  depuis Git (pas en CLI manuelle). Inscrit dans `docs/PLAN-DENSEMBLE.md` (Phases 0 et 3).
+
+### ERR-003 — Mentions interdites / promesses en clair sur les sites publics
 - **Date** : 2026-06-19
 - **Contexte** : QA pré-lancement des sites NAVLYS en production (Vercel).
 - **Symptôme** : « Jérusalem » dans la meta-description publique de navbiolife.com ;
@@ -48,7 +59,7 @@ Copier ce modèle pour chaque nouvelle erreur :
 - **Garde-fou** : avant TOUT déploiement, grep des termes interdits + « Israël/Ashkelon/Jérusalem »
   + vérifier disclaimer bandeau+pied de page et absence de chiffre de rendement.
 
-### ERR-003 — Source des sites absente de Git (déploiement Vercel CLI)
+### ERR-004 — Source des sites absente de Git (déploiement Vercel CLI)
 - **Date** : 2026-06-19
 - **Contexte** : recherche du code des sites pour les auditer/modifier.
 - **Symptôme** : aucun dépôt GitHub relié ; dépôt `NAVLYS-BETA-` ne contient que de la doc.
@@ -57,4 +68,4 @@ Copier ce modèle pour chaque nouvelle erreur :
 - **Garde-fou** : rapatrier le dossier source sous Git (branche dédiée) AVANT toute nouvelle modif ;
   ne jamais re-déployer depuis un dossier local non commité.
 
-<!-- Ajouter les prochaines erreurs ci-dessous : ERR-004, ERR-005, … -->
+<!-- Ajouter les prochaines erreurs ci-dessous : ERR-005, … -->
