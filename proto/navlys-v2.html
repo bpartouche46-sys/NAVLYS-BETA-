@@ -69,7 +69,11 @@ body{font-family:'Lora',serif;color:var(--perle);background:var(--noir);line-hei
   border-radius:16px/30px;border:2px solid rgba(233,211,160,.5);background:#0a1c2a;
   box-shadow:0 0 46px rgba(95,224,255,.28),0 10px 30px rgba(0,0,0,.6),inset 0 0 60px rgba(0,0,0,.65)}
 .screen video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.06);z-index:0}
-.screen .poster{position:absolute;inset:0;z-index:0;background:linear-gradient(120deg,#0a1c2a,#123048,#0a1c2a);background-size:200% 200%;animation:flow 10s ease infinite}
+.screen .poster{position:absolute;inset:0;z-index:1;background:linear-gradient(120deg,#0a1c2a,#123048,#0a1c2a);background-size:200% 200%;animation:flow 10s ease infinite;opacity:1;transition:opacity .6s}
+.screen .reel-title{position:absolute;left:14px;bottom:22px;z-index:4;font-family:'Cormorant Garamond';color:#fff;font-size:1rem;text-shadow:0 2px 10px #000;max-width:70%}
+.screen .reel-dots{position:absolute;right:12px;bottom:12px;z-index:4;display:flex;gap:6px}
+.screen .reel-dots i{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.35);transition:.3s}
+.screen .reel-dots i.on{background:var(--ice);box-shadow:0 0 8px var(--ice)}
 /* courbure simulée : vignette + reflet haut */
 .screen::after{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;border-radius:inherit;
   background:radial-gradient(130% 100% at 50% 48%,transparent 58%,rgba(0,0,0,.6))}
@@ -177,10 +181,10 @@ footer .flag{letter-spacing:3px;margin-bottom:10px;color:var(--champ)}
   <div class="curtain right"></div>
   <div class="tie l"></div><div class="tie r"></div>
   <div class="screen">
-    <div class="poster"></div>
-    <video muted autoplay loop playsinline preload="metadata" id="liveVideo" onerror="this.style.display='none'">
-      <source src="https://navlys.com/media/presentation.mp4" type="video/mp4">
-    </video>
+    <div class="poster" id="reelPoster"></div>
+    <video muted autoplay playsinline preload="metadata" id="liveVideo"></video>
+    <div class="reel-title" id="reelTitle"></div>
+    <div class="reel-dots" id="reelDots"></div>
   </div>
   <div class="valance"></div>
   <div class="cine-label"><span class="cine-dot"></span> EN DIRECT</div>
@@ -277,7 +281,37 @@ function tick(){var d=Math.max(0,TARGET-Date.now());
   document.getElementById('cd-m').textContent=String(Math.floor(d%3600000/60000)).padStart(2,'0');
   document.getElementById('cd-s').textContent=String(Math.floor(d%60000/1000)).padStart(2,'0');}
 tick();setInterval(tick,1000);
-function toggleSound(){var v=document.getElementById('liveVideo'),b=document.getElementById('sndBtn');
+
+/* ===== PLAYLIST CINÉMA : les présentations s'enchaînent dans l'écran incurvé =====
+   Ajoute ici tes vraies vidéos (src) : elles défileront automatiquement. */
+var REELS=[
+  {src:"https://navlys.com/media/presentation.mp4", title:"NAVLYS — présentation"},
+  {src:"", title:"Le brief finance"},      /* ← mettre l'URL de la vidéo */
+  {src:"", title:"La vie en mer"},         /* ← mettre l'URL de la vidéo */
+  {src:"", title:"Bien-être"},             /* ← mettre l'URL de la vidéo */
+  {src:"", title:"NAVBIO — ta mémoire"}    /* ← mettre l'URL de la vidéo */
+];
+var v=document.getElementById('liveVideo'), poster=document.getElementById('reelPoster'),
+    rTitle=document.getElementById('reelTitle'), dots=document.getElementById('reelDots'),
+    idx=-1, hold=null;
+REELS.forEach(function(){var d=document.createElement('i');dots.appendChild(d);});
+function setDots(){[].forEach.call(dots.children,function(d,i){d.className=i===idx?'on':'';});}
+function nextReel(){idx=(idx+1)%REELS.length;playReel(REELS[idx]);}
+function playReel(r){
+  clearTimeout(hold); rTitle.textContent=r.title; setDots();
+  if(r.src){
+    poster.style.opacity=0; v.style.display='';
+    v.src=r.src; v.load(); var p=v.play(); if(p&&p.catch)p.catch(function(){});
+    v.onended=nextReel;
+    v.onerror=function(){ poster.style.opacity=1; v.style.display='none'; hold=setTimeout(nextReel,6000); };
+  } else {
+    poster.style.opacity=1; v.style.display='none'; v.removeAttribute('src');
+    hold=setTimeout(nextReel,8000);   /* placeholder : 8s puis suivante */
+  }
+}
+nextReel();
+
+function toggleSound(){var b=document.getElementById('sndBtn');
   if(!v)return;v.muted=!v.muted;b.textContent=v.muted?'🔇':'🔊';if(!v.muted){try{v.play();}catch(e){}}}
 </script>
 </body>
