@@ -232,10 +232,11 @@ footer .flag{letter-spacing:3px;margin-bottom:10px;color:var(--champ)}
 
 <!-- ZONE LIVE (moitié haute) : présentation vivante = vraie vidéo + mini-vidéos + messages qui défilent -->
 <section class="live">
-  <!-- VRAIE VIDÉO de présentation : muette + auto + boucle. Remplacer le src par la vraie vidéo. -->
+  <!-- VRAIE VIDÉO de présentation : muette + auto + boucle. Source = celle déjà en ligne sur navlys.com. -->
   <div class="poster"></div>
-  <video class="main" id="liveVideo" muted autoplay loop playsinline preload="metadata">
-    <source src="/media/live-presentation.mp4" type="video/mp4">
+  <video class="main" id="liveVideo" muted autoplay loop playsinline preload="metadata"
+         onerror="this.style.display='none'">
+    <source src="https://navlys.com/media/presentation.mp4" type="video/mp4">
   </video>
   <div class="veil"></div>
   <div class="label"><span class="dot"></span> EN DIRECT</div>
