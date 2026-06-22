@@ -13,6 +13,133 @@
 - Branche : `claude/pre-launch-qa-lcd1pf`.
 
 
+## Session 2026-06-22 (h) — gouvernance + délégation + contrôle conformité Vague 1
+
+- ⚖️ **Gouvernance gravée** (`docs/GOUVERNANCE.md`, reliée à CLAUDE.md règle d'or) :
+  1) **zéro répétition** (tout capitaliser en knowledge/skill/routine, relié au core),
+  2) **Claude + Hermès orchestrateurs en surveillance mutuelle** (gardien arbitre),
+  3) **règle financière** : Bruno **seul** valide tout investissement/débit sur tous les
+     comptes (y compris partenaires), **sauf abonnements classiques déjà en cours**.
+- 🎚️ **Délégation décidée par Bruno** : Claude **a la main** (conçoit + modifie + valide)
+  sur **tous les sites** (aucun encore lancé en communication). Garde-fous maintenus :
+  **gardien conformité** avant toute URL publique + **argent = Bruno**. Sites communiqués
+  plus tard → Claude propose, Bruno valide.
+- ✅ **Contrôle conformité (gardien) de `corrections-pretes/`** : **bio.html** et
+  **navbiolife/index.html** = **CONFORMES, prêts à déployer** (C-01→C-04 OK, dates juillet,
+  zéro ligne rouge). **cgu/privacy** = conformes sur les lignes rouges mais **bloquées** par
+  les placeholders légaux ([ÉDITEUR]/[EMAIL]/[HÉBERGEUR]) + relecture juridique.
+- 🛑 **Reste humain** : mentions légales, **feu vert prod**, **accès à la source** (NOVA-HUB).
+  À confirmer : numéro WhatsApp `[téléphone — hors dépôt]` (navbio) bien destiné à être public.
+
+## Session 2026-06-22 (g) — plan de test des 4 fonctionnalités
+
+- 🎯 **Objectif de Bruno** : « tout est en cours, il faut maintenant TESTER chaque point. »
+  4 fonctionnalités citées : 🎙️ Voix/clone vocal · ⚖️ NavLex (base juridique MAJ quotidienne)
+  · ❓ FAQ (réponses prêtes pour le site) · 🤝 Partenaires (enregistrer un abonnement).
+- 🔎 **Constat dépôt** : recherche faite (Grep/Glob) — le dépôt ne contient **que de la doc
+  + `proto/navlys-v2.html`**. **Aucun code applicatif** de ces 4 fonctionnalités ici. Elles
+  vivent ailleurs (core Hetzner via Hermès, et/ou apps Vercel) → c'est là qu'il faut tester.
+- ✅ **Livrable créé** : **`docs/TESTS-FONCTIONNELS.md`** = plan de test complet (1 section
+  par fonctionnalité, tableaux Quoi/Comment/Attendu/QUI/Statut + points conformité ERR-003),
+  une liste « ❓ infos manquantes » par point, et une synthèse « qui teste quoi ». Tous les
+  statuts laissés à ⬜ **à tester** (aucun résultat inventé).
+- ⚠️ **Limite honnête** : Claude n'a **aucun accès** Hetzner ni aux apps live → ne peut PAS
+  tester voix/NavLex/FAQ live/paiement lui-même. Testeur principal = **Bruno**, appui serveur
+  = **Hermès**, conformité = **gardien**.
+- 🔴 **En attente Bruno** : URL démo voix, outil de clone vocal, où tourne NavLex + son cron,
+  où vit la FAQ, plateforme d'abonnement/paiement (mode test ?). Voir « infos manquantes »
+  dans `docs/TESTS-FONCTIONNELS.md`. Test de paiement partenaire = action sensible (feu vert).
+
+## Session 2026-06-22 (f) — vision « agent directeur » + mémoire centrale + intervenants
+
+- 🎛️ **Nouvelle vision capturée** : Bruno veut un **agent directeur** (orchestrateur)
+  qui pioche dans le core Hetzner + le web, gère sous-agents/services, et orchestre
+  SAV + back-office via API. → Mis noir sur blanc dans **`docs/ARCHITECTURE-AGENT-DIRECTEUR.md`**
+  (archi cible, garde-fous conformité, feuille de route brique par brique).
+- 🤝 **Intervenants clarifiés (anti-frayeur « qui a changé quoi ? »)** :
+  - **Hermès** = LLM via **OpenRouter** + **accès Hetzner** ; a équipé le serveur
+    (Docker, Nginx, fail2ban, certbot, PM2), récupéré 4 sites, cloné GitHub **NOVA-HUB**,
+    monté un cockpit web. C'est la **graine** de l'agent directeur (1 agent, pas encore orchestrateur).
+  - **Claude (moi)** = code + conformité **via GitHub uniquement**, **aucun accès serveur**.
+  - **Bruno** = chef / valide les actions sensibles.
+- 🔐 **Sécurité** : la « frayeur » sur les changements d'accès = **Bruno lui-même** qui a
+  réinitialisé le mot de passe (confirmé). Aucune intrusion. ⚠️ **À FAIRE** : changer le
+  mot de passe du **cockpit** (`bruno / …`) car exposé en clair dans un chat.
+- 💾 **Sauvegarde en cours** : volume Hetzner **10 Go** (id `106103603`) à monter sur
+  `/mnt/navlys-backup`. Stratégie « web » retenue : OneDrive → Hetzner (rclone) pour
+  l'important, + une partie hors OneDrive à traiter à part. ⚠️ Tout doit tenir dans 10 Go.
+- 🧭 **Cap** : ne **rien rajouter** (ex. Google Antigravity) tant que la base n'est pas
+  stable ; avancer **brique par brique** avec point de contrôle humain à chaque étape sensible.
+
+## Session 2026-06-22 (e) — mémo de déploiement
+
+- 📋 Livré : **`corrections-pretes/MEMO-DEPLOIEMENT.md`** — procédure pas-à-pas pour
+  mettre en ligne TOUT le préparé (navbio index + /cgu + /privacy, bruno/bio, bruno/home,
+  navlys-teaser), avec : diff contre prod, complétion des mentions éditeur (hors Git),
+  contrôle conformité ERR-003, vérification post-déploiement.
+- ⏳ **Tout reste en attente du feu vert prod de Bruno** + déploiement depuis l'ancien PC.
+- 🟢 PR de la session : #5 (briefing) ✅, #7 (conformité) ✅, #10 (comptes à rebours) ✅ — toutes fusionnées.
+
+## Session 2026-06-22 (d) — audit comptes à rebours des autres sites
+
+- 🔎 **Audit live (lecture seule)** des sites/teasers restants :
+  - **navlys-teaser**.vercel.app : compteur **périmé** (`2026-06-15`) + Ice Blue **ancien `#5fe0ff`**.
+  - **brunopartouche.com** (home) : « **1ᵉʳ juin 2026** » (×2) + compteur périmé. Ice Blue OK, conformité OK.
+  - **navlys.io** : OK (Ice Blue `#7DD3FC`, disclaimer conforme) ; juste « BETA juin S2 » soft.
+  - **brunopartouche-teaser**.vercel.app : **404** (non-live) → rien.
+- 📦 Livré : **`corrections-pretes/PATCH-comptes-a-rebours.md`** (patch avant/après, recale sur
+  1ᵉʳ juillet 2026 + alignement Ice Blue teaser). Format patch car (a) changements d'une ligne,
+  (b) le `<script>` final de brunopartouche.com dépasse la taille récupérable par le fetch.
+- ⏭️ **En attente** : feu vert prod + application à la source (ancien PC) puis redéploiement.
+
+## Session 2026-06-22 (c) — corrections conformité préparées (NON déployées)
+
+- 🔎 **Re-vérif live (lecture seule, fetch Vercel)** : C-01→C-04 + 404 /cgu /privacy
+  **toujours présents** sur navbiolife.com et brunopartouche.com/bio. Compte à rebours
+  périmé (cible 1ᵉʳ juin dépassée) → compteur mort en prod.
+- 📅 **Date d'ouverture confirmée par Bruno** : **1ᵉʳ juillet 2026, 00:00 (Paris)** =
+  `2026-06-30T22:00:00Z`.
+- 📦 **Fichiers corrigés prêts à déployer** dans `corrections-pretes/` (rien déployé) :
+  - `brunopartouche.com/bio.html` — C-03 (retrait « +8 à 12% ») + C-04 (disclaimer) + date.
+  - `navbiolife.com/index.html` — C-01 (meta) + C-02 (commentaire) + compte à rebours recalé.
+  - `navbiolife.com/cgu.html` + `privacy.html` — pages créées (corrigent les 404).
+- ⚠️ **À compléter avant déploiement** : mentions d'éditeur dans /cgu et /privacy
+  (placeholders `[ÉDITEUR]` ; ne PAS committer l'entité juridique dans ce dépôt public) ;
+  faire relire le juridique ; diff contre la prod avant de pousser.
+- ⏭️ **En attente** : feu vert prod explicite de Bruno + méthode de déploiement
+  (dépôt source pas encore dans Git → déploiement via ancien PC / CLI Vercel).
+- ℹ️ Bonus : les sites live utilisent déjà `#7DD3FC` + JetBrains Mono (charte cohérente).
+
+## Session 2026-06-22 (b) — briefing stratégique → mémoire
+
+- 📌 **Constat** : le « briefing à coller » de Bruno contenait des faits stratégiques
+  **absents** du dépôt (méthode 90/10, slogan, produits App Trading, communauté).
+  → Capturés dans **`docs/STRATEGIE-NAVLYS.md`** (nouveau) et reliés depuis `CLAUDE.md`
+  (§1 + §5). Évite de recoller le briefing à chaque session.
+- 🎨 **Ice Blue tranché = `#7DD3FC`** (rgb 125,211,252), remplace l'ancien `#5fe0ff`.
+  → `proto/navlys-v2.html` aligné (14 occurrences) + note dans `docs/DESIGN-NAVLYS.md`.
+- 🔐 **Sécurité** : rien de confidentiel ajouté au dépôt public (entité juridique /
+  SIREN / IP serveur / accès Cockpit restent hors Git). Aucune nouvelle erreur (journal inchangé).
+- ⚠️ **Note de process** : une branche orpheline avait été créée par erreur (dépôt vu
+  « vide » localement) ; rebasée sur la fondation existante pour ne RIEN écraser.
+
+## Session 2026-06-22 (a) — prototype `proto/navlys-v2.html` (petits TODO)
+
+- ✅ **Compte à rebours** « ACCÈS ANTICIPÉ » : remplacé le placeholder relatif
+  (`Date.now() + 14 j`, qui se réinitialisait à chaque rechargement) par une
+  constante fixe `LAUNCH_DATE` + gestion de l'échéance (« C'est ouvert ! »).
+  → PR #2 **fusionnée**. ⚠️ Date par défaut `2026-07-06`, à confirmer (vraie date d'ouverture).
+- ✅ **Menu déroulant (☰)** : il s'ouvrait mais ne se refermait jamais. Ajout de la
+  fermeture au clic extérieur / touche Échap / choix d'une entrée, + `aria-expanded`
+  (accessibilité). Aucun changement de contenu (conformité ERR-003 inchangée).
+- ✅ **Barre d'onglets basse** : l'état « actif » était figé sur Accueil et ne suivait
+  pas les clics. L'onglet touché devient désormais actif (+ `aria-current`) ; l'onglet
+  « Menu » ouvre le menu déroulant. Comportemental uniquement (ERR-003 inchangée).
+- ⏳ **Reste (non faisable sans assets / décisions)** : remplacer les placeholders
+  média (vidéos) par de vrais fichiers ; brancher les liens légaux (CGU/Confidentialité)
+  une fois les pages créées ; confirmer la date du compte à rebours (`2026-07-06`).
+
+## Session 2026-06-19 — QA pré-lancement + brief design
 
 ### Découverte majeure : où vivent les sites
 - Les sites NAVLYS sont déployés sur **Vercel** (équipe « NAVLYS »), **PAS** sur GitHub.
