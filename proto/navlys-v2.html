@@ -21,10 +21,10 @@
 <style>
 :root{
   --noir:#05060a; --noir2:#0a0d14;
-  --ice:#5fe0ff; --ice-deep:#123048;
+  --ice:#7DD3FC; --ice-deep:#123048;
   --champ:#e9d3a0; --champ-pale:#fff6df;
   --perle:#eef0f6; --mut:#9fb3c8;
-  --line:rgba(95,224,255,.18);
+  --line:rgba(125,211,252,.18);
   --nav-h:64px; --top-h:52px; --band-h:30px;
 }
 *{margin:0;padding:0;box-sizing:border-box}
@@ -36,7 +36,7 @@ body{
 /* fond radial ice blue + champagne */
 .bg{position:fixed;inset:0;z-index:-2;background:
   radial-gradient(900px 620px at 84% -8%,rgba(233,211,160,.10),transparent 60%),
-  radial-gradient(840px 600px at 6% 6%,rgba(95,224,255,.14),transparent 60%),
+  radial-gradient(840px 600px at 6% 6%,rgba(125,211,252,.14),transparent 60%),
   radial-gradient(1100px 880px at 50% 120%,rgba(18,48,72,.55),transparent 64%),
   var(--noir)}
 
@@ -45,11 +45,11 @@ body{
   display:flex;align-items:center;gap:10px;padding:0 16px;
   background:rgba(5,6,10,.82);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
 .led{width:13px;height:13px;border-radius:50%;
-  background:radial-gradient(circle at 50% 38%,#bdf3ff,var(--ice) 60%,rgba(95,224,255,.1));
+  background:radial-gradient(circle at 50% 38%,#bdf3ff,var(--ice) 60%,rgba(125,211,252,.1));
   box-shadow:0 0 16px var(--ice);animation:pulse 4.6s ease-in-out infinite}
 @keyframes pulse{0%,100%{opacity:.55;transform:scale(.85)}50%{opacity:1;transform:scale(1.15)}}
 .brand{font-family:'Cormorant Garamond';letter-spacing:5px;font-size:1.2rem;color:#fff}
-.menu-btn{margin-left:auto;background:rgba(95,224,255,.08);border:1px solid var(--line);
+.menu-btn{margin-left:auto;background:rgba(125,211,252,.08);border:1px solid var(--line);
   color:var(--ice);width:38px;height:38px;border-radius:11px;font-size:1.1rem;cursor:pointer;
   display:flex;align-items:center;justify-content:center}
 .dropdown{position:fixed;top:var(--top-h);right:10px;z-index:39;min-width:210px;
@@ -58,7 +58,7 @@ body{
 .dropdown.show{display:flex}
 .dropdown a{color:var(--perle);text-decoration:none;font-family:'Fraunces';font-style:italic;
   font-size:.95rem;padding:11px 14px;border-radius:9px;display:flex;gap:10px;align-items:center}
-.dropdown a:hover{background:rgba(95,224,255,.12);color:var(--ice)}
+.dropdown a:hover{background:rgba(125,211,252,.12);color:var(--ice)}
 
 /* ---------- BANDEAU DISCLAIMER (obligatoire, sticky) ---------- */
 .bandeau{position:fixed;top:var(--top-h);left:0;right:0;height:var(--band-h);z-index:38;
@@ -108,7 +108,7 @@ body{
 .f3{background:linear-gradient(120deg,#102a22,#1e4d3a,#0a0d14);background-size:200% 200%;animation:flow 13s ease infinite}
 @keyframes flow{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
 .shimmer{position:absolute;top:0;bottom:0;width:40%;z-index:2;
-  background:linear-gradient(105deg,transparent,rgba(95,224,255,.12),transparent);
+  background:linear-gradient(105deg,transparent,rgba(125,211,252,.12),transparent);
   animation:shim 5s ease-in-out infinite}
 @keyframes shim{0%{left:-40%}60%,100%{left:120%}}
 
@@ -130,7 +130,7 @@ h2{font-family:'Cormorant Garamond';font-weight:600;color:#fff;font-size:clamp(1
 .tcard{position:relative;overflow:hidden;border-radius:18px;padding:22px;min-height:120px;
   border:1px solid var(--line);background:linear-gradient(160deg,rgba(18,48,72,.35),rgba(10,13,20,.7));
   animation:cardbreath 5s ease-in-out infinite alternate}
-@keyframes cardbreath{0%{box-shadow:0 0 14px rgba(95,224,255,.06)}100%{box-shadow:0 0 30px rgba(95,224,255,.22)}}
+@keyframes cardbreath{0%{box-shadow:0 0 14px rgba(125,211,252,.06)}100%{box-shadow:0 0 30px rgba(125,211,252,.22)}}
 .tcard h3{font-family:'Cormorant Garamond';color:#fff;font-size:1.5rem;margin-bottom:4px}
 .tcard p{color:var(--mut);font-size:.95rem}
 .tcard .ic{position:absolute;top:16px;right:18px;font-size:1.8rem;opacity:.85}
@@ -153,12 +153,12 @@ h2{font-family:'Cormorant Garamond';font-weight:600;color:#fff;font-size:clamp(1
 
 /* carte flashy (inspiration MEGA POT) -> compte à rebours ICE BLUE */
 .flashy{position:relative;overflow:hidden;margin-top:28px;border-radius:22px;padding:26px 22px;
-  border:2px solid rgba(95,224,255,.5);text-align:left;
+  border:2px solid rgba(125,211,252,.5);text-align:left;
   background:linear-gradient(160deg,rgba(18,48,72,.6),rgba(5,6,10,.92));
   animation:flashglow 3.2s ease-in-out infinite alternate}
 @keyframes flashglow{
-  0%{box-shadow:0 0 30px rgba(95,224,255,.35),0 0 90px rgba(95,224,255,.18)}
-  100%{box-shadow:0 0 70px rgba(95,224,255,.7),0 0 160px rgba(95,224,255,.32)}}
+  0%{box-shadow:0 0 30px rgba(125,211,252,.35),0 0 90px rgba(125,211,252,.18)}
+  100%{box-shadow:0 0 70px rgba(125,211,252,.7),0 0 160px rgba(125,211,252,.32)}}
 .flashy .badge{display:inline-block;font-family:'Fraunces';font-style:italic;font-size:.72rem;
   letter-spacing:2px;color:var(--noir);background:linear-gradient(100deg,var(--champ),var(--champ-pale));
   padding:4px 12px;border-radius:99px;margin-bottom:10px}
@@ -166,8 +166,8 @@ h2{font-family:'Cormorant Garamond';font-weight:600;color:#fff;font-size:clamp(1
 .flashy h3 em{color:var(--ice);font-style:italic}
 .cd{display:flex;gap:8px;flex-wrap:wrap}
 .cd .blk{min-width:62px;padding:12px 8px;text-align:center;border-radius:12px;
-  background:rgba(5,8,16,.7);border:1.5px solid rgba(95,224,255,.55);animation:flashglow 3.2s ease-in-out infinite alternate}
-.cd .blk .v{font-family:'Cormorant Garamond';font-weight:700;font-size:1.7rem;color:var(--ice);text-shadow:0 0 14px rgba(95,224,255,.7)}
+  background:rgba(5,8,16,.7);border:1.5px solid rgba(125,211,252,.55);animation:flashglow 3.2s ease-in-out infinite alternate}
+.cd .blk .v{font-family:'Cormorant Garamond';font-weight:700;font-size:1.7rem;color:var(--ice);text-shadow:0 0 14px rgba(125,211,252,.7)}
 .cd .blk .k{font-family:'Fraunces';font-style:italic;font-size:.62rem;letter-spacing:2px;color:var(--mut);text-transform:uppercase}
 
 /* apps à découvrir & télécharger */
@@ -176,7 +176,7 @@ h2{font-family:'Cormorant Garamond';font-weight:600;color:#fff;font-size:clamp(1
   background:linear-gradient(160deg,rgba(18,48,72,.3),rgba(10,13,20,.72));
   display:flex;gap:14px;align-items:center;animation:cardbreath 5s ease-in-out infinite alternate}
 .app .av{font-size:2rem;width:54px;height:54px;flex:0 0 54px;border-radius:14px;
-  display:flex;align-items:center;justify-content:center;background:rgba(95,224,255,.08);border:1px solid var(--line)}
+  display:flex;align-items:center;justify-content:center;background:rgba(125,211,252,.08);border:1px solid var(--line)}
 .app h4{font-family:'Cormorant Garamond';color:#fff;font-size:1.3rem}
 .app p{color:var(--mut);font-size:.88rem}
 .app .dl{margin-left:auto;flex:0 0 auto;color:var(--noir);text-decoration:none;font-family:'Fraunces';font-style:italic;
