@@ -2,7 +2,7 @@
 
 > Mis à jour à la fin de chaque session pour que la suivante reprenne sans tout relire.
 
-## Session 2026-06-22 (d) — plan de test des 4 fonctionnalités
+## Session 2026-06-22 (g) — plan de test des 4 fonctionnalités
 
 - 🎯 **Objectif de Bruno** : « tout est en cours, il faut maintenant TESTER chaque point. »
   4 fonctionnalités citées : 🎙️ Voix/clone vocal · ⚖️ NavLex (base juridique MAJ quotidienne)
@@ -21,7 +21,7 @@
   où vit la FAQ, plateforme d'abonnement/paiement (mode test ?). Voir « infos manquantes »
   dans `docs/TESTS-FONCTIONNELS.md`. Test de paiement partenaire = action sensible (feu vert).
 
-## Session 2026-06-22 (c) — vision « agent directeur » + clarté des intervenants
+## Session 2026-06-22 (f) — vision « agent directeur » + mémoire centrale + intervenants
 
 - 🎛️ **Nouvelle vision capturée** : Bruno veut un **agent directeur** (orchestrateur)
   qui pioche dans le core Hetzner + le web, gère sous-agents/services, et orchestre
@@ -41,6 +41,45 @@
   l'important, + une partie hors OneDrive à traiter à part. ⚠️ Tout doit tenir dans 10 Go.
 - 🧭 **Cap** : ne **rien rajouter** (ex. Google Antigravity) tant que la base n'est pas
   stable ; avancer **brique par brique** avec point de contrôle humain à chaque étape sensible.
+
+## Session 2026-06-22 (e) — mémo de déploiement
+
+- 📋 Livré : **`corrections-pretes/MEMO-DEPLOIEMENT.md`** — procédure pas-à-pas pour
+  mettre en ligne TOUT le préparé (navbio index + /cgu + /privacy, bruno/bio, bruno/home,
+  navlys-teaser), avec : diff contre prod, complétion des mentions éditeur (hors Git),
+  contrôle conformité ERR-003, vérification post-déploiement.
+- ⏳ **Tout reste en attente du feu vert prod de Bruno** + déploiement depuis l'ancien PC.
+- 🟢 PR de la session : #5 (briefing) ✅, #7 (conformité) ✅, #10 (comptes à rebours) ✅ — toutes fusionnées.
+
+## Session 2026-06-22 (d) — audit comptes à rebours des autres sites
+
+- 🔎 **Audit live (lecture seule)** des sites/teasers restants :
+  - **navlys-teaser**.vercel.app : compteur **périmé** (`2026-06-15`) + Ice Blue **ancien `#5fe0ff`**.
+  - **brunopartouche.com** (home) : « **1ᵉʳ juin 2026** » (×2) + compteur périmé. Ice Blue OK, conformité OK.
+  - **navlys.io** : OK (Ice Blue `#7DD3FC`, disclaimer conforme) ; juste « BETA juin S2 » soft.
+  - **brunopartouche-teaser**.vercel.app : **404** (non-live) → rien.
+- 📦 Livré : **`corrections-pretes/PATCH-comptes-a-rebours.md`** (patch avant/après, recale sur
+  1ᵉʳ juillet 2026 + alignement Ice Blue teaser). Format patch car (a) changements d'une ligne,
+  (b) le `<script>` final de brunopartouche.com dépasse la taille récupérable par le fetch.
+- ⏭️ **En attente** : feu vert prod + application à la source (ancien PC) puis redéploiement.
+
+## Session 2026-06-22 (c) — corrections conformité préparées (NON déployées)
+
+- 🔎 **Re-vérif live (lecture seule, fetch Vercel)** : C-01→C-04 + 404 /cgu /privacy
+  **toujours présents** sur navbiolife.com et brunopartouche.com/bio. Compte à rebours
+  périmé (cible 1ᵉʳ juin dépassée) → compteur mort en prod.
+- 📅 **Date d'ouverture confirmée par Bruno** : **1ᵉʳ juillet 2026, 00:00 (Paris)** =
+  `2026-06-30T22:00:00Z`.
+- 📦 **Fichiers corrigés prêts à déployer** dans `corrections-pretes/` (rien déployé) :
+  - `brunopartouche.com/bio.html` — C-03 (retrait « +8 à 12% ») + C-04 (disclaimer) + date.
+  - `navbiolife.com/index.html` — C-01 (meta) + C-02 (commentaire) + compte à rebours recalé.
+  - `navbiolife.com/cgu.html` + `privacy.html` — pages créées (corrigent les 404).
+- ⚠️ **À compléter avant déploiement** : mentions d'éditeur dans /cgu et /privacy
+  (placeholders `[ÉDITEUR]` ; ne PAS committer l'entité juridique dans ce dépôt public) ;
+  faire relire le juridique ; diff contre la prod avant de pousser.
+- ⏭️ **En attente** : feu vert prod explicite de Bruno + méthode de déploiement
+  (dépôt source pas encore dans Git → déploiement via ancien PC / CLI Vercel).
+- ℹ️ Bonus : les sites live utilisent déjà `#7DD3FC` + JetBrains Mono (charte cohérente).
 
 ## Session 2026-06-22 (b) — briefing stratégique → mémoire
 
