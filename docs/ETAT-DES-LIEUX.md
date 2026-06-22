@@ -2,6 +2,20 @@
 
 > Mis à jour à la fin de chaque session pour que la suivante reprenne sans tout relire.
 
+## Session 2026-06-22 — diagnostic serveur Hetzner (NAVLYS CORE)
+
+- ✅ **Diagnostic serveur réalisé** (Bruno tape dans la console web Hetzner, Claude guide ;
+  pas d'accès réseau direct). Détail : **`docs/DIAGNOSTIC-SERVEUR-2026-06-22.md`**.
+- 🟢 Serveur **sain/stable/protégé** : charge nulle, 7 Go RAM libres, disque à 2 %,
+  fail2ban actif (**13 IP bannies / 255**), nginx + Docker + fail2ban actifs.
+- 🟠 Mais **quasi vide en exécution** : **0 conteneur Docker**, **pas de HTTPS (443)**.
+- 🟢🔑 `/root/navlys/` **contient du code** (~9 dossiers, maj 22/06) → à relier au travail
+  **Hermès / NOVA-HUB** (ETAT session f) → **à sauvegarder en priorité**.
+- 🔐 Mot de passe root **réinitialisé** (l'ancien avait été collé en clair) ; reste à passer
+  SSH en **clés** + désactiver login par mot de passe (+ mdp cockpit).
+- ⏳ **Reste (ce soir, mobile)** : `crontab -l`. Piège : la console Hetzner **supprime le `>`**
+  au collage → taper les redirections à la main.
+
 ## Session 2026-06-22 (d) — compliance pages live + audit navlys.com
 
 - 🔎 **Audit complet navlys.com** (home, /finance, /next-gen, /navlex, /radio) via fetch
