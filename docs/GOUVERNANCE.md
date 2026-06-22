@@ -62,3 +62,27 @@ d'un moyen de paiement.
 
 > 🚦 Cette règle s'ajoute aux feux verts déjà requis pour : déploiement en production,
 > publication de contenu public, suppression de données.
+
+---
+
+## 4. 🎚️ Niveaux de délégation (qui valide quoi) — décidé 2026-06-22
+
+Bruno délègue à **Claude la main** sur le travail des sites **avant communication**.
+
+**🟢 Sites beta / pré-lancement (PAS encore lancés en communication)**
+- Claude **conçoit, modifie ET valide** les changements (design, contenu, structure,
+  correctifs) **sans feu vert par changement** → on avance vite.
+- **Deux garde-fous restent malgré tout :**
+  1. 🚦 **Conformité** : avant que quoi que ce soit soit accessible sur un **domaine public**
+     (URL en ligne, indexable), le **gardien** valide les lignes rouges (zéro promesse de
+     rendement, zéro conseil perso, pas d'Israël/Jérusalem, disclaimer présent).
+     *Raison : une URL publique est juridiquement publique, même non annoncée.*
+  2. 💰 **Argent** : règle financière du §3 **inchangée** (Bruno seul).
+- Tout changement est **journalisé** (`docs/ETAT-DES-LIEUX.md`) → Bruno relit quand il veut.
+
+**🔴 Sites déjà lancés en communication (publiquement promus)**
+- Claude **propose**, **Bruno valide** avant toute mise en ligne.
+
+> Cadre ajustable par Bruno à tout moment (il peut élargir ou resserrer la délégation).
+> ⚠️ Pré-requis pratique : pour exercer cette main, Claude doit avoir **accès à la source**
+> (dépôt NOVA-HUB ou code fourni) — sinon il peut décider mais pas appliquer.
