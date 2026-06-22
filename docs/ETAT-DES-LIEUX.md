@@ -2,6 +2,15 @@
 
 > Mis à jour à la fin de chaque session pour que la suivante reprenne sans tout relire.
 
+## Session 2026-06-22 (e) — mémo de déploiement
+
+- 📋 Livré : **`corrections-pretes/MEMO-DEPLOIEMENT.md`** — procédure pas-à-pas pour
+  mettre en ligne TOUT le préparé (navbio index + /cgu + /privacy, bruno/bio, bruno/home,
+  navlys-teaser), avec : diff contre prod, complétion des mentions éditeur (hors Git),
+  contrôle conformité ERR-003, vérification post-déploiement.
+- ⏳ **Tout reste en attente du feu vert prod de Bruno** + déploiement depuis l'ancien PC.
+- 🟢 PR de la session : #5 (briefing) ✅, #7 (conformité) ✅, #10 (comptes à rebours) ✅ — toutes fusionnées.
+
 ## Session 2026-06-22 (d) — audit comptes à rebours des autres sites
 
 - 🔎 **Audit live (lecture seule)** des sites/teasers restants :
