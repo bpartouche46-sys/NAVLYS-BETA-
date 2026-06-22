@@ -2,6 +2,25 @@
 
 > Mis à jour à la fin de chaque session pour que la suivante reprenne sans tout relire.
 
+## Session 2026-06-22 (d) — plan de test des 4 fonctionnalités
+
+- 🎯 **Objectif de Bruno** : « tout est en cours, il faut maintenant TESTER chaque point. »
+  4 fonctionnalités citées : 🎙️ Voix/clone vocal · ⚖️ NavLex (base juridique MAJ quotidienne)
+  · ❓ FAQ (réponses prêtes pour le site) · 🤝 Partenaires (enregistrer un abonnement).
+- 🔎 **Constat dépôt** : recherche faite (Grep/Glob) — le dépôt ne contient **que de la doc
+  + `proto/navlys-v2.html`**. **Aucun code applicatif** de ces 4 fonctionnalités ici. Elles
+  vivent ailleurs (core Hetzner via Hermès, et/ou apps Vercel) → c'est là qu'il faut tester.
+- ✅ **Livrable créé** : **`docs/TESTS-FONCTIONNELS.md`** = plan de test complet (1 section
+  par fonctionnalité, tableaux Quoi/Comment/Attendu/QUI/Statut + points conformité ERR-003),
+  une liste « ❓ infos manquantes » par point, et une synthèse « qui teste quoi ». Tous les
+  statuts laissés à ⬜ **à tester** (aucun résultat inventé).
+- ⚠️ **Limite honnête** : Claude n'a **aucun accès** Hetzner ni aux apps live → ne peut PAS
+  tester voix/NavLex/FAQ live/paiement lui-même. Testeur principal = **Bruno**, appui serveur
+  = **Hermès**, conformité = **gardien**.
+- 🔴 **En attente Bruno** : URL démo voix, outil de clone vocal, où tourne NavLex + son cron,
+  où vit la FAQ, plateforme d'abonnement/paiement (mode test ?). Voir « infos manquantes »
+  dans `docs/TESTS-FONCTIONNELS.md`. Test de paiement partenaire = action sensible (feu vert).
+
 ## Session 2026-06-22 (c) — vision « agent directeur » + clarté des intervenants
 
 - 🎛️ **Nouvelle vision capturée** : Bruno veut un **agent directeur** (orchestrateur)
