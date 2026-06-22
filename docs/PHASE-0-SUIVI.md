@@ -20,7 +20,10 @@
 
 ## B. Code des sites Vercel → GitHub (depuis l'ancien PC)
 
-> Repos GitHub privés à utiliser (pré-créés ou créés à la volée par GitHub Desktop).
+> Repos GitHub privés à utiliser. ⚠️ La **pré-création automatique a échoué** côté
+> assistant (intégration GitHub limitée au seul dépôt `NAVLYS-BETA-`, erreur 403).
+> → Les repos se créent **en 1 clic via GitHub Desktop** (« Publish repository », garder
+> *privé*) en suivant `docs/SAUVEGARDE-CODE-VERCEL.md`.
 > ⚠️ Ne JAMAIS committer `.env`, clés, mots de passe (`.gitignore` fourni).
 
 | Projet Vercel | Domaine | Source trouvée (ancien PC) | Poussé sur GitHub | Vercel relié à Git (Phase 3) |
