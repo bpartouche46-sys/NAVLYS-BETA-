@@ -329,16 +329,23 @@ footer .flag{letter-spacing:3px;margin-bottom:10px;color:var(--champ)}
 </nav>
 
 <script>
-/* compte à rebours flashy (placeholder : +14 jours — à brancher sur la vraie date) */
-var TARGET = Date.now() + 14*86400000;
+/* compte à rebours flashy — date d'ouverture en avant-première (fixe).
+   👉 Pour modifier la date, change LAUNCH_DATE (format ISO 8601, fuseau Paris +02:00). */
+var LAUNCH_DATE = '2026-07-06T10:00:00+02:00';
+var TARGET = new Date(LAUNCH_DATE).getTime();
 function tick(){
   var d=Math.max(0,TARGET-Date.now());
   document.getElementById('cd-d').textContent=Math.floor(d/86400000);
   document.getElementById('cd-h').textContent=String(Math.floor(d%86400000/3600000)).padStart(2,'0');
   document.getElementById('cd-m').textContent=String(Math.floor(d%3600000/60000)).padStart(2,'0');
   document.getElementById('cd-s').textContent=String(Math.floor(d%60000/1000)).padStart(2,'0');
+  if(d<=0){
+    var cd=document.getElementById('cd');
+    if(cd) cd.innerHTML='<div class="blk"><div class="v">C’est ouvert&nbsp;!</div><div class="k">Avant-première en cours</div></div>';
+    clearInterval(timer);
+  }
 }
-tick();setInterval(tick,1000);
+tick();var timer=setInterval(tick,1000);
 
 /* bouton son : la vidéo démarre MUETTE (autoplay), le son s'active au clic */
 function toggleSound(){
