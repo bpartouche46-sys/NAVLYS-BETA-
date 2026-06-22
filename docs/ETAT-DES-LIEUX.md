@@ -2,6 +2,17 @@
 
 > Mis à jour à la fin de chaque session pour que la suivante reprenne sans tout relire.
 
+## Session NUIT — Design v2 décliné sur les 4 sites (autonome)
+- ✅ Système de design commun `assets/navlys-v2.css` + `.js` (cinéma incurvé + rideaux, charte ice blue).
+- ✅ 4 maquettes : `sites/navlys.com`, `brunopartouche.com`, `navbiolife.com`, `navlys.io` + hub `index.html`.
+- ✅ Corrections conformité **intégrées** : « Jérusalem » retiré, pages /cgu /privacy navbio créées (fix 404),
+  bouton « Écoutez Bruno » (audio au clic), disclaimer bandeau+footer partout, zéro terme interdit/promesse.
+- ✅ Contrôle conformité automatique : **VERT**. Détail → `docs/RAPPORT-NUIT-DESIGN-V2.md`.
+- ⏳ À décider demain : menu haut/bas, rideaux bleu/rouge, vidéos des présentations, date de lancement.
+- ⚠️ Rien en prod. Pour voir en ligne : importer le repo `NAVLYS-BETA-` sur Vercel (Option 1).
+- Branche : `claude/pre-launch-qa-lcd1pf`.
+
+
 ## Session 2026-06-22 (h) — gouvernance + délégation + contrôle conformité Vague 1
 
 - ⚖️ **Gouvernance gravée** (`docs/GOUVERNANCE.md`, reliée à CLAUDE.md règle d'or) :
