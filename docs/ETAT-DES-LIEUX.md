@@ -2,7 +2,20 @@
 
 > Mis à jour à la fin de chaque session pour que la suivante reprenne sans tout relire.
 
-## Session 2026-06-22 — prototype `proto/navlys-v2.html` (petits TODO)
+## Session 2026-06-22 (b) — briefing stratégique → mémoire
+
+- 📌 **Constat** : le « briefing à coller » de Bruno contenait des faits stratégiques
+  **absents** du dépôt (méthode 90/10, slogan, produits App Trading, communauté).
+  → Capturés dans **`docs/STRATEGIE-NAVLYS.md`** (nouveau) et reliés depuis `CLAUDE.md`
+  (§1 + §5). Évite de recoller le briefing à chaque session.
+- 🎨 **Ice Blue tranché = `#7DD3FC`** (rgb 125,211,252), remplace l'ancien `#5fe0ff`.
+  → `proto/navlys-v2.html` aligné (14 occurrences) + note dans `docs/DESIGN-NAVLYS.md`.
+- 🔐 **Sécurité** : rien de confidentiel ajouté au dépôt public (entité juridique /
+  SIREN / IP serveur / accès Cockpit restent hors Git). Aucune nouvelle erreur (journal inchangé).
+- ⚠️ **Note de process** : une branche orpheline avait été créée par erreur (dépôt vu
+  « vide » localement) ; rebasée sur la fondation existante pour ne RIEN écraser.
+
+## Session 2026-06-22 (a) — prototype `proto/navlys-v2.html` (petits TODO)
 
 - ✅ **Compte à rebours** « ACCÈS ANTICIPÉ » : remplacé le placeholder relatif
   (`Date.now() + 14 j`, qui se réinitialisait à chaque rechargement) par une

@@ -22,7 +22,13 @@ Si une de ces étapes est sautée, le travail est considéré comme **non valide
 
 ## 1. À quoi sert ce projet
 
-NAVLYS — gestion et modification de sites web.
+NAVLYS — **éducation financière + veille stratégique + communauté privée
+(« Équipage Navlys »)**. Slogan : *Ma méthode — Ton argent — Ton contrôle.*
+Méthode **90/10** (90 % Forteresse ETF/DCA + 10 % Capital Plaisir). Statut :
+**finfluenceur déclaré, ZÉRO ORIAS / ZÉRO CIF** → éducation uniquement, jamais de
+conseil personnalisé. Détails : **`docs/STRATEGIE-NAVLYS.md`**.
+
+Volet technique : gestion et modification de sites web.
 Les sites publics sont déployés sur **Vercel** (équipe `NAVLYS`). Carte détaillée et à
 jour : **`docs/CARTE-SITES.md`**. ⚠️ Aucun projet n'est relié à GitHub (code non versionné).
 
@@ -86,6 +92,8 @@ Commande rapide : `/controle` (voir `.claude/commands/controle.md`).
 
 | Fichier | Rôle |
 |---------|------|
+| `docs/STRATEGIE-NAVLYS.md` | Positionnement, méthode 90/10, conformité, produits (F1/F2/F3) |
+| `docs/DESIGN-NAVLYS.md` | Charte (Ice Blue `#7DD3FC`, polices), patterns, conformité visuelle |
 | `docs/JOURNAL-ERREURS.md` | Liste des erreurs passées — à ne JAMAIS reproduire |
 | `docs/CHECKLIST-SECURITE.md` | Vérifications obligatoires avant/après chaque action |
 | `docs/ROUTINE.md` | La routine pas-à-pas sécuriser/contrôler/corriger |
