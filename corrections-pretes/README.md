@@ -20,6 +20,7 @@ complet (Phase 0), on prépare ici les **fichiers exacts à redéployer**, recon
 | `navbiolife.com/cgu.html` | navbiolife.com **/cgu** | Page créée (corrige le **404**) |
 | `navbiolife.com/privacy.html` | navbiolife.com **/privacy** | Page créée (corrige le **404**) |
 | `navbiolife.com/index.html` | navbiolife.com **/** | **C-01** (meta sans « Jérusalem ») + **C-02** (commentaire JS) + **compte à rebours** recalé sur le **1ᵉʳ juillet 2026, 00:00 (heure de Paris)** = `2026-06-30T22:00:00Z` |
+| `PATCH-comptes-a-rebours.md` | navlys-teaser, brunopartouche.com (home) | Patch (avant/après) pour recaler les **comptes à rebours périmés** sur le 1ᵉʳ juillet + aligner l'Ice Blue du teaser |
 
 ## ⚠️ Points à trancher / compléter AVANT déploiement
 
