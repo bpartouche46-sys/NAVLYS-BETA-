@@ -68,4 +68,20 @@ Copier ce modèle pour chaque nouvelle erreur :
 - **Garde-fou** : rapatrier le dossier source sous Git (branche dédiée) AVANT toute nouvelle modif ;
   ne jamais re-déployer depuis un dossier local non commité.
 
-<!-- Ajouter les prochaines erreurs ci-dessous : ERR-005, … -->
+### ERR-005 — « Jérusalem » résiduel + date périmée dans `launch-offer.js`
+- **Date** : 2026-06-22
+- **Contexte** : Phase 0, capture de sauvegarde des assets moteur (fetch lecture seule).
+- **Symptôme** : `launch-offer.js` (navbiolife) contient encore « minuit Asia/Jerusalem » /
+  « heure de Jérusalem » (texte servi au public en état *before*) et un escalator d'offre
+  **ancré au 1ᵉʳ juin 2026** (périmé). Non détecté par la QA initiale (qui n'avait vu que
+  le commentaire de l'`index.html`, corrigé en C-02).
+- **Cause** : la QA conformité (ERR-003) n'avait pas inspecté les **fichiers JS séparés**
+  chargés par les pages — seulement le HTML.
+- **Correction appliquée** : correctif **P-04** ajouté à `corrections-pretes/PATCH-comptes-a-rebours.md`
+  (retrait « Jérusalem » + réancrage 1ᵉʳ juillet). Fichier brut sauvegardé dans `sauvegarde-sites/`.
+  NON déployé (attente feu vert prod).
+- **Garde-fou** : avant tout déploiement, **grepper les termes interdits dans TOUS les
+  fichiers servis** (HTML **+ JS + CSS**), pas seulement le HTML. Inscrit dans
+  `corrections-pretes/MEMO-DEPLOIEMENT.md` §5.
+
+<!-- Ajouter les prochaines erreurs ci-dessous : ERR-006, … -->

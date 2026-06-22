@@ -94,6 +94,7 @@ Commande rapide : `/controle` (voir `.claude/commands/controle.md`).
 |---------|------|
 | `docs/STRATEGIE-NAVLYS.md` | Positionnement, méthode 90/10, conformité, produits (F1/F2/F3) |
 | `docs/DESIGN-NAVLYS.md` | Charte (Ice Blue `#7DD3FC`, polices), patterns, conformité visuelle |
+| `docs/PHASE-0-SUIVI.md` | Tableau de suivi Phase 0 (sécuriser : snapshot, sauvegardes, code sous Git) |
 | `docs/JOURNAL-ERREURS.md` | Liste des erreurs passées — à ne JAMAIS reproduire |
 | `docs/CHECKLIST-SECURITE.md` | Vérifications obligatoires avant/après chaque action |
 | `docs/ROUTINE.md` | La routine pas-à-pas sécuriser/contrôler/corriger |
