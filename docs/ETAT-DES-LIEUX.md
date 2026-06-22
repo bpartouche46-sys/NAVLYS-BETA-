@@ -2,6 +2,24 @@
 
 > Mis à jour à la fin de chaque session pour que la suivante reprenne sans tout relire.
 
+## Session 2026-06-22 (d) — compliance pages live + audit navlys.com
+
+- 🔎 **Audit complet navlys.com** (home, /finance, /next-gen, /navlex, /radio) via fetch
+  Vercel authentifié. **0 terme interdit** (CIF/ORIAS/Ashkelon/Israël/Jérusalem/DFENSER),
+  0 « NOVA » résiduel, disclaimers présents. Écarts relevés : accent réel `#5fe0ff` (≠
+  charte `#7DD3FC`), pourpre `#7a1f2b` présent, pas d'OG/schema.org, **/finance sans accents**.
+- ✅ **`/finance` corrigé** → `sites/navlys-app/finance.html` (début de rapatriement Git du
+  code live). Passe : tous les accents restaurés (corps **+ meta description**), apostrophes
+  typographiques dans le JS, `0 €`. Disclaimer footer vérifié présent. 0 terme interdit.
+  Aucun NOVA/CIF/DFENSER à retirer (déjà absents). **À redéployer côté Vercel par Bruno.**
+- 🔐 **Alerte sécurité** : un mot de passe root + IP serveur ont été collés en clair dans le
+  chat → **à changer immédiatement** (compromis), passer SSH en clés uniquement. Jamais écrit
+  dans le dépôt.
+- 🧭 **Décisions Bruno (session)** : (1) corriger les **pages live** ; (2) retrait Israël/
+  Ashkelon/DFENSER **du contenu public uniquement** (backend paiements réel non touché) ;
+  (3) **finir Sécurité+Compliance d'abord** → marketing (newsletter, profils) et config
+  paiements **en attente**.
+
 ## Session 2026-06-22 (c) — proto : vraie date du compte à rebours
 
 - ✅ **Compte à rebours** : date confirmée **depuis la home live navlys.com**
