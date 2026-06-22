@@ -3,6 +3,12 @@
 > Statut : **VALIDÉES** (feu vert « vas y oui »). À appliquer à la source puis
 > à redéployer **uniquement après feu vert prod explicite**. Les sites live ne
 > sont PAS encore modifiés (aucun déploiement effectué).
+>
+> ✅ **Re-vérifié le 2026-06-22** (fetch Vercel, lecture seule) : les 4 corrections
+> C-01→C-04 et les 404 /cgu /privacy sont **toujours présents en prod**.
+> **Fichiers corrigés prêts à déployer** : `corrections-pretes/` (NON déployés).
+> Date d'ouverture confirmée : **1ᵉʳ juillet 2026, 00:00 (heure de Paris)** →
+> compte à rebours recalé sur `2026-06-30T22:00:00Z` (remplace la cible périmée du 1ᵉʳ juin).
 
 ## C-01 · navbiolife.com — retirer « Jérusalem » (meta description publique)
 - **Avant** : `<meta name="description" content="NAVBIO · biographie vivante. Découverte officielle le 1ᵉʳ juin 2026 minuit Jérusalem.">`
@@ -28,7 +34,9 @@ NAVLYS est un projet d'éducation et de veille à vocation informative uniquemen
 ```
 
 ## Reste à faire (non bloquant pour ces 4 corrections)
-- Créer `/cgu` et `/privacy` sur navbiolife.com (actuellement 404, liés depuis la carte de lancement).
-- Mettre à jour les comptes à rebours périmés (1ᵉʳ juin 2026 déjà passé).
+- ✅ Créer `/cgu` et `/privacy` sur navbiolife.com → **fichiers prêts** dans
+  `corrections-pretes/navbiolife.com/` (à compléter : mentions éditeur, hors Git public).
+- ✅ Compte à rebours navbiolife recalé sur le **1ᵉʳ juillet 2026** (fichier prêt).
+  ⚠️ Reste à traiter les comptes à rebours des autres sites/teasers.
 - Vérifier la home brunopartouche.com en entier (fetch tronqué) : aucun « Jérusalem/Israël/Ashkelon » résiduel.
 - Confirmer policy RLS Supabase `inscriptions` = INSERT-only anon (pas de SELECT public).
