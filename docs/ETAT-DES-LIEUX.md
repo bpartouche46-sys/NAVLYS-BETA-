@@ -2,6 +2,16 @@
 
 > Mis à jour à la fin de chaque session pour que la suivante reprenne sans tout relire.
 
+## Session 2026-06-22 — prototype `proto/navlys-v2.html` (petits TODO)
+
+- ✅ **Compte à rebours** « ACCÈS ANTICIPÉ » : remplacé le placeholder relatif
+  (`Date.now() + 14 j`, qui se réinitialisait à chaque rechargement) par une
+  constante fixe `LAUNCH_DATE` + gestion de l'échéance (« C'est ouvert ! »).
+  → PR #2 **fusionnée**. ⚠️ Date par défaut `2026-07-06`, à confirmer (vraie date d'ouverture).
+- ✅ **Menu déroulant (☰)** : il s'ouvrait mais ne se refermait jamais. Ajout de la
+  fermeture au clic extérieur / touche Échap / choix d'une entrée, + `aria-expanded`
+  (accessibilité). Aucun changement de contenu (conformité ERR-003 inchangée).
+
 ## Session 2026-06-19 — QA pré-lancement + brief design
 
 ### Découverte majeure : où vivent les sites
