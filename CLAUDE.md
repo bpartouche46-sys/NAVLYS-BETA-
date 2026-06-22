@@ -13,16 +13,30 @@ Avant toute action, Claude DOIT :
 
 1. **Lire** `docs/JOURNAL-ERREURS.md` (la liste des erreurs déjà commises).
 2. **Lire** `docs/CHECKLIST-SECURITE.md` (les vérifications obligatoires).
-3. **Vérifier** qu'aucune action prévue ne reproduit une erreur déjà listée.
-4. À la **moindre erreur nouvelle**, l'ajouter immédiatement au journal AVANT de continuer.
+3. **Lire** `docs/GOUVERNANCE.md` (les 3 principes fondamentaux non négociables).
+4. **Vérifier** qu'aucune action prévue ne reproduit une erreur déjà listée.
+5. À la **moindre erreur nouvelle**, l'ajouter immédiatement au journal AVANT de continuer.
+6. **Capitaliser** (principe zéro répétition) : avant d'agir, vérifier qu'une routine/skill/doc
+   n'existe pas déjà ; après avoir agi, l'enregistrer si c'est reproductible.
 
 Si une de ces étapes est sautée, le travail est considéré comme **non valide**.
+
+> 💰 **RÈGLE FINANCIÈRE ABSOLUE (rappel permanent)** : **Bruno est le SEUL décisionnaire
+> final** sur **tout investissement** et **toute validation de débit/paiement** sur **tous
+> les comptes** (y compris **partenaires**). Aucun agent ne déclenche un débit sans son feu
+> vert. **Seule exception** : les **abonnements classiques déjà en cours**. Détail : `docs/GOUVERNANCE.md`.
 
 ---
 
 ## 1. À quoi sert ce projet
 
-NAVLYS — gestion et modification de sites web.
+NAVLYS — **éducation financière + veille stratégique + communauté privée
+(« Équipage Navlys »)**. Slogan : *Ma méthode — Ton argent — Ton contrôle.*
+Méthode **90/10** (90 % Forteresse ETF/DCA + 10 % Capital Plaisir). Statut :
+**finfluenceur déclaré, ZÉRO ORIAS / ZÉRO CIF** → éducation uniquement, jamais de
+conseil personnalisé. Détails : **`docs/STRATEGIE-NAVLYS.md`**.
+
+Volet technique : gestion et modification de sites web.
 Les sites publics sont déployés sur **Vercel** (équipe `NAVLYS`). Carte détaillée et à
 jour : **`docs/CARTE-SITES.md`**. ⚠️ Aucun projet n'est relié à GitHub (code non versionné).
 
@@ -86,6 +100,11 @@ Commande rapide : `/controle` (voir `.claude/commands/controle.md`).
 
 | Fichier | Rôle |
 |---------|------|
+| `docs/GOUVERNANCE.md` | **Principes fondamentaux** : zéro répétition · surveillance mutuelle · règle financière (Bruno seul décide) |
+| `docs/ARCHITECTURE-AGENT-DIRECTEUR.md` | Architecture orchestrateur + sous-agents + feuille de route |
+| `docs/MEMOIRE-CENTRALE.md` | Consolider les conversations sur le core (puis les supprimer) |
+| `docs/STRATEGIE-NAVLYS.md` | Positionnement, méthode 90/10, conformité, produits (F1/F2/F3) |
+| `docs/DESIGN-NAVLYS.md` | Charte (Ice Blue `#7DD3FC`, polices), patterns, conformité visuelle |
 | `docs/JOURNAL-ERREURS.md` | Liste des erreurs passées — à ne JAMAIS reproduire |
 | `docs/CHECKLIST-SECURITE.md` | Vérifications obligatoires avant/après chaque action |
 | `docs/ROUTINE.md` | La routine pas-à-pas sécuriser/contrôler/corriger |
