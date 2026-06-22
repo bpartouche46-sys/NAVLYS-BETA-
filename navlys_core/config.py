@@ -25,32 +25,19 @@ class Config:
 
 
 # Map des identifiants de modèle internes -> slugs OpenRouter.
-# Clés = identifiants canoniques Anthropic (confirmés via la skill claude-api) ;
-# valeurs = slugs OpenRouter. Ajuste les valeurs si OpenRouter renomme un slug.
+# Ajuste si les slugs OpenRouter changent.
 MODEL_MAP = {
     "claude-opus-4-8": "anthropic/claude-opus-4.8",
     "claude-sonnet-4-6": "anthropic/claude-sonnet-4.6",
-    "claude-haiku-4-5": "anthropic/claude-haiku-4.5",
-    # alias historique : l'ancien ID daté pointe vers le même modèle Haiku
     "claude-haiku-4-5-20251001": "anthropic/claude-haiku-4.5",
     "hermes-4": "nousresearch/hermes-4-405b",
 }
 
 
 def resolve_model(modele: str | None, default: str) -> str:
-    """Convertit le 'modele' stocké en base vers un slug OpenRouter.
-
-    Robustesse : si l'ID porte un suffixe daté inconnu (ex. -20251001),
-    on retente sur l'ID sans la date avant de retomber sur le défaut.
-    """
+    """Convertit le 'modele' stocké en base vers un slug OpenRouter."""
     if not modele:
         return default
     if "/" in modele:  # déjà un slug OpenRouter
         return modele
-    if modele in MODEL_MAP:
-        return MODEL_MAP[modele]
-    # fallback : retire un éventuel suffixe daté "-YYYYMMDD"
-    base = modele.rsplit("-", 1)[0]
-    if base != modele and base in MODEL_MAP:
-        return MODEL_MAP[base]
-    return default
+    return MODEL_MAP.get(modele, default)

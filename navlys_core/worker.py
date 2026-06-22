@@ -81,16 +81,14 @@ def process_mission(sb: Supabase, cfg: Config, agent: dict, mission: dict) -> st
     run_id = _run_id(run)
 
     try:
-        # Partie STABLE (mise en cache) vs partie VARIABLE (rôle de l'agent).
-        system_role = f"# Ton rôle ({agent['nom']})\n{agent['role']}"
+        system = REGLES_CORE + f"\n\n# Ton rôle ({agent['nom']})\n{agent['role']}"
         context = build_context(sb, dept, cfg)
         user = (
             f"# Mission\nTitre : {mission.get('titre')}\n"
             f"Consigne : {mission.get('consigne')}\n\n# Contexte\n{context}\n\n"
             "Réalise la mission et rends un livrable prêt à valider."
         )
-        output, tokens = llm.chat(
-            cfg.openrouter_key, model, REGLES_CORE, system_role, user, cfg.max_tokens)
+        output, tokens = llm.chat(cfg.openrouter_key, model, system, user, cfg.max_tokens)
 
         auto = agent.get("autonomie") == "auto"
         new_statut = "fait" if auto else "a_valider"
