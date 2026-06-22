@@ -2,6 +2,24 @@
 
 > Mis à jour à la fin de chaque session pour que la suivante reprenne sans tout relire.
 
+## Session 2026-06-22 (h) — gouvernance + délégation + contrôle conformité Vague 1
+
+- ⚖️ **Gouvernance gravée** (`docs/GOUVERNANCE.md`, reliée à CLAUDE.md règle d'or) :
+  1) **zéro répétition** (tout capitaliser en knowledge/skill/routine, relié au core),
+  2) **Claude + Hermès orchestrateurs en surveillance mutuelle** (gardien arbitre),
+  3) **règle financière** : Bruno **seul** valide tout investissement/débit sur tous les
+     comptes (y compris partenaires), **sauf abonnements classiques déjà en cours**.
+- 🎚️ **Délégation décidée par Bruno** : Claude **a la main** (conçoit + modifie + valide)
+  sur **tous les sites** (aucun encore lancé en communication). Garde-fous maintenus :
+  **gardien conformité** avant toute URL publique + **argent = Bruno**. Sites communiqués
+  plus tard → Claude propose, Bruno valide.
+- ✅ **Contrôle conformité (gardien) de `corrections-pretes/`** : **bio.html** et
+  **navbiolife/index.html** = **CONFORMES, prêts à déployer** (C-01→C-04 OK, dates juillet,
+  zéro ligne rouge). **cgu/privacy** = conformes sur les lignes rouges mais **bloquées** par
+  les placeholders légaux ([ÉDITEUR]/[EMAIL]/[HÉBERGEUR]) + relecture juridique.
+- 🛑 **Reste humain** : mentions légales, **feu vert prod**, **accès à la source** (NOVA-HUB).
+  À confirmer : numéro WhatsApp `+33 7 56 83 34 69` (navbio) bien destiné à être public.
+
 ## Session 2026-06-22 (g) — plan de test des 4 fonctionnalités
 
 - 🎯 **Objectif de Bruno** : « tout est en cours, il faut maintenant TESTER chaque point. »
