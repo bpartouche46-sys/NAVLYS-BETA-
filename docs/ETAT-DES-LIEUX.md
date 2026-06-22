@@ -2,6 +2,24 @@
 
 > Mis à jour à la fin de chaque session pour que la suivante reprenne sans tout relire.
 
+## Session 2026-06-22 (c) — corrections conformité préparées (NON déployées)
+
+- 🔎 **Re-vérif live (lecture seule, fetch Vercel)** : C-01→C-04 + 404 /cgu /privacy
+  **toujours présents** sur navbiolife.com et brunopartouche.com/bio. Compte à rebours
+  périmé (cible 1ᵉʳ juin dépassée) → compteur mort en prod.
+- 📅 **Date d'ouverture confirmée par Bruno** : **1ᵉʳ juillet 2026, 00:00 (Paris)** =
+  `2026-06-30T22:00:00Z`.
+- 📦 **Fichiers corrigés prêts à déployer** dans `corrections-pretes/` (rien déployé) :
+  - `brunopartouche.com/bio.html` — C-03 (retrait « +8 à 12% ») + C-04 (disclaimer) + date.
+  - `navbiolife.com/index.html` — C-01 (meta) + C-02 (commentaire) + compte à rebours recalé.
+  - `navbiolife.com/cgu.html` + `privacy.html` — pages créées (corrigent les 404).
+- ⚠️ **À compléter avant déploiement** : mentions d'éditeur dans /cgu et /privacy
+  (placeholders `[ÉDITEUR]` ; ne PAS committer l'entité juridique dans ce dépôt public) ;
+  faire relire le juridique ; diff contre la prod avant de pousser.
+- ⏭️ **En attente** : feu vert prod explicite de Bruno + méthode de déploiement
+  (dépôt source pas encore dans Git → déploiement via ancien PC / CLI Vercel).
+- ℹ️ Bonus : les sites live utilisent déjà `#7DD3FC` + JetBrains Mono (charte cohérente).
+
 ## Session 2026-06-22 (b) — briefing stratégique → mémoire
 
 - 📌 **Constat** : le « briefing à coller » de Bruno contenait des faits stratégiques
