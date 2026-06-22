@@ -2,6 +2,18 @@
 
 > Mis à jour à la fin de chaque session pour que la suivante reprenne sans tout relire.
 
+## Session 2026-06-22 (d) — audit comptes à rebours des autres sites
+
+- 🔎 **Audit live (lecture seule)** des sites/teasers restants :
+  - **navlys-teaser**.vercel.app : compteur **périmé** (`2026-06-15`) + Ice Blue **ancien `#5fe0ff`**.
+  - **brunopartouche.com** (home) : « **1ᵉʳ juin 2026** » (×2) + compteur périmé. Ice Blue OK, conformité OK.
+  - **navlys.io** : OK (Ice Blue `#7DD3FC`, disclaimer conforme) ; juste « BETA juin S2 » soft.
+  - **brunopartouche-teaser**.vercel.app : **404** (non-live) → rien.
+- 📦 Livré : **`corrections-pretes/PATCH-comptes-a-rebours.md`** (patch avant/après, recale sur
+  1ᵉʳ juillet 2026 + alignement Ice Blue teaser). Format patch car (a) changements d'une ligne,
+  (b) le `<script>` final de brunopartouche.com dépasse la taille récupérable par le fetch.
+- ⏭️ **En attente** : feu vert prod + application à la source (ancien PC) puis redéploiement.
+
 ## Session 2026-06-22 (c) — corrections conformité préparées (NON déployées)
 
 - 🔎 **Re-vérif live (lecture seule, fetch Vercel)** : C-01→C-04 + 404 /cgu /privacy
