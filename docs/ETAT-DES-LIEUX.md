@@ -2,6 +2,21 @@
 
 > Mis à jour à la fin de chaque session pour que la suivante reprenne sans tout relire.
 
+## Session 2026-06-22 (f) — Phase 0 : suivi + sauvegarde assets + repos
+
+- 📋 **`docs/PHASE-0-SUIVI.md`** (nouveau) : tableau de suivi Phase 0 (snapshot Hetzner,
+  backup.sh, code de chaque site sous GitHub, liaison Vercel↔Git). Le « comment » reste
+  dans `SAUVEGARDE.md` / `SAUVEGARDE-CODE-VERCEL.md` ; ce fichier = le « où on en est ».
+- 💾 **`sauvegarde-sites/_assets-moteur/`** (nouveau) : sauvegarde des assets moteur JS/CSS
+  (cockpit.js, cockpit-mini.js, launch-offer.js, hero-bg-slideshow.js, navlys-family-theme-v2.css)
+  — capturés en lecture seule (fetch live 2026-06-22). Filet **partiel** : navlys-app (403),
+  images/vidéos et home brunopartouche (tronquée) NON capturés → à faire depuis l'ancien PC.
+- 🔴 **Nouvelle non-conformité trouvée → ERR-005** : `launch-offer.js` contient encore
+  « heure de Jérusalem » + escalator ancré au 1ᵉʳ juin. Correctif **P-04** ajouté au patch.
+  Garde-fou : grep des termes interdits sur **HTML + JS + CSS** (pas que le HTML).
+- 🐙 **Repos GitHub privés** : (voir statut dans le tableau / la conversation).
+- ⏳ Le cœur de Phase 0 (snapshot, backup.sh, export source) reste à faire sur l'ancien PC.
+
 ## Session 2026-06-22 (e) — mémo de déploiement
 
 - 📋 Livré : **`corrections-pretes/MEMO-DEPLOIEMENT.md`** — procédure pas-à-pas pour

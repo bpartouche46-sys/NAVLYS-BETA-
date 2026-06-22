@@ -60,6 +60,27 @@ Pas de compte à rebours daté. Mentions « BETA JUIN S2 » / « EN ÉTUDE · JU
 
 ---
 
+## P-04 · navbiolife.com — `launch-offer.js` (conformité + date) 🔴
+
+Fichier `launch-offer.js` (chargé par la home navbiolife). Deux problèmes :
+
+1. **« Jérusalem » servi au public** (cf. ERR-003 / ERR-005) :
+   - **Avant** (commentaire) : `var T0=Date.parse('2026-05-31T21:00:00Z'); // 1er juin 00:00 Asia/Jerusalem (UTC+3)`
+   - **Avant** (1ère ligne, commentaire) : `/* … du 1er juin (minuit Asia/Jerusalem) au 1er juillet */`
+   - **Avant** (texte affiché état *before*) : `'1ᵉʳ juin 2026 · minuit, heure de Jérusalem'`
+2. **Escalator ancré au 1ᵉʳ juin** (périmé).
+
+**Après** (réancrer sur le 1ᵉʳ juillet 2026 00:00 Paris + retirer toute mention « Jérusalem ») :
+- `var T0=Date.parse('2026-06-30T22:00:00Z'); // 1ᵉʳ juillet 2026, 00:00 (heure de Paris)`
+- commentaire d'en-tête : `/* … du 1ᵉʳ juillet au 31 juillet */` (sans « Jerusalem »)
+- texte affiché : `'1ᵉʳ juillet 2026 · minuit, heure de Paris'`
+- ⚠️ Vérifier la cohérence du libellé « Au 1ᵉʳ juillet : tarif plein » → si l'offre dure
+  30 j à partir du 1ᵉʳ juillet, ajuster en « Au 31 juillet : tarif plein ».
+
+> Le fichier brut est sauvegardé dans `sauvegarde-sites/_assets-moteur/launch-offer.js`.
+
+---
+
 ## Après application (rappel checklist)
 - Diff contre la prod (seuls ces points doivent changer).
 - Vérifier le compteur en prod (qu'il décompte bien vers le 1ᵉʳ juillet).
