@@ -2,6 +2,18 @@
 
 > Mis à jour à la fin de chaque session pour que la suivante reprenne sans tout relire.
 
+## Session 2026-06-22 (c) — proto : vraie date du compte à rebours
+
+- ✅ **Compte à rebours** : date confirmée **depuis la home live navlys.com**
+  (« l'ouverture en avant-première **le 1ᵉʳ juillet** ») → `LAUNCH_DATE` passé de
+  `2026-07-06` (placeholder) à **`2026-07-01T00:00:00+02:00`**. Plus de date inventée.
+- 🔎 **Vidéo de présentation** : l'URL du proto `navlys.com/media/presentation.mp4`
+  est **confirmée réelle** (présente sur la home live). Rien à changer.
+- ⏳ **Reste** : pas de vraies vidéos pour la bande de mini-vidéos (décoratives sur le
+  proto, inexistantes sur le live) ; **pas de pages CGU/Confidentialité** sur le live
+  (le pied de page renvoie vers /finance et /next-gen, disclaimer en clair) → ne PAS
+  inventer de pages légales (cf. ERR-003, /cgu & /privacy en 404).
+
 ## Session 2026-06-22 (b) — briefing stratégique → mémoire
 
 - 📌 **Constat** : le « briefing à coller » de Bruno contenait des faits stratégiques
