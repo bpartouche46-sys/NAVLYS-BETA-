@@ -320,12 +320,12 @@ footer .flag{letter-spacing:3px;margin-bottom:10px;color:var(--champ)}
 
 <!-- BARRE D'ICÔNES BASSE -->
 <nav class="tabbar">
-  <a class="tab active" href="#"><span class="i">🌊</span>Accueil</a>
+  <a class="tab active" href="#" aria-current="page"><span class="i">🌊</span>Accueil</a>
   <a class="tab" href="#"><span class="i">🧭</span>Finance</a>
   <a class="tab" href="#"><span class="i">🧬</span>NAVBIO</a>
   <a class="tab" href="#"><span class="i">🌿</span>Bien-être</a>
   <a class="tab" href="#"><span class="i">📻</span>Radio</a>
-  <a class="tab" href="#"><span class="i">☰</span>Menu</a>
+  <a class="tab" id="tabMenu" href="#"><span class="i">☰</span>Menu</a>
 </nav>
 
 <script>
@@ -368,6 +368,26 @@ document.addEventListener('click', function(e){
 document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeMenu(); });
 var ddMenu=document.getElementById('dd');
 if(ddMenu){ ddMenu.addEventListener('click', function(e){ if(e.target.closest('a')) closeMenu(); }); }
+
+/* barre d'onglets basse : l'onglet touché devient « actif » (le surlignage suit le
+   doigt). L'onglet « Menu » (☰) ouvre le menu déroulant au lieu de devenir actif. */
+var tabbar=document.querySelector('.tabbar');
+if(tabbar){
+  tabbar.addEventListener('click', function(e){
+    var tab=e.target.closest('.tab');
+    if(!tab) return;
+    e.preventDefault();
+    if(tab.id==='tabMenu'){ toggleMenu(e); return; }
+    var tabs=tabbar.querySelectorAll('.tab');
+    for(var i=0;i<tabs.length;i++){
+      tabs[i].classList.remove('active');
+      tabs[i].removeAttribute('aria-current');
+    }
+    tab.classList.add('active');
+    tab.setAttribute('aria-current','page');
+    closeMenu();
+  });
+}
 
 /* bouton son : la vidéo démarre MUETTE (autoplay), le son s'active au clic */
 function toggleSound(){
