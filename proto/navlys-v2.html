@@ -214,7 +214,7 @@ footer .flag{letter-spacing:3px;margin-bottom:10px;color:var(--champ)}
 <div class="topbar">
   <span class="led"></span>
   <span class="brand">NAVLYS</span>
-  <button class="menu-btn" onclick="document.getElementById('dd').classList.toggle('show')" aria-label="Menu">☰</button>
+  <button class="menu-btn" id="menuBtn" onclick="toggleMenu(event)" aria-label="Menu" aria-controls="dd" aria-expanded="false">☰</button>
 </div>
 <nav class="dropdown" id="dd">
   <a href="#">🌊 Accueil</a>
@@ -346,6 +346,28 @@ function tick(){
   }
 }
 tick();var timer=setInterval(tick,1000);
+
+/* menu déroulant : ouvre/ferme + se referme au clic extérieur, sur Échap,
+   ou après avoir choisi une entrée. aria-expanded reflète l'état (accessibilité). */
+function setMenu(open){
+  var dd=document.getElementById('dd'), b=document.getElementById('menuBtn');
+  if(!dd||!b) return;
+  dd.classList.toggle('show', open);
+  b.setAttribute('aria-expanded', open ? 'true' : 'false');
+}
+function toggleMenu(e){
+  if(e) e.stopPropagation();
+  var dd=document.getElementById('dd');
+  setMenu(!(dd && dd.classList.contains('show')));
+}
+function closeMenu(){ setMenu(false); }
+document.addEventListener('click', function(e){
+  var dd=document.getElementById('dd');
+  if(dd && dd.classList.contains('show') && !dd.contains(e.target)) closeMenu();
+});
+document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeMenu(); });
+var ddMenu=document.getElementById('dd');
+if(ddMenu){ ddMenu.addEventListener('click', function(e){ if(e.target.closest('a')) closeMenu(); }); }
 
 /* bouton son : la vidéo démarre MUETTE (autoplay), le son s'active au clic */
 function toggleSound(){
