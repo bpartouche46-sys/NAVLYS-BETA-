@@ -11,6 +11,12 @@
 - ✅ **Menu déroulant (☰)** : il s'ouvrait mais ne se refermait jamais. Ajout de la
   fermeture au clic extérieur / touche Échap / choix d'une entrée, + `aria-expanded`
   (accessibilité). Aucun changement de contenu (conformité ERR-003 inchangée).
+- ✅ **Barre d'onglets basse** : l'état « actif » était figé sur Accueil et ne suivait
+  pas les clics. L'onglet touché devient désormais actif (+ `aria-current`) ; l'onglet
+  « Menu » ouvre le menu déroulant. Comportemental uniquement (ERR-003 inchangée).
+- ⏳ **Reste (non faisable sans assets / décisions)** : remplacer les placeholders
+  média (vidéos) par de vrais fichiers ; brancher les liens légaux (CGU/Confidentialité)
+  une fois les pages créées ; confirmer la date du compte à rebours (`2026-07-06`).
 
 ## Session 2026-06-19 — QA pré-lancement + brief design
 
