@@ -4,6 +4,12 @@
 > Empreinte de marque : **jeu × plaisir × bien-être**.
 > ⚠️ On s'inspire de la *mécanique* Partouche, PAS de ses couleurs (rouge/blanc).
 > La charte reste **ICE BLUE** (voir CLAUDE.md / consignes).
+>
+> 🎨 **Valeur de référence Ice Blue = `#7DD3FC`** (= `rgb(125,211,252)`), faisant foi
+> depuis 2026-06-22 (briefing Bruno). Le prototype `proto/navlys-v2.html` a été aligné
+> sur cette valeur (l'ancienne `#5fe0ff` est abandonnée). Fond noir `#000000`,
+> accent champagne `#e9d3a0`. Polices : Cormorant Garamond · Fraunces · Lora ·
+> JetBrains Mono (chiffres / données « cockpit »).
 
 ## 1. Principe commun à TOUS les sites
 - **Encadré « live » qui défile** en haut, occupant ~la moitié haute de l'écran (zone fixe).
