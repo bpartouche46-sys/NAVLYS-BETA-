@@ -2,6 +2,27 @@
 
 > Mis à jour à la fin de chaque session pour que la suivante reprenne sans tout relire.
 
+## Session 2026-06-22 (c) — vision « agent directeur » + clarté des intervenants
+
+- 🎛️ **Nouvelle vision capturée** : Bruno veut un **agent directeur** (orchestrateur)
+  qui pioche dans le core Hetzner + le web, gère sous-agents/services, et orchestre
+  SAV + back-office via API. → Mis noir sur blanc dans **`docs/ARCHITECTURE-AGENT-DIRECTEUR.md`**
+  (archi cible, garde-fous conformité, feuille de route brique par brique).
+- 🤝 **Intervenants clarifiés (anti-frayeur « qui a changé quoi ? »)** :
+  - **Hermès** = LLM via **OpenRouter** + **accès Hetzner** ; a équipé le serveur
+    (Docker, Nginx, fail2ban, certbot, PM2), récupéré 4 sites, cloné GitHub **NOVA-HUB**,
+    monté un cockpit web. C'est la **graine** de l'agent directeur (1 agent, pas encore orchestrateur).
+  - **Claude (moi)** = code + conformité **via GitHub uniquement**, **aucun accès serveur**.
+  - **Bruno** = chef / valide les actions sensibles.
+- 🔐 **Sécurité** : la « frayeur » sur les changements d'accès = **Bruno lui-même** qui a
+  réinitialisé le mot de passe (confirmé). Aucune intrusion. ⚠️ **À FAIRE** : changer le
+  mot de passe du **cockpit** (`bruno / …`) car exposé en clair dans un chat.
+- 💾 **Sauvegarde en cours** : volume Hetzner **10 Go** (id `106103603`) à monter sur
+  `/mnt/navlys-backup`. Stratégie « web » retenue : OneDrive → Hetzner (rclone) pour
+  l'important, + une partie hors OneDrive à traiter à part. ⚠️ Tout doit tenir dans 10 Go.
+- 🧭 **Cap** : ne **rien rajouter** (ex. Google Antigravity) tant que la base n'est pas
+  stable ; avancer **brique par brique** avec point de contrôle humain à chaque étape sensible.
+
 ## Session 2026-06-22 (b) — briefing stratégique → mémoire
 
 - 📌 **Constat** : le « briefing à coller » de Bruno contenait des faits stratégiques
