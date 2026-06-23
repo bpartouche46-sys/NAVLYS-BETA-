@@ -2,6 +2,26 @@
 
 > Mis à jour à la fin de chaque session pour que la suivante reprenne sans tout relire.
 
+## Session 2026-06-23 (j) — « tout opérationnel & sécurisé » : code core + sécurité
+
+- 🎯 Demande Bruno : **« rends tout opérationnel à 100% et sécurisé »** (+ « je referai les
+  mots de passe/clés après »). Cadré honnêtement : 3 leviers restent **humains** (accès
+  Hetzner, source des sites dans Git, clés) → Claude rend **100% prêt** tout le reste.
+- 🔐 **Sécurité** : scan dépôt = **0 secret committé** ✅. Créé `docs/SECRETS-ET-CLES.md`
+  (inventaire S1→S10 sans valeurs, **procédure de rotation**, réflexe fuite) + durci
+  `.gitignore` (core/.env, core/.mcp.json, logs, dist).
+- 📊 **Tracker** `docs/OPERATIONNEL-100.md` : « route vers 100% » (statut + QUI + blocage)
+  = source de vérité de l'avancement.
+- 🧠 **CODE DU CORE LIVRÉ** (`core/`) : orchestrateur Agent SDK (TypeScript, headless) +
+  **garde-fous CÂBLÉS** (hook PreToolUse = conformité ERR-003 + STOP argent/prod → feu
+  vert Bruno ; PostToolUse = audit) + config (refuse `bypassPermissions`) + `.env.example` /
+  `.mcp.json.example` (0 secret) + unit **systemd** + README de déploiement.
+  ✅ **Logique garde-fous testée réellement : 18/18** (`core/test/`, via Node type-stripping).
+  API SDK **vérifiée** par sous-agent sur la doc officielle. Scaffold non testé bout-en-bout
+  depuis GitHub (pas d'install réseau) → à valider sur serveur par Hermès.
+- ⏭️ Reste pour le « 100% » réel : rotation clés (Bruno), source sites dans Git (Bruno),
+  install moteur sur Hetzner (Hermès). Détail = `docs/OPERATIONNEL-100.md`.
+
 ## Session 2026-06-23 (i) — core central : blueprint technique + 1ère chaîne choisie
 
 - 🧠 **Blueprint technique du core central** écrit (`docs/CORE-CENTRAL-TECHNIQUE.md`) :

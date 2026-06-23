@@ -5,6 +5,9 @@
 *.pem
 secrets/
 credentials*.json
+# … mais on AUTORISE les modèles d'exemple (sans valeurs)
+!.env.example
+!*.env.example
 
 # Dépendances
 node_modules/
@@ -27,3 +30,9 @@ Thumbs.db
 
 # Réglages locaux Claude (perso, non partagés)
 .claude/settings.local.json
+
+# Core — fichiers locaux/secrets (on garde *.example, jamais les vrais)
+core/.env
+core/.mcp.json
+core/logs/
+core/dist/

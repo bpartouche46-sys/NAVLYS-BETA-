@@ -1,0 +1,16 @@
+{
+  "_comment": "EXEMPLE de branchements MCP du core. Copier en .mcp.json (ignore par Git si rempli avec des secrets). N'activer que les serveurs reellement utilises par la chaine en cours. Les valeurs sensibles viennent de l'environnement (.env), jamais ecrites en dur.",
+  "mcpServers": {
+    "github": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "env": { "GITHUB_PERSONAL_ACCESS_TOKEN": "${GITHUB_TOKEN}" }
+    },
+    "_vercel_example": {
+      "_note": "Activer quand la chaine Sites est prete. Token via ${VERCEL_TOKEN}."
+    },
+    "_supabase_example": {
+      "_note": "Lecture d'abord. service_role = secret strict, jamais cote client."
+    }
+  }
+}
