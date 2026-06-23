@@ -2,6 +2,22 @@
 
 > Mis à jour à la fin de chaque session pour que la suivante reprenne sans tout relire.
 
+## Session 2026-06-23 — 💎 mine d'or Drive assimilée (analyse étendue)
+
+- ✅ **Accès Google Drive confirmé** (bpartouche46@gmail.com) → ~110 fichiers NAVLYS lus.
+  **`NAVLYS-MASTER.md` (21 juin) = carte maîtresse** (supplante les cartes antérieures).
+- 📄 **Assimilation PUBLIQUE** → `docs/ASSIMILATION-DRIVE-2026-06-23.md` : slogan officiel,
+  doctrine 2 univers (Méditerranée + Israël = **interdits sur NAVLYS**), charte **#7DD3FC zéro pourpre**,
+  méthode 90/10, tarifs F1–F4 + NAVBIO, paiements (Stripe exclu), **slogans obsolètes à bannir**.
+- 🎯 **Chasse « 1+1 / Van Damme » = INTROUVABLE** (ni sites, ni Drive) → à créer avec Bruno s'il y tient.
+  **Personnes connues = liste Y1** (Hasheur, Yomi Denzel, Coin Bureau…) = **prospects privés**, jamais publics.
+- 🔴 **PRIVÉ gardé hors dépôt** (entité, n°, IDs infra, clés, liste influenceurs, généalogie, banque).
+- 🔴 **Urgences sécurité (MASTER G3)** : régénérer **clés API GitHub + Alpaca** (commitées) ; **privacy WHOIS OVH**.
+- ✅ **Décisions Bruno en attente** : (1) confirmer charte #7DD3FC + aligner sites live (encore #5fe0ff) ;
+  (2) créer ou non le « 1+1 / Van Damme ».
+- 🟢 **À rapatrier sur demande** : pack éditorial E1 (bios 13 réseaux, 9 posts IG, 3 reels, calendrier 90j),
+  modèles légaux (CGV/CGU/RGPD), templates emails Resend.
+
 ## Session 2026-06-23 — ✅ 1er backup serveur + sources récupérées (en cours)
 
 - ✅ **SNAPSHOT HETZNER CRÉÉ** par Bruno : **`navlys-core-1782194314`** (2026-06-23) →
