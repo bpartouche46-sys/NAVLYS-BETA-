@@ -33,14 +33,14 @@ ci-dessus restent des **actions humaines**. Ce tracker dit exactement ce qui man
 | A4 | `core/.env.example` (noms, 0 valeur) | ✅ | C | aligné sur l'inventaire S1→S10 |
 | A5 | **Rotation effective** des secrets exposés | 🟡 | B | cockpit, clés API → refaire (Bruno l'a annoncé) |
 | A6 | **2FA** activé partout (Hetzner/GitHub/Vercel/Anthropic/Stripe) | ⬜ | B | à vérifier/activer |
-| A7 | Garde-fous **argent + prod = STOP Bruno** câblés dans le moteur | 🟡 | C | code dans `core/` (hooks) — à déployer |
+| A7 | Garde-fous **argent + prod = STOP Bruno** câblés dans le moteur | ✅ | C | `core/src/guardrails/` — **18/18 tests OK** ; reste à déployer |
 
 ## B. 🧠 Core central (moteur agentique sur Hetzner)
 
 | # | Brique | Statut | QUI | Note |
 |---|--------|--------|-----|------|
 | B1 | Blueprint technique | ✅ | C | `docs/CORE-CENTRAL-TECHNIQUE.md` |
-| B2 | **Code du moteur prêt à déployer** (scaffold) | 🟡 | C | `core/` (Agent SDK, hooks, agents, systemd) |
+| B2 | **Code du moteur prêt à déployer** (scaffold) | ✅ | C | `core/` complet (SDK, hooks, config, systemd) ; garde-fous testés |
 | B3 | Décisions §5 (langage, qui héberge la clé, 1ʳᵉ chaîne) | 🟡 | B | reco : TypeScript ; 1ʳᵉ chaîne = Veille |
 | B4 | Install moteur sur Hetzner (Node + Redis + systemd) | 🔴 | H | besoin accès serveur |
 | B5 | Mémoire persistante (Redis/Postgres) | 🔴 | H | évite ERR-001 |
