@@ -10,13 +10,15 @@
   hook `PreToolUse` = gardien conformité + STOP argent/prod → feu vert Bruno).
   Honnêteté : ❌ pas d'auto-bootstrap total (les agents sont déclarés par nous, pas
   inventés seuls par la machine) ; ❌ pas de boucle auto-programmée (cron/systemd externe).
-- 🎯 **Décision Bruno** : 1ère chaîne complète à câbler = **Sites / déploiement**
-  (`docs/CHAINE-1-SITES.md`). Flux : Agent Sites propose → 🚦 gardien → preview →
-  🔴 feu vert Bruno → déploiement (Hermès/Vercel) → vérif + mémoire.
-- 🚧 **Pré-requis bloquant en cours** : rapatrier la **source des sites dans GitHub**
-  via **Claude Code installé sur le PC du bureau (Windows)** — install en cours côté Bruno.
-  Premier passage prévu dans la chaîne = la **Vague 1 déjà validée** (bio.html + index.html).
-- 📦 PR ouverte : **#20** (draft) — INSTRUCTIONS-HERMES, CORE-CENTRAL-TECHNIQUE, CHAINE-1-SITES.
+- 🎯 **Décision finale Bruno** : 1ʳᵉ chaîne **opérationnelle** = **Veille web**
+  (`docs/VEILLE/`) — choisie car **zéro risque / zéro dépendance**, démarrable tout de suite.
+  ✅ **Déjà testée en réel** : 1ʳᵉ édition `docs/VEILLE/2026-06-23.md` (4 axes sourcés ;
+  fait marquant : cadre AMF/ESMA 2026 **conforte** la ligne NAVLYS éducation-only).
+- ⏭️ **Chaîne Sites / déploiement = la suivante** (`docs/CHAINE-1-SITES.md` reste valable),
+  **en attente** du pré-requis bloquant : rapatrier la **source des sites dans GitHub** via
+  **Claude Code sur le PC du bureau (Windows)** — install en cours côté Bruno. Premier
+  passage prévu = la **Vague 1 déjà validée** (bio.html + index.html).
+- 📦 PR : **#20** — INSTRUCTIONS-HERMES, CORE-CENTRAL-TECHNIQUE, CHAINE-1-SITES, VEILLE.
 
 ## Session 2026-06-22 (h) — gouvernance + délégation + contrôle conformité Vague 1
 
