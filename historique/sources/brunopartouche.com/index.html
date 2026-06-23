@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Bruno Mark Partouche · L'exemple vivant.</title>
+<meta name="description" content="Bruno Mark Partouche. Skipper. Finance. Méthode 90/10.">
+<link rel="canonical" href="https://brunopartouche.com">
+<link rel="icon" type="image/jpeg" href="/favicon.jpg">
+<link rel="stylesheet" href="/navlys-family-theme-v2.css">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Cormorant+Garamond:ital@0;1&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+:root{--noir:#02040a;--bronze:#B87333;--bronze-clair:#D49B5B;--or:#C9A961;--or-pale:#f3e4c4;--ice:#7DD3FC;--ice-clair:#a8e3ff;--perle:#e7eef2;--perle-doux:#bcc9d1;--brume:#7c8b95}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;background:#02040a}
+body{background:transparent;color:var(--perle);font-family:'Cormorant Garamond',Georgia,serif;font-size:21px;line-height:1.55;min-height:100vh;-webkit-text-size-adjust:100%;overflow-x:hidden}
+
+.fam-nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(2,4,10,0.88);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid rgba(125,211,252,0.18);padding:14px 16px;display:flex;justify-content:space-between;align-items:center;animation:nv-pulse 6s ease-in-out infinite alternate}
+@keyframes nv-pulse{0%{box-shadow:0 0 12px rgba(125,211,252,0.10)}100%{box-shadow:0 0 24px rgba(125,211,252,0.30)}}
+.fam-logo{font-family:'Cinzel',serif;font-size:13px;letter-spacing:.32em;color:var(--or);text-transform:uppercase;font-weight:600}
+.fam-icons{display:flex;gap:10px;align-items:center}
+.fam-icons a{font-size:24px;text-decoration:none;color:var(--ice-clair);padding:4px;transition:.3s;line-height:1}
+.fam-icons a:hover{transform:scale(1.15)}
+
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:100px 20px 40px;text-align:center;position:relative}
+
+.coin-stage{perspective:1200px;width:200px;height:200px;margin:0 auto 30px;cursor:pointer}
+.coin{width:100%;height:100%;position:relative;transform-style:preserve-3d;animation:coin-spin 16s ease-in-out infinite}
+.coin:hover{animation-play-state:paused}
+.coin-face{position:absolute;width:100%;height:100%;border-radius:50%;backface-visibility:hidden;background-size:cover;background-position:center;box-shadow:0 24px 64px rgba(184,115,51,0.55),0 0 100px rgba(125,211,252,0.30),inset 0 0 50px rgba(0,0,0,0.4);animation:coin-glow 4s ease-in-out infinite alternate}
+.coin-face.back{transform:rotateY(180deg)}
+@keyframes coin-spin{0%{transform:rotateY(0deg)}40%{transform:rotateY(0deg)}50%{transform:rotateY(180deg)}90%{transform:rotateY(180deg)}100%{transform:rotateY(360deg)}}
+@keyframes coin-glow{0%{filter:brightness(1) drop-shadow(0 0 20px rgba(125,211,252,0.3))}100%{filter:brightness(1.1) drop-shadow(0 0 40px rgba(125,211,252,0.55))}}
+
+.brand-name{font-family:'Cinzel',serif;font-size:14px;letter-spacing:.45em;color:var(--or);text-transform:uppercase;font-weight:500;margin-bottom:14px}
+.brand-tagline{font-family:'Cinzel',serif;font-size:clamp(15px,3.6vw,22px);letter-spacing:.32em;color:var(--ice-clair);text-transform:uppercase;font-weight:500;margin:24px 0 36px;padding:14px 22px;border-top:1px solid rgba(125,211,252,0.4);border-bottom:1px solid rgba(125,211,252,0.4);max-width:760px;animation:tagline-breath 4s ease-in-out infinite alternate;text-align:center;line-height:1.4}
+@keyframes tagline-breath{0%{text-shadow:0 0 12px rgba(125,211,252,0.4);border-color:rgba(125,211,252,0.3)}100%{text-shadow:0 0 30px rgba(125,211,252,0.9),0 0 60px rgba(125,211,252,0.5);border-color:rgba(168,227,255,0.85)}}
+@media(max-width:768px){.brand-tagline{font-size:17px;padding:12px 16px;margin:20px 0 28px;letter-spacing:.22em}}
+
+.prelude{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(20px,5.5vw,28px);color:rgba(168,227,252,0.92);text-shadow:0 0 18px rgba(125,211,252,0.55);margin-bottom:30px;animation:fadeUp 2.2s ease .3s both,p-breath 4s ease-in-out 2.5s infinite alternate}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+@keyframes p-breath{0%{text-shadow:0 0 12px rgba(125,211,252,0.4)}100%{text-shadow:0 0 28px rgba(125,211,252,0.9),0 0 50px rgba(125,211,252,0.5)}}
+
+.hero h1{font-family:'Cormorant Garamond',serif;font-weight:400;font-size:clamp(56px,14vw,118px);line-height:.95;letter-spacing:-.01em;color:var(--perle);margin:0 0 18px;animation:fadeUp 2s ease .8s both}
+.hero h1 em{font-style:italic;background:linear-gradient(100deg,var(--or-pale),var(--or) 45%,#fff7e6 55%,var(--or) 70%,var(--bronze));background-size:220% auto;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:shine 8s linear infinite}
+@keyframes shine{to{background-position:220% center}}
+
+.hero-tag{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(22px,5.5vw,32px);color:var(--perle-doux);margin-bottom:42px;animation:fadeUp 2s ease 1.3s both;max-width:540px;line-height:1.4}
+
+.cta-row{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;animation:fadeUp 2s ease 1.8s both}
+.btn-big{display:inline-flex;align-items:center;gap:8px;padding:20px 32px;border-radius:14px;text-decoration:none;font-family:'Cinzel',serif;font-size:15px;letter-spacing:.22em;text-transform:uppercase;font-weight:600;transition:all .35s ease;min-height:64px;border:none;cursor:pointer}
+.btn-big.primary{background:linear-gradient(135deg,var(--bronze),var(--bronze-clair));color:white;box-shadow:0 10px 36px rgba(184,115,51,0.45),0 0 32px rgba(125,211,252,0.15);animation:btn-pulse 4s ease-in-out infinite alternate}
+@keyframes btn-pulse{0%{box-shadow:0 10px 32px rgba(184,115,51,0.35),0 0 20px rgba(125,211,252,0.10)}100%{box-shadow:0 12px 48px rgba(184,115,51,0.65),0 0 50px rgba(125,211,252,0.30)}}
+.btn-big.primary:hover{transform:translateY(-3px)}
+.btn-big.secondary{background:rgba(125,211,252,0.08);color:var(--ice-clair);border:1.5px solid rgba(125,211,252,0.45)}
+
+.scroll-hint{position:absolute;bottom:24px;left:50%;transform:translateX(-50%);color:var(--brume);font-family:'Cinzel',serif;font-size:10px;letter-spacing:.4em;text-transform:uppercase;animation:sh 3s ease-in-out infinite}
+@keyframes sh{0%,100%{opacity:.3;transform:translateX(-50%) translateY(0)}50%{opacity:.9;transform:translateX(-50%) translateY(6px)}}
+
+section{padding:90px 20px;text-align:center;border-top:1px solid rgba(125,211,252,0.08)}
+section h2{font-family:'Cormorant Garamond',serif;font-weight:400;font-size:clamp(42px,10vw,80px);line-height:1.02;color:var(--perle);margin-bottom:16px}
+section h2 em{color:var(--or);font-style:italic}
+section .punch{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(24px,5.5vw,32px);color:var(--perle-doux);margin-bottom:44px;max-width:600px;margin-left:auto;margin-right:auto;line-height:1.4}
+
+.three-cards{display:flex;flex-direction:column;gap:18px;max-width:520px;margin:0 auto}
+@media(min-width:780px){.three-cards{flex-direction:row;max-width:1100px}}
+.zen-card{padding:36px 24px;background:rgba(2,4,10,0.7);border:1.5px solid rgba(125,211,252,0.25);border-radius:18px;text-decoration:none;color:var(--perle);transition:.4s;display:flex;flex-direction:column;align-items:center;flex:1;animation:cb 5s ease-in-out infinite alternate}
+@keyframes cb{0%{box-shadow:0 0 16px rgba(125,211,252,0.10)}100%{box-shadow:0 0 32px rgba(125,211,252,0.28)}}
+.zen-card:hover{border-color:rgba(125,211,252,0.7);transform:translateY(-4px)}
+.zen-card .emoji{font-size:68px;margin-bottom:18px;line-height:1}
+.zen-card .name{font-family:'Cinzel',serif;font-weight:600;font-size:24px;letter-spacing:.18em;color:var(--or);margin-bottom:10px;text-transform:uppercase}
+.zen-card .one-line{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:20px;color:var(--perle-doux);line-height:1.4}
+
+.split{display:flex;flex-direction:column;gap:24px;max-width:920px;margin:0 auto}
+@media(min-width:780px){.split{flex-direction:row}}
+.split-block{flex:1;padding:42px 28px;background:rgba(2,4,10,0.7);border-radius:20px;border:1.5px solid rgba(184,115,51,0.35);animation:cb 5s ease-in-out infinite alternate}
+.split-block.cap{border-color:rgba(125,211,252,0.4)}
+.split-block .number{font-family:'Cinzel',serif;font-weight:600;font-size:96px;color:var(--bronze-clair);line-height:.95;margin-bottom:6px}
+.split-block.cap .number{color:var(--ice-clair)}
+.split-block .label{font-family:'Cinzel',serif;font-size:14px;letter-spacing:.32em;color:var(--brume);text-transform:uppercase;margin-bottom:14px}
+.split-block h3{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:34px;color:var(--perle);margin-bottom:10px}
+.split-block h3 em{color:var(--or);font-style:italic}
+.split-block .one{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:20px;color:var(--perle-doux);line-height:1.5}
+
+.live-card{max-width:640px;margin:0 auto;padding:38px 28px;background:linear-gradient(160deg,rgba(125,211,252,0.10),rgba(2,4,10,0.85));border:2px solid rgba(125,211,252,0.55);border-radius:22px;text-align:center;animation:lb 3.2s ease-in-out infinite alternate}
+@keyframes lb{0%{box-shadow:0 0 36px rgba(125,211,252,0.40),0 0 80px rgba(125,211,252,0.20);transform:scale(1)}100%{box-shadow:0 0 80px rgba(125,211,252,0.85),0 0 180px rgba(125,211,252,0.45);transform:scale(1.012)}}
+.live-badge{display:inline-block;font-family:'Cinzel',serif;font-size:11px;letter-spacing:.5em;color:var(--ice-clair);text-transform:uppercase;padding:6px 16px;background:rgba(125,211,252,0.2);border-radius:16px;border:1px solid rgba(125,211,252,0.5);margin-bottom:20px}
+.live-card h3{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(34px,7vw,50px);color:var(--perle);margin-bottom:14px;line-height:1.05}
+.live-card h3 em{color:var(--ice-clair);font-style:italic}
+.live-card .countdown{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:24px 0}
+.cd{min-width:64px;padding:12px 6px;background:rgba(2,8,20,0.7);border:1.5px solid rgba(125,211,252,0.6);border-radius:12px;animation:cdg 3.2s ease-in-out infinite alternate}
+@keyframes cdg{0%{box-shadow:0 0 10px rgba(125,211,252,0.25)}100%{box-shadow:0 0 28px rgba(125,211,252,0.6)}}
+.cd .n{font-family:'JetBrains Mono',monospace;font-size:30px;font-weight:700;color:var(--ice-clair);line-height:1;text-shadow:0 0 14px rgba(125,211,252,0.8)}
+.cd .u{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.32em;color:var(--brume);text-transform:uppercase;margin-top:6px}
+
+.faq-mini{max-width:720px;margin:0 auto;text-align:left;display:flex;flex-direction:column;gap:14px}
+.faq-q{padding:22px 26px;background:rgba(2,4,10,0.65);border:1px solid rgba(184,115,51,0.22);border-radius:14px;cursor:pointer;transition:.3s}
+.faq-q:hover{border-color:rgba(125,211,252,0.5)}
+.faq-q-title{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:22px;color:var(--perle);display:flex;justify-content:space-between;align-items:center;gap:14px}
+.faq-q-title::after{content:"+";color:var(--ice);font-size:28px;line-height:1;transition:.3s}
+.faq-q.open .faq-q-title::after{transform:rotate(45deg)}
+.faq-a{margin-top:14px;color:var(--perle-doux);font-size:19px;line-height:1.65;display:none}
+.faq-q.open .faq-a{display:block}
+
+.contact{max-width:600px;margin:0 auto;padding:46px 28px;background:linear-gradient(135deg,rgba(184,115,51,0.16),rgba(2,4,10,0.78));border:1.5px solid rgba(184,115,51,0.5);border-radius:20px;text-align:center;animation:cb 5s ease-in-out infinite alternate}
+.contact h3{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(32px,7vw,42px);color:var(--perle);margin-bottom:14px}
+.contact h3 em{color:var(--or);font-style:italic}
+.contact .small{font-style:italic;color:var(--perle-doux);font-size:20px;margin-bottom:26px}
+
+footer{padding:54px 20px 70px;text-align:center;border-top:1px solid rgba(184,115,51,0.18)}
+.foot-brand{font-family:'Cormorant Garamond',serif;font-size:24px;color:var(--perle)}
+.foot-brand span{color:var(--or)}
+.foot-meta{font-family:'Cinzel',serif;font-size:11.5px;letter-spacing:.28em;color:var(--brume);margin:10px 0 22px;text-transform:uppercase}
+.foot-disc{font-style:italic;color:var(--brume);font-size:15px;line-height:1.65;max-width:680px;margin:0 auto;padding:18px;border:1px solid rgba(184,115,51,0.18);border-radius:12px;background:rgba(2,4,10,0.55)}
+
+.sound-toggle{position:fixed;bottom:24px;right:24px;z-index:99;width:58px;height:58px;border-radius:50%;background:rgba(2,4,10,0.85);backdrop-filter:blur(14px);border:1.5px solid rgba(125,211,252,0.5);color:var(--ice-clair);font-size:24px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .3s;animation:sb 4s ease-in-out infinite alternate}
+@keyframes sb{0%{box-shadow:0 0 12px rgba(125,211,252,0.2)}100%{box-shadow:0 0 28px rgba(125,211,252,0.55)}}
+.sound-toggle.active{background:linear-gradient(135deg,rgba(125,211,252,0.35),rgba(2,4,10,0.85));border-color:var(--ice-clair);animation:sp 1s ease-in-out infinite alternate}
+@keyframes sp{0%{box-shadow:0 0 18px rgba(125,211,252,0.4)}100%{box-shadow:0 0 36px rgba(125,211,252,0.8)}}
+
+.a11y-toggle{position:fixed;bottom:24px;left:24px;z-index:99;width:58px;height:58px;border-radius:50%;background:rgba(2,4,10,0.85);backdrop-filter:blur(14px);border:1.5px solid rgba(125,211,252,0.5);color:var(--ice-clair);font-size:24px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .3s}
+.a11y-panel{position:fixed;bottom:94px;left:24px;z-index:98;background:rgba(2,4,10,0.95);backdrop-filter:blur(20px);border:1px solid rgba(125,211,252,0.4);border-radius:14px;padding:16px;display:none;flex-direction:column;gap:10px;min-width:200px}
+.a11y-panel.show{display:flex}
+.a11y-panel button{background:rgba(125,211,252,0.12);border:1px solid rgba(125,211,252,0.3);color:var(--perle);padding:12px 14px;border-radius:10px;cursor:pointer;font-family:'Cinzel',serif;font-size:11px;letter-spacing:.18em;text-transform:uppercase}
+
+@media(max-width:768px){
+  body{font-size:20px}
+  .hero{padding:80px 18px 30px;min-height:auto}
+  .hero h1{font-size:64px;margin-bottom:14px}
+  .hero-tag{font-size:24px;margin-bottom:26px}
+  .prelude{margin-bottom:18px}
+  .brand-tagline{margin:14px 0 22px;padding:10px 14px;font-size:15px}
+  .cta-row{gap:10px}
+  .btn-big{padding:14px 22px;font-size:13px;min-height:54px}
+  section{padding:40px 18px}
+  section h2{font-size:42px;margin-bottom:8px}
+  section .punch{font-size:20px;margin-bottom:24px}
+  .coin-stage{width:160px;height:160px;margin-bottom:18px}
+  .brand-name{margin-bottom:8px}
+  .scroll-hint{display:none}
+  .three-cards{gap:12px}
+  .zen-card{padding:22px 18px}
+  .zen-card .emoji{font-size:48px;margin-bottom:10px}
+  .zen-card .name{font-size:18px;margin-bottom:6px}
+  .zen-card .one-line{font-size:16px}
+  .split{gap:14px}
+  .split-block{padding:24px 20px}
+  .split-block .number{font-size:64px;margin-bottom:4px}
+  .split-block .label{margin-bottom:8px}
+  .split-block h3{font-size:24px;margin-bottom:6px}
+  .split-block .one{font-size:17px}
+  .live-card{padding:26px 20px}
+  .live-card h3{font-size:30px;margin-bottom:10px}
+  .live-card .countdown{margin:16px 0}
+  .cd{min-width:52px;padding:8px 4px}
+  .cd .n{font-size:22px}
+  .cd .u{font-size:8px}
+  .faq-q{padding:16px 18px}
+  .faq-q-title{font-size:17px}
+  .faq-a{font-size:15px}
+  .contact{padding:30px 22px}
+  .contact h3{font-size:26px}
+  .contact .small{font-size:17px;margin-bottom:18px}
+  footer{padding:32px 16px 50px}
+}
+@media(max-width:420px){
+  .hero{padding:72px 14px 24px}
+  .hero h1{font-size:54px}
+  .hero-tag{font-size:21px}
+  section{padding:32px 14px}
+  section h2{font-size:36px}
+  section .punch{font-size:18px;margin-bottom:18px}
+  body{font-size:19px}
+  .coin-stage{width:140px;height:140px;margin-bottom:14px}
+  .brand-tagline{font-size:13px;padding:8px 12px;letter-spacing:.16em}
+  .split-block .number{font-size:54px}
+  .live-card h3{font-size:26px}
+}
+
+body.high-contrast{filter:contrast(1.18) brightness(1.1)}
+body.xl-text{font-size:25px}
+body.xl-text section h2{font-size:78px}
+body.xl-text .hero h1{font-size:88px}
+</style></head><body>
+
+<nav class="fam-nav">
+<span class="fam-logo">⚓ BRUNO MARK</span>
+<div class="fam-icons">
+<a href="https://navlys.com/?ref=BP001" title="🌊 NAVLYS — Méthode 90/10">🌊</a>
+<a href="https://navbiolife.com/?ref=BP001" title="🧬 NAVBIO — Biographie vivante">🧬</a>
+<a href="https://navlys.io" title="🌐 navlys.io — Site builder IA">🌐</a>
+</div>
+</nav>
+
+<header class="hero">
+<div class="coin-stage" title="BRUNO COIN — Survol pour pause">
+<div class="coin">
+<div class="coin-face" style="background-image:url('/bruno-coin-face-A.jpg')"></div>
+<div class="coin-face back" style="background-image:url('/bruno-coin-face-B.jpg')"></div>
+</div>
+</div>
+<div class="brand-name">⚓ BRUNO COIN</div>
+<div class="prelude">il y a bien longtemps, dans une vie lointaine&hellip;</div>
+<h1>L'<em>exemple</em><br>vivant.</h1>
+<p class="hero-tag">Skipper. Finance. Méthode <em>90/10</em>.</p>
+<div class="brand-tagline" data-fr="Ma méthode · Votre argent · Votre tempo" data-en="My method · Your money · Your tempo">Ma méthode &middot; Votre argent &middot; Votre tempo</div>
+<div class="cta-row">
+<a href="#lancement" class="btn-big primary">✨ Lancement 1ᵉʳ juin</a>
+<a href="/bio" class="btn-big secondary">📖 Ma bio</a>
+</div>
+<div class="scroll-hint">↓ Découvrir</div>
+</header>
+
+<section id="produits">
+<h2>Trois <em>mondes</em>.<br>Un seul pilote.</h2>
+<p class="punch">Choisis ton entrée. Le compte est unique.</p>
+<div class="three-cards">
+<a href="https://navlys.com/?ref=BP001" class="zen-card">
+<div class="emoji">🌊</div>
+<div class="name">NAVLYS</div>
+<div class="one-line">Ta finance. Ton rythme.</div>
+</a>
+<a href="https://navbiolife.com/?ref=BP001" class="zen-card">
+<div class="emoji">🧬</div>
+<div class="name">NAVBIO</div>
+<div class="one-line">Ta vie. Gardée. Transmise.</div>
+</a>
+<a href="https://navlys.io" class="zen-card">
+<div class="emoji">🌐</div>
+<div class="name">navlys.io</div>
+<div class="one-line">Ton projet en un clic.</div>
+</a>
+</div>
+</section>
+
+<section id="methode">
+<h2>Ma <em>méthode</em>.<br>Votre <em>tempo</em>.</h2>
+<p class="punch">Pas de promesse. Une discipline.</p>
+<div class="split">
+<div class="split-block">
+<div class="number">90</div>
+<div class="label">Forteresse</div>
+<h3>Tu <em>dors</em> bien.</h3>
+<p class="one">ETF mondial. DCA. Patience.</p>
+</div>
+<div class="split-block cap">
+<div class="number">10</div>
+<div class="label">Cap plaisir</div>
+<h3>Tu <em>joues</em>, sans casser.</h3>
+<p class="one">Kelly fractionné. Stop discipliné.</p>
+</div>
+</div>
+</section>
+
+<section id="lancement">
+<div class="live-card">
+<span class="live-badge">Lancement BETA</span>
+<h3>navlys.com<br><em>1ᵉʳ juin 2026</em></h3>
+<div class="countdown" id="cd">
+<div class="cd"><div class="n" id="cd-d">—</div><div class="u">Jours</div></div>
+<div class="cd"><div class="n" id="cd-h">—</div><div class="u">Heures</div></div>
+<div class="cd"><div class="n" id="cd-m">—</div><div class="u">Min</div></div>
+<div class="cd"><div class="n" id="cd-s">—</div><div class="u">Sec</div></div>
+</div>
+<a href="https://wa.me/33756833469?text=Je%20veux%20rejoindre%20la%20BETA%20NAVLYS" class="btn-big primary" style="margin-top:10px">📞 Réserver ma place</a>
+</div>
+</section>
+
+<section id="partenaires">
+<h2>Mes <em>partenaires</em>.</h2>
+<p class="punch">J'utilise. Je teste. Je recommande.</p>
+<p style="color:var(--perle-doux);font-style:italic;font-size:20px;max-width:540px;margin:0 auto 30px">19 brokers et services. Liens transparents.</p>
+<a href="/partenaires" class="btn-big secondary">Voir les 19 partenaires →</a>
+</section>
+
+<section id="faq">
+<h2>Questions <em>honnêtes</em>.</h2>
+<p class="punch">Réponses sans bullshit.</p>
+<div class="faq-mini">
+<div class="faq-q"><div class="faq-q-title">Je débute. Combien ?</div><div class="faq-a"><strong>100 €.</strong> Vraiment. Le plus important : <em>la régularité du dépôt mensuel</em>.</div></div>
+<div class="faq-q"><div class="faq-q-title">Tu promets combien ?</div><div class="faq-a"><strong>Rien.</strong> Personne ne sait. Je donne une <em>méthode</em>, pas une promesse.</div></div>
+<div class="faq-q"><div class="faq-q-title">Tu touches des commissions ?</div><div class="faq-a"><strong>Oui.</strong> Sur les liens partenaires. <em>Même prix pour toi.</em></div></div>
+<div class="faq-q"><div class="faq-q-title">Quel broker ?</div><div class="faq-a">Dépend de ton pays. <strong>Alpaca</strong> pour US. <strong>Trade Republic</strong> pour EU. <strong>Bourse Direct</strong> pour PEA FR.</div></div>
+<div class="faq-q"><div class="faq-q-title">Si ça crashe ?</div><div class="faq-a"><strong>Tu fais rien.</strong> En 90% ETF mondial DCA, le crash est ton ami. Tu achètes moins cher.</div></div>
+</div>
+</section>
+
+<section id="contact">
+<div class="contact">
+<h3>Échangeons <em>vraiment</em>.</h3>
+<p class="small">WhatsApp direct. Pas de chatbot.</p>
+<a href="https://wa.me/33756833469" class="btn-big primary">📞 WhatsApp Bruno</a>
+</div>
+</section>
+
+<footer>
+<div class="foot-brand"><span>Bruno Mark</span> Partouche</div>
+<div class="foot-meta">Skipper · Finance · Méthode 90/10</div>
+<div class="foot-disc">Partenaire affilié. Liens marqués génèrent commission sans surcoût pour toi. <em>Aucun conseil personnalisé. Chacun reste responsable de ses décisions.</em></div>
+</footer>
+
+<button class="sound-toggle" id="soundBtn" title="Pouls lent apaisant" aria-label="Toggle sound">🔇</button>
+<button class="a11y-toggle" id="a11yBtn" title="Accessibilité" aria-label="Open accessibility">♿</button>
+<div class="a11y-panel" id="a11yPanel">
+<button onclick="document.body.classList.toggle('xl-text')">📝 Texte XL</button>
+<button onclick="document.body.classList.toggle('high-contrast')">🎨 Contraste +</button>
+<button onclick="document.body.style.zoom=(parseFloat(document.body.style.zoom||1)+0.1)">🔍 Zoom +</button>
+<button onclick="document.body.style.zoom=(parseFloat(document.body.style.zoom||1)-0.1)">🔍 Zoom -</button>
+<button onclick="document.body.style.zoom=1">↺ Reset</button>
+</div>
+
+<script src="/hero-bg-slideshow.js"></script>
+<script>
+window.addEventListener('load',function(){
+  if(window.NV_HERO_BG) NV_HERO_BG(['/bg-1.jpg','/bp-bg-4.jpg'
+<!-- ===========================================================
+     NOTE D'ARCHIVE (historique NAVLYS) :
+     Le HTML ci-dessus est le verbatim renvoyé par l'outil de
+     récupération (mcp__Vercel__web_fetch_vercel_url). La réponse
+     a été TRONQUÉE par l'outil exactement à cet endroit, au milieu
+     du dernier <script> inline (appel NV_HERO_BG). La fin de ce
+     script et la fermeture </script></body></html> n'ont pas pu
+     être capturées (2 récupérations successives coupent au même
+     point). Aucune perte de contenu éditorial/textuel : seuls les
+     derniers paramètres du diaporama d'arrière-plan manquent.
+     =========================================================== -->
