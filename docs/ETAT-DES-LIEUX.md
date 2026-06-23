@@ -2,6 +2,20 @@
 
 > Mis à jour à la fin de chaque session pour que la suivante reprenne sans tout relire.
 
+## Session 2026-06-22 — sécurité : agents SANS accès (décision Bruno)
+
+- 🔐 **Décision Bruno** : **Hermès déconnecté du SSH Hetzner**. Les agents IA (Hermès, Claude)
+  aident en **CONSEIL UNIQUEMENT, zéro accès** (serveur, comptes, clés, paiements).
+  **Bruno = seul exécuteur**, quasi tout déjà en **2FA app mobile**.
+- 🧭 Implication « agent directeur » : orchestration **par le conseil** (les agents proposent,
+  Bruno exécute). Aucun agent ne détient de credentials.
+- ✅ **Vérif dépôt** : scan secrets effectué → **aucun mot de passe/clé/JWT/IP** committé (règle
+  d'or tenue).
+- 📄 **Capturé** dans **`docs/SECURITE-AGENTS-ET-SECRETS.md`** : modèle d'accès + **inventaire
+  des clés à roder AVANT lancement** (root SSH→clés, mdp cockpit, anciens mdp, clé Supabase anon
+  à vérifier RLS, tokens API à révoquer, secrets en dur à sortir du code).
+- ⏳ **À faire avant lancement** : rotation/suppression des secrets à risque + SSH en clés.
+
 ## Session 2026-06-22 — diagnostic serveur Hetzner (NAVLYS CORE)
 
 - ✅ **Diagnostic serveur réalisé** (Bruno tape dans la console web Hetzner, Claude guide ;
