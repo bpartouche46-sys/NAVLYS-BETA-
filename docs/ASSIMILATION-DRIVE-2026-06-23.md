@@ -42,7 +42,10 @@ Repérés dans d'anciens docs (`marketing_content`, sève v1) — **non conforme
 ## 4. ✅ Décisions
 1. **Couleurs — TRANCHÉ (Bruno, 23/06)** : **`#7DD3FC` = charte officielle** (fond `#000000` + bronze,
    zéro pourpre). ▶️ Action de suivi : **aligner les sites live** encore en `#5fe0ff`.
-2. **« 1 + 1 » façon Van Damme** : introuvable (ni sites, ni Drive) → **à créer** (3 propositions soumises à Bruno).
+2. **« 1 + 1 » façon Van Damme — CRÉÉ & CHOISI (Bruno, 23/06, option 3)** :
+   - 🇫🇷 **« L'IA, c'est le vent. Toi, t'es la barre. Le vent plus la barre… ça fait un cap. Sois aware. »**
+   - 🇬🇧 **« AI is the wind. You're the helm. Wind plus helm… that's a course. Stay aware. »**
+   - Conforme (aucune promesse de gain). Prolonge la signature « L'IA est le vent, c'est toi qui tiens la barre ».
 
 ## 5. 🟢 Contenu PUBLIC à rapatrier (sur demande)
 Présent dans le Drive, prêt à intégrer (je peux le lire verbatim quand tu veux) :
