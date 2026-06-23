@@ -2,6 +2,50 @@
 
 > Mis à jour à la fin de chaque session pour que la suivante reprenne sans tout relire.
 
+## Session 2026-06-22 — diagnostic serveur Hetzner (NAVLYS CORE)
+
+- ✅ **Diagnostic serveur réalisé** (Bruno tape dans la console web Hetzner, Claude guide ;
+  pas d'accès réseau direct). Détail : **`docs/DIAGNOSTIC-SERVEUR-2026-06-22.md`**.
+- 🟢 Serveur **sain/stable/protégé** : charge nulle, 7 Go RAM libres, disque à 2 %,
+  fail2ban actif (**13 IP bannies / 255**), nginx + Docker + fail2ban actifs.
+- 🟠 Mais **quasi vide en exécution** : **0 conteneur Docker**, **pas de HTTPS (443)**.
+- 🟢🔑 `/root/navlys/` **contient du code** (~9 dossiers, maj 22/06) → à relier au travail
+  **Hermès / NOVA-HUB** (ETAT session f) → **à sauvegarder en priorité**.
+- 🔐 Mot de passe root **réinitialisé** (l'ancien avait été collé en clair) ; reste à passer
+  SSH en **clés** + désactiver login par mot de passe (+ mdp cockpit).
+- ⏳ **Reste (ce soir, mobile)** : `crontab -l`. Piège : la console Hetzner **supprime le `>`**
+  au collage → taper les redirections à la main.
+
+## Session 2026-06-22 (d) — compliance pages live + audit navlys.com
+
+- 🔎 **Audit complet navlys.com** (home, /finance, /next-gen, /navlex, /radio) via fetch
+  Vercel authentifié. **0 terme interdit** (CIF/ORIAS/Ashkelon/Israël/Jérusalem/[entité — hors dépôt]),
+  0 « NOVA » résiduel, disclaimers présents. Écarts relevés : accent réel `#5fe0ff` (≠
+  charte `#7DD3FC`), pourpre `#7a1f2b` présent, pas d'OG/schema.org, **/finance sans accents**.
+- ✅ **`/finance` corrigé** → `sites/navlys-app/finance.html` (début de rapatriement Git du
+  code live). Passe : tous les accents restaurés (corps **+ meta description**), apostrophes
+  typographiques dans le JS, `0 €`. Disclaimer footer vérifié présent. 0 terme interdit.
+  Aucun NOVA/CIF/[entité — hors dépôt] à retirer (déjà absents). **À redéployer côté Vercel par Bruno.**
+- 🔐 **Alerte sécurité** : un mot de passe root + IP serveur ont été collés en clair dans le
+  chat → **à changer immédiatement** (compromis), passer SSH en clés uniquement. Jamais écrit
+  dans le dépôt.
+- 🧭 **Décisions Bruno (session)** : (1) corriger les **pages live** ; (2) retrait Israël/
+  Ashkelon/[entité — hors dépôt] **du contenu public uniquement** (backend paiements réel non touché) ;
+  (3) **finir Sécurité+Compliance d'abord** → marketing (newsletter, profils) et config
+  paiements **en attente**.
+
+## Session 2026-06-22 (c) — proto : vraie date du compte à rebours
+
+- ✅ **Compte à rebours** : date confirmée **depuis la home live navlys.com**
+  (« l'ouverture en avant-première **le 1ᵉʳ juillet** ») → `LAUNCH_DATE` passé de
+  `2026-07-06` (placeholder) à **`2026-07-01T00:00:00+02:00`**. Plus de date inventée.
+- 🔎 **Vidéo de présentation** : l'URL du proto `navlys.com/media/presentation.mp4`
+  est **confirmée réelle** (présente sur la home live). Rien à changer.
+- ⏳ **Reste** : pas de vraies vidéos pour la bande de mini-vidéos (décoratives sur le
+  proto, inexistantes sur le live) ; **pas de pages CGU/Confidentialité** sur le live
+  (le pied de page renvoie vers /finance et /next-gen, disclaimer en clair) → ne PAS
+  inventer de pages légales (cf. ERR-003, /cgu & /privacy en 404).
+
 ## Session NUIT — Design v2 décliné sur les 4 sites (autonome)
 - ✅ Système de design commun `assets/navlys-v2.css` + `.js` (cinéma incurvé + rideaux, charte ice blue).
 - ✅ 4 maquettes : `sites/navlys.com`, `brunopartouche.com`, `navbiolife.com`, `navlys.io` + hub `index.html`.
