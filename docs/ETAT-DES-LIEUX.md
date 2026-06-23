@@ -304,10 +304,12 @@ texte centré (charte = aligné à gauche). Sécurité globalement saine.
 
 ### ▶️ PHASE 0 EN COURS (2026-06-19) — Sécuriser
 - ✅ Découverte : déploiements `source: cli` (pas de Git). navlys-app = app Node.js, protégée (403).
-- 🔧 Action utilisateur en cours : snapshot Hetzner + retrouver le code des sites sur l'ANCIEN PC.
+- ✅ **Snapshot Hetzner FAIT** (filet de sécurité serveur en place). 🎉
+- ✅ Utilisateur confirmé **sur l'ANCIEN PC** (celui qui contient le code source).
+- 🔧 Étape en cours : retrouver le dossier `navlys-app` sur l'ancien PC (recherche Explorateur).
 - 📄 Guide fourni : `docs/SAUVEGARDE-CODE-VERCEL.md` (rapatrier le code dans GitHub via GitHub Desktop).
 - ⚠️ Le code source n'existe QUE sur l'ancien PC → priorité absolue à le sauvegarder.
-- Prochain point d'attente : confirmation que navlys-app est publié dans GitHub.
+- Prochain point d'attente : trouver le dossier du site, puis le publier dans GitHub.
 
 ### 🧭 Plan d'ensemble établi (2026-06-19) → voir `docs/PLAN-DENSEMBLE.md`
 - Architecture cible : core Hetzner (API + données) ← appelé en API par les sites Vercel ;
