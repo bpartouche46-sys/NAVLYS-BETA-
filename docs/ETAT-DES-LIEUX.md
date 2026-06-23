@@ -2,6 +2,18 @@
 
 > Mis à jour à la fin de chaque session pour que la suivante reprenne sans tout relire.
 
+## Session 2026-06-23 (nuit) — finalisation autonome (G1)
+
+- ✅ **Modèles légaux rapatriés** (`contenu/legal/`) : **mentions** (A1) · **CGU** (A5) ·
+  **Confidentialité RGPD** (A6 v1.1) — **entité/SIREN/adresse masqués**, à valider juridiquement,
+  rebouchent les 404 `/cgu` `/privacy` au déploiement.
+- ✅ **Plan d'enrichissement du site central** (`docs/PLAN-ENRICHISSEMENT-SITE-CENTRAL.md`) :
+  13 blocs priorisés + corrections conformité + méthode.
+- ✅ **Résumé de session** (`docs/RESUME-SESSION-2026-06-23.md`, format Hermès).
+- ⏭️ **Pour Bruno (demain)** : sécurité (clés API, WHOIS, cockpit/SSL) ; aligner sites live #7DD3FC ;
+  figer 1 grille tarifaire + 1 date ; faire valider le légal ; lancer l'enrichissement (prio 1→6).
+- 🔒 Tout le travail de nuit = **GitHub seul, zéro déploiement, zéro donnée privée** (vérifié).
+
 ## Session 2026-06-23 — 💎 mine d'or Drive assimilée (analyse étendue)
 
 - ✅ **Accès Google Drive confirmé** (bpartouche46@gmail.com) → ~110 fichiers NAVLYS lus.
