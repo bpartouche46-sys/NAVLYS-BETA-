@@ -2,6 +2,24 @@
 
 > Mis à jour à la fin de chaque session pour que la suivante reprenne sans tout relire.
 
+## Session 2026-06-23 — ✅ VÉRIF : le code des sites est DÉJÀ dans GitHub (NOVA-HUB)
+
+- 🎯 **Question tranchée** (avant de copier le code depuis l'ancien PC) : **le code est déjà
+  sauvegardé sur GitHub**, inutile de tout recopier à la main.
+- 📦 **Dépôt `bpartouche46-sys/NOVA-HUB`** (public, **actif — maj 2026-06-23**) contient le
+  code source HTML organisé : `sites/navlys`, `sites/navlys-core` (= navlys.com),
+  `sites/brunopartouche`, `sites/_shared`, avec les `vercel.json`. PRs fusionnées le jour même.
+- 📦 **Dépôt privé `bpartouche46-sys-navlys-com`** existe aussi (navlys.com, maj 2026-05-20).
+- ✅ **Conséquence** : la Phase 0 « sauvegarde du code » est **déjà couverte** pour
+  navlys / navlys-core / brunopartouche. Le guide `docs/SAUVEGARDE-CODE-VERCEL.md`
+  (copie depuis l'ancien PC) **n'est PLUS la priorité** pour ces sites.
+- ❓ **À vérifier encore (couverture GitHub incomplète)** : **navbiolife.com**, **navlys.io**,
+  **navlys-teaser**, **brunopartouche-teaser** ne sont pas clairement dans NOVA-HUB →
+  confirmer où vit leur code. + Éléments **server-local non sauvegardés** : cockpit
+  (`/var/www/cockpit/`), 18 skills, médias sous `/root/navlys/`.
+- 🔗 Lien Vercel↔GitHub : les sites tournent encore en `source: cli` → **relier les projets
+  Vercel à NOVA-HUB** (Phase 3) pour que les déploiements partent de Git, plus du CLI.
+
 ## Session 2026-06-23 — passation Hermès archivée (avant retrait)
 
 - 📥 **Passation complète reçue d'Hermès** (via Bruno) → consolidée dans
