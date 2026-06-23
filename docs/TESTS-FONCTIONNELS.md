@@ -34,6 +34,32 @@ Avant de valider quoi que ce soit (cf. `ERR-003`, `docs/STRATEGIE-NAVLYS.md`) :
 
 ---
 
+## 🟦 Résultats partiels — 2026-06-23 (Claude, depuis le dépôt)
+
+> ⚠️ **Hermès est retiré** (décision Bruno) → l'« appui serveur (Hetzner) » de ce plan
+> est désormais assuré par **Bruno** (exécution), Claude en conseil. Mettre à jour mentalement
+> la colonne « QUI teste ».
+>
+> **Décision conformité retenue : Piste B (refonte Design v2)** → les sites `sites/` (v2)
+> remplacent l'existant. Les patchs `corrections-pretes/` (Piste A) deviennent une **référence
+> obsolète** (gardés pour archive).
+
+**Audit des sites v2 (`sites/`) fait par Claude (sert FAQ F5/F6 + pré-lancement) :**
+- ✅ **0 terme interdit**, **0 promesse de rendement**, **disclaimer présent** sur les 10 pages.
+- ✅ **Date 1ᵉʳ juillet 2026** cohérente partout.
+- ✅ **Aucun lien interne 404** : `/cgu` `/privacy` existent (navlys.com, navbiolife) ; navlys.io
+  & brunopartouche pointent vers `navlys.com/cgu|privacy` (centralisé, valide). Le bug `/partenaires`
+  (P-05) **n'existe pas** en v2.
+- 🟠 **`sites/navlys-app/finance.html`** utilise encore l'**ancien Ice `#5fe0ff` + pourpre/vin**
+  (pas la charte v2 `#7DD3FC`) → à réaligner si /finance fait partie de la refonte.
+- 🟠 **Mentions d'éditeur** des pages légales v2 : à vérifier/compléter (legal), hors Git.
+
+**FAQ (fonctionnalité 3) — constat dépôt :** ❌ **aucune FAQ dans le dépôt** (ni v2, ni proto).
+→ F1–F6 **non testables depuis le repo**. La FAQ vit sur le live/app → **Bruno teste**, et
+**me dire où vit la FAQ** (page statique ? base ? chatbot ?) pour que je relise son contenu.
+
+---
+
 ## 1. 🎙️ VOIX / CLONE VOCAL
 
 **But utilisateur attendu** : parler (micro) et entendre une **réponse audio avec la voix
