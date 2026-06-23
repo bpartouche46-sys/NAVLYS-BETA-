@@ -2,6 +2,22 @@
 
 > Mis à jour à la fin de chaque session pour que la suivante reprenne sans tout relire.
 
+## Session 2026-06-22 — décision : Claude agent unique, Hermès retiré
+
+- 🧭 **Décision Bruno** : « **je ne veux plus de Hermès, c'est Claude qui a la main et
+  personne d'autre** ». → Hermès **retiré** ; Claude = **agent IA unique** du projet.
+- ⚖️ **Cadre honnête posé** : Claude = cerveau (plan/code/mémoire/conformité/guidage) mais
+  **GitHub seul, zéro accès système** → **Bruno exécute** (2FA). Garde-fou maintenu : **gardien**
+  (conformité) + Bruno (argent/public) contrôlent Claude. Pas d'agent incontrôlé.
+- ⚠️ **Avant de débrancher Hermès à 100 %** : récupérer ce qu'il a construit/fait tourner
+  (mémoire serveur → consolider dans ce dépôt ; cron/sauvegardes ; cockpit) pour ne rien casser.
+- 📄 Maj `docs/SECURITE-AGENTS-ET-SECRETS.md` (§1 et §2). À ajuster ensuite : `GOUVERNANCE.md`
+  principe 2 (« surveillance mutuelle Claude+Hermès » → devient **Claude ↔ gardien + Bruno**).
+- 🗺️ **Carte sources & mémoire** (demandée par Bruno) : code = GitHub **NOVA-HUB** (actif 22/06)
+  + dépôt privé navlys.com + `/root/navlys/` (serveur) + Vercel (live). Mémoire = **ce dépôt
+  `NAVLYS-BETA-`**. Ancien PC = backup froid (médias/.env/clé SSH probables). Nouvel PC = poste
+  de Bruno (exécution). Claude n'est sur **aucun** des deux (cloud isolé, GitHub only).
+
 ## Session 2026-06-22 — sécurité : agents SANS accès (décision Bruno)
 
 - 🔐 **Décision Bruno** : **Hermès déconnecté du SSH Hetzner**. Les agents IA (Hermès, Claude)

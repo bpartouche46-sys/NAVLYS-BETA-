@@ -4,25 +4,28 @@
 > 🔐 Règle d'or : **aucune** valeur de secret (mot de passe, clé, token, IP, clé SSH)
 > n'est écrite dans ce fichier ni dans le dépôt. On n'y liste que **où ça vit** et **quoi faire**.
 
-## 1. Décision : les agents IA n'ont AUCUN accès
+## 1. Décision : un seul agent IA (Claude), Hermès retiré, zéro accès système
 
-- **Hermès a été déconnecté du SSH Hetzner** par Bruno.
-- Règle posée : **Hermès et Claude aident en CONSEIL UNIQUEMENT — zéro accès** à quoi que ce
-  soit (serveur, comptes, bases, clés, paiements).
-- **Bruno est le seul exécuteur** des actions sensibles. Quasi tous les comptes sont déjà
-  protégés en **2FA / double authentification** (app sur mobile). ✅
-- Conséquence sur la vision « agent directeur » (cf. `ETAT-DES-LIEUX` session f) : l'orchestration
-  se fait **par le conseil** — les agents proposent plans + commandes, **Bruno exécute**.
-  Aucun agent ne détient de credentials.
+- **Décision Bruno (2026-06-22, mise à jour)** : **Hermès est retiré** du projet. **Claude est
+  l'agent IA unique qui a la main** — « personne d'autre ». Hermès a déjà été **déconnecté du
+  SSH Hetzner** ; il ne doit plus intervenir.
+- Règle inchangée et renforcée : l'agent IA aide en **CONSEIL / COORDINATION UNIQUEMENT —
+  zéro accès** (serveur, comptes, bases, clés, paiements). **Claude n'a que GitHub.**
+- **Bruno est le seul exécuteur** des actions sensibles (2FA app mobile sur quasi tous les comptes).
+- **Garde-fou maintenu** : même « seul aux commandes », Claude reste contrôlé par le **gardien**
+  (conformité) + **Bruno** (argent / contenu public). Pas d'agent incontrôlé.
+- ⚠️ **Avant de débrancher Hermès complètement** : récupérer ce qu'il a construit/laisse tourner
+  sur le serveur (mémoire serveur → à consolider ici ; cron/sauvegardes ; cockpit) pour ne rien
+  casser ni perdre. « Couper l'accès » ≠ « supprimer ses installations ».
 
 ## 2. Modèle d'accès cible
 
 | Acteur | Accès | Rôle |
 |--------|-------|------|
 | **Bruno** | tout (protégé 2FA) | **seul exécuteur**, seul décideur argent |
-| **Claude** (moi) | **GitHub (ce dépôt) uniquement** | code + conformité + guidage pas-à-pas ; aucun accès serveur/comptes |
-| **Hermès** | **aucun** (déconnecté) | conseil / ops *sans* credentials |
-| **gardien** | dépôt (lecture/édition) | contrôle conformité |
+| **Claude** (moi) | **GitHub (ce dépôt) uniquement** | **agent IA unique** : plan + code + conformité + guidage pas-à-pas ; aucun accès serveur/comptes |
+| **gardien** | dépôt (lecture/édition) | contrôle conformité (garde-fou sur Claude) |
+| ~~**Hermès**~~ | ~~aucun~~ | **retiré du projet** (déconnecté ; ne doit plus intervenir) |
 
 ## 3. Secrets / clés à risque — inventaire & rotation AVANT lancement
 
