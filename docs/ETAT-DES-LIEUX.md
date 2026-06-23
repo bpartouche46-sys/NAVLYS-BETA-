@@ -2,6 +2,21 @@
 
 > Mis à jour à la fin de chaque session pour que la suivante reprenne sans tout relire.
 
+## Session 2026-06-23 — décision Piste B + audit sites v2 + tests
+
+- 🎨 **Décision Bruno : conformité = Piste B (refonte Design v2)**. Les sites `sites/` (v2)
+  remplacent l'existant ; les patchs `corrections-pretes/` (Piste A : C-01→C-05, P-01→P-05,
+  ERR-005) deviennent une **référence archivée** (plus la voie de déploiement).
+- ✅ **Audit Claude des sites v2** (`sites/`) : 0 terme interdit, 0 promesse, disclaimer sur
+  les 10 pages, date 1ᵉʳ juillet cohérente, **aucun lien 404** (cgu/privacy centralisés sur
+  navlys.com ; pas de bug /partenaires en v2).
+- 🟠 **2 points v2 à traiter** : `navlys-app/finance.html` encore en **ancien Ice `#5fe0ff` +
+  pourpre/vin** (≠ charte `#7DD3FC`) ; **mentions d'éditeur** des pages légales v2 à compléter (legal).
+- 🧪 **Tests fonctionnels (choix Bruno)** : FAQ **absente du dépôt** → non testable ici ;
+  Voix / NavLex / Partenaires = **accès live requis (Bruno)**, Hermès retiré → appui serveur = Bruno.
+  Plan + résultats partiels dans `docs/TESTS-FONCTIONNELS.md`.
+- ⏳ **En attente Bruno** : où vit la FAQ + infos d'accès pour tester Voix/NavLex/Partenaires.
+
 ## Session 2026-06-23 — QA complémentaire : lien cassé brunopartouche
 
 - 🔗 **Trouvaille** : `brunopartouche.com/partenaires` renvoie **404**, alors que la home
