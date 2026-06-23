@@ -2,6 +2,23 @@
 
 > Mis à jour à la fin de chaque session pour que la suivante reprenne sans tout relire.
 
+## Session 2026-06-23 — passation Hermès archivée (avant retrait)
+
+- 📥 **Passation complète reçue d'Hermès** (via Bruno) → consolidée dans
+  **`docs/PASSATION-HERMES.md`** (secrets & IP masqués, règle d'or).
+- 🟢 **Bonne nouvelle pour le retrait** : Hermès a **ZÉRO cron / zéro automatisation** → le
+  retirer **ne casse rien d'automatique**. Source de vérité = **GitHub** (repos + cette mémoire).
+- 🔴 **3 risques à traiter (Bruno, guidé par Claude)** :
+  1. **AUCUN backup serveur** → cockpit + fichiers locaux non sauvegardés (les repos, eux, sont sur GitHub).
+  2. **Cockpit en HTTP** sur IP publique + **mot de passe `bruno/…` exposé en clair** → changer mdp + SSL/fermer.
+  3. **Surveillance orpheline** (disque, SSL, maj sécu, fail2ban, factures Hetzner/Vercel) → reprise par Bruno.
+- 🟡 **À rapatrier dans GitHub** (server-local, non sauvegardé) : **cockpit** (`/var/www/cockpit/`),
+  **18 skills**, et **vérifier les médias** sous `/root/navlys/`.
+- 🧠 Mémoire Hermès = dans l'app Hermès (rien sur serveur) → disparaîtra avec lui **sauf** cet
+  archivage (fait ✅). Mémoire Claude = ce dépôt (sûr).
+- ⏳ **Prochaines actions guidées** (ce soir/devant l'écran) : `crontab -l`, puis **backups** +
+  **SSL cockpit** + **changement mdp cockpit**.
+
 ## Session 2026-06-22 — décision : Claude agent unique, Hermès retiré
 
 - 🧭 **Décision Bruno** : « **je ne veux plus de Hermès, c'est Claude qui a la main et
