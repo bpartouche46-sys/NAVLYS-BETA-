@@ -39,11 +39,10 @@ Repérés dans d'anciens docs (`marketing_content`, sève v1) — **non conforme
 « 14 fois plus » · « De 500 $ à 400 000 $ » · tout « ROI X % ».
 → Doctrine à conserver : **chiffres de risque OK (ESMA 74–89 %), promesses de rendement INTERDITES.**
 
-## 4. ✅ Décisions ouvertes (à trancher par Bruno)
-1. **Couleurs** : confirmer **#7DD3FC** (carte maîtresse, déjà adopté dans ce dépôt) comme officiel,
-   et planifier la mise à jour des sites live encore en #5fe0ff.
-2. **« 1 + 1 » façon Van Damme** : cette phrase/clin d'œil est **introuvable** (ni sites live, ni Drive)
-   → soit elle n'est **pas encore écrite**, soit elle est ailleurs. **À créer avec Bruno** s'il y tient.
+## 4. ✅ Décisions
+1. **Couleurs — TRANCHÉ (Bruno, 23/06)** : **`#7DD3FC` = charte officielle** (fond `#000000` + bronze,
+   zéro pourpre). ▶️ Action de suivi : **aligner les sites live** encore en `#5fe0ff`.
+2. **« 1 + 1 » façon Van Damme** : introuvable (ni sites, ni Drive) → **à créer** (3 propositions soumises à Bruno).
 
 ## 5. 🟢 Contenu PUBLIC à rapatrier (sur demande)
 Présent dans le Drive, prêt à intégrer (je peux le lire verbatim quand tu veux) :
