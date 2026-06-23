@@ -2,6 +2,14 @@
 
 > Mis à jour à la fin de chaque session pour que la suivante reprenne sans tout relire.
 
+## Session 2026-06-23 — QA complémentaire : lien cassé brunopartouche
+
+- 🔗 **Trouvaille** : `brunopartouche.com/partenaires` renvoie **404**, alors que la home
+  a un bouton « Voir les 19 partenaires → » qui pointe dessus (lien cassé).
+  → Correctif **P-05** ajouté (recommandé : rediriger vers `navlys.io/#partenariats`,
+  où les 19 partenaires existent déjà ; alternative : créer la page). Décision Bruno.
+- ⏳ Reste : décider l'option P-05, puis intégrer au déploiement (`MEMO-DEPLOIEMENT.md`).
+
 ## Session 2026-06-22 (f) — Phase 0 : suivi + sauvegarde assets + repos
 
 - 📋 **`docs/PHASE-0-SUIVI.md`** (nouveau) : tableau de suivi Phase 0 (snapshot Hetzner,

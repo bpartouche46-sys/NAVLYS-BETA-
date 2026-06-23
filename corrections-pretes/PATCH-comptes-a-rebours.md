@@ -81,6 +81,21 @@ Fichier `launch-offer.js` (chargé par la home navbiolife). Deux problèmes :
 
 ---
 
+## P-05 · brunopartouche.com (home) — lien « partenaires » cassé (404) 🔗
+
+La home a un bouton vers `/partenaires` **qui renvoie 404** (page inexistante) :
+- `<a href="/partenaires" class="btn-big secondary">Voir les 19 partenaires →</a>`
+
+Deux options (décision Bruno) :
+- **Option simple (recommandée)** : rediriger vers la liste déjà existante sur navlys.io :
+  `href="https://navlys.io/#partenariats"` (les 19 partenaires y sont déjà publiés).
+- **Option page dédiée** : créer une vraie page `/partenaires` sur brunopartouche
+  (reprendre le contenu des 19 partenaires de navlys.io). Plus de travail.
+
+> ⚠️ Vérifier aussi qu'aucun autre lien interne de la home ne pointe vers une page 404.
+
+---
+
 ## Après application (rappel checklist)
 - Diff contre la prod (seuls ces points doivent changer).
 - Vérifier le compteur en prod (qu'il décompte bien vers le 1ᵉʳ juillet).
