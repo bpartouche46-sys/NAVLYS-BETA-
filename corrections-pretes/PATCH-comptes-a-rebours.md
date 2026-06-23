@@ -87,10 +87,11 @@ La home a un bouton vers `/partenaires` **qui renvoie 404** (page inexistante) :
 - `<a href="/partenaires" class="btn-big secondary">Voir les 19 partenaires →</a>`
 
 Deux options (décision Bruno) :
-- **Option simple (recommandée)** : rediriger vers la liste déjà existante sur navlys.io :
-  `href="https://navlys.io/#partenariats"` (les 19 partenaires y sont déjà publiés).
-- **Option page dédiée** : créer une vraie page `/partenaires` sur brunopartouche
-  (reprendre le contenu des 19 partenaires de navlys.io). Plus de travail.
+- ✅ **RETENU (Bruno, 2026-06-23)** — rediriger vers la liste déjà existante sur navlys.io.
+  Remplacer dans la home :
+  - **Avant** : `<a href="/partenaires" class="btn-big secondary">Voir les 19 partenaires →</a>`
+  - **Après** : `<a href="https://navlys.io/#partenariats" class="btn-big secondary">Voir les 19 partenaires →</a>`
+- ~~Option page dédiée~~ (créer `/partenaires` sur brunopartouche) — écartée.
 
 > ⚠️ Vérifier aussi qu'aucun autre lien interne de la home ne pointe vers une page 404.
 
