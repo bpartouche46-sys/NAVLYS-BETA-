@@ -1,0 +1,7 @@
+navlys_core/
+run.py
+requirements.txt
+install.sh
+.env
+.env.example
+*.md
