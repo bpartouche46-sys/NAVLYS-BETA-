@@ -2,6 +2,21 @@
 
 > Mis à jour à la fin de chaque session pour que la suivante reprenne sans tout relire.
 
+## Session 2026-06-23 — ✅ 1er backup serveur + sources récupérées (en cours)
+
+- ✅ **SNAPSHOT HETZNER CRÉÉ** par Bruno : **`navlys-core-1782194314`** (2026-06-23) →
+  **premier point de restauration complet** du serveur. Risque « zéro backup » levé.
+- 📥 **Sources récupérées de l'ancien PC** (envoyées par Bruno) : code source **navlys.io**
+  (`index.html`) + **vidéo de marque navlys.io** (ElevenLabs) + outils Windows (DiskInfo, etc.).
+- 🔎 **Audit `index.html` navlys.io** : 🔴 palette **violet/fuchsia/rose** (`#4b1a80/#c026d3/#e81889`)
+  = contraire à la charte « zéro pourpre » ; 🟠 Ice Blue ancien `#5fe0ff` (≠ `#7DD3FC`) ;
+  🔴 compte à rebours périmé (cible `2026-06-15`) ; 🟢 OG + schema.org présents, disclaimer OK.
+  → à clarifier : est-ce la version **live** de navlys.io ou un brouillon local ? (audit antérieur
+  disait navlys.io conforme `#7DD3FC`).
+- ⏳ **Reste** : `crontab -l` ; **mot de passe cockpit (exposé) + SSL** ; stocker la vidéo
+  proprement ; décider correction navlys.io (palette → charte, date → 1ᵉʳ juillet).
+- ℹ️ Note : Claude **ne peut pas** écouter les notes vocales (pas de transcription) ni lancer de `.exe`.
+
 ## Session 2026-06-23 — passation Hermès archivée (avant retrait)
 
 - 📥 **Passation complète reçue d'Hermès** (via Bruno) → consolidée dans
