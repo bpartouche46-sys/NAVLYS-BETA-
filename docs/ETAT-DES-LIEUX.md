@@ -24,6 +24,165 @@
   Garde-fou : grep des termes interdits sur **HTML + JS + CSS** (pas que le HTML).
 - 🐙 **Repos GitHub privés** : (voir statut dans le tableau / la conversation).
 - ⏳ Le cœur de Phase 0 (snapshot, backup.sh, export source) reste à faire sur l'ancien PC.
+## Session 2026-06-23 — passation Hermès archivée (avant retrait)
+
+- 📥 **Passation complète reçue d'Hermès** (via Bruno) → consolidée dans
+  **`docs/PASSATION-HERMES.md`** (secrets & IP masqués, règle d'or).
+- 🟢 **Bonne nouvelle pour le retrait** : Hermès a **ZÉRO cron / zéro automatisation** → le
+  retirer **ne casse rien d'automatique**. Source de vérité = **GitHub** (repos + cette mémoire).
+- 🔴 **3 risques à traiter (Bruno, guidé par Claude)** :
+  1. **AUCUN backup serveur** → cockpit + fichiers locaux non sauvegardés (les repos, eux, sont sur GitHub).
+  2. **Cockpit en HTTP** sur IP publique + **mot de passe `bruno/…` exposé en clair** → changer mdp + SSL/fermer.
+  3. **Surveillance orpheline** (disque, SSL, maj sécu, fail2ban, factures Hetzner/Vercel) → reprise par Bruno.
+- 🟡 **À rapatrier dans GitHub** (server-local, non sauvegardé) : **cockpit** (`/var/www/cockpit/`),
+  **18 skills**, et **vérifier les médias** sous `/root/navlys/`.
+- 🧠 Mémoire Hermès = dans l'app Hermès (rien sur serveur) → disparaîtra avec lui **sauf** cet
+  archivage (fait ✅). Mémoire Claude = ce dépôt (sûr).
+- ⏳ **Prochaines actions guidées** (ce soir/devant l'écran) : `crontab -l`, puis **backups** +
+  **SSL cockpit** + **changement mdp cockpit**.
+
+## Session 2026-06-22 — décision : Claude agent unique, Hermès retiré
+
+- 🧭 **Décision Bruno** : « **je ne veux plus de Hermès, c'est Claude qui a la main et
+  personne d'autre** ». → Hermès **retiré** ; Claude = **agent IA unique** du projet.
+- ⚖️ **Cadre honnête posé** : Claude = cerveau (plan/code/mémoire/conformité/guidage) mais
+  **GitHub seul, zéro accès système** → **Bruno exécute** (2FA). Garde-fou maintenu : **gardien**
+  (conformité) + Bruno (argent/public) contrôlent Claude. Pas d'agent incontrôlé.
+- ⚠️ **Avant de débrancher Hermès à 100 %** : récupérer ce qu'il a construit/fait tourner
+  (mémoire serveur → consolider dans ce dépôt ; cron/sauvegardes ; cockpit) pour ne rien casser.
+- 📄 Maj `docs/SECURITE-AGENTS-ET-SECRETS.md` (§1 et §2). À ajuster ensuite : `GOUVERNANCE.md`
+  principe 2 (« surveillance mutuelle Claude+Hermès » → devient **Claude ↔ gardien + Bruno**).
+- 🗺️ **Carte sources & mémoire** (demandée par Bruno) : code = GitHub **NOVA-HUB** (actif 22/06)
+  + dépôt privé navlys.com + `/root/navlys/` (serveur) + Vercel (live). Mémoire = **ce dépôt
+  `NAVLYS-BETA-`**. Ancien PC = backup froid (médias/.env/clé SSH probables). Nouvel PC = poste
+  de Bruno (exécution). Claude n'est sur **aucun** des deux (cloud isolé, GitHub only).
+
+## Session 2026-06-22 — sécurité : agents SANS accès (décision Bruno)
+
+- 🔐 **Décision Bruno** : **Hermès déconnecté du SSH Hetzner**. Les agents IA (Hermès, Claude)
+  aident en **CONSEIL UNIQUEMENT, zéro accès** (serveur, comptes, clés, paiements).
+  **Bruno = seul exécuteur**, quasi tout déjà en **2FA app mobile**.
+- 🧭 Implication « agent directeur » : orchestration **par le conseil** (les agents proposent,
+  Bruno exécute). Aucun agent ne détient de credentials.
+- ✅ **Vérif dépôt** : scan secrets effectué → **aucun mot de passe/clé/JWT/IP** committé (règle
+  d'or tenue).
+- 📄 **Capturé** dans **`docs/SECURITE-AGENTS-ET-SECRETS.md`** : modèle d'accès + **inventaire
+  des clés à roder AVANT lancement** (root SSH→clés, mdp cockpit, anciens mdp, clé Supabase anon
+  à vérifier RLS, tokens API à révoquer, secrets en dur à sortir du code).
+- ⏳ **À faire avant lancement** : rotation/suppression des secrets à risque + SSH en clés.
+
+## Session 2026-06-22 — diagnostic serveur Hetzner (NAVLYS CORE)
+
+- ✅ **Diagnostic serveur réalisé** (Bruno tape dans la console web Hetzner, Claude guide ;
+  pas d'accès réseau direct). Détail : **`docs/DIAGNOSTIC-SERVEUR-2026-06-22.md`**.
+- 🟢 Serveur **sain/stable/protégé** : charge nulle, 7 Go RAM libres, disque à 2 %,
+  fail2ban actif (**13 IP bannies / 255**), nginx + Docker + fail2ban actifs.
+- 🟠 Mais **quasi vide en exécution** : **0 conteneur Docker**, **pas de HTTPS (443)**.
+- 🟢🔑 `/root/navlys/` **contient du code** (~9 dossiers, maj 22/06) → à relier au travail
+  **Hermès / NOVA-HUB** (ETAT session f) → **à sauvegarder en priorité**.
+- 🔐 Mot de passe root **réinitialisé** (l'ancien avait été collé en clair) ; reste à passer
+  SSH en **clés** + désactiver login par mot de passe (+ mdp cockpit).
+- ⏳ **Reste (ce soir, mobile)** : `crontab -l`. Piège : la console Hetzner **supprime le `>`**
+  au collage → taper les redirections à la main.
+
+## Session 2026-06-22 (d) — compliance pages live + audit navlys.com
+
+- 🔎 **Audit complet navlys.com** (home, /finance, /next-gen, /navlex, /radio) via fetch
+  Vercel authentifié. **0 terme interdit** (CIF/ORIAS/Ashkelon/Israël/Jérusalem/DFENSER),
+  0 « NOVA » résiduel, disclaimers présents. Écarts relevés : accent réel `#5fe0ff` (≠
+  charte `#7DD3FC`), pourpre `#7a1f2b` présent, pas d'OG/schema.org, **/finance sans accents**.
+- ✅ **`/finance` corrigé** → `sites/navlys-app/finance.html` (début de rapatriement Git du
+  code live). Passe : tous les accents restaurés (corps **+ meta description**), apostrophes
+  typographiques dans le JS, `0 €`. Disclaimer footer vérifié présent. 0 terme interdit.
+  Aucun NOVA/CIF/DFENSER à retirer (déjà absents). **À redéployer côté Vercel par Bruno.**
+- 🔐 **Alerte sécurité** : un mot de passe root + IP serveur ont été collés en clair dans le
+  chat → **à changer immédiatement** (compromis), passer SSH en clés uniquement. Jamais écrit
+  dans le dépôt.
+- 🧭 **Décisions Bruno (session)** : (1) corriger les **pages live** ; (2) retrait Israël/
+  Ashkelon/DFENSER **du contenu public uniquement** (backend paiements réel non touché) ;
+  (3) **finir Sécurité+Compliance d'abord** → marketing (newsletter, profils) et config
+  paiements **en attente**.
+
+## Session 2026-06-22 (c) — proto : vraie date du compte à rebours
+
+- ✅ **Compte à rebours** : date confirmée **depuis la home live navlys.com**
+  (« l'ouverture en avant-première **le 1ᵉʳ juillet** ») → `LAUNCH_DATE` passé de
+  `2026-07-06` (placeholder) à **`2026-07-01T00:00:00+02:00`**. Plus de date inventée.
+- 🔎 **Vidéo de présentation** : l'URL du proto `navlys.com/media/presentation.mp4`
+  est **confirmée réelle** (présente sur la home live). Rien à changer.
+- ⏳ **Reste** : pas de vraies vidéos pour la bande de mini-vidéos (décoratives sur le
+  proto, inexistantes sur le live) ; **pas de pages CGU/Confidentialité** sur le live
+  (le pied de page renvoie vers /finance et /next-gen, disclaimer en clair) → ne PAS
+  inventer de pages légales (cf. ERR-003, /cgu & /privacy en 404).
+
+## Session NUIT — Design v2 décliné sur les 4 sites (autonome)
+- ✅ Système de design commun `assets/navlys-v2.css` + `.js` (cinéma incurvé + rideaux, charte ice blue).
+- ✅ 4 maquettes : `sites/navlys.com`, `brunopartouche.com`, `navbiolife.com`, `navlys.io` + hub `index.html`.
+- ✅ Corrections conformité **intégrées** : « Jérusalem » retiré, pages /cgu /privacy navbio créées (fix 404),
+  bouton « Écoutez Bruno » (audio au clic), disclaimer bandeau+footer partout, zéro terme interdit/promesse.
+- ✅ Contrôle conformité automatique : **VERT**. Détail → `docs/RAPPORT-NUIT-DESIGN-V2.md`.
+- ⏳ À décider demain : menu haut/bas, rideaux bleu/rouge, vidéos des présentations, date de lancement.
+- ⚠️ Rien en prod. Pour voir en ligne : importer le repo `NAVLYS-BETA-` sur Vercel (Option 1).
+- Branche : `claude/pre-launch-qa-lcd1pf`.
+
+
+## Session 2026-06-22 (h) — gouvernance + délégation + contrôle conformité Vague 1
+
+- ⚖️ **Gouvernance gravée** (`docs/GOUVERNANCE.md`, reliée à CLAUDE.md règle d'or) :
+  1) **zéro répétition** (tout capitaliser en knowledge/skill/routine, relié au core),
+  2) **Claude + Hermès orchestrateurs en surveillance mutuelle** (gardien arbitre),
+  3) **règle financière** : Bruno **seul** valide tout investissement/débit sur tous les
+     comptes (y compris partenaires), **sauf abonnements classiques déjà en cours**.
+- 🎚️ **Délégation décidée par Bruno** : Claude **a la main** (conçoit + modifie + valide)
+  sur **tous les sites** (aucun encore lancé en communication). Garde-fous maintenus :
+  **gardien conformité** avant toute URL publique + **argent = Bruno**. Sites communiqués
+  plus tard → Claude propose, Bruno valide.
+- ✅ **Contrôle conformité (gardien) de `corrections-pretes/`** : **bio.html** et
+  **navbiolife/index.html** = **CONFORMES, prêts à déployer** (C-01→C-04 OK, dates juillet,
+  zéro ligne rouge). **cgu/privacy** = conformes sur les lignes rouges mais **bloquées** par
+  les placeholders légaux ([ÉDITEUR]/[EMAIL]/[HÉBERGEUR]) + relecture juridique.
+- 🛑 **Reste humain** : mentions légales, **feu vert prod**, **accès à la source** (NOVA-HUB).
+  À confirmer : numéro WhatsApp `+33 7 56 83 34 69` (navbio) bien destiné à être public.
+
+## Session 2026-06-22 (g) — plan de test des 4 fonctionnalités
+
+- 🎯 **Objectif de Bruno** : « tout est en cours, il faut maintenant TESTER chaque point. »
+  4 fonctionnalités citées : 🎙️ Voix/clone vocal · ⚖️ NavLex (base juridique MAJ quotidienne)
+  · ❓ FAQ (réponses prêtes pour le site) · 🤝 Partenaires (enregistrer un abonnement).
+- 🔎 **Constat dépôt** : recherche faite (Grep/Glob) — le dépôt ne contient **que de la doc
+  + `proto/navlys-v2.html`**. **Aucun code applicatif** de ces 4 fonctionnalités ici. Elles
+  vivent ailleurs (core Hetzner via Hermès, et/ou apps Vercel) → c'est là qu'il faut tester.
+- ✅ **Livrable créé** : **`docs/TESTS-FONCTIONNELS.md`** = plan de test complet (1 section
+  par fonctionnalité, tableaux Quoi/Comment/Attendu/QUI/Statut + points conformité ERR-003),
+  une liste « ❓ infos manquantes » par point, et une synthèse « qui teste quoi ». Tous les
+  statuts laissés à ⬜ **à tester** (aucun résultat inventé).
+- ⚠️ **Limite honnête** : Claude n'a **aucun accès** Hetzner ni aux apps live → ne peut PAS
+  tester voix/NavLex/FAQ live/paiement lui-même. Testeur principal = **Bruno**, appui serveur
+  = **Hermès**, conformité = **gardien**.
+- 🔴 **En attente Bruno** : URL démo voix, outil de clone vocal, où tourne NavLex + son cron,
+  où vit la FAQ, plateforme d'abonnement/paiement (mode test ?). Voir « infos manquantes »
+  dans `docs/TESTS-FONCTIONNELS.md`. Test de paiement partenaire = action sensible (feu vert).
+
+## Session 2026-06-22 (f) — vision « agent directeur » + mémoire centrale + intervenants
+
+- 🎛️ **Nouvelle vision capturée** : Bruno veut un **agent directeur** (orchestrateur)
+  qui pioche dans le core Hetzner + le web, gère sous-agents/services, et orchestre
+  SAV + back-office via API. → Mis noir sur blanc dans **`docs/ARCHITECTURE-AGENT-DIRECTEUR.md`**
+  (archi cible, garde-fous conformité, feuille de route brique par brique).
+- 🤝 **Intervenants clarifiés (anti-frayeur « qui a changé quoi ? »)** :
+  - **Hermès** = LLM via **OpenRouter** + **accès Hetzner** ; a équipé le serveur
+    (Docker, Nginx, fail2ban, certbot, PM2), récupéré 4 sites, cloné GitHub **NOVA-HUB**,
+    monté un cockpit web. C'est la **graine** de l'agent directeur (1 agent, pas encore orchestrateur).
+  - **Claude (moi)** = code + conformité **via GitHub uniquement**, **aucun accès serveur**.
+  - **Bruno** = chef / valide les actions sensibles.
+- 🔐 **Sécurité** : la « frayeur » sur les changements d'accès = **Bruno lui-même** qui a
+  réinitialisé le mot de passe (confirmé). Aucune intrusion. ⚠️ **À FAIRE** : changer le
+  mot de passe du **cockpit** (`bruno / …`) car exposé en clair dans un chat.
+- 💾 **Sauvegarde en cours** : volume Hetzner **10 Go** (id `106103603`) à monter sur
+  `/mnt/navlys-backup`. Stratégie « web » retenue : OneDrive → Hetzner (rclone) pour
+  l'important, + une partie hors OneDrive à traiter à part. ⚠️ Tout doit tenir dans 10 Go.
+- 🧭 **Cap** : ne **rien rajouter** (ex. Google Antigravity) tant que la base n'est pas
+  stable ; avancer **brique par brique** avec point de contrôle humain à chaque étape sensible.
 
 ## Session 2026-06-22 (e) — mémo de déploiement
 

@@ -13,10 +13,18 @@ Avant toute action, Claude DOIT :
 
 1. **Lire** `docs/JOURNAL-ERREURS.md` (la liste des erreurs déjà commises).
 2. **Lire** `docs/CHECKLIST-SECURITE.md` (les vérifications obligatoires).
-3. **Vérifier** qu'aucune action prévue ne reproduit une erreur déjà listée.
-4. À la **moindre erreur nouvelle**, l'ajouter immédiatement au journal AVANT de continuer.
+3. **Lire** `docs/GOUVERNANCE.md` (les 3 principes fondamentaux non négociables).
+4. **Vérifier** qu'aucune action prévue ne reproduit une erreur déjà listée.
+5. À la **moindre erreur nouvelle**, l'ajouter immédiatement au journal AVANT de continuer.
+6. **Capitaliser** (principe zéro répétition) : avant d'agir, vérifier qu'une routine/skill/doc
+   n'existe pas déjà ; après avoir agi, l'enregistrer si c'est reproductible.
 
 Si une de ces étapes est sautée, le travail est considéré comme **non valide**.
+
+> 💰 **RÈGLE FINANCIÈRE ABSOLUE (rappel permanent)** : **Bruno est le SEUL décisionnaire
+> final** sur **tout investissement** et **toute validation de débit/paiement** sur **tous
+> les comptes** (y compris **partenaires**). Aucun agent ne déclenche un débit sans son feu
+> vert. **Seule exception** : les **abonnements classiques déjà en cours**. Détail : `docs/GOUVERNANCE.md`.
 
 ---
 
@@ -92,6 +100,9 @@ Commande rapide : `/controle` (voir `.claude/commands/controle.md`).
 
 | Fichier | Rôle |
 |---------|------|
+| `docs/GOUVERNANCE.md` | **Principes fondamentaux** : zéro répétition · surveillance mutuelle · règle financière (Bruno seul décide) |
+| `docs/ARCHITECTURE-AGENT-DIRECTEUR.md` | Architecture orchestrateur + sous-agents + feuille de route |
+| `docs/MEMOIRE-CENTRALE.md` | Consolider les conversations sur le core (puis les supprimer) |
 | `docs/STRATEGIE-NAVLYS.md` | Positionnement, méthode 90/10, conformité, produits (F1/F2/F3) |
 | `docs/DESIGN-NAVLYS.md` | Charte (Ice Blue `#7DD3FC`, polices), patterns, conformité visuelle |
 | `docs/PHASE-0-SUIVI.md` | Tableau de suivi Phase 0 (sécuriser : snapshot, sauvegardes, code sous Git) |
