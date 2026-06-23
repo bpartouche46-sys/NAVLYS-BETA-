@@ -2,6 +2,22 @@
 
 > Mis à jour à la fin de chaque session pour que la suivante reprenne sans tout relire.
 
+## Session 2026-06-23 (i) — core central : blueprint technique + 1ère chaîne choisie
+
+- 🧠 **Blueprint technique du core central** écrit (`docs/CORE-CENTRAL-TECHNIQUE.md`) :
+  brique = **Claude Agent SDK** (orchestrateur headless + sous-agents + skills + MCP +
+  mémoire Redis + systemd/cron). **Garde-fous câblés dans le moteur** (permissions +
+  hook `PreToolUse` = gardien conformité + STOP argent/prod → feu vert Bruno).
+  Honnêteté : ❌ pas d'auto-bootstrap total (les agents sont déclarés par nous, pas
+  inventés seuls par la machine) ; ❌ pas de boucle auto-programmée (cron/systemd externe).
+- 🎯 **Décision Bruno** : 1ère chaîne complète à câbler = **Sites / déploiement**
+  (`docs/CHAINE-1-SITES.md`). Flux : Agent Sites propose → 🚦 gardien → preview →
+  🔴 feu vert Bruno → déploiement (Hermès/Vercel) → vérif + mémoire.
+- 🚧 **Pré-requis bloquant en cours** : rapatrier la **source des sites dans GitHub**
+  via **Claude Code installé sur le PC du bureau (Windows)** — install en cours côté Bruno.
+  Premier passage prévu dans la chaîne = la **Vague 1 déjà validée** (bio.html + index.html).
+- 📦 PR ouverte : **#20** (draft) — INSTRUCTIONS-HERMES, CORE-CENTRAL-TECHNIQUE, CHAINE-1-SITES.
+
 ## Session 2026-06-22 (h) — gouvernance + délégation + contrôle conformité Vague 1
 
 - ⚖️ **Gouvernance gravée** (`docs/GOUVERNANCE.md`, reliée à CLAUDE.md règle d'or) :
