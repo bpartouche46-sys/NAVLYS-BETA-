@@ -2,6 +2,19 @@
 
 > Mis à jour à la fin de chaque session pour que la suivante reprenne sans tout relire.
 
+## Session 2026-06-23 (nuit) — sécurité vérifiée + design v2 finalisé (Claude autonome)
+
+- ✅ **E-mails d'inscription protégés** : RLS de `public.inscriptions` vérifié (Supabase MCP) =
+  **INSERT-only pour `anon`, AUCUN SELECT** → e-mails non lisibles publiquement. Clé anon = sans danger.
+  Détail : `docs/AUDIT-SECURITE-NUIT-2026-06-23.md`. → question RLS **CLOSE**.
+- ✅ **Audit live brunopartouche.com (home)** complété (fetch entier) : **propre** (0 terme interdit,
+  0 « Jérusalem », « Pas de promesse. Une discipline. »). Seul écart : compte à rebours « 1ᵉʳ juin » périmé (déjà patché).
+- ✅ **Design v2 finalisé** : cinéma incurvé + **menu HAUT fixe** + rideaux bleu/champagne + charte
+  `#7DD3FC` sur les 4 sites + hub d'aperçu ; conformité **verte**. (PRs #15, #16 fusionnées.)
+- 📋 **`docs/RUNBOOK-BRUNO-100.md`** : les **5 actions restantes (toi seul)** pour atteindre 100 %
+  (import Vercel, sécuriser serveur, rotation secrets, vidéos, déploiement réel).
+- ⚠️ Rien en prod. Tout fusionné dans la branche principale.
+
 ## Session 2026-06-23 — ✅ VÉRIF : le code des sites est DÉJÀ dans GitHub (NOVA-HUB)
 
 - 🎯 **Question tranchée** (avant de copier le code depuis l'ancien PC) : **le code est déjà
