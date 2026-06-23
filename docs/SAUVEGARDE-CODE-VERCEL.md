@@ -1,9 +1,14 @@
 # 💾 Sauvegarder le CODE des sites Vercel dans GitHub (Phase 0)
 
-> Pourquoi : vos sites sont déployés en direct (`source: cli`), **sans GitHub**. Le code
-> n'existe donc qu'à un seul endroit : **votre ANCIEN ordinateur** (celui qui déployait,
-> compte `claudenavlys`). On va le mettre en sécurité dans GitHub. Sans cela, le moindre
-> incident = code perdu. (Voir aussi `docs/JOURNAL-ERREURS.md` → ERR-002.)
+> ⚠️ **MISE À JOUR 2026-06-23 — à lire en premier.** Vérification faite : le code de
+> **navlys.com (navlys-core), navlys et brunopartouche est DÉJÀ sur GitHub** dans le dépôt
+> **`bpartouche46-sys/NOVA-HUB`** (actif). **Pas besoin de les recopier depuis l'ancien PC.**
+> Ce guide ne reste utile que pour les sites **non encore couverts** par NOVA-HUB
+> (à confirmer : **navbiolife.com**, **navlys.io**, **navlys-teaser**, **brunopartouche-teaser**)
+> et pour les éléments **server-local** (cockpit, médias `/root/navlys/`).
+
+> Contexte d'origine : les sites sont déployés en direct (`source: cli`), sans lien Git
+> automatique. (Voir aussi `docs/JOURNAL-ERREURS.md` → ERR-002 / ERR-004.)
 
 ---
 
