@@ -81,4 +81,31 @@ Si un serveur manque : le reconnecter dans la config Claude Code (OAuth). Les do
 Ouvre le repo `NAVLYS-BETA-`, puis dis simplement : **« reprends NAVLYS »** ou **« où on en est »**.
 Je relis ce fichier + `CANON_NAVLYS.md` et je continue exactement là où on s'est arrêtés.
 
+---
+
+## 8. Session 24/06 — design navlys.io + additions (à finir sur le PC neuf)
+
+**Fait :**
+- Reproduction fidèle de navlys.io → `navlys-io.html` (charte noir/bronze/or/ice, polices Cinzel/Cormorant, animations respire/shine/prel-breath).
+- Home NAVLYS Finance → `finance.html` (même charte, adage « 90 % suivent le courant · 10 % tiennent le cap », méthode 90/10, 4 formules, Alpaca, SAV flottant).
+- Moteur de fond animé KenBurns → `hero-bg-slideshow.js` (récupéré de navlys.io).
+
+**Additions validées par Bruno (à implémenter — « à tout oui ») :**
+1. Toggle **FR/EN** partout (+ HE/ES/IT à venir ; partenaire **13 langues = NOM À OBTENIR de Bruno**, introuvable dans le Drive).
+2. **Vrai chat SAV** branché sur le cerveau (pas juste WhatsApp).
+3. **Fond animé en images** (bateau SARAVA, logos, vidéos) façon Casino Partouche.
+4. Bandeau **live** (activité cerveau temps réel).
+5. Section **Studio / créations**.
+
+**Assets de marque (Drive) :**
+- Logo officiel : `G1_MEDAILLON_NAVLYS_500x500.svg` — fileId `1RlhdTrvydmzM1UvjWs64PQY-8dGkYsfM` (SVG base64, décoder ; Artémis bronze, rétroéclairage ice, pulse 5 s).
+- Voilier : **SARAVA** (1967, 14 m) pour les fonds bateau.
+- Banque média (logos/vidéos) : à localiser dans le Drive avec Bruno.
+
+**⚠️ Conflits carte maîtresse (NAVLYS-MASTER 18/06) à trancher avec Bruno :**
+- **Base du site live** : la carte maîtresse dit `jdgpsmizcepwucngducq` (navlys-core, Next.js, repo NOVA-HUB) — alors que le cerveau/agents/atelier vivent dans `hhrlgyvtqluxpywjiwkd` + repo `NAVLYS-BETA-`. → réconcilier pour que le SAV soit « vrai et actif ».
+- **Slogan officiel** NAVLYS = « Ma méthode · Ton argent · Ton contrôle. »
+- **Paiement** : carte maîtresse dit « Stripe exclu (marchand israélien) » mais l'encaisseur est **[entité — hors dépôt] France** → Stripe viable ; Bruno confirme Stripe actif. Garder Stripe + Wise + PayPal.
+- Charte : **ice #7DD3FC + bronze #d4a155 + champagne, ZÉRO pourpre** (confirmé par navlys.io live).
+
 ⚓ *« L'IA est le vent, c'est toi qui tiens la barre. »*
