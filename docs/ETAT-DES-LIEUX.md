@@ -2,6 +2,24 @@
 
 > Mis à jour à la fin de chaque session pour que la suivante reprenne sans tout relire.
 
+## Session 2026-06-24 — TEST chaîne « Claude Design » → Adobe Express (réussi)
+
+- 🎯 **Question de Bruno** : « exploites-tu Claude Design pour faire des prototypes / des
+  choses finies ? Il faut le tester. »
+- ✅ **Capacité CONFIRMÉE et testée** : Claude crée un visuel fini en HTML autonome puis
+  l'envoie comme **document Adobe Express éditable**. Compte Adobe = `auth` (complet).
+  Connecteurs aussi dispo : Vercel, Figma, Canva.
+- ✅ **Premier livrable** : **`designs/navlys-teaser-card.html`** (carré 1080×1080,
+  « Ouverture 1ᵉʳ juillet », slogan officiel, Méthode 90/10, **disclaimer conforme**,
+  charte ice blue). Import Express **OK** (1 slide, rendu fidèle).
+- 📄 **Recette capitalisée** : **`docs/CLAUDE-DESIGN-PIPELINE.md`** (étapes + polices Adobe
+  validées AGaramondPro/FiraSans + pièges : params en chaînes, PostScript names, conformité).
+- ⚠️ **Limite honnête** : Claude **ne peut pas ouvrir un lien `claude.ai/design/p/…`**
+  (page protégée). Pour exploiter un design fait dans l'app : menu « Send to Adobe Express ».
+- ℹ️ **Sites web responsives** (les 4 maquettes `sites/*`) → ne passent PAS par Express ;
+  Express = visuels marketing. Sites = HTML déployé (Vercel).
+- 💾 **Serveur** : working tree propre, tout poussé sur GitHub → Bruno peut changer d'ordi sans rien perdre.
+
 ## Session 2026-06-23 (nuit) — sécurité vérifiée + design v2 finalisé (Claude autonome)
 
 - ✅ **E-mails d'inscription protégés** : RLS de `public.inscriptions` vérifié (Supabase MCP) =
