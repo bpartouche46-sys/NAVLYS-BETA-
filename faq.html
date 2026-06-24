@@ -2,87 +2,81 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>FAQ — NAVLYS™</title>
-<meta name="description" content="FAQ NAVLYS — formules, compte démo Alpaca, parrainage, résiliation et cadre légal. Éducation financière uniquement.">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Fraunces:ital,wght@1,400;1,500&family=Lora:wght@400;500&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>FAQ — NAVLYS</title>
+<meta name="description" content="FAQ NAVLYS — gratuit 0 €, compte démo Alpaca, parrainage, cadre légal. Éducation financière uniquement.">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Cormorant+Garamond:ital@0;1&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
 <style>
-:root{--noir:#05060a;--ice:#5fe0ff;--or:#e9d3a0;--perle:#eef0f6;--mut:#9fb3c8}
+:root{--noir:#02040a;--bronze:#B87333;--bronze-clair:#D49B5B;--or:#C9A961;--or-pale:#f3e4c4;--ice:#7DD3FC;--ice-clair:#a8e3ff;--perle:#e7eef2;--perle-doux:#bcc9d1;--brume:#7c8b95}
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Lora',serif;color:var(--perle);background:var(--noir);line-height:1.7;min-height:100vh;overflow-x:hidden}
-.bg{position:fixed;inset:0;z-index:-2;background:radial-gradient(900px 620px at 84% -8%,rgba(233,211,160,.12),transparent 60%),radial-gradient(840px 600px at 6% 6%,rgba(95,224,255,.13),transparent 60%),var(--noir)}
-.wrap{max-width:820px;margin:0 auto;padding:0 18px 70px}
-header{padding:24px 0;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
-.logo{font-family:'Cormorant Garamond';letter-spacing:5px;font-size:1.4rem;color:#fff}
-.logo b{color:var(--or);font-weight:600}
-nav{margin-left:auto;display:flex;gap:18px;font-family:'JetBrains Mono';font-size:.78rem;text-transform:uppercase;letter-spacing:.08em}
-nav a{color:var(--mut);text-decoration:none}nav a:hover,nav a.on{color:var(--ice)}
-.hero{text-align:center;padding:24px 0 10px}
-.hero h1{font-family:'Cormorant Garamond';font-weight:600;font-size:2.6rem;color:#fff}
-.hero p{font-family:'Fraunces';font-style:italic;color:var(--ice)}
-details{background:linear-gradient(170deg,rgba(95,224,255,.05),rgba(10,12,20,.7));border:1px solid rgba(95,224,255,.16);border-radius:14px;padding:4px 20px;margin:12px 0;transition:border-color .2s}
-details[open]{border-color:rgba(95,224,255,.4)}
-summary{font-family:'Cormorant Garamond';font-size:1.25rem;color:#fff;cursor:pointer;padding:14px 0;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px}
+html{background:#02040a;scroll-behavior:smooth}
+body{background:transparent;color:var(--perle);font-family:'Cormorant Garamond',Georgia,serif;font-size:20px;line-height:1.6;min-height:100vh;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(55% 45% at 12% 8%,rgba(125,211,252,0.13),transparent 60%),radial-gradient(50% 40% at 88% 32%,rgba(184,115,51,0.1),transparent 62%);animation:respire 18s ease-in-out infinite alternate}
+@keyframes respire{from{opacity:.7}to{opacity:1}}
+.fam-nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(2,4,10,0.88);backdrop-filter:blur(18px);border-bottom:1px solid rgba(125,211,252,0.18);padding:14px 18px;display:flex;justify-content:space-between;align-items:center;gap:14px}
+.fam-logo{font-family:'Cinzel',serif;font-size:13px;letter-spacing:.32em;color:var(--or);text-transform:uppercase;font-weight:600}
+.fam-menu{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+.fam-menu a{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ice-clair);text-decoration:none}
+.fam-menu a:hover,.fam-menu a.on{color:var(--or)}
+.wrap{max-width:820px;margin:0 auto;padding:0 20px 80px;position:relative;z-index:5}
+.hero{text-align:center;padding:104px 0 18px}
+.hero .kicker{font-family:'Cinzel',serif;font-size:12px;letter-spacing:.4em;color:var(--ice);text-transform:uppercase;margin-bottom:14px}
+.hero h1{font-family:'Cinzel',serif;font-weight:600;font-size:clamp(40px,9vw,72px);letter-spacing:.1em;text-transform:uppercase;background:linear-gradient(100deg,var(--or-pale),var(--or) 50%,#fff7e6 60%,var(--or) 75%,var(--bronze));background-size:220% auto;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:shine 9s linear infinite}
+@keyframes shine{to{background-position:220% center}}
+.hero p{font-family:'Cormorant Garamond';font-style:italic;color:var(--ice-clair);margin-top:6px}
+details{background:rgba(2,4,10,0.6);border:1px solid rgba(125,211,252,0.18);border-radius:14px;padding:2px 22px;margin:12px 0;transition:.3s}
+details[open]{border-color:rgba(201,169,97,0.45)}
+summary{font-family:'Cinzel',serif;font-size:14px;letter-spacing:.05em;color:var(--or);cursor:pointer;padding:16px 0;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px;text-transform:uppercase}
 summary::-webkit-details-marker{display:none}
-summary::after{content:'+';color:var(--ice);font-family:'JetBrains Mono';font-size:1.4rem}
+summary::after{content:'+';color:var(--ice);font-family:'JetBrains Mono';font-size:1.3rem}
 details[open] summary::after{content:'–'}
-.a{color:var(--mut);font-size:.95rem;padding:0 0 16px}
-.a b{color:var(--perle)}.a .ice{color:var(--ice)}
-.disc{border:1px solid rgba(95,224,255,.2);border-radius:14px;padding:18px;margin-top:26px;color:var(--mut);font-size:.8rem}
-.disc b{color:var(--ice)}
-.cta{text-align:center;margin-top:24px}
-.cta a{display:inline-block;text-decoration:none;font-family:'JetBrains Mono';font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;padding:12px 22px;border-radius:10px;background:linear-gradient(120deg,var(--ice),#2bb8e0);color:#04121a}
-footer{text-align:center;color:var(--mut);font-size:.76rem;font-family:'JetBrains Mono';margin-top:30px}
-</style>
-</head>
-<body>
-<div class="bg"></div>
+.a{color:var(--perle-doux);font-size:1rem;padding:0 0 18px;font-style:italic}
+.a b{color:var(--perle);font-style:normal}.a .hl{color:var(--ice-clair);font-style:normal}
+.disc{border:1px solid rgba(184,115,51,0.2);border-radius:14px;padding:18px;margin-top:26px;color:var(--brume);font-size:.8rem;font-style:italic;line-height:1.7}
+.disc b{color:var(--ice-clair)}
+.cta{text-align:center;margin-top:26px}
+.cta a{display:inline-block;font-family:'Cinzel';font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:#05060a;background:linear-gradient(100deg,var(--or-pale),var(--or));padding:13px 26px;border-radius:14px;text-decoration:none}
+footer{text-align:center;color:var(--brume);font-size:.78rem;font-family:'Cinzel';letter-spacing:.18em;margin-top:30px;text-transform:uppercase}
+</style></head><body>
+<nav class="fam-nav">
+<span class="fam-logo">🌊 NAVLYS</span>
+<div class="fam-menu"><a href="index.html">Accueil</a><a href="finance.html">Finance</a><a href="alpaca.html">Alpaca</a><a href="faq.html" class="on">FAQ</a><a href="live.html">Live</a></div>
+</nav>
 <div class="wrap">
-  <header>
-    <span class="logo">NAVLYS<b>™</b></span>
-    <nav><a href="index.html">Accueil</a><a href="tarifs.html">Tarifs</a><a href="alpaca.html">Alpaca</a><a href="faq.html" class="on">FAQ</a><a href="live.html">Live</a></nav>
-  </header>
-
   <div class="hero">
-    <h1>Questions fréquentes</h1>
+    <div class="kicker">Questions fréquentes</div>
+    <h1>FAQ</h1>
     <p>Tout ce qu'il faut savoir, sans jargon.</p>
   </div>
 
   <details open><summary>NAVLYS gère-t-il mon argent ?</summary>
-    <div class="a"><b>Non, jamais.</b> NAVLYS™ est un éditeur de logiciel éducatif. Nous ne gérons <b>aucun fonds</b>, ni réel ni virtuel. Tu pratiques sur un <span class="ice">compte démo Alpaca gratuit</span> et tu passes au réel quand <b>toi</b> tu es prêt — jamais avant.</div></details>
+    <div class="a"><b>Non, jamais.</b> NAVLYS est un éditeur de logiciel éducatif. Aucun fonds géré, ni réel ni virtuel. Tu pratiques sur un <span class="hl">compte démo Alpaca gratuit</span> et tu passes au réel quand <b>toi</b> tu es prêt.</div></details>
 
   <details><summary>Est-ce un conseil financier ?</summary>
-    <div class="a">Non. Le contenu est <b>purement éducatif</b> : aucun conseil personnalisé, aucune recommandation d'achat ou de vente. NAVLYS™ ne dispose d'aucun agrément ORIAS / CIF et n'exerce aucune activité de conseil réglementée.</div></details>
-
-  <details><summary>C'est quoi le compte démo Alpaca ?</summary>
-    <div class="a">Un compte de <span class="ice">paper trading</span> chez notre partenaire affilié Alpaca : des <b>fonds virtuels gratuits, illimités</b>, pour t'entraîner sur les vrais marchés <b>sans aucun risque</b>. Tes clés API restent chez toi ; NAVLYS™ n'y accède jamais.</div></details>
+    <div class="a">Non. Contenu <b>purement éducatif</b> : aucun conseil personnalisé, aucune reco d'achat/vente. Aucun agrément ORIAS / CIF.</div></details>
 
   <details><summary>Combien ça coûte ?</summary>
-    <div class="a">Quatre formules mensuelles, sans engagement :<br>
-    • <b>F1</b> — 29,99 € · 90/10 verrouillée<br>
-    • <b>F2</b> — 39,99 € · recommandée, + 3 modes de recyclage<br>
-    • <b>F3</b> — 49,99 € · déblocable 80/20 ou 70/30 + coaching<br>
-    • <b>F4 PRO</b> — 99,99 € · méthode libre, Membre d'Honneur<br>
-    <a href="tarifs.html" style="color:var(--ice)">→ Voir le détail des tarifs</a></div></details>
+    <div class="a"><b>C'est gratuit pour commencer — 0 €, sans carte.</b> Essai libre avec limites. Certains modules premium arriveront en option (ex. <span class="hl">NAVLEX 9,99 € HT</span>). L'essentiel de Finance et Next Gen reste gratuit.</div></details>
 
-  <details><summary>Puis-je gagner une formule ?</summary>
-    <div class="a">Oui. Parraine un nouveau client Alpaca confirmé et reçois <span class="ice">F3 à vie offerte</span>. <b>3 parrainages</b> → F4 PRO à vie + statut Honor. <b>10+ sur 6 mois</b> → Ambassadeur Élite (50 % de commission).</div></details>
+  <details><summary>C'est quoi le compte démo Alpaca ?</summary>
+    <div class="a">Du <span class="hl">paper trading</span> chez notre partenaire affilié Alpaca : fonds virtuels gratuits et illimités, pour t'entraîner <b>sans aucun risque</b>. Tes clés API restent chez toi.</div></details>
+
+  <details><summary>Puis-je gagner du Premium ?</summary>
+    <div class="a">Oui. Parraine un nouveau client Alpaca confirmé et reçois le <span class="hl">Premium NAVLYS à vie</span>. 3 parrainages → Membre d'Honneur. 10+ sur 6 mois → Ambassadeur Élite (50 % de commission).</div></details>
 
   <details><summary>Y a-t-il une garantie de gain ?</summary>
-    <div class="a"><b>Aucune.</b> Tout investissement comporte un risque de perte en capital. NAVLYS™ t'apprend une méthode et une discipline ; les marchés, eux, ne garantissent jamais rien.</div></details>
+    <div class="a"><b>Aucune.</b> Tout investissement comporte un risque de perte en capital. NAVLYS t'apprend une méthode et une discipline ; les marchés ne garantissent jamais rien.</div></details>
 
-  <details><summary>Puis-je résilier quand je veux ?</summary>
-    <div class="a">Oui. L'abonnement est <b>mensuel et sans engagement</b> : tu arrêtes quand tu veux, depuis ton espace membre.</div></details>
+  <details><summary>Y a-t-il un engagement ?</summary>
+    <div class="a">Non. Tu commences gratuitement, sans carte. Si un jour tu prends une option premium, c'est <b>sans engagement</b> — tu arrêtes quand tu veux.</div></details>
 
-  <details><summary>Quels moyens de paiement ?</summary>
+  <details><summary>Quels moyens de paiement (pour le premium) ?</summary>
     <div class="a"><b>Stripe</b>, <b>PayPal</b> et <b>Wise</b>. Paiement sécurisé, sans surcoût.</div></details>
 
   <div class="disc">
-    ⚠️ <b>Cadre légal</b> — NAVLYS™ est un projet d'éducation et de veille informative uniquement. Les contenus ne constituent ni conseil personnalisé ni recommandation d'achat/vente. Tout investissement comporte un risque de perte en capital ; consultez un professionnel agréé pour toute décision. Transparence affiliation (loi du 9 juin 2023) : NAVLYS™ perçoit une commission affiliée d'Alpaca, versée par Alpaca, sans surcoût pour vous. Aucun agrément ORIAS, aucun statut financier réglementé.
+    ⚠️ <b>Cadre légal</b> — NAVLYS est un projet d'éducation et de veille informative uniquement. Les contenus ne constituent ni conseil personnalisé ni recommandation d'achat/vente. Tout investissement comporte un risque de perte en capital. Transparence affiliation (loi du 9 juin 2023) : NAVLYS perçoit une commission affiliée d'Alpaca, versée par Alpaca, sans surcoût pour toi. Aucun agrément ORIAS, aucun statut financier réglementé. Tarifs HT. Réservé aux 18 ans et +.
   </div>
-
-  <div class="cta"><a href="tarifs.html">Découvrir les formules</a></div>
-  <footer>© 2026 NAVLYS™ — [entité — hors dépôt] · SIREN 482 511 292</footer>
+  <div class="cta"><a href="finance.html">Commencer gratuitement</a></div>
+  <footer>© 2026 NAVLYS™ · [entité — hors dépôt] · SIREN 482 511 292</footer>
 </div>
-</body>
-</html>
+</body></html>
