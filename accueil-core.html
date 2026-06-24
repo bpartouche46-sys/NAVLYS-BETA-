@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>NAVLYS — Un cerveau. Une personne. Tout un univers.</title>
+<meta name="description" content="NAVLYS CORE, le cerveau central, et son univers d'applications IA + humaines : Finance, Next Gen, NAVLEX, Influenceurs, Journal de l'IA, Radio. Teste gratuitement, 0 €.">
+<link rel="canonical" href="https://navlys.com/">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Fraunces:ital,wght@1,400;1,500&family=Lora:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--noir:#05060a;--ice:#5fe0ff;--or:#e9d3a0;--rouge:#ff2a1f;--vin:#7a1f2b;--perle:#eef0f6;--mut:#9fb3c8}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Lora',serif;color:var(--perle);background:var(--noir);overflow-x:hidden;line-height:1.6}
+.bg{position:fixed;inset:0;z-index:-2;background:radial-gradient(900px 620px at 84% -8%,rgba(233,211,160,.12),transparent 60%),radial-gradient(840px 600px at 6% 6%,rgba(95,224,255,.13),transparent 60%),radial-gradient(1100px 880px at 50% 120%,rgba(122,31,43,.40),transparent 64%),var(--noir)}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+header{padding:26px 0 4px;display:flex;align-items:center;gap:12px}
+.led{width:15px;height:15px;border-radius:50%;background:radial-gradient(circle at 50% 38%,#bdf3ff,var(--ice) 60%,rgba(95,224,255,.1));box-shadow:0 0 18px var(--ice);animation:b 4.6s ease-in-out infinite}
+@keyframes b{0%,100%{opacity:.5;transform:scale(.85)}50%{opacity:1;transform:scale(1.18)}}
+.logo{font-family:'Cormorant Garamond';letter-spacing:6px;font-size:1.5rem;color:#fff}
+nav.top{margin-left:auto;display:flex;gap:16px;flex-wrap:wrap}
+nav.top a{color:var(--mut);text-decoration:none;font-family:'Fraunces';font-style:italic;font-size:.95rem}
+nav.top a:hover{color:var(--ice)}
+.intro{text-align:center;font-family:'Fraunces';font-style:italic;color:var(--or);font-size:clamp(.95rem,2.3vw,1.18rem);max-width:760px;margin:26px auto 0;opacity:.92}
+.intro .core{color:#fff;font-style:normal;font-family:'Cormorant Garamond';letter-spacing:3px}
+.offer{display:block;text-align:center;margin:18px auto 0;max-width:560px;font-family:'Fraunces';font-style:italic;font-size:.92rem;color:#05060a;background:linear-gradient(100deg,var(--or),#fff6df);border-radius:999px;padding:8px 18px;text-decoration:none}
+.offer b{font-style:normal}
+.const{display:block;width:100%;max-width:600px;margin:6px auto 0;height:auto}
+.breathe{transform-box:fill-box;transform-origin:center;animation:breathe 4.8s ease-in-out infinite}
+@keyframes breathe{0%,100%{transform:scale(.965)}50%{transform:scale(1.055)}}
+.coreglow{transform-box:fill-box;transform-origin:center;animation:glow 4.8s ease-in-out infinite}
+@keyframes glow{0%,100%{opacity:.45}50%{opacity:.9}}
+.node{cursor:pointer}
+.node:hover .ring{stroke:var(--ice);stroke-width:2.4}
+.node:hover .hub{fill:#10141f}
+.nlabel{font-family:'Cormorant Garamond';fill:#fff;font-size:21px;text-anchor:middle;font-weight:600}
+.nsub{font-family:'Fraunces';font-style:italic;fill:var(--mut);font-size:13px;text-anchor:middle}
+.tagline{text-align:center;color:var(--mut);font-size:clamp(1rem,2.6vw,1.18rem);max-width:600px;margin:6px auto 0}
+h2.section{font-family:'Cormorant Garamond';font-weight:600;color:#fff;font-size:clamp(1.5rem,4vw,2rem);margin:54px 0 6px}
+.lead{color:var(--mut);font-family:'Fraunces';font-style:italic;margin-bottom:22px;max-width:640px}
+.apps{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:18px}
+.app{display:block;text-decoration:none;color:inherit;border-radius:22px;padding:26px;position:relative;overflow:hidden;background:linear-gradient(160deg,rgba(122,31,43,.22),rgba(10,12,20,.66));border:1px solid rgba(95,224,255,.18);transition:.22s}
+.app:hover{transform:translateY(-3px);border-color:var(--ice);box-shadow:0 14px 40px rgba(0,0,0,.4)}
+.app .ic{font-size:2.1rem}.app h3{font-family:'Cormorant Garamond';color:#fff;font-size:1.55rem;margin:10px 0 6px}
+.app p{color:var(--mut);font-size:.97rem}
+.app .go{display:inline-block;margin-top:14px;color:var(--ice);font-family:'Fraunces';font-style:italic}
+.app .tag{position:absolute;top:16px;right:16px;font-size:.7rem;font-family:'Fraunces';font-style:italic;color:#05060a;background:linear-gradient(100deg,var(--or),#fff6df);border-radius:999px;padding:2px 10px}
+.mission{margin-top:54px;border-left:3px solid var(--ice);padding:8px 0 8px 22px;max-width:720px}
+.q{font-family:'Fraunces';font-style:italic;color:var(--or);font-size:1.15rem;margin:30px 0}
+footer{margin:60px 0 40px;border-top:1px solid rgba(255,255,255,.08);padding-top:22px;color:#8fa6c8;font-size:.82rem}
+footer .flag{letter-spacing:3px;margin-bottom:10px}
+.disc{font-style:italic;line-height:1.7;max-width:780px}
+a.inline{color:var(--ice);text-decoration:none}
+</style>
+</head>
+<body>
+<div class="bg"></div>
+<div class="wrap">
+  <header>
+    <span class="led"></span>
+    <span class="logo">NAVLYS</span>
+    <nav class="top">
+      <a href="/finance">Finance</a>
+      <a href="/next-gen">Next Gen</a>
+      <a href="/navlex">NAVLEX</a>
+      <a href="/influenceurs">Influenceurs</a>
+      <a href="/tech">Journal IA</a>
+      <a href="/radio">Radio</a>
+    </nav>
+  </header>
+  <p class="intro">Il y a bien longtemps... l'IA n'existait pas... Mais ca, c'etait avant. <span class="core">NAVLYS CORE</span></p>
+  <a class="offer" href="/finance">&#127873; <b>Telecharge &amp; teste GRATUITEMENT &mdash; 0 &euro;</b> &middot; essai libre avec limites</a>
+  <svg class="const" viewBox="0 0 600 660" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="NAVLYS CORE au centre, entoure des modules.">
+    <defs>
+      <radialGradient id="coreG" cx="50%" cy="42%" r="60%"><stop offset="0%" stop-color="#d9f6ff"/><stop offset="38%" stop-color="#5fe0ff"/><stop offset="100%" stop-color="#123048"/></radialGradient>
+      <radialGradient id="haloG" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#5fe0ff" stop-opacity=".55"/><stop offset="100%" stop-color="#5fe0ff" stop-opacity="0"/></radialGradient>
+      <filter id="soft" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="3.4"/></filter>
+      <style>.orbit{fill:none;stroke:#5fe0ff;stroke-opacity:.22;stroke-width:1}.spoke{stroke:#5fe0ff;stroke-opacity:.16;stroke-width:1}.penta{fill:none;stroke:#e9d3a0;stroke-opacity:.14;stroke-width:1}.elc{fill:#e9d3a0}.eli{fill:#5fe0ff}</style>
+    </defs>
+    <polygon class="penta" points="300,68 523,228 437,489 163,489 77,228"/>
+    <g class="spoke"><line x1="300" y1="300" x2="300" y2="68"/><line x1="300" y1="300" x2="523" y2="228"/><line x1="300" y1="300" x2="437" y2="489"/><line x1="300" y1="300" x2="163" y2="489"/><line x1="300" y1="300" x2="77" y2="228"/></g>
+    <g transform="rotate(0 300 300)"><path id="oA" class="orbit" d="M100,300 a200,66 0 1,0 400,0 a200,66 0 1,0 -400,0"/><circle class="elc" r="5.5" filter="url(#soft)"><animateMotion dur="7s" repeatCount="indefinite"><mpath href="#oA"/></animateMotion></circle></g>
+    <g transform="rotate(60 300 300)"><path id="oB" class="orbit" d="M100,300 a200,66 0 1,0 400,0 a200,66 0 1,0 -400,0"/><circle class="eli" r="5" filter="url(#soft)"><animateMotion dur="8.6s" repeatCount="indefinite"><mpath href="#oB"/></animateMotion></circle></g>
+    <g transform="rotate(120 300 300)"><path id="oC" class="orbit" d="M100,300 a200,66 0 1,0 400,0 a200,66 0 1,0 -400,0"/><circle class="elc" r="4.5" filter="url(#soft)"><animateMotion dur="10.2s" repeatCount="indefinite"><mpath href="#oC"/></animateMotion></circle></g>
+    <circle class="coreglow" cx="300" cy="300" r="120" fill="url(#haloG)"/>
+    <g class="breathe">
+      <circle cx="300" cy="300" r="60" fill="url(#coreG)"/>
+      <circle cx="300" cy="300" r="60" fill="none" stroke="#bdf3ff" stroke-opacity=".5" stroke-width="1.5"/>
+      <g transform="rotate(25 300 300)"><path id="iA" d="M270,300 a30,11 0 1,0 60,0 a30,11 0 1,0 -60,0" fill="none"/><circle class="eli" r="3"><animateMotion dur="3s" repeatCount="indefinite"><mpath href="#iA"/></animateMotion></circle></g>
+      <g transform="rotate(100 300 300)"><path id="iB" d="M278,300 a22,8 0 1,0 44,0 a22,8 0 1,0 -44,0" fill="none"/><circle class="elc" r="2.6"><animateMotion dur="3.8s" repeatCount="indefinite"><mpath href="#iB"/></animateMotion></circle></g>
+      <text x="300" y="296" class="nlabel" style="font-size:23px;letter-spacing:3px">NAVLYS</text>
+      <text x="300" y="320" class="nsub" style="fill:#e9d3a0;font-size:14px;letter-spacing:4px">C O R E</text>
+    </g>
+    <a href="/finance"><g class="node"><circle class="hub" cx="300" cy="68" r="40" fill="#0c1018"/><circle class="ring" cx="300" cy="68" r="40" fill="none" stroke="#5fe0ff" stroke-opacity=".5" stroke-width="1.5"/><text x="300" y="76" text-anchor="middle" font-size="26">&#129518;</text><text x="300" y="128" class="nlabel">Finance</text><text x="300" y="146" class="nsub">&eacute;ducation &middot; 0 &euro;</text></g></a>
+    <a href="/next-gen"><g class="node"><circle class="hub" cx="523" cy="228" r="40" fill="#0c1018"/><circle class="ring" cx="523" cy="228" r="40" fill="none" stroke="#5fe0ff" stroke-opacity=".5" stroke-width="1.5"/><text x="523" y="236" text-anchor="middle" font-size="26">&#128214;</text><text x="523" y="288" class="nlabel">Next Gen</text><text x="523" y="306" class="nsub">ta vie &middot; 0 &euro;</text></g></a>
+    <a href="/navlex"><g class="node"><circle class="hub" cx="437" cy="489" r="40" fill="#0c1018"/><circle class="ring" cx="437" cy="489" r="40" fill="none" stroke="#5fe0ff" stroke-opacity=".5" stroke-width="1.5"/><text x="437" y="497" text-anchor="middle" font-size="26">&#9878;</text><text x="437" y="549" class="nlabel">NAVLEX</text><text x="437" y="567" class="nsub">droit &middot; 9,99&euro; HT</text></g></a>
+    <a href="/influenceurs"><g class="node"><circle class="hub" cx="163" cy="489" r="40" fill="#0c1018"/><circle class="ring" cx="163" cy="489" r="40" fill="none" stroke="#5fe0ff" stroke-opacity=".5" stroke-width="1.5"/><text x="163" y="497" text-anchor="middle" font-size="26">&#10024;</text><text x="163" y="549" class="nlabel">Influenceurs</text><text x="163" y="567" class="nsub">le journal</text></g></a>
+    <a href="/bientot"><g class="node"><circle class="hub" cx="77" cy="228" r="40" fill="#0c1018"/><circle class="ring" cx="77" cy="228" r="40" fill="none" stroke="#e9d3a0" stroke-opacity=".45" stroke-width="1.5"/><text x="77" y="236" text-anchor="middle" font-size="26">&#127916;</text><text x="77" y="288" class="nlabel">NAVBIO</text><text x="77" y="306" class="nsub">bient&ocirc;t</text></g></a>
+  </svg>
+  <p class="tagline">Un cerveau. Une personne. <b style="color:#fff">Tout un univers.</b><br>L'IA est le vent, c'est toi qui tiens la barre.</p>
+  <section id="univers">
+    <h2 class="section">Entre dans l'univers</h2>
+    <p class="lead">Deux b&ecirc;tas <b>r&eacute;elles</b>, gratuites &agrave; tester (0 &euro;). Le reste grandit dans le CORE.</p>
+    <div class="apps">
+      <a class="app" href="/finance"><span class="tag">GRATUIT &middot; 0 &euro;</span><div class="ic">&#129518;</div><h3>NAVLYS Finance</h3><p>Comprendre l'argent en bon p&egrave;re de famille, chiffr&eacute; en euros. Cockpit autonome, brief du jour, simulateur anti-jackpot. &Eacute;ducation &amp; veille, jamais de conseil.</p><span class="go">Essayer gratuitement &rsaquo;</span></a>
+      <a class="app" href="/next-gen"><span class="tag">GRATUIT &middot; 0 &euro;</span><div class="ic">&#128214;</div><h3>NAVLYS Next Gen</h3><p>Raconte ou dicte ta vie, chapitre par chapitre. Ton histoire vaut de l'or &mdash; garde-la, transmets-la. Tes souvenirs t'appartiennent.</p><span class="go">&Eacute;crire ma vie &rsaquo;</span></a>
+    </div>
+  </section>
+  <section id="mission" class="mission">
+    <h2 class="section">Notre mission</h2>
+    <p>Mettre l'IA &agrave; la port&eacute;e de tous, en un clic et &agrave; la voix &mdash; pour &eacute;galiser l'acc&egrave;s au savoir, au bien-&ecirc;tre et &agrave; la transmission. L'humain reste la pi&egrave;ce centrale.</p>
+    <p class="q">&laquo; L'IA est le vent, c'est toi qui tiens la barre. &raquo;</p>
+    <p>NAVLYS, c'est aussi un choix de vie : <b>100&nbsp;% d&eacute;mat&eacute;rialis&eacute;</b> &mdash; z&eacute;ro bureau, z&eacute;ro transport, z&eacute;ro papier, dans le respect de la mer M&eacute;diterran&eacute;e qui nous porte.</p>
+  </section>
+  <footer>
+    <div class="flag">&#127754; &#9875; NAVLYS &#129693;</div>
+    <p class="disc">NAVLYS est un projet d'<b>&eacute;ducation et de veille &agrave; vocation informative uniquement</b>. Les contenus ne constituent en aucun cas un conseil personnalis&eacute; en investissement. Chacun reste seul responsable de ses d&eacute;cisions financi&egrave;res. Tous les tarifs sont indiqu&eacute;s <b>HT</b> (hors taxes). R&eacute;serv&eacute; aux 18 ans et&nbsp;+. Tes contenus restent priv&eacute;s par d&eacute;faut et t'appartiennent.</p>
+    <p style="margin-top:12px">&copy; 2026 NAVLYS &middot; <a class="inline" href="/finance">Finance</a> &middot; <a class="inline" href="/next-gen">Next Gen</a> &middot; navlys.com</p>
+  </footer>
+</div>
+</body>
+</html>
