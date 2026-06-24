@@ -2,6 +2,23 @@
 
 > Mis à jour à la fin de chaque session pour que la suivante reprenne sans tout relire.
 
+## Session 2026-06-24 (l) — ✅ Correction des 4 points de l'ultrareview + réconciliation principale
+
+- 🔀 **PR #20 fusionnée dans la ligne principale** (incident Hermès + core déployable). Ma branche
+  re-synchronisée sur la principale à jour (incluait l'« ultrareview »).
+- 🛠️ **Les 4 points de `RAPPORT-ULTRAREVIEW-2026-06-24.md` corrigés** :
+  - **M1** : doublon journal **ERR-002 ≈ ERR-004** → consolidé dans **ERR-002** ; ERR-004 devient un
+    **renvoi** (références « ERR-002/004 » préservées). 
+  - **M2** : **disclaimer NAVLYS ajouté** sur `corrections-pretes/navbiolife.com/{cgu,privacy}.html`.
+  - **F1** : charte couleur `sites/navlys-app/finance.html` — ancien Ice Blue `#5fe0ff`/`rgb(95,224,255)`
+    → charte **`#7DD3FC`/`rgb(125,211,252)`** (13 occurrences).
+  - **F2** : « Jérusalem » dans le hub `index.html` — **déjà corrigé** (texte = « narratif méditerranéen
+    conforme »). Vérifié : **0 occurrence** de Jérusalem/Israël dans tout le code des sites.
+- 🔍 **Contrôle conformité repassé (vert)** : 0 terme interdit réel, 0 promesse de rendement chiffrée
+  dans les pages ; disclaimers OK ; `finance.html` structurellement intact.
+- ⏭️ Restent (hors dépôt, côté serveur) : mot de passe cockpit à changer, backups Hetzner, SSH par clés,
+  + révocation Hermès (`docs/INCIDENT-HERMES.md`, à exécuter par Bruno).
+
 ## Session 2026-06-24 (k) — 🚨 INCIDENT SÉCURITÉ : Hermès retiré (hack)
 
 - 🚨 **Bruno signale : Hermès supprimé = risque de sécurité majeur (hack).** Hermès (ancien

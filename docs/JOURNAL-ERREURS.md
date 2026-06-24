@@ -45,6 +45,8 @@ Copier ce modèle pour chaque nouvelle erreur :
   l'ancien PC) dans GitHub. Procédure : `docs/SAUVEGARDE-CODE-VERCEL.md`.
 - **Garde-fou** : à l'avenir, **chaque site doit être relié à un dépôt GitHub** et déployé
   depuis Git (pas en CLI manuelle). Inscrit dans `docs/PLAN-DENSEMBLE.md` (Phases 0 et 3).
+- **Note** : entrée **consolidée** (M1 de l'ultrareview 2026-06-24) — **ERR-004** décrivait la
+  **même leçon** ; le doublon est fusionné ici. Les renvois « ERR-002/004 » restent valides.
 
 ### ERR-003 — Mentions interdites / promesses en clair sur les sites publics
 - **Date** : 2026-06-19
@@ -59,14 +61,13 @@ Copier ce modèle pour chaque nouvelle erreur :
 - **Garde-fou** : avant TOUT déploiement, grep des termes interdits + « Israël/Ashkelon/Jérusalem »
   + vérifier disclaimer bandeau+pied de page et absence de chiffre de rendement.
 
-### ERR-004 — Source des sites absente de Git (déploiement Vercel CLI)
-- **Date** : 2026-06-19
-- **Contexte** : recherche du code des sites pour les auditer/modifier.
-- **Symptôme** : aucun dépôt GitHub relié ; dépôt `NAVLYS-BETA-` ne contient que de la doc.
-- **Cause** : les 6 sites ont été déployés via `vercel` CLI depuis un dossier local non versionné.
-- **Correction appliquée** : cartographie Vercel complète + récupération du HTML live via l'outil de fetch Vercel.
-- **Garde-fou** : rapatrier le dossier source sous Git (branche dédiée) AVANT toute nouvelle modif ;
-  ne jamais re-déployer depuis un dossier local non commité.
+### ERR-004 — Source des sites absente de Git (déploiement Vercel CLI) — ⤵ fusionnée dans ERR-002
+- **Statut** : **doublon consolidé dans ERR-002** (même leçon : sites déployés en CLI, hors Git).
+  Conservé comme **renvoi** pour ne pas casser les références « ERR-002/004 » existantes
+  (`corrections-pretes/README.md`, `docs/CHAINE-1-SITES.md`, `docs/OPERATIONNEL-100.md`).
+- **Apport propre conservé** : la correction « **cartographie Vercel complète + récupération du
+  HTML live** via l'outil de fetch Vercel » est tracée dans `docs/CARTE-SITES.md`.
+- 👉 **Voir ERR-002** pour le détail, la cause et le garde-fou.
 
 ### ERR-005 — Confusion produit : « Next Gen » ≠ application finance
 - **Date** : 2026-06-24
