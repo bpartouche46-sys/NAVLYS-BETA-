@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>NAVLYS — Avant-première 1er juillet</title>
+<meta name="hz:slide-selector" content=".card">
+<meta name="hz:canvas-width" content="1080">
+<meta name="hz:canvas-height" content="1080">
+<link rel="stylesheet" href="https://use.typekit.net/arx8can.css">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { display: flex; justify-content: center; align-items: center; min-height: 100vh; background: #0a0e16; }
+
+.card {
+  position: relative;
+  width: 1080px;
+  height: 1080px;
+  overflow: hidden;
+  background: radial-gradient(120% 90% at 50% 8%, #16233a 0%, #0c121d 55%, #070a11 100%);
+  font-family: "fira-sans", sans-serif;
+}
+
+/* Cadre fin façon écran de cinéma */
+.frame {
+  position: absolute;
+  top: 48px; left: 48px; right: 48px; bottom: 48px;
+  border: 1px solid rgba(125,211,252,0.28);
+  border-radius: 18px;
+}
+
+/* Arc lumineux (écran incurvé) */
+.arc {
+  position: absolute;
+  top: -180px; left: 50%;
+  width: 1360px; height: 760px;
+  transform: translateX(-50%);
+  border-radius: 0 0 50% 50% / 0 0 100% 100%;
+  background: radial-gradient(60% 100% at 50% 0%, rgba(125,211,252,0.20) 0%, rgba(125,211,252,0.06) 45%, rgba(125,211,252,0) 72%);
+  pointer-events: none;
+}
+
+/* En-tête : marque + statut */
+.top {
+  position: absolute;
+  top: 104px; left: 104px; right: 104px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.brand {
+  font-family: "fira-sans", sans-serif;
+  font-weight: 300;
+  font-size: 30px;
+  letter-spacing: 14px;
+  color: #eaf6ff;
+  text-indent: 14px;
+}
+.status {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 15px; letter-spacing: 2px; text-transform: uppercase;
+  color: #7DD3FC; font-weight: 400;
+}
+.led {
+  width: 9px; height: 9px; border-radius: 50%;
+  background: #7DD3FC;
+  box-shadow: 0 0 12px 2px rgba(125,211,252,0.8);
+}
+
+/* Bloc central */
+.center {
+  position: absolute;
+  top: 350px; left: 104px; right: 104px;
+  text-align: center;
+}
+.eyebrow {
+  font-family: "fira-sans", sans-serif;
+  font-weight: 300;
+  font-size: 22px;
+  letter-spacing: 7px;
+  text-transform: uppercase;
+  color: #9fc4e0;
+  margin-bottom: 26px;
+}
+.headline {
+  font-family: "adobe-garamond-pro", serif;
+  font-weight: 400;
+  font-size: 118px;
+  line-height: 0.98;
+  color: #f4fbff;
+}
+.headline .day {
+  display: block;
+  font-weight: 700;
+  color: #7DD3FC;
+}
+.date {
+  font-family: "adobe-garamond-pro", serif;
+  font-weight: 700;
+  font-size: 150px;
+  line-height: 1;
+  color: #7DD3FC;
+  margin-top: 10px;
+}
+.month {
+  font-family: "fira-sans", sans-serif;
+  font-weight: 300;
+  font-size: 30px;
+  letter-spacing: 12px;
+  text-transform: uppercase;
+  color: #cfe7f6;
+  text-indent: 12px;
+  margin-top: 4px;
+}
+
+/* Slogan + méthode */
+.slogan {
+  position: absolute;
+  left: 104px; right: 104px; bottom: 250px;
+  text-align: center;
+  font-family: "adobe-garamond-pro", serif;
+  font-style: normal;
+  font-size: 38px;
+  color: #e7f3fb;
+}
+.chip {
+  position: absolute;
+  left: 50%; bottom: 178px;
+  transform: translateX(-50%);
+  border: 1px solid rgba(125,211,252,0.45);
+  border-radius: 999px;
+  padding: 9px 22px;
+  font-family: "fira-sans", sans-serif;
+  font-weight: 400;
+  font-size: 17px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #7DD3FC;
+}
+
+/* Pied : disclaimer conformité */
+.foot {
+  position: absolute;
+  left: 104px; right: 104px; bottom: 104px;
+  text-align: center;
+  font-family: "fira-sans", sans-serif;
+  font-weight: 300;
+  font-size: 15px;
+  line-height: 1.5;
+  letter-spacing: 0.4px;
+  color: #7e93a8;
+}
+.foot strong { color: #9fc4e0; font-weight: 400; }
+</style>
+</head>
+<body>
+<div class="card" data-canvas-width="1080" data-canvas-height="1080">
+  <div class="arc"></div>
+  <div class="frame"></div>
+
+  <div class="top">
+    <div class="brand">NAVLYS</div>
+    <div class="status"><span class="led"></span>Avant-première</div>
+  </div>
+
+  <div class="center">
+    <div class="eyebrow">Accès anticipé · Équipage Navlys</div>
+    <div class="headline">Ouverture</div>
+    <div class="date">1<sup style="font-size:0.4em;vertical-align:super">er</sup></div>
+    <div class="month">Juillet 2026</div>
+  </div>
+
+  <div class="slogan">Ma méthode — Ton argent — Ton contrôle.</div>
+  <div class="chip">Méthode 90 / 10</div>
+
+  <div class="foot">
+    <strong>Éducation financière &amp; veille stratégique — à vocation informative uniquement.</strong><br>
+    NAVLYS ne délivre aucun conseil en investissement personnalisé. Vos décisions restent les vôtres.
+  </div>
+</div>
+</body>
+</html>

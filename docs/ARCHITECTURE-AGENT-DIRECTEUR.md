@@ -35,7 +35,7 @@ Un seul gros agent qui « fait tout » devient vite ingérable. Le bon modèle, 
 | Acteur | Ce qu'il EST | Ce qu'il PEUT | Ce qu'il ne peut PAS |
 |--------|--------------|---------------|----------------------|
 | **Bruno** | Le chef / décideur | Tout valider, donner les accès | — |
-| ~~Hermès~~ ❌ | **RETIRÉ** — risque de sécurité majeur (`ERR-005`) | — | Tous accès **révoqués** : `docs/INCIDENT-HERMES.md` |
+| ~~Hermès~~ ❌ | **RETIRÉ** — risque de sécurité majeur (`ERR-006`) | — | Tous accès **révoqués** : `docs/INCIDENT-HERMES.md` |
 | **Claude (moi)** | Cerveau code + conformité, en **conteneur isolé** | Lire/corriger le code **via GitHub**, écrire la doc | **Aucun accès direct** au serveur Hetzner ni aux secrets |
 | **Opérateur serveur** | **À REDÉFINIR** (mains sur Hetzner) | Exécuter sur le serveur, **bridé par le moteur** (liste blanche + hooks) | Jamais orchestrateur autonome « de confiance » |
 
@@ -110,5 +110,5 @@ L'erreur classique = vouloir tout construire d'un coup → usine à gaz + confus
 
 - [ ] Nom/compte exact du dépôt GitHub des sites (**NOVA-HUB** ?).
 - [ ] Quelle **première brique** lancer (SAV ? sites ? paiements ?).
-- [ ] Où tourne le **directeur** (sur Hetzner) — **à redéfinir** (plus via Hermès/OpenRouter, retiré — ERR-005).
+- [ ] Où tourne le **directeur** (sur Hetzner) — **à redéfinir** (plus via Hermès/OpenRouter, retiré — ERR-006).
 - [ ] Changer le mot de passe du **cockpit** (exposé en clair).

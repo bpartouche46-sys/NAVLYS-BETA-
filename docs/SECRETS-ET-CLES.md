@@ -32,7 +32,7 @@ ce runbook cadre l'opération.
 | S2 | **Clé SSH serveur Hetzner** | accès SSH au core | `~/.ssh/` du/des PC autorisés (jamais copiée dans un chat) | 🔁 régénérer paire + retirer l'ancienne de `authorized_keys` |
 | S3 | **Mot de passe / accès Hetzner Console** | console.hetzner.cloud | gestionnaire de mots de passe + 2FA | 🔁 vérifier 2FA actif |
 | S4 | **ANTHROPIC_API_KEY** (moteur du core) | orchestrateur Agent SDK | `.env` serveur (hors Git) | 🔁 nouvelle clé dédiée au core |
-| S5 | ~~OpenRouter API key (Hermès)~~ | ❌ **RÉVOQUÉE** — Hermès retiré | — | 🛑 voir `docs/INCIDENT-HERMES.md` (ERR-005) |
+| S5 | ~~OpenRouter API key (Hermès)~~ | ❌ **RÉVOQUÉE** — Hermès retiré | — | 🛑 voir `docs/INCIDENT-HERMES.md` (ERR-006) |
 | S6 | **GitHub token** (PAT / fine-grained) | push/PR depuis le core | secret CI / `.env` serveur | 🔁 scope minimal (repo voulu only) |
 | S7 | **Vercel token** | déploiement sites | Vercel env / `.env` serveur | 🔁 scope équipe NAVLYS |
 | S8 | **Supabase** (`anon` public + `service_role` secret) | base `navlys-core` | anon = public OK ; `service_role` = **secret strict** | 🔁 régénérer `service_role` si exposé |
