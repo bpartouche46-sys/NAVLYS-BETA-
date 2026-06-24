@@ -15,8 +15,11 @@
 GitHub** (ils ont besoin d'un humain sur une machine + des clés) :
 
 1. **Accès serveur Hetzner** (SSH) → Bruno (ou opérateur serveur de confiance **à redéfinir** — ex-Hermès retiré, ERR-005).
-2. **Source des sites dans Git** (rapatriement depuis l'ancien/nouveau PC) → Bruno.
-3. **Les clés / secrets** (à refaire) → Bruno (cf. `docs/SECRETS-ET-CLES.md`).
+2. **Les clés / secrets** (à refaire + révoquer Hermès) → Bruno (cf. `docs/SECRETS-ET-CLES.md`, `docs/INCIDENT-HERMES.md`).
+
+> ✅ **Mise à jour** : « source des sites dans Git » **n'est PLUS un blocage** — le code est
+> déjà dans **NOVA-HUB** (navlys / navlys-core / brunopartouche) et présent dans `sites/` ici.
+> Reste à confirmer navbio / navlys.io / teasers, et à **relier Vercel à Git** (déploiement auto).
 
 👉 Donc **Claude rend 100% PRÊT tout ce qui passe par le code/la doc** ; les 3 leviers
 ci-dessus restent des **actions humaines**. Ce tracker dit exactement ce qui manque.
@@ -54,7 +57,8 @@ ci-dessus restent des **actions humaines**. Ce tracker dit exactement ce qui man
 |---|--------|--------|-----|------|
 | C1 | Corrections conformité préparées (C-01→C-04) | ✅ | C | `corrections-pretes/` |
 | C2 | Contrôle gardien Vague 1 (bio + navbio index) | ✅ | C | CONFORMES, prêts |
-| C3 | **Source des sites dans Git** | 🔴 | B | install Claude Code PC bureau en cours |
+| C3 | **Source des sites dans Git** | 🟢 | C | déjà dans **NOVA-HUB** + `sites/` ici (navlys/bruno) ; navbio/io/teasers à confirmer |
+| C3b | Relier **Vercel → Git** (déploiement auto, plus de CLI) | 🟡 | B | corrige ERR-002/004 |
 | C4 | Mentions légales (éditeur/hébergeur) | 🔴 | B | hors Git + relecture juridique |
 | C5 | **Feu vert prod** + déploiement | 🔴 | B | aucune mise en ligne sans accord |
 
