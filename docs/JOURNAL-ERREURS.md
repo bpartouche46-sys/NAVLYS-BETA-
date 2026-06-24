@@ -68,4 +68,16 @@ Copier ce modèle pour chaque nouvelle erreur :
 - **Garde-fou** : rapatrier le dossier source sous Git (branche dédiée) AVANT toute nouvelle modif ;
   ne jamais re-déployer depuis un dossier local non commité.
 
-<!-- Ajouter les prochaines erreurs ci-dessous : ERR-005, … -->
+### ERR-005 — Confusion produit : « Next Gen » ≠ application finance
+- **Date** : 2026-06-24
+- **Contexte** : Bruno demande de lancer « l'application NAVLYS Next Gen ».
+- **Symptôme** : Claude a commencé à construire une app **finance (90/10)** étiquetée « Next Gen ».
+- **Cause** : mauvaise lecture de la carte produit. En réalité :
+  **NAVLYS Next Gen = l'application de BIOGRAPHIE** (mémoire/transmission, tables `chapitres`+`souvenirs`),
+  et **NavFin = l'application finance** (méthode 90/10).
+- **Correction appliquée** : page finance renommée **NavFin** ; carte produit écrite dans
+  `docs/PRODUITS-NAVLYS.md` ; vraie app Next Gen = biographie à construire/reprendre.
+- **Garde-fou** : toujours vérifier `docs/PRODUITS-NAVLYS.md` avant de coder une « app NAVLYS ».
+  Next Gen = biographie · NavFin = finance · NAVBIO/navbiolife = vitrine biographie.
+
+<!-- Ajouter les prochaines erreurs ci-dessous : ERR-006, … -->
