@@ -96,9 +96,9 @@
 
 ---
 
-## 4. 🏆 GRILLE RECOMMANDÉE FINALE (reco Claude — à valider Bruno)
+## 4. 🏆 GRILLE TARIFAIRE OFFICIELLE — FIGÉE (validée Bruno, 2026-06-24)
 
-Bruno a délégué l'arbitrage Finance + NAVLEX ; NAVBIO confirmé 100 % numérique. Reco ferme :
+> ✅ Validée. Source officielle = `docs/STRATEGIE-NAVLYS.md` §5. Montants ci-dessous = la grille en vigueur.
 
 **NAVLYS Finance** (abo) : **Gratuit · 19,99 · 39,99 · 79,99 €/mois** (annuel ≈ 2 mois offerts : 199 / 399 / 799 €) + essai 14 j + affiliation broker en parallèle.
 **NAVBIO / Next Gen** (one-shot « à vie », numérique) : **Gratuit · 29,99 (Unique) · 49,99 (Famille) · 99,99 (Infinite) · 199,99 € (Pro)**.
