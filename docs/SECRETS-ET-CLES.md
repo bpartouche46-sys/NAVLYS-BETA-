@@ -24,7 +24,7 @@ ce runbook cadre l'opération.
 
 ## 1. Inventaire des secrets (NOMS seulement — valeurs hors Git)
 
-> ⚠️ Liste à compléter par Bruno/Hermès. **Ne jamais** coller la valeur ici.
+> ⚠️ Liste à compléter par Bruno. **Ne jamais** coller la valeur ici.
 
 | # | Secret | Où il sert | Où il DOIT vivre | Rotation |
 |---|--------|------------|------------------|----------|
@@ -32,7 +32,7 @@ ce runbook cadre l'opération.
 | S2 | **Clé SSH serveur Hetzner** | accès SSH au core | `~/.ssh/` du/des PC autorisés (jamais copiée dans un chat) | 🔁 régénérer paire + retirer l'ancienne de `authorized_keys` |
 | S3 | **Mot de passe / accès Hetzner Console** | console.hetzner.cloud | gestionnaire de mots de passe + 2FA | 🔁 vérifier 2FA actif |
 | S4 | **ANTHROPIC_API_KEY** (moteur du core) | orchestrateur Agent SDK | `.env` serveur (hors Git) | 🔁 nouvelle clé dédiée au core |
-| S5 | **OpenRouter API key** (Hermès) | LLM d'Hermès | `.env` serveur (hors Git) | 🔁 si exposée |
+| S5 | ~~OpenRouter API key (Hermès)~~ | ❌ **RÉVOQUÉE** — Hermès retiré | — | 🛑 voir `docs/INCIDENT-HERMES.md` (ERR-005) |
 | S6 | **GitHub token** (PAT / fine-grained) | push/PR depuis le core | secret CI / `.env` serveur | 🔁 scope minimal (repo voulu only) |
 | S7 | **Vercel token** | déploiement sites | Vercel env / `.env` serveur | 🔁 scope équipe NAVLYS |
 | S8 | **Supabase** (`anon` public + `service_role` secret) | base `navlys-core` | anon = public OK ; `service_role` = **secret strict** | 🔁 régénérer `service_role` si exposé |
@@ -84,5 +84,6 @@ ce runbook cadre l'opération.
 ---
 
 > 📌 **Lien moteur** : les variables attendues par l'orchestrateur sont listées, **sans
-> valeurs**, dans `core/.env.example`. Bruno/Hermès copient ce fichier en `.env` (ignoré par
-> Git) et y mettent les vraies valeurs **sur le serveur uniquement**.
+> valeurs**, dans `core/.env.example`. Bruno (ou un opérateur serveur de confiance à
+> redéfinir) copie ce fichier en `.env` (ignoré par Git) et y met les vraies valeurs
+> **sur le serveur uniquement**.

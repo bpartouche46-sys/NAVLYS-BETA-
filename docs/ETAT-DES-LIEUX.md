@@ -2,6 +2,22 @@
 
 > Mis à jour à la fin de chaque session pour que la suivante reprenne sans tout relire.
 
+## Session 2026-06-24 (k) — 🚨 INCIDENT SÉCURITÉ : Hermès retiré (hack)
+
+- 🚨 **Bruno signale : Hermès supprimé = risque de sécurité majeur (hack).** Hermès (ancien
+  opérateur ops : LLM OpenRouter + accès SSH Hetzner + a touché GitHub/Vercel/cockpit/clouds)
+  est **sorti du projet** et **tous ses accès doivent être révoqués**.
+- 🧹 **Dépôt nettoyé (Claude)** : **toutes** les références à Hermès retirées (GOUVERNANCE,
+  ARCHITECTURE, CORE, CHAINE-1-SITES, TESTS, SECRETS, MEMOIRE, SAUVEGARDE, agents directeur/second,
+  core/). `docs/INSTRUCTIONS-HERMES.md` **supprimé**. `OPENROUTER_API_KEY` retiré de `core/.env.example`.
+  Le rôle « mains serveur » devient **« opérateur serveur à redéfinir »**, **bridé par le moteur**.
+- 🔑 **Checklist de révocation pour Bruno** : `docs/INCIDENT-HERMES.md` — révoquer/rotationner
+  **TOUS** ses accès, **y compris la clé API Anthropic** qui lui permettait d'appeler Claude
+  (+ OpenRouter, SSH Hetzner, GitHub, Vercel, clouds, cockpit). Re-vérifier le serveur
+  (portes dérobées : cron/services/clés ajoutées). Journalisé : **ERR-005**.
+- 🟡 **À FAIRE par Bruno** : exécuter la checklist `INCIDENT-HERMES.md` (Claude ne peut pas
+  agir sur les accès externes). Confirmer ici quand fait : « Révocation Hermès faite le JJ/MM ».
+
 ## Session 2026-06-23 (j) — « tout opérationnel & sécurisé » : code core + sécurité
 
 - 🎯 Demande Bruno : **« rends tout opérationnel à 100% et sécurisé »** (+ « je referai les
@@ -18,9 +34,10 @@
   `.mcp.json.example` (0 secret) + unit **systemd** + README de déploiement.
   ✅ **Logique garde-fous testée réellement : 18/18** (`core/test/`, via Node type-stripping).
   API SDK **vérifiée** par sous-agent sur la doc officielle. Scaffold non testé bout-en-bout
-  depuis GitHub (pas d'install réseau) → à valider sur serveur par Hermès.
+  depuis GitHub (pas d'install réseau) → à valider sur serveur (opérateur à redéfinir).
 - ⏭️ Reste pour le « 100% » réel : rotation clés (Bruno), source sites dans Git (Bruno),
-  install moteur sur Hetzner (Hermès). Détail = `docs/OPERATIONNEL-100.md`.
+  install moteur sur Hetzner (opérateur serveur **à redéfinir** — ex-Hermès retiré).
+  Détail = `docs/OPERATIONNEL-100.md`.
 
 ## Session 2026-06-23 (i) — core central : blueprint technique + 1ère chaîne choisie
 
@@ -38,13 +55,15 @@
   **en attente** du pré-requis bloquant : rapatrier la **source des sites dans GitHub** via
   **Claude Code sur le PC du bureau (Windows)** — install en cours côté Bruno. Premier
   passage prévu = la **Vague 1 déjà validée** (bio.html + index.html).
-- 📦 PR : **#20** — INSTRUCTIONS-HERMES, CORE-CENTRAL-TECHNIQUE, CHAINE-1-SITES, VEILLE.
+- 📦 PR : **#20** — CORE-CENTRAL-TECHNIQUE, CHAINE-1-SITES, VEILLE (note : INSTRUCTIONS-HERMES
+  supprimé depuis — voir session (k), ERR-005).
 
 ## Session 2026-06-22 (h) — gouvernance + délégation + contrôle conformité Vague 1
 
 - ⚖️ **Gouvernance gravée** (`docs/GOUVERNANCE.md`, reliée à CLAUDE.md règle d'or) :
   1) **zéro répétition** (tout capitaliser en knowledge/skill/routine, relié au core),
-  2) **Claude + Hermès orchestrateurs en surveillance mutuelle** (gardien arbitre),
+  2) ~~Claude + Hermès orchestrateurs en surveillance mutuelle~~ → **révisé** : Hermès retiré
+     (ERR-005) ; plus d'orchestrateur tiers de confiance, opérateur futur **bridé par le moteur**,
   3) **règle financière** : Bruno **seul** valide tout investissement/débit sur tous les
      comptes (y compris partenaires), **sauf abonnements classiques déjà en cours**.
 - 🎚️ **Délégation décidée par Bruno** : Claude **a la main** (conçoit + modifie + valide)

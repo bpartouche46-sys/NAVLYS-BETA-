@@ -6,7 +6,8 @@
 > (ignoré par Git). Voir `docs/SECRETS-ET-CLES.md`.
 
 ⚠️ **Statut** : scaffold **non testé depuis l'environnement GitHub** (pas d'install réseau
-ici). À valider sur le serveur (Hermès) : `npm install && npm run build && npm run start`.
+ici). À valider sur le serveur (par Bruno ou un opérateur de confiance **à redéfinir** — l'ancien
+opérateur Hermès a été **retiré**, cf. `docs/INCIDENT-HERMES.md`) : `npm install && npm run build && npm run start`.
 
 ---
 

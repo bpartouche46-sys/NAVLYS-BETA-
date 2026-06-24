@@ -5,7 +5,8 @@
 > Hetzner (`/mnt/navlys-backup`). Méthode cloud → core, **PC peut être éteint**.
 >
 > 🔐 Aucun secret ici. Les jetons d'accès rclone restent **sur le serveur**, hors Git.
-> ⚙️ À exécuter **sur le serveur** (par Hermès ou Bruno en SSH). Claude n'a pas cet accès.
+> ⚙️ À exécuter **sur le serveur** (par Bruno en SSH, ou un opérateur de confiance à
+> redéfinir — ex-Hermès retiré, ERR-005). Claude n'a pas cet accès.
 
 ---
 
@@ -81,7 +82,7 @@ ls -R /mnt/navlys-backup | head   # aperçu du contenu
 
 ---
 
-## Instruction courte à passer à Hermès
+## Instruction courte à passer à l'opérateur serveur (à redéfinir)
 > « Installe rclone sur navlys-core. Configure 3 remotes (gdrive, dropbox, onedrive,
 > compte bpartouche46@gmail.com, mode headless). Estime la taille des dossiers projet
 > (`rclone size`). Si ça tient dans le volume 10 Go monté sur /mnt/navlys-backup, copie
