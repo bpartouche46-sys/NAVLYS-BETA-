@@ -7,10 +7,10 @@
 <title>NAVLYS CORE — Live</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Fraunces:ital,wght@1,400;1,500&family=Lora:wght@400;500&display=swap" rel="stylesheet">
 <style>
-:root{--noir:#05060a;--ice:#5fe0ff;--or:#e9d3a0;--rouge:#ff2a1f;--vin:#7a1f2b;--perle:#eef0f6;--mut:#9fb3c8}
+:root{--noir:#05060a;--ice:#5fe0ff;--or:#e9d3a0;--rouge:#ff6b5e;--perle:#eef0f6;--mut:#9fb3c8}
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Lora',serif;color:var(--perle);background:var(--noir);line-height:1.6;min-height:100vh;overflow-x:hidden}
-.bg{position:fixed;inset:0;z-index:-2;background:radial-gradient(900px 620px at 84% -8%,rgba(233,211,160,.12),transparent 60%),radial-gradient(840px 600px at 6% 6%,rgba(95,224,255,.13),transparent 60%),radial-gradient(1100px 880px at 50% 120%,rgba(122,31,43,.40),transparent 64%),var(--noir)}
+.bg{position:fixed;inset:0;z-index:-2;background:radial-gradient(900px 620px at 84% -8%,rgba(233,211,160,.13),transparent 60%),radial-gradient(840px 600px at 6% 6%,rgba(95,224,255,.14),transparent 60%),radial-gradient(1100px 880px at 50% 120%,rgba(95,224,255,.10),transparent 64%),var(--noir)}
 .wrap{max-width:1100px;margin:0 auto;padding:0 18px 60px}
 header{padding:26px 0 10px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
 .led{width:15px;height:15px;border-radius:50%;background:radial-gradient(circle at 50% 38%,#bdf3ff,var(--ice) 60%,rgba(95,224,255,.1));box-shadow:0 0 18px var(--ice);animation:b 4.6s ease-in-out infinite}
@@ -26,7 +26,7 @@ header{padding:26px 0 10px;display:flex;align-items:center;gap:12px;flex-wrap:wr
 .stat.alert .n{color:var(--or)}
 h2{font-family:'Cormorant Garamond';font-weight:600;color:#fff;font-size:1.5rem;margin:34px 0 14px;display:flex;align-items:center;gap:10px}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}
-.ag{background:linear-gradient(160deg,rgba(122,31,43,.16),rgba(10,12,20,.6));border:1px solid rgba(95,224,255,.14);border-radius:14px;padding:13px 15px}
+.ag{background:linear-gradient(160deg,rgba(233,211,160,.07),rgba(10,12,20,.6));border:1px solid rgba(95,224,255,.16);border-radius:14px;padding:13px 15px}
 .ag .top{display:flex;align-items:center;gap:8px}
 .dot{width:9px;height:9px;border-radius:50%;background:var(--ice);box-shadow:0 0 9px var(--ice)}
 .dot.off{background:#54606e;box-shadow:none}
@@ -49,7 +49,7 @@ h2{font-family:'Cormorant Garamond';font-weight:600;color:#fff;font-size:1.5rem;
 .jrow{display:flex;gap:10px;align-items:baseline;padding:7px 0;border-bottom:1px solid rgba(255,255,255,.05);font-size:.9rem}
 .jrow .jt{color:var(--mut);font-size:.74rem;font-family:'Fraunces';font-style:italic;white-space:nowrap}
 .jrow .jm{color:var(--perle)}
-.err{background:var(--vin);border:1px solid var(--rouge);border-radius:12px;padding:14px;color:#fff;margin:20px 0}
+.err{background:rgba(255,107,94,.10);border:1px solid var(--rouge);border-radius:12px;padding:14px;color:#ffd9d3;margin:20px 0}
 footer{margin-top:40px;color:#8fa6c8;font-size:.78rem;font-family:'Fraunces';font-style:italic;text-align:center}
 .live{display:inline-flex;align-items:center;gap:7px;color:var(--ice);font-family:'Fraunces';font-style:italic;font-size:.85rem}
 </style>
