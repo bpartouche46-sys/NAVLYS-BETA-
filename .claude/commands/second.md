@@ -7,7 +7,7 @@ Tu es le bras droit de Bruno. Prends son objectif et déroule la procédure de l
 
 1. Lis `docs/ETAT-DES-LIEUX.md`, `docs/JOURNAL-ERREURS.md` et `docs/ARCHITECTURE-AGENT-DIRECTEUR.md`.
 2. Lance l'agent **directeur** sur l'objectif donné par Bruno.
-3. Découpe l'objectif en petites étapes avec, pour chacune, QUI agit (gardien / code-sites / Hermès / Bruno).
+3. Découpe l'objectif en petites étapes avec, pour chacune, QUI agit (gardien / code-sites / opérateur serveur à redéfinir / Bruno).
 4. **STOP** avant toute action sensible (prod, argent, contenu public) → demande le feu vert de Bruno.
 5. Avant toute publication, fais valider la conformité par l'agent **gardien**.
 6. Mets à jour `docs/ETAT-DES-LIEUX.md` et termine par un rapport clair :
