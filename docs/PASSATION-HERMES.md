@@ -1,5 +1,10 @@
 # Passation Hermès → NAVLYS (archivage) — 2026-06-23
 
+> 🚨 **INCIDENT 2026-06-24 (ERR-006)** : Hermès est désormais traité comme **compromis (hack)**
+> et **retiré du projet**. Ce document est **conservé volontairement** : il sert de **carte des
+> accès à révoquer**. 👉 Actions de révocation : **`docs/INCIDENT-HERMES.md`**.
+> Hermès n'a plus **aucun rôle de confiance** — toute mention ci-dessous est **historique**.
+
 > Reçu de **Hermès** (agent séparé, LLM via OpenRouter, qui avait l'accès Hetzner) via Bruno,
 > avant retrait d'Hermès. Consolidé ici par Claude (agent IA unique désormais).
 > 🔐 Règle d'or : **aucune valeur de secret ni IP** n'est écrite ici. Mots de passe / clés /
