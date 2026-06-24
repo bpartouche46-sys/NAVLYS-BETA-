@@ -17,7 +17,9 @@ a{color:inherit}
 .bg{position:fixed;inset:0;z-index:-2;background:
   radial-gradient(900px 620px at 84% -8%,rgba(233,211,160,.10),transparent 60%),
   radial-gradient(840px 600px at 6% 6%,rgba(125,211,252,.14),transparent 60%),
-  radial-gradient(1100px 880px at 50% 120%,rgba(18,48,72,.55),transparent 64%),var(--noir)}
+  radial-gradient(1100px 880px at 50% 120%,rgba(18,48,72,.55),transparent 64%),rgba(5,6,10,.72)}
+/* fond vidéo plein écran (bateau) — injecté par le JS, derrière tout, charte préservée */
+.fondvid{position:fixed;inset:0;width:100%;height:100%;object-fit:cover;z-index:-3;opacity:.20;filter:blur(3px) saturate(1.1);pointer-events:none}
 
 .topbar{position:fixed;top:0;left:0;right:0;height:var(--top-h);z-index:40;display:flex;align-items:center;gap:10px;padding:0 16px;background:rgba(5,6,10,.82);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
 .led{width:13px;height:13px;border-radius:50%;background:radial-gradient(circle at 50% 38%,#bdf3ff,var(--ice) 60%,rgba(125,211,252,.1));box-shadow:0 0 16px var(--ice);animation:pulse 4.6s ease-in-out infinite}
