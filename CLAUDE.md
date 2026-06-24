@@ -104,6 +104,7 @@ Commande rapide : `/controle` (voir `.claude/commands/controle.md`).
 | `docs/ARCHITECTURE-AGENT-DIRECTEUR.md` | Architecture orchestrateur + sous-agents + feuille de route |
 | `docs/MEMOIRE-CENTRALE.md` | Consolider les conversations sur le core (puis les supprimer) |
 | `docs/STRATEGIE-NAVLYS.md` | Positionnement, méthode 90/10, conformité, produits (F1/F2/F3) |
+| `docs/REGISTRE-VALIDATIONS-FINANCIERES.md` | **Registre central** des débits/paiements détectés (Gmail) en attente du feu vert de Bruno (règle financière §3) |
 | `docs/DESIGN-NAVLYS.md` | Charte (Ice Blue `#7DD3FC`, polices), patterns, conformité visuelle |
 | `docs/JOURNAL-ERREURS.md` | Liste des erreurs passées — à ne JAMAIS reproduire |
 | `docs/CHECKLIST-SECURITE.md` | Vérifications obligatoires avant/après chaque action |
