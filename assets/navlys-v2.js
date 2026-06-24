@@ -6,6 +6,19 @@
    - son : la vidéo démarre MUETTE (autoplay), son au clic
    ============================================================ */
 (function(){
+  // fond vidéo plein écran (bateau) — derrière tout ; respecte prefers-reduced-motion
+  try{
+    var FOND = window.NV_FONDVID || 'https://navlys-teaser.vercel.app/media/fond.mp4';
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if(FOND && !reduce){
+      var fv=document.createElement('video');
+      fv.className='fondvid'; fv.muted=true; fv.loop=true; fv.setAttribute('playsinline','');
+      fv.src=FOND; fv.onerror=function(){fv.remove();};
+      document.body.insertBefore(fv, document.body.firstChild);
+      var pf=fv.play(); if(pf&&pf.catch)pf.catch(function(){});
+    }
+  }catch(e){}
+
   // menu
   window.NV_menu=function(){var d=document.getElementById('dd');if(!d)return;var open=d.classList.toggle('show');var b=document.querySelector('.menu-btn');if(b)b.setAttribute('aria-expanded',open?'true':'false');};
 
