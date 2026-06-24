@@ -42,29 +42,32 @@
 
 ---
 
-## 2. 📖 NAVBIO NextGen (biographie vivante — paiement unique)
+## 2. 📖 NAVBIO = NAVLYS Next Gen (biographie vivante — 100 % NUMÉRIQUE, web/mobile)
+
+> ✅ **Produit unique, tout écran (web + mobile), AUCUN papier.** La « bio vivante » s'enrichit
+> chapitre par chapitre (texte + voix + illustrations IA + « le film »), tout en ligne.
 
 ### Politique de prix des concurrents (synthèse)
-| Segment | Fourchette | Acteurs |
+| Segment | Fourchette | Modèle | Acteurs |
+|---|---|---|---|
+| App DIY numérique | **~50–110 $** | **abonnement annuel qui se renouvelle** | Storyworth 59–199 $/an, Remento 99 $/an ou 12 $/mois, Autobiographer 199 $/an ou 20 $/mois |
+| Add-on numérique | **~40–50 $** | one-shot | Remento e-book 49,99 $, Meminto flipbook 39,99 $ |
+| Généalogie + IA | **~10–30 $/mois** | abonnement | MyHeritage (DeepStory / AI) |
+
+> ⚡ **Le point faible de TOUS** : l'**abonnement qui se renouvelle** (ton histoire « se ferme » si tu arrêtes de payer). Pour un produit **mémoire/transmission**, c'est contre-intuitif : les gens veulent **POSSÉDER** leur histoire.
+
+### 🎯 Grille NAVBIO / Next Gen recommandée — paiement UNIQUE « à vie » (numérique)
+| Palier | One-shot « à vie » | Pour qui / contenu |
 |---|---|---|
-| Entrée DIY (numérique/léger) | **~60–110 $ / 89 €** | Storyworth Basic 59 $, Raconteo 89 €, Meminto 99 $, Remento 99 $/an |
-| Milieu (DIY + livre couleur / IA) | **~110–200 $** | Storyworth Color 109 $ / Unlimited 199 $, Kindred Tales AI 135 $, Meminto 149 $, Autobiographer 199 $ |
-| **Trou de marché** | **~250–1 000 € : PERSONNE** | — |
-| Service rédigé (biographe/ghostwriter) | **~1 500 € → 21 000 $** | Biographes FR 1 500–9 000 €, StoryTerrace 3 250–21 000 $, LifeBook dès 7 500 £ |
+| **Gratuit — « Première page »** | 0 € | commence ton histoire (chapitres limités, sans IA avancée) → acquisition + hameçon « tes souvenirs t'appartiennent » |
+| **Unique** | **29,99 €** | TA bio à vie : chapitres illimités, **voix préservée**, IA (embellir/illustrer), **« le film »**, export |
+| **Famille** | **49,99 €** | plusieurs proches / récit à plusieurs mains |
+| **Infinite** | **99,99 €** | illimité + **transmission** (espace privé famille, héritage) + film enrichi |
+| **Pro** | **199,99 €** | usage pro / biographe / volume |
 
-> ⚡ **Insight clé** : la plupart des apps (Storyworth, Remento, Autobiographer) sont en **abonnement annuel qui se renouvelle** — leur point faible n°1. **NAVBIO en paiement unique = ton angle d'attaque frontal.**
-
-### 🎯 Grille NAVBIO recommandée (paiement UNIQUE)
-| Palier | One-shot | Livrable |
-|---|---|---|
-| **Numérique** (appel) | **39 €** | livre numérique / flipbook + partage mondial |
-| **Récit** (entrée) | **99 €** | 1 livre relié couleur + version numérique |
-| **Vivant** (standard ★) | **179 €** | + **voix/audio préservés (QR codes)** + transcription IA + ≥ 300 p. → *c'est ça, « biographie vivante »* |
-| **Héritage** (premium) | **349–490 €** | coffret multi-copies (cadeau famille), reliure haut de gamme, vidéo-souvenir, accompagnement léger |
-| **Upsell** | **+39–69 €/copie** | copies papier supplémentaires (marge récurrente, attendue par le marché) |
-
-- **vs ta grille MASTER (29,99 / 49,99 / 99,99 / 199,99 €)** : ⚠️ **si un livre papier est inclus, ton entrée à 29,99 € est SOUS le marché** (plancher réel ~89 €) → tu laisses de l'argent sur la table. La reco **monte l'échelle** et surtout crée un **palier « Héritage » à 349–490 €** qui occupe le **trou 250–1 000 €** que personne ne couvre (et qui reste **10× moins cher** qu'un biographe). *(Si tes paliers sont 100 % numériques sans livre, garde l'entrée basse et ajoute un palier physique premium.)*
-- **Argument massue** : *« Le prix d'un Storyworth — mais payé une seule fois, à vie. »*
+- ✅ **Ta grille MASTER (29,99 / 49,99 / 99,99 / 199,99) est PARFAITE pour le numérique** — pas de coût d'impression, marge élevée. **Recommandation : on la garde**, on **ajoute le palier GRATUIT** (acquisition), et on **change le modèle des paliers en « à vie »** (scope : Unique → Pro).
+- 🥊 **L'arme fatale = le paiement unique « à vie »** : *« Storyworth te fait payer 99 $ CHAQUE année. NAVBIO : une fois, à vie, et c'est à toi. »* Aucun concurrent ne dit ça → tu deviens **n°1 sur le modèle ET sur le prix sur la durée**.
+- ⚙️ Seul prérequis : préciser dans les CGV la **durée réelle d'hébergement des données/médias** (le « à vie » doit être factuellement tenable — c'est justement ce que les abos évitent en fermant l'accès).
 
 ---
 
@@ -93,11 +96,15 @@
 
 ---
 
-## 4. Décisions à figer (Bruno)
-1. **Finance** : ajouter le **palier gratuit** (recommandé fort) ; trancher l'entrée 19,99 € vs 29,99 €.
-2. **NAVBIO** : confirmer si les paliers incluent un **livre papier** → si oui, **remonter l'échelle** (99/179/349-490) ; valider le palier **Héritage**.
-3. **NAVLEX** : valider **9,99 € + annuel 79 €** ; tester **5 questions** gratuites vs 3.
-4. Partout : mensuel **+ annuel (~2 mois offerts)** + **essai gratuit**.
+## 4. 🏆 GRILLE RECOMMANDÉE FINALE (reco Claude — à valider Bruno)
+
+Bruno a délégué l'arbitrage Finance + NAVLEX ; NAVBIO confirmé 100 % numérique. Reco ferme :
+
+**NAVLYS Finance** (abo) : **Gratuit · 19,99 · 39,99 · 79,99 €/mois** (annuel ≈ 2 mois offerts : 199 / 399 / 799 €) + essai 14 j + affiliation broker en parallèle.
+**NAVBIO / Next Gen** (one-shot « à vie », numérique) : **Gratuit · 29,99 (Unique) · 49,99 (Famille) · 99,99 (Infinite) · 199,99 € (Pro)**.
+**NAVLEX** (abo) : **Gratuit (5 questions) · 9,99 €/mois (79 €/an) · 19,99 €/mois (Pro)**.
+
+> Pour être **n°1 « en tout »** : prix justes + **freemium partout** + **annuel remisé** + **modèle gagnant** (NAVBIO à vie vs abos concurrents) + **confiance/conformité** (zéro CIF-ORIAS, « ne remplace pas un avocat ») + **affiliation** comme 2ᵉ moteur. **Bruno fixe/valide les montants.**
 
 ## 5. Sources (consultées le 24/06/2026)
 Finance : tradingview.com/pricing · zonebourse.com/abonnements · benzinga.com/pro/pricing · investing.com/pro · etoro.com/trading/fees · traderepublic.com · skool.com/pricing · support.patreon.com · realvision.com · coinbureau.com/deals · finary.com/pricing.
