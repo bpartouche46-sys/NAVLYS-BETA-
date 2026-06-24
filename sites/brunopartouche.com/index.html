@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Bruno Mark Partouche — skipper, finance, NAVLYS & NAVBIO</title>
+<meta name="description" content="Bruno Mark Partouche : la vie en mer, la discipline, NAVLYS et NAVBIO. Éducation & veille — aucune promesse.">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Fraunces:ital,wght@1,400;1,500&family=Lora:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/navlys-v2.css">
+</head>
+<body>
+<div class="bg"></div>
+<h1 class="sr-only">Bruno Mark Partouche — skipper, finance, NAVLYS &amp; NAVBIO</h1>
+
+<div class="topbar"><span class="led"></span><a class="brand" href="/">BRUNO</a>
+  <button class="menu-btn" onclick="NV_menu()" aria-label="Menu">☰</button></div>
+<nav class="dropdown" id="dd">
+  <a href="/">🌊 Accueil</a><a href="/bio">📖 Ma bio</a><a href="https://navlys.com">🧭 NAVLYS</a><a href="https://navbiolife.com">🧬 NAVBIO</a><a href="#ecoute">🎙️ Écoutez Bruno</a>
+</nav>
+<div class="bandeau"><div class="scroll">NAVLYS est un projet d'éducation et de veille à vocation informative uniquement. Les contenus ne constituent en aucun cas un conseil personnalisé en investissement, ni une recommandation d'achat ou de vente. Chacun reste seul responsable de ses décisions financières.</div></div>
+
+<section class="cinema">
+  <div class="curtain left"></div><div class="curtain right"></div>
+  <div class="tie l"></div><div class="tie r"></div>
+  <div class="screen">
+    <div class="poster" id="reelPoster"></div>
+    <video muted autoplay playsinline preload="metadata" id="liveVideo"></video>
+    <div class="reel-title" id="reelTitle"></div><div class="reel-dots" id="reelDots"></div>
+  </div>
+  <div class="valance"></div>
+  <div class="cine-label"><span class="cine-dot"></span> EN DIRECT</div>
+  <button class="snd" id="sndBtn" onclick="NV_sound()" aria-label="Son">🔇</button>
+</section>
+
+<main class="feed"><div class="wrap">
+  <div class="ticker"><div class="run"><b>● BRUNO</b> &nbsp;·&nbsp; Skipper en Méditerranée &nbsp;<em>▸</em>&nbsp; Finance, marketing, NAVLYS &nbsp;<em>▸</em>&nbsp; NAVBIO, la transmission &nbsp;<em>▸</em>&nbsp; « Pas de promesse. Une discipline. »</div></div>
+
+  <div class="eyebrow"><span class="chip">⚓</span><h2>Bruno Mark Partouche</h2></div>
+  <p class="lead">Skipper, finance, marketing — une vie en bord de mer, encore en train de s'écrire.</p>
+
+  <!-- ÉCOUTEZ BRUNO : audio déclenché au clic ; l'autoplay du site reste muet -->
+  <div class="app" id="ecoute">
+    <span class="av">🎙️</span>
+    <div><h4>Écoutez Bruno</h4><p>Le mot de Bruno, en deux minutes.</p></div>
+    <button class="dl" id="ecouteBtn" onclick="brunoPlay()">▶ Écouter</button>
+  </div>
+  <audio id="brunoAudio" preload="none" src="/media/bruno.mp3"></audio>
+
+  <div class="eyebrow"><span class="chip">✦</span><h2>Ma méthode, en clair</h2></div>
+  <div class="trio">
+    <div class="tcard"><span class="ic">🧭</span><h3>Le jeu</h3><p>« Construis une méthode AVANT d'en avoir besoin. » On apprend les règles, on garde la barre.</p><div class="eq"><i></i><i></i><i></i><i></i><i></i></div></div>
+    <div class="tcard"><span class="ic">🌊</span><h3>Le plaisir</h3><p>La mer enseigne la patience, l'humilité, l'art de réagir sans paniquer.</p><div class="eq"><i></i><i></i><i></i><i></i><i></i></div></div>
+    <div class="tcard"><span class="ic">🌿</span><h3>Le bien-être</h3><p>Réflexologie, reiki, bols, trompette : l'attention au signal faible.</p><div class="eq"><i></i><i></i><i></i><i></i><i></i></div></div>
+  </div>
+
+  <div class="flashy">
+    <span class="badge">SANS PROMESSE</span>
+    <h3>Tu promets combien ? <em>Rien.</em></h3>
+    <p class="lead" style="margin-top:0">Pas de promesse de gain, pas de rendement annoncé. Une discipline, transparente, que tu gardes en main. Tu prends la responsabilité de tes décisions.</p>
+    <a class="more" href="/bio">Lire ma bio complète <span class="arr">→</span></a>
+  </div>
+
+  <div class="eyebrow"><span class="chip">▣</span><h2>L'univers</h2></div>
+  <div class="apps">
+    <div class="app"><span class="av">🧭</span><div><h4>NAVLYS</h4><p>Éducation &amp; veille, en euros.</p></div><a class="dl" href="https://navlys.com">Découvrir</a></div>
+    <div class="app"><span class="av">🧬</span><div><h4>NAVBIO</h4><p>Ta biographie vivante.</p></div><a class="dl" href="https://navbiolife.com">Découvrir</a></div>
+  </div>
+
+  <footer>
+    <div class="flag">⚓ BRUNO MARK PARTOUCHE 🌊</div>
+    <p class="disc">NAVLYS est un projet d'éducation et de veille à vocation informative uniquement. Les contenus ne constituent en aucun cas un conseil personnalisé en investissement, ni une recommandation d'achat ou de vente. Chacun reste seul responsable de ses décisions financières. Réservé aux 18 ans et +.</p>
+    <p class="legal">© 2026 Bruno Mark Partouche · Powered by NAVLYS · <a href="https://navlys.com/cgu">CGU</a></p>
+  </footer>
+</div></main>
+
+<nav class="tabbar">
+  <a class="tab active" href="/"><span class="i">🌊</span>Accueil</a>
+  <a class="tab" href="/bio"><span class="i">📖</span>Bio</a>
+  <a class="tab" href="#ecoute"><span class="i">🎙️</span>Écouter</a>
+  <a class="tab" href="https://navlys.com"><span class="i">🧭</span>NAVLYS</a>
+  <a class="tab" href="#" onclick="NV_menu();return false;"><span class="i">☰</span>Menu</a>
+</nav>
+
+<script>
+window.NV_TARGET = Date.parse('2026-07-01T00:00:00+02:00');
+window.NV_REELS = [
+  {src:"https://navlys.com/media/presentation.mp4", title:"Bruno — présentation"},
+  {src:"", title:"En mer"},
+  {src:"", title:"La méthode"}
+];
+/* Écoutez Bruno : déclenché au clic uniquement (autoplay du site = muet) */
+function brunoPlay(){
+  var a=document.getElementById('brunoAudio'), b=document.getElementById('ecouteBtn');
+  if(!a)return;
+  if(a.paused){ a.play().then(function(){b.textContent='⏸ Pause';}).catch(function(){b.textContent='Audio bientôt disponible';}); }
+  else { a.pause(); b.textContent='▶ Écouter'; }
+  a.onended=function(){b.textContent='▶ Écouter';};
+}
+</script>
+<script src="/assets/navlys-v2.js"></script>
+</body>
+</html>

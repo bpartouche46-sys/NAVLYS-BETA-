@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>NAVLYS.io — l'écosystème & les partenaires</title>
+<meta name="description" content="NAVLYS.io — l'écosystème NAVLYS : éducation, veille, technologie et partenaires affiliés. À vocation informative uniquement.">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Fraunces:ital,wght@1,400;1,500&family=Lora:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/navlys-v2.css">
+</head>
+<body>
+<div class="bg"></div>
+<h1 class="sr-only">NAVLYS.io — l'écosystème &amp; les partenaires</h1>
+
+<div class="topbar"><span class="led"></span><a class="brand" href="/">NAVLYS.io</a>
+  <button class="menu-btn" onclick="NV_menu()" aria-label="Menu">☰</button></div>
+<nav class="dropdown" id="dd">
+  <a href="/">🌊 Accueil</a><a href="#tech">⚙️ Technologie</a><a href="#partenaires">🤝 Partenaires</a><a href="https://navlys.com">🧭 NAVLYS</a>
+</nav>
+<div class="bandeau"><div class="scroll">NAVLYS est un projet d'éducation et de veille à vocation informative uniquement. Les contenus ne constituent en aucun cas un conseil personnalisé en investissement, ni une recommandation d'achat ou de vente. Chacun reste seul responsable de ses décisions financières.</div></div>
+
+<section class="cinema">
+  <div class="curtain left"></div><div class="curtain right"></div>
+  <div class="tie l"></div><div class="tie r"></div>
+  <div class="screen">
+    <div class="poster" id="reelPoster"></div>
+    <video muted autoplay playsinline preload="metadata" id="liveVideo"></video>
+    <div class="reel-title" id="reelTitle"></div><div class="reel-dots" id="reelDots"></div>
+  </div>
+  <div class="valance"></div>
+  <div class="cine-label"><span class="cine-dot"></span> EN DIRECT</div>
+  <button class="snd" id="sndBtn" onclick="NV_sound()" aria-label="Son">🔇</button>
+</section>
+
+<main class="feed"><div class="wrap">
+  <div class="ticker"><div class="run"><b>● NAVLYS.io</b> &nbsp;·&nbsp; L'écosystème &nbsp;<em>▸</em>&nbsp; Technologie &nbsp;<em>▸</em>&nbsp; Partenaires affiliés &nbsp;<em>▸</em>&nbsp; Éducation &amp; veille — aucune promesse</div></div>
+
+  <div class="eyebrow"><span class="chip">⚙️</span><h2>L'écosystème NAVLYS</h2></div>
+  <p class="lead">Le socle technique et les partenaires qui font vivre l'univers — éducation et veille, à vocation informative.</p>
+
+  <div class="trio" id="tech">
+    <div class="tcard"><span class="ic">⚙️</span><h3>Technologie</h3><p>Un socle dématérialisé, sécurisé, recentralisé. Tout reconnecté proprement.</p><div class="eq"><i></i><i></i><i></i><i></i><i></i></div></div>
+    <div class="tcard" id="partenaires"><span class="ic">🤝</span><h3>Partenaires affiliés</h3><p>NAVLYS peut percevoir une rémunération en tant que partenaire affilié. Aucune de ces mentions ne constitue un conseil personnalisé ni une incitation à investir.</p><div class="eq"><i></i><i></i><i></i><i></i><i></i></div></div>
+    <div class="tcard"><span class="ic">🔒</span><h3>Confiance</h3><p>Données en Europe, contenus privés par défaut. Tu gardes la main.</p><div class="eq"><i></i><i></i><i></i><i></i><i></i></div></div>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><div class="n">6</div><div class="u">univers</div></div>
+    <div class="stat"><div class="n">EU</div><div class="u">données en Europe</div></div>
+    <div class="stat"><div class="n">0€</div><div class="u">pour tester</div></div>
+  </div>
+
+  <a class="more" href="https://navlys.com">Aller sur le hub NAVLYS <span class="arr">→</span></a>
+
+  <footer>
+    <div class="flag">🌊 NAVLYS.io ⚙️</div>
+    <p class="disc">NAVLYS est un projet d'éducation et de veille à vocation informative uniquement. Les contenus ne constituent en aucun cas un conseil personnalisé en investissement, ni une recommandation d'achat ou de vente. Chacun reste seul responsable de ses décisions financières. NAVLYS peut percevoir une rémunération en tant que partenaire affilié. Réservé aux 18 ans et +.</p>
+    <p class="legal">© 2026 NAVLYS · <a href="https://navlys.com/cgu">CGU</a> · <a href="https://navlys.com/privacy">Confidentialité</a></p>
+  </footer>
+</div></main>
+
+<nav class="tabbar">
+  <a class="tab active" href="/"><span class="i">🌊</span>Accueil</a>
+  <a class="tab" href="#tech"><span class="i">⚙️</span>Tech</a>
+  <a class="tab" href="#partenaires"><span class="i">🤝</span>Partenaires</a>
+  <a class="tab" href="https://navlys.com"><span class="i">🧭</span>NAVLYS</a>
+  <a class="tab" href="#" onclick="NV_menu();return false;"><span class="i">☰</span>Menu</a>
+</nav>
+
+<script>
+window.NV_TARGET = Date.parse('2026-07-01T00:00:00+02:00');
+window.NV_REELS = [
+  {src:"https://navlys.com/media/presentation.mp4", title:"NAVLYS.io — l'écosystème"},
+  {src:"", title:"Technologie"}
+];
+</script>
+<script src="/assets/navlys-v2.js"></script>
+</body>
+</html>
