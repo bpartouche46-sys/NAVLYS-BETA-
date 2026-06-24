@@ -12,7 +12,7 @@
 > 🔎 **Constat dépôt (2026-06-22)** : recherche faite (Grep/Glob) — le dépôt
 > `NAVLYS-BETA-` ne contient **que de la doc + un prototype HTML** (`proto/navlys-v2.html`).
 > **Aucun code applicatif** pour voix / juridique / FAQ / abonnement n'est présent ici.
-> Ces systèmes vivent ailleurs (core Hetzner via Hermès, et/ou apps Vercel) → c'est là
+> Ces systèmes vivent ailleurs (core Hetzner via l'opérateur serveur, et/ou apps Vercel) → c'est là
 > qu'il faut tester.
 
 ---
@@ -47,7 +47,7 @@ clonée de Bruno** — un assistant conversationnel vocal.
 | V4 | La voix est bien le **clone de Bruno** | Écouter la réponse audio de V3 | Le timbre correspond à la voix clonée (pas une voix générique) | Bruno | ⬜ |
 | V5 | Latence acceptable | Chronométrer entre fin de la question et début de la réponse | Réponse en un délai raisonnable (à définir, ex. < 5 s) | Bruno | ⬜ |
 | V6 | **Conformité du contenu vocal** | Poser une question piège (« Dois-je acheter tel ETF ? », « Combien je vais gagner ? ») | La réponse **refuse** le conseil perso / la promesse de rendement, renvoie vers l'éducation + rappelle le disclaimer | Bruno (+ gardien) | ⬜ |
-| V7 | Robustesse (côté serveur) | Vérifier que le service voix tourne bien sur Hetzner (process actif, logs sans erreur) | Service stable, pas de crash, clés API non exposées | Hermès (Hetzner) | ⬜ |
+| V7 | Robustesse (côté serveur) | Vérifier que le service voix tourne bien sur Hetzner (process actif, logs sans erreur) | Service stable, pas de crash, clés API non exposées | Opérateur serveur (à redéfinir) | ⬜ |
 
 **Points de conformité à vérifier** : la réponse vocale **ne donne jamais** de conseil
 personnalisé ni de promesse de rendement (V6) ; un disclaimer audio ou écrit est présent ;
@@ -71,10 +71,10 @@ aucune clé du fournisseur de clonage vocal n'est exposée côté client (V7).
 |---|----------------|---------------------------|---------------------|-----------|--------|
 | J1 | NavLex est accessible | Ouvrir l'interface NavLex (back-office ou page dédiée) | L'interface s'ouvre, on voit des entrées juridiques | Bruno | ⬜ |
 | J2 | La base contient du contenu | Parcourir / rechercher un sujet (ex. statut finfluenceur, ORIAS, AMF) | Des fiches pertinentes remontent | Bruno | ⬜ |
-| J3 | **La mise à jour quotidienne tourne** | Vérifier la tâche planifiée (cron/scheduler) sur le serveur | Un job s'exécute chaque jour, log de succès daté du jour | Hermès (Hetzner) | ⬜ |
-| J4 | La MAJ apporte du neuf | Comparer la base J-1 et J (nouvelles entrées / date de dernière MAJ) | Champ « dernière mise à jour » = aujourd'hui ; nouvelles entrées présentes | Bruno + Hermès | ⬜ |
+| J3 | **La mise à jour quotidienne tourne** | Vérifier la tâche planifiée (cron/scheduler) sur le serveur | Un job s'exécute chaque jour, log de succès daté du jour | Opérateur serveur (à redéfinir) | ⬜ |
+| J4 | La MAJ apporte du neuf | Comparer la base J-1 et J (nouvelles entrées / date de dernière MAJ) | Champ « dernière mise à jour » = aujourd'hui ; nouvelles entrées présentes | Bruno + opérateur serveur | ⬜ |
 | J5 | Sources fiables | Vérifier d'où viennent les données (sources officielles : Légifrance, AMF, ACPR…) | Sources traçables et citées, pas de contenu inventé | Bruno + Claude (si code dispo) | ⬜ |
-| J6 | Pas d'échec silencieux | Couper / simuler une source indisponible | Le système le signale (log/alerte), ne publie pas de vide | Hermès (Hetzner) | ⬜ |
+| J6 | Pas d'échec silencieux | Couper / simuler une source indisponible | Le système le signale (log/alerte), ne publie pas de vide | Opérateur serveur (à redéfinir) | ⬜ |
 | J7 | **Conformité d'usage** | Lire comment NavLex est présenté à l'utilisateur final | Présenté comme **information juridique / éducation**, PAS comme conseil juridique personnalisé ; disclaimer présent | Bruno (+ gardien) | ⬜ |
 
 **Points de conformité à vérifier** : NavLex = **information/veille juridique éducative**,
@@ -127,9 +127,9 @@ partenaire → souscription / abonnement).
 | P1 | Accès espace partenaire | Se connecter à l'espace/parcours partenaire | Connexion OK, on atteint l'écran d'enregistrement d'abonnement | Bruno | ⬜ |
 | P2 | Choix de l'offre | Sélectionner un palier (F1 29,99 € / F2 39,99 € / F3 49,99 €) | Le bon prix s'affiche, cohérent avec `STRATEGIE-NAVLYS.md` | Bruno | ⬜ |
 | P3 | Saisie d'un abonnement test | Enregistrer un abonnement pour un client fictif | L'abonnement est créé, visible dans le back-office | Bruno | ⬜ |
-| P4 | **Paiement (mode test)** | Lancer le paiement en **mode test** (jamais une vraie carte) | Transaction test passe, statut « payé/actif » correct | Bruno (+ Hermès pour la plateforme) | ⬜ |
+| P4 | **Paiement (mode test)** | Lancer le paiement en **mode test** (jamais une vraie carte) | Transaction test passe, statut « payé/actif » correct | Bruno (+ opérateur serveur) | ⬜ |
 | P5 | Suivi / commission partenaire | Vérifier que l'abonnement est bien rattaché au partenaire | Le partenaire voit son abonnement enregistré (et sa commission si prévue) | Bruno | ⬜ |
-| P6 | Annulation / remboursement | Tester l'annulation de l'abonnement test | L'abonnement passe « annulé », pas de double facturation | Bruno (+ Hermès) | ⬜ |
+| P6 | Annulation / remboursement | Tester l'annulation de l'abonnement test | L'abonnement passe « annulé », pas de double facturation | Bruno (+ opérateur serveur) | ⬜ |
 | P7 | **Conformité commerciale** | Relire les écrans du parcours (offres, descriptions) | Produit présenté comme **pédagogique/outil**, aucune promesse de gain, CGU/prix clairs, disclaimer présent | Bruno + gardien | ⬜ |
 
 **Points de conformité à vérifier** : l'offre est un **produit éducatif/outil** (pas un
@@ -151,10 +151,10 @@ manipulée pendant le test. **Action sensible** (argent) → **feu vert de Bruno
 
 | Fonctionnalité | Testeur principal | Appui serveur (Hetzner) | Appui code/conformité |
 |----------------|-------------------|-------------------------|------------------------|
-| 🎙️ Voix | **Bruno** (essai réel micro/audio) | **Hermès** (service, logs, clés) | Gardien (conformité réponses) |
-| ⚖️ NavLex | **Bruno** (contenu) | **Hermès** (cron MAJ quotidienne, logs) | Claude/Gardien (si code dispo) |
+| 🎙️ Voix | **Bruno** (essai réel micro/audio) | **Opérateur serveur** (service, logs, clés) | Gardien (conformité réponses) |
+| ⚖️ NavLex | **Bruno** (contenu) | **Opérateur serveur** (cron MAJ quotidienne, logs) | Claude/Gardien (si code dispo) |
 | ❓ FAQ | **Bruno** (parcours) | — | **Claude** (liens, code) + Gardien |
-| 🤝 Partenaires | **Bruno** (parcours + feu vert) | **Hermès** (plateforme paiement) | Gardien (conformité commerciale) |
+| 🤝 Partenaires | **Bruno** (parcours + feu vert) | **Opérateur serveur** (plateforme paiement) | Gardien (conformité commerciale) |
 
 > ⚠️ **Claude ne peut tester aucun système live lui-même** (pas d'accès Hetzner ni aux apps).
 > Son rôle réel ici : tenir ce plan, relire le **code** quand il est dans GitHub (FAQ, liens),
