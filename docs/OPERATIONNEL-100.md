@@ -57,7 +57,7 @@ ci-dessus restent des **actions humaines**. Ce tracker dit exactement ce qui man
 |---|--------|--------|-----|------|
 | C1 | Corrections conformité préparées (C-01→C-04) | ✅ | C | `corrections-pretes/` |
 | C2 | Contrôle gardien Vague 1 (bio + navbio index) | ✅ | C | CONFORMES, prêts |
-| C3 | **Source des sites dans Git** | 🟢 | C | déjà dans **NOVA-HUB** + `sites/` ici (navlys/bruno) ; navbio/io/teasers à confirmer |
+| C3 | **Source des sites dans Git** | 🟢 | C | déjà dans **NOVA-HUB** + `sites/` ici (navlys/bruno) ; navbio/io/teasers à confirmer (NOVA-HUB **existe, public, maj 2026-06-24** — lecture du contenu = hors scope GitHub de la session, à confirmer par Bruno ou en ouvrant le scope NOVA-HUB) |
 | C3b | Relier **Vercel → Git** (déploiement auto, plus de CLI) | 🟡 | B | corrige ERR-002/004 |
 | C4 | Mentions légales (éditeur/hébergeur) | 🔴 | B | hors Git + relecture juridique |
 | C5 | **Feu vert prod** + déploiement | 🔴 | B | aucune mise en ligne sans accord |
