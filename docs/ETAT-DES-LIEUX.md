@@ -2,6 +2,19 @@
 
 > Mis à jour à la fin de chaque session pour que la suivante reprenne sans tout relire.
 
+## Session 2026-06-23 (nuit) — ultra-review + correctifs
+
+- 🔬 **Revue adversariale multi-agents** (4 dimensions → re-vérification → synthèse).
+  Verdict : **privé/secrets = PROPRE** (0 fuite) ; **conformité doctrinale = à nettoyer** (0 critique, 8 majeurs, 6 mineurs).
+- ✅ **Correctifs appliqués** :
+  - 🌍 **Géo interdite purgée des pages NAVLYS** : `sites/navlys.com/index.html` (titre, ticker, carte plaisir, Radio) + `proto/navlys-v2.html` (meta, Radio). *(La revue avait raison : mes grep ratant les accents avaient masqué ces occurrences.)* bp.com **conserve** Méditerranée (autorisée).
+  - 🎨 `sites/navlys-app/finance.html` : `#5fe0ff` → **#7DD3FC**.
+  - 📐 `DESIGN-NAVLYS.md` : narratif méditerranéen recadré (bp.com only) + mojibake corrigé.
+  - 💶 `STRATEGIE-NAVLYS.md` + `TESTS-FONCTIONNELS.md` : caveat **F4 PRO 99,99** + « grille à figer ».
+  - 🔗 `INVENTAIRE` : renvoi cassé corrigé, « Votre tempo » marqué variante non officielle.
+- 🟠 **Restent décisions Bruno** (non inventées) : figer **1 grille tarifaire** (F1–F4 vs échelle live) ;
+  figer la **valeur de l'accent doré** (bronze #d4a155 vs champagne #e9d3a0).
+
 ## Session 2026-06-23 (nuit) — finalisation autonome (G1)
 
 - ✅ **Modèles légaux rapatriés** (`contenu/legal/`) : **mentions** (A1) · **CGU** (A5) ·

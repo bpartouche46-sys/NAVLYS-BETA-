@@ -91,7 +91,7 @@
 | 1 | **FAQ « Questions honnêtes / pas de bullshit »** (« je donne une méthode, pas une promesse » ; « le crash est ton ami ») | brunopartouche.com | Section FAQ sur l'accueil (sous la mission) — rassurant + conforme (anti-promesse). |
 | 2 | **Manifeste mémoire/transmission** (« le rire qu'on raconte 30 ans après… ») | navbiolife / bio | Enrichir le bloc Next Gen de l'accueil (actuellement trop sec). |
 | 3 | **Récit fondateur en chapitres** (skipper, « tu gardes le cap »…) | bio | Créer page `/bruno` ou `/histoire` (le central n'a aucune page « qui est derrière » → confiance/E-E-A-T). |
-| 4 | **Tagline** « Ma méthode · Votre argent · Votre tempo » | brunopartouche, navlys.io | À arbitrer vs le slogan officiel « Ma méthode — Ton argent — Ton contrôle » (incohérence, voir §5). |
+| 4 | **Tagline** « Ma méthode · Votre argent · Votre tempo » | brunopartouche, navlys.io | ⚠️ **Variante NON officielle** (vouvoiement). Officiel tranché = « Ma méthode · Ton argent · Ton contrôle » (cf. `docs/ASSIMILATION-DRIVE-2026-06-23.md`). À harmoniser. |
 | 5 | **Liste détaillée des 19 partenaires** (catégorisée, AFFILIÉ BP001) | navlys.io | Vraie page `/partenaires` sur navlys.com (celle de brunopartouche est 404). |
 | 6 | **Module « Pouls du marché » live** (crypto + FX, gratuit) | finance-journal | Remonter sur l'accueil ou /finance — preuve de veille vivante, zéro risque conformité. |
 | 7 | **Maximes punchy** (« Le pourcentage séduit. L'euro décide. ») | finance-journal | Pull-quotes sur l'accueil et /finance. |

@@ -51,14 +51,19 @@
 
 ## 5. Produits
 
-### App Trading — 3 paliers
+### App Trading — paliers (⚠️ grille NON figée — à arbitrer)
 
 | Palier | Prix     |
 |--------|----------|
 | **F1** | 29,99 €  |
 | **F2** | 39,99 €  |
 | **F3** | 49,99 €  |
+| **F4 PRO** | 99,99 € *(présent dans NAVLYS-MASTER, absent ici — à confirmer)* |
 
+> ⚠️ **Grille à figer (règle financière = décision Bruno).** Trois vues divergent :
+> cette grille F1–F4, et l'échelle affichée sur le `/finance` live (Gratuit · 9,99 · 29,99 ·
+> 49,99 · 99,99 €). À réconcilier en une passe avant toute page /tarifs.
+>
 > Produit pédagogique (éducation/outil), cohérent avec le statut : aucun conseil
 > personnalisé ni promesse de gain.
 
