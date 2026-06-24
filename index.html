@@ -3,55 +3,37 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="robots" content="noindex">
-<title>NAVLYS CORE — Live</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Fraunces:ital,wght@1,400;1,500&family=Lora:wght@400;500&display=swap" rel="stylesheet">
+<title>NAVLYS™ — Atelier</title>
+<meta name="description" content="L'atelier NAVLYS — les bonnes versions, en ligne, en direct.">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Fraunces:ital,wght@1,400;1,500&family=Lora:wght@400;500&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 <style>
-:root{--noir:#05060a;--ice:#5fe0ff;--or:#e9d3a0;--rouge:#ff6b5e;--perle:#eef0f6;--mut:#9fb3c8}
+:root{--noir:#05060a;--ice:#5fe0ff;--or:#e9d3a0;--perle:#eef0f6;--mut:#9fb3c8}
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Lora',serif;color:var(--perle);background:var(--noir);line-height:1.6;min-height:100vh;overflow-x:hidden}
-.bg{position:fixed;inset:0;z-index:-2;background:radial-gradient(900px 620px at 84% -8%,rgba(233,211,160,.13),transparent 60%),radial-gradient(840px 600px at 6% 6%,rgba(95,224,255,.14),transparent 60%),radial-gradient(1100px 880px at 50% 120%,rgba(95,224,255,.10),transparent 64%),var(--noir)}
-.wrap{max-width:1100px;margin:0 auto;padding:0 18px 60px}
-header{padding:26px 0 10px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
-.led{width:15px;height:15px;border-radius:50%;background:radial-gradient(circle at 50% 38%,#bdf3ff,var(--ice) 60%,rgba(95,224,255,.1));box-shadow:0 0 18px var(--ice);animation:b 4.6s ease-in-out infinite}
+.bg{position:fixed;inset:0;z-index:-2;background:radial-gradient(900px 620px at 84% -8%,rgba(233,211,160,.12),transparent 60%),radial-gradient(840px 600px at 6% 6%,rgba(95,224,255,.14),transparent 60%),radial-gradient(1100px 880px at 50% 120%,rgba(95,224,255,.08),transparent 64%),var(--noir)}
+.wrap{max-width:1000px;margin:0 auto;padding:0 18px 70px}
+header{padding:30px 0 6px;display:flex;align-items:center;gap:14px}
+.led{width:14px;height:14px;border-radius:50%;background:radial-gradient(circle at 50% 38%,#bdf3ff,var(--ice) 60%,rgba(95,224,255,.1));box-shadow:0 0 18px var(--ice);animation:b 4.6s ease-in-out infinite}
 @keyframes b{0%,100%{opacity:.5;transform:scale(.85)}50%{opacity:1;transform:scale(1.18)}}
-.logo{font-family:'Cormorant Garamond';letter-spacing:6px;font-size:1.5rem;color:#fff}
+.logo{font-family:'Cormorant Garamond';letter-spacing:6px;font-size:1.7rem;color:#fff}
 .logo b{color:var(--or);font-weight:600}
-.upd{margin-left:auto;color:var(--mut);font-family:'Fraunces';font-style:italic;font-size:.85rem}
-.sub{font-family:'Fraunces';font-style:italic;color:var(--or);opacity:.9;margin:2px 0 22px}
-.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-bottom:30px}
-.stat{background:linear-gradient(160deg,rgba(95,224,255,.10),rgba(10,12,20,.66));border:1px solid rgba(95,224,255,.18);border-radius:18px;padding:18px 20px}
-.stat .n{font-family:'Cormorant Garamond';font-size:2.3rem;color:#fff;line-height:1}
-.stat .l{color:var(--mut);font-size:.82rem;font-family:'Fraunces';font-style:italic;margin-top:4px}
-.stat.alert .n{color:var(--or)}
-h2{font-family:'Cormorant Garamond';font-weight:600;color:#fff;font-size:1.5rem;margin:34px 0 14px;display:flex;align-items:center;gap:10px}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}
-.ag{background:linear-gradient(160deg,rgba(233,211,160,.07),rgba(10,12,20,.6));border:1px solid rgba(95,224,255,.16);border-radius:14px;padding:13px 15px}
-.ag .top{display:flex;align-items:center;gap:8px}
-.dot{width:9px;height:9px;border-radius:50%;background:var(--ice);box-shadow:0 0 9px var(--ice)}
-.dot.off{background:#54606e;box-shadow:none}
-.ag .code{font-family:'Cormorant Garamond';color:#fff;letter-spacing:1px;font-size:1.05rem}
-.ag .nom{color:var(--mut);font-size:.86rem}
-.badge{font-family:'Fraunces';font-style:italic;font-size:.68rem;border-radius:999px;padding:2px 9px;margin-top:7px;display:inline-block}
-.badge.auto{color:#05060a;background:linear-gradient(100deg,var(--or),#fff6df)}
-.badge.prep{color:var(--ice);border:1px solid rgba(95,224,255,.4)}
-.list{display:flex;flex-direction:column;gap:8px}
-.row{background:rgba(10,12,20,.55);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:11px 14px;display:flex;align-items:center;gap:12px}
-.row .t{flex:1}
-.row .ti{color:#fff;font-size:.96rem}
-.row .meta{color:var(--mut);font-size:.78rem;font-family:'Fraunces';font-style:italic}
-.st{font-size:.72rem;font-family:'Fraunces';font-style:italic;border-radius:999px;padding:3px 10px;white-space:nowrap}
-.st.fait{color:#0a0;background:rgba(0,200,90,.14);border:1px solid rgba(0,200,90,.4)}
-.st.a_valider{color:#05060a;background:linear-gradient(100deg,var(--or),#fff6df)}
-.st.a_faire{color:var(--mut);border:1px solid rgba(159,179,200,.4)}
-.st.en_cours{color:var(--ice);border:1px solid rgba(95,224,255,.5)}
-.st.erreur{color:#fff;background:var(--rouge)}
-.jrow{display:flex;gap:10px;align-items:baseline;padding:7px 0;border-bottom:1px solid rgba(255,255,255,.05);font-size:.9rem}
-.jrow .jt{color:var(--mut);font-size:.74rem;font-family:'Fraunces';font-style:italic;white-space:nowrap}
-.jrow .jm{color:var(--perle)}
-.err{background:rgba(255,107,94,.10);border:1px solid var(--rouge);border-radius:12px;padding:14px;color:#ffd9d3;margin:20px 0}
-footer{margin-top:40px;color:#8fa6c8;font-size:.78rem;font-family:'Fraunces';font-style:italic;text-align:center}
-.live{display:inline-flex;align-items:center;gap:7px;color:var(--ice);font-family:'Fraunces';font-style:italic;font-size:.85rem}
+.tag{margin-left:auto;font-family:'Fraunces';font-style:italic;color:var(--ice);font-size:.9rem}
+.hero{padding:26px 0 18px}
+.hero h1{font-family:'Cormorant Garamond';font-weight:600;font-size:2.4rem;color:#fff;line-height:1.15}
+.hero p{color:var(--mut);max-width:680px;margin-top:8px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px;margin-top:24px}
+.card{display:block;text-decoration:none;color:inherit;background:linear-gradient(165deg,rgba(95,224,255,.06),rgba(10,12,20,.7));border:1px solid rgba(95,224,255,.18);border-radius:18px;padding:22px;transition:transform .2s,border-color .2s}
+.card:hover{transform:translateY(-3px);border-color:var(--ice)}
+.card .ic{font-size:1.7rem}
+.card h2{font-family:'Cormorant Garamond';font-weight:600;color:#fff;font-size:1.35rem;margin:8px 0 4px}
+.card p{color:var(--mut);font-size:.85rem}
+.card .st{display:inline-block;margin-top:10px;font-family:'JetBrains Mono';font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;padding:3px 9px;border-radius:999px}
+.st.live{background:rgba(95,224,255,.12);color:var(--ice);border:1px solid rgba(95,224,255,.4)}
+.st.soon{background:rgba(233,211,160,.1);color:var(--or);border:1px solid rgba(233,211,160,.35)}
+.card.gold{background:linear-gradient(165deg,rgba(233,211,160,.09),rgba(10,12,20,.7));border-color:rgba(233,211,160,.4)}
+.note{margin-top:30px;background:rgba(10,12,20,.6);border:1px solid rgba(95,224,255,.18);border-radius:14px;padding:18px 20px;color:var(--mut);font-size:.86rem}
+.note b{color:var(--ice)}
+footer{text-align:center;color:var(--mut);font-size:.76rem;font-family:'JetBrains Mono';margin-top:34px}
 </style>
 </head>
 <body>
@@ -59,64 +41,47 @@ footer{margin-top:40px;color:#8fa6c8;font-size:.78rem;font-family:'Fraunces';fon
 <div class="wrap">
   <header>
     <span class="led"></span>
-    <span class="logo">NAVLYS <b>CORE</b></span>
-    <span class="upd" id="upd">connexion…</span>
+    <span class="logo">NAVLYS<b>™</b></span>
+    <span class="tag">l'atelier — en ligne, en direct</span>
   </header>
-  <div class="sub">Le cerveau au travail, en direct — 14 agents, 24/7. <span class="live"><span class="dot"></span>live</span></div>
 
-  <div id="err"></div>
-  <div class="stats" id="stats"></div>
+  <div class="hero">
+    <h1>Les bonnes versions, réunies.</h1>
+    <p>Ton espace de travail unique. Charte propre (noir · ice blue · champagne), formules canon, cerveau autonome 24/7. Tout ce qui est prêt est en ligne ici ; le reste arrive au fil des agents.</p>
+  </div>
 
-  <h2>🛰️ Les agents</h2>
-  <div class="grid" id="agents"></div>
+  <div class="cards">
+    <a class="card" href="live.html">
+      <div class="ic">🛰️</div>
+      <h2>Dashboard CORE</h2>
+      <p>Tes 14 agents au travail en temps réel : missions, journal, activité.</p>
+      <span class="st live">● live</span>
+    </a>
+    <a class="card gold" href="tarifs.html">
+      <div class="ic">💳</div>
+      <h2>Tarifs F1–F4</h2>
+      <p>Les 4 formules + parrainage Alpaca (F3 à vie). Version canon, charte propre.</p>
+      <span class="st live">● prêt</span>
+    </a>
+    <a class="card" href="alpaca.html">
+      <div class="ic">🦙</div>
+      <h2>Partenariat Alpaca</h2>
+      <p>Compte démo gratuit, parcours démo → réel, programme parrainage.</p>
+      <span class="st live">● prêt</span>
+    </a>
+    <a class="card" href="faq.html">
+      <div class="ic">❓</div>
+      <h2>FAQ</h2>
+      <p>Les réponses aux questions clés, sans jargon.</p>
+      <span class="st live">● prêt</span>
+    </a>
+  </div>
 
-  <h2>📋 Missions récentes</h2>
-  <div class="list" id="missions"></div>
+  <div class="note">
+    <b>Comment ça marche</b> — Ce site est ton atelier déployable. Dès qu'il est branché à Vercel (une seule fois), chaque correction que je pousse part en ligne automatiquement, et tu peux travailler dessus directement. Les pages « en préparation » s'allument dès que les agents ont livré et que tu as validé.
+  </div>
 
-  <h2>📡 Journal d'activité</h2>
-  <div id="journal"></div>
-
-  <footer>NAVLYS CORE · lecture seule · se rafraîchit tout seul · « L'IA est le vent, c'est toi qui tiens la barre. »</footer>
+  <footer>© 2026 NAVLYS™ — [entité — hors dépôt] · SIREN 482 511 292 · « L'IA est le vent, c'est toi qui tiens la barre. »</footer>
 </div>
-
-<script>
-var BASE='https://hhrlgyvtqluxpywjiwkd.supabase.co';
-var KEY='sb_publishable_fkVkBVLyEZsYPwhayG-S8A_CwCel0wP';
-function esc(s){return (s==null?'':String(s)).replace(/[&<>]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;'}[c];});}
-function hm(t){ if(!t) return ''; try{ return new Date(t).toLocaleString('fr-FR',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'}); }catch(e){return '';} }
-function load(){
-  fetch(BASE+'/rest/v1/rpc/core_live_feed',{method:'POST',headers:{'apikey':KEY,'Authorization':'Bearer '+KEY,'Content-Type':'application/json'},body:'{}'})
-  .then(function(r){ if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); })
-  .then(render).catch(function(e){
-    document.getElementById('err').innerHTML='<div class="err">Connexion au cerveau impossible ('+esc(e.message)+'). Nouvelle tentative dans 20 s…</div>';
-  });
-}
-function render(d){
-  document.getElementById('err').innerHTML='';
-  var s=d.stats||{};
-  document.getElementById('upd').textContent='mis à jour à '+new Date().toLocaleTimeString('fr-FR');
-  document.getElementById('stats').innerHTML=
-    stat(s.agents_actifs,'agents actifs')+stat(s.runs_total,'tâches exécutées')+
-    stat(s.missions_total,'missions')+stat(s.a_valider,'à valider',true);
-  var ag=(d.agents||[]).map(function(a){
-    return '<div class="ag"><div class="top"><span class="dot'+(a.actif?'':' off')+'"></span><span class="code">'+esc(a.code)+'</span></div>'+
-      '<div class="nom">'+esc(a.nom)+'</div>'+
-      '<span class="badge '+(a.autonomie==='auto'?'auto">auto':'prep">prépare')+'</span></div>';
-  }).join('');
-  document.getElementById('agents').innerHTML=ag||'<div class="row">Aucun agent.</div>';
-  var ms=(d.missions_recentes||[]).map(function(m){
-    return '<div class="row"><div class="t"><div class="ti">'+esc(m.titre)+'</div>'+
-      '<div class="meta">'+esc(m.departement)+' · '+(hm(m.finished_at||m.started_at)||'—')+'</div></div>'+
-      '<span class="st '+esc(m.statut)+'">'+esc((m.statut||'').replace("_"," "))+'</span></div>';
-  }).join('');
-  document.getElementById('missions').innerHTML=ms||'<div class="row">—</div>';
-  var jr=(d.journal||[]).map(function(j){
-    return '<div class="jrow"><span class="jt">'+esc(hm(j.ts))+'</span><span class="jm">'+esc(j.message)+'</span></div>';
-  }).join('');
-  document.getElementById('journal').innerHTML=jr||'<div class="jrow">—</div>';
-}
-function stat(n,l,a){ return '<div class="stat'+(a?' alert':'')+'"><div class="n">'+(n==null?'–':n)+'</div><div class="l">'+l+'</div></div>'; }
-load(); setInterval(load, 20000);
-</script>
 </body>
 </html>
