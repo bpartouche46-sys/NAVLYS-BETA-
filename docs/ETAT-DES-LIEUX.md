@@ -10,8 +10,9 @@
 - ✅ **Audit Claude des sites v2** (`sites/`) : 0 terme interdit, 0 promesse, disclaimer sur
   les 10 pages, date 1ᵉʳ juillet cohérente, **aucun lien 404** (cgu/privacy centralisés sur
   navlys.com ; pas de bug /partenaires en v2).
-- 🟠 **2 points v2 à traiter** : `navlys-app/finance.html` encore en **ancien Ice `#5fe0ff` +
-  pourpre/vin** (≠ charte `#7DD3FC`) ; **mentions d'éditeur** des pages légales v2 à compléter (legal).
+- 🟠 **2 points v2 à traiter** : `navlys-app/finance.html` ✅ **Ice Blue aligné `#7DD3FC`**
+  (2026-06-23) — reste à décider le **rouge/vin** (`#ff2a1f`/`#7a1f2b`, gardé car possiblement
+  fonctionnel = scénarios de perte) ; **mentions d'éditeur** des pages légales v2 à compléter (legal).
 - 🧪 **Tests fonctionnels (choix Bruno)** : FAQ **absente du dépôt** → non testable ici ;
   Voix / NavLex / Partenaires = **accès live requis (Bruno)**, Hermès retiré → appui serveur = Bruno.
   Plan + résultats partiels dans `docs/TESTS-FONCTIONNELS.md`.
