@@ -58,6 +58,29 @@
 - 📦 PR : **#20** — CORE-CENTRAL-TECHNIQUE, CHAINE-1-SITES, VEILLE (note : INSTRUCTIONS-HERMES
   supprimé depuis — voir session (k), ERR-006).
 
+## Session 2026-06-24 (nuit) — 🌙 corrections autonomes post-ultrareview (Bruno absent)
+
+> Bruno : « passe les opérations sans t'arrêter, les questions restantes = demain matin. »
+> Tout fait sur GitHub uniquement, rien en prod, aucune action sensible.
+
+- ✅ **Tous les points de l'ultrareview corrigés** (détail : `docs/RAPPORT-ULTRAREVIEW-2026-06-24.md` §SUITES) :
+  F1 charte `finance.html` alignée `#7DD3FC` ; F2 déjà OK ; M1 doublon ERR-002/ERR-004 fusionné ;
+  M2 requalifié non-problème (pages légales biographie ≠ contenu financier).
+- ✅ **Bilan dépôt : 0 critique / 0 élevé / 0 moyen / 0 faible restant.** Aucun secret, conformité OK.
+- 🌅 **POUR DEMAIN MATIN — questions/actions qui exigent Bruno** (rien d'autre n'est bloqué) :
+  0. 🚨 **LE PLUS URGENT — révocation Hermès** (incident sécurité, ERR-006) : dérouler
+     `docs/INCIDENT-HERMES.md` (révoquer/rotationner TOUS ses accès, **y compris la clé API
+     Anthropic**, OpenRouter, SSH Hetzner, GitHub, Vercel, clouds, cockpit ; re-vérifier le serveur).
+  1. 🔐 **Serveur** : changer le **mot de passe cockpit** (exposé) + lancer un **backup**
+     + passer **SSH en clés**. Pas-à-pas déjà prêt → `docs/RUNBOOK-BRUNO-100.md` ②③.
+  2. 👀 **Voir en ligne** : importer `NAVLYS-BETA-` sur Vercel pour une preview (RUNBOOK ①), me coller l'URL.
+  3. ❓ **Code des sites non confirmés sur GitHub** : navbiolife.com, navlys.io, et les 2 teasers
+     (NOVA-HUB ne contient que navlys / navlys-core / brunopartouche) → où vit leur source ? (probable : ancien PC).
+  4. ⚖️ **Mentions légales** : compléter `[ÉDITEUR]/[EMAIL]/[HÉBERGEUR]` (cgu/privacy) — hors Git + relecture juridique.
+  5. 🎬 **Vidéos** des présentations (URLs) + **feu vert prod** quand prêt.
+- ⚠️ **Audit du code live NOVA-HUB non réalisé** (clone bloqué par le proxy) → à faire en autorisant
+  l'accès au dépôt NOVA-HUB dans une session, ou via son propre flux de PR.
+
 ## Session 2026-06-24 — 🔍 ULTRAREVIEW du dépôt → voir `docs/RAPPORT-ULTRAREVIEW-2026-06-24.md`
 
 - ✅ Audit complet vérifié : **0 critique, 0 élevé**. Dépôt propre et sûr.
