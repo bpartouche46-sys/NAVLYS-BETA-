@@ -2,6 +2,42 @@
 
 > Mis à jour à la fin de chaque session pour que la suivante reprenne sans tout relire.
 
+## Session 2026-06-24 — recherche de la DÉMO VOIX (clone vocal) : localisation
+
+- 🎯 **Objectif Bruno** : retrouver la démo « voix / clone vocal » (ElevenLabs + fal.ai +
+  HeyGen) qu'il dit avoir déjà construite « dans un des sites ».
+- 🔎 **Constat (recherche exhaustive du dépôt par l'orchestrateur)** : **RIEN dans
+  `NAVLYS-BETA-`** — pas d'ElevenLabs/fal.ai/HeyGen, pas de capture micro
+  (`getUserMedia`/`MediaRecorder`), pas de TTS, pas d'appel API ni de clé. Seule trace audio =
+  un **MP3 statique pré-enregistré** (`<audio src="/media/bruno.mp3">` dans
+  `sites/brunopartouche.com/index.html`) → ce **n'est pas** la démo voix.
+- 🧠 **Pourquoi c'est normal → ERR-006** : ce dépôt = refonte **v2 statique** + mémoire ; les
+  sites **LIVE** sont sur **Vercel non reliés à GitHub**. Le code des fonctionnalités live
+  (voix…) n'est **pas** ici. Clés `ELEVENLABS_KEY`… sur Hetzner (`/root/navlys/config/.env`,
+  Bruno). NB : `docs/PASSATION-HERMES.md` §9 (l.58) note la connexion ElevenLabs **« non faite »**.
+- 🧭 **Plan de localisation — 3 hypothèses (à vérifier dans l'ordre, par Bruno)** :
+  1. **🟢 Vercel LIVE (le + probable)** — la démo est dans un déploiement Vercel.
+     *Comment* : Bruno ouvre chaque site live (navlys.com, brunopartouche.com, navbiolife.com,
+     navlys.io + teasers) → cherche le bouton/page « voix / parler / clone ». Si trouvé :
+     DevTools → **Network** (repérer un appel `elevenlabs`/`fal.run`/`heygen`) + **Sources**
+     (chercher `getUserMedia`, `MediaRecorder`, `xi-api-key`). Côté code source : Vercel →
+     projet → onglet Source / `vercel pull` du dossier depuis l'ancien PC. ⚠️ V7 (cf. ci-dessous) :
+     toute clé `sk-`/`xi-api-key`/`Bearer` visible en front = **clé exposée à révoquer**.
+  2. **🟠 Core Hetzner** — la démo (ou son backend d'appel API) tourne sur le serveur.
+     *Comment* : Bruno regarde `/root/navlys/` (≈9 dossiers, cf. diagnostic 2026-06-22) + le
+     `.env` (présence/usage réel de `ELEVENLABS_KEY`). Diagnostic note **0 conteneur Docker
+     actif** → si backend voix, il n'est probablement **pas en cours d'exécution**. C'est
+     l'**action serveur = Bruno** (Claude n'a aucun accès Hetzner).
+  3. **🔵 Autre dépôt GitHub** — code dans **NOVA-HUB**, **Ai-Suite-PRO**, **gdp-dashboard**
+     (repos cités dans `docs/PASSATION-HERMES.md`) plutôt que dans les sites.
+     *Comment* : Bruno donne accès / Claude grep `eleven|fal\.run|heygen|getUserMedia` dans ces
+     repos. À faire dès qu'un accès est fourni.
+- 🔴 **En attente Bruno** : (a) l'**URL** de la page démo voix si elle est live ; (b) lequel
+  des 3 fronts ouvrir en premier (recommandé : **Vercel live**) ; (c) accès aux autres repos.
+- 📓 **Mémoire** : leçon gravée **ERR-006** (ne pas confondre `NAVLYS-BETA-` v2 avec les sites
+  LIVE Vercel non versionnés). Aucune action sensible — zéro débit, zéro déploiement, zéro
+  contenu public (règle financière + feux verts respectés).
+
 ## Session 2026-06-24 — revue conformité VOIX (V6) + auto-check sécurité (V7)
 
 - 🎙️ **Test Voix repris** (« ultrareview ») : je ne peux pas lancer le check live faute de

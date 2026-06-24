@@ -84,4 +84,28 @@ Copier ce modèle pour chaque nouvelle erreur :
   fichiers servis** (HTML **+ JS + CSS**), pas seulement le HTML. Inscrit dans
   `corrections-pretes/MEMO-DEPLOIEMENT.md` §5.
 
-<!-- Ajouter les prochaines erreurs ci-dessous : ERR-006, … -->
+### ERR-006 — Confondre le dépôt GitHub `NAVLYS-BETA-` (refonte v2) avec les sites LIVE Vercel (non versionnés)
+- **Date** : 2026-06-24
+- **Contexte** : Bruno demande de retrouver une démo « voix / clone vocal »
+  (ElevenLabs + fal.ai + HeyGen) qu'il dit avoir déjà construite « dans un des sites ».
+- **Symptôme** : recherche exhaustive du dépôt `NAVLYS-BETA-` → **AUCUN** code voix/IA
+  (ni ElevenLabs, fal.ai, HeyGen, ni capture micro `getUserMedia`/`MediaRecorder`, ni TTS,
+  ni appel API, ni clé). Seule trace audio = un lecteur **MP3 statique pré-enregistré**
+  (`<audio src="/media/bruno.mp3">` dans `sites/brunopartouche.com/index.html`). Risque :
+  conclure « la démo n'existe pas » alors qu'elle vit simplement **ailleurs**.
+- **Cause** : ce dépôt est la **refonte v2 statique** (maquettes/docs). Les **sites LIVE**
+  sont déployés sur **Vercel sans être reliés à GitHub** (cf. ERR-002 / ERR-004,
+  `CLAUDE.md` : « Aucun projet n'est relié à GitHub »). Le code des **fonctionnalités live**
+  (voix, NavLex, etc.) n'est **pas** dans `NAVLYS-BETA-`. Les clés (`ELEVENLABS_KEY`…) sont
+  sur le serveur Hetzner dans `/root/navlys/config/.env` (Bruno, hors dépôt — cf.
+  `docs/PASSATION-HERMES.md` §8), et la connexion ElevenLabs y est notée « non faite » (§9 l.58).
+- **Correction appliquée** : ne plus assimiler « absent du dépôt » à « inexistant ». Toute
+  recherche de fonctionnalité live se mène sur **3 fronts** : (1) **déploiement Vercel** live,
+  (2) **core Hetzner** (`/root/navlys/`), (3) **autres dépôts** (NOVA-HUB, Ai-Suite-PRO,
+  gdp-dashboard… cf. `docs/PASSATION-HERMES.md`). Plan de localisation consigné dans
+  `docs/ETAT-DES-LIEUX.md` (session 2026-06-24). Aucune action sensible déclenchée.
+- **Garde-fou** : avant d'affirmer qu'un code « n'existe pas », vérifier les **3 sources hors
+  GitHub** (Vercel live / Hetzner / autres repos). Rappel permanent : `NAVLYS-BETA-` = mémoire +
+  refonte v2 statique, **pas** la prod. Inscrit ici (ERR-006) et relié à ERR-002/ERR-004.
+
+<!-- Ajouter les prochaines erreurs ci-dessous : ERR-007, … -->
