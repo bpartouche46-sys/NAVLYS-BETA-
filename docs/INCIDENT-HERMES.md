@@ -1,7 +1,7 @@
 # 🚨 INCIDENT DE SÉCURITÉ — Hermès retiré (hack / risque majeur)
 
 > **Date** : 2026-06-24 · **Décision Bruno** : Hermès supprimé, **sorti du projet**, **tous
-> ses accès révoqués**. · **Réf. journal** : `ERR-005`.
+> ses accès révoqués**. · **Réf. journal** : `ERR-006`.
 >
 > Hermès = ancien « opérateur ops » (LLM via **OpenRouter** + **accès SSH Hetzner** + a touché
 > GitHub/Vercel/cockpit/clouds). Considéré désormais comme **non fiable / compromis**.
@@ -103,7 +103,7 @@
 
 ---
 
-## 🧱 Garde-fou permanent (pour ne pas revivre ça — ERR-005)
+## 🧱 Garde-fou permanent (pour ne pas revivre ça — ERR-006)
 - 🔴 **Aucun intervenant externe ne cumule** « cerveau IA + accès serveur + clé API Claude ».
 - 🔑 **Tout accès tiers = révocable en 1 geste**, scope **minimal**, **rotation immédiate** au moindre doute.
 - 🤖 Le futur opérateur du core sera **bridé par le moteur** (liste blanche d'outils, hooks

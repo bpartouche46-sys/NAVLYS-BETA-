@@ -75,5 +75,5 @@ chaîne démarre directement à l'étape 4/5. C'est le test idéal : court, déj
 ## 5. Décisions encore ouvertes (Bruno)
 
 - [ ] Nom/compte exact du dépôt GitHub des sites (**NOVA-HUB** ?) — à confirmer.
-- [ ] Qui exécute le déploiement prod (étape 6) ? **À redéfinir** (Hermès retiré — ERR-005).
+- [ ] Qui exécute le déploiement prod (étape 6) ? **À redéfinir** (Hermès retiré — ERR-006).
 - [ ] Langage du moteur quand on industrialisera (reco : TypeScript).
