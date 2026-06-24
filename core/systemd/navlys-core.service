@@ -1,0 +1,26 @@
+# NAVLYS CORE — service systemd (garder l'orchestrateur en vie).
+# Installer : sudo cp systemd/navlys-core.service /etc/systemd/system/
+#            sudo systemctl daemon-reload && sudo systemctl enable --now navlys-core
+# 🔐 Les secrets viennent de EnvironmentFile=/etc/navlys/core.env (hors Git, chmod 600).
+
+[Unit]
+Description=NAVLYS Core — orchestrateur agentique (Claude Agent SDK)
+After=network-online.target redis-server.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/navlys/core
+EnvironmentFile=/etc/navlys/core.env
+ExecStart=/usr/bin/node dist/index.js
+Restart=always
+RestartSec=5
+# Durcissement basique
+NoNewPrivileges=true
+ProtectSystem=full
+PrivateTmp=true
+User=navlys
+Group=navlys
+
+[Install]
+WantedBy=multi-user.target

@@ -35,17 +35,20 @@ Un seul gros agent qui « fait tout » devient vite ingérable. Le bon modèle, 
 | Acteur | Ce qu'il EST | Ce qu'il PEUT | Ce qu'il ne peut PAS |
 |--------|--------------|---------------|----------------------|
 | **Bruno** | Le chef / décideur | Tout valider, donner les accès | — |
-| **Hermès** | LLM via **OpenRouter** + **accès Hetzner** | Exécuter sur le serveur (installs, config, clone) | Pas encore d'orchestration ni de garde-fous structurés |
+| ~~Hermès~~ ❌ | **RETIRÉ** — risque de sécurité majeur (`ERR-006`) | — | Tous accès **révoqués** : `docs/INCIDENT-HERMES.md` |
 | **Claude (moi)** | Cerveau code + conformité, en **conteneur isolé** | Lire/corriger le code **via GitHub**, écrire la doc | **Aucun accès direct** au serveur Hetzner ni aux secrets |
+| **Opérateur serveur** | **À REDÉFINIR** (mains sur Hetzner) | Exécuter sur le serveur, **bridé par le moteur** (liste blanche + hooks) | Jamais orchestrateur autonome « de confiance » |
 
-**Traduction simple :** Hermès = un cerveau (OpenRouter) + des mains (Hetzner) = la
-**graine** de l'agent directeur. Mais c'est aujourd'hui **un agent**, pas encore **un
-orchestrateur**.
+> ⚠️ **2026-06-24** : l'ancien opérateur **Hermès** (LLM OpenRouter + accès Hetzner) a été
+> **retiré pour compromission**. Le rôle « mains sur le serveur » reste **à réattribuer** à un
+> opérateur **bridé par le code**, pas à un agent tiers de confiance par défaut.
 
-### Déjà en place sur le serveur (fait par Hermès)
+### Déjà en place sur le serveur (historique — installé par Hermès, **à re-vérifier**)
+> 🔴 Comme Hermès est compromis, **tout ce qu'il a installé doit être re-contrôlé** (portes
+> dérobées, cron, services, clés ajoutées) — voir checklist §C de `docs/INCIDENT-HERMES.md`.
 - fail2ban, Docker, PM2, certbot, Nginx (cockpit + previews des sites)
 - `/root/navlys/` (structure dossiers) · 4 sites récupérés · GitHub cloné (**NOVA-HUB** — à confirmer)
-- Cockpit web dans `/var/www/cockpit/` (login `bruno` — ⚠️ mot de passe exposé en clair dans un chat, **à changer**)
+- Cockpit web dans `/var/www/cockpit/` (login `bruno` — ⚠️ mot de passe exposé, **à changer**)
 - Volume Hetzner **10 Go** (id `106103603`) destiné aux sauvegardes → à monter sur `/mnt/navlys-backup`
 
 ---
@@ -92,7 +95,7 @@ L'erreur classique = vouloir tout construire d'un coup → usine à gaz + confus
 - [ ] **Brique 1 — Une chaîne complète, avec point de contrôle.** Ex. SAV :
       l'agent lit les mails support → **propose** une réponse → Bruno valide → envoi.
 - [ ] **Brique 2 — Sites sous Git propre** : NOVA-HUB relié, Claude corrige (conformité),
-      Bruno/Hermès déploient. Aucun déploiement prod sans feu vert.
+      Bruno (ou opérateur serveur à redéfinir) déploie. Aucun déploiement prod sans feu vert.
 - [ ] **Brique 3 — Back-office / paiements** : brancher Stripe en lecture d'abord
       (voir les transactions), écriture seulement après validation.
 - [ ] **Brique 4 — Veille web** : agent qui surveille le marché et alimente la mémoire.
@@ -107,5 +110,5 @@ L'erreur classique = vouloir tout construire d'un coup → usine à gaz + confus
 
 - [ ] Nom/compte exact du dépôt GitHub des sites (**NOVA-HUB** ?).
 - [ ] Quelle **première brique** lancer (SAV ? sites ? paiements ?).
-- [ ] Où tourne le **directeur** (sur Hetzner, via OpenRouter, à la Hermès) — confirmé.
+- [ ] Où tourne le **directeur** (sur Hetzner) — **à redéfinir** (plus via Hermès/OpenRouter, retiré — ERR-006).
 - [ ] Changer le mot de passe du **cockpit** (exposé en clair).
