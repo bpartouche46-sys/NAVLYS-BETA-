@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>NAVLYS — éducation, veille & art de vivre méditerranéen</title>
+<meta name="description" content="NAVLYS — projet d'éducation et de veille à vocation informative. Jeu, plaisir, bien-être : apprendre, vivre, transmettre.">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Fraunces:ital,wght@1,400;1,500&family=Lora:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/navlys-v2.css">
+</head>
+<body>
+<div class="bg"></div>
+<h1 class="sr-only">NAVLYS — éducation, veille &amp; art de vivre méditerranéen</h1>
+
+<div class="topbar"><span class="led"></span><a class="brand" href="/">NAVLYS</a>
+  <button class="menu-btn" onclick="NV_menu()" aria-label="Menu">☰</button></div>
+<nav class="dropdown" id="dd">
+  <a href="/">🌊 Accueil</a><a href="#finance">🧭 Finance — éducation &amp; veille</a><a href="https://navbiolife.com">🧬 NAVBIO</a><a href="#bienetre">🌿 Bien-être</a><a href="#radio">📻 Radio</a><a href="#apps">📲 Applications</a>
+</nav>
+<div class="bandeau"><div class="scroll">NAVLYS est un projet d'éducation et de veille à vocation informative uniquement. Les contenus ne constituent en aucun cas un conseil personnalisé en investissement, ni une recommandation d'achat ou de vente. Chacun reste seul responsable de ses décisions financières.</div></div>
+
+<section class="cinema">
+  <div class="curtain left"></div><div class="curtain right"></div>
+  <div class="tie l"></div><div class="tie r"></div>
+  <div class="screen">
+    <div class="poster" id="reelPoster"></div>
+    <video muted autoplay playsinline preload="metadata" id="liveVideo"></video>
+    <div class="reel-title" id="reelTitle"></div><div class="reel-dots" id="reelDots"></div>
+  </div>
+  <div class="valance"></div>
+  <div class="cine-label"><span class="cine-dot"></span> EN DIRECT</div>
+  <button class="snd" id="sndBtn" onclick="NV_sound()" aria-label="Son">🔇</button>
+</section>
+
+<main class="feed"><div class="wrap">
+  <div class="ticker"><div class="run"><b>● EN DIRECT</b> &nbsp;·&nbsp; Le brief du jour est disponible &nbsp;<em>▸</em>&nbsp; Nouvelle vidéo « Lire un graphique » &nbsp;<em>▸</em>&nbsp; Atelier bien-être : la respiration du skipper &nbsp;<em>▸</em>&nbsp; Radio NAVLYS — ambiance Méditerranée &nbsp;<em>▸</em>&nbsp; Teste gratuitement, 0 € &nbsp;<em>▸</em>&nbsp; Éducation &amp; veille — aucune promesse</div></div>
+
+  <div class="vstrip"><div class="vtrack">
+    <div class="vcard f1"><span class="play">▶</span><span>Le brief</span></div>
+    <div class="vcard f3"><span class="play">▶</span><span>En mer</span></div>
+    <div class="vcard f2"><span class="play">▶</span><span>Bien-être</span></div>
+    <div class="vcard f1"><span class="play">▶</span><span>Radio</span></div>
+    <div class="vcard f3"><span class="play">▶</span><span>NAVBIO</span></div>
+    <div class="vcard f1"><span class="play">▶</span><span>Le brief</span></div>
+    <div class="vcard f3"><span class="play">▶</span><span>En mer</span></div>
+    <div class="vcard f2"><span class="play">▶</span><span>Bien-être</span></div>
+    <div class="vcard f1"><span class="play">▶</span><span>Radio</span></div>
+    <div class="vcard f3"><span class="play">▶</span><span>NAVBIO</span></div>
+  </div></div>
+
+  <div class="eyebrow"><span class="chip">✦</span><h2>Trois mondes, une barre</h2></div>
+  <p class="lead">Tu choisis ton entrée. La méthode reste la même : apprendre, vivre, transmettre.</p>
+  <div class="trio" id="finance">
+    <div class="tcard"><span class="ic">🧭</span><h3>Le jeu</h3><p>Les marchés comme un jeu d'adresse : on apprend les règles, on garde la barre. Éducation &amp; veille, pour des apprenants — jamais de promesse.</p><div class="eq"><i></i><i></i><i></i><i></i><i></i></div></div>
+    <div class="tcard"><span class="ic">🌊</span><h3>Le plaisir</h3><p>La vie en mer, de Corinthe à Suez, les îles grecques. Le goût des choses simples et lumineuses.</p><div class="eq"><i></i><i></i><i></i><i></i><i></i></div></div>
+    <div class="tcard" id="bienetre"><span class="ic">🌿</span><h3>Le bien-être</h3><p>Réflexologie, reiki, bols, trompette : l'attention au signal faible. Coaching de vie.</p><div class="eq"><i></i><i></i><i></i><i></i><i></i></div></div>
+  </div>
+
+  <div class="eyebrow"><span class="chip">◉</span><h2>Découvrez l'univers</h2></div>
+  <p class="lead">Des encadrés vivants — chaque vignette s'anime en continu.</p>
+  <div class="mosaic">
+    <div class="mz f1"><span class="pin">Finance · le brief</span></div>
+    <div class="mz f3"><span class="pin">Bien-être</span></div>
+    <div class="mz f2" id="radio"><span class="pin">Radio</span></div>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><div class="n">6</div><div class="u">univers</div></div>
+    <div class="stat"><div class="n">100%</div><div class="u">dématérialisé</div></div>
+    <div class="stat"><div class="n">0€</div><div class="u">pour tester</div></div>
+  </div>
+
+  <div class="flashy">
+    <span class="badge">ACCÈS ANTICIPÉ</span>
+    <h3>Ouverture <em>en avant-première</em></h3>
+    <div class="cd" id="cd">
+      <div class="blk"><div class="v" id="cd-d">—</div><div class="k">Jours</div></div>
+      <div class="blk"><div class="v" id="cd-h">—</div><div class="k">Heures</div></div>
+      <div class="blk"><div class="v" id="cd-m">—</div><div class="k">Min</div></div>
+      <div class="blk"><div class="v" id="cd-s">—</div><div class="k">Sec</div></div>
+    </div>
+    <a class="more" href="#apps">Réserver ma place <span class="arr">→</span></a>
+  </div>
+
+  <div class="eyebrow" id="apps"><span class="chip">▣</span><h2>Applications à découvrir</h2></div>
+  <p class="lead">À consulter en ligne ou à télécharger.</p>
+  <div class="apps">
+    <div class="app"><span class="av">🧭</span><div><h4>NAVLYS Finance</h4><p>Le cockpit éducation &amp; veille, en euros.</p></div><a class="dl" href="#">Tester · 0€</a></div>
+    <div class="app"><span class="av">🧬</span><div><h4>NAVBIO</h4><p>Ta biographie vivante — mémoire &amp; transmission.</p></div><a class="dl" href="https://navbiolife.com">Découvrir</a></div>
+    <div class="app"><span class="av">📻</span><div><h4>Radio NAVLYS</h4><p>L'ambiance méditerranéenne, en continu.</p></div><span class="soon">Bientôt</span></div>
+  </div>
+
+  <a class="more" href="https://brunopartouche.com">Qui est derrière NAVLYS ? <span class="arr">→</span></a>
+
+  <footer>
+    <div class="flag">🌊 ⚓ NAVLYS 🌿</div>
+    <p class="disc">NAVLYS est un projet d'éducation et de veille à vocation informative uniquement. Les contenus ne constituent en aucun cas un conseil personnalisé en investissement, ni une recommandation d'achat ou de vente. Chacun reste seul responsable de ses décisions financières. Réservé aux 18 ans et +. NAVLYS peut percevoir une rémunération en tant que partenaire affilié. Tes contenus restent privés par défaut et t'appartiennent.</p>
+    <p class="legal">© 2026 NAVLYS · <a href="/cgu">CGU</a> · <a href="/privacy">Confidentialité</a> · navlys.com</p>
+  </footer>
+</div></main>
+
+<nav class="tabbar">
+  <a class="tab active" href="/"><span class="i">🌊</span>Accueil</a>
+  <a class="tab" href="#finance"><span class="i">🧭</span>Finance</a>
+  <a class="tab" href="https://navbiolife.com"><span class="i">🧬</span>NAVBIO</a>
+  <a class="tab" href="#bienetre"><span class="i">🌿</span>Bien-être</a>
+  <a class="tab" href="#radio"><span class="i">📻</span>Radio</a>
+  <a class="tab" href="#" onclick="NV_menu();return false;"><span class="i">☰</span>Menu</a>
+</nav>
+
+<script>
+window.NV_TARGET = Date.parse('2026-07-01T00:00:00+02:00');
+window.NV_REELS = [
+  {src:"https://navlys.com/media/presentation.mp4", title:"NAVLYS — présentation"},
+  {src:"", title:"Le brief finance"},
+  {src:"", title:"La vie en mer"},
+  {src:"", title:"Bien-être"}
+];
+</script>
+<script src="/assets/navlys-v2.js"></script>
+</body>
+</html>

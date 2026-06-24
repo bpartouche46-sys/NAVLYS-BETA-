@@ -58,6 +58,138 @@
 - 📦 PR : **#20** — CORE-CENTRAL-TECHNIQUE, CHAINE-1-SITES, VEILLE (note : INSTRUCTIONS-HERMES
   supprimé depuis — voir session (k), ERR-005).
 
+## Session 2026-06-23 (nuit) — sécurité vérifiée + design v2 finalisé (Claude autonome)
+
+- ✅ **E-mails d'inscription protégés** : RLS de `public.inscriptions` vérifié (Supabase MCP) =
+  **INSERT-only pour `anon`, AUCUN SELECT** → e-mails non lisibles publiquement. Clé anon = sans danger.
+  Détail : `docs/AUDIT-SECURITE-NUIT-2026-06-23.md`. → question RLS **CLOSE**.
+- ✅ **Audit live brunopartouche.com (home)** complété (fetch entier) : **propre** (0 terme interdit,
+  0 « Jérusalem », « Pas de promesse. Une discipline. »). Seul écart : compte à rebours « 1ᵉʳ juin » périmé (déjà patché).
+- ✅ **Design v2 finalisé** : cinéma incurvé + **menu HAUT fixe** + rideaux bleu/champagne + charte
+  `#7DD3FC` sur les 4 sites + hub d'aperçu ; conformité **verte**. (PRs #15, #16 fusionnées.)
+- 📋 **`docs/RUNBOOK-BRUNO-100.md`** : les **5 actions restantes (toi seul)** pour atteindre 100 %
+  (import Vercel, sécuriser serveur, rotation secrets, vidéos, déploiement réel).
+- ⚠️ Rien en prod. Tout fusionné dans la branche principale.
+
+## Session 2026-06-23 — ✅ VÉRIF : le code des sites est DÉJÀ dans GitHub (NOVA-HUB)
+
+- 🎯 **Question tranchée** (avant de copier le code depuis l'ancien PC) : **le code est déjà
+  sauvegardé sur GitHub**, inutile de tout recopier à la main.
+- 📦 **Dépôt `bpartouche46-sys/NOVA-HUB`** (public, **actif — maj 2026-06-23**) contient le
+  code source HTML organisé : `sites/navlys`, `sites/navlys-core` (= navlys.com),
+  `sites/brunopartouche`, `sites/_shared`, avec les `vercel.json`. PRs fusionnées le jour même.
+- 📦 **Dépôt privé `bpartouche46-sys-navlys-com`** existe aussi (navlys.com, maj 2026-05-20).
+- ✅ **Conséquence** : la Phase 0 « sauvegarde du code » est **déjà couverte** pour
+  navlys / navlys-core / brunopartouche. Le guide `docs/SAUVEGARDE-CODE-VERCEL.md`
+  (copie depuis l'ancien PC) **n'est PLUS la priorité** pour ces sites.
+- ❓ **À vérifier encore (couverture GitHub incomplète)** : **navbiolife.com**, **navlys.io**,
+  **navlys-teaser**, **brunopartouche-teaser** ne sont pas clairement dans NOVA-HUB →
+  confirmer où vit leur code. + Éléments **server-local non sauvegardés** : cockpit
+  (`/var/www/cockpit/`), 18 skills, médias sous `/root/navlys/`.
+- 🔗 Lien Vercel↔GitHub : les sites tournent encore en `source: cli` → **relier les projets
+  Vercel à NOVA-HUB** (Phase 3) pour que les déploiements partent de Git, plus du CLI.
+
+## Session 2026-06-23 — passation Hermès archivée (avant retrait)
+
+- 📥 **Passation complète reçue d'Hermès** (via Bruno) → consolidée dans
+  **`docs/PASSATION-HERMES.md`** (secrets & IP masqués, règle d'or).
+- 🟢 **Bonne nouvelle pour le retrait** : Hermès a **ZÉRO cron / zéro automatisation** → le
+  retirer **ne casse rien d'automatique**. Source de vérité = **GitHub** (repos + cette mémoire).
+- 🔴 **3 risques à traiter (Bruno, guidé par Claude)** :
+  1. **AUCUN backup serveur** → cockpit + fichiers locaux non sauvegardés (les repos, eux, sont sur GitHub).
+  2. **Cockpit en HTTP** sur IP publique + **mot de passe `bruno/…` exposé en clair** → changer mdp + SSL/fermer.
+  3. **Surveillance orpheline** (disque, SSL, maj sécu, fail2ban, factures Hetzner/Vercel) → reprise par Bruno.
+- 🟡 **À rapatrier dans GitHub** (server-local, non sauvegardé) : **cockpit** (`/var/www/cockpit/`),
+  **18 skills**, et **vérifier les médias** sous `/root/navlys/`.
+- 🧠 Mémoire Hermès = dans l'app Hermès (rien sur serveur) → disparaîtra avec lui **sauf** cet
+  archivage (fait ✅). Mémoire Claude = ce dépôt (sûr).
+- ⏳ **Prochaines actions guidées** (ce soir/devant l'écran) : `crontab -l`, puis **backups** +
+  **SSL cockpit** + **changement mdp cockpit**.
+
+## Session 2026-06-22 — décision : Claude agent unique, Hermès retiré
+
+- 🧭 **Décision Bruno** : « **je ne veux plus de Hermès, c'est Claude qui a la main et
+  personne d'autre** ». → Hermès **retiré** ; Claude = **agent IA unique** du projet.
+- ⚖️ **Cadre honnête posé** : Claude = cerveau (plan/code/mémoire/conformité/guidage) mais
+  **GitHub seul, zéro accès système** → **Bruno exécute** (2FA). Garde-fou maintenu : **gardien**
+  (conformité) + Bruno (argent/public) contrôlent Claude. Pas d'agent incontrôlé.
+- ⚠️ **Avant de débrancher Hermès à 100 %** : récupérer ce qu'il a construit/fait tourner
+  (mémoire serveur → consolider dans ce dépôt ; cron/sauvegardes ; cockpit) pour ne rien casser.
+- 📄 Maj `docs/SECURITE-AGENTS-ET-SECRETS.md` (§1 et §2). À ajuster ensuite : `GOUVERNANCE.md`
+  principe 2 (« surveillance mutuelle Claude+Hermès » → devient **Claude ↔ gardien + Bruno**).
+- 🗺️ **Carte sources & mémoire** (demandée par Bruno) : code = GitHub **NOVA-HUB** (actif 22/06)
+  + dépôt privé navlys.com + `/root/navlys/` (serveur) + Vercel (live). Mémoire = **ce dépôt
+  `NAVLYS-BETA-`**. Ancien PC = backup froid (médias/.env/clé SSH probables). Nouvel PC = poste
+  de Bruno (exécution). Claude n'est sur **aucun** des deux (cloud isolé, GitHub only).
+
+## Session 2026-06-22 — sécurité : agents SANS accès (décision Bruno)
+
+- 🔐 **Décision Bruno** : **Hermès déconnecté du SSH Hetzner**. Les agents IA (Hermès, Claude)
+  aident en **CONSEIL UNIQUEMENT, zéro accès** (serveur, comptes, clés, paiements).
+  **Bruno = seul exécuteur**, quasi tout déjà en **2FA app mobile**.
+- 🧭 Implication « agent directeur » : orchestration **par le conseil** (les agents proposent,
+  Bruno exécute). Aucun agent ne détient de credentials.
+- ✅ **Vérif dépôt** : scan secrets effectué → **aucun mot de passe/clé/JWT/IP** committé (règle
+  d'or tenue).
+- 📄 **Capturé** dans **`docs/SECURITE-AGENTS-ET-SECRETS.md`** : modèle d'accès + **inventaire
+  des clés à roder AVANT lancement** (root SSH→clés, mdp cockpit, anciens mdp, clé Supabase anon
+  à vérifier RLS, tokens API à révoquer, secrets en dur à sortir du code).
+- ⏳ **À faire avant lancement** : rotation/suppression des secrets à risque + SSH en clés.
+
+## Session 2026-06-22 — diagnostic serveur Hetzner (NAVLYS CORE)
+
+- ✅ **Diagnostic serveur réalisé** (Bruno tape dans la console web Hetzner, Claude guide ;
+  pas d'accès réseau direct). Détail : **`docs/DIAGNOSTIC-SERVEUR-2026-06-22.md`**.
+- 🟢 Serveur **sain/stable/protégé** : charge nulle, 7 Go RAM libres, disque à 2 %,
+  fail2ban actif (**13 IP bannies / 255**), nginx + Docker + fail2ban actifs.
+- 🟠 Mais **quasi vide en exécution** : **0 conteneur Docker**, **pas de HTTPS (443)**.
+- 🟢🔑 `/root/navlys/` **contient du code** (~9 dossiers, maj 22/06) → à relier au travail
+  **Hermès / NOVA-HUB** (ETAT session f) → **à sauvegarder en priorité**.
+- 🔐 Mot de passe root **réinitialisé** (l'ancien avait été collé en clair) ; reste à passer
+  SSH en **clés** + désactiver login par mot de passe (+ mdp cockpit).
+- ⏳ **Reste (ce soir, mobile)** : `crontab -l`. Piège : la console Hetzner **supprime le `>`**
+  au collage → taper les redirections à la main.
+
+## Session 2026-06-22 (d) — compliance pages live + audit navlys.com
+
+- 🔎 **Audit complet navlys.com** (home, /finance, /next-gen, /navlex, /radio) via fetch
+  Vercel authentifié. **0 terme interdit** (CIF/ORIAS/Ashkelon/Israël/Jérusalem/DFENSER),
+  0 « NOVA » résiduel, disclaimers présents. Écarts relevés : accent réel `#5fe0ff` (≠
+  charte `#7DD3FC`), pourpre `#7a1f2b` présent, pas d'OG/schema.org, **/finance sans accents**.
+- ✅ **`/finance` corrigé** → `sites/navlys-app/finance.html` (début de rapatriement Git du
+  code live). Passe : tous les accents restaurés (corps **+ meta description**), apostrophes
+  typographiques dans le JS, `0 €`. Disclaimer footer vérifié présent. 0 terme interdit.
+  Aucun NOVA/CIF/DFENSER à retirer (déjà absents). **À redéployer côté Vercel par Bruno.**
+- 🔐 **Alerte sécurité** : un mot de passe root + IP serveur ont été collés en clair dans le
+  chat → **à changer immédiatement** (compromis), passer SSH en clés uniquement. Jamais écrit
+  dans le dépôt.
+- 🧭 **Décisions Bruno (session)** : (1) corriger les **pages live** ; (2) retrait Israël/
+  Ashkelon/DFENSER **du contenu public uniquement** (backend paiements réel non touché) ;
+  (3) **finir Sécurité+Compliance d'abord** → marketing (newsletter, profils) et config
+  paiements **en attente**.
+
+## Session 2026-06-22 (c) — proto : vraie date du compte à rebours
+
+- ✅ **Compte à rebours** : date confirmée **depuis la home live navlys.com**
+  (« l'ouverture en avant-première **le 1ᵉʳ juillet** ») → `LAUNCH_DATE` passé de
+  `2026-07-06` (placeholder) à **`2026-07-01T00:00:00+02:00`**. Plus de date inventée.
+- 🔎 **Vidéo de présentation** : l'URL du proto `navlys.com/media/presentation.mp4`
+  est **confirmée réelle** (présente sur la home live). Rien à changer.
+- ⏳ **Reste** : pas de vraies vidéos pour la bande de mini-vidéos (décoratives sur le
+  proto, inexistantes sur le live) ; **pas de pages CGU/Confidentialité** sur le live
+  (le pied de page renvoie vers /finance et /next-gen, disclaimer en clair) → ne PAS
+  inventer de pages légales (cf. ERR-003, /cgu & /privacy en 404).
+
+## Session NUIT — Design v2 décliné sur les 4 sites (autonome)
+- ✅ Système de design commun `assets/navlys-v2.css` + `.js` (cinéma incurvé + rideaux, charte ice blue).
+- ✅ 4 maquettes : `sites/navlys.com`, `brunopartouche.com`, `navbiolife.com`, `navlys.io` + hub `index.html`.
+- ✅ Corrections conformité **intégrées** : « Jérusalem » retiré, pages /cgu /privacy navbio créées (fix 404),
+  bouton « Écoutez Bruno » (audio au clic), disclaimer bandeau+footer partout, zéro terme interdit/promesse.
+- ✅ Contrôle conformité automatique : **VERT**. Détail → `docs/RAPPORT-NUIT-DESIGN-V2.md`.
+- ⏳ À décider demain : menu haut/bas, rideaux bleu/rouge, vidéos des présentations, date de lancement.
+- ⚠️ Rien en prod. Pour voir en ligne : importer le repo `NAVLYS-BETA-` sur Vercel (Option 1).
+- Branche : `claude/pre-launch-qa-lcd1pf`.
+
 ## Session 2026-06-22 (h) — gouvernance + délégation + contrôle conformité Vague 1
 
 - ⚖️ **Gouvernance gravée** (`docs/GOUVERNANCE.md`, reliée à CLAUDE.md règle d'or) :
@@ -259,10 +391,12 @@ texte centré (charte = aligné à gauche). Sécurité globalement saine.
 
 ### ▶️ PHASE 0 EN COURS (2026-06-19) — Sécuriser
 - ✅ Découverte : déploiements `source: cli` (pas de Git). navlys-app = app Node.js, protégée (403).
-- 🔧 Action utilisateur en cours : snapshot Hetzner + retrouver le code des sites sur l'ANCIEN PC.
+- ✅ **Snapshot Hetzner FAIT** (filet de sécurité serveur en place). 🎉
+- ✅ Utilisateur confirmé **sur l'ANCIEN PC** (celui qui contient le code source).
+- 🔧 Étape en cours : retrouver le dossier `navlys-app` sur l'ancien PC (recherche Explorateur).
 - 📄 Guide fourni : `docs/SAUVEGARDE-CODE-VERCEL.md` (rapatrier le code dans GitHub via GitHub Desktop).
 - ⚠️ Le code source n'existe QUE sur l'ancien PC → priorité absolue à le sauvegarder.
-- Prochain point d'attente : confirmation que navlys-app est publié dans GitHub.
+- Prochain point d'attente : trouver le dossier du site, puis le publier dans GitHub.
 
 ### 🧭 Plan d'ensemble établi (2026-06-19) → voir `docs/PLAN-DENSEMBLE.md`
 - Architecture cible : core Hetzner (API + données) ← appelé en API par les sites Vercel ;

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>NAVBIO — Ta vie, racontée. Gardée. Transmise.</title>
+<meta name="description" content="NAVBIO · biographie vivante. Ta vie racontée, gardée, transmise. Pour les tiens et pour ceux qui viendront.">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Fraunces:ital,wght@1,400;1,500&family=Lora:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/navlys-v2.css">
+</head>
+<body>
+<div class="bg"></div>
+<h1 class="sr-only">NAVBIO — ta vie racontée, gardée, transmise</h1>
+
+<div class="topbar"><span class="led"></span><a class="brand" href="/">NAVBIO</a>
+  <button class="menu-btn" onclick="NV_menu()" aria-label="Menu">☰</button></div>
+<nav class="dropdown" id="dd">
+  <a href="/">🌊 Accueil</a><a href="#chemins">🧭 Les 5 chemins</a><a href="#offre">✦ Offre</a><a href="https://navlys.com">🧭 NAVLYS</a><a href="/cgu">CGU</a>
+</nav>
+<div class="bandeau"><div class="scroll">NAVLYS est un projet d'éducation et de veille à vocation informative uniquement. Les contenus ne constituent en aucun cas un conseil personnalisé en investissement, ni une recommandation d'achat ou de vente. Chacun reste seul responsable de ses décisions financières.</div></div>
+
+<section class="cinema">
+  <div class="curtain left"></div><div class="curtain right"></div>
+  <div class="tie l"></div><div class="tie r"></div>
+  <div class="screen">
+    <div class="poster" id="reelPoster"></div>
+    <video muted autoplay playsinline preload="metadata" id="liveVideo"></video>
+    <div class="reel-title" id="reelTitle"></div><div class="reel-dots" id="reelDots"></div>
+  </div>
+  <div class="valance"></div>
+  <div class="cine-label"><span class="cine-dot"></span> EN DIRECT</div>
+  <button class="snd" id="sndBtn" onclick="NV_sound()" aria-label="Son">🔇</button>
+</section>
+
+<main class="feed"><div class="wrap">
+  <div class="ticker"><div class="run"><b>● NAVBIO</b> &nbsp;·&nbsp; Biographie vivante &nbsp;<em>▸</em>&nbsp; Mémoire &nbsp;<em>▸</em>&nbsp; Transmission &nbsp;<em>▸</em>&nbsp; Pas un livre figé : une histoire qui s'enrichit, se partage, se transmet</div></div>
+
+  <div class="eyebrow"><span class="chip">🧬</span><h2>Ta vie, racontée. Gardée. Transmise.</h2></div>
+  <p class="lead">Pas un livre. Pas un album. Une biographie vivante — pour les tiens, et pour ceux qui viendront.</p>
+
+  <div class="eyebrow" id="chemins"><span class="chip">✦</span><h2>Les 5 chemins</h2></div>
+  <p class="lead">Une seule application, 5 façons d'entrer dans ta biographie.</p>
+  <div class="trio">
+    <div class="tcard"><span class="ic">1</span><h3>La Vie</h3><p>Les grandes étapes : enfance, jeunesse, rencontres, voyages, métiers, épreuves, victoires.</p><div class="eq"><i></i><i></i><i></i><i></i><i></i></div></div>
+    <div class="tcard"><span class="ic">2</span><h3>La Mémoire</h3><p>Les voix, les visages, les odeurs. Sauvegardés en haute qualité, à vie.</p><div class="eq"><i></i><i></i><i></i><i></i><i></i></div></div>
+    <div class="tcard"><span class="ic">3</span><h3>La Transmission</h3><p>Tes valeurs, tes leçons, tes recettes. Reçus par ceux que tu choisis.</p><div class="eq"><i></i><i></i><i></i><i></i><i></i></div></div>
+    <div class="tcard"><span class="ic">4</span><h3>Le Bien-être</h3><p>Écrire sa vie soigne. Réflexologie, méditations à puiser dans ton propre récit.</p><div class="eq"><i></i><i></i><i></i><i></i><i></i></div></div>
+    <div class="tcard"><span class="ic">5</span><h3>La Passion</h3><p>Ce qui te fait vibrer aujourd'hui — musique, mer, sport, art. Mis en lumière, partagé.</p><div class="eq"><i></i><i></i><i></i><i></i><i></i></div></div>
+  </div>
+
+  <div class="flashy" id="offre">
+    <span class="badge">OFFRE DE LANCEMENT</span>
+    <h3>Ouverture <em>en avant-première</em></h3>
+    <div class="cd" id="cd">
+      <div class="blk"><div class="v" id="cd-d">—</div><div class="k">Jours</div></div>
+      <div class="blk"><div class="v" id="cd-h">—</div><div class="k">Heures</div></div>
+      <div class="blk"><div class="v" id="cd-m">—</div><div class="k">Min</div></div>
+      <div class="blk"><div class="v" id="cd-s">—</div><div class="k">Sec</div></div>
+    </div>
+    <a class="more" href="#">Réserver ma place <span class="arr">→</span></a>
+  </div>
+
+  <footer>
+    <div class="flag">🧬 NAVBIO — Ta vie, racontée 🌊</div>
+    <p class="disc">NAVBIO est un service de biographie vivante à usage personnel et familial. Les contenus que tu déposes restent ta propriété ; NAVBIO en assure le stockage sécurisé et la transmission selon tes choix. Pas de revente de tes données, pas de publicité. NAVLYS est un projet d'éducation et de veille à vocation informative uniquement ; ses contenus ne constituent ni un conseil personnalisé en investissement ni une recommandation d'achat ou de vente. Chacun reste seul responsable de ses décisions financières. Réservé aux 18 ans et +.</p>
+    <p class="legal">© 2026 NAVBIO™ par Bruno Mark Partouche · <a href="/cgu">CGU</a> · <a href="/privacy">Confidentialité</a></p>
+  </footer>
+</div></main>
+
+<nav class="tabbar">
+  <a class="tab active" href="/"><span class="i">🌊</span>Accueil</a>
+  <a class="tab" href="#chemins"><span class="i">🧭</span>Chemins</a>
+  <a class="tab" href="#offre"><span class="i">✦</span>Offre</a>
+  <a class="tab" href="https://navlys.com"><span class="i">🧭</span>NAVLYS</a>
+  <a class="tab" href="#" onclick="NV_menu();return false;"><span class="i">☰</span>Menu</a>
+</nav>
+
+<script>
+window.NV_TARGET = Date.parse('2026-07-01T00:00:00+02:00');
+window.NV_REELS = [
+  {src:"https://navlys.com/media/presentation.mp4", title:"NAVBIO — présentation"},
+  {src:"", title:"La mémoire"},
+  {src:"", title:"La transmission"}
+];
+</script>
+<script src="/assets/navlys-v2.js"></script>
+</body>
+</html>
