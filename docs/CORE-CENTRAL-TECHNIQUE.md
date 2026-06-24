@@ -105,5 +105,6 @@ Ce blueprint **ne change pas** la stratégie « brique par brique » de
       voie la plus avancée du SDK — Workflow, etc.).
 - [ ] **Qui héberge l'API key Anthropic** du moteur (compte/abonnement dédié au core) ?
 - [ ] **Première chaîne** à câbler (reco : **SAV**, faible risque, effet « waouh » rapide).
-- [ ] **Hermès** garde le rôle « mains sur le serveur » (installs systemd/Redis) pendant que
-      Claude écrit le moteur + les garde-fous ? (reco : **oui**, séparation claire des rôles).
+- [ ] Qui prend le rôle « mains sur le serveur » (installs systemd/Redis) pendant que Claude
+      écrit le moteur + les garde-fous ? **À redéfinir** — ex-Hermès **retiré** (ERR-005) ; le
+      futur opérateur sera **bridé par le moteur**, pas de confiance par défaut.

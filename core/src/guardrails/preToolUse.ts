@@ -6,7 +6,7 @@
  * retour d'un deny = { hookSpecificOutput: { hookEventName, permissionDecision:"deny",
  * permissionDecisionReason } }.
  *
- * ⚠️ Scaffold non testé depuis GitHub — à valider sur le serveur (Hermès).
+ * ⚠️ Scaffold non testé depuis GitHub — à valider sur le serveur.
  */
 
 import type { HookCallback, PreToolUseHookInput } from "@anthropic-ai/claude-agent-sdk";

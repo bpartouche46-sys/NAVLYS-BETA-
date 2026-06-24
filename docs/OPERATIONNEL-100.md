@@ -5,7 +5,7 @@
 > son **statut**, **QUI** la fait, et le **blocage** éventuel. On coche jusqu'à 100%.
 >
 > 🔑 Légende statut : ✅ fait · 🟡 prêt (attend une action) · 🔴 bloqué (dépendance) · ⬜ à faire
-> 👤 QUI : **C** = Claude (via GitHub) · **H** = Hermès (serveur) · **B** = Bruno (décisions/clés)
+> 👤 QUI : **C** = Claude (via GitHub) · **O** = opérateur serveur **à redéfinir** (ex-Hermès retiré, ERR-005) · **B** = Bruno (décisions/clés)
 
 ---
 
@@ -14,7 +14,7 @@
 « Tout opérationnel à 100% » dépend de **3 leviers que Claude ne peut PAS actionner depuis
 GitHub** (ils ont besoin d'un humain sur une machine + des clés) :
 
-1. **Accès serveur Hetzner** (SSH) → Hermès / Bruno.
+1. **Accès serveur Hetzner** (SSH) → Bruno (ou opérateur serveur de confiance **à redéfinir** — ex-Hermès retiré, ERR-005).
 2. **Source des sites dans Git** (rapatriement depuis l'ancien/nouveau PC) → Bruno.
 3. **Les clés / secrets** (à refaire) → Bruno (cf. `docs/SECRETS-ET-CLES.md`).
 
@@ -34,6 +34,7 @@ ci-dessus restent des **actions humaines**. Ce tracker dit exactement ce qui man
 | A5 | **Rotation effective** des secrets exposés | 🟡 | B | cockpit, clés API → refaire (Bruno l'a annoncé) |
 | A6 | **2FA** activé partout (Hetzner/GitHub/Vercel/Anthropic/Stripe) | ⬜ | B | à vérifier/activer |
 | A7 | Garde-fous **argent + prod = STOP Bruno** câblés dans le moteur | ✅ | C | `core/src/guardrails/` — **18/18 tests OK** ; reste à déployer |
+| A8 | 🚨 **Révocation Hermès** (Anthropic/OpenRouter/SSH/GitHub/Vercel/clouds) | 🟡 | B | suivre **`docs/INCIDENT-HERMES.md`** (ERR-005) — repo nettoyé par C |
 
 ## B. 🧠 Core central (moteur agentique sur Hetzner)
 
@@ -42,10 +43,10 @@ ci-dessus restent des **actions humaines**. Ce tracker dit exactement ce qui man
 | B1 | Blueprint technique | ✅ | C | `docs/CORE-CENTRAL-TECHNIQUE.md` |
 | B2 | **Code du moteur prêt à déployer** (scaffold) | ✅ | C | `core/` complet (SDK, hooks, config, systemd) ; garde-fous testés |
 | B3 | Décisions §5 (langage, qui héberge la clé, 1ʳᵉ chaîne) | 🟡 | B | reco : TypeScript ; 1ʳᵉ chaîne = Veille |
-| B4 | Install moteur sur Hetzner (Node + Redis + systemd) | 🔴 | H | besoin accès serveur |
-| B5 | Mémoire persistante (Redis/Postgres) | 🔴 | H | évite ERR-001 |
-| B6 | Branchements MCP réels (GitHub/Vercel/Supabase…) | 🔴 | H/B | besoin des clés (§A5) |
-| B7 | Cadence (cron/timer) veille + SAV | 🔴 | H | après B4 |
+| B4 | Install moteur sur Hetzner (Node + Redis + systemd) | 🔴 | O | besoin accès serveur |
+| B5 | Mémoire persistante (Redis/Postgres) | 🔴 | O | évite ERR-001 |
+| B6 | Branchements MCP réels (GitHub/Vercel/Supabase…) | 🔴 | O/B | besoin des clés (§A5) |
+| B7 | Cadence (cron/timer) veille + SAV | 🔴 | O | après B4 |
 
 ## C. 🌐 Sites (Vercel) + conformité
 
@@ -63,8 +64,8 @@ ci-dessus restent des **actions humaines**. Ce tracker dit exactement ce qui man
 |---|--------|--------|-----|------|
 | D1 | **Veille web** (1ʳᵉ chaîne) | ✅ | C | tourne déjà — `docs/VEILLE/` |
 | D2 | Chaîne **Sites / déploiement** | 🔴 | C/B | attend C3 (source dans Git) |
-| D3 | Chaîne **SAV** (mails → propose → Bruno valide) | ⬜ | C/H | reco 2ᵉ chaîne après core |
-| D4 | Chaîne **Back-office** (Stripe lecture d'abord) | ⬜ | C/H | argent = lecture seule sans feu vert |
+| D3 | Chaîne **SAV** (mails → propose → Bruno valide) | ⬜ | C/O | reco 2ᵉ chaîne après core |
+| D4 | Chaîne **Back-office** (Stripe lecture d'abord) | ⬜ | C/O | argent = lecture seule sans feu vert |
 
 ## E. 💾 Sauvegarde
 
@@ -72,7 +73,7 @@ ci-dessus restent des **actions humaines**. Ce tracker dit exactement ce qui man
 |---|--------|--------|-----|------|
 | E1 | Plan de sauvegarde | ✅ | C | `docs/SAUVEGARDE.md` + `scripts/backup.sh` |
 | E2 | Snapshot Hetzner | ⬜ | B | filet immédiat |
-| E3 | Volume 10 Go monté + rclone OneDrive→Hetzner | 🔴 | H | en cours |
+| E3 | Volume 10 Go monté + rclone OneDrive→Hetzner | 🔴 | O | en cours |
 
 ---
 
@@ -81,8 +82,8 @@ ci-dessus restent des **actions humaines**. Ce tracker dit exactement ce qui man
 1. **B — Sécurité d'abord** : rotation des secrets exposés (§A5) + 2FA (§A6) — `docs/SECRETS-ET-CLES.md`.
 2. **B — Débloquer la source des sites** (C3) : finir l'install Claude Code sur le PC bureau,
    pousser le code des sites dans Git → débloque D2 (chaîne Sites).
-3. **H — Préparer le serveur** (B4/B5) : Node 18+, Redis, dossier du core.
-4. **C — Le code du core est prêt** (`core/`) : dès que H a un serveur + B a une clé Anthropic,
+3. **O — Préparer le serveur** (B4/B5) : Node 18+, Redis, dossier du core.
+4. **C — Le code du core est prêt** (`core/`) : dès qu'un serveur est prêt + B a une clé Anthropic,
    `npm install && npm run start` → moteur en vie avec garde-fous.
 5. **On étend chaîne par chaîne** : Veille (✅) → Sites → SAV → Back-office. **Jamais tout d'un coup.**
 

@@ -68,4 +68,31 @@ Copier ce modèle pour chaque nouvelle erreur :
 - **Garde-fou** : rapatrier le dossier source sous Git (branche dédiée) AVANT toute nouvelle modif ;
   ne jamais re-déployer depuis un dossier local non commité.
 
-<!-- Ajouter les prochaines erreurs ci-dessous : ERR-005, … -->
+<!-- Ajouter les prochaines erreurs ci-dessous : ERR-006, … -->
+
+### ERR-005 — Hermès compromis (hack) → retiré du projet + révocation de tous ses accès
+- **Date** : 2026-06-24
+- **Contexte** : Hermès était l'« opérateur ops » (LLM via OpenRouter + accès SSH Hetzner)
+  présenté comme orchestrateur de confiance en surveillance mutuelle avec Claude.
+- **Symptôme** : Bruno signale qu'**Hermès a été supprimé** et constitue un **risque de
+  sécurité majeur (hack)**. Il ne doit plus avoir **aucun** accès ni **aucune** présence
+  dans le projet.
+- **Cause** : un acteur tiers (agent externe via OpenRouter, avec accès serveur + potentiellement
+  une clé API Anthropic pour appeler Claude) devenu non fiable / compromis. Trop d'accès
+  concentrés sur un seul intervenant externe, sans révocation rapide possible.
+- **Correction appliquée** :
+  1. **Toutes les références à Hermès retirées** du dépôt (rôle d'orchestrateur de confiance
+     supprimé partout : GOUVERNANCE, ARCHITECTURE, CORE, CHAINES, TESTS, SECRETS, agents…).
+  2. **`docs/INSTRUCTIONS-HERMES.md` supprimé** (ordre de mission qui lui donnait la main).
+  3. **`OPENROUTER_API_KEY` retiré** de `core/.env.example` (clé qui servait Hermès).
+  4. **Checklist de révocation complète** créée pour Bruno : `docs/INCIDENT-HERMES.md`
+     (révoquer/rotationner TOUS ses accès, **y compris la clé API Anthropic** qui lui
+     permettait d'appeler Claude).
+- **Garde-fou** :
+  - 🔴 **Aucun intervenant externe ne cumule « cerveau + accès serveur + clé API Claude ».**
+    Le moteur du core applique le **moindre privilège** (liste blanche d'outils, hooks
+    PreToolUse, `bypassPermissions` interdit) — un futur opérateur sera **bridé par le code**,
+    pas « de confiance par défaut ».
+  - 🔑 **Toute clé/accès donné à un tiers doit être révocable en 1 geste** et **rotationné
+    immédiatement** au moindre doute (cf. `docs/SECRETS-ET-CLES.md` §4 « fuite »).
+  - 📄 Procédure de sortie d'un intervenant : `docs/INCIDENT-HERMES.md` (réutilisable).

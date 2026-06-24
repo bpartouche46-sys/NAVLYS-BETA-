@@ -29,7 +29,7 @@
         │   ✅ si conforme → feu vert CONFORMITÉ
 4. BUILD / PREVIEW ............... déploiement preview (jamais prod direct)
 5. 🔴 BRUNO VALIDE ............... feu vert PROD explicite (ou refus)
-6. DÉPLOIEMENT PROD .............. Hermès / Vercel CLI applique
+6. DÉPLOIEMENT PROD .............. opérateur serveur (à redéfinir) / Vercel CLI applique
 7. VÉRIF POST-PROD + MÉMOIRE ..... re-contrôle en ligne, MAJ ETAT-DES-LIEUX
 ```
 
@@ -46,7 +46,7 @@ Aucun déploiement qui n'a pas passé l'étape 3 (gardien).
 | 3. Contrôle conformité | **Gardien** (`.claude/agents/gardien.md`) | **Bloque** avant publication (ERR-003) |
 | 4. Preview | Agent Sites / CI | URL de preview, pas la prod |
 | 5. Feu vert prod | **Bruno** | Décision humaine, non délégable |
-| 6. Déploiement | **Hermès** (mains serveur) ou Vercel CLI | Seulement après étape 5 |
+| 6. Déploiement | **Opérateur serveur** (à redéfinir — ex-Hermès retiré) ou Vercel CLI | Seulement après étape 5 |
 | 7. Vérif + mémoire | Agent Sites + Gardien | Re-grep des lignes rouges en prod |
 
 ---
@@ -75,5 +75,5 @@ chaîne démarre directement à l'étape 4/5. C'est le test idéal : court, déj
 ## 5. Décisions encore ouvertes (Bruno)
 
 - [ ] Nom/compte exact du dépôt GitHub des sites (**NOVA-HUB** ?) — à confirmer.
-- [ ] Hermès reste l'exécutant du déploiement prod (étape 6) ? (reco : oui).
+- [ ] Qui exécute le déploiement prod (étape 6) ? **À redéfinir** (Hermès retiré — ERR-005).
 - [ ] Langage du moteur quand on industrialisera (reco : TypeScript).

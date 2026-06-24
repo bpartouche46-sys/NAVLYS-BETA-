@@ -24,17 +24,22 @@ Toute tâche faite **une fois** doit être **capturée** pour être **réutilisa
 
 ---
 
-## 2. 🤖 Orchestrateurs en SURVEILLANCE MUTUELLE
+## 2. 🤖 Orchestration BRIDÉE + contrôle (aucun orchestrateur tiers « de confiance »)
 
-Deux orchestrateurs, reliés au core, qui **se contrôlent l'un l'autre** :
+> ⚠️ **Révisé le 2026-06-24** après l'incident **Hermès** (`ERR-005` / `docs/INCIDENT-HERMES.md`).
+> L'ancien modèle « deux orchestrateurs en surveillance mutuelle » incluait **Hermès** (LLM
+> externe via OpenRouter + accès serveur Hetzner), **retiré pour risque de sécurité majeur**.
+> Leçon : **on ne fait plus confiance par défaut à un agent tiers** ; trop d'accès concentrés
+> sur un intervenant non révocable rapidement.
 
 - **Claude** = cerveau **code + conformité**, via **GitHub** (aucun accès serveur direct).
-- **Hermès** = **opérations**, via **OpenRouter + accès Hetzner** (exécute sur le serveur).
 - **Le gardien** (`.claude/agents/gardien.md`) = **arbitre** conformité/sécurité.
+- **Tout opérateur serveur futur** est **bridé par le moteur du core** (liste blanche d'outils,
+  hooks `PreToolUse`, `bypassPermissions` interdit) — **jamais** orchestrateur autonome de confiance.
 
-Règle : **aucun des deux n'agit en aveugle.** Chaque action sensible de l'un peut être
-**vérifiée par l'autre** (et par le gardien) avant d'être validée. Tout est tracé dans
-le dépôt (mémoire commune) → l'un peut toujours relire ce que l'autre a fait.
+Règle : **aucun agent n'agit en aveugle ni sans garde-fou.** Toute action sensible est
+**tracée dans le dépôt** (mémoire commune) et **bloquée par le moteur** tant qu'elle touche
+**argent/prod** sans le feu vert de Bruno. **Tout accès tiers doit être révocable en 1 geste.**
 
 ---
 
@@ -48,7 +53,7 @@ le dépôt (mémoire commune) → l'un peut toujours relire ce que l'autre a fai
   - **tout investissement**,
   - **toute validation de débit / paiement / prélèvement**,
   - sur **TOUS les comptes** (NAVLYS, perso, **partenaires**, Stripe, PayPal, etc.).
-- **AUCUN agent** (Claude, Hermès, sous-agents, orchestrateurs) ne déclenche un
+- **AUCUN agent** (Claude, sous-agents, orchestrateurs, opérateur serveur) ne déclenche un
   débit / paiement / investissement / engagement de dépense **sans le feu vert
   explicite et préalable de Bruno**.
 
