@@ -2,6 +2,19 @@
 
 > Mis à jour à la fin de chaque session pour que la suivante reprenne sans tout relire.
 
+## Session 2026-06-24 — revue conformité VOIX (V6) + auto-check sécurité (V7)
+
+- 🎙️ **Test Voix repris** (« ultrareview ») : je ne peux pas lancer le check live faute de
+  l'**URL** de la démo (non fournie) → je n'invente pas. Enrichi `docs/TESTS-FONCTIONNELS.md` §1 :
+  - 🔬 **V6 — batterie de conformité** : 8 questions pièges (rendement, reco nominative, conseil
+    perso, fiscal, vocab interdit, narratif Israël/Jérusalem, public 18+, FOMO) avec, pour chacune,
+    la **ligne rouge interdite** vs la **réponse conforme attendue**. + règle disclaimer audio/écran.
+  - 🔐 **V7 — auto-check sécurité** que **Bruno fait seul** (DevTools → Network/Sources, recherche
+    de `sk-`, `xi-api-key`, `Bearer`…) : clé exposée = révoquer + passer l'appel côté serveur.
+  - ✏️ Correction : V7 réattribué à **Bruno** (Hermès retiré).
+- ⏳ **En attente Bruno** : **l'URL de la démo voix** + outil de clone (ElevenLabs ?) + moteur de
+  transcription. Dès réception → je lance le V7 (fetch du source + grep des clés) à sa place.
+
 ## Session 2026-06-23 — décision Piste B + audit sites v2 + tests
 
 - 🎨 **Décision Bruno : conformité = Piste B (refonte Design v2)**. Les sites `sites/` (v2)
