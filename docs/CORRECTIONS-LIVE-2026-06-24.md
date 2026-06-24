@@ -30,6 +30,12 @@ et compteur ciblant le 31 mai → déjà expiré (on est le 24 juin).
 - **AVANT** : `Pendant 30 jours après le 1ᵉʳ juin, escalator dégressif...`
 - **APRÈS** : `Pendant 30 jours après le 1ᵉʳ juillet, escalator dégressif...`
 
+### e) `launch-offer.js` (asset moteur, chargé par navbio) — **doublon à corriger en même temps**
+> Déjà tracké : **ERR-005** + correctif **P-04** (`docs/PHASE-0-SUIVI.md`). Copie de référence : `sauvegarde-sites/_assets-moteur/launch-offer.js`.
+> ⚠️ C'est le texte qui **s'affiche réellement** aux visiteurs (« heure de Jérusalem »). À traiter **avec** les points a→d ci-dessus.
+- Commentaire l.1 / l.3 : retirer « Asia/Jerusalem » ; réancrer `T0` sur `2026-06-30T22:00:00Z` (1ᵉʳ juillet 00:00 Paris).
+- Texte servi l.33 : `1ᵉʳ juin 2026 · minuit, heure de Jérusalem` → `1ᵉʳ juillet 2026 · minuit (heure de Paris)`.
+
 ---
 
 ## 🔴 2. brunopartouche.com — date de lancement périmée
