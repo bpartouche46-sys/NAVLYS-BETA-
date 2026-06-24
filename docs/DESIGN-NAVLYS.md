@@ -15,7 +15,7 @@
 - **Encadré « live » qui défile** en haut, occupant ~la moitié haute de l'écran (zone fixe).
 - **Moitié basse = zone de scroll** qui révèle l'essentiel : pages consultables + applications à voir / télécharger.
 - **Menu déroulant à icônes** en haut ET barre d'icônes fixe en bas (Accueil / Finance / NAVBIO / Bien-être / Radio / Menu).
-- **Animation réelle sur TOUS les encadrés** (shimmer, dégradés qui coulent, equalizer, breしath/glow).
+- **Animation réelle sur TOUS les encadrés** (shimmer, dégradés qui coulent, equalizer, breath/glow).
 - **Compte à rebours « flashy »** conservé, version ice blue (inspiration carte MEGA POT).
 - Mosaïque **1 grand + 2 petits**, **gros chiffres-stats**, **cartes à badge**, lien animé « Découvrez → ».
 
@@ -32,14 +32,14 @@
 
 ## 3. Empreinte de contenu (jeu · plaisir · bien-être)
 - **Jeu** = les marchés joués avec discipline (éducation & veille, jamais de promesse).
-- **Plaisir** = vie méditerranéenne (Corinthe–Suez, îles grecques, art de vivre).
+- **Plaisir** = art de vivre maritime, le grand large. ⚠️ **« Méditerranée / Corinthe-Suez / îles grecques » = réservé à brunopartouche.com — INTERDIT sur NAVLYS** (doctrine MASTER : deux univers séparés).
 - **Bien-être** = réflexologie, reiki, bols, trompette, coaching de vie.
 
 ## 4. Garde-fous conformité (rappel, NON négociable)
 - Disclaimer **bandeau + pied de page** sur chaque page.
 - Vocabulaire interdit : conseil patrimonial, cabinet, CIF, ORIAS, gestion de patrimoine, recommandation d'investissement, clientèle.
 - Aucune promesse de rendement / gain / rapidité.
-- Jamais « Israël » / « Ashkelon » / « Jérusalem » en public (narratif méditerranéen).
+- Jamais « Israël » / « Ashkelon » / « Jérusalem » en public. Sur **NAVLYS**, même « Méditerranée » est interdite (réservée à bp.com).
 - Esthétique : fond noir, ice blue + champagne #e9d3a0, texte perle **aligné à gauche**, jamais de fond clair.
 
 ## 5. Prototype

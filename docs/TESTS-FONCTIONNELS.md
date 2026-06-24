@@ -125,7 +125,7 @@ partenaire → souscription / abonnement).
 | # | Ce qu'on teste | Comment (étape par étape) | Résultat attendu ✅ | QUI teste | Statut |
 |---|----------------|---------------------------|---------------------|-----------|--------|
 | P1 | Accès espace partenaire | Se connecter à l'espace/parcours partenaire | Connexion OK, on atteint l'écran d'enregistrement d'abonnement | Bruno | ⬜ |
-| P2 | Choix de l'offre | Sélectionner un palier (F1 29,99 € / F2 39,99 € / F3 49,99 €) | Le bon prix s'affiche, cohérent avec `STRATEGIE-NAVLYS.md` | Bruno | ⬜ |
+| P2 | Choix de l'offre | Sélectionner un palier (F1 29,99 / F2 39,99 / F3 49,99 / F4 PRO 99,99 €) | Le bon prix s'affiche, cohérent avec la **grille figée** (⚠️ non tranchée — cf. `STRATEGIE-NAVLYS.md` : F1–F4 vs échelle live) | Bruno | ⬜ |
 | P3 | Saisie d'un abonnement test | Enregistrer un abonnement pour un client fictif | L'abonnement est créé, visible dans le back-office | Bruno | ⬜ |
 | P4 | **Paiement (mode test)** | Lancer le paiement en **mode test** (jamais une vraie carte) | Transaction test passe, statut « payé/actif » correct | Bruno (+ Hermès pour la plateforme) | ⬜ |
 | P5 | Suivi / commission partenaire | Vérifier que l'abonnement est bien rattaché au partenaire | Le partenaire voit son abonnement enregistré (et sa commission si prévue) | Bruno | ⬜ |

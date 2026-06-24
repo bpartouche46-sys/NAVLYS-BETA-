@@ -6,7 +6,7 @@
 
 ## Règles à respecter (issues du MASTER)
 - navlys.com = **Bruno invisible** (3ᵉ personne). **« Méditerranée » + « Israël/Ashkelon » interdits.**
-- Charte **#000 + #7DD3FC + bronze**, zéro pourpre. Slogan **« Ma méthode · Ton argent · Ton contrôle. »**
+- Charte **#000 + #7DD3FC + accent doré** (⚠️ valeur à figer : « bronze #d4a155 » au MASTER vs « champagne #e9d3a0 » au design), zéro pourpre. Slogan **« Ma méthode · Ton argent · Ton contrôle. »**
 - **Zéro promesse de rendement** ; chiffres de risque OK.
 
 ## Les 13 enrichissements (du plus utile au moins urgent)
