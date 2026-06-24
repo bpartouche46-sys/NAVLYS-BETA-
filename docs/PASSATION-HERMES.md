@@ -1,6 +1,6 @@
 # Passation Hermès → NAVLYS (archivage) — 2026-06-23
 
-> 🚨 **INCIDENT 2026-06-24 (ERR-005)** : Hermès est désormais traité comme **compromis (hack)**
+> 🚨 **INCIDENT 2026-06-24 (ERR-006)** : Hermès est désormais traité comme **compromis (hack)**
 > et **retiré du projet**. Ce document est **conservé volontairement** : il sert de **carte des
 > accès à révoquer**. 👉 Actions de révocation : **`docs/INCIDENT-HERMES.md`**.
 > Hermès n'a plus **aucun rôle de confiance** — toute mention ci-dessous est **historique**.

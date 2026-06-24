@@ -14,7 +14,7 @@
 - 🔑 **Checklist de révocation pour Bruno** : `docs/INCIDENT-HERMES.md` — révoquer/rotationner
   **TOUS** ses accès, **y compris la clé API Anthropic** qui lui permettait d'appeler Claude
   (+ OpenRouter, SSH Hetzner, GitHub, Vercel, clouds, cockpit). Re-vérifier le serveur
-  (portes dérobées : cron/services/clés ajoutées). Journalisé : **ERR-005**.
+  (portes dérobées : cron/services/clés ajoutées). Journalisé : **ERR-006**.
 - 🟡 **À FAIRE par Bruno** : exécuter la checklist `INCIDENT-HERMES.md` (Claude ne peut pas
   agir sur les accès externes). Confirmer ici quand fait : « Révocation Hermès faite le JJ/MM ».
 
@@ -56,7 +56,25 @@
   **Claude Code sur le PC du bureau (Windows)** — install en cours côté Bruno. Premier
   passage prévu = la **Vague 1 déjà validée** (bio.html + index.html).
 - 📦 PR : **#20** — CORE-CENTRAL-TECHNIQUE, CHAINE-1-SITES, VEILLE (note : INSTRUCTIONS-HERMES
-  supprimé depuis — voir session (k), ERR-005).
+  supprimé depuis — voir session (k), ERR-006).
+
+## Session 2026-06-24 — TEST chaîne « Claude Design » → Adobe Express (réussi)
+
+- 🎯 **Question de Bruno** : « exploites-tu Claude Design pour faire des prototypes / des
+  choses finies ? Il faut le tester. »
+- ✅ **Capacité CONFIRMÉE et testée** : Claude crée un visuel fini en HTML autonome puis
+  l'envoie comme **document Adobe Express éditable**. Compte Adobe = `auth` (complet).
+  Connecteurs aussi dispo : Vercel, Figma, Canva.
+- ✅ **Premier livrable** : **`designs/navlys-teaser-card.html`** (carré 1080×1080,
+  « Ouverture 1ᵉʳ juillet », slogan officiel, Méthode 90/10, **disclaimer conforme**,
+  charte ice blue). Import Express **OK** (1 slide, rendu fidèle).
+- 📄 **Recette capitalisée** : **`docs/CLAUDE-DESIGN-PIPELINE.md`** (étapes + polices Adobe
+  validées AGaramondPro/FiraSans + pièges : params en chaînes, PostScript names, conformité).
+- ⚠️ **Limite honnête** : Claude **ne peut pas ouvrir un lien `claude.ai/design/p/…`**
+  (page protégée). Pour exploiter un design fait dans l'app : menu « Send to Adobe Express ».
+- ℹ️ **Sites web responsives** (les 4 maquettes `sites/*`) → ne passent PAS par Express ;
+  Express = visuels marketing. Sites = HTML déployé (Vercel).
+- 💾 **Serveur** : working tree propre, tout poussé sur GitHub → Bruno peut changer d'ordi sans rien perdre.
 
 ## Session 2026-06-23 (nuit) — sécurité vérifiée + design v2 finalisé (Claude autonome)
 
@@ -195,7 +213,7 @@
 - ⚖️ **Gouvernance gravée** (`docs/GOUVERNANCE.md`, reliée à CLAUDE.md règle d'or) :
   1) **zéro répétition** (tout capitaliser en knowledge/skill/routine, relié au core),
   2) ~~Claude + Hermès orchestrateurs en surveillance mutuelle~~ → **révisé** : Hermès retiré
-     (ERR-005) ; plus d'orchestrateur tiers de confiance, opérateur futur **bridé par le moteur**,
+     (ERR-006) ; plus d'orchestrateur tiers de confiance, opérateur futur **bridé par le moteur**,
   3) **règle financière** : Bruno **seul** valide tout investissement/débit sur tous les
      comptes (y compris partenaires), **sauf abonnements classiques déjà en cours**.
 - 🎚️ **Délégation décidée par Bruno** : Claude **a la main** (conçoit + modifie + valide)

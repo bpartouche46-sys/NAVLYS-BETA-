@@ -5,7 +5,7 @@
 > son **statut**, **QUI** la fait, et le **blocage** éventuel. On coche jusqu'à 100%.
 >
 > 🔑 Légende statut : ✅ fait · 🟡 prêt (attend une action) · 🔴 bloqué (dépendance) · ⬜ à faire
-> 👤 QUI : **C** = Claude (via GitHub) · **O** = opérateur serveur **à redéfinir** (ex-Hermès retiré, ERR-005) · **B** = Bruno (décisions/clés)
+> 👤 QUI : **C** = Claude (via GitHub) · **O** = opérateur serveur **à redéfinir** (ex-Hermès retiré, ERR-006) · **B** = Bruno (décisions/clés)
 
 ---
 
@@ -14,7 +14,7 @@
 « Tout opérationnel à 100% » dépend de **3 leviers que Claude ne peut PAS actionner depuis
 GitHub** (ils ont besoin d'un humain sur une machine + des clés) :
 
-1. **Accès serveur Hetzner** (SSH) → Bruno (ou opérateur serveur de confiance **à redéfinir** — ex-Hermès retiré, ERR-005).
+1. **Accès serveur Hetzner** (SSH) → Bruno (ou opérateur serveur de confiance **à redéfinir** — ex-Hermès retiré, ERR-006).
 2. **Les clés / secrets** (à refaire + révoquer Hermès) → Bruno (cf. `docs/SECRETS-ET-CLES.md`, `docs/INCIDENT-HERMES.md`).
 
 > ✅ **Mise à jour** : « source des sites dans Git » **n'est PLUS un blocage** — le code est
@@ -37,7 +37,7 @@ ci-dessus restent des **actions humaines**. Ce tracker dit exactement ce qui man
 | A5 | **Rotation effective** des secrets exposés | 🟡 | B | cockpit, clés API → refaire (Bruno l'a annoncé) |
 | A6 | **2FA** activé partout (Hetzner/GitHub/Vercel/Anthropic/Stripe) | ⬜ | B | à vérifier/activer |
 | A7 | Garde-fous **argent + prod = STOP Bruno** câblés dans le moteur | ✅ | C | `core/src/guardrails/` — **18/18 tests OK** ; reste à déployer |
-| A8 | 🚨 **Révocation Hermès** (Anthropic/OpenRouter/SSH/GitHub/Vercel/clouds) | 🟡 | B | suivre **`docs/INCIDENT-HERMES.md`** (ERR-005) — repo nettoyé par C |
+| A8 | 🚨 **Révocation Hermès** (Anthropic/OpenRouter/SSH/GitHub/Vercel/clouds) | 🟡 | B | suivre **`docs/INCIDENT-HERMES.md`** (ERR-006) — repo nettoyé par C |
 
 ## B. 🧠 Core central (moteur agentique sur Hetzner)
 

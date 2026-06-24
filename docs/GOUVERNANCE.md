@@ -26,7 +26,7 @@ Toute tâche faite **une fois** doit être **capturée** pour être **réutilisa
 
 ## 2. 🤖 Orchestration BRIDÉE + contrôle (aucun orchestrateur tiers « de confiance »)
 
-> ⚠️ **Révisé le 2026-06-24** après l'incident **Hermès** (`ERR-005` / `docs/INCIDENT-HERMES.md`).
+> ⚠️ **Révisé le 2026-06-24** après l'incident **Hermès** (`ERR-006` / `docs/INCIDENT-HERMES.md`).
 > L'ancien modèle « deux orchestrateurs en surveillance mutuelle » incluait **Hermès** (LLM
 > externe via OpenRouter + accès serveur Hetzner), **retiré pour risque de sécurité majeur**.
 > Leçon : **on ne fait plus confiance par défaut à un agent tiers** ; trop d'accès concentrés

@@ -6,7 +6,7 @@
 >
 > 🔐 Aucun secret ici. Les jetons d'accès rclone restent **sur le serveur**, hors Git.
 > ⚙️ À exécuter **sur le serveur** (par Bruno en SSH, ou un opérateur de confiance à
-> redéfinir — ex-Hermès retiré, ERR-005). Claude n'a pas cet accès.
+> redéfinir — ex-Hermès retiré, ERR-006). Claude n'a pas cet accès.
 
 ---
 
