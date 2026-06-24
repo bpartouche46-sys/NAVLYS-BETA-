@@ -20,6 +20,28 @@
 
 ---
 
+## 📍 Surface d'accès RÉELLE d'Hermès (d'après `docs/PASSATION-HERMES.md`)
+
+> Source : la passation archivée d'Hermès lui-même. C'est **la liste exacte** à révoquer.
+
+- **Cerveau** : **OpenRouter** (PAS une clé Anthropic directe — voir encadré « clé API » plus bas).
+- **Serveur Hetzner** : accès complet (a tout installé) — **SSH**, **cockpit** `/var/www/cockpit/`
+  (`bruno / [mot de passe exposé]`, en **HTTP non sécurisé**).
+- **GitHub** : **`GITHUB_TOKEN`** + **7 repos clonés** sur le serveur (NOVA-HUB, NAVLYS-BETA-,
+  Ai-Suite-PRO, gdp-dashboard ×3, NOVA-HUB-1) → **le token est l'accès le plus dangereux** (push de code).
+- **Secrets dans `/root/navlys/config/.env`** : `ELEVENLABS_KEY`, `WHATSAPP_360DIALOG_KEY`,
+  `GITHUB_TOKEN`, **clés brokers affiliés**, possiblement `VERCEL_TOKEN`, `SUPABASE_KEY`.
+- ✅ **Bonne nouvelle (réduit le risque de casse)** : Hermès avait **ZÉRO cron / zéro
+  automatisation** → le retirer **ne casse rien d'automatique**. Source de vérité = **GitHub**.
+
+> 🤖 **« Sa clé API pour t'appeler (toi, Claude) »** — précision honnête : Hermès tournait sur
+> **OpenRouter**, pas sur une clé Anthropic directe. Donc **révoquer la clé OpenRouter coupe son
+> accès aux modèles** (y compris si Claude était routé via OpenRouter). S'il existait **en plus**
+> une clé Anthropic dédiée à Hermès, révoque-la aussi (§A). **Le `GITHUB_TOKEN` reste le plus
+> urgent** (il pouvait pousser du code).
+
+---
+
 ## 🔑 CHECKLIST DE RÉVOCATION — coche chaque ligne (le cœur de l'incident)
 
 ### A. 🤖 Accès d'Hermès à **Claude / Anthropic** (ta demande explicite)
@@ -48,8 +70,11 @@
 - [ ] **Rotationner TOUS les secrets stockés sur le serveur** (fichiers `.env`, tokens) —
       Hermès a pu les lire. Voir `docs/SECRETS-ET-CLES.md`.
 
-### D. 🐙 GitHub (Hermès a cloné NOVA-HUB)
-- [ ] **Collaborateurs** des dépôts (NOVA-HUB + tout repo NAVLYS) → retirer Hermès / tout compte tiers.
+### D. 🐙 GitHub (Hermès avait un `GITHUB_TOKEN` + 7 repos clonés — ACCÈS LE PLUS DANGEREUX)
+- [ ] 🔴 **Révoquer le `GITHUB_TOKEN` d'Hermès** (Settings → Developer settings → Tokens) — il
+      pouvait **pousser du code** sur tes 7 repos (NOVA-HUB, NAVLYS-BETA-, etc.).
+- [ ] ✅ **Vérifié par Claude** : sur `navlys-beta-`, **seul Bruno est collaborateur (admin)** —
+      aucun compte tiers. À re-vérifier de même sur **NOVA-HUB** et les autres repos.
 - [ ] **Personal Access Tokens / OAuth apps / Deploy keys** → révoquer ceux liés à Hermès.
 - [ ] **SSH keys** du compte GitHub utilisé → retirer celles de l'ancien PC / d'Hermès.
 - [ ] Activer/contrôler le **secret scanning** ; vérifier qu'aucun secret n'a été poussé.
