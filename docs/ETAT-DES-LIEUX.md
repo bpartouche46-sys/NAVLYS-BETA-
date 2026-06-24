@@ -2,6 +2,18 @@
 
 > Mis à jour à la fin de chaque session pour que la suivante reprenne sans tout relire.
 
+## Session 2026-06-24 — 🔍 ULTRAREVIEW du dépôt → voir `docs/RAPPORT-ULTRAREVIEW-2026-06-24.md`
+
+- ✅ Audit complet vérifié : **0 critique, 0 élevé**. Dépôt propre et sûr.
+- ✅ **Aucun secret committé**, aucun terme interdit réel, « +8 à 12% » retiré partout,
+  disclaimers 14/16, zéro lien interne ou renvoi de doc cassé.
+- 🟡 4 points mineurs : M1 doublon journal **ERR-002 ≈ ERR-004** (à fusionner) ;
+  M2 disclaimer absent sur `corrections-pretes/navbiolife.com/{cgu,privacy}.html` (versions `sites/` OK) ;
+  F1 charte `#5fe0ff`→`#7DD3FC` dans `sites/navlys-app/finance.html` ; F2 mot « Jérusalem » dans `index.html` (hub).
+- ⚠️ Note : audit du code **live NOVA-HUB** non fait (proxy a refusé le clone) → à auditer à part.
+- 🔧 Tentative initiale en workflow multi-agents : échec technique (schéma StructuredOutput) →
+  audit refait en direct (grep/lecture), plus fiable sur un petit dépôt.
+
 ## Session 2026-06-24 — TEST chaîne « Claude Design » → Adobe Express (réussi)
 
 - 🎯 **Question de Bruno** : « exploites-tu Claude Design pour faire des prototypes / des
