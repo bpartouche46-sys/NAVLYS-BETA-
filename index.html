@@ -2,86 +2,173 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>NAVLYS™ — Atelier</title>
-<meta name="description" content="L'atelier NAVLYS — les bonnes versions, en ligne, en direct.">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Fraunces:ital,wght@1,400;1,500&family=Lora:wght@400;500&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>NAVLYS — Un cerveau. Une personne. Tout un univers.</title>
+<meta name="description" content="NAVLYS CORE et son univers d'apps IA + humaines : Finance, Next Gen, NAVLEX, Influenceurs, Journal IA, Radio. Teste gratuitement — 0 €.">
+<link rel="canonical" href="https://navlys.com">
+<link rel="icon" type="image/jpeg" href="/favicon.jpg">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Cormorant+Garamond:ital@0;1&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
 <style>
-:root{--noir:#05060a;--ice:#5fe0ff;--or:#e9d3a0;--perle:#eef0f6;--mut:#9fb3c8}
+:root{--noir:#02040a;--bronze:#B87333;--bronze-clair:#D49B5B;--or:#C9A961;--or-pale:#f3e4c4;--ice:#7DD3FC;--ice-clair:#a8e3ff;--perle:#e7eef2;--perle-doux:#bcc9d1;--brume:#7c8b95;--vert:#3a8c5a}
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Lora',serif;color:var(--perle);background:var(--noir);line-height:1.6;min-height:100vh;overflow-x:hidden}
-.bg{position:fixed;inset:0;z-index:-2;background:radial-gradient(900px 620px at 84% -8%,rgba(233,211,160,.12),transparent 60%),radial-gradient(840px 600px at 6% 6%,rgba(95,224,255,.14),transparent 60%),radial-gradient(1100px 880px at 50% 120%,rgba(95,224,255,.08),transparent 64%),var(--noir)}
-.wrap{max-width:1000px;margin:0 auto;padding:0 18px 70px}
-header{padding:30px 0 6px;display:flex;align-items:center;gap:14px}
-.led{width:14px;height:14px;border-radius:50%;background:radial-gradient(circle at 50% 38%,#bdf3ff,var(--ice) 60%,rgba(95,224,255,.1));box-shadow:0 0 18px var(--ice);animation:b 4.6s ease-in-out infinite}
-@keyframes b{0%,100%{opacity:.5;transform:scale(.85)}50%{opacity:1;transform:scale(1.18)}}
-.logo{font-family:'Cormorant Garamond';letter-spacing:6px;font-size:1.7rem;color:#fff}
-.logo b{color:var(--or);font-weight:600}
-.tag{margin-left:auto;font-family:'Fraunces';font-style:italic;color:var(--ice);font-size:.9rem}
-.hero{padding:26px 0 18px}
-.hero h1{font-family:'Cormorant Garamond';font-weight:600;font-size:2.4rem;color:#fff;line-height:1.15}
-.hero p{color:var(--mut);max-width:680px;margin-top:8px}
-.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px;margin-top:24px}
-.card{display:block;text-decoration:none;color:inherit;background:linear-gradient(165deg,rgba(95,224,255,.06),rgba(10,12,20,.7));border:1px solid rgba(95,224,255,.18);border-radius:18px;padding:22px;transition:transform .2s,border-color .2s}
-.card:hover{transform:translateY(-3px);border-color:var(--ice)}
-.card .ic{font-size:1.7rem}
-.card h2{font-family:'Cormorant Garamond';font-weight:600;color:#fff;font-size:1.35rem;margin:8px 0 4px}
-.card p{color:var(--mut);font-size:.85rem}
-.card .st{display:inline-block;margin-top:10px;font-family:'JetBrains Mono';font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;padding:3px 9px;border-radius:999px}
-.st.live{background:rgba(95,224,255,.12);color:var(--ice);border:1px solid rgba(95,224,255,.4)}
-.st.soon{background:rgba(233,211,160,.1);color:var(--or);border:1px solid rgba(233,211,160,.35)}
-.card.gold{background:linear-gradient(165deg,rgba(233,211,160,.09),rgba(10,12,20,.7));border-color:rgba(233,211,160,.4)}
-.note{margin-top:30px;background:rgba(10,12,20,.6);border:1px solid rgba(95,224,255,.18);border-radius:14px;padding:18px 20px;color:var(--mut);font-size:.86rem}
-.note b{color:var(--ice)}
-footer{text-align:center;color:var(--mut);font-size:.76rem;font-family:'JetBrains Mono';margin-top:34px}
-</style>
-</head>
-<body>
-<div class="bg"></div>
-<div class="wrap">
-  <header>
-    <span class="led"></span>
-    <span class="logo">NAVLYS<b>™</b></span>
-    <span class="tag">l'atelier — en ligne, en direct</span>
-  </header>
+html{background:#02040a;scroll-behavior:smooth}
+body{background:transparent;color:var(--perle);font-family:'Cormorant Garamond',Georgia,serif;font-size:20px;line-height:1.55;min-height:100vh;-webkit-text-size-adjust:100%;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(55% 45% at 12% 8%,rgba(125,211,252,0.13),transparent 60%),radial-gradient(50% 40% at 88% 32%,rgba(184,115,51,0.1),transparent 62%);animation:respire 18s ease-in-out infinite alternate}
+@keyframes respire{from{opacity:.7}to{opacity:1}}
 
-  <div class="hero">
-    <h1>Les bonnes versions, réunies.</h1>
-    <p>Ton espace de travail unique. Charte propre (noir · ice blue · champagne), formules canon, cerveau autonome 24/7. Tout ce qui est prêt est en ligne ici ; le reste arrive au fil des agents.</p>
-  </div>
+.fam-nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(2,4,10,0.88);backdrop-filter:blur(18px);border-bottom:1px solid rgba(125,211,252,0.18);padding:14px 18px;display:flex;justify-content:space-between;align-items:center;gap:14px;animation:pulse 6s ease-in-out infinite alternate}
+@keyframes pulse{0%{box-shadow:0 0 14px rgba(125,211,252,0.10)}100%{box-shadow:0 0 28px rgba(125,211,252,0.35)}}
+.fam-logo{font-family:'Cinzel',serif;font-size:13px;letter-spacing:.32em;color:var(--or);text-transform:uppercase;font-weight:600;white-space:nowrap}
+.fam-menu{display:flex;gap:16px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
+.fam-menu a{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ice-clair);text-decoration:none;transition:.3s}
+.fam-menu a:hover{color:var(--or)}
+.fam-menu a.live::before{content:"●";color:var(--vert);margin-right:5px;animation:lp 1.5s ease infinite}
+@keyframes lp{0%,100%{opacity:.4}50%{opacity:1}}
 
-  <div class="cards">
-    <a class="card" href="live.html">
-      <div class="ic">🛰️</div>
-      <h2>Dashboard CORE</h2>
-      <p>Tes 14 agents au travail en temps réel : missions, journal, activité.</p>
-      <span class="st live">● live</span>
-    </a>
-    <a class="card gold" href="tarifs.html">
-      <div class="ic">💳</div>
-      <h2>Tarifs F1–F4</h2>
-      <p>Les 4 formules + parrainage Alpaca (F3 à vie). Version canon, charte propre.</p>
-      <span class="st live">● prêt</span>
-    </a>
-    <a class="card" href="alpaca.html">
-      <div class="ic">🦙</div>
-      <h2>Partenariat Alpaca</h2>
-      <p>Compte démo gratuit, parcours démo → réel, programme parrainage.</p>
-      <span class="st live">● prêt</span>
-    </a>
-    <a class="card" href="faq.html">
-      <div class="ic">❓</div>
-      <h2>FAQ</h2>
-      <p>Les réponses aux questions clés, sans jargon.</p>
-      <span class="st live">● prêt</span>
-    </a>
-  </div>
+.prelude{text-align:center;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(18px,3.5vw,24px);color:rgba(168,227,255,0.92);text-shadow:0 0 14px rgba(125,211,252,0.5);padding:96px 20px 14px;animation:fadeUp 2.2s ease .4s both,prel-breath 4s ease-in-out 2.5s infinite alternate;position:relative;z-index:5}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+@keyframes prel-breath{0%{text-shadow:0 0 12px rgba(125,211,252,0.4)}100%{text-shadow:0 0 30px rgba(125,211,252,0.9)}}
 
-  <div class="note">
-    <b>Comment ça marche</b> — Ce site est ton atelier déployable. Dès qu'il est branché à Vercel (une seule fois), chaque correction que je pousse part en ligne automatiquement, et tu peux travailler dessus directement. Les pages « en préparation » s'allument dès que les agents ont livré et que tu as validé.
-  </div>
+.hero{padding:14px 20px 26px;text-align:center;position:relative;z-index:5}
+.hero .kicker{font-family:'Cinzel',serif;font-size:13px;letter-spacing:.42em;color:var(--ice);text-transform:uppercase;margin-bottom:18px}
+.hero .kicker span{color:var(--or)}
+.brandline{font-family:'Cinzel',serif;font-weight:600;font-size:clamp(54px,12vw,124px);letter-spacing:.13em;text-transform:uppercase;background:linear-gradient(100deg,var(--or-pale),var(--or) 45%,#fff7e6 55%,var(--or) 70%,var(--bronze));background-size:220% auto;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:shine 9s linear infinite;margin:14px 0 18px;line-height:1.05;filter:drop-shadow(0 0 18px rgba(184,115,51,0.35))}
+@keyframes shine{to{background-position:220% center}}
+.hero h1{font-family:'Cormorant Garamond',serif;font-weight:400;font-size:clamp(26px,4.5vw,40px);line-height:1.2;color:var(--perle);margin-bottom:8px;max-width:900px;margin-left:auto;margin-right:auto}
+.hero h1 em{color:var(--or-pale);font-style:italic}
+.brand-tagline{font-family:'Cinzel',serif;font-size:clamp(14px,3vw,20px);letter-spacing:.3em;color:var(--ice-clair);text-transform:uppercase;font-weight:500;margin:20px auto 22px;padding:12px 20px;border-top:1px solid rgba(125,211,252,0.4);border-bottom:1px solid rgba(125,211,252,0.4);max-width:760px;animation:tag-breath 4s ease-in-out infinite alternate;line-height:1.4}
+@keyframes tag-breath{0%{text-shadow:0 0 12px rgba(125,211,252,0.4);border-color:rgba(125,211,252,0.3)}100%{text-shadow:0 0 30px rgba(125,211,252,0.9);border-color:rgba(168,227,255,0.85)}}
+.free-badge{display:inline-block;font-family:'Cinzel',serif;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:#05060a;background:linear-gradient(100deg,var(--or-pale),var(--or));padding:9px 20px;border-radius:999px;text-decoration:none;box-shadow:0 0 22px rgba(201,169,97,.35);transition:.3s}
+.free-badge:hover{transform:translateY(-2px)}
 
-  <footer>© 2026 NAVLYS™ — [entité — hors dépôt] · SIREN 482 511 292 · « L'IA est le vent, c'est toi qui tiens la barre. »</footer>
+.wrap{max-width:1200px;margin:0 auto;padding:0 20px;position:relative;z-index:5}
+section{padding:54px 0;border-top:1px solid rgba(125,211,252,0.1)}
+section h2{font-family:'Cormorant Garamond',serif;font-weight:400;font-size:clamp(34px,6vw,54px);line-height:1.05;color:var(--perle);text-align:center;margin-bottom:10px}
+section h2 em{color:var(--or);font-style:italic}
+section .punch{text-align:center;font-style:italic;color:var(--perle-doux);font-size:clamp(18px,3vw,22px);margin-bottom:36px;max-width:700px;margin-left:auto;margin-right:auto}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(280px,100%),1fr));gap:18px}
+.card{padding:24px;background:rgba(2,4,10,0.65);border:1px solid rgba(125,211,252,0.22);border-radius:14px;text-decoration:none;color:var(--perle);transition:.4s;animation:cb 5s ease-in-out infinite alternate;position:relative;display:block}
+@keyframes cb{0%{box-shadow:0 0 14px rgba(125,211,252,0.08)}100%{box-shadow:0 0 28px rgba(125,211,252,0.22)}}
+.card:hover{border-color:rgba(125,211,252,0.65);transform:translateY(-3px);box-shadow:0 14px 36px rgba(125,211,252,0.22)}
+.card.soon{opacity:.6}
+.card .tagfree{position:absolute;top:16px;right:16px;font-family:'Cinzel',serif;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:#05060a;background:linear-gradient(100deg,var(--or-pale),var(--or));border-radius:999px;padding:3px 10px}
+.card .tagsoon{position:absolute;top:16px;right:16px;font-family:'Cinzel',serif;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--bronze-clair);border:1px solid rgba(184,115,51,.4);border-radius:999px;padding:3px 10px}
+.card .head{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.card .emoji{font-size:34px;line-height:1}
+.card .name{font-family:'Cinzel',serif;font-weight:600;font-size:18px;letter-spacing:.1em;color:var(--or);text-transform:uppercase}
+.card .role{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.22em;color:var(--ice);text-transform:uppercase;margin-top:2px}
+.card .desc{font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--perle-doux);font-size:16px;line-height:1.55;margin-bottom:12px;min-height:46px}
+.card .cta{display:inline-flex;align-items:center;gap:5px;font-family:'Cinzel',serif;font-size:11px;letter-spacing:.2em;color:var(--bronze-clair);text-transform:uppercase;padding:7px 14px;border:1px solid rgba(184,115,51,0.35);border-radius:14px;margin-top:4px}
+.card:hover .cta{background:rgba(184,115,51,0.15);border-color:var(--bronze-clair)}
+
+.mission{margin:54px auto 0;border-left:3px solid var(--ice);padding:8px 0 8px 22px;max-width:760px}
+.mission p{color:var(--perle-doux)}
+.q{font-family:'Cormorant Garamond';font-style:italic;color:var(--or);font-size:1.3rem;margin:24px 0}
+
+footer{padding:40px 20px 80px;text-align:center;border-top:1px solid rgba(184,115,51,0.18);position:relative;z-index:5}
+.foot-brand{font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--perle)}
+.foot-brand span{color:var(--or)}
+.foot-meta{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.22em;color:var(--brume);margin:8px 0 18px;text-transform:uppercase}
+.disclaimer{font-style:italic;color:var(--brume);font-size:13.5px;line-height:1.65;max-width:800px;margin:0 auto;padding:18px;border:1px solid rgba(184,115,51,0.18);border-radius:12px;background:rgba(2,4,10,0.55)}
+
+.sav-float{position:fixed;bottom:20px;right:20px;z-index:200;display:flex;align-items:center;gap:9px;font-family:'Cinzel',serif;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--noir);background:linear-gradient(100deg,var(--ice-clair),var(--ice));padding:12px 18px;border-radius:30px;text-decoration:none;box-shadow:0 0 22px rgba(125,211,252,0.5);animation:cb 4s ease-in-out infinite alternate}
+.sav-float:hover{transform:scale(1.05)}
+
+@media(max-width:768px){
+  .prelude{padding:94px 14px 8px}.hero{padding:8px 14px 18px}
+  .brandline{font-size:50px;letter-spacing:.1em}.hero h1{font-size:23px}
+  .brand-tagline{font-size:13px;padding:10px 14px;letter-spacing:.2em}
+  .fam-menu{gap:11px}.fam-menu a{font-size:10px}
+  section{padding:34px 0}section h2{font-size:31px}.grid{gap:12px}.card{padding:20px}
+}
+</style></head><body>
+
+<nav class="fam-nav">
+<span class="fam-logo">🌊 NAVLYS</span>
+<div class="fam-menu">
+<a href="finance.html">Finance</a>
+<a href="alpaca.html">Alpaca</a>
+<a href="faq.html">FAQ</a>
+<a href="live.html" class="live">Live</a>
+<a href="navlys-io.html">🌐</a>
 </div>
-</body>
-</html>
+</nav>
+
+<div class="prelude">il y a bien longtemps&hellip; l'IA n'existait pas. Mais ça, c'était avant.</div>
+
+<header class="hero">
+<div class="kicker">UN CERVEAU · <span>UN UNIVERS</span></div>
+<div class="brandline">NAVLYS</div>
+<h1>Un cerveau. Une personne. <em>Tout un univers.</em></h1>
+<div class="brand-tagline">Ma méthode &middot; Ton argent &middot; Ton contrôle</div>
+<a class="free-badge" href="finance.html">🎁 Teste GRATUITEMENT — 0 €</a>
+</header>
+
+<div class="wrap">
+
+<section id="univers">
+<h2>Entre dans <em>l'univers</em></h2>
+<p class="punch">Des bêtas réelles, gratuites à tester — 0 €, essai libre avec limites. Le reste grandit dans le CORE.</p>
+<div class="grid">
+
+<a href="finance.html" class="card">
+<span class="tagfree">Gratuit · 0 €</span>
+<div class="head"><span class="emoji">🧮</span><div><div class="name">Finance</div><div class="role">Éducation · méthode 90/10</div></div></div>
+<div class="desc">Comprendre l'argent en bon père de famille. Cockpit, brief du jour, simulateur anti-jackpot. Éducation &amp; veille, jamais de conseil.</div>
+<span class="cta">Essayer gratuitement →</span>
+</a>
+
+<a href="#" class="card">
+<span class="tagfree">Gratuit · 0 €</span>
+<div class="head"><span class="emoji">📖</span><div><div class="name">Next Gen</div><div class="role">Ta vie · biographie</div></div></div>
+<div class="desc">Raconte ou dicte ta vie, chapitre par chapitre. Ton histoire vaut de l'or — garde-la, transmets-la. Tes souvenirs t'appartiennent.</div>
+<span class="cta">Écrire ma vie →</span>
+</a>
+
+<a href="#" class="card">
+<span class="tagfree">9,99 € HT</span>
+<div class="head"><span class="emoji">⚖️</span><div><div class="name">NAVLEX</div><div class="role">Droit · à la demande</div></div></div>
+<div class="desc">Le droit rendu lisible, à la demande. Veille et vulgarisation juridique, jamais de conseil personnalisé.</div>
+<span class="cta">Découvrir →</span>
+</a>
+
+<a href="#" class="card">
+<div class="head"><span class="emoji">✨</span><div><div class="name">Influenceurs</div><div class="role">Le journal de l'IA</div></div></div>
+<div class="desc">Le journal vivant de l'IA et des créateurs : nouvelles, coulisses, outils. Mis à jour par le CORE.</div>
+<span class="cta">Lire →</span>
+</a>
+
+<a href="alpaca.html" class="card">
+<div class="head"><span class="emoji">🦙</span><div><div class="name">Alpaca</div><div class="role">Broker partenaire</div></div></div>
+<div class="desc">Notre partenaire affilié principal : compte démo gratuit, paper trading illimité, pour pratiquer sans risque.</div>
+<span class="cta">Découvrir →</span>
+</a>
+
+<a href="live.html" class="card">
+<span class="tagsoon">Live</span>
+<div class="head"><span class="emoji">🛰️</span><div><div class="name">CORE</div><div class="role">Le cerveau, en direct</div></div></div>
+<div class="desc">Le tableau de bord du cerveau autonome : agents au travail, missions, journal d'activité — en temps réel.</div>
+<span class="cta">Voir le CORE →</span>
+</a>
+
+</div>
+</section>
+
+<section id="mission" class="mission">
+<h2 style="text-align:left">Notre <em>mission</em></h2>
+<p>Mettre l'IA à la portée de tous, en un clic et à la voix — pour égaliser l'accès au savoir, au bien-être et à la transmission. L'humain reste la pièce centrale.</p>
+<p class="q">« L'IA est le vent, c'est toi qui tiens la barre. »</p>
+<p>NAVLYS, c'est aussi un choix de vie : <b style="color:var(--perle)">100 % dématérialisé</b> — zéro bureau, zéro papier, dans le respect de la mer qui nous porte.</p>
+</section>
+
+</div>
+
+<a class="sav-float" href="https://wa.me/XXXXXXXXXXXX" target="_blank" rel="noopener">💬 Parler au SAV</a>
+
+<footer>
+<div class="foot-brand">🌊 ⚓ <span>NAVLYS</span> 🧭</div>
+<div class="foot-meta">Un cerveau · Une personne · Tout un univers</div>
+<div class="disclaimer">NAVLYS est un projet d'<b>éducation et de veille à vocation informative uniquement</b>. Les contenus ne constituent en aucun cas un conseil personnalisé en investissement. Chacun reste seul responsable de ses décisions financières. Tous les tarifs sont indiqués <b>HT</b>. Réservé aux 18 ans et +. Tes contenus restent privés par défaut et t'appartiennent. NAVLYS ne dispose d'aucun agrément ORIAS ni statut financier réglementé. ©2026 NAVLYS™ — [entité — hors dépôt] · SIREN 482 511 292</div>
+</footer>
+</body></html>

@@ -2,161 +2,101 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Tarifs F1–F4 · NAVLYS™ × Alpaca</title>
-<meta name="description" content="4 formules NAVLYS + compte démo Alpaca gratuit. Parraine 1 client Alpaca → F3 à vie offerte. Affiliation 25–50%.">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Fraunces:ital,wght@1,400;1,500&family=Lora:wght@400;500&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Offre — NAVLYS · Gratuit 0 €</title>
+<meta name="description" content="NAVLYS, c'est gratuit pour commencer — 0 €, sans carte. Compte démo Alpaca offert. Premium en option à venir.">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Cormorant+Garamond:ital@0;1&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
 <style>
-:root{--noir:#05060a;--ice:#5fe0ff;--or:#e9d3a0;--perle:#eef0f6;--mut:#9fb3c8;--vert:#86efac}
+:root{--noir:#02040a;--bronze:#B87333;--bronze-clair:#D49B5B;--or:#C9A961;--or-pale:#f3e4c4;--ice:#7DD3FC;--ice-clair:#a8e3ff;--perle:#e7eef2;--perle-doux:#bcc9d1;--brume:#7c8b95;--vert:#3a8c5a}
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Lora',serif;color:var(--perle);background:var(--noir);line-height:1.6;min-height:100vh;overflow-x:hidden}
-.bg{position:fixed;inset:0;z-index:-2;background:radial-gradient(900px 620px at 84% -8%,rgba(233,211,160,.12),transparent 60%),radial-gradient(840px 600px at 6% 6%,rgba(95,224,255,.13),transparent 60%),var(--noir)}
-.wrap{max-width:1120px;margin:0 auto;padding:0 18px 70px}
-header{padding:24px 0;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
-.logo{font-family:'Cormorant Garamond';letter-spacing:5px;font-size:1.4rem;color:#fff}
-.logo b{color:var(--or);font-weight:600}
-nav{margin-left:auto;display:flex;gap:18px;font-family:'JetBrains Mono';font-size:.78rem;text-transform:uppercase;letter-spacing:.08em}
-nav a{color:var(--mut);text-decoration:none}nav a:hover,nav a.on{color:var(--ice)}
-.hero{text-align:center;padding:30px 0 14px}
-.badge{display:inline-block;font-family:'JetBrains Mono';font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;padding:5px 12px;border-radius:999px;background:rgba(134,239,172,.12);color:var(--vert);border:1px solid rgba(134,239,172,.4);margin-bottom:16px}
-h1{font-family:'Cormorant Garamond';font-weight:600;font-size:2.8rem;color:#fff;line-height:1.1}
-.hero .it{font-family:'Fraunces';font-style:italic;color:var(--ice);margin:8px 0 6px;font-size:1.2rem}
-.hero p{color:var(--mut);max-width:680px;margin:0 auto;font-size:.96rem}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px;margin:34px 0}
-.card{background:linear-gradient(170deg,rgba(95,224,255,.05),rgba(10,12,20,.7));border:1px solid rgba(95,224,255,.18);border-radius:18px;padding:22px;display:flex;flex-direction:column}
-.card.feat{border-color:var(--ice);box-shadow:0 0 40px -10px rgba(95,224,255,.35)}
-.card.pro{background:linear-gradient(170deg,rgba(233,211,160,.08),rgba(10,12,20,.7));border-color:rgba(233,211,160,.45)}
-.tag{font-family:'JetBrains Mono';font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:var(--mut);margin-bottom:6px}
-.feat .tag{color:var(--ice)}.pro .tag{color:var(--or)}
-.price{font-family:'Cormorant Garamond';font-size:3rem;color:#fff;line-height:1;font-weight:600}
-.price small{font-size:.95rem;color:var(--mut)}
-.pro .price{color:var(--or)}
-.desc{color:var(--perle);font-size:.9rem;margin:8px 0 14px}
-.alp{background:rgba(134,239,172,.06);border:1px solid rgba(134,239,172,.22);border-radius:12px;padding:10px 12px;margin-bottom:14px}
-.alp b{color:var(--vert);font-family:'Cormorant Garamond';font-size:1.05rem;font-weight:600}
-.alp span{display:block;color:var(--mut);font-size:.72rem}
-ul{list-style:none;font-size:.83rem;color:var(--mut);display:flex;flex-direction:column;gap:7px;margin-bottom:18px;flex:1}
-li::before{content:'✓ ';color:var(--ice)}
-.pill{display:inline-block;font-family:'JetBrains Mono';font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;padding:3px 9px;border-radius:999px;align-self:flex-start;margin-bottom:12px}
-.pill.reco{background:var(--ice);color:#04121a}
-.pill.honor{background:linear-gradient(100deg,var(--or),#fff6df);color:#1a1406}
-.btn{text-align:center;padding:12px;border-radius:10px;font-family:'JetBrains Mono';font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;border:1px solid rgba(95,224,255,.4);color:var(--ice)}
-.btn.full{background:linear-gradient(120deg,var(--ice),#2bb8e0);color:#04121a;border:none}
-.btn.gold{background:linear-gradient(120deg,var(--or),#fff6df);color:#1a1406;border:none}
-.block{background:linear-gradient(170deg,rgba(233,211,160,.07),rgba(10,12,20,.7));border:1px solid rgba(233,211,160,.3);border-radius:18px;padding:28px;margin:24px 0}
-.block h2{font-family:'Cormorant Garamond';font-weight:600;color:var(--or);font-size:1.9rem;text-align:center;margin-bottom:4px}
-.block .it{font-family:'Fraunces';font-style:italic;color:var(--or);opacity:.85;text-align:center;display:block;margin-bottom:20px}
-.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px}
-.step{background:rgba(233,211,160,.06);border:1px solid rgba(233,211,160,.22);border-radius:14px;padding:18px;text-align:center}
-.step .n{font-family:'Cormorant Garamond';font-size:2.6rem;color:var(--or)}
-.step .t{color:var(--or);font-weight:600;font-size:.92rem}.step .s{color:var(--mut);font-size:.78rem;font-family:'Fraunces';font-style:italic}
-.tiers{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-top:8px}
-.tier{background:rgba(95,224,255,.05);border:1px solid rgba(95,224,255,.2);border-radius:12px;padding:16px;text-align:center}
-.tier .p{font-family:'Cormorant Garamond';font-size:2.1rem;color:var(--ice)}
-.tier .l{font-family:'JetBrains Mono';font-size:.64rem;letter-spacing:.08em;text-transform:uppercase;color:var(--mut)}
-.block.ice{border-color:rgba(95,224,255,.25);background:linear-gradient(170deg,rgba(95,224,255,.05),rgba(10,12,20,.7))}
-.block.ice h2{color:var(--ice)}
-.why{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
-.why div{background:rgba(134,239,172,.05);border:1px solid rgba(134,239,172,.2);border-radius:12px;padding:14px}
-.why h3{font-family:'Cormorant Garamond';color:var(--vert);font-size:1.15rem;font-weight:600;margin-bottom:3px}
-.why p{color:var(--mut);font-size:.82rem}
-.disc{border:1px solid rgba(95,224,255,.2);border-radius:14px;padding:18px;margin-top:24px;color:var(--mut);font-size:.8rem}
-.disc b{color:var(--ice)}
-footer{text-align:center;color:var(--mut);font-size:.76rem;font-family:'JetBrains Mono';margin-top:30px}
-</style>
-</head>
-<body>
-<div class="bg"></div>
+html{background:#02040a;scroll-behavior:smooth}
+body{background:transparent;color:var(--perle);font-family:'Cormorant Garamond',Georgia,serif;font-size:20px;line-height:1.55;min-height:100vh;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(55% 45% at 12% 8%,rgba(125,211,252,0.13),transparent 60%),radial-gradient(50% 40% at 88% 32%,rgba(184,115,51,0.1),transparent 62%);animation:respire 18s ease-in-out infinite alternate}
+@keyframes respire{from{opacity:.7}to{opacity:1}}
+.fam-nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(2,4,10,0.88);backdrop-filter:blur(18px);border-bottom:1px solid rgba(125,211,252,0.18);padding:14px 18px;display:flex;justify-content:space-between;align-items:center;gap:14px}
+.fam-logo{font-family:'Cinzel',serif;font-size:13px;letter-spacing:.32em;color:var(--or);text-transform:uppercase;font-weight:600}
+.fam-menu{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+.fam-menu a{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ice-clair);text-decoration:none}
+.fam-menu a:hover{color:var(--or)}
+.wrap{max-width:980px;margin:0 auto;padding:0 20px 80px;position:relative;z-index:5}
+.hero{text-align:center;padding:100px 0 14px}
+.hero .kicker{font-family:'Cinzel',serif;font-size:12px;letter-spacing:.4em;color:var(--ice);text-transform:uppercase;margin-bottom:14px}
+.hero h1{font-family:'Cinzel',serif;font-weight:600;font-size:clamp(44px,11vw,96px);letter-spacing:.08em;text-transform:uppercase;background:linear-gradient(100deg,var(--or-pale),var(--or) 50%,#fff7e6 60%,var(--or) 75%,var(--bronze));background-size:220% auto;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:shine 9s linear infinite;line-height:1.05}
+@keyframes shine{to{background-position:220% center}}
+.hero .it{font-family:'Cormorant Garamond';font-style:italic;color:var(--ice-clair);font-size:1.2rem;margin-top:8px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),1fr));gap:18px;margin-top:34px}
+.card{padding:26px;background:rgba(2,4,10,0.65);border:1px solid rgba(125,211,252,0.22);border-radius:16px;position:relative;animation:cb 5s ease-in-out infinite alternate}
+@keyframes cb{0%{box-shadow:0 0 14px rgba(125,211,252,0.08)}100%{box-shadow:0 0 28px rgba(125,211,252,0.2)}}
+.card.gold{border-color:rgba(201,169,97,0.45)}
+.card .badge{position:absolute;top:-11px;left:50%;transform:translateX(-50%);font-family:'Cinzel';font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:#05060a;background:linear-gradient(100deg,var(--or-pale),var(--or));padding:4px 14px;border-radius:14px}
+.card .name{font-family:'Cinzel';font-size:14px;letter-spacing:.14em;text-transform:uppercase;color:var(--or)}
+.card .price{font-family:'Cinzel';font-weight:600;font-size:40px;color:var(--or-pale);margin:6px 0 4px}
+.card .price small{font-size:13px;color:var(--brume);font-family:'JetBrains Mono'}
+.card .sub{font-style:italic;color:var(--perle-doux);font-size:.95rem;margin-bottom:12px}
+.card ul{list-style:none;font-size:.92rem;color:var(--perle-doux);display:flex;flex-direction:column;gap:7px;margin-bottom:16px}
+.card li::before{content:'✓ ';color:var(--ice)}
+.btn{display:block;text-align:center;font-family:'Cinzel';font-size:11px;letter-spacing:.16em;text-transform:uppercase;padding:12px;border-radius:12px;text-decoration:none;border:1px solid rgba(184,115,51,.4);color:var(--bronze-clair)}
+.btn.full{background:linear-gradient(100deg,var(--or-pale),var(--or));color:#05060a;border:none}
+.block{background:rgba(2,4,10,0.6);border:1px solid rgba(201,169,97,0.3);border-radius:16px;padding:26px;margin-top:24px;text-align:center}
+.block h2{font-family:'Cormorant Garamond';font-weight:400;color:var(--or);font-size:1.9rem}
+.block .it{font-style:italic;color:var(--perle-doux);margin:4px 0 18px}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.step{background:rgba(201,169,97,0.06);border:1px solid rgba(201,169,97,0.22);border-radius:12px;padding:16px}
+.step .n{font-family:'Cinzel';font-size:2rem;color:var(--or)}
+.step .t{color:var(--or-pale);font-size:.92rem}.step .s{color:var(--perle-doux);font-style:italic;font-size:.8rem}
+.disc{border:1px solid rgba(184,115,51,0.2);border-radius:14px;padding:18px;margin-top:24px;color:var(--brume);font-size:.8rem;font-style:italic;line-height:1.7}
+.disc b{color:var(--ice-clair)}
+footer{text-align:center;color:var(--brume);font-size:.78rem;font-family:'Cinzel';letter-spacing:.18em;margin-top:30px;text-transform:uppercase}
+</style></head><body>
+<nav class="fam-nav">
+<span class="fam-logo">🌊 NAVLYS</span>
+<div class="fam-menu"><a href="index.html">Accueil</a><a href="finance.html">Finance</a><a href="alpaca.html">Alpaca</a><a href="faq.html">FAQ</a><a href="live.html">Live</a></div>
+</nav>
 <div class="wrap">
-  <header>
-    <span class="logo">NAVLYS<b>™</b></span>
-    <nav><a href="index.html">Accueil</a><a href="tarifs.html" class="on">Tarifs</a><a href="alpaca.html">Alpaca</a><a href="faq.html">FAQ</a><a href="live.html">Live</a></nav>
-  </header>
-
   <div class="hero">
-    <span class="badge">🦙 Partenaire affilié Alpaca · compte démo gratuit</span>
-    <h1>4 formules. 1 méthode.</h1>
-    <p class="it">Pratique gratuitement sur Alpaca · Parraine, gagne F3 à vie.</p>
-    <p>NAVLYS™ t'enseigne la méthode 90/10. Notre partenaire affilié Alpaca te fournit un compte démo de paper trading gratuit. Tu pratiques sans risque sur les vrais marchés et tu passes au réel quand <b>tu</b> es prêt — jamais avant.</p>
+    <div class="kicker">L'offre</div>
+    <h1>Gratuit</h1>
+    <p class="it">0 €, sans carte. Tu commences, tu testes, tu décides.</p>
   </div>
 
   <div class="grid">
-    <div class="card">
-      <div class="tag">Formule F1</div>
-      <div class="price">29,99 €<small>/mois</small></div>
-      <div class="desc">90/10 verrouillée stricte</div>
-      <div class="alp"><b>Compte démo Alpaca</b><span>Fonds virtuels gratuits par défaut</span></div>
-      <ul><li>App NAVLYS™ PWA</li><li>Formation 90 min</li><li>Communauté Telegram/Discord</li><li>Affiliation 25% à vie</li></ul>
-      <a class="btn" href="#">Choisir F1</a>
-    </div>
-    <div class="card feat">
-      <span class="pill reco">Recommandée</span>
-      <div class="tag">Formule F2</div>
-      <div class="price">39,99 €<small>/mois</small></div>
-      <div class="desc">90/10 + 3 modes de recyclage</div>
-      <div class="alp"><b>Compte démo Alpaca</b><span>Fonds virtuels gratuits par défaut</span></div>
-      <ul><li>Tout F1 inclus</li><li>Recyclage 3 options</li><li>Webinaires mensuels</li><li>Support prioritaire</li><li>Affiliation 25% à vie</li></ul>
-      <a class="btn full" href="#">Choisir F2</a>
+    <div class="card gold">
+      <div class="badge">Recommandé</div>
+      <div class="name">Découvrir</div>
+      <div class="price">0 €</div>
+      <div class="sub">Essai libre avec limites · sans carte</div>
+      <ul><li>App NAVLYS PWA</li><li>Méthode 90/10 &amp; brief du jour</li><li>Simulateur anti-jackpot</li><li>Compte démo Alpaca offert</li><li>Communauté</li></ul>
+      <a class="btn full" href="finance.html">Commencer →</a>
     </div>
     <div class="card">
-      <div class="tag">Formule F3</div>
-      <div class="price">49,99 €<small>/mois</small></div>
-      <div class="desc">Déblocable 80/20 ou 70/30</div>
-      <div class="alp"><b>Compte démo Alpaca</b><span>Fonds virtuels gratuits par défaut</span></div>
-      <ul><li>Tout F2 inclus</li><li>Déblocage 80/20 · 70/30</li><li>Coaching 1-to-1 mensuel</li><li>Support VIP</li><li>Affiliation 25% à vie</li></ul>
-      <a class="btn" href="#">Choisir F3</a>
+      <div class="name">NAVLEX</div>
+      <div class="price">9,99 €<small> HT</small></div>
+      <div class="sub">Le droit lisible, à la demande</div>
+      <ul><li>Veille &amp; vulgarisation juridique</li><li>À la demande</li><li>Jamais de conseil personnalisé</li></ul>
+      <a class="btn" href="#">Bientôt →</a>
     </div>
-    <div class="card pro">
-      <span class="pill honor">PRO + Honor</span>
-      <div class="tag">Formule F4 PRO</div>
-      <div class="price">99,99 €<small>/mois</small></div>
-      <div class="desc">90/10 libre · pros uniquement</div>
-      <div class="alp"><b>Compte démo Alpaca</b><span>Fonds virtuels gratuits par défaut</span></div>
-      <ul><li>Tout F3 inclus</li><li>Méthode totalement libre</li><li>Membre d'Honneur auto</li><li>Affiliation 40% à vie</li><li>Accès bêta features</li></ul>
-      <a class="btn gold" href="#">Choisir F4 PRO</a>
+    <div class="card">
+      <div class="name">Premium</div>
+      <div class="price">Bientôt</div>
+      <div class="sub">Pour aller plus loin</div>
+      <ul><li>Modules avancés</li><li>Coaching &amp; encyclopédie</li><li>Sans engagement</li><li>Stripe · PayPal · Wise</li></ul>
+      <a class="btn" href="#">À venir →</a>
     </div>
   </div>
 
   <div class="block">
-    <h2>Parraine un client Alpaca → gagne F3 à vie</h2>
-    <span class="it">Le cadeau le plus généreux de l'éducation financière.</span>
+    <h2>Parraine → débloque le Premium à vie</h2>
+    <span class="it">Cumulable avec l'affiliation cash.</span>
     <div class="steps">
-      <div class="step"><div class="n">1</div><div class="t">1 client Alpaca</div><div class="s">= F3 à vie offerte</div></div>
-      <div class="step"><div class="n">3</div><div class="t">3 clients Alpaca</div><div class="s">= F4 PRO à vie + Honor</div></div>
-      <div class="step"><div class="n">10+</div><div class="t">10+ / 6 mois</div><div class="s">= Ambassadeur Élite (50%)</div></div>
-    </div>
-    <p style="color:var(--mut);font-size:.8rem;margin-top:16px">Conditions : filleul nouveau client Alpaca · KYC validé · 1er dépôt réel · pas de fermeture sous 30 j · parrain membre NAVLYS™ actif.</p>
-  </div>
-
-  <div class="block ice">
-    <h2>Affiliation cash — cumulable avec le cadeau F3</h2>
-    <span class="it">Le parrainage Alpaca se cumule avec l'affiliation classique.</span>
-    <div class="tiers">
-      <div class="tier"><div class="p">25%</div><div class="l">Standard à vie</div></div>
-      <div class="tier"><div class="p">40%</div><div class="l">Honor (F4 PRO / 3 parrainages)</div></div>
-      <div class="tier"><div class="p">50%</div><div class="l">Ambassadeur Élite</div></div>
-    </div>
-  </div>
-
-  <div class="block ice">
-    <h2>🦙 Pourquoi Alpaca</h2>
-    <span class="it">Notre partenaire affilié principal.</span>
-    <div class="why">
-      <div><h3>Régulé FINRA + SIPC</h3><p>Standards US parmi les plus stricts au monde.</p></div>
-      <div><h3>Démo gratuit illimité</h3><p>Paper trading natif, fonds virtuels, aucune limite de durée.</p></div>
-      <div><h3>0 frais actions US</h3><p>Aucune commission sur les ordres actions américaines.</p></div>
-      <div><h3>Actions fractionnées</h3><p>Accessible avec petits capitaux.</p></div>
-      <div><h3>Clés API chez toi</h3><p>NAVLYS™ n'accède jamais à ton compte.</p></div>
-      <div><h3>API moderne</h3><p>Compatible avec tes outils, respect de ta méthode 90/10.</p></div>
+      <div class="step"><div class="n">1</div><div class="t">1 client Alpaca</div><div class="s">= Premium à vie</div></div>
+      <div class="step"><div class="n">3</div><div class="t">3 clients</div><div class="s">= Membre d'Honneur</div></div>
+      <div class="step"><div class="n">10+</div><div class="t">10+ / 6 mois</div><div class="s">= Ambassadeur Élite (50 %)</div></div>
     </div>
   </div>
 
   <div class="disc">
-    ⚠️ <b>Transparence affiliation</b> — Conformément à la loi française du 9 juin 2023, NAVLYS™ déclare percevoir une commission affiliée d'Alpaca pour chaque nouveau client converti via ses liens. Cette commission est versée par Alpaca, sans surcoût pour l'utilisateur. Les fonds virtuels du compte démo sont fournis par Alpaca selon ses conditions. NAVLYS™ ne gère ni fonds réels ni fonds virtuels.<br><br>
-    NAVLYS™ est un projet d'éducation et de veille informative uniquement. Les contenus ne constituent ni conseil personnalisé ni recommandation d'achat/vente. Tout investissement comporte un risque de perte en capital. NAVLYS™ ne dispose d'aucun agrément ORIAS ni d'aucun statut financier réglementé.
+    ⚠️ NAVLYS est un projet d'éducation et de veille à vocation informative uniquement ; aucun conseil personnalisé. Tout investissement comporte un risque de perte en capital. <b>Transparence affiliation</b> (loi du 9 juin 2023) : commissions versées par les partenaires (ex. Alpaca), sans surcoût pour toi. Aucun agrément ORIAS ni statut financier réglementé. Tarifs HT. 18 ans et +. ©2026 NAVLYS™ — [entité — hors dépôt] · SIREN 482 511 292
   </div>
-
-  <footer>© 2026 NAVLYS™ — [entité — hors dépôt] · SIREN 482 511 292</footer>
+  <footer>🌊 NAVLYS · gratuit pour commencer</footer>
 </div>
-</body>
-</html>
+</body></html>
