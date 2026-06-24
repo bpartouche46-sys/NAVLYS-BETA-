@@ -37,3 +37,51 @@
 - [ ] PayPal : type de compte **Business** + vérifié + IBAN/banque de retrait.
 - [ ] Décider Qonto/BNP **selon l'entité** (UE ⇒ utile ; sinon ⇒ banque israélienne pour le Stripe IL).
 - [ ] Tester un **paiement de 1 €/$ en réel** sur chaque canal (✅ feu vert Bruno requis — règle §3).
+
+---
+
+# 🎯 ARCHITECTURE RETENUE (mise à jour 2026-06-24)
+
+**Contexte clarifié par Bruno** : c'est la **société israélienne qui encaisse tout**.
+L'entité française = **juste un compte bancaire** (aucune gestion / encaissement / dépense
+dessus). Besoin : encaisser des **CB internationales comme n'importe quel magasin**, **ne
+jamais être bloqué** par un intermédiaire, et que **les taxes (TVA) soient prélevées par le
+prestataire** avant le versement.
+
+## ✅ La solution qui coche TOUT : un **Merchant of Record (MoR)**
+Un MoR (**Lemon Squeezy** — racheté par Stripe — ou **Paddle**) devient **le vendeur légal** :
+1. **Checkout hébergé international** : Visa, Mastercard, Amex, cartes débit/crédit, Apple Pay,
+   Google Pay, PayPal, méthodes locales → exactement « comme un magasin ».
+2. **TVA / sales tax collectée ET reversée PAR EUX** (200+ juridictions) : la taxe est **déduite
+   du versement** → tu reçois le **net**. ➜ répond à ta demande « taxes payées avant encaissement ».
+3. **Risque de blocage réduit** : la conformité/fiscalité repose sur **eux** ; tu vends sous leur
+   entité. (⚠️ aucun prestataire n'est blocage-zéro → voir garde-fous ci-dessous.)
+4. **Encaisse pour la société israélienne** (versements vers la banque israélienne). L'entité FR
+   **n'est pas touchée**. Gère les **abonnements** (Équipage Navlys) nativement.
+- 💰 Coût : ~**5 % + 0,50 $**/transaction (inclut la conformité fiscale mondiale).
+- ⚠️ À confirmer au KYC : que le MoR **verse bien à une société/banque israélienne** (souvent via
+  Wise/Payoneer). Lemon Squeezy tourne sur les rails **Stripe** (déjà connecté à Claude).
+
+## ⚠️ Distinction taxes (à ne pas confondre)
+- Le MoR/PSP gère la **TVA / sales tax** (impôt sur la conso, payé par l'acheteur) → oui, prélevée à la source.
+- Il **NE paie PAS** ton **impôt sur les sociétés** (ça reste à ta société israélienne / ton comptable).
+
+## 🛡️ « Ne jamais être bloqué » — garde-fous réalistes (aucun n'est garanti à 100 %)
+1. **MoR en principal** (la conformité pèse sur eux) + **PayPal en secours** (bascule immédiate).
+2. **Vider les soldes** vers la banque régulièrement (ne pas laisser de gros montants chez le PSP).
+3. **KYC complet** + positionnement clair **« éducation, non régulé »** (cohérent ZÉRO ORIAS/CIF) → profil propre.
+4. **Chargebacks < 1 %** : descriptif clair, remboursements proactifs, support réactif.
+5. Pas de pic de volume soudain non annoncé ; prévenir le prestataire en cas de montée en charge.
+
+## 🔧 Qui fait quoi
+- **Moi (Claude)** : je conçois le montage, prépare produits/prix, et **construis le checkout/les
+  liens de paiement** dès que tu as un compte + credentials. Je peux préparer une page de paiement.
+- **Toi (Bruno)** : choisir **Lemon Squeezy vs Paddle**, créer le compte **sous la société
+  israélienne**, passer le **KYC**, relier la **banque israélienne**, donner le **feu vert go-live** (§3).
+- ❌ Je ne crée aucun compte, n'engage aucun frais et ne passe rien en réel sans ton feu vert.
+
+## Réponse directe à « faut-il un Stripe FR ? »
+**Non, pas nécessaire.** Comme Israël encaisse tout, on encaisse via le **MoR (rails Stripe/IL)
++ PayPal**. Le **Stripe FR** n'est utile que si un jour tu veux encaisser **sous l'entité
+française** — ce que tu ne veux PAS. Le compte bancaire FR (Revolut) reste juste un **réceptacle
+euro** optionnel pour d'éventuelles opérations européennes.
