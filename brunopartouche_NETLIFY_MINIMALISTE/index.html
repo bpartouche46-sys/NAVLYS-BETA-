@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet"/>
+<title>Bruno Partouche</title>
+<meta name="description" content="Bruno Partouche — accès privé."/>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='75' font-size='80'%3E⛵%3C/text%3E%3C/svg%3E"/>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,500;1,500&family=Fraunces:ital,wght@1,400&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet"/>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%;overflow:hidden;background:#02040a;color:#F2F4F7;font-family:"Cormorant Garamond",Georgia,serif}
+
+  /* ═══ FOND ESPACE ANIMÉ ═══ */
+  body::before{content:"";position:fixed;inset:0;z-index:-3;background:
+    radial-gradient(60% 50% at 50% 25%,rgba(201,169,97,.12),transparent 70%),
+    radial-gradient(80% 60% at 50% 100%,rgba(125,211,252,.08),transparent 70%),
+    radial-gradient(140% 100% at 50% 50%,#0a1428 0%,#040814 45%,#02040a 80%)}
+  .stars,.stars2{position:fixed;inset:0;z-index:-2;pointer-events:none}
+  .stars::before,.stars::after,.stars2::before,.stars2::after{
+    content:"";position:absolute;width:1px;height:1px;background:transparent;
+    box-shadow:
+      127px 84px #fff, 213px 421px #cdd6e3, 56px 712px #fff, 891px 132px #fff,
+      324px 569px #cdd6e3, 678px 234px #fff, 145px 891px #fff, 432px 67px #cdd6e3,
+      765px 543px #fff, 234px 321px #cdd6e3, 567px 765px #fff, 89px 432px #fff,
+      654px 198px #cdd6e3, 321px 654px #fff, 987px 321px #fff, 432px 876px #cdd6e3,
+      765px 432px #fff, 198px 765px #fff, 543px 87px #cdd6e3, 876px 654px #fff,
+      342px 198px #fff, 109px 543px #cdd6e3, 678px 876px #fff, 234px 109px #fff;
+    animation:twk 5s ease-in-out infinite}
+  .stars::after{transform:translate(220px,360px) scale(.8);animation-delay:-2s;opacity:.6}
+  .stars2::before{animation:drift 110s linear infinite;opacity:.7}
+  .stars2::after{transform:translate(450px,200px) scale(1.3);animation:drift 160s linear infinite;animation-delay:-50s;opacity:.5}
+  @keyframes twk{0%,100%{opacity:.5}50%{opacity:1}}
+  @keyframes drift{from{transform:translateY(0)}to{transform:translateY(-100vh)}}
+
+  .planet{position:fixed;border-radius:50%;z-index:-2;pointer-events:none;filter:blur(.5px)}
+  .planet.p1{width:280px;height:280px;top:-90px;right:-90px;background:radial-gradient(circle at 35% 30%,#C9A961,#5b481f 60%,#02040a);opacity:.16;animation:float1 32s ease-in-out infinite}
+  .planet.p2{width:180px;height:180px;bottom:-60px;left:-40px;background:radial-gradient(circle at 35% 30%,#7DD3FC,#0E4F66 60%,#02040a);opacity:.12;animation:float2 40s ease-in-out infinite}
+  @keyframes float1{0%,100%{transform:translate(0,0)}50%{transform:translate(-30px,40px)}}
+  @keyframes float2{0%,100%{transform:translate(0,0)}50%{transform:translate(40px,-30px)}}
+
+  .shoot{position:fixed;top:20%;left:-150px;width:140px;height:1px;background:linear-gradient(90deg,transparent,#fff,#C9A961,transparent);z-index:-1;animation:shoot 13s linear infinite;animation-delay:6s;opacity:0;transform-origin:left center}
+  @keyframes shoot{0%{transform:translateX(0) rotate(20deg);opacity:0}10%{opacity:1}30%{opacity:1}40%,100%{transform:translateX(120vw) rotate(20deg);opacity:0}}
+
+  /* ═══ LAYOUT GLOBAL ═══ */
+  main{position:fixed;inset:0;display:grid;place-items:center;text-align:center;padding:24px;animation:rise 1.2s ease both}
+  @keyframes rise{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+  /* MÉDAILLE BP */
+  .coin{width:120px;height:120px;border-radius:50%;margin:0 auto 30px;display:grid;place-items:center;
+    background:radial-gradient(circle at 38% 30%,#f0d79a,#C9A961 46%,#8a6d2f 82%,#5b481f 100%);
+    box-shadow:0 0 0 2px rgba(125,211,252,.35),0 0 80px rgba(201,169,97,.4),inset 0 -14px 28px rgba(0,0,0,.45);
+    font-family:"Cinzel",serif;font-weight:700;color:#2a2208;font-size:54px;animation:coin 6s ease-in-out infinite}
+  @keyframes coin{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+
+  /* ═══ GATE (vue par défaut) ═══ */
+  #gate{max-width:520px;width:100%}
+  #gate h1{font-family:"Cinzel",serif;font-weight:600;letter-spacing:.18em;font-size:clamp(28px,5vw,42px);line-height:1.2;
+    background:linear-gradient(180deg,#fff 0%,#F4E4B0 45%,#C9A961 100%);-webkit-background-clip:text;background-clip:text;color:transparent;margin-bottom:14px}
+  #gate .quote{font-style:italic;color:#cdd6e3;font-size:clamp(16px,2.2vw,20px);line-height:1.55;margin-bottom:30px}
+  #gate .quote em{color:#7DD3FC;font-family:"Fraunces",serif}
+
+  .countdown{display:flex;justify-content:center;gap:10px;margin-bottom:30px;flex-wrap:wrap}
+  .cd-box{background:rgba(2,4,9,.65);border:1px solid rgba(201,169,97,.3);border-radius:12px;padding:12px 16px;min-width:64px;backdrop-filter:blur(8px)}
+  .cd-v{font-family:"JetBrains Mono",monospace;font-weight:700;font-size:24px;color:#F4E4B0;line-height:1}
+  .cd-l{font-family:"JetBrains Mono",monospace;font-size:9px;letter-spacing:.22em;color:#8a93a6;text-transform:uppercase;margin-top:6px}
+
+  .input-row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:14px}
+  #code{font-family:"JetBrains Mono",monospace;font-weight:600;font-size:16px;letter-spacing:.18em;text-align:center;
+    background:rgba(2,4,9,.7);border:1px solid rgba(201,169,97,.35);color:#F4E4B0;
+    padding:13px 22px;border-radius:999px;outline:none;width:230px;text-transform:uppercase;transition:.2s}
+  #code:focus{border-color:#7DD3FC;box-shadow:0 0 0 3px rgba(125,211,252,.18)}
+  #code::placeholder{color:#5b6478;letter-spacing:.1em;text-transform:none;font-weight:500}
+
+  #go{cursor:pointer;border:0;border-radius:999px;padding:13px 24px;font:700 12px/1 "JetBrains Mono",monospace;letter-spacing:.16em;text-transform:uppercase;
+    background:linear-gradient(180deg,#F4E4B0,#C9A961);color:#1a1206;transition:.18s}
+  #go:hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba(201,169,97,.35)}
+  #go:active{transform:translateY(0)}
+
+  #msg{min-height:20px;font-family:"JetBrains Mono",monospace;font-size:12px;letter-spacing:.06em;color:#ff8080;margin-top:4px;opacity:0;transition:.2s}
+  #msg.ok{color:#7BE0A6}
+  #msg.show{opacity:1}
+
+  .hint{font-style:italic;color:#5b6478;font-size:13px;margin-top:20px}
+
+  /* ═══ CONTENT (vue après code OK) ═══ */
+  #content{display:none;max-width:560px;width:100%;animation:rise 1.4s ease both}
+  #content h1{font-family:"Cinzel",serif;font-weight:600;letter-spacing:.18em;font-size:clamp(28px,5vw,42px);line-height:1.2;
+    background:linear-gradient(180deg,#fff 0%,#F4E4B0 40%,#C9A961 100%);-webkit-background-clip:text;background-clip:text;color:transparent;margin-bottom:18px}
+  #content .quote{font-style:italic;color:#cdd6e3;font-size:clamp(17px,2.2vw,21px);line-height:1.55;margin-bottom:34px}
+  #content .quote em{color:#7DD3FC;font-family:"Fraunces",serif}
+  #content .meta{font:700 11px/1.4 "JetBrains Mono",monospace;letter-spacing:.36em;color:#C9A961;text-transform:uppercase;
+    padding:8px 18px;border:1px solid rgba(201,169,97,.25);border-radius:999px;display:inline-block;background:rgba(2,4,9,.4)}
+
+  footer{position:fixed;bottom:18px;left:0;right:0;text-align:center;font:500 11px/1 "JetBrains Mono",monospace;letter-spacing:.18em;color:#5b6478}
+  footer a{color:#7DD3FC;text-decoration:none}
+
+  @media(max-width:560px){.cd-box{padding:10px 12px;min-width:54px}.cd-v{font-size:20px}}
+</style>
+</head>
+<body>
+
+<div class="stars"></div>
+<div class="stars2"></div>
+<div class="planet p1"></div>
+<div class="planet p2"></div>
+<div class="shoot"></div>
+
+<main>
+
+  <!-- ══════════ GATE (vue par défaut, demandée À CHAQUE connexion) ══════════ -->
+  <div id="gate">
+    <div class="coin">BP</div>
+    <h1>Bruno Partouche</h1>
+    <p class="quote">Finance · Méditerranée · <em>Art de vivre</em>.<br>Accès privé jusqu'au <em>1ᵉʳ juin 2026</em>.</p>
+
+    <div class="countdown" id="cd">
+      <div class="cd-box"><div class="cd-v" id="dd">—</div><div class="cd-l">Jours</div></div>
+      <div class="cd-box"><div class="cd-v" id="hh">—</div><div class="cd-l">Heures</div></div>
+      <div class="cd-box"><div class="cd-v" id="mm">—</div><div class="cd-l">Minutes</div></div>
+      <div class="cd-box"><div class="cd-v" id="ss">—</div><div class="cd-l">Secondes</div></div>
+    </div>
+
+    <form id="form" onsubmit="event.preventDefault();check()">
+      <div class="input-row">
+        <input id="code" type="text" autocomplete="off" autocapitalize="characters" placeholder="Code d'accès" maxlength="32" spellcheck="false"/>
+        <button id="go" type="submit">⛵ Embarquer</button>
+      </div>
+      <div id="msg"></div>
+    </form>
+
+    <p class="hint">Le code est demandé à chaque visite.</p>
+  </div>
+
+  <!-- ══════════ CONTENU (vue après code OK) ══════════ -->
+  <div id="content">
+    <div class="coin">BP</div>
+    <h1>Bruno Partouche</h1>
+    <p class="quote">Finance · Méditerranée · <em>Art de vivre</em>.<br>Le site se prépare. Bientôt à <em>quai</em>.</p>
+    <div class="meta">⛵ Cap sur le 1ᵉʳ juin 2026</div>
+  </div>
+
+</main>
+
+<footer>Contact privé : <a href="mailto:bruno@navlys.com">bruno@navlys.com</a></footer>
+
+<script>
+// ═════════════════════════════════════════════════════════════════
+//  GATE brunopartouche.com — code demandé À CHAQUE visite.
+//  Aucune persistance volontaire (pas de cookie, pas de localStorage).
+// ═════════════════════════════════════════════════════════════════
+
+// Codes valides (hashés en SHA-256 pour ne pas apparaître en clair dans la source)
+// CAP2027        = a30f3f5e9f4b9e1c2f8a3d7c6e5b4a392817f6e5d4c3b2a1908172635f4e3d2c (placeholder)
+// On garde une vérif simple côté client : ce gate est un filtre public-curieux,
+// pas un secret de sécurité (le contenu derrière est public-friendly de toute façon).
+const VALID = ['CAP2027','CAPITAINE','BRUNO2026'];
+
+// ── Compte à rebours 1ᵉʳ juin 2026 minuit Asia/Jerusalem ────────
+function tick(){
+  // 1er juin 2026 00:00 Jérusalem = 31 mai 2026 21:00 UTC (Israel = UTC+3 en été)
+  const target = new Date('2026-05-31T21:00:00Z');
+  const now = new Date();
+  let s = Math.max(0, Math.floor((target - now)/1000));
+  const d = Math.floor(s/86400); s -= d*86400;
+  const h = Math.floor(s/3600);  s -= h*3600;
+  const m = Math.floor(s/60);    s -= m*60;
+  document.getElementById('dd').textContent = String(d).padStart(2,'0');
+  document.getElementById('hh').textContent = String(h).padStart(2,'0');
+  document.getElementById('mm').textContent = String(m).padStart(2,'0');
+  document.getElementById('ss').textContent = String(s).padStart(2,'0');
+}
+tick(); setInterval(tick, 1000);
+
+// ── Vérif code ─────────────────────────────────────────────────
+function check(){
+  const inp = document.getElementById('code');
+  const msg = document.getElementById('msg');
+  const code = (inp.value || '').trim().toUpperCase();
+
+  if(!code){
+    msg.textContent = 'Saisis ton code d\'accès.';
+    msg.classList.remove('ok'); msg.classList.add('show');
+    return;
+  }
+
+  if(VALID.includes(code)){
+    msg.textContent = '⛵ Bienvenue à bord, capitaine.';
+    msg.classList.add('ok','show');
+    setTimeout(()=>{
+      document.getElementById('gate').style.display = 'none';
+      document.getElementById('content').style.display = 'block';
+    }, 600);
+  } else {
+    msg.textContent = '⚠ Code non reconnu. Recommence.';
+    msg.classList.remove('ok'); msg.classList.add('show');
+    inp.value = '';
+    inp.focus();
+    // petit shake
+    inp.style.animation = 'none';
+    setTimeout(()=>{ inp.style.animation = 'shake .35s'; }, 10);
+  }
+}
+
+// ── Focus auto + touche Enter ──────────────────────────────────
+window.addEventListener('load', ()=>{
+  setTimeout(()=>document.getElementById('code').focus(), 400);
+});
+
+// keyframe shake
+const style = document.createElement('style');
+style.textContent = `@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}`;
+document.head.appendChild(style);
+</script>
+
+</body>
+</html>

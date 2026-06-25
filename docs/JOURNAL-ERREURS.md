@@ -44,7 +44,10 @@ Copier ce modèle pour chaque nouvelle erreur :
 - **Correction appliquée** : Phase 0 du plan = rapatrier le code de chaque site (depuis
   l'ancien PC) dans GitHub. Procédure : `docs/SAUVEGARDE-CODE-VERCEL.md`.
 - **Garde-fou** : à l'avenir, **chaque site doit être relié à un dépôt GitHub** et déployé
-  depuis Git (pas en CLI manuelle). Inscrit dans `docs/PLAN-DENSEMBLE.md` (Phases 0 et 3).
+  depuis Git (pas en CLI manuelle) ; **ne jamais re-déployer depuis un dossier local non
+  commité**. Inscrit dans `docs/PLAN-DENSEMBLE.md` (Phases 0 et 3).
+- ℹ️ **Suite (2026-06-23)** : vérifié → le code est en fait déjà sur GitHub (**NOVA-HUB**) ;
+  voir `docs/ETAT-DES-LIEUX.md`. **ERR-004 ci-dessous décrivait la même leçon → fusionnée ici.**
 
 ### ERR-003 — Mentions interdites / promesses en clair sur les sites publics
 - **Date** : 2026-06-19

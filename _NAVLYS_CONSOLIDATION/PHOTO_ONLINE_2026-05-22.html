@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>NAVLYS — Photo de l'existant en ligne · 22 mai 2026</title>
+<style>
+  :root{
+    --bronze:#B87333;--cuivre:#D49B5B;--ice:#7DD3FC;--noir:#02040a;--nuit:#0B1220;--nuit2:#0f1830;
+    --perle:#E5E7EB;--dim:#9aa6b6;--good:#86EFAC;--warn:#FDE68A;--bad:#FCA5A5;
+    --r:"Cormorant Garamond","Georgia",serif;--u:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:radial-gradient(1000px 600px at 15% -10%,rgba(125,211,252,.10),transparent 60%),linear-gradient(180deg,#02040a,#06101e 60%,#02040a);
+    color:var(--perle);font-family:var(--u);line-height:1.5;padding:28px 18px 60px}
+  .wrap{max-width:1080px;margin:0 auto}
+  h1{font-family:var(--r);font-weight:600;font-size:clamp(28px,5vw,42px);margin:0 0 4px;color:var(--perle)}
+  h1 em{font-style:italic;color:var(--ice)}
+  .sub{color:var(--dim);font-size:14px;margin:0 0 22px}
+  h2{font-family:var(--r);font-weight:600;font-size:26px;color:var(--cuivre);margin:34px 0 6px;border-bottom:1px solid rgba(184,115,51,.3);padding-bottom:6px}
+  .lead{color:var(--dim);font-size:13.5px;margin:0 0 14px}
+  .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:6px 0 8px}
+  .kpi{background:linear-gradient(160deg,var(--nuit),#06101e);border:1px solid rgba(184,115,51,.3);border-radius:14px;padding:14px}
+  .kpi .n{font-family:var(--r);font-size:32px;color:var(--ice);line-height:1}
+  .kpi .l{font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--dim);margin-top:4px}
+  table{width:100%;border-collapse:collapse;font-size:13px;margin:6px 0 8px;background:rgba(11,18,32,.5);border-radius:12px;overflow:hidden}
+  th,td{text-align:left;padding:9px 11px;border-bottom:1px solid rgba(125,211,252,.10);vertical-align:top}
+  th{background:rgba(6,16,30,.8);color:var(--cuivre);font-family:var(--r);font-weight:600;font-size:13px;letter-spacing:.5px}
+  tr:last-child td{border-bottom:none}
+  td a{color:var(--ice);text-decoration:none}
+  .tag{display:inline-block;padding:2px 9px;border-radius:999px;font-size:11px;font-weight:700;white-space:nowrap}
+  .keep{background:rgba(134,239,172,.14);color:var(--good);border:1px solid var(--good)}
+  .dup{background:rgba(253,230,138,.14);color:var(--warn);border:1px solid var(--warn)}
+  .kill{background:rgba(252,165,165,.14);color:var(--bad);border:1px solid var(--bad)}
+  .pill{background:rgba(125,211,252,.12);color:var(--ice);border:1px solid var(--ice)}
+  .target{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:8px 0}
+  @media(max-width:680px){.target{grid-template-columns:1fr}}
+  .card{background:linear-gradient(160deg,var(--nuit2),#06101e);border:1px solid rgba(125,211,252,.25);border-radius:16px;padding:16px}
+  .card h3{font-family:var(--r);font-size:22px;margin:0 0 4px;color:var(--perle)}
+  .card .dom{color:var(--ice);font-size:13px;margin-bottom:8px}
+  .card ul{margin:6px 0 0;padding-left:18px;font-size:13px;color:var(--dim)}
+  .alert{background:rgba(252,165,165,.10);border:1px solid var(--bad);border-radius:14px;padding:14px 16px;margin:14px 0;font-size:13.5px}
+  .alert b{color:var(--bad)}
+  .q{background:rgba(253,230,138,.08);border:1px solid rgba(253,230,138,.4);border-radius:14px;padding:14px 16px;margin:8px 0;font-size:13.5px}
+  .q b{color:var(--warn)}
+  .foot{margin-top:30px;color:var(--dim);font-size:11.5px;border-top:1px solid rgba(184,115,51,.25);padding-top:12px}
+  code{background:rgba(125,211,252,.10);padding:1px 6px;border-radius:6px;color:var(--ice);font-size:12px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>NAVLYS — <em>la photo de l'existant en ligne</em></h1>
+  <p class="sub">État au 22 mai 2026 · inventaire read-only · Netlify + Vercel + dossiers locaux · rien n'a été supprimé.</p>
+
+  <div class="kpis">
+    <div class="kpi"><div class="n">2</div><div class="l">vrais sites</div></div>
+    <div class="kpi"><div class="n">13</div><div class="l">déploiements en ligne</div></div>
+    <div class="kpi"><div class="n">~11</div><div class="l">doublons / morts</div></div>
+    <div class="kpi"><div class="n">46</div><div class="l">dossiers locaux</div></div>
+    <div class="kpi"><div class="n">1</div><div class="l">DNS cassé (perso)</div></div>
+  </div>
+
+  <div class="alert">
+    <b>⚠️ À corriger en priorité :</b> <code>brunopartouche.com</code> pointe vers une page parking Namecheap
+    (<code>192.64.119.130</code>) et non vers son site. Le site perso n'est joignable que sur
+    <code>novafinanceclub.netlify.app</code> (200 OK). Le domaine est donc « cassé » côté DNS.
+  </div>
+
+  <h2>1 · La vérité : 2 sites, noyés sous les doublons</h2>
+  <p class="lead">Tout ce qui est en ligne se ramène à deux sites réels. Le reste, ce sont des versions empilées du même site.</p>
+  <div class="target">
+    <div class="card">
+      <h3>Site A — NAVLYS</h3>
+      <div class="dom">→ navlys.com (canonique)</div>
+      <span class="tag keep">CANONIQUE : Vercel “navlys-app”</span>
+      <ul>
+        <li>Source locale : <code>navlys/</code> (Next.js)</li>
+        <li>À retirer : Vercel <i>navlys-teaser</i>, Netlify <i>ubiquitous-sherbet</i> (landing NAVLYS égarée)</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Site B — Bruno Partouche / NOVA</h3>
+      <div class="dom">→ brunopartouche.com (à réparer)</div>
+      <span class="tag dup">À CHOISIR : 1 hôte sur 8 variantes</span>
+      <ul>
+        <li>Source locale : <code>brunopartouche-DEPLOY-v13-seo-polish_1/</code></li>
+        <li>8 copies Netlify du même site + 1 Vercel cassé → garder 1, retirer le reste</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2>2 · Vercel — 3 projets</h2>
+  <table>
+    <tr><th>Projet</th><th>Domaine / URL</th><th>État</th><th>Contenu</th><th>Verdict</th></tr>
+    <tr><td><b>navlys-app</b></td><td><a href="https://navlys.com">navlys.com</a>, www.navlys.com</td><td>READY</td><td>App NAVLYS (gate + cockpit)</td><td><span class="tag keep">GARDER · canonique NAVLYS</span></td></tr>
+    <tr><td>navlys-teaser</td><td><a href="https://navlys-teaser.vercel.app">navlys-teaser.vercel.app</a></td><td>READY</td><td>« NAVLYS — Vise ton cap » (ancien teaser)</td><td><span class="tag dup">RETIRER · remplacé par le gate</span></td></tr>
+    <tr><td>brunopartouche-com</td><td>brunopartouche-com-navlys.vercel.app</td><td>ERROR / 404</td><td>vide / build cassé</td><td><span class="tag kill">SUPPRIMER · cassé, doublon</span></td></tr>
+  </table>
+
+  <h2>3 · Netlify — 10 sites</h2>
+  <p class="lead">Équipe <code>bpartouche46</code>. La plupart sont des déploiements « glisser-déposer » au nom auto-généré = versions du même site perso.</p>
+  <table>
+    <tr><th>Site</th><th>URL</th><th>HTTP</th><th>Contenu (titre)</th><th>Verdict</th></tr>
+    <tr><td><b>novafinanceclub</b></td><td>brunopartouche.com / <a href="https://novafinanceclub.netlify.app">novafinanceclub.netlify.app</a></td><td>200*</td><td>Site perso (détient le domaine)</td><td><span class="tag keep">CANDIDAT canonique perso</span></td></tr>
+    <tr><td>nova030501</td><td>nova030501.netlify.app</td><td>200</td><td>Bruno Marc Partouche · NOVA Finance Club</td><td><span class="tag dup">doublon perso</span></td></tr>
+    <tr><td>subtle-cheesecake-9ca88e</td><td>subtle-cheesecake-…</td><td>200</td><td>Trading discipliné 90/10</td><td><span class="tag dup">doublon perso</span></td></tr>
+    <tr><td>elaborate-dragon-db18af</td><td>elaborate-dragon-…</td><td>200</td><td>Trading discipliné 90/10 (idem)</td><td><span class="tag dup">doublon perso</span></td></tr>
+    <tr><td>bucolic-unicorn-1e39d3</td><td>bucolic-unicorn-…</td><td>200</td><td>EN · Financial Strategist · Mediterranean</td><td><span class="tag dup">doublon perso (EN)</span></td></tr>
+    <tr><td>brunopartouche-nova</td><td>brunopartouche-nova.netlify.app</td><td>200</td><td>Trading Lab + Programme Réussite NOVA</td><td><span class="tag dup">doublon perso</span></td></tr>
+    <tr><td>phenomenal-raindrop-c6e552</td><td>phenomenal-raindrop-…</td><td>200</td><td>Stratège financier méditerranéen</td><td><span class="tag dup">doublon perso</span></td></tr>
+    <tr><td>peppy-sunshine-51f50e</td><td>peppy-sunshine-…</td><td>200</td><td>Stratège financier méditerranéen (idem)</td><td><span class="tag dup">doublon perso</span></td></tr>
+    <tr><td>ubiquitous-sherbet-7cafd2</td><td>ubiquitous-sherbet-…</td><td>200</td><td>« Navlys — Ma méthode, ton argent »</td><td><span class="tag kill">doublon NAVLYS égaré</span></td></tr>
+    <tr><td>silly-gecko-b96a17</td><td>silly-gecko-…</td><td>404</td><td>aucun déploiement</td><td><span class="tag kill">MORT · supprimer</span></td></tr>
+  </table>
+  <p class="lead">* novafinanceclub répond 200 sur son sous-domaine .netlify.app ; mais le domaine brunopartouche.com ne pointe pas dessus (parking Namecheap).</p>
+
+  <h2>4 · Local — Downloads (46 dossiers)</h2>
+  <table>
+    <tr><th>Catégorie</th><th>Dossiers</th><th>Verdict</th></tr>
+    <tr><td>App NAVLYS (source du site live)</td><td><code>navlys/</code> (= navlys-app)</td><td><span class="tag keep">GARDER · source unique NAVLYS</span></td></tr>
+    <tr><td>Source site perso</td><td><code>brunopartouche-DEPLOY-v13-seo-polish_1/</code></td><td><span class="tag keep">GARDER · source perso (v13)</span></td></tr>
+    <tr><td>Variantes teaser/portail NAVLYS</td><td>navlys-teaser-deploy, NAVLYS_VOILE_TEASER, NAVLYS_TEASER_LAUNCH_PACK, NAVLYS_PORTAL_APP</td><td><span class="tag dup">ARCHIVER (remplacés par le gate)</span></td></tr>
+    <tr><td>App NOVA</td><td>STRATEGIE_NOVA_PACK/ (app+lib)</td><td><span class="tag dup">à clarifier / fusionner perso</span></td></tr>
+    <tr><td>Packs de contenu NAVLYS</td><td>26 dossiers <code>NAVLYS_*_PACK</code> + CHEVAL_TROIE + MARTINGALE…</td><td><span class="tag pill">GARDER (actifs, non-sites)</span></td></tr>
+    <tr><td>Pages web sauvegardées (junk)</td><td>7 dossiers <code>*_files</code> (navlys_files, navinsta_files, navtiktok_files, caducet relief_files…)</td><td><span class="tag kill">ARCHIVER / jeter</span></td></tr>
+    <tr><td>Hub de consolidation</td><td><code>_NAVLYS_CONSOLIDATION/</code> (ce dossier)</td><td><span class="tag keep">GARDER · centre de pilotage</span></td></tr>
+  </table>
+
+  <h2>5 · Décisions à prendre ensemble</h2>
+  <div class="q"><b>Q1 · Hôte du site perso :</b> on garde brunopartouche.com sur <b>Netlify</b> (novafinanceclub) en réparant juste le DNS, ou on le migre sur <b>Vercel</b> pour tout regrouper au même endroit que NAVLYS ?</div>
+  <div class="q"><b>Q2 · NOVA = perso ?</b> « NOVA Finance Club » est-il le même site que brunopartouche.com (un seul site), ou une marque/3ᵉ site à part ?</div>
+  <div class="q"><b>Q3 · Feu vert ménage en ligne :</b> je supprime les déploiements jetables (sherbet, cheesecake, dragon, unicorn, raindrop, sunshine, gecko, nova030501, brunopartouche-nova + Vercel brunopartouche-com + navlys-teaser) une fois le canonique choisi ? (via API, sur ton OK explicite)</div>
+  <div class="q"><b>Q4 · Ménage local :</b> j'archive les 7 dossiers <code>*_files</code>, les variantes teaser et les zips de packs dans un <code>_ARCHIVE/</code> ?</div>
+
+  <div class="foot">
+    Généré le 22 mai 2026 · inventaire read-only (Netlify MCP + API Vercel + scan local). Aucun fichier ni déploiement
+    supprimé. Une « veille » quotidienne re-scanne ces plateformes et signale tout nouveau doublon — rapports dans
+    <code>_NAVLYS_CONSOLIDATION/veille/</code>.
+  </div>
+</div>
+</body>
+</html>
