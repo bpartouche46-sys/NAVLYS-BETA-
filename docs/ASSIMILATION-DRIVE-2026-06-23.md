@@ -27,10 +27,11 @@
   Rendements **toujours en fourchettes historiques, jamais garantis** ; objectif perso de Bruno = sa pratique,
   **pas** une promesse à des tiers. Poche 10 % plafonnée, jamais rechargée après pertes.
 
-## 2. Tarifs (publics)
-- **NAVLYS Finance (abo mensuel)** : F1 29,99 · F2 39,99 · F3 49,99 · F4 PRO 99,99 €/mois.
-- **NAVBIO NextGen (paiement unique)** : 29,99 · 49,99 · 99,99 · 199,99 €.
-- Affiliation : paliers 25 / 40 / 50 %.
+## 2. Tarifs (publics) — voir grille OFFICIELLE figée dans `docs/STRATEGIE-NAVLYS.md` §5
+- **NAVLYS Finance (abo)** : **Gratuit · 19,99 · 39,99 · 79,99 €/mois** (annuel ~2 mois offerts).
+- **NAVBIO / Next Gen (numérique, paiement unique « à vie »)** : **Gratuit · 29,99 · 49,99 · 99,99 · 199,99 €**.
+- **NAVLEX (abo)** : **Gratuit (5 questions) · 9,99 €/mois (79 €/an) · 19,99 €/mois**.
+- Freemium partout. Affiliation : paliers 25 / 40 / 50 %.
 - Paiements : **Wise · PayPal IL · Binance Pay · Skrill · Payoneer** (**Stripe exclu** — marchand IL).
 
 ## 3. ⛔ Slogans/chiffres OBSOLÈTES — à NE JAMAIS réutiliser
