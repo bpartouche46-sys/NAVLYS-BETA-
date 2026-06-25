@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" role="img" aria-label="NAVLYS — parcours 7 escales en bouée">
+  <defs>
+    <style>
+      :root { --ice: #7DD3FC; --bg: #000; }
+      .bg { fill: #000; }
+      .ice { fill: #7DD3FC; }
+      .ice-dim { fill: #0E4F66; }
+      .ice-stroke { stroke: #7DD3FC; fill: none; stroke-width: 2; }
+      .ice-stroke-dim { stroke: #0E4F66; fill: none; stroke-width: 2; stroke-dasharray: 4 4; }
+      .text { fill: #F2F4F7; font-family: system-ui, sans-serif; }
+      .text-dim { fill: #9AA3AF; font-family: system-ui, sans-serif; }
+      .label { font-size: 12px; }
+      .title { font-size: 18px; font-weight: 600; }
+      .small { font-size: 10px; }
+    </style>
+  </defs>
+
+  <rect class="bg" x="0" y="0" width="800" height="400" />
+
+  <!-- Title -->
+  <text class="text title" x="400" y="32" text-anchor="middle">NAVLYS — 7 escales vers ton cap</text>
+  <text class="text-dim label" x="400" y="52" text-anchor="middle">Un parcours unique, un plan complet</text>
+
+  <!-- Wave horizon line -->
+  <path class="ice-stroke-dim" d="M 40 220 Q 200 200 400 220 T 760 220" />
+
+  <!-- 7 buoys -->
+  <g>
+    <!-- Buoy 1 -->
+    <circle class="ice" cx="80" cy="220" r="22" />
+    <text class="text title" x="80" y="225" text-anchor="middle" fill="#000">1</text>
+    <text class="text label" x="80" y="270" text-anchor="middle">Cap</text>
+    <text class="text-dim small" x="80" y="285" text-anchor="middle">objectif</text>
+
+    <!-- Buoy 2 -->
+    <circle class="ice" cx="180" cy="220" r="22" />
+    <text class="text title" x="180" y="225" text-anchor="middle" fill="#000">2</text>
+    <text class="text label" x="180" y="270" text-anchor="middle">Voile</text>
+    <text class="text-dim small" x="180" y="285" text-anchor="middle">durée</text>
+
+    <!-- Buoy 3 -->
+    <circle class="ice" cx="280" cy="220" r="22" />
+    <text class="text title" x="280" y="225" text-anchor="middle" fill="#000">3</text>
+    <text class="text label" x="280" y="270" text-anchor="middle">Coque</text>
+    <text class="text-dim small" x="280" y="285" text-anchor="middle">frais actuels</text>
+
+    <!-- Buoy 4 -->
+    <circle class="ice" cx="400" cy="220" r="22" />
+    <text class="text title" x="400" y="225" text-anchor="middle" fill="#000">4</text>
+    <text class="text label" x="400" y="270" text-anchor="middle">Marée</text>
+    <text class="text-dim small" x="400" y="285" text-anchor="middle">écart révélé</text>
+
+    <!-- Buoy 5 -->
+    <circle class="ice" cx="520" cy="220" r="22" />
+    <text class="text title" x="520" y="225" text-anchor="middle" fill="#000">5</text>
+    <text class="text label" x="520" y="270" text-anchor="middle">90/10</text>
+    <text class="text-dim small" x="520" y="285" text-anchor="middle">forteresse + voilier</text>
+
+    <!-- Buoy 6 -->
+    <circle class="ice" cx="640" cy="220" r="22" />
+    <text class="text title" x="640" y="225" text-anchor="middle" fill="#000">6</text>
+    <text class="text label" x="640" y="270" text-anchor="middle">Carte</text>
+    <text class="text-dim small" x="640" y="285" text-anchor="middle">plan unifié</text>
+
+    <!-- Buoy 7 -->
+    <circle class="ice" cx="740" cy="220" r="28" />
+    <text class="text title" x="740" y="226" text-anchor="middle" fill="#000">7</text>
+    <text class="text label" x="740" y="278" text-anchor="middle">Bouteille</text>
+    <text class="text-dim small" x="740" y="293" text-anchor="middle">email + WhatsApp</text>
+  </g>
+
+  <!-- Lighthouse on the right -->
+  <g transform="translate(740, 110)">
+    <rect class="ice-dim" x="-6" y="0" width="12" height="60" />
+    <polygon class="ice" points="-12,0 12,0 0,-18" />
+  </g>
+
+  <!-- Disclaimer -->
+  <text class="text-dim small" x="400" y="370" text-anchor="middle">Information pédagogique. Tu restes seul décideur. Teste en simulation.</text>
+</svg>
