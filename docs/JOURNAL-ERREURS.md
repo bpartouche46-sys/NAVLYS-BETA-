@@ -108,4 +108,19 @@ Copier ce modèle pour chaque nouvelle erreur :
   GitHub** (Vercel live / Hetzner / autres repos). Rappel permanent : `NAVLYS-BETA-` = mémoire +
   refonte v2 statique, **pas** la prod. Inscrit ici (ERR-006) et relié à ERR-002/ERR-004.
 
-<!-- Ajouter les prochaines erreurs ci-dessous : ERR-007, … -->
+### ERR-007 — Chiffre business/financier cité sans source exacte ni mention « non-promesse »
+- **Date** : 2026-06-25
+- **Contexte** : renforcement (`docs/RENFORCEMENT/`) à partir du « cerveau » récupéré.
+  Un cash-in « ~770 k€ » avait été écrit sans correspondance en source, et des projections
+  (816 k€ / 717 k€) attribuées au mauvais fichier.
+- **Symptôme** : risque double — (a) chiffre inventé/mal sourcé, (b) un chiffre de rendement/CA
+  présenté sans garde-fou peut ressembler à une **promesse** (interdit conformité : zéro promesse).
+- **Cause** : reprise d'un chiffre « de tête » sans revérifier le fichier source exact.
+- **Correction appliquée** : chiffres remplacés par les valeurs sourcées (`_PARTENAIRES_LIENS_AUDIT.md`),
+  attribution corrigée, mention « projection NON garantie, à ne jamais publier comme promesse » ajoutée.
+- **Garde-fou** : **tout chiffre business/financier** (CA, rendement, Sharpe, %, projection) doit
+  (1) **citer le fichier source exact** et (2) porter la mention **« projection / donnée — pas une
+  promesse »** s'il touche au public. Vérifier en source avant publication. Inscrit ici + rappelé en
+  tête de `docs/RENFORCEMENT/04-calculs-finance.md`.
+
+<!-- Ajouter les prochaines erreurs ci-dessous : ERR-008, … -->
