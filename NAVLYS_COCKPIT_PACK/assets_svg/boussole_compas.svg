@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300" role="img" aria-label="NAVLYS — compas central avec médaillon pièce bronze">
+  <title>NAVLYS — Compas / boussole avec médaillon pièce bronze (le cap du jour)</title>
+  <defs>
+    <radialGradient id="halo" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#7DD3FC" stop-opacity=".35"/><stop offset="1" stop-color="#7DD3FC" stop-opacity="0"/></radialGradient>
+    <radialGradient id="coin" cx="38%" cy="32%" r="72%">
+      <stop offset="0" stop-color="#f6d6ad"/><stop offset=".4" stop-color="#D49B5B"/><stop offset=".75" stop-color="#B87333"/><stop offset="1" stop-color="#5c3514"/>
+    </radialGradient>
+    <linearGradient id="ring" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#D49B5B"/><stop offset="1" stop-color="#6e3f17"/></linearGradient>
+  </defs>
+  <rect width="300" height="300" fill="#0B1220" rx="20"/>
+  <circle cx="150" cy="150" r="135" fill="url(#halo)"/>
+
+  <!-- compass outer ring -->
+  <circle cx="150" cy="150" r="120" fill="#06101e" stroke="url(#ring)" stroke-width="6"/>
+  <circle cx="150" cy="150" r="106" fill="none" stroke="rgba(184,115,51,.4)" stroke-width="1.5"/>
+  <!-- tick marks -->
+  <g stroke="#7DD3FC" stroke-width="2">
+    <line x1="150" y1="34" x2="150" y2="52"/><line x1="150" y1="248" x2="150" y2="266"/>
+    <line x1="34" y1="150" x2="52" y2="150"/><line x1="248" y1="150" x2="266" y2="150"/>
+  </g>
+  <g stroke="rgba(184,115,51,.6)" stroke-width="1.5">
+    <line x1="68" y1="68" x2="80" y2="80"/><line x1="232" y1="68" x2="220" y2="80"/>
+    <line x1="68" y1="232" x2="80" y2="220"/><line x1="232" y1="232" x2="220" y2="220"/>
+  </g>
+  <text x="150" y="30" text-anchor="middle" fill="#7DD3FC" font-family="Georgia,serif" font-size="16">N</text>
+  <text x="150" y="284" text-anchor="middle" fill="#9aa6b6" font-family="Georgia,serif" font-size="14">S</text>
+  <text x="22" y="156" text-anchor="middle" fill="#9aa6b6" font-family="Georgia,serif" font-size="14">O</text>
+  <text x="278" y="156" text-anchor="middle" fill="#9aa6b6" font-family="Georgia,serif" font-size="14">E</text>
+
+  <!-- needle pointing the cap -->
+  <polygon points="150,70 160,150 140,150" fill="#7DD3FC"/>
+  <polygon points="150,230 160,150 140,150" fill="#6e3f17"/>
+
+  <!-- central bronze coin medallion (spinning) -->
+  <g>
+    <circle cx="150" cy="150" r="46" fill="url(#coin)" stroke="#3a2207" stroke-width="3"/>
+    <circle cx="150" cy="150" r="46" fill="none" stroke="#f0c79a" stroke-width="1.5" opacity=".55"/>
+    <!-- engraved 8-point star -->
+    <g transform="translate(150,150)" fill="#3a2207" opacity=".85">
+      <path d="M0,-30 L6,-7 L30,0 L6,7 L0,30 L-6,7 L-30,0 L-6,-7 Z"/>
+    </g>
+    <text x="150" y="155" text-anchor="middle" fill="#3a2207" font-family="Georgia,serif" font-weight="700" font-size="13" letter-spacing="2">NAVLYS</text>
+    <animateTransform attributeName="transform" type="rotate" from="0 150 150" to="360 150 150" dur="8s" repeatCount="indefinite"/>
+  </g>
+
+  <text x="150" y="298" text-anchor="middle" fill="#D49B5B" font-family="Georgia,serif" font-size="12" letter-spacing="2">Le cap du jour</text>
+</svg>

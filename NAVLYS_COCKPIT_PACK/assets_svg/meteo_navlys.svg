@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 260" role="img" aria-label="NAVLYS — météo du marché mondial et ta route">
+  <title>NAVLYS — Météo du grand vent (marché mondial) vs ta route tenue</title>
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="40%" r="70%"><stop offset="0" stop-color="#14233f"/><stop offset="1" stop-color="#0B1220"/></radialGradient>
+  </defs>
+  <rect width="360" height="260" fill="url(#bg)" rx="18"/>
+
+  <!-- LEFT: market weather dial (swings) -->
+  <g transform="translate(8,20)">
+    <path d="M20,150 A80,80 0 0 1 180,150" fill="none" stroke="#12203a" stroke-width="16" stroke-linecap="round"/>
+    <path d="M20,150 A80,80 0 0 1 73,82" fill="none" stroke="#e07a5f" stroke-width="16" stroke-linecap="round"/>
+    <path d="M73,82 A80,80 0 0 1 127,82" fill="none" stroke="#9aa6b6" stroke-width="16"/>
+    <path d="M127,82 A80,80 0 0 1 180,150" fill="none" stroke="#7DD3FC" stroke-width="16" stroke-linecap="round"/>
+    <g>
+      <polygon points="100,78 105,150 95,150" fill="#D49B5B"/>
+      <animateTransform attributeName="transform" type="rotate" dur="6s" repeatCount="indefinite"
+        values="-55 100 150; 35 100 150; -10 100 150; 60 100 150; -40 100 150; -55 100 150"
+        keyTimes="0;0.25;0.5;0.7;0.9;1"/>
+    </g>
+    <circle cx="100" cy="150" r="8" fill="#D49B5B" stroke="#1a0e03" stroke-width="2"/>
+    <text x="22" y="146" fill="#e07a5f" font-family="Georgia,serif" font-size="11">baisse</text>
+    <text x="150" y="146" fill="#7DD3FC" font-family="Georgia,serif" font-size="11">hausse</text>
+    <text x="100" y="186" text-anchor="middle" fill="#9aa6b6" font-family="Georgia,serif" font-size="12">Le grand vent global</text>
+    <text x="100" y="204" text-anchor="middle" fill="#e5e7eb" font-family="Georgia,serif" font-size="13">tourne sans cesse</text>
+  </g>
+
+  <!-- RIGHT: your route (steady) -->
+  <g transform="translate(190,30)">
+    <circle cx="80" cy="100" r="62" fill="none" stroke="#12203a" stroke-width="12"/>
+    <circle cx="80" cy="100" r="62" fill="none" stroke="rgba(184,115,51,.5)" stroke-width="2" stroke-dasharray="2 8"/>
+    <polygon points="80,42 87,100 73,100" fill="#7DD3FC"/>
+    <polygon points="80,158 87,100 73,100" fill="#6e3f17"/>
+    <circle cx="80" cy="100" r="7" fill="#D49B5B" stroke="#1a0e03" stroke-width="2"/>
+    <text x="80" y="34" text-anchor="middle" fill="#7DD3FC" font-family="Georgia,serif" font-size="12">N</text>
+    <text x="80" y="186" text-anchor="middle" fill="#9aa6b6" font-family="Georgia,serif" font-size="12">Ta route à toi</text>
+    <text x="80" y="204" text-anchor="middle" fill="#D49B5B" font-family="Georgia,serif" font-size="13">tenue, plein cap</text>
+  </g>
+
+  <text x="180" y="248" text-anchor="middle" fill="#7DD3FC" font-family="Georgia,serif" font-size="13" letter-spacing="1">Le vent change. Ton cap, non.</text>
+</svg>

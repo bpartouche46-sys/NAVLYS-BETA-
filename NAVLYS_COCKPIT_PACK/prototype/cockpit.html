@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<title>NAVLYS — Cockpit · prototype</title>
+<meta name="description" content="NAVLYS — le cockpit central virtuel d'un ketch deux mâts. Prototype de démonstration. Aucun conseil financier." />
+<style>
+/* =====================================================================
+   NAVLYS — COCKPIT v2 (prototype self-contained)
+   Palette : BRONZE #B87333 · ICE #7DD3FC · NOIR #000 · cuivre #D49B5B
+   Médaillon (logo final retenu) : OR #C9A961 · NAVY #050B1A
+   Textes agrandis · winchs 0-100 · versement mensuel · plus vivant.
+   ===================================================================== */
+:root{
+  --bronze:#B87333; --cuivre:#D49B5B; --ice:#7DD3FC; --noir:#000; --nuit:#0B1220;
+  --perle:#E5E7EB; --dim:#9aa6b6; --gold:rgba(184,115,51,.55);
+  --or:#C9A961; --or-clair:#F4E4B0; --navy:#050B1A; --navy2:#1a2845;
+  --up:#7DD3FC; --down:#e07a5f;
+  --rfont:"Cormorant Garamond","Fraunces","Georgia",serif;
+  --ufont:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --shadow:0 18px 50px rgba(0,0,0,.55);
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0}
+body{
+  font-family:var(--ufont);color:var(--perle);font-size:17px;
+  background:radial-gradient(1200px 700px at 50% -10%, #14233f 0%, var(--nuit) 42%, var(--noir) 100%);
+  min-height:100vh;overflow-x:hidden;
+}
+
+/* ---------- top bar ---------- */
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:14px 20px;
+  border-bottom:1px solid var(--gold);background:linear-gradient(180deg,rgba(0,0,0,.55),rgba(0,0,0,0));
+  position:sticky;top:0;z-index:30;backdrop-filter:blur(4px)}
+.brand{display:flex;align-items:center;gap:14px;min-width:0}
+.coin{width:56px;height:56px;flex:0 0 auto;filter:drop-shadow(0 0 14px rgba(125,211,252,.45));transform-style:preserve-3d;animation:spinCoin 9s linear infinite}
+@keyframes spinCoin{to{transform:rotateY(360deg)}}
+.brand-txt{display:flex;flex-direction:column;line-height:1;min-width:0}
+.brand-txt b{font-family:var(--rfont);font-size:30px;letter-spacing:8px;color:var(--perle)}
+.brand-txt small{font-size:13px;letter-spacing:.5px;color:var(--bronze);margin-top:4px}
+.lang{display:inline-flex;border:1px solid var(--gold);border-radius:999px;overflow:hidden}
+.lang button{background:transparent;color:var(--dim);border:0;padding:9px 16px;font-size:15px;font-weight:700;letter-spacing:1px;cursor:pointer}
+.lang button.active{background:var(--bronze);color:#1a0e03}
+
+.wrap{max-width:1180px;margin:0 auto;padding:16px 18px 48px}
+.viewline{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:8px 2px 14px;flex-wrap:wrap}
+.viewbadge{font-family:var(--rfont);font-size:26px;letter-spacing:2px;color:var(--ice);display:flex;align-items:center;gap:12px}
+.viewbadge .dot{width:11px;height:11px;border-radius:50%;background:var(--ice);box-shadow:0 0 14px var(--ice);animation:beat 2.6s ease-in-out infinite}
+@keyframes beat{0%,100%{transform:scale(1);opacity:.8}50%{transform:scale(1.4);opacity:1}}
+.btn{font-family:var(--ufont);font-weight:700;letter-spacing:.4px;font-size:17px;border:1px solid var(--bronze);
+  background:linear-gradient(180deg,#2a1a0c,#150b04);color:var(--cuivre);padding:12px 20px;border-radius:12px;cursor:pointer;
+  transition:transform .12s,box-shadow .2s;box-shadow:0 2px 0 rgba(0,0,0,.4)}
+.btn:hover{transform:translateY(-1px);box-shadow:0 6px 18px rgba(184,115,51,.25)}
+.btn:active{transform:translateY(1px)}
+.btn.primary{background:linear-gradient(180deg,var(--cuivre),var(--bronze));color:#1a0e03;border-color:#e7b277}
+
+/* ---------- stage 360 ---------- */
+.stage{position:relative;height:58vh;min-height:400px;border-radius:20px;overflow:hidden;border:1px solid var(--gold);
+  box-shadow:var(--shadow),inset 0 0 90px rgba(0,0,0,.6);perspective:1600px;background:var(--noir);touch-action:pan-y}
+.rotator{position:absolute;inset:0;transform-style:preserve-3d;transition:transform 1.15s cubic-bezier(.6,.02,.2,1)}
+.rotator.flipped{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;overflow:hidden}
+.face-back{transform:rotateY(180deg)}
+.face svg.scene{width:100%;height:100%;display:block;transform-origin:50% 60%;animation:heel 8s ease-in-out infinite}
+@keyframes heel{0%,100%{transform:rotate(-1.2deg)}50%{transform:rotate(1.2deg)}}
+
+.swipe-hint{position:absolute;left:50%;bottom:14px;transform:translateX(-50%);font-size:13px;color:var(--dim);
+  letter-spacing:.5px;background:rgba(0,0,0,.45);border:1px solid var(--gold);border-radius:999px;padding:6px 14px;z-index:6;
+  pointer-events:none;animation:floaty 3s ease-in-out infinite}
+@keyframes floaty{0%,100%{opacity:.55;transform:translate(-50%,0)}50%{opacity:1;transform:translate(-50%,-3px)}}
+
+.compass-overlay{position:absolute;left:50%;bottom:16px;transform:translateX(-50%);z-index:8;display:flex;
+  flex-direction:column;align-items:center;gap:8px;pointer-events:none;width:min(420px,90%)}
+.med-lg{width:128px;height:128px;filter:drop-shadow(0 0 18px rgba(125,211,252,.45));margin-bottom:-6px}
+.cap-card{pointer-events:auto;text-align:center;width:100%;
+  background:linear-gradient(180deg,rgba(6,16,30,.88),rgba(6,16,30,.68));border:1px solid var(--gold);
+  border-radius:16px;padding:12px 16px;box-shadow:0 10px 30px rgba(0,0,0,.5);backdrop-filter:blur(3px)}
+.cap-card .k{font-size:13px;letter-spacing:2px;color:var(--or);text-transform:uppercase}
+.cap-card .ticker{font-family:var(--rfont);font-size:40px;letter-spacing:2px;color:var(--perle);margin:3px 0 5px}
+.cap-card .meta{font-size:17px;color:var(--dim)} .cap-card .meta b{color:var(--ice)} .cap-card .exit{color:var(--up);font-weight:700}
+
+/* ---------- cluster ---------- */
+.cluster{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:18px}
+.panel{background:linear-gradient(180deg,rgba(20,30,48,.7),rgba(6,12,24,.7));border:1px solid var(--gold);
+  border-radius:18px;padding:18px;box-shadow:var(--shadow)}
+.panel h3{margin:0 0 12px;font-family:var(--rfont);font-size:24px;letter-spacing:1px;color:var(--ice);font-weight:600}
+.panel h3 .pin{color:var(--bronze)}
+
+.coffres{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.coffre{border:1px solid rgba(184,115,51,.3);border-radius:14px;padding:14px;background:rgba(0,0,0,.25)}
+.coffre .name{font-size:17px;letter-spacing:.3px;color:var(--cuivre);font-weight:700}
+.coffre .sub{font-size:12.5px;color:var(--dim);margin:3px 0 9px;min-height:16px}
+.coffre .val{font-family:var(--rfont);font-size:42px;color:var(--perle);line-height:1}
+.coffre .pct{font-size:15px;color:var(--ice);margin-top:5px}
+.coffre.fort{border-color:rgba(125,211,252,.35)}
+.totline{display:flex;align-items:baseline;justify-content:space-between;margin-top:14px;padding-top:14px;border-top:1px dashed var(--gold)}
+.totline .lab{font-size:15px;color:var(--dim);letter-spacing:.5px}
+.totline .big{font-family:var(--rfont);font-size:46px;color:var(--cuivre)}
+.subline{display:flex;justify-content:space-between;font-size:14px;color:var(--dim);margin-top:8px}
+.subline b{color:var(--or)}
+.proj{font-size:16px;color:var(--dim);margin-top:10px}
+.proj b{color:var(--ice)} .delta-up{color:var(--up)} .delta-down{color:var(--down)}
+
+/* winches */
+.winches{display:flex;flex-direction:column;gap:20px}
+.winch{display:flex;flex-direction:column;gap:9px}
+.winch .top{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.winch .lbl{font-size:17px;color:var(--perle);font-weight:700;letter-spacing:.2px;display:flex;align-items:center;gap:11px}
+.drum{width:26px;height:26px;border-radius:50%;flex:0 0 auto;
+  background:radial-gradient(circle at 35% 30%,#f6d6ad,var(--bronze) 60%,#5c3514);
+  box-shadow:inset -2px -2px 4px rgba(0,0,0,.5),0 0 0 2px rgba(0,0,0,.3);position:relative;animation:spinDrum 9s linear infinite}
+.drum::after{content:"";position:absolute;inset:7px;border-radius:50%;border:2px dashed rgba(0,0,0,.45)}
+@keyframes spinDrum{to{transform:rotate(360deg)}}
+.winch .out{font-size:19px;color:var(--ice);font-weight:700;font-variant-numeric:tabular-nums}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:14px;border-radius:999px;
+  background:linear-gradient(90deg,var(--bronze) 0%,var(--bronze) var(--fill,50%),#12203a var(--fill,50%),#12203a 100%);
+  outline:none;border:1px solid rgba(184,115,51,.4);cursor:pointer}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:34px;height:34px;border-radius:50%;
+  background:radial-gradient(circle at 35% 30%,#f6d6ad,var(--cuivre) 55%,#6e3f17);border:3px solid #1a0e03;
+  box-shadow:0 0 16px rgba(125,211,252,.55),0 2px 6px rgba(0,0,0,.5)}
+input[type=range]::-moz-range-thumb{width:34px;height:34px;border-radius:50%;border:3px solid #1a0e03;
+  background:radial-gradient(circle at 35% 30%,#f6d6ad,var(--cuivre) 55%,#6e3f17);box-shadow:0 0 16px rgba(125,211,252,.55)}
+.scale{display:flex;justify-content:space-between;font-size:12px;color:var(--dim);margin-top:-2px}
+.band{font-size:13px;color:var(--cuivre);font-weight:700;text-align:center;letter-spacing:.5px}
+
+/* météo */
+.meteo-row{display:flex;gap:16px;align-items:stretch}
+.dial-box{flex:1;display:flex;flex-direction:column;align-items:center;gap:7px}
+.dial-box .cap{font-size:14px;color:var(--dim);letter-spacing:.5px;text-align:center}
+.dial-box .state{font-size:18px;font-weight:700;letter-spacing:.5px}
+.dial-svg{width:100%;max-width:220px}
+.needle-mkt{transform-box:fill-box;transform-origin:50% 100%;transition:transform .8s cubic-bezier(.5,.05,.2,1)}
+.contrast-note{font-size:15px;color:var(--dim);text-align:center;margin-top:12px;line-height:1.6}
+.contrast-note b{color:var(--ice)}
+
+/* footer */
+.footer{margin-top:30px;border-top:1px solid var(--gold);padding-top:20px;text-align:center}
+.sig{font-family:var(--rfont);font-size:22px;color:var(--cuivre);letter-spacing:.5px;line-height:1.5;max-width:680px;margin:0 auto 14px}
+.disclaimer{font-size:14px;color:var(--dim);line-height:1.6;max-width:760px;margin:0 auto;
+  border:1px solid rgba(184,115,51,.25);border-radius:12px;padding:14px 18px;background:rgba(0,0,0,.25)}
+.demo-tag{display:inline-block;margin-top:14px;font-size:12px;letter-spacing:2px;color:var(--bronze);text-transform:uppercase;
+  border:1px dashed var(--gold);border-radius:999px;padding:6px 16px}
+
+.wind-streak{stroke:rgba(125,211,252,.5);stroke-width:1.6;stroke-linecap:round;opacity:0}
+@keyframes drift{0%{opacity:0;transform:translateX(0)}15%{opacity:.85}100%{opacity:0;transform:translateX(140px)}}
+@keyframes luff{0%,100%{filter:none}50%{filter:brightness(1.07)}}
+
+@media (max-width:760px){
+  body{font-size:16px}
+  .cluster{grid-template-columns:1fr}
+  .stage{height:48vh;min-height:340px}
+  .brand-txt b{font-size:24px;letter-spacing:5px}
+  .coin{width:46px;height:46px}
+  .wrap{padding:12px 12px 36px}
+  .meteo-row{flex-direction:column}
+  .viewbadge{font-size:21px}
+  .coffre .val{font-size:34px}.totline .big{font-size:38px}.cap-card .ticker{font-size:32px}
+  .med-lg{width:104px;height:104px}
+}
+</style>
+</head>
+<body>
+
+<!-- ===== Médaillon NAVLYS (logo final retenu : Direction B · Médaillon Nocturne) ===== -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <radialGradient id="navGold" cx="50%" cy="40%"><stop offset="0%" stop-color="#F4E4B0"/><stop offset="55%" stop-color="#C9A961"/><stop offset="100%" stop-color="#7d6a3d"/></radialGradient>
+    <linearGradient id="navGoldRim" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#E8D4A2"/><stop offset="100%" stop-color="#8B7332"/></linearGradient>
+    <radialGradient id="navInner" cx="50%" cy="45%"><stop offset="0%" stop-color="#1a2845"/><stop offset="100%" stop-color="#050B1A"/></radialGradient>
+    <path id="navArc" d="M 42 152 Q 100 190 158 152" fill="none"/>
+    <path id="navStar" d="M0,-5 1.4,-1.5 5,-1.5 2.2,1 3,5 0,2.5 -3,5 -2.2,1 -5,-1.5 -1.4,-1.5Z"/>
+    <symbol id="med" viewBox="0 0 200 200">
+    <defs>
+      <radialGradient id="navCoin" cx="38%" cy="32%" r="72%"><stop offset="0%" stop-color="#f6d6ad"/><stop offset="42%" stop-color="#D49B5B"/><stop offset="78%" stop-color="#B87333"/><stop offset="100%" stop-color="#5c3514"/></radialGradient>
+      <radialGradient id="navHaloG" cx="50%" cy="50%" r="50%"><stop offset="62%" stop-color="#7DD3FC" stop-opacity="0"/><stop offset="100%" stop-color="#7DD3FC" stop-opacity="0.55"/></radialGradient>
+    </defs>
+    <circle cx="100" cy="100" r="98" fill="url(#navHaloG)"><animate attributeName="opacity" values="0.55;1;0.55" dur="4s" repeatCount="indefinite"/></circle>
+    <circle cx="100" cy="100" r="80" fill="url(#navCoin)" stroke="#3a2207" stroke-width="3"/>
+    <circle cx="100" cy="100" r="80" fill="none" stroke="#f0c79a" stroke-width="1.5" opacity="0.5"/>
+    <circle cx="100" cy="100" r="71" fill="none" stroke="#6e3f17" stroke-width="1" opacity="0.6"/>
+    <g transform="translate(100,78)" fill="#3a2207" opacity="0.9">
+      <path d="M0,-30 L8,-8 L30,0 L8,8 L0,30 L-8,8 L-30,0 L-8,-8 Z"/>
+      <path d="M0,-44 L3,-9 L0,-9 Z M0,44 L-3,9 L0,9 Z M-44,0 L-9,-3 L-9,0 Z M44,0 L9,3 L9,0 Z" opacity="0.5"/>
+    </g>
+    <path d="M44,128 Q100,144 156,128" fill="none" stroke="#3a2207" stroke-width="2.2" opacity="0.6"/>
+    <g><circle cx="100" cy="100" r="63" fill="none" stroke="#F4E4B0" stroke-width="1.6" stroke-dasharray="8 384" opacity="0.85"/><animateTransform attributeName="transform" type="rotate" from="0 100 100" to="360 100 100" dur="9s" repeatCount="indefinite"/></g>
+    <text x="100" y="112" text-anchor="middle" font-family="Cinzel,'Cormorant Garamond',Georgia,serif" font-size="23" font-weight="700" fill="#2a1808" letter-spacing="5">NAVLYS</text>
+  </symbol>
+  </defs>
+</svg>
+
+<div class="topbar">
+  <div class="brand">
+    <svg class="coin" viewBox="0 0 200 200"><use href="#med"/></svg>
+    <div class="brand-txt"><b>NAVLYS</b><small data-i18n="tagline">vise ton cap, atteins-le.</small></div>
+  </div>
+  <div class="lang">
+    <button id="frBtn" class="active" onclick="setLang('fr')">FR</button>
+    <button id="enBtn" onclick="setLang('en')">EN</button>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="viewline">
+    <div class="viewbadge"><span class="dot"></span><span id="viewLabel" data-i18n="view_avant">AVANT · le cap</span></div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap">
+      <button class="btn primary" onclick="nextMonth()" id="newDayBtn" data-i18n="btn_newmonth">Mois suivant ⚓</button>
+      <button class="btn" onclick="rotate360()" id="rotateBtn" data-i18n="btn_rotate">Virer de bord ↻</button>
+    </div>
+  </div>
+
+  <div class="stage" id="stage">
+    <div class="rotator" id="rotator">
+
+      <!-- FACE AVANT -->
+      <div class="face face-front">
+        <svg class="scene" viewBox="0 0 1000 600" preserveAspectRatio="xMidYMid slice" aria-label="Vue cockpit vers l'avant">
+          <defs>
+            <linearGradient id="skyF" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1a2c4d"/><stop offset="0.45" stop-color="#0b1730"/><stop offset="1" stop-color="#040a14"/></linearGradient>
+            <linearGradient id="seaF" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0a2036"/><stop offset="1" stop-color="#020912"/></linearGradient>
+            <radialGradient id="capGlow" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#7DD3FC" stop-opacity="0.95"/><stop offset="0.4" stop-color="#7DD3FC" stop-opacity="0.35"/><stop offset="1" stop-color="#7DD3FC" stop-opacity="0"/></radialGradient>
+            <linearGradient id="sailF" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f4f7fb"/><stop offset="1" stop-color="#aebccf"/></linearGradient>
+            <linearGradient id="bronzeMast" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#6e3f17"/><stop offset="0.5" stop-color="#D49B5B"/><stop offset="1" stop-color="#6e3f17"/></linearGradient>
+            <linearGradient id="woodArc" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5a3a1f"/><stop offset="1" stop-color="#1c0f06"/></linearGradient>
+            <clipPath id="clipRotorF"><rect x="-22" y="0" width="44" height="190" rx="22"/></clipPath>
+          </defs>
+          <rect x="0" y="0" width="1000" height="360" fill="url(#skyF)"/>
+          <rect x="0" y="360" width="1000" height="240" fill="url(#seaF)"/>
+          <g fill="#cfe6ff" opacity="0.9">
+            <circle cx="120" cy="70" r="1.4"/><circle cx="240" cy="40" r="1"/><circle cx="360" cy="90" r="1.2"/>
+            <circle cx="620" cy="55" r="1"/><circle cx="760" cy="85" r="1.5"/><circle cx="880" cy="48" r="1.1"/>
+            <circle cx="930" cy="120" r="1"/><circle cx="70" cy="150" r="1"/>
+          </g>
+          <circle cx="500" cy="120" r="90" fill="url(#capGlow)">
+            <animate attributeName="r" values="80;98;80" dur="4.5s" repeatCount="indefinite"/>
+          </circle>
+          <g transform="translate(500,120)">
+            <path d="M0,-26 L6,-6 L26,0 L6,6 L0,26 L-6,6 L-26,0 L-6,-6 Z" fill="#eaf6ff">
+              <animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="36s" repeatCount="indefinite"/>
+            </path>
+          </g>
+          <text x="500" y="232" text-anchor="middle" fill="#7DD3FC" font-family="Georgia,serif" font-size="18" letter-spacing="3" data-i18n-svg="cap_ahead">TON CAP</text>
+          <line x1="0" y1="360" x2="1000" y2="360" stroke="rgba(125,211,252,.35)" stroke-width="1.5"/>
+          <!-- sea shimmer -->
+          <g stroke="rgba(125,211,252,.22)" stroke-width="2" fill="none">
+            <path d="M120,420 q40,-8 80,0 t80,0 t80,0" ><animate attributeName="opacity" values="0.2;0.6;0.2" dur="5s" repeatCount="indefinite"/></path>
+            <path d="M520,470 q40,-8 80,0 t80,0 t80,0" ><animate attributeName="opacity" values="0.5;0.15;0.5" dur="6s" repeatCount="indefinite"/></path>
+          </g>
+          <g id="windF"></g>
+          <g transform="translate(720,150)" opacity="0.85">
+            <rect x="-4" y="0" width="8" height="210" fill="url(#bronzeMast)"/>
+            <g id="artimonSailF" style="transform-box:fill-box;transform-origin:0% 100%"><path d="M0,12 C40,40 52,120 30,196 L0,196 Z" fill="url(#sailF)" opacity="0.92"/></g>
+            <g id="artimonGenoaF" style="transform-box:fill-box;transform-origin:100% 100%"><path d="M0,30 C-34,60 -44,130 -22,196 L0,196 Z" fill="url(#sailF)" opacity="0.78"/></g>
+          </g>
+          <g transform="translate(360,40)">
+            <rect x="-6" y="0" width="12" height="330" fill="url(#bronzeMast)"/>
+            <g id="mainSailF" style="transform-box:fill-box;transform-origin:0% 100%;animation:luff 4s ease-in-out infinite">
+              <path d="M0,16 C95,70 120,230 70,322 L0,322 Z" fill="url(#sailF)"/>
+              <path d="M0,16 C95,70 120,230 70,322" fill="none" stroke="#90a4bd" stroke-width="1" opacity="0.6"/>
+            </g>
+            <g id="genoaF" style="transform-box:fill-box;transform-origin:100% 100%"><path d="M0,40 C-90,90 -112,240 -64,322 L0,322 Z" fill="url(#sailF)" opacity="0.9"/></g>
+          </g>
+          <g transform="translate(150,180)">
+            <rect x="-22" y="0" width="44" height="190" rx="22" fill="#13203a" stroke="#D49B5B" stroke-width="2"/>
+            <g id="flettnerStripesF" clip-path="url(#clipRotorF)"></g>
+            <ellipse cx="0" cy="0" rx="22" ry="7" fill="#D49B5B"/>
+            <ellipse cx="0" cy="190" rx="22" ry="7" fill="#1c0f06"/>
+          </g>
+          <path d="M-40,600 C200,470 800,470 1040,600 Z" fill="url(#woodArc)"/>
+          <path d="M-40,600 C200,470 800,470 1040,600" fill="none" stroke="#D49B5B" stroke-width="3" opacity="0.7"/>
+          <g fill="#2a1a0c" stroke="#D49B5B" stroke-width="2"><circle cx="250" cy="540" r="20"/><circle cx="500" cy="556" r="22"/><circle cx="760" cy="540" r="20"/></g>
+          <g fill="none" stroke="rgba(0,0,0,.5)" stroke-width="2" stroke-dasharray="4 5"><circle cx="250" cy="540" r="12"/><circle cx="500" cy="556" r="13"/><circle cx="760" cy="540" r="12"/></g>
+        </svg>
+      </div>
+
+      <!-- FACE ARRIÈRE -->
+      <div class="face face-back">
+        <svg class="scene" viewBox="0 0 1000 600" preserveAspectRatio="xMidYMid slice" aria-label="Vue cockpit vers l'arrière">
+          <defs>
+            <linearGradient id="skyB" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#16243f"/><stop offset="0.5" stop-color="#0a1428"/><stop offset="1" stop-color="#050b16"/></linearGradient>
+            <linearGradient id="seaB" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0a2036"/><stop offset="1" stop-color="#01060d"/></linearGradient>
+            <linearGradient id="wake" x1="0.5" y1="0" x2="0.5" y2="1"><stop offset="0" stop-color="rgba(125,211,252,0)"/><stop offset="1" stop-color="rgba(125,211,252,.30)"/></linearGradient>
+          </defs>
+          <rect x="0" y="0" width="1000" height="330" fill="url(#skyB)"/>
+          <rect x="0" y="330" width="1000" height="270" fill="url(#seaB)"/>
+          <g fill="#cfe6ff" opacity="0.8"><circle cx="160" cy="60" r="1.2"/><circle cx="300" cy="100" r="1"/><circle cx="700" cy="70" r="1.3"/><circle cx="840" cy="110" r="1"/><circle cx="900" cy="56" r="1.1"/></g>
+          <line x1="0" y1="330" x2="1000" y2="330" stroke="rgba(125,211,252,.3)" stroke-width="1.5"/>
+          <path d="M500,330 L760,600 L240,600 Z" fill="url(#wake)"/>
+          <path d="M500,330 L600,600 M500,330 L400,600 M500,330 L700,600 M500,330 L300,600" stroke="rgba(125,211,252,.18)" stroke-width="1.5" fill="none"/>
+          <g id="equityWrap">
+            <polyline id="equityFill" points="" fill="rgba(125,211,252,.10)" stroke="none"/>
+            <polyline id="equityLine" points="" fill="none" stroke="#7DD3FC" stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round" style="filter:drop-shadow(0 0 6px rgba(125,211,252,.6))"/>
+          </g>
+          <text x="500" y="80" text-anchor="middle" fill="#7DD3FC" font-family="Georgia,serif" font-size="18" letter-spacing="3" data-i18n-svg="wake_behind">TON SILLAGE</text>
+          <g transform="translate(500,40)">
+            <rect x="-5" y="0" width="10" height="260" fill="url(#bronzeMast)"/>
+            <g id="artimonMainB" style="transform-box:fill-box;transform-origin:0% 100%;animation:luff 3.4s ease-in-out infinite"><path d="M0,14 C58,60 72,170 40,252 L0,252 Z" fill="#dbe6f2"/></g>
+            <g id="artimonGenoaB" style="transform-box:fill-box;transform-origin:100% 100%"><path d="M0,34 C-46,74 -58,176 -30,252 L0,252 Z" fill="#dbe6f2" opacity="0.85"/></g>
+          </g>
+          <path d="M-40,600 C200,480 800,480 1040,600 Z" fill="url(#woodArc)"/>
+          <path d="M-40,600 C200,480 800,480 1040,600" fill="none" stroke="#D49B5B" stroke-width="3" opacity="0.7"/>
+        </svg>
+      </div>
+
+    </div>
+
+    <div class="compass-overlay">
+      <svg class="med-lg" viewBox="0 0 200 200" aria-label="Médaillon NAVLYS"><use href="#med"/></svg>
+      <div class="cap-card">
+        <div class="k" data-i18n="cap_title">Cap du jour</div>
+        <div class="ticker" id="capTicker">MISTRAL-7</div>
+        <div class="meta"><span data-i18n="cap_entry">Entrée</span> <b id="capEntry">128,40 €</b> · <span data-i18n="cap_exit">Sortie visée</span> <span class="exit" id="capExit">+2,5 %</span></div>
+      </div>
+    </div>
+
+    <div class="swipe-hint" id="swipeHint" data-i18n="swipe_hint">↤ glisse ou « Virer de bord » pour pivoter à 360° ↦</div>
+  </div>
+
+  <div class="cluster">
+
+    <div class="panel">
+      <h3><span class="pin">⚓</span> <span data-i18n="capital_title">Capital à bord</span></h3>
+      <div class="coffres">
+        <div class="coffre fort">
+          <div class="name" data-i18n="forteresse">La Forteresse</div>
+          <div class="sub" data-i18n="forteresse_sub">part sécurisée · cap stable</div>
+          <div class="val" id="fortVal">900 €</div><div class="pct" id="fortPct">90 %</div>
+        </div>
+        <div class="coffre">
+          <div class="name" data-i18n="actif">Le Jeu Actif</div>
+          <div class="sub" data-i18n="actif_sub">part ultra-réactive</div>
+          <div class="val" id="actifVal">100 €</div><div class="pct" id="actifPct">10 %</div>
+        </div>
+      </div>
+      <div class="totline"><span class="lab" data-i18n="total_lab">Total embarqué</span><span class="big" id="totalVal">1 000 €</span></div>
+      <div class="subline"><span data-i18n="deposited_lab">dont versé à bord</span> <b id="depositedVal">0 €</b></div>
+      <div class="proj">
+        <span data-i18n="proj_lab">Projection 1 an (démo)</span> : <b id="projVal">1 200 €</b>
+        <span id="dayBadge" style="float:right;color:var(--dim)">Mois 0</span>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h3><span class="pin">🪢</span> <span data-i18n="winches_title">Les winchs — à portée de main</span></h3>
+      <div class="winches">
+
+        <div class="winch">
+          <div class="top"><span class="lbl"><span class="drum"></span><span data-i18n="winch_alloc">Allocation Forteresse / Actif</span></span><span class="out" id="allocOut">90 / 10</span></div>
+          <input type="range" id="allocRange" min="0" max="100" step="1" value="90" oninput="onAlloc(this)"/>
+          <div class="scale"><span>0/100</span><span data-i18n="alloc_def">90/10 (défaut)</span><span>100/0</span></div>
+        </div>
+
+        <div class="winch">
+          <div class="top"><span class="lbl"><span class="drum"></span><span data-i18n="winch_realloc">Réaffectation des plus-values</span></span><span class="out" id="reallocOut">50 %</span></div>
+          <input type="range" id="reallocRange" min="0" max="100" step="1" value="50" oninput="onRealloc(this)"/>
+          <div class="scale"><span data-i18n="realloc_lo">tout au jeu</span><span data-i18n="realloc_hi">tout au coffre</span></div>
+        </div>
+
+        <div class="winch">
+          <div class="top"><span class="lbl"><span class="drum"></span><span data-i18n="winch_voilure">Voilure du jour</span></span><span class="out" id="voilOut">50 %</span></div>
+          <input type="range" id="voilRange" min="0" max="100" step="1" value="50" oninput="onVoil(this)"/>
+          <div class="band" id="voilBand" data-i18n="voil_equilibre">Équilibré</div>
+        </div>
+
+        <div class="winch">
+          <div class="top"><span class="lbl"><span class="drum"></span><span data-i18n="winch_deposit">Versement mensuel</span></span><span class="out" id="depositOut">100 €</span></div>
+          <input type="range" id="depositRange" min="0" max="1000" step="25" value="100" oninput="onDeposit(this)"/>
+          <div class="scale"><span>0 €</span><span data-i18n="deposit_mid">100 €/mois</span><span>1 000 €</span></div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="panel">
+      <h3><span class="pin">🌬️</span> <span data-i18n="meteo_title">Météo NAVLYS · marché mondial</span></h3>
+      <div class="meteo-row">
+        <div class="dial-box">
+          <svg class="dial-svg" viewBox="0 0 200 130" aria-label="Cadran météo marché">
+            <path d="M20,120 A80,80 0 0 1 180,120" fill="none" stroke="#12203a" stroke-width="14" stroke-linecap="round"/>
+            <path d="M20,120 A80,80 0 0 1 73,52" fill="none" stroke="#e07a5f" stroke-width="14" stroke-linecap="round"/>
+            <path d="M73,52 A80,80 0 0 1 127,52" fill="none" stroke="#9aa6b6" stroke-width="14"/>
+            <path d="M127,52 A80,80 0 0 1 180,120" fill="none" stroke="#7DD3FC" stroke-width="14" stroke-linecap="round"/>
+            <g id="mktNeedleG" class="needle-mkt" transform="rotate(0 100 120)"><polygon points="100,46 105,120 95,120" fill="#D49B5B"/></g>
+            <circle cx="100" cy="120" r="8" fill="#D49B5B" stroke="#1a0e03" stroke-width="2"/>
+            <text x="22" y="118" fill="#e07a5f" font-size="10" font-family="Georgia,serif" data-i18n-svg="m_down">baisse</text>
+            <text x="150" y="118" fill="#7DD3FC" font-size="10" font-family="Georgia,serif" data-i18n-svg="m_up">hausse</text>
+          </svg>
+          <div class="cap" data-i18n="meteo_cap">Le grand vent global</div>
+          <div class="state" id="mktState" style="color:var(--ice)">Hausse modérée</div>
+        </div>
+        <div class="dial-box">
+          <svg class="dial-svg" viewBox="0 0 200 130" aria-label="Ta route">
+            <circle cx="100" cy="95" r="58" fill="none" stroke="#12203a" stroke-width="10"/>
+            <circle cx="100" cy="95" r="58" fill="none" stroke="rgba(184,115,51,.5)" stroke-width="2" stroke-dasharray="2 7"/>
+            <g transform="rotate(0 100 95)"><polygon points="100,40 106,95 94,95" fill="#7DD3FC"/><polygon points="100,150 106,95 94,95" fill="#6e3f17"/></g>
+            <circle cx="100" cy="95" r="7" fill="#D49B5B" stroke="#1a0e03" stroke-width="2"/>
+            <text x="100" y="30" text-anchor="middle" fill="#7DD3FC" font-size="11" font-family="Georgia,serif">N</text>
+          </svg>
+          <div class="cap" data-i18n="route_cap">Ta route à toi</div>
+          <div class="state" style="color:var(--cuivre)" data-i18n="route_steady">Tenue, quoi qu'il vente</div>
+        </div>
+      </div>
+      <div class="contrast-note" data-i18n="contrast">Le vent du marché tourne sans cesse. <b>Ton cap, lui, ne bouge pas.</b> Voilà tout NAVLYS.</div>
+    </div>
+
+    <div class="panel">
+      <h3><span class="pin">◎</span> <span data-i18n="flettner_title">Rotor Flettner · l'œil qui veille</span></h3>
+      <div style="display:flex;gap:18px;align-items:center">
+        <svg viewBox="0 0 80 150" style="width:84px;flex:0 0 auto" aria-label="Rotor Flettner">
+          <defs><clipPath id="clipRotorP"><rect x="18" y="12" width="44" height="126" rx="22"/></clipPath></defs>
+          <rect x="18" y="12" width="44" height="126" rx="22" fill="#13203a" stroke="#D49B5B" stroke-width="2"/>
+          <g id="flettnerPanel" clip-path="url(#clipRotorP)"></g>
+          <ellipse cx="40" cy="12" rx="22" ry="6" fill="#D49B5B"/>
+          <ellipse cx="40" cy="138" rx="22" ry="6" fill="#1c0f06"/>
+        </svg>
+        <div style="font-size:15px;color:var(--dim);line-height:1.6">
+          <span data-i18n="flettner_txt">Le rotor tourne en continu : c'est la curation, l'œil aiguisé qui lit le vent du monde et te livre <b>un seul</b> signal clair chaque matin. Pas de bruit. Juste le cap.</span>
+          <div style="margin-top:9px;color:var(--ice);font-weight:700" id="signalDay">Signal du jour : prêt à virer ✓</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="footer">
+    <div class="sig" data-i18n="signature">« Un cap, une main, un jour. NAVLYS te guide d'un seul geste vers ton objectif. »</div>
+    <div class="disclaimer" data-i18n="disclaimer">NAVLYS partage des informations générales et pédagogiques. Ce n'est pas un conseil financier personnalisé. Tu décides tout, tu gères tout. Pour une décision importante, parle à un professionnel certifié.</div>
+    <div class="demo-tag" data-i18n="demo_tag">Prototype · données de démonstration · pas de marché réel</div>
+  </div>
+
+</div>
+<script>
+/* ============ NAVLYS COCKPIT v2 — logique (vanilla JS, données démo) ============ */
+const I18N={
+  fr:{
+    tagline:"vise ton cap, atteins-le.",
+    view_avant:"AVANT · le cap", view_arriere:"ARRIÈRE · le sillage",
+    btn_newmonth:"Mois suivant ⚓", btn_rotate:"Virer de bord ↻",
+    swipe_hint:"↤ glisse ou « Virer de bord » pour pivoter à 360° ↦",
+    cap_title:"Cap du jour", cap_entry:"Entrée", cap_exit:"Sortie visée",
+    capital_title:"Capital à bord",
+    forteresse:"La Forteresse", forteresse_sub:"part sécurisée · cap stable",
+    actif:"Le Jeu Actif", actif_sub:"part ultra-réactive",
+    total_lab:"Total embarqué", deposited_lab:"dont versé à bord", proj_lab:"Projection 1 an (démo)",
+    winches_title:"Les winchs — à portée de main",
+    winch_alloc:"Allocation Forteresse / Actif", alloc_def:"90/10 (défaut)",
+    winch_realloc:"Réaffectation des plus-values", realloc_lo:"tout au jeu", realloc_hi:"tout au coffre",
+    winch_voilure:"Voilure du jour",
+    winch_deposit:"Versement mensuel", deposit_mid:"100 €/mois",
+    meteo_title:"Météo NAVLYS · marché mondial", meteo_cap:"Le grand vent global",
+    route_cap:"Ta route à toi", route_steady:"Tenue, quoi qu'il vente",
+    contrast:"Le vent du marché tourne sans cesse. <b>Ton cap, lui, ne bouge pas.</b> Voilà tout NAVLYS.",
+    flettner_title:"Rotor Flettner · l'œil qui veille",
+    flettner_txt:"Le rotor tourne en continu : c'est la curation, l'œil aiguisé qui lit le vent du monde et te livre <b>un seul</b> signal clair chaque matin. Pas de bruit. Juste le cap.",
+    signature:"« Un cap, une main, un jour. NAVLYS te guide d'un seul geste vers ton objectif. »",
+    disclaimer:"NAVLYS partage des informations générales et pédagogiques. Ce n'est pas un conseil financier personnalisé. Tu décides tout, tu gères tout. Pour une décision importante, parle à un professionnel certifié.",
+    demo_tag:"Prototype · données de démonstration · pas de marché réel",
+    cap_ahead:"TON CAP", wake_behind:"TON SILLAGE", m_down:"baisse", m_up:"hausse",
+    mkt_up:"Hausse modérée", mkt_neutral:"Vent stable", mkt_down:"Risée de baisse",
+    voil_prudent:"Prudent", voil_equilibre:"Équilibré", voil_agressif:"Agressif",
+    month:"Mois", signal_ready:"Signal du jour : prêt à virer ✓"
+  },
+  en:{
+    tagline:"aim for your heading, reach it.",
+    view_avant:"FORWARD · the heading", view_arriere:"AFT · the wake",
+    btn_newmonth:"Next month ⚓", btn_rotate:"Come about ↻",
+    swipe_hint:"↤ swipe or « Come about » to spin 360° ↦",
+    cap_title:"Heading of the day", cap_entry:"Entry", cap_exit:"Target exit",
+    capital_title:"Capital aboard",
+    forteresse:"The Fortress", forteresse_sub:"secured share · steady heading",
+    actif:"The Active Play", actif_sub:"ultra-reactive share",
+    total_lab:"Total aboard", deposited_lab:"of which paid in", proj_lab:"1-year projection (demo)",
+    winches_title:"The winches — within reach",
+    winch_alloc:"Fortress / Active allocation", alloc_def:"90/10 (default)",
+    winch_realloc:"Profit reallocation", realloc_lo:"all to the play", realloc_hi:"all to the vault",
+    winch_voilure:"Sail trim of the day",
+    winch_deposit:"Monthly deposit", deposit_mid:"100/month",
+    meteo_title:"NAVLYS weather · world market", meteo_cap:"The great global wind",
+    route_cap:"Your own heading", route_steady:"Held, whatever the wind",
+    contrast:"The market wind keeps turning. <b>Your heading does not move.</b> That is all of NAVLYS.",
+    flettner_title:"Flettner rotor · the watching eye",
+    flettner_txt:"The rotor spins non-stop: this is the curation, the sharp eye that reads the world's wind and hands you <b>one</b> clear signal each morning. No noise. Just the heading.",
+    signature:"“One heading, one hand, one day. NAVLYS guides you to your goal in a single move.”",
+    disclaimer:"NAVLYS shares general, educational information. This is not personalised financial advice. You decide everything, you manage everything. For any important decision, talk to a certified professional.",
+    demo_tag:"Prototype · demo data · no real market",
+    cap_ahead:"YOUR HEADING", wake_behind:"YOUR WAKE", m_down:"down", m_up:"up",
+    mkt_up:"Moderate rise", mkt_neutral:"Steady wind", mkt_down:"Bearish gust",
+    voil_prudent:"Cautious", voil_equilibre:"Balanced", voil_agressif:"Aggressive",
+    month:"Month", signal_ready:"Signal of the day: ready to come about ✓"
+  }
+};
+const TICKERS=["MISTRAL-7","ZÉPHYR-3","TRAMONTANE-9","ALIZÉ-5","BORÉE-2","SIROCCO-6","NORDET-4"];
+const state={lang:"fr",facing:"avant",flipped:false,
+  fortShare:0.90,realloc:0.50,voil:50,deposit:100,
+  market:0.4,fort:900,actif:100,capital:1000,deposited:0,month:0,history:[1000]};
+
+function fmt(n){return new Intl.NumberFormat(state.lang==="fr"?"fr-FR":"en-US",{maximumFractionDigits:0}).format(Math.round(n))+" €";}
+function fmt2(n){return new Intl.NumberFormat(state.lang==="fr"?"fr-FR":"en-US",{minimumFractionDigits:2,maximumFractionDigits:2}).format(n)+" €";}
+function rnd(a,b){return a+Math.random()*(b-a);}
+function clamp(v,a,b){return Math.max(a,Math.min(b,v));}
+function expoFactor(){return 0.4+(state.voil/100)*1.4;}
+function voilKey(){return state.voil<33?"voil_prudent":state.voil<67?"voil_equilibre":"voil_agressif";}
+
+function setLang(l){
+  state.lang=l;document.documentElement.lang=l;
+  document.getElementById("frBtn").classList.toggle("active",l==="fr");
+  document.getElementById("enBtn").classList.toggle("active",l==="en");
+  const d=I18N[l];
+  document.querySelectorAll("[data-i18n]").forEach(el=>{const k=el.getAttribute("data-i18n");if(d[k]!==undefined)el.innerHTML=d[k];});
+  document.querySelectorAll("[data-i18n-svg]").forEach(el=>{const k=el.getAttribute("data-i18n-svg");if(d[k]!==undefined)el.textContent=d[k];});
+  updateViewLabel();syncControls();render();
+}
+function updateViewLabel(){const d=I18N[state.lang];document.getElementById("viewLabel").textContent=state.facing==="avant"?d.view_avant:d.view_arriere;}
+function rotate360(){state.flipped=!state.flipped;state.facing=state.flipped?"arriere":"avant";document.getElementById("rotator").classList.toggle("flipped",state.flipped);updateViewLabel();}
+(function(){const st=document.getElementById("stage");let x0=null;
+  st.addEventListener("touchstart",e=>{x0=e.touches[0].clientX;},{passive:true});
+  st.addEventListener("touchend",e=>{if(x0===null)return;if(Math.abs(e.changedTouches[0].clientX-x0)>55)rotate360();x0=null;},{passive:true});})();
+
+function onAlloc(el){const f=parseInt(el.value,10);state.fortShare=f/100;state.fort=state.capital*state.fortShare;state.actif=state.capital*(1-state.fortShare);
+  el.style.setProperty("--fill",f+"%");document.getElementById("allocOut").textContent=f+" / "+(100-f);render();}
+function onRealloc(el){state.realloc=parseInt(el.value,10)/100;el.style.setProperty("--fill",el.value+"%");document.getElementById("reallocOut").textContent=el.value+" %";render();}
+function onVoil(el){state.voil=parseInt(el.value,10);el.style.setProperty("--fill",el.value+"%");document.getElementById("voilOut").textContent=el.value+" %";
+  document.getElementById("voilBand").textContent=I18N[state.lang][voilKey()];render();}
+function onDeposit(el){state.deposit=parseInt(el.value,10);el.style.setProperty("--fill",(el.value/1000*100)+"%");
+  document.getElementById("depositOut").textContent=fmt(state.deposit);render();}
+
+function syncControls(){
+  const a=document.getElementById("allocRange"),r=document.getElementById("reallocRange"),v=document.getElementById("voilRange"),dp=document.getElementById("depositRange");
+  const af=Math.round(state.fortShare*100);
+  a.value=af;a.style.setProperty("--fill",af+"%");document.getElementById("allocOut").textContent=af+" / "+(100-af);
+  r.value=Math.round(state.realloc*100);r.style.setProperty("--fill",Math.round(state.realloc*100)+"%");document.getElementById("reallocOut").textContent=Math.round(state.realloc*100)+" %";
+  v.value=state.voil;v.style.setProperty("--fill",state.voil+"%");document.getElementById("voilOut").textContent=state.voil+" %";
+  document.getElementById("voilBand").textContent=I18N[state.lang][voilKey()];
+  dp.value=state.deposit;dp.style.setProperty("--fill",(state.deposit/1000*100)+"%");document.getElementById("depositOut").textContent=fmt(state.deposit);
+}
+
+function nextMonth(){
+  state.month++;
+  state.market=clamp(state.market+rnd(-0.4,0.4),-1,1);
+  // versement mensuel réparti selon l'allocation
+  state.fort+=state.deposit*state.fortShare;
+  state.actif+=state.deposit*(1-state.fortShare);
+  state.deposited+=state.deposit;
+  // Forteresse : ~5%/an
+  state.fort*=Math.pow(1.05,1/12);
+  // Jeu Actif : rendement mensuel borné
+  const ef=expoFactor(), mean=state.market*0.04*ef, vol=0.06*ef;
+  const ret=clamp(mean+rnd(-vol,vol),-0.15,0.22);
+  const before=state.actif;state.actif*=(1+ret);
+  const gain=state.actif-before;
+  if(gain>0){const moved=gain*state.realloc;state.actif-=moved;state.fort+=moved;}
+  state.capital=state.fort+state.actif;
+  state.history.push(state.capital);if(state.history.length>120)state.history.shift();
+  const t=TICKERS[Math.floor(Math.random()*TICKERS.length)];
+  document.getElementById("capTicker").textContent=t;
+  document.getElementById("capEntry").textContent=fmt2(rnd(40,220));
+  document.getElementById("capExit").textContent="+"+rnd(1.5,3.5).toFixed(1).replace(".",state.lang==="fr"?",":".")+" %";
+  render();pulseSignal();
+}
+function pulseSignal(){const el=document.getElementById("signalDay");el.style.transition="none";el.style.opacity="0.2";requestAnimationFrame(()=>{el.style.transition="opacity .6s";el.style.opacity="1";});}
+
+function projection(){
+  let f=state.fort,a=state.actif;
+  const annualActive=0.02+(state.voil/100)*0.22;
+  const bias=0.6+0.4*((state.market+1)/2);
+  const monthlyA=Math.pow(1+annualActive*bias,1/12)-1;
+  const fm=Math.pow(1.05,1/12)-1;
+  for(let i=0;i<12;i++){f=f*(1+fm)+state.deposit*state.fortShare;a=a*(1+monthlyA)+state.deposit*(1-state.fortShare);}
+  return f+a;
+}
+
+function render(){
+  const d=I18N[state.lang],total=state.capital;
+  const fortP=total>0?Math.round(state.fort/total*100):0,actP=100-fortP;
+  document.getElementById("fortVal").textContent=fmt(state.fort);
+  document.getElementById("actifVal").textContent=fmt(state.actif);
+  document.getElementById("fortPct").textContent=fortP+" %";
+  document.getElementById("actifPct").textContent=actP+" %";
+  document.getElementById("totalVal").textContent=fmt(total);
+  document.getElementById("depositedVal").textContent=fmt(state.deposited);
+  const proj=projection(),projEl=document.getElementById("projVal");
+  projEl.textContent=fmt(proj);projEl.className=(proj-total)>=0?"delta-up":"delta-down";
+  document.getElementById("dayBadge").textContent=d.month+" "+state.month;
+  // voiles
+  const wind=(state.market+1)/2, vk=0.7+0.5*(state.voil/100);
+  const mainK=clamp(0.6+wind*0.45*vk,0.5,1.12), artK=clamp(0.55+wind*0.4*vk,0.5,1.1);
+  setSail("mainSailF",mainK);setSail("genoaF",mainK*0.95);
+  setSail("artimonSailF",artK);setSail("artimonGenoaF",artK*0.92);
+  setSail("artimonMainB",artK*1.05);setSail("artimonGenoaB",artK);
+  // météo
+  const ndl=document.getElementById("mktNeedleG");if(ndl)ndl.setAttribute("transform","rotate("+(state.market*80)+" 100 120)");
+  const ms=document.getElementById("mktState");
+  if(state.market>0.2){ms.textContent=d.mkt_up;ms.style.color="var(--ice)";}
+  else if(state.market<-0.2){ms.textContent=d.mkt_down;ms.style.color="var(--down)";}
+  else{ms.textContent=d.mkt_neutral;ms.style.color="var(--dim)";}
+  drawEquity();
+}
+function setSail(id,k){const el=document.getElementById(id);if(el)el.style.transform="scaleX("+k.toFixed(3)+")";}
+
+function drawEquity(){
+  const h=state.history,line=document.getElementById("equityLine"),fill=document.getElementById("equityFill");
+  if(!line)return;
+  const x0=120,x1=880,yTop=170,yBot=470;
+  const min=Math.min.apply(null,h),max=Math.max.apply(null,h),span=(max-min)||1,n=h.length;
+  let pts=[];
+  for(let i=0;i<n;i++){const x=n===1?(x0+x1)/2:x0+(x1-x0)*i/(n-1);const y=yBot-(h[i]-min)/span*(yBot-yTop);pts.push(x.toFixed(1)+","+y.toFixed(1));}
+  line.setAttribute("points",pts.join(" "));
+  fill.setAttribute("points",(x0+","+yBot)+" "+pts.join(" ")+" "+(x1+","+yBot));
+}
+
+function buildFlettner(){
+  const g=document.getElementById("flettnerStripesF");
+  if(g){const block=40;let s="";for(let y=-200;y<260;y+=block){const i=Math.round((y+200)/block);s+='<rect x="-22" y="'+y+'" width="44" height="'+block+'" fill="'+(i%2?"#0e1a30":"#D49B5B")+'" opacity="0.85"/>';}g.innerHTML=s;animateStripes(g,block*2,0.55);}
+  const p=document.getElementById("flettnerPanel");
+  if(p){const block=26;let s="";for(let y=-40;y<180;y+=block){const i=Math.round((y+40)/block);s+='<rect x="18" y="'+y+'" width="44" height="'+block+'" fill="'+(i%2?"#0e1a30":"#D49B5B")+'" opacity="0.85"/>';}p.innerHTML=s;animateStripes(p,block*2,0.8);}
+}
+function animateStripes(g,period,speed){let off=0;(function step(){off=(off+speed)%period;g.setAttribute("transform","translate(0,"+off.toFixed(2)+")");requestAnimationFrame(step);})();}
+
+function spawnWind(){const g=document.getElementById("windF");if(!g)return;
+  const y=rnd(150,350),len=rnd(60,150),x=rnd(0,420);
+  const ln=document.createElementNS("http://www.w3.org/2000/svg","line");
+  ln.setAttribute("x1",x);ln.setAttribute("y1",y);ln.setAttribute("x2",x+len);ln.setAttribute("y2",y-rnd(-6,6));
+  ln.setAttribute("class","wind-streak");ln.style.animation="drift "+rnd(2.2,4)+"s linear forwards";
+  g.appendChild(ln);setTimeout(()=>ln.remove(),4200);}
+
+function init(){buildFlettner();setInterval(spawnWind,520);setLang("fr");}
+init();
+</script>
+</body>
+</html>
