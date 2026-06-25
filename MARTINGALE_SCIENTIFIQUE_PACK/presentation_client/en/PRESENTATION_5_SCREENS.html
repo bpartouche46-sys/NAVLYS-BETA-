@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NAVLYS — 5-screen presentation</title>
+<style>
+  :root {
+    --ice: #7DD3FC;
+    --ice-soft: #CFE9FF;
+    --bg: #050B14;
+    --bg-2: #0B1F33;
+    --bg-3: #1B3A5B;
+    --danger: #FF6B6B;
+    --warning: #FFD56B;
+    --text: #E8F4FF;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.6;
+    scroll-behavior: smooth;
+  }
+  body {
+    background: linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 50%, var(--bg) 100%);
+    min-height: 100vh;
+  }
+  .nav {
+    position: sticky; top: 0; z-index: 50;
+    backdrop-filter: blur(10px);
+    background: rgba(5, 11, 20, 0.85);
+    border-bottom: 1px solid rgba(125, 211, 252, 0.2);
+    padding: 12px 20px; text-align: center;
+  }
+  .nav a {
+    color: var(--ice); text-decoration: none; margin: 0 10px;
+    font-size: 13px; font-weight: 600; opacity: 0.7; transition: opacity 0.2s;
+  }
+  .nav a:hover { opacity: 1; }
+  section {
+    min-height: 100vh; padding: 80px 24px 60px;
+    max-width: 900px; margin: 0 auto;
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: center; text-align: center;
+  }
+  .num {
+    font-size: 14px; color: var(--ice);
+    letter-spacing: 4px; text-transform: uppercase;
+    margin-bottom: 16px; opacity: 0.7;
+  }
+  h1 {
+    font-size: clamp(28px, 6vw, 48px); color: var(--ice);
+    margin-bottom: 24px; letter-spacing: -0.5px; line-height: 1.15;
+  }
+  h2 {
+    font-size: clamp(20px, 3vw, 28px); color: var(--ice-soft);
+    margin-bottom: 18px; font-weight: 500;
+  }
+  p {
+    max-width: 640px; font-size: clamp(15px, 2vw, 17px);
+    margin-bottom: 14px; color: var(--text); opacity: 0.92;
+  }
+  .illustration {
+    width: min(100%, 500px); height: auto; margin: 30px auto;
+    filter: drop-shadow(0 8px 32px rgba(125, 211, 252, 0.15));
+  }
+  .btn-row { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; margin-top: 30px; }
+  .btn {
+    padding: 14px 26px; border-radius: 28px; border: 1.5px solid var(--ice);
+    background: transparent; color: var(--ice);
+    font-size: 14px; font-weight: 600; cursor: pointer;
+    text-decoration: none; transition: all 0.2s; font-family: inherit;
+  }
+  .btn:hover { background: var(--ice); color: var(--bg); }
+  .btn-primary { background: var(--ice); color: var(--bg); }
+  .btn-primary:hover { background: var(--ice-soft); }
+  .badge {
+    display: inline-block; padding: 6px 14px; border-radius: 14px;
+    background: rgba(125, 211, 252, 0.12); border: 1px solid rgba(125, 211, 252, 0.3);
+    color: var(--ice); font-size: 12px; font-weight: 600;
+    letter-spacing: 1px; margin-bottom: 16px;
+  }
+  .stats {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 16px; margin: 30px 0; width: 100%; max-width: 720px;
+  }
+  .stat {
+    padding: 18px 12px; border-radius: 14px;
+    background: rgba(125, 211, 252, 0.06);
+    border: 1px solid rgba(125, 211, 252, 0.25);
+  }
+  .stat-value {
+    font-size: 26px; font-weight: 700; color: var(--ice);
+    display: block; margin-bottom: 4px;
+  }
+  .stat-label {
+    font-size: 11px; color: var(--ice-soft);
+    text-transform: uppercase; letter-spacing: 1.2px;
+  }
+  .quote {
+    font-style: italic; color: var(--ice-soft);
+    border-left: 3px solid var(--ice); padding-left: 20px;
+    margin: 20px 0; max-width: 580px; text-align: left;
+  }
+  footer {
+    padding: 40px 20px; text-align: center;
+    border-top: 1px solid rgba(125, 211, 252, 0.15);
+    color: var(--ice-soft); font-size: 12px; opacity: 0.7;
+  }
+  .divider { width: 60px; height: 2px; background: var(--ice); margin: 20px auto; opacity: 0.5; }
+  @media (max-width: 600px) {
+    .nav a { font-size: 11px; margin: 0 6px; }
+    section { padding: 60px 18px 40px; }
+  }
+</style>
+</head>
+<body>
+<nav class="nav">
+  <a href="#s1">1. Welcome</a>
+  <a href="#s2">2. Idea</a>
+  <a href="#s3">3. Settings</a>
+  <a href="#s4">4. Execute</a>
+  <a href="#s5">5. Recap</a>
+</nav>
+
+<section id="s1">
+  <span class="badge">SCREEN 1</span>
+  <div class="num">Welcome aboard</div>
+  <h1>Your money is an island.</h1>
+  <h2>You own a fortress, and a sailboat.</h2>
+  <svg class="illustration" viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="skyE1" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#0B1F33"/>
+        <stop offset="100%" stop-color="#1B3A5B"/>
+      </linearGradient>
+      <linearGradient id="seaE1" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#1E5A8A"/>
+        <stop offset="100%" stop-color="#0A2E4F"/>
+      </linearGradient>
+    </defs>
+    <rect width="800" height="260" fill="url(#skyE1)"/>
+    <rect y="260" width="800" height="140" fill="url(#seaE1)"/>
+    <path d="M0,280 Q100,270 200,280 T400,280 T600,280 T800,280" fill="none" stroke="#7DD3FC" stroke-width="1.5" opacity="0.5"/>
+    <path d="M0,320 Q100,310 200,320 T400,320 T600,320 T800,320" fill="none" stroke="#7DD3FC" stroke-width="1.5" opacity="0.3"/>
+    <ellipse cx="260" cy="280" rx="220" ry="30" fill="#5C4E3A"/>
+    <rect x="160" y="170" width="200" height="110" fill="#B8B8B8" stroke="#3A3A3A" stroke-width="2"/>
+    <rect x="160" y="160" width="20" height="12" fill="#B8B8B8" stroke="#3A3A3A" stroke-width="1.5"/>
+    <rect x="195" y="160" width="20" height="12" fill="#B8B8B8" stroke="#3A3A3A" stroke-width="1.5"/>
+    <rect x="230" y="160" width="20" height="12" fill="#B8B8B8" stroke="#3A3A3A" stroke-width="1.5"/>
+    <rect x="265" y="160" width="20" height="12" fill="#B8B8B8" stroke="#3A3A3A" stroke-width="1.5"/>
+    <rect x="300" y="160" width="20" height="12" fill="#B8B8B8" stroke="#3A3A3A" stroke-width="1.5"/>
+    <rect x="335" y="160" width="20" height="12" fill="#B8B8B8" stroke="#3A3A3A" stroke-width="1.5"/>
+    <rect x="148" y="140" width="32" height="140" fill="#A8A8A8" stroke="#3A3A3A" stroke-width="2"/>
+    <rect x="340" y="140" width="32" height="140" fill="#A8A8A8" stroke="#3A3A3A" stroke-width="2"/>
+    <polygon points="148,140 164,118 180,140" fill="#7DD3FC"/>
+    <polygon points="340,140 356,118 372,140" fill="#7DD3FC"/>
+    <text x="260" y="225" font-size="32" font-weight="bold" fill="#7DD3FC" text-anchor="middle">90 %</text>
+    <g transform="translate(580, 240)">
+      <path d="M-30,30 Q-22,40 0,40 Q22,40 30,30 Z" fill="#8B6F4A" stroke="#3A2F1F" stroke-width="2"/>
+      <line x1="0" y1="30" x2="0" y2="-30" stroke="#3A2F1F" stroke-width="3"/>
+      <path d="M0,-30 L26,22 L0,22 Z" fill="#FFFFFF" stroke="#7DD3FC" stroke-width="1.5"/>
+      <path d="M0,-30 L-20,18 L0,18 Z" fill="#FFFFFF" stroke="#7DD3FC" stroke-width="1.5"/>
+    </g>
+    <text x="580" y="320" font-size="24" font-weight="bold" fill="#7DD3FC" text-anchor="middle">10 %</text>
+  </svg>
+  <p>The fortress shelters 90 % of your savings. Nobody gets in.</p>
+  <p>The sailboat carries the remaining 10 %. It sails out when the sea is calm.</p>
+  <div class="btn-row">
+    <a href="#s2" class="btn btn-primary">See today's idea →</a>
+  </div>
+</section>
+
+<section id="s2">
+  <span class="badge">SCREEN 2</span>
+  <div class="num">Today's idea</div>
+  <h1>Sail out or stay at port ?</h1>
+  <h2>The algorithm gives you the heading.</h2>
+  <svg class="illustration" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <radialGradient id="compassE" cx="0.5" cy="0.5" r="0.5">
+        <stop offset="0%" stop-color="#1B3A5B"/>
+        <stop offset="100%" stop-color="#0B1F33"/>
+      </radialGradient>
+    </defs>
+    <circle cx="200" cy="200" r="160" fill="url(#compassE)" stroke="#7DD3FC" stroke-width="3"/>
+    <circle cx="200" cy="200" r="140" fill="none" stroke="#7DD3FC" stroke-width="1" opacity="0.4"/>
+    <circle cx="200" cy="200" r="110" fill="none" stroke="#7DD3FC" stroke-width="1" opacity="0.3"/>
+    <text x="200" y="55" font-size="20" font-weight="bold" fill="#7DD3FC" text-anchor="middle">N</text>
+    <text x="200" y="360" font-size="20" font-weight="bold" fill="#7DD3FC" text-anchor="middle">S</text>
+    <text x="50" y="208" font-size="20" font-weight="bold" fill="#7DD3FC" text-anchor="middle">W</text>
+    <text x="355" y="208" font-size="20" font-weight="bold" fill="#7DD3FC" text-anchor="middle">E</text>
+    <polygon points="200,80 210,200 200,210 190,200" fill="#7DD3FC"/>
+    <polygon points="200,320 210,200 200,190 190,200" fill="#FFF" opacity="0.4"/>
+    <circle cx="200" cy="200" r="8" fill="#7DD3FC"/>
+  </svg>
+  <p>The algorithm watches the market tide, the news wind, the sky condition.</p>
+  <p>When all aligns, it says : <strong>sail out</strong>. Otherwise : <strong>stay at port</strong>.</p>
+  <div class="quote">7 tides out of 10 are favourable. 70.5 % profitable days in our tests.</div>
+  <div class="btn-row">
+    <button class="btn">Stay at port</button>
+    <button class="btn btn-primary">Sail out →</button>
+  </div>
+</section>
+
+<section id="s3">
+  <span class="badge">SCREEN 3</span>
+  <div class="num">My settings</div>
+  <h1>5 buttons. No more.</h1>
+  <h2>You choose your prudence.</h2>
+  <svg class="illustration" viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg">
+    <rect x="40" y="40" width="520" height="320" rx="20" fill="#0B1F33" stroke="#7DD3FC" stroke-width="2"/>
+    <g transform="translate(80, 80)">
+      <text x="0" y="0" font-size="13" fill="#CFE9FF">Fortress share</text>
+      <text x="440" y="0" font-size="13" fill="#7DD3FC" text-anchor="end" font-weight="bold">90%</text>
+      <line x1="0" y1="20" x2="440" y2="20" stroke="#FFF" stroke-width="2" opacity="0.3"/>
+      <circle cx="395" cy="20" r="10" fill="#7DD3FC"/>
+    </g>
+    <g transform="translate(80, 130)">
+      <text x="0" y="0" font-size="13" fill="#CFE9FF">Sailboat size</text>
+      <text x="440" y="0" font-size="13" fill="#7DD3FC" text-anchor="end" font-weight="bold">10%</text>
+      <line x1="0" y1="20" x2="440" y2="20" stroke="#FFF" stroke-width="2" opacity="0.3"/>
+      <circle cx="45" cy="20" r="10" fill="#7DD3FC"/>
+    </g>
+    <g transform="translate(80, 180)">
+      <text x="0" y="0" font-size="13" fill="#CFE9FF">Prudence threshold</text>
+      <text x="440" y="0" font-size="13" fill="#7DD3FC" text-anchor="end" font-weight="bold">Medium</text>
+      <line x1="0" y1="20" x2="440" y2="20" stroke="#FFF" stroke-width="2" opacity="0.3"/>
+      <circle cx="220" cy="20" r="10" fill="#7DD3FC"/>
+    </g>
+    <g transform="translate(80, 230)">
+      <text x="0" y="0" font-size="13" fill="#CFE9FF">Trips per day</text>
+      <text x="440" y="0" font-size="13" fill="#7DD3FC" text-anchor="end" font-weight="bold">1</text>
+      <line x1="0" y1="20" x2="440" y2="20" stroke="#FFF" stroke-width="2" opacity="0.3"/>
+      <circle cx="88" cy="20" r="10" fill="#7DD3FC"/>
+    </g>
+    <g transform="translate(80, 280)">
+      <text x="0" y="0" font-size="13" fill="#CFE9FF">Mode</text>
+      <text x="440" y="0" font-size="13" fill="#7DD3FC" text-anchor="end" font-weight="bold">Manual</text>
+      <rect x="380" y="10" width="60" height="22" rx="11" fill="#7DD3FC" opacity="0.2"/>
+      <circle cx="430" cy="21" r="10" fill="#7DD3FC"/>
+    </g>
+    <text x="300" y="350" font-size="12" fill="#7DD3FC" text-anchor="middle" font-style="italic">▾ Advanced (9 settings)</text>
+  </svg>
+  <p>5 simple sliders. Fortress, sailboat, prudence, trips, mode.</p>
+  <p>For the curious, one button opens the 9 advanced settings. Otherwise, the algorithm handles them.</p>
+  <div class="btn-row">
+    <button class="btn">Advanced settings</button>
+    <a href="#s4" class="btn btn-primary">Next →</a>
+  </div>
+</section>
+
+<section id="s4">
+  <span class="badge">SCREEN 4</span>
+  <div class="num">Execute</div>
+  <h1>The sailboat leaves.</h1>
+  <h2>You confirm. That's it.</h2>
+  <svg class="illustration" viewBox="0 0 600 350" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="seaE4" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#1E5A8A"/>
+        <stop offset="100%" stop-color="#0A2E4F"/>
+      </linearGradient>
+    </defs>
+    <rect width="600" height="220" fill="#0B1F33"/>
+    <rect y="220" width="600" height="130" fill="url(#seaE4)"/>
+    <path d="M0,235 Q75,225 150,235 T300,235 T450,235 T600,235" fill="none" stroke="#7DD3FC" stroke-width="2" opacity="0.6"/>
+    <path d="M0,265 Q75,255 150,265 T300,265 T450,265 T600,265" fill="none" stroke="#7DD3FC" stroke-width="1.5" opacity="0.4"/>
+    <path d="M0,295 Q75,285 150,295 T300,295 T450,295 T600,295" fill="none" stroke="#7DD3FC" stroke-width="1.5" opacity="0.3"/>
+    <g transform="translate(300, 200)">
+      <path d="M-50,30 Q-38,48 0,48 Q38,48 50,30 Z" fill="#8B6F4A" stroke="#3A2F1F" stroke-width="2"/>
+      <line x1="0" y1="30" x2="0" y2="-80" stroke="#3A2F1F" stroke-width="3.5"/>
+      <path d="M0,-80 L48,20 L0,20 Z" fill="#FFFFFF" stroke="#7DD3FC" stroke-width="2"/>
+      <path d="M0,-80 L-38,15 L0,15 Z" fill="#FFFFFF" stroke="#7DD3FC" stroke-width="2"/>
+      <line x1="0" y1="-80" x2="0" y2="-100" stroke="#FFF" stroke-width="1.5"/>
+      <polygon points="0,-100 18,-92 0,-85" fill="#7DD3FC"/>
+    </g>
+    <path d="M120,120 Q150,115 180,120" fill="none" stroke="#7DD3FC" stroke-width="1.5" opacity="0.5"/>
+    <path d="M100,140 Q140,135 180,140" fill="none" stroke="#7DD3FC" stroke-width="1.5" opacity="0.5"/>
+    <path d="M120,160 Q150,155 180,160" fill="none" stroke="#7DD3FC" stroke-width="1.5" opacity="0.5"/>
+    <text x="300" y="335" font-size="14" fill="#7DD3FC" text-anchor="middle" font-weight="bold">The sailboat is at sea. You can close the app.</text>
+  </svg>
+  <p>You confirm the trip with one gesture.</p>
+  <p>The sailboat leaves the harbour. You can close the app. There is nothing more to do.</p>
+  <div class="btn-row">
+    <button class="btn">Cancel</button>
+    <button class="btn btn-primary">Confirm trip ✓</button>
+  </div>
+</section>
+
+<section id="s5">
+  <span class="badge">SCREEN 5</span>
+  <div class="num">Recap</div>
+  <h1>Good tide.</h1>
+  <h2>Here is your trip of the day.</h2>
+  <div class="stats">
+    <div class="stat">
+      <span class="stat-value">+1.3 %</span>
+      <span class="stat-label">Today</span>
+    </div>
+    <div class="stat">
+      <span class="stat-value">+8.4 %</span>
+      <span class="stat-label">This month</span>
+    </div>
+    <div class="stat">
+      <span class="stat-value">17 / 22</span>
+      <span class="stat-label">Favourable tides</span>
+    </div>
+    <div class="stat">
+      <span class="stat-value">100 %</span>
+      <span class="stat-label">Fortress intact</span>
+    </div>
+  </div>
+  <svg class="illustration" viewBox="0 0 600 240" xmlns="http://www.w3.org/2000/svg">
+    <line x1="40" y1="200" x2="560" y2="200" stroke="#7DD3FC" stroke-width="1" opacity="0.4"/>
+    <line x1="40" y1="40" x2="40" y2="200" stroke="#7DD3FC" stroke-width="1" opacity="0.4"/>
+    <polyline points="40,180 110,170 180,160 250,140 320,130 390,110 460,90 530,60" fill="none" stroke="#7DD3FC" stroke-width="3"/>
+    <circle cx="40" cy="180" r="4" fill="#7DD3FC"/>
+    <circle cx="110" cy="170" r="4" fill="#7DD3FC"/>
+    <circle cx="180" cy="160" r="4" fill="#7DD3FC"/>
+    <circle cx="250" cy="140" r="4" fill="#7DD3FC"/>
+    <circle cx="320" cy="130" r="4" fill="#7DD3FC"/>
+    <circle cx="390" cy="110" r="4" fill="#7DD3FC"/>
+    <circle cx="460" cy="90" r="4" fill="#7DD3FC"/>
+    <circle cx="530" cy="60" r="6" fill="#7DD3FC"/>
+    <text x="300" y="225" font-size="11" fill="#CFE9FF" text-anchor="middle">Last 22 tides</text>
+  </svg>
+  <p>You see what you earned. You see what you learned.</p>
+  <p>You adjust for tomorrow, if you want. Or not. The fortress is always there.</p>
+  <div class="divider"></div>
+  <div class="quote">« 90 % sheltered. 10 % at sail. Never the opposite. » — NAVLYS</div>
+  <div class="btn-row">
+    <a href="#s1" class="btn">↑ Restart the tour</a>
+  </div>
+</section>
+
+<footer>
+  <p>NAVLYS — Educational content, not personal advice.</p>
+  <p>Past performance ≠ future. Always test in simulation before going live.</p>
+</footer>
+</body>
+</html>
