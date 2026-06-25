@@ -2,6 +2,22 @@
 
 > Mis à jour à la fin de chaque session pour que la suivante reprenne sans tout relire.
 
+## Session 2026-06-25 — build pages navlys.com (« tout faire »)
+
+- ✅ **Grille tarifaire FIGÉE** (validée Bruno) → `STRATEGIE-NAVLYS.md` §5 (Finance Gratuit/19,99/39,99/79,99 ;
+  NAVBIO numérique à vie 0/29,99/49,99/99,99/199,99 ; NAVLEX 0(5q)/9,99/19,99). Étude concurrentielle sourcée :
+  `docs/STRATEGIE-PRICING-2026-06.md`.
+- ✅ **Pages construites (brouillon, charte #7DD3FC, à déployer par Bruno)** :
+  - `sites/navlys.com/tarifs.html` (grille officielle, 3 produits, freemium, CTAs).
+  - `sites/navlys.com/cgu.html` + `privacy.html` (stubs remplacés par versions complètes) + `mentions.html` (nouveau)
+    → **rebouchent les 404 légaux**. Entité masquée → à compléter + valider juridiquement au déploiement.
+  - `sites/navlys.com/index.html` enrichi : **FAQ « questions honnêtes »** (voix NAVLYS 3ᵉ pers.), **maximes**,
+    **punchline signature** (« vent + barre · sois aware »), liens /tarifs + /mentions.
+- 🔎 Conformité revérifiée sur toutes les pages : 0 donnée privée, 0 géo interdite, 0 promesse, 0 `#5fe0ff`, voix neutre.
+- ⏳ **Reste (enrichissements + déploiement)** : page `/partenaires` (les 19), module « pouls du marché » live,
+  accessibilité (texte XL/contraste), bloc manifeste mémoire ; **déploiement Vercel = Bruno** ; **valider le légal**.
+- 🔴 Sécurité (Bruno) inchangée : régénérer clés API GitHub+Alpaca · WHOIS OVH · cockpit mdp+SSL.
+
 ## Session 2026-06-23 (nuit) — ultra-review + correctifs
 
 - 🔬 **Revue adversariale multi-agents** (4 dimensions → re-vérification → synthèse).
