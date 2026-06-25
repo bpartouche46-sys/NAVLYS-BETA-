@@ -63,12 +63,19 @@ _Sources : `_AUDIT_CHARTE_COULEURS.md`, `_CHARTE_EDITORIALE_CONDENSEE.md`, `_TAG
 5. **Plan e-réputation** : remplacer la localisation par « Méditerranée », retirer +972, créer comptes
    propres sous l'identité NAVLYS.
 
-### ✍️ DRAFT slogan (à valider — ne RIEN publier sans OK Bruno)
-- **FR (reco)** : *« Ma méthode, ton argent, ton tempo. »*
-- **EN** : *« My method, your money, your tempo. »*
-- Raison : « tempo » est la variante la plus présente dans `_TAGLINE_BM_COMMUNICATIONS.md` (verrouillée
-  28 mai) ; « tutoiement » (ton/ta) = cohérent avec la charte éditoriale (le MASTER mixe « ton » et
-  « votre » → choisir le tutoiement partout pour cohérence). Signature `— BM` optionnelle.
+### ✍️ Slogan — 🔴 DEUX SOURCES « VERROUILLÉES » SE CONTREDISENT (Bruno tranche)
+> ⚠️ Je ne propose **pas** de 3ᵉ version : je remonte fidèlement le conflit. **Aucune ne doit être
+> publiée tant que Bruno n'a pas tranché.**
+- **Source A** — `_TAGLINE_BM_COMMUNICATIONS.md` (dite « verrouillée 28 mai ») :
+  *« Ma méthode, **Votre** argent, **Votre** tempo ! — BM »* (vouvoiement ; **interdit explicite** de
+  remplacer « tempo » par « rythme » ; police Fraunces 300 ; signature `— BM`).
+- **Source B** — `_MASTER_NAVLYS_NOW.md:24` (dite slogan officiel 13 langues) :
+  *« Ma méthode, ton argent, ton **rythme**. »* (tutoiement, « rythme »).
+- **Le conflit** : A et B se réclament toutes deux officielles et divergent sur **tu/vous** ET sur
+  **tempo/rythme**. La charte éditoriale (`_CHARTE_EDITORIALE_CONDENSEE.md`) pousse au tutoiement, ce
+  qui appuierait B sur le « tu », mais B casse le « tempo » de A.
+- **Décision à prendre par Bruno** : (1) tu ou vous ? (2) tempo ou rythme ou contrôle ? (3) signature
+  `— BM` oui/non ? (4) police (Fraunces vs Cinzel/Cormorant). Une fois choisi → 1 seule version partout.
 
 ---
 
@@ -76,7 +83,7 @@ _Sources : `_AUDIT_CHARTE_COULEURS.md`, `_CHARTE_EDITORIALE_CONDENSEE.md`, `_TAG
 
 | Sujet | Variantes | Sources |
 |---|---|---|
-| **Slogan** | « Ma méthode, ton argent, ton **contrôle/rythme/tempo** » · « Ma méthode, **Votre** argent, **Votre** tempo ! — BM » (MASTER « rythme ») | `_TAGLINE_BM_COMMUNICATIONS.md`, `_MASTER_NAVLYS_NOW.md`, `STRATEGIE-NAVLYS.md` |
+| **Slogan** 🔴 | A : « Ma méthode, **Votre** argent, **Votre tempo** ! — BM » (verrouillé, interdit « rythme ») · B : « Ma méthode, **ton** argent, **ton rythme** » (officiel 13 langues) — **deux sources se réclament officielles** (cf. § Slogan ci-dessus) | `_TAGLINE_BM_COMMUNICATIONS.md`, `_MASTER_NAVLYS_NOW.md`, `STRATEGIE-NAVLYS.md` |
 | **Tu/Vous** | tutoiement (charte) vs « Votre » (tagline BM) | `_CHARTE_EDITORIALE_CONDENSEE.md` vs `_TAGLINE_BM_COMMUNICATIONS.md` |
 | **Police tagline** | Cinzel/Cormorant vs Fraunces 300 | charte vs `_TAGLINE_BM_COMMUNICATIONS.md` |
 | **Deperso vs scripts** | Bruno invisible vs Bruno narrateur « je » | `00_ORGANIGRAMME.md` vs `01_SCRIPT_VIDEO_3_VERSIONS.md` |
