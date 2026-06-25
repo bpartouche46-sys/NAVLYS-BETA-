@@ -17,11 +17,12 @@
   Marketing & Réseaux, Monétisation, Infra & Veille, R&D App) + personas (Le Cartographe = R&D/Labo,
   Le Veilleur de Coffre = Infra/sécurité).
 - **Méthode produit** : **90/10** (90 % Forteresse ETF/DCA + 10 % Capital Plaisir / Labo NEXT GEN).
-- **Cible business 2026 H2** : ~770 k€ cash-in ; mix recommandé **C 90/10** (ultra-abo, 816 k€ projeté)
-  juin→sept, puis bascule **A 80/20** (footer partenaires actif) oct→déc.
+- **Cible business 2026 H2 (projection, NON garantie)** : mix recommandé **C 90/10** (ultra-abo,
+  **816 k€** projeté) vs **A 80/20** (footer partenaires actif, **717 k€**). Chiffres = scénarios
+  de simulation interne, à ne JAMAIS publier comme promesse. **À revérifier en source avant tout usage.**
 
 _Sources : `00_ORGANIGRAMME.md`, `_MASTER_NAVLYS_NOW.md`, `01_MATRICE_PRICING_OFFICIELLE.md`,
-`_007_STRATEGIE_PRICING_OPTIMAL_NAVLYS.md`._
+`_PARTENAIRES_LIENS_AUDIT.md` (scénarios A/C : 717 k€ / 816 k€), `_007_STRATEGIE_PRICING_OPTIMAL_NAVLYS.md`._
 
 ---
 
