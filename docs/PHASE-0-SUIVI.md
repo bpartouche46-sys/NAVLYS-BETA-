@@ -26,8 +26,14 @@
 > *privé*) en suivant `docs/SAUVEGARDE-CODE-VERCEL.md`.
 > ⚠️ Ne JAMAIS committer `.env`, clés, mots de passe (`.gitignore` fourni).
 
-| Projet Vercel | Domaine | Source trouvée (ancien PC) | Poussé sur GitHub | Vercel relié à Git (Phase 3) |
-|---------------|---------|:--------------------------:|:-----------------:|:----------------------------:|
+> 🆕 **Décision Bruno 2026-06-24 : on relie Vercel ↔ GitHub** (approche **MONOREPO** sur
+> `NAVLYS-BETA-`, un sous-dossier par projet via « Root Directory »). Procédure pas-à-pas =
+> **`docs/PROCEDURE-VERCEL-GITHUB.md`**. ⛔ **Capturer la source LIVE de chaque projet AVANT
+> de relier** (sinon Vercel redéploie depuis un dossier v2 incomplet et **écrase la voix
+> `navlys-alive.js` + les pages live**). « Source live capturée » = colonne ci-dessous.
+
+| Projet Vercel | Domaine | Source LIVE capturée (`live-source/`) | Poussé sur GitHub | Vercel relié à Git |
+|---------------|---------|:-------------------------------------:|:-----------------:|:------------------:|
 | **navlys-app** | navlys.com | ⬜ | ⬜ | ⬜ |
 | **brunopartouche** | brunopartouche.com | ⬜ | ⬜ | ⬜ |
 | **navbio** | navbiolife.com | ⬜ | ⬜ | ⬜ |
@@ -35,7 +41,8 @@
 | **navlys-teaser** | navlys-teaser.vercel.app | ⬜ | ⬜ | ⬜ |
 | **brunopartouche-teaser** | (404 / non-live) | ⬜ | ⬜ | — |
 
-> Project IDs Vercel : voir `docs/CARTE-SITES.md`.
+> Project IDs Vercel : voir `docs/CARTE-SITES.md`. ⚠️ « Vercel relié » ne se coche que **après**
+> Preview comparée au live + **feu vert prod de Bruno** (cf. procédure, étapes 3→5).
 
 ## C. Filet de sécurité intermédiaire (déjà fait par Claude depuis le cloud)
 

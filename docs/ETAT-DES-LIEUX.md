@@ -2,6 +2,27 @@
 
 > Mis à jour à la fin de chaque session pour que la suivante reprenne sans tout relire.
 
+## Session 2026-06-24 — DÉCISION : relier les sites LIVE Vercel ↔ GitHub (Phase 0 « code sous Git »)
+
+- 🎯 **Décision Bruno** : on relie les sites live Vercel à GitHub (sert aussi l'objectif
+  Phase 0 « code sous Git »). Contrainte technique : l'intégration GitHub est limitée au seul
+  dépôt `NAVLYS-BETA-` (création d'autres repos = 403, PR #12) → **approche MONOREPO** (un
+  sous-dossier par projet via « Root Directory »).
+- 📄 **Livrable** : **`docs/PROCEDURE-VERCEL-GITHUB.md`** (procédure sûre pas-à-pas, ordre
+  obligatoire 1→5, table des 6 projets/domaines, encadré « piège critique »).
+- ⛔ **Piège central gravé** : `sites/<projet>/` = refonte v2 **incomplète** (souvent 1 page) ;
+  le LIVE a plus de pages + des assets moteur dont **`navlys-alive.js` = la voix** (jamais
+  capturée). Relier un projet à un dossier v2 puis pousser ferait **écraser la voix + les
+  pages live**. → **Étape n°1 obligatoire : capturer la vraie source live** de chaque projet
+  dans `live-source/<projet>/` AVANT tout lien Git.
+- 🧩 **Prochaine étape concrète** : capturer la source live (méthode A : `vercel pull` /
+  dernier déploiement, depuis l'ancien PC) → versionner sous `live-source/` → décision Bruno
+  garder-live/v2 par projet → relier dans Vercel → **Preview comparée au live** → promotion
+  prod **seulement sur feu vert de Bruno**.
+- 📓 Maj `docs/PHASE-0-SUIVI.md` (colonne « Source LIVE capturée », rappel monorepo + piège).
+- 🔴 **Aucune action sensible déclenchée** : zéro déploiement, zéro promotion, zéro dépense.
+  Le lien Vercel↔Git lui-même se fait côté **Bruno** (dashboard Vercel) ; Claude n'a pas accès.
+
 ## Session 2026-06-24 — recherche de la DÉMO VOIX (clone vocal) : localisation
 
 - 🎯 **Objectif Bruno** : retrouver la démo « voix / clone vocal » (ElevenLabs + fal.ai +
