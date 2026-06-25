@@ -21,6 +21,17 @@ Avant toute action, Claude DOIT :
 
 Si une de ces étapes est sautée, le travail est considéré comme **non valide**.
 
+> 🪙 **RÈGLE GRAVÉE N°1 — DÉPERSONNALISATION (rappel permanent)** : **NAVLYS = marque produit
+> DÉPERSONNALISÉE.** Bruno est **invisible** sur NAVLYS ; il « vit » sur **brunopartouche.com**
+> (sa vie, son CV, le BRUNO COIN). Sens de la réputation : **Bruno → NAVLYS, jamais l'inverse.**
+> NAVLYS ne se présente JAMAIS comme « le projet de Bruno conseiller » : c'est un **média éditeur
+> pédagogique** (publisher), **PAS CIF / PAS ORIAS / PAS IOBSP**, ni conseil, ni placement, ni
+> encaissement de fonds clients. Source : `recup-docs/onedrive/00_ORGANIGRAMME.md` (§ « Règles gravées »,
+> règle 1) + `recup-docs/onedrive/_MASTER_NAVLYS_NOW.md`. Détail : `docs/GOUVERNANCE.md` (8 règles gravées).
+> ⚠️ Point de vigilance ouvert (à arbitrer par Bruno) : certains **scripts vidéo/voix** incarnent Bruno
+> comme **narrateur/skipper** (« voix de Bruno ») → tolérable SI disclaimer « voix générée par IA » +
+> aucun positionnement de conseiller. Voir `docs/RENFORCEMENT/02-communication.md`.
+
 > 💰 **RÈGLE FINANCIÈRE ABSOLUE (rappel permanent)** : **Bruno est le SEUL décisionnaire
 > final** sur **tout investissement** et **toute validation de débit/paiement** sur **tous
 > les comptes** (y compris **partenaires**). Aucun agent ne déclenche un débit sans son feu
@@ -50,21 +61,41 @@ jour : **`docs/CARTE-SITES.md`**. ⚠️ Aucun projet n'est relié à GitHub (co
 | brunopartouche-teaser | brunopartouche-teaser.vercel.app | Vercel | ❌ non relié | 🟠 non-live ? |
 
 > Équipe Vercel : `NAVLYS` / `team_nBtY5FOQMPIT4J8Bmf7wvBSC` — compte bpartouche46@gmail.com.
-> Le « core central » Hetzner est un système distinct des sites Vercel (à clarifier).
 
-### Infrastructure connue
+### 🟢 ÉTAT RÉEL DU PROJET (corrigé 2026-06-25 d'après `recup-docs/`)
 
-| Élément | Détail |
-|---------|--------|
-| **Cloud principal** | Hetzner (Allemagne) |
-| **Rôle** | Héberge le **« core central »** de NAVLYS (système central) |
-| Type de serveur | _(à préciser : Cloud VPS / dédié ?)_ |
-| Accès | _(à préciser : SSH ? panneau type Coolify/Plesk/Portainer ? Docker ?)_ |
-| OS | _(à préciser : Ubuntu / Debian … ?)_ |
-| Ce que contient le « core central » | _(à préciser : API ? base de données ? back-office ? sites ?)_ |
+- **Statut = LANCÉ / phase BETA active.** Le **gate a été ouvert** (31 mai → 1ᵉʳ juin 2026 selon les
+  docs ; le countdown public actuel affiche 1ᵉʳ juillet → **incohérence à trancher par Bruno**).
+  Source : `recup-docs/onedrive/_MASTER_NAVLYS_NOW.md` (« lancement gate passé le 31 mai 2026 ✓,
+  phase BETA en cours »). Détail des dates et arbitrage : `docs/ETAT-DES-LIEUX.md` + `docs/RENFORCEMENT/01-strategie.md`.
+
+### Infrastructure / stack RÉELLE (corrigée 2026-06-25)
+
+> ⚠️ **Le « core central Hetzner » semble PÉRIMÉ / legacy** : il **n'apparaît PAS** dans les
+> documents récents du « cerveau » récupéré (`recup-docs/onedrive/`, MAJ mai-juin 2026). Aucune
+> trace d'Hetzner dans la stack décrite par `_MASTER_NAVLYS_NOW.md`, `02_SITE_PRODUIT.md`,
+> `03_API_BACKEND_NEXTJS.md`. **À CONFIRMER PAR BRUNO** : Hetzner est-il abandonné ? (cf. aussi le
+> diagnostic 2026-06-22 : serveur sain mais **0 conteneur Docker actif**, quasi vide en exécution).
+
+| Brique | Réalité (sources `recup-docs/`) |
+|--------|---------------------------------|
+| **Front / Host** | **Vercel** (team NAVLYS) — Next.js 14 (apps), Next.js 15.5 (brunopartouche). Edge Frankfurt. |
+| **DB / Auth** | **Supabase EU** (RLS, magic link / OAuth). |
+| **Emails** | **Resend** (transactionnels + marketing). |
+| **Monitoring** | **Sentry** (+ PostHog analytics, Vercel Analytics). |
+| **Voix** | **ElevenLabs** (clone Bruno, `eleven_multilingual_v2`) ; cache **Cloudflare R2** ; `VOICE_ID` en env serveur uniquement. |
+| **IA** | **Anthropic Claude** (Haiku par défaut, escalade Sonnet) — NAV IA / SAV / NAVLEX. *(NAVBIO mentionne aussi OpenAI → à clarifier.)* |
+| **Paiements** | **Stripe** (compte non encore créé d'après MASTER ; pack code prêt). |
+| **WhatsApp** | **360dialog (D360)** — mentionné, intégration à confirmer. |
+| **WAF / DNS** | **Cloudflare** (WAF, Bot Fight, R2) + DNS Namecheap. **MX Google `navlys.com` à PRÉSERVER.** |
+
+> 🎨 **Charte couleur confirmée** : Ice Blue **`#7DD3FC`** (officiel, cf. `recup-docs/onedrive/_AUDIT_CHARTE_COULEURS.md`).
+> Tout `#5fe0ff` résiduel = à corriger. Polices : Cinzel (titres) + Cormorant Garamond (corps) + JetBrains Mono (chiffres).
 
 > 🔐 **Sécurité** : aucun identifiant, IP, clé SSH ou mot de passe ne doit être écrit
 > dans ce dépôt. Ces secrets restent en dehors de Git (voir `.gitignore`).
+> 🔴 **Alerte ouverte** : un **token Vercel** a été partagé en clair (cf. `_MASTER_NAVLYS_NOW.md`)
+> → **à révoquer + régénérer par Bruno** (action sensible = Bruno).
 
 ---
 

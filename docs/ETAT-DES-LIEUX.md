@@ -2,6 +2,39 @@
 
 > Mis à jour à la fin de chaque session pour que la suivante reprenne sans tout relire.
 
+## Session 2026-06-25 — RENFORCEMENT global d'après le « cerveau » récupéré (recup-docs)
+
+### 🟢 ÉTAT RÉEL du projet (corrigé d'après ~270 docs récupérés + `docs/SYNTHESE-NAVLYS.md`)
+- **NAVLYS est LANCÉ, en phase BETA.** Le gate a été ouvert (docs : **31 mai / 1ᵉʳ juin 2026**).
+  Source : `recup-docs/onedrive/_MASTER_NAVLYS_NOW.md` (« gate passé le 31 mai ✓, phase BETA en cours »).
+- **Stack RÉELLE = Vercel + Supabase + Resend + Sentry + ElevenLabs + Cloudflare R2 + Claude (+ Stripe à venir).**
+  Le **« core central Hetzner » semble PÉRIMÉ** (absent des docs récents) → à confirmer Bruno. (cf. CLAUDE.md §1.)
+- **Charte couleur confirmée `#7DD3FC`** (`recup-docs/onedrive/_AUDIT_CHARTE_COULEURS.md`).
+- **8 règles gravées** intégrées dans `docs/GOUVERNANCE.md` §0.
+- **Renforcement par domaine** livré dans `docs/RENFORCEMENT/` (01→07).
+
+### ⚖️ LES 9 DÉCISIONS EN ATTENTE (section 10 de la synthèse — à trancher par Bruno)
+1. 🔴 **Régénérer le token Vercel** (partagé en clair → exposé). Action sensible = Bruno.
+2. **Entité juridique** : FR auto-entrepreneur vs société IL (Mizrahi) / [entité — hors dépôt] LTD → impacte
+   Stripe, factures, contrats. (Avocat NTIC recommandé.)
+3. **Clarifier le « core Hetzner »** : legacy/abandonné ? vs stack Vercel+Supabase.
+4. **Figer le SLOGAN** (« Ma méthode, Votre/Ton argent, Votre/Ton tempo/rythme/contrôle ») +
+   le **prix BETA** : 39 € early-bird verrouillé vs 49 €/mois vs 490 €/an (vs 39 € « à vie » côté mémoire).
+5. **Date de lancement effective** : countdown live = 1ᵉʳ juillet ; docs = 31 mai / 1ᵉʳ juin ;
+   cible interne « 15 juin BETA stable » → **quel cap public unique ?**
+6. **Dépersonnalisation vs scripts** où Bruno apparaît en narrateur (« voix de Bruno ») → arbitrer
+   la frontière public (NAVLYS deperso) / persona narratif toléré-avec-disclaimer.
+7. **Charte couleur** : `#7DD3FC` confirmé → corriger tout `#5fe0ff` résiduel.
+8. **Valider** prospection influenceurs / VIP (aucun JCVD trouvé dans les docs récupérés ; à confirmer).
+9. **Relier Vercel ↔ GitHub** (procédure prête `docs/PROCEDURE-VERCEL-GITHUB.md`) pour déployer par push.
+
+> ➕ Décisions complémentaires remontées par l'exploration (voir `docs/RENFORCEMENT/`) :
+> domaine NAVBIO (navbio.com ?), statut produit « LÉGENDE » (R&D), DPA ElevenLabs/HeyGen avant LIVE,
+> AIPD biométrie avant droit-à-l'oubli, doublons Vercel à arbitrer, nommage « NOVA » résiduel vs NAVLYS.
+
+- 🔴 **Aucune action sensible déclenchée** : zéro déploiement, zéro publication, zéro dépense.
+  Travail 100 % en branche `claude/navlys-project-briefing-qi2w9j`. Validation gardien faite (voir RENFORCEMENT).
+
 ## Session 2026-06-24 — DÉCISION : relier les sites LIVE Vercel ↔ GitHub (Phase 0 « code sous Git »)
 
 - 🎯 **Décision Bruno** : on relie les sites live Vercel à GitHub (sert aussi l'objectif
