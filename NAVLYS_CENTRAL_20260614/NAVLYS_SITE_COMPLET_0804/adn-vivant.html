@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NAVLYS — ADN vivant (original)</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{height:100%}
+  body{background:#04070f;overflow:hidden;font-family:'Segoe UI',system-ui,sans-serif}
+  #c{position:fixed;inset:0;display:block}
+  .lab{position:fixed;left:0;right:0;bottom:7%;text-align:center;color:#9fc4d8;font-size:.82rem;letter-spacing:4px;text-transform:uppercase;pointer-events:none}
+  .lab b{color:#e9d3a0}
+  .top{position:fixed;top:20px;left:0;right:0;text-align:center;color:#cfe6f2;font-size:.9rem;letter-spacing:5px;pointer-events:none}
+</style>
+</head>
+<body>
+  <canvas id="c"></canvas>
+  <div class="top">N A V L Y S &nbsp;·&nbsp; L E &nbsp; V I V A N T</div>
+  <div class="lab">ADN NAVLYS — <b>le vivant qui évolue</b></div>
+<script>
+var c=document.getElementById('c'),x=c.getContext('2d'),DPR=Math.min(devicePixelRatio||1,2),W,H;
+function size(){W=innerWidth;H=innerHeight;c.width=W*DPR;c.height=H*DPR;x.setTransform(DPR,0,0,DPR,0,0);}
+size();addEventListener('resize',size);
+var ICE='95,224,255', ICE2='150,220,255', OR='233,211,160', WARM='255,122,77';
+var N=52, TW=4.4;           // segments, nombre de tours
+var spark=[]; for(var i=0;i<70;i++)spark.push(rndSpark());
+function rndSpark(){return{x:Math.random(),y:Math.random(),r:Math.random()*1.6+0.3,sp:0.0012+Math.random()*0.004,tw:Math.random()*6.28};}
+var phase=0, mut=0.5; // position de la "mutation" (coeur chaud) qui glisse lentement
+function frame(t){
+  var s=t*0.001; phase+=0.006; mut=0.5+0.34*Math.sin(s*0.25);
+  x.clearRect(0,0,W,H);
+  // fond
+  var bg=x.createRadialGradient(W/2,H/2,0,W/2,H/2,Math.max(W,H)*0.7);
+  bg.addColorStop(0,'rgba(20,40,70,0.5)');bg.addColorStop(0.5,'rgba(8,16,30,0.6)');bg.addColorStop(1,'rgba(4,7,15,1)');
+  x.fillStyle=bg;x.fillRect(0,0,W,H);
+  x.globalCompositeOperation='lighter';
+  // étincelles ambiantes
+  for(var k=0;k<spark.length;k++){var p=spark[k];p.y-=p.sp;if(p.y<-0.02){p.y=1.02;p.x=Math.random();}var a=0.3+0.5*Math.abs(Math.sin(s*1.5+p.tw));x.beginPath();x.arc(p.x*W,p.y*H,p.r,0,6.28);x.fillStyle='rgba('+ICE2+','+a*0.6+')';x.fill();}
+  // hélice
+  var cx=W/2, R=Math.min(W*0.16,120), top=H*0.16, hgt=H*0.68;
+  var s1=[],s2=[];
+  for(var i=0;i<=N;i++){
+    var tt=i/N, y=top+tt*hgt, ang=tt*Math.PI*2*TW+phase;
+    var z1=Math.sin(ang), z2=Math.sin(ang+Math.PI);
+    s1.push({x:cx+R*Math.cos(ang),y:y,z:z1});
+    s2.push({x:cx+R*Math.cos(ang+Math.PI),y:y,z:z2});
+  }
+  // barreaux (paires de bases) — du fond vers l'avant pour la profondeur
+  var order=[];for(var i=0;i<=N;i++)order.push(i);
+  order.sort(function(a,b){return (s1[a].z+s2[a].z)-(s1[b].z+s2[b].z);});
+  for(var oi=0;oi<order.length;oi++){var i=order[oi];var A=s1[i],B=s2[i];var depth=(A.z+B.z)/2;var dn=(depth+1)/2;
+    var near=Math.abs((i/N)-mut)<0.06; // près de la mutation
+    var g=x.createLinearGradient(A.x,A.y,B.x,B.y);
+    g.addColorStop(0,'rgba('+ICE+','+(0.15+0.5*dn)+')');
+    g.addColorStop(0.5, near?'rgba('+WARM+','+(0.5+0.5*dn)+')':'rgba('+OR+','+(0.12+0.3*dn)+')');
+    g.addColorStop(1,'rgba('+ICE2+','+(0.15+0.5*dn)+')');
+    x.strokeStyle=g;x.lineWidth=1+1.6*dn;x.beginPath();x.moveTo(A.x,A.y);x.lineTo(B.x,B.y);x.stroke();
+    // noeuds
+    drawNode(A, ICE, dn); drawNode(B, OR, dn);
+  }
+  // coeur chaud (mutation) qui glisse
+  var my=top+mut*hgt, mx=cx+R*Math.cos(mut*Math.PI*2*TW+phase)*0.2;
+  var rg=x.createRadialGradient(cx,my,0,cx,my,70);
+  rg.addColorStop(0,'rgba(255,240,230,0.9)');rg.addColorStop(0.3,'rgba('+WARM+',0.7)');rg.addColorStop(1,'rgba('+WARM+',0)');
+  x.beginPath();x.arc(cx,my,70,0,6.28);x.fillStyle=rg;x.fill();
+  x.globalCompositeOperation='source-over';
+  requestAnimationFrame(frame);
+}
+function drawNode(P,colArr,dn){var r=1.4+2.6*dn;x.beginPath();x.arc(P.x,P.y,r,0,6.28);x.fillStyle='rgba('+colArr+','+(0.4+0.6*dn)+')';x.shadowColor='rgba('+colArr+','+dn+')';x.shadowBlur=10*dn;x.fill();x.shadowBlur=0;}
+size();requestAnimationFrame(frame);
+</script>
+</body>
+</html>

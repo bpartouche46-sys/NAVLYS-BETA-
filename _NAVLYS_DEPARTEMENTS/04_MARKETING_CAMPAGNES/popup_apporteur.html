@@ -1,0 +1,237 @@
+<!--
+  🤝 NAVLYS / NAVBIO · Pop-up doux "Apporteur"
+  Drop-in component — colle ce fichier en fin de <body> sur navbiolife.com & navlys.com
+  Aucun framework requis. Vanilla JS + CSS scoped. ~6 Ko.
+  Auteur : Dépt 04 Marketing · 26 mai 2026
+-->
+<style>
+/* === scope: tous les sélecteurs préfixés .ncap- pour ne pas polluer le site === */
+.ncap-pop *{box-sizing:border-box;font-family:"Cormorant Garamond","Georgia",serif}
+.ncap-pop{position:fixed;bottom:24px;right:24px;z-index:9998;width:min(420px,calc(100vw - 48px));background:linear-gradient(180deg,#0a1424,#02040a);border:1px solid rgba(201,169,97,.4);border-radius:18px;padding:22px 22px 20px;box-shadow:0 20px 60px rgba(0,0,0,.5),0 0 30px rgba(125,211,252,.08);transform:translateY(120%);opacity:0;transition:transform .5s cubic-bezier(.2,.9,.3,1.05),opacity .4s;color:#cdd6e3}
+.ncap-pop.on{transform:translateY(0);opacity:1}
+.ncap-pop .ncap-close{position:absolute;top:10px;right:12px;width:32px;height:32px;border-radius:50%;border:1px solid rgba(255,255,255,.15);background:rgba(2,4,9,.6);color:#cdd6e3;font-size:18px;line-height:1;cursor:pointer;display:grid;place-items:center;transition:.15s}
+.ncap-pop .ncap-close:hover{border-color:#C9A961;color:#C9A961}
+.ncap-pop .ncap-head{font:600 11px/1 "JetBrains Mono",monospace;letter-spacing:.22em;color:#C9A961;text-transform:uppercase;margin-bottom:10px}
+.ncap-pop h3{font-family:"Cinzel",serif;font-weight:600;color:#C9A961;font-size:22px;letter-spacing:.04em;margin:0 0 4px}
+.ncap-pop h3 em{font-family:"Fraunces","Cormorant Garamond",serif;font-style:italic;color:#7DD3FC;font-weight:500}
+.ncap-pop .ncap-lead{font-size:15px;line-height:1.5;color:#cdd6e3;margin:10px 0 14px}
+.ncap-pop .ncap-pitch{font-size:14px;line-height:1.55;color:#a8b3c5;margin:0 0 16px;padding:12px 14px;border-left:2px solid #7DD3FC;background:rgba(125,211,252,.06);border-radius:0 8px 8px 0}
+.ncap-pop .ncap-pitch b{color:#C9A961;font-weight:600}
+.ncap-pop .ncap-btns{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.ncap-pop .ncap-btn{flex:1 1 auto;border:0;cursor:pointer;border-radius:999px;padding:12px 18px;font:700 12px/1 "JetBrains Mono",monospace;letter-spacing:.08em;text-transform:uppercase;transition:.15s;text-align:center}
+.ncap-pop .ncap-gold{background:linear-gradient(180deg,#dcc587,#C9A961);color:#1a1206}
+.ncap-pop .ncap-gold:hover{transform:translateY(-1px);box-shadow:0 8px 20px rgba(201,169,97,.3)}
+.ncap-pop .ncap-ghost{background:rgba(2,4,9,.5);border:1px solid rgba(255,255,255,.15);color:#cdd6e3}
+.ncap-pop .ncap-ghost:hover{border-color:#7DD3FC;color:#7DD3FC}
+.ncap-pop .ncap-fine{font-size:11px;color:#7a8294;text-align:center;font-family:"JetBrains Mono",monospace;letter-spacing:.04em;line-height:1.5}
+
+/* Vue 2 : lien activé */
+.ncap-pop .ncap-link{display:flex;align-items:center;gap:6px;background:rgba(2,4,9,.6);border:1px dashed rgba(125,211,252,.4);border-radius:10px;padding:10px 12px;margin:14px 0;font:600 12px/1.3 "JetBrains Mono",monospace;color:#7DD3FC;word-break:break-all}
+.ncap-pop .ncap-copy{background:rgba(125,211,252,.15);border:1px solid #7DD3FC;color:#7DD3FC;border-radius:8px;padding:6px 10px;font-size:11px;cursor:pointer;white-space:nowrap}
+.ncap-pop .ncap-copy:hover{background:#7DD3FC;color:#02040a}
+.ncap-pop .ncap-stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:10px}
+.ncap-pop .ncap-stat{text-align:center;padding:10px 6px;background:rgba(2,4,9,.4);border-radius:10px}
+.ncap-pop .ncap-stat .v{font-family:"Cinzel",serif;font-size:18px;color:#C9A961;font-weight:600}
+.ncap-pop .ncap-stat .l{font:500 9px/1 "JetBrains Mono",monospace;letter-spacing:.1em;color:#7a8294;text-transform:uppercase;margin-top:4px}
+.ncap-pop .ncap-bonus{background:linear-gradient(90deg,rgba(201,169,97,.18),rgba(125,211,252,.18));border:1px solid rgba(201,169,97,.4);border-radius:10px;padding:10px 12px;margin:10px 0;font-size:13px;color:#dcc587;text-align:center}
+
+@media(max-width:560px){
+  .ncap-pop{right:12px;left:12px;bottom:12px;width:auto;padding:18px 18px 16px}
+  .ncap-pop h3{font-size:19px}
+  .ncap-pop .ncap-lead{font-size:14px}
+}
+</style>
+
+<div class="ncap-pop" id="ncapPop" role="dialog" aria-modal="false" aria-labelledby="ncapTitle">
+  <button class="ncap-close" id="ncapClose" aria-label="Fermer">×</button>
+
+  <!-- VUE 1 : invitation douce -->
+  <div id="ncapView1">
+    <div class="ncap-head">🤝 Tu es à bord</div>
+    <h3 id="ncapTitle">Veux-tu être aussi <em>à la barre</em> ?</h3>
+    <p class="ncap-lead">Chaque ami qui rejoint NAVBIO via ton lien te rapporte une commission — virée sur ton compte dès 30 € cumulés.</p>
+    <div class="ncap-pitch">
+      <b>20 %</b> sur le 1ᵉʳ achat de chaque filleul · <b>aucun engagement</b> · <b>aucun KYC à l'activation</b> · 1 clic, et tu as ton lien.
+    </div>
+    <div class="ncap-btns">
+      <button class="ncap-btn ncap-gold" id="ncapActivate">J'active mon lien</button>
+      <button class="ncap-btn ncap-ghost" id="ncapLater">Plus tard, merci</button>
+    </div>
+    <div class="ncap-fine">Bonus juin · +10 € au 1ᵉʳ filleul payant pendant la campagne.</div>
+  </div>
+
+  <!-- VUE 2 : lien activé (affichée après clic) -->
+  <div id="ncapView2" style="display:none">
+    <div class="ncap-head">⛵ Ton lien est prêt</div>
+    <h3>Bienvenue à la <em>barre</em>.</h3>
+    <p class="ncap-lead">Partage ce lien à tes amis, tes contacts, ton réseau. Tu touches ta première commission dès qu'un filleul achète.</p>
+    <div class="ncap-link">
+      <span id="ncapLinkText">https://navbiolife.com/?cap=…</span>
+      <button class="ncap-copy" id="ncapCopy">📋 Copier</button>
+    </div>
+    <div class="ncap-bonus">🎁 Bonus juin actif · +10 € au 1ᵉʳ filleul payant</div>
+    <div class="ncap-stats">
+      <div class="ncap-stat"><div class="v" id="ncapStatClicks">0</div><div class="l">Clics</div></div>
+      <div class="ncap-stat"><div class="v" id="ncapStatLeads">0</div><div class="l">Filleuls</div></div>
+      <div class="ncap-stat"><div class="v" id="ncapStatEarn">0 €</div><div class="l">Acquis</div></div>
+    </div>
+    <div class="ncap-btns" style="margin-top:14px">
+      <a class="ncap-btn ncap-ghost" id="ncapDash" href="/apporteur" style="text-decoration:none">Mon tableau de bord</a>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  // ─── Config ───────────────────────────────────────────
+  const STORAGE = 'ncap_popup_v1';
+  const COOKIE_REF = 'ncap_ref';
+  const DELAY_FIRST_VISIT_BLOCK = true;   // pas de popup en 1ʳᵉ visite anonyme
+  const DELAY_POST_PURCHASE_MS  = 45000;  // 45 s post-achat
+  const DELAY_AFTER_DECLINE_DAYS = 7;
+  const BRAND_DOMAIN = location.hostname.includes('navlys') ? 'navlys.com' : 'navbiolife.com';
+
+  // ─── Helpers ──────────────────────────────────────────
+  const $ = s => document.querySelector(s);
+  const state = (()=>{ try{return JSON.parse(localStorage.getItem(STORAGE))||{}}catch{return{}} })();
+  const save  = ()=>localStorage.setItem(STORAGE, JSON.stringify(state));
+  const now   = ()=>Date.now();
+  const days  = n=>n*86400000;
+
+  // ─── Quand afficher ? ─────────────────────────────────
+  function shouldShow(){
+    if(state.activated) return false;            // déjà apporteur → jamais
+    if(state.declined && (now()-state.declined < days(DELAY_AFTER_DECLINE_DAYS))) return false;
+    const isPurchase = /\/(merci|thanks|confirmation|success)/i.test(location.pathname)
+                    || sessionStorage.getItem('just_purchased') === '1';
+    const isReturn   = state.visit_count >= 2;
+    if(isPurchase) return 'purchase';
+    if(isReturn && !DELAY_FIRST_VISIT_BLOCK)   return 'return';
+    if(isReturn) return 'return';
+    return false;
+  }
+
+  // ─── Compteur visites ─────────────────────────────────
+  state.visit_count = (state.visit_count||0) + 1;
+  save();
+
+  // ─── Ouverture (avec délai si post-achat) ─────────────
+  function openPopup(){
+    const pop = $('#ncapPop');
+    if(!pop) return;
+    // restaurer vue 2 si déjà activé dans une autre session mais state.activated lost
+    requestAnimationFrame(()=>pop.classList.add('on'));
+  }
+  const trigger = shouldShow();
+  if(trigger === 'purchase'){
+    setTimeout(openPopup, DELAY_POST_PURCHASE_MS);
+  } else if(trigger === 'return'){
+    setTimeout(openPopup, 4000);  // 4 s sur 2ᵉ visite
+  }
+
+  // ─── Fermeture ────────────────────────────────────────
+  function closePopup(declined){
+    $('#ncapPop').classList.remove('on');
+    if(declined){
+      state.declined = now();
+      save();
+    }
+  }
+  $('#ncapClose').addEventListener('click', ()=>closePopup(true));
+  $('#ncapLater').addEventListener('click', ()=>closePopup(true));
+  document.addEventListener('keydown', e=>{
+    if(e.key === 'Escape' && $('#ncapPop').classList.contains('on')) closePopup(true);
+  });
+
+  // ─── Activation lien (génère un code court) ───────────
+  function genCode(){
+    // ID court lisible : 3 lettres + 3 chiffres
+    const letters = 'ABCDEFGHJKLMNPQRSTUVWXYZ';
+    const digits  = '23456789';
+    let c = '';
+    for(let i=0;i<3;i++) c += letters[Math.floor(Math.random()*letters.length)];
+    c += '-';
+    for(let i=0;i<3;i++) c += digits[Math.floor(Math.random()*digits.length)];
+    return c;
+  }
+
+  function activate(){
+    const code = state.code || genCode();
+    state.activated = now();
+    state.code = code;
+    save();
+
+    // appel API back-end (silencieux, le client n'attend pas)
+    try {
+      fetch('/api/apporteur/activate', {
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({code, brand: BRAND_DOMAIN, ts: now()})
+      }).catch(()=>{ /* silent */ });
+    } catch(_) {}
+
+    // bascule vue 2
+    $('#ncapView1').style.display = 'none';
+    $('#ncapView2').style.display = 'block';
+    const url = `https://${BRAND_DOMAIN}/?cap=${code}`;
+    $('#ncapLinkText').textContent = url;
+    $('#ncapDash').href = (BRAND_DOMAIN.includes('navlys') ? '/cap' : '/apporteur');
+
+    // stats initiales (zéro, sera fetché ensuite)
+    refreshStats();
+  }
+  $('#ncapActivate').addEventListener('click', activate);
+
+  // ─── Si déjà activé, ouvre directement la vue 2 au footer ─
+  if(state.activated){
+    $('#ncapView1').style.display = 'none';
+    $('#ncapView2').style.display = 'block';
+    $('#ncapLinkText').textContent = `https://${BRAND_DOMAIN}/?cap=${state.code}`;
+    refreshStats();
+  }
+
+  // ─── Copier lien ──────────────────────────────────────
+  $('#ncapCopy').addEventListener('click', async ()=>{
+    const txt = $('#ncapLinkText').textContent;
+    try {
+      await navigator.clipboard.writeText(txt);
+      $('#ncapCopy').textContent = '✅ Copié';
+      setTimeout(()=>{ $('#ncapCopy').textContent = '📋 Copier'; }, 1800);
+    } catch(_) {
+      // fallback select
+      const r = document.createRange();
+      r.selectNode($('#ncapLinkText'));
+      window.getSelection().removeAllRanges();
+      window.getSelection().addRange(r);
+    }
+  });
+
+  // ─── Stats (fetch toutes les 60 s si vue 2 ouverte) ───
+  async function refreshStats(){
+    if(!state.code) return;
+    try {
+      const r = await fetch('/api/apporteur/stats?code=' + encodeURIComponent(state.code));
+      if(!r.ok) return;
+      const d = await r.json();
+      $('#ncapStatClicks').textContent = d.clicks ?? 0;
+      $('#ncapStatLeads').textContent  = d.leads  ?? 0;
+      $('#ncapStatEarn').textContent   = (d.earnings_eur ?? 0).toFixed(0) + ' €';
+    } catch(_){ /* silent */ }
+  }
+  setInterval(refreshStats, 60000);
+
+  // ─── Capter le ?cap= sur la page d'arrivée (côté filleul) ─
+  const urlCap = new URLSearchParams(location.search).get('cap');
+  if(urlCap){
+    document.cookie = `${COOKIE_REF}=${encodeURIComponent(urlCap)};max-age=${90*86400};path=/;samesite=lax`;
+    // signaler au back-end un clic (anti-fraude IP/UA-side dans webhook)
+    try {
+      fetch('/api/apporteur/click', {
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({code: urlCap, brand: BRAND_DOMAIN, ts: now()})
+      }).catch(()=>{});
+    } catch(_) {}
+  }
+})();
+</script>

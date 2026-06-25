@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta name="twitter:card" content="summary_large_image">
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bruno Partouche · Stratège, navigateur & entrepreneur</title>
+  <meta name="description" content="Bruno Mark Partouche : trente ans de finance, d'assurance et d'entreprise. Navigateur en Méditerranée, passionné de bien-être. Créateur de NAVBIO, sa biographie vivante.">
+  <meta name="author" content="Bruno Mark Partouche">
+  <link rel="canonical" href="https://brunopartouche.com/index.html">
+  <meta name="keywords" content="Bruno Partouche, biographie, parcours, Microsoft, AXA, skipper Méditerranée, réflexologie, reiki, trompette, NAVBIO">
+  <meta name="robots" content="index, follow">
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"Person","name":"Bruno Mark Partouche","url":"https://brunopartouche.com","jobTitle":"Entrepreneur & navigateur","worksFor":{"@type":"Organization","name":"[entité — hors dépôt]"},"knowsAbout":["Finance","Assurance","Navigation","Bien-être"]}
+  </script>
+  <meta property="og:title" content="Bruno Mark Partouche · Stratège & navigateur">
+  <meta property="og:description" content="Trente ans de finance & d'assurance · Skipper · Bien-être · Créateur de NAVBIO">
+  <meta property="og:image" content="assets/img/voilier-sarava-1.jpg">
+  <meta property="og:type" content="website">
+  <link rel="icon" type="image/png" href="assets/img/dfenser-logo.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Fraunces:ital,wght@1,300;1,400;1,500&family=Lora:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#000000">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Bruno Partouche">
+  <meta name="mobile-web-app-capable" content="yes">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+</head>
+<body>
+
+  <!-- =========== HEADER =========== -->
+  <header class="site-header">
+    <nav class="nav">
+      <a href="index.html" class="brand">Bruno <span class="accent">Partouche</span></a>
+      <ul class="nav-links">
+        <li><a href="index.html" class="active">Accueil</a></li>
+        <li><a href="a-propos.html">Biographie</a></li>
+        <li><a href="cv.html">Parcours</a></li>
+        <li><a href="credibilite.html">Crédibilité</a></li>
+        <li><a href="partenaires.html">Investir</a></li>
+        <li><a href="app.html" style="color:var(--c-champagne);">NAVBIO</a></li>
+        <li><a href="journal.html">Journal</a></li>
+      </ul>
+      <div style="display:flex;gap:.6rem;align-items:center;">
+        <div class="lang-toggle">
+          <button data-lang="fr" class="active">FR</button>
+          <button data-lang="en">EN</button>
+        </div>
+        <button class="menu-toggle" aria-label="Menu">☰</button>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- =========== HERO =========== -->
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <span class="kicker" data-i18n="hero.kicker">Bruno Mark Partouche · 1969 →</span>
+          <h1 class="shimmer" data-i18n="hero.title">Comprendre vite. Structurer. Convaincre. Exécuter.</h1>
+          <p class="subtitle" data-i18n="hero.subtitle">30 ans de finance &amp; d'assurance · Navigateur · Entrepreneur</p>
+          <span class="location" data-i18n="hero.location">⛵ Méditerranée · Entre la Corse et la Grèce, suivant les saisons</span>
+          <div class="hero-cta">
+            <a href="app.html" class="btn btn-primary" data-i18n="hero.cta_primary">Découvrir NAVBIO</a>
+            <a href="a-propos.html" class="btn" data-i18n="hero.cta_secondary">Lire la biographie</a>
+            <a href="partenaires.html" class="btn">Investir &rarr;</a>
+          </div>
+          <p class="hero-quote" data-i18n="hero.quote">« Tenir un cap, une main sur la barre, et avancer chaque jour. »</p>
+        </div>
+        <div class="hero-portrait">
+          <img src="assets/img/bruno-portrait-1.jpg" alt="Bruno Mark Partouche · portrait" loading="eager">
+        </div>
+      </div>
+    </section>
+
+    <div class="section-rule"></div>
+
+    <!-- =========== BIO SANS FIN =========== -->
+    <section id="bio">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="kicker" data-i18n="bio.kicker">Biographie</span>
+          <h2 data-i18n="bio.title">Une vie. <em>Pas de fin.</em></h2>
+        </div>
+        <div class="bio-content" data-i18n-html="bio.paragraphs">
+          <!-- Injecté par app.js -->
+        </div>
+        <div class="bio-continue" data-i18n="bio.continue">Cette histoire n'a pas de fin. Elle s'écrit jour après jour.</div>
+      </div>
+    </section>
+
+    <div class="section-rule"></div>
+
+    <!-- =========== UNIVERS =========== -->
+    <section id="univers">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="kicker" data-i18n="universe.kicker">Cinq terrains. Une seule discipline.</span>
+          <h2 data-i18n="universe.title">L'<em>univers</em></h2>
+        </div>
+        <div class="universe-grid" data-i18n-html="universe.cards"></div>
+      </div>
+    </section>
+
+    <div class="section-rule"></div>
+
+    <!-- =========== GALERIE =========== -->
+    <section id="galerie">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="kicker">Photographies</span>
+          <h2>Le <em>terrain</em></h2>
+        </div>
+        <div class="gallery">
+          <a href="assets/img/voilier-sarava-1.jpg" target="_blank"><img src="assets/img/voilier-sarava-1.jpg" alt="SARAVA voilier 1"></a>
+          <a href="assets/img/chasseloup-laubat.jpg" target="_blank"><img src="assets/img/chasseloup-laubat.jpg" alt="CHASSELOUP-LAUBAT"></a>
+          <a href="assets/img/voilier-sarava-2.jpg" target="_blank"><img src="assets/img/voilier-sarava-2.jpg" alt="SARAVA voilier 2"></a>
+          <a href="assets/img/navigation-1.jpg" target="_blank"><img src="assets/img/navigation-1.jpg" alt="Navigation 1"></a>
+          <a href="assets/img/navigation-3.jpg" target="_blank"><img src="assets/img/navigation-3.jpg" alt="Navigation 3"></a>
+          <a href="assets/img/mediterranee-1.jpg" target="_blank"><img src="assets/img/mediterranee-1.jpg" alt="Méditerranée 1"></a>
+          <a href="assets/img/mediterranee-2.jpg" target="_blank"><img src="assets/img/mediterranee-2.jpg" alt="Méditerranée 2"></a>
+          <a href="assets/img/chantier-1.jpg" target="_blank"><img src="assets/img/chantier-1.jpg" alt="Chantier naval 1"></a>
+        </div>
+      </div>
+    </section>
+
+    <div class="section-rule"></div>
+
+    <!-- =========== JOURNAL =========== -->
+    <section id="journal">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="kicker" data-i18n="journal.kicker">Carnet de marché, revue de presse, vue depuis le pont</span>
+          <h2 data-i18n="journal.title">Journal <em>de bord</em></h2>
+        </div>
+        <p style="font-size:1.05rem;max-width:680px;margin-bottom:2.5rem;color:var(--c-pearl);" data-i18n="journal.lead"></p>
+
+        <article class="journal-entry">
+          <div class="date" data-i18n="journal.placeholder_date">27 avril 2026</div>
+          <h3 data-i18n="journal.placeholder_title">Premier jour. Le carnet s'ouvre.</h3>
+          <p data-i18n="journal.placeholder_text"></p>
+        </article>
+
+        <div style="margin-top:1.5rem;">
+          <a href="journal.html" class="btn">→ Voir tout le journal</a>
+        </div>
+      </div>
+    </section>
+
+    <div class="section-rule"></div>
+
+    <!-- =========== CONTACT =========== -->
+    <section id="contact">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="kicker" data-i18n="contact.kicker">Une question, un projet, un café virtuel ?</span>
+          <h2 data-i18n="contact.title">Contact</h2>
+        </div>
+        <div class="contact-grid">
+          <div class="contact-card">
+            <div class="label">Email</div>
+            <a href="mailto:bpartouche46@gmail.com" class="value" data-i18n="contact.email">bpartouche46@gmail.com</a>
+            <div class="label" style="margin-top:1.4rem;">Site</div>
+            <div class="value" data-i18n="contact.site">brunopartouche.com</div>
+          </div>
+          <div class="contact-card">
+            <div class="label">⛵ Position</div>
+            <div class="value" style="font-size:1.1rem;line-height:1.5;">Méditerranée<br><em style="color:var(--c-pearl-soft);">entre Corse &amp; Grèce</em></div>
+            <p class="contact-note" data-i18n="contact.note" style="margin-top:1rem;font-size:.92rem;"></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- =========== FOOTER =========== -->
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="footer-grid">
+        <div class="brand-block">
+          <h4>Bruno Partouche</h4>
+          <p class="tagline" data-i18n="footer.tagline">Finance &amp; assurance · Skipper · Bien-être</p>
+          <p style="font-size:.86rem;color:var(--c-mute);">
+            <span data-i18n="footer.backup">Sauvegarde triple : Drive · Téléphone · Cold storage</span>
+          </p>
+        </div>
+        <div>
+          <h4>Pages</h4>
+          <ul>
+            <li><a href="a-propos.html"   data-i18n="nav.bio">Biographie</a></li>
+            <li><a href="cv.html"         data-i18n="nav.cv">Parcours</a></li>
+            <li><a href="credibilite.html" data-i18n="nav.credibility">Crédibilité</a></li>
+            <li><a href="journal.html"    data-i18n="nav.journal">Journal</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Liens</h4>
+          <ul>
+            <li><a href="mailto:bpartouche46@gmail.com">Email</a></li>
+            <li><a href="https://brunopartouche.com" target="_blank">brunopartouche.com</a></li>
+            <li><a href="assets/docs/cv-bruno-partouche.pdf" target="_blank">Télécharger le CV</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-legal">
+        <div class="row">
+          <span>© <span data-year>2026</span> Bruno Mark Partouche · Tous droits réservés</span>
+          <span data-i18n="footer.legal">[entité — hors dépôt] · contenu informatif, sans conseil personnalisé</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="data/content.js"></script>
+    <script src="assets/js/app.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js').catch(err => console.warn('SW failed:', err));
+      });
+    }
+  </script>
+</body>
+</html>

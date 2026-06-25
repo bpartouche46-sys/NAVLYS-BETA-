@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>NAVLYS — Démo parcours 7 escales</title>
+<style>
+  :root { --ice: #7DD3FC; --ice-dim: #0E4F66; --bg: #000; --text: #F2F4F7; --text-dim: #9AA3AF; }
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); font-family: system-ui, -apple-system, sans-serif; line-height: 1.55; }
+  header { padding: 32px 20px 20px; text-align: center; border-bottom: 1px solid var(--ice-dim); }
+  header .brand { color: var(--ice); letter-spacing: 3px; font-size: 13px; }
+  header h1 { margin: 8px 0 6px; font-size: 28px; }
+  header p { color: var(--text-dim); margin: 0; font-size: 14px; }
+  main { max-width: 760px; margin: 0 auto; padding: 0 20px 48px; }
+  section.escale { padding: 36px 0; border-bottom: 1px dashed var(--ice-dim); scroll-margin-top: 20px; }
+  section.escale h2 { color: var(--ice); font-size: 20px; margin: 0 0 8px; }
+  section.escale h2 .num { display: inline-block; width: 32px; height: 32px; line-height: 32px; text-align: center; border-radius: 50%; background: var(--ice); color: #000; font-weight: 700; margin-right: 10px; }
+  section.escale .image { color: var(--text-dim); font-style: italic; margin: 8px 0 16px; font-size: 14px; }
+  section.escale .body { font-size: 15px; }
+  .card { background: rgba(125,211,252,0.05); border: 1px solid var(--ice-dim); border-radius: 10px; padding: 16px; margin-top: 16px; }
+  .card.accent { border-color: var(--ice); }
+  .card .label { color: var(--text-dim); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; }
+  .card .value { color: var(--ice); font-size: 26px; margin-top: 4px; font-weight: 600; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 12px; }
+  @media (max-width: 540px) { .grid-2 { grid-template-columns: 1fr; } }
+  .progress { display: flex; gap: 4px; max-width: 760px; margin: 16px auto 0; padding: 0 20px; }
+  .progress span { flex: 1; height: 4px; background: var(--ice-dim); border-radius: 2px; }
+  .progress span.on { background: var(--ice); }
+  footer { padding: 24px 20px; text-align: center; color: var(--text-dim); font-size: 12px; border-top: 1px solid var(--ice-dim); }
+  .cta { display: inline-block; margin-top: 16px; background: var(--ice); color: #000; padding: 12px 18px; border-radius: 8px; font-weight: 600; text-decoration: none; }
+  .lighthouse-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 8px; margin-top: 12px; }
+  .lighthouse-grid div { border: 1px solid var(--ice); border-radius: 8px; padding: 10px; text-align: center; font-size: 13px; }
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">NAVLYS</div>
+  <h1>Ton parcours en 7 escales</h1>
+  <p>Un voyage, sept ports d'escale, un plan complet</p>
+</header>
+
+<div class="progress">
+  <span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span>
+</div>
+
+<main>
+
+<section class="escale" id="e1">
+  <h2><span class="num">1</span>Quel est ton cap ?</h2>
+  <div class="image">Image : huit phares colorés au loin. Tu cliques sur celui qui t'appelle.</div>
+  <div class="body">
+    Choisis ton rêve parmi 8 bouées préparées. Pose un montant cible, choisis ton rendement attendu.
+    <div class="lighthouse-grid">
+      <div>Voyage</div><div>Voiture</div><div>Mariage</div><div>Naissance</div>
+      <div>Études</div><div>Immo</div><div>Retraite</div><div>Imprévus</div>
+    </div>
+  </div>
+</section>
+
+<section class="escale" id="e2">
+  <h2><span class="num">2</span>Combien de temps pour y arriver ?</h2>
+  <div class="image">Image : trois voiles différentes. Prudente, équilibrée, rapide.</div>
+  <div class="body">Chaque voile change la vitesse du navire. Tu choisis la durée qui te ressemble.</div>
+</section>
+
+<section class="escale" id="e3">
+  <h2><span class="num">3</span>Où en es-tu côté frais ?</h2>
+  <div class="image">Image : la coque du navire. Si elle est pleine de coquillages, elle freine.</div>
+  <div class="body">Décris ton setup actuel : broker, banque, nombre de trades, ticket moyen, frais bancaires.</div>
+</section>
+
+<section class="escale" id="e4">
+  <h2><span class="num">4</span>L'écart révélé</h2>
+  <div class="image">Image : la marée se retire et révèle les pierres immergées.</div>
+  <div class="body">
+    <div class="card accent">
+      <div class="label">Tu payes chaque année</div>
+      <div class="value">600 €</div>
+      <div style="color:var(--text-dim);margin-top:6px;font-size:13px;">de frais cachés que tu pourrais récupérer.</div>
+    </div>
+  </div>
+</section>
+
+<section class="escale" id="e5">
+  <h2><span class="num">5</span>La méthode 90/10</h2>
+  <div class="image">Image : forteresse sur l'île, voilier qui sort explorer.</div>
+  <div class="body">La forteresse 90 % ne bouge jamais. Le voilier 10 % peut tanguer, mais sans menacer la forteresse.</div>
+</section>
+
+<section class="escale" id="e6">
+  <h2><span class="num">6</span>Ton plan unifié</h2>
+  <div class="image">Image : une carte marine personnelle, avec le cap, la route, les phares.</div>
+  <div class="body">
+    <div class="grid-2">
+      <div class="card"><div class="label">Cap</div><div class="value">5 000 €</div></div>
+      <div class="card"><div class="label">Mois gagnés</div><div class="value">2</div></div>
+      <div class="card"><div class="label">Forteresse 90 %</div><div class="value">4 500 €</div></div>
+      <div class="card"><div class="label">Voilier 10 %</div><div class="value">500 €</div></div>
+      <div class="card"><div class="label">Marge max</div><div class="value">250 €</div></div>
+      <div class="card"><div class="label">Stratégie</div><div class="value">demi-Kelly</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="escale" id="e7">
+  <h2><span class="num">7</span>Reçois ton plan complet</h2>
+  <div class="image">Image : une bouteille à la mer scellée. Tu y glisses ton email.</div>
+  <div class="body">
+    Reçois ton plan par email ou partage-le sur WhatsApp.
+    <br/><a class="cta" href="#e1">Recommencer le parcours</a>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  Information pédagogique. Tu restes seul décideur. Teste en simulation avant tout engagement réel.
+</footer>
+</body>
+</html>
