@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 500" width="1000" height="500">
+  <defs>
+    <linearGradient id="bgScreen" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0B1F33"/>
+      <stop offset="100%" stop-color="#1B3A5B"/>
+    </linearGradient>
+    <linearGradient id="phoneScreen" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0A1828"/>
+      <stop offset="100%" stop-color="#1A3050"/>
+    </linearGradient>
+  </defs>
+  <rect x="0" y="0" width="1000" height="500" fill="url(#bgScreen)"/>
+  <!-- Title -->
+  <text x="500" y="35" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#7DD3FC" text-anchor="middle">Les 5 écrans NAVLYS — The 5 NAVLYS screens</text>
+  <text x="500" y="55" font-family="Arial, sans-serif" font-size="12" fill="#CFE9FF" text-anchor="middle">Un parcours simple, une marée par jour. — A simple flow, one tide per day.</text>
+  <!-- Wave path connecting phones -->
+  <path d="M100,300 Q200,260 300,300 T500,300 T700,300 T900,300" fill="none" stroke="#7DD3FC" stroke-width="2" stroke-dasharray="4 4" opacity="0.6"/>
+  <!-- Phone template function via 5 copies -->
+  <!-- Phone 1 - Welcome -->
+  <g transform="translate(100, 200)">
+    <rect x="-50" y="-100" width="100" height="180" rx="10" fill="#0A0A0A" stroke="#7DD3FC" stroke-width="2"/>
+    <rect x="-42" y="-85" width="84" height="150" fill="url(#phoneScreen)"/>
+    <circle cx="0" cy="-90" r="2" fill="#444"/>
+    <!-- icon: castle -->
+    <rect x="-25" y="-50" width="50" height="35" fill="#7DD3FC" opacity="0.8"/>
+    <rect x="-25" y="-58" width="6" height="8" fill="#7DD3FC"/>
+    <rect x="-13" y="-58" width="6" height="8" fill="#7DD3FC"/>
+    <rect x="-1" y="-58" width="6" height="8" fill="#7DD3FC"/>
+    <rect x="11" y="-58" width="6" height="8" fill="#7DD3FC"/>
+    <rect x="19" y="-58" width="6" height="8" fill="#7DD3FC"/>
+    <!-- sail -->
+    <line x1="15" y1="-10" x2="15" y2="-30" stroke="#FFF" stroke-width="1"/>
+    <polygon points="15,-30 28,-12 15,-12" fill="#FFF"/>
+    <text x="0" y="20" font-family="Arial, sans-serif" font-size="9" fill="#7DD3FC" text-anchor="middle">90%</text>
+    <text x="0" y="32" font-family="Arial, sans-serif" font-size="7" fill="#CFE9FF" text-anchor="middle">+ 10%</text>
+    <text x="0" y="60" font-family="Arial, sans-serif" font-size="8" fill="#7DD3FC" text-anchor="middle" font-weight="bold">Bienvenue</text>
+  </g>
+  <text x="100" y="120" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="#7DD3FC" text-anchor="middle">1. Bienvenue</text>
+  <text x="100" y="135" font-family="Arial, sans-serif" font-size="10" fill="#CFE9FF" text-anchor="middle">Welcome</text>
+  <text x="100" y="355" font-family="Arial, sans-serif" font-size="10" fill="#CFE9FF" text-anchor="middle">Tu vois la forteresse</text>
+  <text x="100" y="370" font-family="Arial, sans-serif" font-size="10" fill="#CFE9FF" text-anchor="middle">et le voilier.</text>
+  <!-- Phone 2 - Today's idea -->
+  <g transform="translate(300, 200)">
+    <rect x="-50" y="-100" width="100" height="180" rx="10" fill="#0A0A0A" stroke="#7DD3FC" stroke-width="2"/>
+    <rect x="-42" y="-85" width="84" height="150" fill="url(#phoneScreen)"/>
+    <circle cx="0" cy="-90" r="2" fill="#444"/>
+    <!-- compass -->
+    <circle cx="0" cy="-30" r="22" fill="none" stroke="#7DD3FC" stroke-width="2"/>
+    <polygon points="0,-50 5,-30 0,-25 -5,-30" fill="#7DD3FC"/>
+    <polygon points="0,-10 5,-30 0,-35 -5,-30" fill="#FFF" opacity="0.5"/>
+    <text x="0" y="20" font-family="Arial, sans-serif" font-size="8" fill="#7DD3FC" text-anchor="middle">SORTIR</text>
+    <text x="0" y="32" font-family="Arial, sans-serif" font-size="7" fill="#CFE9FF" text-anchor="middle">Sail out</text>
+    <rect x="-25" y="42" width="50" height="14" rx="6" fill="#7DD3FC"/>
+    <text x="0" y="52" font-family="Arial, sans-serif" font-size="7" fill="#0B1F33" text-anchor="middle" font-weight="bold">Valider</text>
+  </g>
+  <text x="300" y="120" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="#7DD3FC" text-anchor="middle">2. L'idée du jour</text>
+  <text x="300" y="135" font-family="Arial, sans-serif" font-size="10" fill="#CFE9FF" text-anchor="middle">Today's idea</text>
+  <text x="300" y="355" font-family="Arial, sans-serif" font-size="10" fill="#CFE9FF" text-anchor="middle">L'algorithme te dit</text>
+  <text x="300" y="370" font-family="Arial, sans-serif" font-size="10" fill="#CFE9FF" text-anchor="middle">le cap du jour.</text>
+  <!-- Phone 3 - Settings -->
+  <g transform="translate(500, 200)">
+    <rect x="-50" y="-100" width="100" height="180" rx="10" fill="#0A0A0A" stroke="#7DD3FC" stroke-width="2"/>
+    <rect x="-42" y="-85" width="84" height="150" fill="url(#phoneScreen)"/>
+    <circle cx="0" cy="-90" r="2" fill="#444"/>
+    <!-- sliders -->
+    <line x1="-30" y1="-60" x2="30" y2="-60" stroke="#FFF" stroke-width="2" opacity="0.4"/>
+    <circle cx="10" cy="-60" r="5" fill="#7DD3FC"/>
+    <line x1="-30" y1="-40" x2="30" y2="-40" stroke="#FFF" stroke-width="2" opacity="0.4"/>
+    <circle cx="-10" cy="-40" r="5" fill="#7DD3FC"/>
+    <line x1="-30" y1="-20" x2="30" y2="-20" stroke="#FFF" stroke-width="2" opacity="0.4"/>
+    <circle cx="0" cy="-20" r="5" fill="#7DD3FC"/>
+    <line x1="-30" y1="0" x2="30" y2="0" stroke="#FFF" stroke-width="2" opacity="0.4"/>
+    <circle cx="20" cy="0" r="5" fill="#7DD3FC"/>
+    <line x1="-30" y1="20" x2="30" y2="20" stroke="#FFF" stroke-width="2" opacity="0.4"/>
+    <circle cx="-15" cy="20" r="5" fill="#7DD3FC"/>
+    <text x="0" y="50" font-family="Arial, sans-serif" font-size="7" fill="#7DD3FC" text-anchor="middle">Détails ▾</text>
+  </g>
+  <text x="500" y="120" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="#7DD3FC" text-anchor="middle">3. Mes réglages</text>
+  <text x="500" y="135" font-family="Arial, sans-serif" font-size="10" fill="#CFE9FF" text-anchor="middle">My settings</text>
+  <text x="500" y="355" font-family="Arial, sans-serif" font-size="10" fill="#CFE9FF" text-anchor="middle">5 boutons simples.</text>
+  <text x="500" y="370" font-family="Arial, sans-serif" font-size="10" fill="#CFE9FF" text-anchor="middle">9 réglages avancés.</text>
+  <!-- Phone 4 - Execute -->
+  <g transform="translate(700, 200)">
+    <rect x="-50" y="-100" width="100" height="180" rx="10" fill="#0A0A0A" stroke="#7DD3FC" stroke-width="2"/>
+    <rect x="-42" y="-85" width="84" height="150" fill="url(#phoneScreen)"/>
+    <circle cx="0" cy="-90" r="2" fill="#444"/>
+    <!-- boat sailing -->
+    <g transform="translate(0, -25)">
+      <path d="M-20,15 Q-15,25 0,25 Q15,25 20,15 Z" fill="#8B6F4A"/>
+      <line x1="0" y1="15" x2="0" y2="-25" stroke="#3A2F1F" stroke-width="2"/>
+      <path d="M0,-25 L18,10 L0,10 Z" fill="#FFFFFF" stroke="#7DD3FC" stroke-width="1"/>
+      <path d="M0,-25 L-15,10 L0,10 Z" fill="#FFFFFF" stroke="#7DD3FC" stroke-width="1"/>
+    </g>
+    <!-- waves -->
+    <path d="M-35,15 Q-25,10 -15,15 T5,15 T25,15 T45,15" fill="none" stroke="#7DD3FC" stroke-width="1" opacity="0.7"/>
+    <text x="0" y="35" font-family="Arial, sans-serif" font-size="9" fill="#7DD3FC" text-anchor="middle" font-weight="bold">Parti !</text>
+    <text x="0" y="48" font-family="Arial, sans-serif" font-size="7" fill="#CFE9FF" text-anchor="middle">Sailing</text>
+  </g>
+  <text x="700" y="120" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="#7DD3FC" text-anchor="middle">4. Exécution</text>
+  <text x="700" y="135" font-family="Arial, sans-serif" font-size="10" fill="#CFE9FF" text-anchor="middle">Execute</text>
+  <text x="700" y="355" font-family="Arial, sans-serif" font-size="10" fill="#CFE9FF" text-anchor="middle">Tu valides.</text>
+  <text x="700" y="370" font-family="Arial, sans-serif" font-size="10" fill="#CFE9FF" text-anchor="middle">Le voilier part.</text>
+  <!-- Phone 5 - Recap -->
+  <g transform="translate(900, 200)">
+    <rect x="-50" y="-100" width="100" height="180" rx="10" fill="#0A0A0A" stroke="#7DD3FC" stroke-width="2"/>
+    <rect x="-42" y="-85" width="84" height="150" fill="url(#phoneScreen)"/>
+    <circle cx="0" cy="-90" r="2" fill="#444"/>
+    <!-- equity curve -->
+    <polyline points="-30,30 -20,20 -10,25 0,10 10,15 20,-5 30,0" fill="none" stroke="#7DD3FC" stroke-width="2"/>
+    <text x="0" y="-50" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#7DD3FC" text-anchor="middle">+1,3%</text>
+    <text x="0" y="-35" font-family="Arial, sans-serif" font-size="7" fill="#CFE9FF" text-anchor="middle">Aujourd'hui</text>
+    <text x="0" y="50" font-family="Arial, sans-serif" font-size="7" fill="#CFE9FF" text-anchor="middle">Bonne marée 🌊</text>
+  </g>
+  <text x="900" y="120" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="#7DD3FC" text-anchor="middle">5. Bilan</text>
+  <text x="900" y="135" font-family="Arial, sans-serif" font-size="10" fill="#CFE9FF" text-anchor="middle">Recap</text>
+  <text x="900" y="355" font-family="Arial, sans-serif" font-size="10" fill="#CFE9FF" text-anchor="middle">Tu vois le voyage.</text>
+  <text x="900" y="370" font-family="Arial, sans-serif" font-size="10" fill="#CFE9FF" text-anchor="middle">Tu apprends.</text>
+  <!-- Footer -->
+  <text x="500" y="445" font-family="Arial, sans-serif" font-size="11" fill="#7DD3FC" text-anchor="middle" font-style="italic">Une marée par jour. Pas de jargon. Pas de graphique compliqué.</text>
+  <text x="500" y="465" font-family="Arial, sans-serif" font-size="10" fill="#CFE9FF" text-anchor="middle" font-style="italic">One tide per day. No jargon. No complicated chart.</text>
+</svg>
