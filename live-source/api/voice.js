@@ -6,7 +6,7 @@ const ALLOWED = [
   'https://navlys.com','https://www.navlys.com','https://navlys.io','https://www.navlys.io',
   'https://brunopartouche.com','https://www.brunopartouche.com'
 ];
-const VOICE_ID = '6hUoby5ZAVW4JqvIJeri';   // voix NAVLYS (réglable via env)
+// VOICE_ID fourni UNIQUEMENT via env ELEVENLABS_VOICE_ID (R6 sécurité : jamais en clair dans Git)
 const MAX_CHARS = 1200;
 const hits = new Map();
 function limited(ip){ const now=Date.now(),w=60000,max=10; const a=(hits.get(ip)||[]).filter(t=>now-t<w); a.push(now); hits.set(ip,a); return a.length>max; }
@@ -24,7 +24,8 @@ export default async function handler(req){
   let body; try{ body=await req.json(); }catch{ return new Response(JSON.stringify({error:'bad json'}),{status:400,headers:{...cors(origin),'Content-Type':'application/json'}}); }
   const text = String(body.text||'').slice(0,MAX_CHARS).trim();
   if(!text) return new Response(JSON.stringify({error:'texte vide'}),{status:400,headers:{...cors(origin),'Content-Type':'application/json'}});
-  const voiceId = process.env.ELEVENLABS_VOICE_ID || VOICE_ID;
+  const voiceId = process.env.ELEVENLABS_VOICE_ID;
+  if(!voiceId) return new Response(JSON.stringify({error:'server not configured (ELEVENLABS_VOICE_ID)'}),{status:500,headers:{...cors(origin),'Content-Type':'application/json'}});
   const r = await fetch('https://api.elevenlabs.io/v1/text-to-speech/'+voiceId,{
     method:'POST',
     headers:{ 'xi-api-key':key, 'Content-Type':'application/json', 'Accept':'audio/mpeg' },
