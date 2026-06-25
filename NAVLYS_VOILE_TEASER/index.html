@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="fr" data-lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NAVLYS — Bientôt / Coming soon</title>
+<meta name="description" content="NAVLYS — vise ton cap, atteins-le. Éducation financière simple. / Aim for your course, reach it. Simple financial education.">
+<style>
+  :root{
+    --ice:#7DD3FC; --ice-soft:#BAE6FD; --bronze:#E0A864; --bronze-deep:#B87333;
+    --bg:#000; --night:#0B1220; --text:#F2F4F7; --dim:#9AA3AF; --green:#86EFAC;
+  }
+  *{box-sizing:border-box; margin:0; padding:0}
+  html,body{height:100%}
+  body{
+    background:var(--bg); color:var(--text);
+    font-family:"Segoe UI",system-ui,-apple-system,sans-serif;
+    min-height:100vh; overflow-x:hidden; position:relative;
+    display:flex; flex-direction:column; align-items:center;
+    padding:clamp(20px,4vw,48px) clamp(16px,4vw,40px) 40px;
+  }
+  /* ---- LE SITE FLOUTÉ EN ARRIÈRE-PLAN (la voile) ---- */
+  .voile{
+    position:fixed; inset:0; z-index:0; overflow:hidden;
+    filter:blur(18px) brightness(.55) saturate(1.1);
+    transform:scale(1.08); pointer-events:none;
+  }
+  .voile .glow1,.voile .glow2{position:absolute; border-radius:50%}
+  .voile .glow1{width:60vw; height:60vw; left:-10vw; top:-15vw;
+    background:radial-gradient(circle,rgba(125,211,252,.35),transparent 65%)}
+  .voile .glow2{width:55vw; height:55vw; right:-12vw; bottom:-18vw;
+    background:radial-gradient(circle,rgba(184,115,51,.30),transparent 65%)}
+  .voile .horizon{position:absolute; left:0; right:0; top:58%; height:2px;
+    background:linear-gradient(90deg,transparent,var(--ice),transparent); opacity:.5}
+  .voile .word{position:absolute; inset:0; display:flex; flex-wrap:wrap;
+    align-content:center; justify-content:center; gap:2.5rem; opacity:.10}
+  .voile .word span{font-size:clamp(2.2rem,7vw,5rem); font-weight:800; letter-spacing:.4rem; color:var(--ice)}
+  /* ---- CONTENU NET PAR-DESSUS ---- */
+  .stage{position:relative; z-index:1; width:100%; max-width:960px;
+    display:flex; flex-direction:column; align-items:center; gap:clamp(22px,3.5vw,40px)}
+  /* langue */
+  .lang-en{display:none}
+  html[data-lang="en"] .lang-fr{display:none}
+  html[data-lang="en"] .lang-en{display:inline}
+  html[data-lang="en"] .lang-en.block{display:block}
+  .lang-fr.block{display:block}
+  .switch{position:fixed; top:16px; right:16px; z-index:5; display:flex; gap:6px;
+    background:rgba(11,18,32,.7); border:1px solid rgba(125,211,252,.3);
+    border-radius:999px; padding:5px; backdrop-filter:blur(6px)}
+  .switch button{cursor:pointer; border:0; background:transparent; color:var(--dim);
+    font-weight:700; font-size:1rem; padding:8px 16px; border-radius:999px; transition:.2s}
+  .switch button.on{background:var(--ice); color:#04212e}
+  /* pièce + marque */
+  .coin{width:clamp(96px,16vw,140px); height:clamp(96px,16vw,140px); border-radius:50%;
+    background:radial-gradient(circle at 35% 30%,var(--bronze),var(--bronze-deep) 70%,#5e3617);
+    box-shadow:0 0 0 4px rgba(224,168,100,.25),0 0 60px rgba(125,211,252,.35);
+    display:flex; align-items:center; justify-content:center; position:relative;
+    animation:spin 14s linear infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .coin svg{width:64%; height:64%}
+  .brand{font-size:clamp(3rem,9vw,5.5rem); font-weight:800; letter-spacing:.5rem;
+    color:var(--text); text-align:center; line-height:1}
+  .tagline{font-size:clamp(1.4rem,3.6vw,2.3rem); color:var(--ice); text-align:center;
+    font-weight:600; line-height:1.25}
+  .sub{font-size:clamp(1.05rem,2.2vw,1.4rem); color:var(--text); text-align:center; max-width:42ch; line-height:1.5}
+  /* HUBLOT COCKPIT NET (non flouté, encadré) */
+  .hublot{width:min(560px,92vw); background:rgba(11,18,32,.92);
+    border:2px solid var(--ice); border-radius:22px; padding:clamp(18px,3vw,28px);
+    box-shadow:0 0 0 6px rgba(125,211,252,.12),0 18px 60px rgba(0,0,0,.7)}
+  .hublot .htitle{display:flex; align-items:center; justify-content:space-between;
+    font-size:1.1rem; color:var(--ice-soft); font-weight:700; margin-bottom:14px; letter-spacing:.04em}
+  .hublot .tag{font-size:.85rem; color:#04212e; background:var(--green); padding:3px 10px; border-radius:999px; font-weight:800}
+  .cockpit-svg{width:100%; height:auto; display:block; border-radius:14px; background:#050a14}
+  .cap{margin-top:14px; padding:14px 16px; border:1px solid rgba(125,211,252,.3);
+    border-radius:14px; background:rgba(125,211,252,.06)}
+  .cap .k{font-size:.95rem; color:var(--dim); margin-bottom:4px}
+  .cap .v{font-size:clamp(1.2rem,2.6vw,1.6rem); color:var(--text); font-weight:700}
+  /* compte à rebours */
+  .count{display:flex; gap:clamp(10px,2.5vw,22px); flex-wrap:wrap; justify-content:center}
+  .count .cell{min-width:88px; background:rgba(11,18,32,.85); border:1px solid rgba(125,211,252,.25);
+    border-radius:16px; padding:14px 10px; text-align:center}
+  .count .num{font-size:clamp(2rem,5vw,3rem); font-weight:800; color:var(--ice)}
+  .count .lbl{font-size:.95rem; color:var(--dim); text-transform:uppercase; letter-spacing:.05em}
+  /* CTA */
+  .cta{display:inline-block; text-decoration:none; font-size:clamp(1.1rem,2.4vw,1.35rem);
+    font-weight:800; color:#04212e; background:var(--ice); padding:16px 34px; border-radius:999px;
+    box-shadow:0 10px 30px rgba(125,211,252,.3); transition:.2s}
+  .cta:hover{transform:translateY(-2px); box-shadow:0 14px 38px rgba(125,211,252,.45)}
+  .sign{font-size:clamp(1rem,2vw,1.2rem); color:var(--ice-soft); text-align:center; font-style:italic; max-width:46ch; line-height:1.5}
+  .disc{font-size:clamp(.85rem,1.6vw,1rem); color:var(--dim); text-align:center; max-width:60ch; line-height:1.5}
+  footer{margin-top:8px; display:flex; flex-direction:column; align-items:center; gap:14px}
+</style>
+</head>
+<body>
+  <!-- arrière-plan flouté = la voile -->
+  <div class="voile" aria-hidden="true">
+    <div class="glow1"></div><div class="glow2"></div>
+    <div class="horizon"></div>
+    <div class="word"><span>NAVLYS</span><span>NAVLYS</span><span>NAVLYS</span><span>NAVLYS</span><span>NAVLYS</span><span>NAVLYS</span></div>
+  </div>
+
+  <!-- bascule de langue -->
+  <div class="switch" role="group" aria-label="Langue / Language">
+    <button id="bfr" class="on" onclick="setLang('fr')">FR</button>
+    <button id="ben" onclick="setLang('en')">EN</button>
+  </div>
+
+  <div class="stage">
+    <!-- pièce bronze -->
+    <div class="coin" aria-label="NAVLYS">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="50" cy="50" r="46" fill="none" stroke="#0B1220" stroke-width="3" opacity=".5"/>
+        <path d="M50 14 l6 18 19 0 -15 12 6 19 -16 -11 -16 11 6 -19 -15 -12 19 0 z" fill="#0B1220" opacity=".85"/>
+        <text x="50" y="58" text-anchor="middle" font-size="15" font-weight="800" fill="#0B1220" font-family="Georgia,serif">NAVLYS</text>
+      </svg>
+    </div>
+
+    <h1 class="brand">NAVLYS</h1>
+
+    <p class="tagline">
+      <span class="lang-fr">Vise ton cap, atteins-le.</span>
+      <span class="lang-en">Aim for your course, reach it.</span>
+    </p>
+
+    <p class="sub">
+      <span class="lang-fr block">Éducation financière simple. Des mots clairs, des outils gratuits, un cap par jour. Zéro jargon.</span>
+      <span class="lang-en block">Simple financial education. Clear words, free tools, one course a day. Zero jargon.</span>
+    </p>
+
+    <!-- HUBLOT : le cockpit montré NET, dans son cadre -->
+    <div class="hublot">
+      <div class="htitle">
+        <span class="lang-fr block">🧭 Aperçu du cockpit</span>
+        <span class="lang-en block">🧭 Cockpit preview</span>
+        <span class="tag">
+          <span class="lang-fr">EN CLAIR</span><span class="lang-en">LIVE PREVIEW</span>
+        </span>
+      </div>
+      <svg class="cockpit-svg" viewBox="0 0 520 240" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="cglow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#7DD3FC" stop-opacity=".35"/>
+            <stop offset="100%" stop-color="#7DD3FC" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <rect width="520" height="240" fill="#050a14"/>
+        <!-- horizon -->
+        <line x1="0" y1="150" x2="520" y2="150" stroke="#7DD3FC" stroke-width="1.5" opacity=".5"/>
+        <ellipse cx="260" cy="150" rx="240" ry="60" fill="url(#cglow)"/>
+        <!-- boussole / compas -->
+        <g transform="translate(110,118)">
+          <circle r="70" fill="#0B1220" stroke="#7DD3FC" stroke-width="2"/>
+          <circle r="56" fill="none" stroke="#1f3a4d" stroke-width="1"/>
+          <path d="M0 -56 L10 0 L0 56 L-10 0 Z" fill="#E0A864"/>
+          <path d="M0 -56 L10 0 L0 0 Z" fill="#BAE6FD"/>
+          <circle r="6" fill="#7DD3FC"/>
+          <text y="-60" text-anchor="middle" font-size="13" fill="#BAE6FD" font-weight="700">N</text>
+        </g>
+        <!-- jauges -->
+        <g font-family="Segoe UI,system-ui,sans-serif">
+          <rect x="220" y="58" width="270" height="44" rx="10" fill="#0B1220" stroke="#1f3a4d"/>
+          <text x="236" y="78" font-size="13" fill="#9AA3AF">Cap du jour / Course</text>
+          <text x="236" y="95" font-size="16" fill="#F2F4F7" font-weight="700">▲ Direction tenue</text>
+          <rect x="220" y="112" width="130" height="44" rx="10" fill="#0B1220" stroke="#1f3a4d"/>
+          <text x="236" y="132" font-size="12" fill="#9AA3AF">Forteresse 90%</text>
+          <text x="236" y="149" font-size="15" fill="#86EFAC" font-weight="700">sécurisée</text>
+          <rect x="360" y="112" width="130" height="44" rx="10" fill="#0B1220" stroke="#1f3a4d"/>
+          <text x="376" y="132" font-size="12" fill="#9AA3AF">Voilier 10%</text>
+          <text x="376" y="149" font-size="15" fill="#7DD3FC" font-weight="700">en mer</text>
+          <rect x="220" y="166" width="270" height="44" rx="10" fill="#0B1220" stroke="#1f3a4d"/>
+          <text x="236" y="186" font-size="13" fill="#9AA3AF">Étoile polaire / North star</text>
+          <text x="236" y="203" font-size="15" fill="#F0D78C" font-weight="700">★ Objectif visé</text>
+        </g>
+      </svg>
+      <div class="cap">
+        <div class="k"><span class="lang-fr block">Le cap du matin, livré à 9 h</span><span class="lang-en block">The morning course, delivered at 9 a.m.</span></div>
+        <div class="v"><span class="lang-fr block">Un cap. Un geste. Un jour.</span><span class="lang-en block">One course. One move. One day.</span></div>
+      </div>
+    </div>
+
+    <!-- compte à rebours -->
+    <div>
+      <p class="sub" style="margin-bottom:14px">
+        <span class="lang-fr block">Ouverture du port le 31 mai 2026</span>
+        <span class="lang-en block">The harbor opens on 31 May 2026</span>
+      </p>
+      <div class="count" id="count">
+        <div class="cell"><div class="num" id="d">--</div><div class="lbl"><span class="lang-fr">jours</span><span class="lang-en">days</span></div></div>
+        <div class="cell"><div class="num" id="h">--</div><div class="lbl"><span class="lang-fr">heures</span><span class="lang-en">hours</span></div></div>
+        <div class="cell"><div class="num" id="m">--</div><div class="lbl"><span class="lang-fr">min</span><span class="lang-en">min</span></div></div>
+        <div class="cell"><div class="num" id="s">--</div><div class="lbl"><span class="lang-fr">sec</span><span class="lang-en">sec</span></div></div>
+      </div>
+    </div>
+
+    <a class="cta" href="https://navlys.com">
+      <span class="lang-fr">Découvre ton cap →</span>
+      <span class="lang-en">Find your course →</span>
+    </a>
+
+    <footer>
+      <p class="sign">« Un cap, une main, un jour. NAVLYS te guide d'un seul geste vers ton objectif. »</p>
+      <p class="disc">
+        <span class="lang-fr block">NAVLYS partage des informations générales et pédagogiques. Ce n'est pas un conseil financier personnalisé. Tu décides tout, tu gères tout.</span>
+        <span class="lang-en block">NAVLYS shares general, educational information. This is not personalized financial advice. You decide everything, you manage everything.</span>
+      </p>
+    </footer>
+  </div>
+
+<script>
+  function setLang(l){
+    document.documentElement.setAttribute('data-lang', l);
+    document.documentElement.setAttribute('lang', l);
+    document.getElementById('bfr').classList.toggle('on', l==='fr');
+    document.getElementById('ben').classList.toggle('on', l==='en');
+  }
+  // Compte à rebours — 31 mai 2026, 00:00 heure de Jérusalem (UTC+3)
+  var target = new Date('2026-05-31T00:00:00+03:00').getTime();
+  function tick(){
+    var now = Date.now(), diff = target - now;
+    if(diff < 0){ diff = 0; }
+    var d = Math.floor(diff/86400000);
+    var h = Math.floor(diff%86400000/3600000);
+    var m = Math.floor(diff%3600000/60000);
+    var s = Math.floor(diff%60000/1000);
+    document.getElementById('d').textContent = d;
+    document.getElementById('h').textContent = String(h).padStart(2,'0');
+    document.getElementById('m').textContent = String(m).padStart(2,'0');
+    document.getElementById('s').textContent = String(s).padStart(2,'0');
+  }
+  tick(); setInterval(tick, 1000);
+</script>
+</body>
+</html>

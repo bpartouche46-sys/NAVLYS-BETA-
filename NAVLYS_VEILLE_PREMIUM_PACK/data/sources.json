@@ -1,0 +1,102 @@
+{
+  "version": "1.0.0",
+  "lastUpdated": "2026-05-19",
+  "disclaimer": "Information pédagogique. Tu restes seul décideur. Teste en simulation avant tout engagement réel.",
+
+  "banquesCentrales": [
+    { "id": "fed", "nom": "Federal Reserve", "voix": "Jerome Powell", "siteOfficiel": "federalreserve.gov", "zone": "US", "classeInfluence": "A", "effetTypique": "S&P 500, USD, taux US" },
+    { "id": "bce", "nom": "Banque centrale européenne", "voix": "Christine Lagarde", "siteOfficiel": "ecb.europa.eu", "zone": "EU", "classeInfluence": "A", "effetTypique": "EUR, taux EUR, Stoxx 600" },
+    { "id": "boj", "nom": "Bank of Japan", "voix": "Kazuo Ueda", "siteOfficiel": "boj.or.jp", "zone": "JP", "classeInfluence": "A", "effetTypique": "JPY, Nikkei, taux JPN" },
+    { "id": "pboc", "nom": "People's Bank of China", "voix": "Gouverneur PBoC", "siteOfficiel": "pbc.gov.cn", "zone": "CN", "classeInfluence": "A", "effetTypique": "CNY, indices chinois" },
+    { "id": "boe", "nom": "Bank of England", "voix": "Andrew Bailey", "siteOfficiel": "bankofengland.co.uk", "zone": "UK", "classeInfluence": "A", "effetTypique": "GBP, FTSE, gilts" },
+    { "id": "bns", "nom": "Banque nationale suisse", "voix": "Martin Schlegel", "siteOfficiel": "snb.ch", "zone": "CH", "classeInfluence": "B", "effetTypique": "CHF" }
+  ],
+
+  "institutionsFinancieres": [
+    { "id": "fmi", "nom": "Fonds monétaire international", "siteOfficiel": "imf.org", "zone": "monde", "classeInfluence": "B" },
+    { "id": "bmondiale", "nom": "Banque mondiale", "siteOfficiel": "worldbank.org", "zone": "monde", "classeInfluence": "B" },
+    { "id": "bis", "nom": "Banque des règlements internationaux", "siteOfficiel": "bis.org", "zone": "monde", "classeInfluence": "B" },
+    { "id": "oecd", "nom": "OCDE", "siteOfficiel": "oecd.org", "zone": "monde", "classeInfluence": "B" },
+    { "id": "sec", "nom": "Securities and Exchange Commission", "siteOfficiel": "sec.gov", "zone": "US", "classeInfluence": "A" },
+    { "id": "esma", "nom": "European Securities and Markets Authority", "siteOfficiel": "esma.europa.eu", "zone": "EU", "classeInfluence": "B" },
+    { "id": "fca", "nom": "Financial Conduct Authority", "siteOfficiel": "fca.org.uk", "zone": "UK", "classeInfluence": "B" }
+  ],
+
+  "agencesPresseOfficielles": [
+    { "id": "reuters", "nom": "Reuters", "pays": "UK", "specialite": "finance + géopolitique", "site": "reuters.com", "poidsQuorum": 1.0 },
+    { "id": "bloomberg", "nom": "Bloomberg", "pays": "US", "specialite": "finance pro", "site": "bloomberg.com", "poidsQuorum": 1.0 },
+    { "id": "ap", "nom": "Associated Press", "pays": "US", "specialite": "généraliste mondial", "site": "apnews.com", "poidsQuorum": 1.0 },
+    { "id": "afp", "nom": "Agence France-Presse", "pays": "FR", "specialite": "mondial multilingue", "site": "afp.com", "poidsQuorum": 1.0 },
+    { "id": "djn", "nom": "Dow Jones Newswires", "pays": "US", "specialite": "finance pro WSJ", "site": "dowjones.com", "poidsQuorum": 1.0 },
+    { "id": "xinhua", "nom": "Xinhua", "pays": "CN", "specialite": "Chine officielle", "site": "xinhuanet.com", "poidsQuorum": 1.0 }
+  ],
+
+  "voixIndividuelles": {
+    "finance": [
+      { "nom": "Jerome Powell", "fonction": "Président Fed", "classe": "A", "anticipateur": false, "canal": "conf de presse FOMC" },
+      { "nom": "Christine Lagarde", "fonction": "Présidente BCE", "classe": "A", "anticipateur": false, "canal": "conf de presse BCE" },
+      { "nom": "Janet Yellen", "fonction": "Secrétaire au Trésor US", "classe": "A", "anticipateur": true, "canal": "auditions, communiqués Treasury" },
+      { "nom": "Warren Buffett", "fonction": "CEO Berkshire Hathaway", "classe": "A", "anticipateur": true, "canal": "lettre annuelle, AGM Omaha" },
+      { "nom": "Jamie Dimon", "fonction": "CEO JPMorgan", "classe": "B", "anticipateur": true, "canal": "lettre actionnaires, earnings calls" },
+      { "nom": "Larry Fink", "fonction": "CEO BlackRock", "classe": "A", "anticipateur": true, "canal": "lettre annuelle CEO" },
+      { "nom": "Ray Dalio", "fonction": "Founder Bridgewater", "classe": "B", "anticipateur": true, "canal": "publications LinkedIn, livres" }
+    ],
+    "tech": [
+      { "nom": "Elon Musk", "fonction": "CEO Tesla, X, SpaceX", "classe": "A", "anticipateur": false, "canal": "compte X officiel" },
+      { "nom": "Jensen Huang", "fonction": "CEO NVIDIA", "classe": "A", "anticipateur": true, "canal": "keynotes GTC, earnings calls" },
+      { "nom": "Tim Cook", "fonction": "CEO Apple", "classe": "B", "anticipateur": false, "canal": "earnings calls, keynotes" },
+      { "nom": "Satya Nadella", "fonction": "CEO Microsoft", "classe": "B", "anticipateur": false, "canal": "earnings calls" }
+    ],
+    "energie": [
+      { "nom": "Secrétaire général OPEP", "fonction": "OPEP", "classe": "A", "anticipateur": false, "canal": "communiqués OPEP" },
+      { "nom": "Ministre saoudien de l'énergie", "fonction": "Arabie saoudite", "classe": "A", "anticipateur": false, "canal": "communiqués Riyad" }
+    ],
+    "politique": [
+      { "nom": "Président des États-Unis", "fonction": "POTUS", "classe": "A", "anticipateur": false, "canal": "discours officiels, Truth Social/X officiel" },
+      { "nom": "Président Commission européenne", "fonction": "CE", "classe": "B", "anticipateur": false, "canal": "conf de presse CE" },
+      { "nom": "Président chinois", "fonction": "RPC", "classe": "A", "anticipateur": true, "canal": "discours officiels, Xinhua" }
+    ]
+  },
+
+  "sommetsConferences": [
+    { "id": "jacksonHole", "nom": "Symposium de Jackson Hole", "cadence": "annuel (août)", "effet": "discours Powell, choc immédiat" },
+    { "id": "davos", "nom": "Forum économique mondial de Davos", "cadence": "annuel (janvier)", "effet": "sentiment global" },
+    { "id": "g7", "nom": "Sommet G7", "cadence": "annuel + extraordinaires", "effet": "géopolitique, devises" },
+    { "id": "g20", "nom": "Sommet G20", "cadence": "annuel + extraordinaires", "effet": "macro mondial" },
+    { "id": "opep", "nom": "Réunion OPEP / OPEP+", "cadence": "mensuel à trimestriel", "effet": "Brent, WTI" },
+    { "id": "brics", "nom": "Sommet BRICS", "cadence": "annuel", "effet": "devises émergentes" },
+    { "id": "berkshire", "nom": "AGM Berkshire Hathaway", "cadence": "annuel (mai)", "effet": "sentiment value" }
+  ],
+
+  "publicationsStatistiques": [
+    { "id": "us_cpi", "nom": "US CPI (inflation)", "pays": "US", "cadence": "mensuel", "effet": "USD, S&P 500, or" },
+    { "id": "us_nfp", "nom": "US Non-Farm Payrolls", "pays": "US", "cadence": "mensuel (1er vendredi)", "effet": "USD, indices US" },
+    { "id": "us_fomc", "nom": "Décision FOMC", "pays": "US", "cadence": "8 fois/an", "effet": "tout marché US" },
+    { "id": "pmi", "nom": "PMI manufacturier/services", "pays": "mondial", "cadence": "mensuel", "effet": "indices régionaux" },
+    { "id": "gdp", "nom": "PIB", "pays": "par pays", "cadence": "trimestriel", "effet": "devise + indice national" },
+    { "id": "eia_oil", "nom": "Réserves pétrole US (EIA)", "pays": "US", "cadence": "hebdo (mercredi)", "effet": "Brent, WTI" },
+    { "id": "unemployment", "nom": "Taux de chômage", "pays": "par pays", "cadence": "mensuel", "effet": "devise + indices" }
+  ],
+
+  "indicesReference": {
+    "actions": ["SPX (S&P 500)", "NDX (Nasdaq 100)", "DJI (Dow Jones)", "SX5E (Euro Stoxx 50)", "DAX", "CAC 40", "UKX (FTSE 100)", "N225 (Nikkei)", "HSI (Hang Seng)", "SHCOMP (Shanghai)"],
+    "devises": ["DXY (USD index)", "EUR/USD", "USD/JPY", "GBP/USD", "USD/CHF", "USD/CNY"],
+    "matieresPremieres": ["Brent", "WTI", "Gold (XAU)", "Silver (XAG)", "Copper (HG)"],
+    "crypto": ["BTC", "ETH"]
+  },
+
+  "regleQuorum": {
+    "description": "Une nouvelle entre comme événement marché si ≥4 des 6 agences la reprennent en <60min.",
+    "majeur": "6/6 dans 30min → score 95-100",
+    "fort": "5/6 dans 60min → score 75-94",
+    "notable": "4/6 dans 60min → score 50-74",
+    "bruit": "≤3/6 → ignoré (score <50)"
+  },
+
+  "fenetresTemporelles": [
+    { "id": "T+15min", "nom": "Choc immédiat" },
+    { "id": "T+1h", "nom": "Absorption" },
+    { "id": "T+4h", "nom": "Propagation" },
+    { "id": "T+24h", "nom": "Digestion" }
+  ]
+}

@@ -63,3 +63,23 @@
 Le dépôt est **propre et sûr** : rien ne bloque, aucune fuite, conformité publique respectée.
 Les 4 points relevés sont **mineurs** et faciles à corriger. Les vrais risques restants sont
 **côté serveur** (mot de passe cockpit + backups), pas dans le code.
+
+---
+
+## 🌙 SUITES — corrigées en autonomie (nuit 2026-06-24 → 25)
+- **F1 — RÉGLÉ** : `sites/navlys-app/finance.html` entièrement aligné sur la charte
+  (`#5fe0ff` et `rgba(95,224,255,…)` → `#7DD3FC` / `rgb(125,211,252)`). Disclaimer intact,
+  zéro terme interdit (revérifié).
+- **F2 — DÉJÀ RÉGLÉ** : le mot « Jérusalem » n'apparaît plus dans `index.html` (une session
+  parallèle l'avait déjà reformulé en « narratif méditerranéen conforme »). Plus aucun
+  « Jérusalem / Israël / Ashkelon » dans tout le dépôt.
+- **M1 — RÉGLÉ** : doublon journal consolidé — **ERR-004 fusionnée dans ERR-002** (renvoi ajouté,
+  garde-fou complété ; les IDs restent pour ne pas casser les références existantes).
+- **M2 — REQUALIFIÉ (non-problème)** : les pages `cgu/privacy` de NAVBIO sont des pages
+  **légales d'un produit de biographie**, pas du contenu financier → le disclaimer *financier*
+  n'a pas à y figurer. Leur seul vrai point ouvert (déjà connu) = placeholders `[ÉDITEUR]` /
+  `[EMAIL]` / `[HÉBERGEUR]` à compléter par Bruno + relecture juridique.
+
+➡️ **Bilan après suites : 0 critique, 0 élevé, 0 moyen, 0 faible restant côté dépôt.**
+Reste uniquement le **hors-périmètre serveur** (mot de passe cockpit, backups, SSH clés) et
+l'**audit du code live NOVA-HUB** (non faisable ici : accès proxy refusé).

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Biographie · Bruno Partouche · Parcours et expertise</title>
+  <meta name="description" content="Découvrez le parcours de Bruno Partouche : Microsoft à 16 ans, ITI New York, Auchan, AXA Agent Général, créateur de l'application NAVBIO. Vit en Méditerranée sur son voilier SARAVA.">
+  <meta name="keywords" content="Bruno Partouche biographie, parcours professionnel, Microsoft, AXA, Bruno Partouche, parcours finance & assurance, skipper, voilier SARAVA">
+  <meta name="author" content="Bruno Partouche">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://brunopartouche.com/a-propos.html">
+  
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://brunopartouche.com/a-propos.html">
+  <meta property="og:title" content="Biographie · Bruno Partouche · Parcours et expertise">
+  <meta property="og:description" content="Découvrez le parcours de Bruno Partouche : Microsoft à 16 ans, ITI New York, Auchan, AXA Agent Général, créateur de l'application NAVBIO. Vit en Méditerranée sur son voilier SARAVA.">
+  <meta property="og:image" content="https://brunopartouche.com/icons/icon-512.png">
+  <meta property="og:locale" content="fr_FR">
+  <meta property="og:site_name" content="Bruno Partouche">
+  
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Biographie · Bruno Partouche · Parcours et expertise">
+  <meta name="twitter:description" content="Découvrez le parcours de Bruno Partouche : Microsoft à 16 ans, ITI New York, Auchan, AXA Agent Général, créateur de l'application NAVBIO. Vit en Méditerranée sur son voilier SARAVA.">
+  <meta name="twitter:image" content="https://brunopartouche.com/icons/icon-512.png">
+  
+  <!-- Schema.org Person -->
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"Person","name":"Bruno Mark Partouche","url":"https://brunopartouche.com","jobTitle":"Entrepreneur & navigateur","worksFor":{"@type":"Organization","name":"DFENSER"},"knowsAbout":["Finance","Assurance","Navigation","Bien-être"]}
+  </script>
+  <link rel="icon" type="image/png" href="assets/img/dfenser-logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Fraunces:ital,wght@1,300;1,400;1,500&family=Lora:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#000000">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Bruno Partouche">
+  <meta name="mobile-web-app-capable" content="yes">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+</head>
+<body>
+
+  <header class="site-header">
+    <nav class="nav">
+      <a href="index.html" class="brand">Bruno <span class="accent">Partouche</span></a>
+      <ul class="nav-links">
+        <li><a href="index.html">Accueil</a></li>
+        <li><a href="a-propos.html" class="active">Biographie</a></li>
+        <li><a href="cv.html">Parcours</a></li>
+        <li><a href="credibilite.html">Crédibilité</a></li>
+        <li><a href="partenaires.html">Investir</a></li>
+        <li><a href="app.html" style="color:var(--c-champagne);">NAVBIO</a></li>
+        <li><a href="journal.html">Journal</a></li>
+      </ul>
+      <div style="display:flex;gap:.6rem;align-items:center;">
+        <div class="lang-toggle">
+          <button data-lang="fr" class="active">FR</button>
+          <button data-lang="en">EN</button>
+        </div>
+        <button class="menu-toggle" aria-label="Menu">☰</button>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+
+    <section style="padding-top:5rem;">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="kicker" data-i18n="bio.kicker">Biographie</span>
+          <h1 class="shimmer" data-i18n="bio.title">Une vie. Pas de fin.</h1>
+        </div>
+
+        <div class="hero-grid" style="margin-bottom:3rem;">
+          <div class="bio-content" data-i18n-html="bio.paragraphs"></div>
+          <div class="hero-portrait" style="max-width:380px;">
+            <img src="assets/img/bruno-portrait-2.jpg" alt="Bruno Partouche">
+          </div>
+        </div>
+
+        <div class="bio-continue" data-i18n="bio.continue"></div>
+
+        <div style="margin-top:3.5rem;display:flex;gap:1rem;flex-wrap:wrap;">
+          <a href="cv.html" class="btn btn-primary" data-i18n="nav.cv">Voir le parcours détaillé</a>
+          <a href="credibilite.html" class="btn" data-i18n="nav.credibility">Crédibilité</a>
+          <a href="assets/docs/cv-bruno-partouche.pdf" target="_blank" class="btn">Télécharger le CV (PDF)</a>
+        </div>
+      </div>
+    </section>
+
+    <div class="section-rule"></div>
+
+    <section>
+      <div class="wrap">
+        <div class="section-head">
+          <span class="kicker">Photographies</span>
+          <h2>Le <em>terrain</em></h2>
+        </div>
+        <div class="gallery">
+          <a href="assets/img/voilier-sarava-1.jpg" target="_blank"><img src="assets/img/voilier-sarava-1.jpg" alt="Voilier 1"></a>
+          <a href="assets/img/voilier-sarava-2.jpg" target="_blank"><img src="assets/img/voilier-sarava-2.jpg" alt="Voilier 2"></a>
+          <a href="assets/img/voilier-sarava-3.jpg" target="_blank"><img src="assets/img/voilier-sarava-3.jpg" alt="Voilier 3"></a>
+          <a href="assets/img/voilier-sarava-4.jpg" target="_blank"><img src="assets/img/voilier-sarava-4.jpg" alt="Voilier 4"></a>
+          <a href="assets/img/chasseloup-laubat.jpg" target="_blank"><img src="assets/img/chasseloup-laubat.jpg" alt="Chasseloup-Laubat"></a>
+          <a href="assets/img/mediterranee-1.jpg" target="_blank"><img src="assets/img/mediterranee-1.jpg" alt="Méditerranée 1"></a>
+          <a href="assets/img/mediterranee-3.jpg" target="_blank"><img src="assets/img/mediterranee-3.jpg" alt="Méditerranée 3"></a>
+          <a href="assets/img/navigation-1.jpg" target="_blank"><img src="assets/img/navigation-1.jpg" alt="Navigation 1"></a>
+          <a href="assets/img/navigation-2.jpg" target="_blank"><img src="assets/img/navigation-2.jpg" alt="Navigation 2"></a>
+          <a href="assets/img/navigation-4.jpg" target="_blank"><img src="assets/img/navigation-4.jpg" alt="Navigation 4"></a>
+          <a href="assets/img/chantier-1.jpg" target="_blank"><img src="assets/img/chantier-1.jpg" alt="Chantier 1"></a>
+          <a href="assets/img/chantier-3.jpg" target="_blank"><img src="assets/img/chantier-3.jpg" alt="Chantier 3"></a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="footer-grid">
+        <div class="brand-block">
+          <h4>Bruno Partouche</h4>
+          <p class="tagline" data-i18n="footer.tagline"></p>
+        </div>
+        <div>
+          <h4>Pages</h4>
+          <ul>
+            <li><a href="index.html" data-i18n="nav.home">Accueil</a></li>
+            <li><a href="cv.html" data-i18n="nav.cv">Parcours</a></li>
+            <li><a href="journal.html" data-i18n="nav.journal">Journal</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Liens</h4>
+          <ul>
+            <li><a href="mailto:bpartouche46@gmail.com">Email</a></li>
+            <li><a href="assets/docs/cv-bruno-partouche.pdf" target="_blank">CV PDF</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-legal">
+        <div class="row">
+          <span>© <span data-year>2026</span> Bruno Mark Partouche</span>
+          <span data-i18n="footer.legal">DFENSER · contenu informatif, sans conseil personnalisé</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="data/content.js"></script>
+  <script src="assets/js/app.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js').catch(err => console.warn('SW failed:', err));
+      });
+    }
+  </script>
+</body>
+</html>

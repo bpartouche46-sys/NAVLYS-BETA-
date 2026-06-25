@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 550" width="900" height="550">
+  <defs>
+    <linearGradient id="bgKM" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0B1F33"/>
+      <stop offset="100%" stop-color="#1B3A5B"/>
+    </linearGradient>
+  </defs>
+  <rect x="0" y="0" width="900" height="550" fill="url(#bgKM)"/>
+  <!-- Title -->
+  <text x="450" y="35" font-family="Arial, sans-serif" font-size="22" font-weight="bold" fill="#7DD3FC" text-anchor="middle">Kelly vs Martingale vs Mise fixe</text>
+  <text x="450" y="58" font-family="Arial, sans-serif" font-size="13" fill="#CFE9FF" text-anchor="middle">Courbes d'equity sur 10 000 simulations Monte Carlo — Equity curves over 10 000 Monte Carlo runs</text>
+  <!-- Chart area -->
+  <!-- Axes -->
+  <line x1="100" y1="430" x2="780" y2="430" stroke="#7DD3FC" stroke-width="1.5"/>
+  <line x1="100" y1="100" x2="100" y2="430" stroke="#7DD3FC" stroke-width="1.5"/>
+  <!-- Y axis labels -->
+  <text x="90" y="105" font-family="Arial, sans-serif" font-size="10" fill="#CFE9FF" text-anchor="end">+20%</text>
+  <text x="90" y="175" font-family="Arial, sans-serif" font-size="10" fill="#CFE9FF" text-anchor="end">+15%</text>
+  <text x="90" y="245" font-family="Arial, sans-serif" font-size="10" fill="#CFE9FF" text-anchor="end">+10%</text>
+  <text x="90" y="315" font-family="Arial, sans-serif" font-size="10" fill="#CFE9FF" text-anchor="end">+5%</text>
+  <text x="90" y="385" font-family="Arial, sans-serif" font-size="10" fill="#CFE9FF" text-anchor="end">0%</text>
+  <text x="90" y="430" font-family="Arial, sans-serif" font-size="10" fill="#CFE9FF" text-anchor="end" font-weight="bold">−100%</text>
+  <!-- Grid lines -->
+  <line x1="100" y1="105" x2="780" y2="105" stroke="#FFF" stroke-width="0.3" opacity="0.2"/>
+  <line x1="100" y1="175" x2="780" y2="175" stroke="#FFF" stroke-width="0.3" opacity="0.2"/>
+  <line x1="100" y1="245" x2="780" y2="245" stroke="#FFF" stroke-width="0.3" opacity="0.2"/>
+  <line x1="100" y1="315" x2="780" y2="315" stroke="#FFF" stroke-width="0.3" opacity="0.2"/>
+  <line x1="100" y1="385" x2="780" y2="385" stroke="#FFF" stroke-width="0.3" opacity="0.2"/>
+  <!-- X axis labels -->
+  <text x="100" y="450" font-family="Arial, sans-serif" font-size="10" fill="#CFE9FF" text-anchor="middle">J0</text>
+  <text x="270" y="450" font-family="Arial, sans-serif" font-size="10" fill="#CFE9FF" text-anchor="middle">J60</text>
+  <text x="440" y="450" font-family="Arial, sans-serif" font-size="10" fill="#CFE9FF" text-anchor="middle">J120</text>
+  <text x="610" y="450" font-family="Arial, sans-serif" font-size="10" fill="#CFE9FF" text-anchor="middle">J180</text>
+  <text x="780" y="450" font-family="Arial, sans-serif" font-size="10" fill="#CFE9FF" text-anchor="middle">J250</text>
+  <text x="440" y="475" font-family="Arial, sans-serif" font-size="11" fill="#7DD3FC" text-anchor="middle">Jours de bourse — Trading days</text>
+  <!-- Safety zone (above 0%) -->
+  <rect x="100" y="105" width="680" height="280" fill="#7DD3FC" opacity="0.05"/>
+  <!-- Danger zone (below 0%) -->
+  <rect x="100" y="385" width="680" height="45" fill="#FF6B6B" opacity="0.1"/>
+  <text x="120" y="420" font-family="Arial, sans-serif" font-size="10" fill="#FF8C8C" font-style="italic">Zone de perte du voilier — Sailboat loss zone</text>
+  <!-- Curve Kelly: from (100,385) to (780,140) - smooth growth -->
+  <path d="M100,385 Q200,340 300,290 T500,210 T700,160 Q740,150 780,140" fill="none" stroke="#7DD3FC" stroke-width="3.5"/>
+  <!-- Curve Mise fixe: from (100,385) to (780,330) - slow growth -->
+  <path d="M100,385 Q200,375 300,365 T500,350 T700,335 Q740,332 780,328" fill="none" stroke="#A8DCFF" stroke-width="2.5" stroke-dasharray="6 3"/>
+  <!-- Curve Martingale: zigzag, ends at +9.7% (260), with one collapsing run -->
+  <path d="M100,385 Q150,370 200,360 Q250,330 300,345 Q350,310 400,330 Q450,290 500,310 Q550,275 600,290 Q650,260 700,275 Q740,270 780,265" fill="none" stroke="#FFD56B" stroke-width="2.5"/>
+  <!-- Martingale ruin scenarios (red dashed going to -100%) -->
+  <path d="M100,385 Q150,375 200,365 Q260,360 290,395 Q300,420 320,430" fill="none" stroke="#FF6B6B" stroke-width="1.5" stroke-dasharray="3 3" opacity="0.7"/>
+  <path d="M100,385 Q180,370 250,360 Q330,355 400,395 Q430,420 450,430" fill="none" stroke="#FF6B6B" stroke-width="1.5" stroke-dasharray="3 3" opacity="0.7"/>
+  <path d="M100,385 Q180,370 280,355 Q380,345 500,395 Q540,425 560,430" fill="none" stroke="#FF6B6B" stroke-width="1.5" stroke-dasharray="3 3" opacity="0.7"/>
+  <!-- End point labels -->
+  <circle cx="780" cy="140" r="5" fill="#7DD3FC"/>
+  <text x="790" y="144" font-family="Arial, sans-serif" font-size="13" fill="#7DD3FC" font-weight="bold">+17,0%</text>
+  <circle cx="780" cy="265" r="5" fill="#FFD56B"/>
+  <text x="790" y="269" font-family="Arial, sans-serif" font-size="13" fill="#FFD56B" font-weight="bold">+9,7%</text>
+  <circle cx="780" cy="328" r="5" fill="#A8DCFF"/>
+  <text x="790" y="332" font-family="Arial, sans-serif" font-size="13" fill="#A8DCFF" font-weight="bold">+3,6%</text>
+  <!-- Legend -->
+  <g transform="translate(120, 495)">
+    <line x1="0" y1="0" x2="30" y2="0" stroke="#7DD3FC" stroke-width="3.5"/>
+    <text x="38" y="4" font-family="Arial, sans-serif" font-size="11" fill="#7DD3FC" font-weight="bold">Kelly</text>
+    <text x="78" y="4" font-family="Arial, sans-serif" font-size="9" fill="#CFE9FF">voile bien réglée, 0% de naufrage</text>
+  </g>
+  <g transform="translate(120, 515)">
+    <line x1="0" y1="0" x2="30" y2="0" stroke="#FFD56B" stroke-width="2.5"/>
+    <text x="38" y="4" font-family="Arial, sans-serif" font-size="11" fill="#FFD56B" font-weight="bold">Martingale</text>
+    <text x="115" y="4" font-family="Arial, sans-serif" font-size="9" fill="#CFE9FF">plus rapide mais 37% finissent au port le matelot épuisé</text>
+  </g>
+  <g transform="translate(120, 535)">
+    <line x1="0" y1="0" x2="30" y2="0" stroke="#A8DCFF" stroke-width="2.5" stroke-dasharray="6 3"/>
+    <text x="38" y="4" font-family="Arial, sans-serif" font-size="11" fill="#A8DCFF" font-weight="bold">Mise fixe</text>
+    <text x="105" y="4" font-family="Arial, sans-serif" font-size="9" fill="#CFE9FF">lente et sûre — slow and safe</text>
+  </g>
+  <!-- Verdict box -->
+  <rect x="540" y="100" width="220" height="55" fill="#7DD3FC" opacity="0.15" stroke="#7DD3FC" stroke-width="1.5" rx="6"/>
+  <text x="650" y="120" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#7DD3FC" text-anchor="middle">VERDICT</text>
+  <text x="650" y="138" font-family="Arial, sans-serif" font-size="10" fill="#CFE9FF" text-anchor="middle">Kelly gagne — plus de gain,</text>
+  <text x="650" y="151" font-family="Arial, sans-serif" font-size="10" fill="#CFE9FF" text-anchor="middle">zéro casse. Kelly wins.</text>
+</svg>

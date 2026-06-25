@@ -1,0 +1,9 @@
+{"date": "2026-05-21", "mode": "VIRTUEL (donnees calibrees simulees)", "go": ["MU", "AMD", "AAPL", "MSFT"]}
+{"date": "2026-05-22", "mode": "VIRTUEL (donnees calibrees simulees)", "go": ["NVDA", "TSLA", "AAPL"]}
+{"date": "2026-05-22", "mode": "VIRTUEL+veille", "go": ["NVDA", "TSLA", "AAPL"], "no_go": ["MU", "AMD", "MSFT", "BTC", "ETH"], "best": "TSLA", "macro": "inflation chaude / ~55% proba hausse Fed / rendements en hausse / detente Iran", "alerte": "journee a risque - gaps possibles (NVDA post-resultats, macro chargee)"}
+{"date": "2026-05-25", "mode": "VIRTUEL (donnees calibrees simulees)", "go": []}
+{"date": "2026-05-25", "mode": "VIRTUEL+veille+crypto_live", "go": [], "no_go": ["NVDA", "MU", "AMD", "TSLA", "AAPL", "MSFT", "BTC", "ETH"], "best_a_surveiller_mardi": "NVDA", "macro": "Memorial Day - Bourse US fermee; ebauche accord US-Iran (Brent <100$, -5% dimanche); inflation chaude / proba hausse Fed en hausse", "alerte": "jour ferie - reouverture mardi 26/05 a risque de gap (week-end de gros titres)", "crypto_live": {"BTCUSD": 77281.97, "ETHUSD": 2106.86}}
+{"date": "2026-05-26", "mode": "VIRTUEL (donnees calibrees simulees)", "go": ["AAPL"]}
+{"date": "2026-05-28", "mode": "VIRTUEL (donnees calibrees simulees)", "go": []}
+{"date": "2026-05-29", "mode": "VIRTUEL (donnees calibrees simulees)", "go": ["MU"]}
+{"date": "2026-06-02", "mode": "VIRTUEL (donnees calibrees simulees)", "go": ["NVDA", "AMD", "AAPL"]}
