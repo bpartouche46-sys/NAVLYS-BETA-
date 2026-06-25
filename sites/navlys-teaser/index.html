@@ -44,11 +44,11 @@ h1{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(1.7rem
 </style>
 </head>
 <body>
-<video id="fondvid" muted loop playsinline></video>
+<video id="fondvid" muted loop playsinline aria-hidden="true"></video>
 <div class="bandeau">NAVLYS est un projet d'éducation et de veille à vocation informative uniquement. Aucun conseil personnalisé ni promesse de rendement.</div>
 
 <div class="wrap">
-  <div class="heart" title="NAVLYS respire"></div>
+  <div class="heart" aria-hidden="true"></div>
   <div class="brand">NAVLYS</div>
   <div class="orch">Éducation &amp; veille · art de vivre méditerranéen</div>
 
@@ -62,7 +62,7 @@ h1{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(1.7rem
     <div class="u"><div class="n" id="s">00</div><div class="l">Sec</div></div>
   </div>
 
-  <a class="cta" href="https://navlys.com" rel="noopener">Entrer dans l'univers ›</a>
+  <a class="cta" href="https://navlys.com">Entrer dans l'univers ›</a>
   <div class="note"><a href="mailto:contact@navlys.com?subject=Préviens-moi%20NAVLYS">Être prévenu le jour de l'ouverture</a></div>
 
   <div class="disc">NAVLYS est un projet d'éducation et de veille à vocation informative uniquement. Les contenus ne constituent en aucun cas un conseil personnalisé en investissement, ni une recommandation d'achat ou de vente. Chacun reste seul responsable de ses décisions financières. Réservé aux 18 ans et +.</div>
@@ -70,19 +70,19 @@ h1{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(1.7rem
 </div>
 
 <script>
-var LAUNCH = Date.parse('2026-07-01T00:00:00+02:00');
+var LAUNCH = Date.parse('2026-07-01T00:00:00+02:00'), cdTimer;
 function p(x){return (x<10?'0':'')+x}
-function tick(){var d=LAUNCH-Date.now();if(d<0)d=0;
+function tick(){var d=LAUNCH-Date.now();if(d<=0){d=0;clearInterval(cdTimer);}
   document.getElementById('d').textContent=p(Math.floor(d/864e5));
   document.getElementById('h').textContent=p(Math.floor(d%864e5/36e5));
   document.getElementById('m').textContent=p(Math.floor(d%36e5/6e4));
   document.getElementById('s').textContent=p(Math.floor(d%6e4/1e3));}
-tick();setInterval(tick,1000);
+tick();cdTimer=setInterval(tick,1000);
 /* fond vidéo bateau (réutilise la vidéo du teaser ; à remplacer par /media/fond.mp4 en prod) */
 (function(){try{
   var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var v=document.getElementById('fondvid'); if(reduce){v.remove();return;}
-  v.src='https://navlys-teaser.vercel.app/media/fond.mp4';
+  v.src=window.NV_FONDVID||'https://navlys-teaser.vercel.app/media/fond.mp4';
   v.onerror=function(){v.style.display='none'};
   var pl=v.play(); if(pl&&pl.catch)pl.catch(function(){});
 }catch(e){}})();
