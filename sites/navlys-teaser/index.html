@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>NAVLYS — lève l'ancre bientôt</title>
+<meta name="description" content="NAVLYS lève l'ancre. Projet d'éducation et de veille — un cap, une main, un jour.">
+<meta property="og:title" content="NAVLYS — lève l'ancre bientôt">
+<meta property="og:description" content="Un cap, une main, un jour. L'univers arrive le 1ᵉʳ juillet 2026.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Fraunces:ital,wght@1,500&family=Lora:wght@400;500&display=swap" rel="stylesheet">
+<!-- Teaser NAVLYS v2 — charte ICE BLUE #7DD3FC (le violet/fuchsia de l'ancien teaser est retiré).
+     Fond vidéo bateau plein écran + orbe ice-blue qui respire. Date : 1ᵉʳ juillet 2026. -->
+<style>
+:root{--noir:#05060a;--ice:#7DD3FC;--ice2:#a8e3ff;--champ:#e9d3a0;--champ-pale:#fff6df;--perle:#eef0f6;--mut:#9fb3c8}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%;max-width:100%;overflow-x:hidden}
+body{font-family:'Lora',serif;color:var(--perle);min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;
+ background:radial-gradient(900px 600px at 18% -8%,rgba(125,211,252,.16),transparent 60%),radial-gradient(900px 650px at 100% 5%,rgba(233,211,160,.12),transparent 55%),radial-gradient(800px 700px at 50% 120%,rgba(18,48,72,.55),transparent 62%),rgba(5,6,10,.74)}
+#fondvid{position:fixed;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;opacity:.22;filter:blur(3px) saturate(1.1)}
+.wrap{position:relative;z-index:1;padding:32px 22px;max-width:680px;width:100%}
+/* bandeau disclaimer (haut) */
+.bandeau{position:fixed;top:0;left:0;right:0;z-index:3;padding:7px 14px;font-family:'Fraunces',serif;font-style:italic;font-size:.74rem;color:var(--perle);background:rgba(5,6,10,.6);backdrop-filter:blur(10px);border-bottom:1px solid rgba(125,211,252,.18)}
+/* orbe / cœur qui respire */
+.heart{width:18px;height:18px;border-radius:50%;margin:0 auto 18px;background:radial-gradient(circle at 50% 40%,var(--ice2),var(--ice) 55%,rgba(125,211,252,.1) 75%);box-shadow:0 0 16px var(--ice);animation:breathe 4.5s ease-in-out infinite}
+@keyframes breathe{0%,100%{opacity:.45;transform:scale(.82)}50%{opacity:1;transform:scale(1.28);box-shadow:0 0 30px var(--ice),0 0 60px rgba(125,211,252,.5)}}
+.brand{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,9vw,3.2rem);letter-spacing:7px;font-weight:600;color:#fff}
+.orch{font-family:'Cormorant Garamond',serif;text-transform:uppercase;letter-spacing:5px;font-size:clamp(12px,3.6vw,17px);margin-top:6px;
+ background:linear-gradient(100deg,#e9d3a0,#e9d3a0 38%,#fff6df 48%,#fff 50%,#7DD3FC 53%,#fff6df 58%,#e9d3a0 70%,#e9d3a0);background-size:260% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:sweep 5s linear infinite}
+@keyframes sweep{0%{background-position:210% 0}100%{background-position:-60% 0}}
+h1{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(1.7rem,7vw,2.7rem);margin:26px 0 6px;line-height:1.1}
+.swash{font-family:'Fraunces',serif;font-style:italic;background:linear-gradient(92deg,var(--ice),var(--champ));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.sub{font-family:'Fraunces',serif;font-style:italic;color:var(--mut);font-size:clamp(1rem,4.2vw,1.2rem);margin-bottom:24px}
+.cd{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:6px 0 26px}
+.cd .u{min-width:74px;background:linear-gradient(160deg,rgba(18,48,72,.5),rgba(5,8,16,.55));border:1px solid rgba(125,211,252,.3);border-radius:14px;padding:12px 6px;animation:glow 3.4s ease-in-out infinite alternate}
+@keyframes glow{0%{box-shadow:0 0 10px rgba(125,211,252,.2)}100%{box-shadow:0 0 26px rgba(125,211,252,.55)}}
+.cd .n{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(1.8rem,8vw,2.6rem);color:var(--ice);text-shadow:0 0 18px rgba(125,211,252,.5)}
+.cd .l{font-family:'Fraunces',serif;font-style:italic;font-size:.72rem;color:var(--mut);letter-spacing:1px}
+.cta{display:inline-block;font-family:'Lora',serif;font-size:1rem;color:#05060a;background:linear-gradient(100deg,#e9d3a0,#fff6df,#7DD3FC,#e9d3a0);background-size:220% 100%;border:none;border-radius:999px;padding:13px 26px;cursor:pointer;text-decoration:none;animation:sweep 5s linear infinite}
+.note{margin-top:14px;font-family:'Fraunces',serif;font-style:italic}.note a{color:var(--ice);text-decoration:none}
+.disc{margin-top:26px;font-size:.78rem;color:var(--mut);font-style:italic;line-height:1.6;max-width:600px;margin-left:auto;margin-right:auto}
+.flag{margin-top:18px;font-size:1.05rem;letter-spacing:3px}
+@media (prefers-reduced-motion: reduce){*{animation:none !important}}
+</style>
+</head>
+<body>
+<video id="fondvid" muted loop playsinline></video>
+<div class="bandeau">NAVLYS est un projet d'éducation et de veille à vocation informative uniquement. Aucun conseil personnalisé ni promesse de rendement.</div>
+
+<div class="wrap">
+  <div class="heart" title="NAVLYS respire"></div>
+  <div class="brand">NAVLYS</div>
+  <div class="orch">Éducation &amp; veille · art de vivre méditerranéen</div>
+
+  <h1>Un cap, une main,<br><span class="swash">un jour.</span></h1>
+  <div class="sub">NAVLYS lève l'ancre dans</div>
+
+  <div class="cd">
+    <div class="u"><div class="n" id="d">00</div><div class="l">Jours</div></div>
+    <div class="u"><div class="n" id="h">00</div><div class="l">Heures</div></div>
+    <div class="u"><div class="n" id="m">00</div><div class="l">Min</div></div>
+    <div class="u"><div class="n" id="s">00</div><div class="l">Sec</div></div>
+  </div>
+
+  <a class="cta" href="https://navlys.com" rel="noopener">Entrer dans l'univers ›</a>
+  <div class="note"><a href="mailto:contact@navlys.com?subject=Préviens-moi%20NAVLYS">Être prévenu le jour de l'ouverture</a></div>
+
+  <div class="disc">NAVLYS est un projet d'éducation et de veille à vocation informative uniquement. Les contenus ne constituent en aucun cas un conseil personnalisé en investissement, ni une recommandation d'achat ou de vente. Chacun reste seul responsable de ses décisions financières. Réservé aux 18 ans et +.</div>
+  <div class="flag">🌊 ⚓ NAVLYS 🪝</div>
+</div>
+
+<script>
+var LAUNCH = Date.parse('2026-07-01T00:00:00+02:00');
+function p(x){return (x<10?'0':'')+x}
+function tick(){var d=LAUNCH-Date.now();if(d<0)d=0;
+  document.getElementById('d').textContent=p(Math.floor(d/864e5));
+  document.getElementById('h').textContent=p(Math.floor(d%864e5/36e5));
+  document.getElementById('m').textContent=p(Math.floor(d%36e5/6e4));
+  document.getElementById('s').textContent=p(Math.floor(d%6e4/1e3));}
+tick();setInterval(tick,1000);
+/* fond vidéo bateau (réutilise la vidéo du teaser ; à remplacer par /media/fond.mp4 en prod) */
+(function(){try{
+  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var v=document.getElementById('fondvid'); if(reduce){v.remove();return;}
+  v.src='https://navlys-teaser.vercel.app/media/fond.mp4';
+  v.onerror=function(){v.style.display='none'};
+  var pl=v.play(); if(pl&&pl.catch)pl.catch(function(){});
+}catch(e){}})();
+</script>
+</body>
+</html>
