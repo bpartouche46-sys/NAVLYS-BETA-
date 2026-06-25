@@ -42,7 +42,7 @@ Si une de ces étapes est sautée, le travail est considéré comme **non valide
 ## 1. À quoi sert ce projet
 
 NAVLYS — **éducation financière + veille stratégique + communauté privée
-(« Équipage Navlys »)**. Slogan : *Ma méthode — Ton argent — Ton contrôle.*
+(« Équipage Navlys »)**. Slogan **officiel figé (Bruno, 2026-06-25)** : *Ma méthode — Ton argent — Ton rythme.*
 Méthode **90/10** (90 % Forteresse ETF/DCA + 10 % Capital Plaisir). Statut :
 **finfluenceur déclaré, ZÉRO ORIAS / ZÉRO CIF** → éducation uniquement, jamais de
 conseil personnalisé. Détails : **`docs/STRATEGIE-NAVLYS.md`**.

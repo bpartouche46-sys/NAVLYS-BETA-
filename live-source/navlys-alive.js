@@ -1,7 +1,7 @@
 /* NAVLYS — couche VIVANTE (decor cinema anime + fond video + bulles promo + SAV vocal)
    v2 · 2026-06-15 · a inclure sur chaque page : <script src="/navlys-alive.js" defer></script> */
 (function(){
-  var ICE='#5fe0ff', OR='#e9d3a0', NOIR='#05060a';
+  var ICE='#7DD3FC', OR='#e9d3a0', NOIR='#05060a';
 
   /* ---------- styles ---------- */
   var css = `
@@ -9,8 +9,8 @@
   #nv-video{position:fixed;inset:0;z-index:-3;width:100%;height:100%;object-fit:cover;opacity:.82;filter:saturate(1.06)}
   #nv-veil{position:fixed;inset:0;z-index:-2;pointer-events:none;background:radial-gradient(1400px 1000px at 50% 26%,transparent,rgba(5,6,10,.16) 80%,rgba(5,6,10,.42))}
   .nv-bubble{position:fixed;right:18px;bottom:96px;z-index:60;max-width:260px;
-    background:linear-gradient(150deg,rgba(95,224,255,.16),rgba(10,12,20,.92));
-    border:1px solid rgba(95,224,255,.4);border-radius:16px;padding:12px 15px;color:#eef0f6;
+    background:linear-gradient(150deg,rgba(125,211,252,.16),rgba(10,12,20,.92));
+    border:1px solid rgba(125,211,252,.4);border-radius:16px;padding:12px 15px;color:#eef0f6;
     font-family:'Lora',serif;font-size:.92rem;box-shadow:0 10px 34px rgba(0,0,0,.5);
     opacity:0;transform:translateY(14px) scale(.96);transition:opacity .6s,transform .6s}
   .nv-bubble.show{opacity:1;transform:translateY(0) scale(1)}
@@ -21,18 +21,18 @@
     color:${NOIR};font-family:'Lora',serif;font-weight:600;border-radius:999px;padding:12px 18px;box-shadow:0 8px 26px rgba(0,0,0,.45)}
   @keyframes nvsw{0%{background-position:210% 0}100%{background-position:-60% 0}}
   #nv-sav{position:fixed;right:18px;bottom:74px;z-index:62;width:min(360px,92vw);display:none;flex-direction:column;
-    background:linear-gradient(160deg,rgba(122,31,43,.22),rgba(10,12,20,.96));border:1px solid rgba(95,224,255,.3);
+    background:linear-gradient(160deg,rgba(122,31,43,.22),rgba(10,12,20,.96));border:1px solid rgba(125,211,252,.3);
     border-radius:18px;overflow:hidden;box-shadow:0 16px 50px rgba(0,0,0,.6)}
-  #nv-sav .hd{padding:13px 15px;border-bottom:1px solid rgba(95,224,255,.2);display:flex;align-items:center;gap:9px;color:#fff;font-family:'Cormorant Garamond';letter-spacing:1px}
+  #nv-sav .hd{padding:13px 15px;border-bottom:1px solid rgba(125,211,252,.2);display:flex;align-items:center;gap:9px;color:#fff;font-family:'Cormorant Garamond';letter-spacing:1px}
   #nv-sav .hd .dot{width:9px;height:9px;border-radius:50%;background:${ICE};box-shadow:0 0 10px ${ICE};animation:nvb 2s ease-in-out infinite}
   @keyframes nvb{0%,100%{opacity:.5}50%{opacity:1}}
   #nv-sav .bd{padding:13px;display:flex;flex-direction:column;gap:9px;max-height:46vh;overflow:auto}
   #nv-sav .b{padding:10px 12px;border-radius:13px;font-family:'Lora',serif;font-size:.92rem;color:#eef0f6;white-space:pre-wrap;max-width:90%}
-  #nv-sav .b.u{align-self:flex-end;background:rgba(95,224,255,.13);border:1px solid rgba(95,224,255,.3)}
+  #nv-sav .b.u{align-self:flex-end;background:rgba(125,211,252,.13);border:1px solid rgba(125,211,252,.3)}
   #nv-sav .b.n{align-self:flex-start;background:rgba(5,6,10,.55);border:1px solid rgba(233,211,160,.25)}
   #nv-sav .b .lt{color:${ICE};cursor:pointer;font-size:.78rem;font-style:italic;display:inline-block;margin-top:5px}
-  #nv-sav .ft{display:flex;gap:7px;padding:11px;border-top:1px solid rgba(95,224,255,.2)}
-  #nv-sav textarea{flex:1;background:rgba(5,6,10,.6);border:1px solid rgba(95,224,255,.25);border-radius:11px;color:#eef0f6;padding:9px;font-family:'Lora',serif;font-size:.95rem;resize:none;height:42px}
+  #nv-sav .ft{display:flex;gap:7px;padding:11px;border-top:1px solid rgba(125,211,252,.2)}
+  #nv-sav textarea{flex:1;background:rgba(5,6,10,.6);border:1px solid rgba(125,211,252,.25);border-radius:11px;color:#eef0f6;padding:9px;font-family:'Lora',serif;font-size:.95rem;resize:none;height:42px}
   #nv-sav .snd{border:none;cursor:pointer;background:${ICE};color:${NOIR};border-radius:10px;padding:0 14px;font-weight:600}
   `;
   var st=document.createElement('style'); st.textContent=css; document.head.appendChild(st);
@@ -168,7 +168,7 @@
    Paiement + Partage 1 clic). v1 · 2026-06-15 · injecté sur CHAQUE page.
    ==================================================================== */
 (function(){
-  var ICE='#5fe0ff', OR='#e9d3a0', NOIR='#05060a';
+  var ICE='#7DD3FC', OR='#e9d3a0', NOIR='#05060a';
   var pages=[
     {n:'Accueil',h:'/'},
     {n:'Finance',h:'/finance'},
@@ -185,7 +185,7 @@
   body{padding-top:var(--nv-top-h)!important}
   #nv-top{position:fixed;top:0;left:0;right:0;z-index:120;height:var(--nv-top-h);display:flex;align-items:center;gap:10px;
     padding:0 12px;background:linear-gradient(180deg,rgba(7,9,16,.92),rgba(7,9,16,.74));
-    backdrop-filter:blur(11px);-webkit-backdrop-filter:blur(11px);border-bottom:1px solid rgba(95,224,255,.22)}
+    backdrop-filter:blur(11px);-webkit-backdrop-filter:blur(11px);border-bottom:1px solid rgba(125,211,252,.22)}
   #nv-top:after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:1px;
     background:linear-gradient(90deg,transparent,${ICE},${OR},transparent);background-size:240% 100%;
     animation:nvline 7s linear infinite;opacity:.7}
@@ -202,30 +202,30 @@
   .nv-tabs::-webkit-scrollbar{display:none}
   .nv-tab{flex:0 0 auto;text-decoration:none;color:#c4d2e4;font-family:'Lora',serif;font-size:.9rem;padding:7px 13px;border-radius:11px 11px 0 0;
     border:1px solid transparent;transition:.25s;white-space:nowrap}
-  .nv-tab:hover{color:#fff;background:rgba(95,224,255,.10)}
-  .nv-tab.active{color:#fff;background:linear-gradient(180deg,rgba(95,224,255,.20),rgba(95,224,255,.04));
-    border-color:rgba(95,224,255,.35);box-shadow:0 6px 18px rgba(95,224,255,.12)}
+  .nv-tab:hover{color:#fff;background:rgba(125,211,252,.10)}
+  .nv-tab.active{color:#fff;background:linear-gradient(180deg,rgba(125,211,252,.20),rgba(125,211,252,.04));
+    border-color:rgba(125,211,252,.35);box-shadow:0 6px 18px rgba(125,211,252,.12)}
   .nv-tab.active:before{content:"●";color:${ICE};font-size:.55rem;vertical-align:middle;margin-right:6px;animation:nvb 2s ease-in-out infinite}
   .nv-actions{flex:0 0 auto;display:flex;align-items:center;gap:6px}
-  .nv-btn{cursor:pointer;border:1px solid rgba(95,224,255,.28);background:rgba(95,224,255,.07);color:#eaf2ff;
+  .nv-btn{cursor:pointer;border:1px solid rgba(125,211,252,.28);background:rgba(125,211,252,.07);color:#eaf2ff;
     font-family:'Lora',serif;font-size:.86rem;border-radius:11px;padding:7px 11px;display:flex;align-items:center;gap:6px;transition:.2s}
-  .nv-btn:hover{background:rgba(95,224,255,.16);border-color:rgba(95,224,255,.5)}
+  .nv-btn:hover{background:rgba(125,211,252,.16);border-color:rgba(125,211,252,.5)}
   .nv-btn.share{background:linear-gradient(100deg,${OR},#fff6df,${ICE});color:${NOIR};border:none;font-weight:600;background-size:200% 100%;animation:nvsw 7s linear infinite}
   .nv-menu{position:fixed;top:calc(var(--nv-top-h) + 6px);z-index:121;min-width:230px;display:none;flex-direction:column;gap:2px;padding:8px;
-    background:linear-gradient(160deg,rgba(12,16,26,.98),rgba(7,9,16,.98));border:1px solid rgba(95,224,255,.3);border-radius:14px;
+    background:linear-gradient(160deg,rgba(12,16,26,.98),rgba(7,9,16,.98));border:1px solid rgba(125,211,252,.3);border-radius:14px;
     box-shadow:0 18px 50px rgba(0,0,0,.6)}
   .nv-menu.open{display:flex}
   .nv-menu a,.nv-menu button{all:unset;cursor:pointer;display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;
     color:#dfe8f5;font-family:'Lora',serif;font-size:.92rem}
-  .nv-menu a:hover,.nv-menu button:hover{background:rgba(95,224,255,.12);color:#fff}
-  .nv-menu .sep{height:1px;background:rgba(95,224,255,.16);margin:5px 2px}
+  .nv-menu a:hover,.nv-menu button:hover{background:rgba(125,211,252,.12);color:#fff}
+  .nv-menu .sep{height:1px;background:rgba(125,211,252,.16);margin:5px 2px}
   .nv-menu .lbl{font-size:.72rem;letter-spacing:1.5px;color:#8aa3bf;padding:6px 12px 2px;text-transform:uppercase}
   .nv-langs{display:flex;gap:6px;padding:4px 8px 8px}
-  .nv-lang{flex:1;text-align:center;cursor:pointer;border:1px solid rgba(95,224,255,.25);border-radius:9px;padding:7px 0;color:#cfe0f2;font-family:'Lora',serif;font-size:.85rem}
-  .nv-lang.on{background:rgba(95,224,255,.18);color:#fff;border-color:rgba(95,224,255,.5)}
+  .nv-lang{flex:1;text-align:center;cursor:pointer;border:1px solid rgba(125,211,252,.25);border-radius:9px;padding:7px 0;color:#cfe0f2;font-family:'Lora',serif;font-size:.85rem}
+  .nv-lang.on{background:rgba(125,211,252,.18);color:#fff;border-color:rgba(125,211,252,.5)}
   .nv-lang.soon{opacity:.6}
   #nv-toast{position:fixed;left:50%;top:calc(var(--nv-top-h) + 14px);transform:translateX(-50%) translateY(-8px);z-index:130;
-    background:linear-gradient(150deg,rgba(95,224,255,.18),rgba(10,12,20,.96));border:1px solid rgba(95,224,255,.4);
+    background:linear-gradient(150deg,rgba(125,211,252,.18),rgba(10,12,20,.96));border:1px solid rgba(125,211,252,.4);
     color:#eef6ff;font-family:'Lora',serif;font-size:.9rem;padding:10px 16px;border-radius:12px;opacity:0;pointer-events:none;transition:.3s;box-shadow:0 10px 30px rgba(0,0,0,.5)}
   #nv-toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
   @media(max-width:640px){.nv-btn span.t{display:none}.nv-brand{font-size:1.02rem;letter-spacing:1px}}
@@ -320,7 +320,7 @@
    + MUSIQUE + RENOUVELLEMENT QUOTIDIEN. v1 · 2026-06-15
    ==================================================================== */
 (function(){
-  var ICE='#5fe0ff', OR='#e9d3a0';
+  var ICE='#7DD3FC', OR='#e9d3a0';
   var DAY=Math.floor(Date.now()/864e5);
 
   // police haute lisibilité (conçue pour la basse vision)
@@ -424,7 +424,7 @@
       body.nv-chrome-hidden #nv-count{transform:translateY(-170%);opacity:0}
       #nv-hotzone{position:fixed;top:0;left:0;right:0;height:16px;z-index:118}
       #nv-peek{position:fixed;top:6px;left:50%;transform:translateX(-50%);z-index:118;width:54px;height:5px;border-radius:99px;
-        background:linear-gradient(90deg,#5fe0ff,#e9d3a0);opacity:0;transition:opacity .4s;pointer-events:none;box-shadow:0 0 12px rgba(95,224,255,.6)}
+        background:linear-gradient(90deg,#7DD3FC,#e9d3a0);opacity:0;transition:opacity .4s;pointer-events:none;box-shadow:0 0 12px rgba(125,211,252,.6)}
       body.nv-chrome-hidden #nv-peek{opacity:.85}
     `; document.head.appendChild(sty);
     var hz=document.createElement('div'); hz.id='nv-hotzone'; document.body.appendChild(hz);

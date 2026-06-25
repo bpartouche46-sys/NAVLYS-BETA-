@@ -9,16 +9,16 @@
 <!-- navlys.com/radio · lecteur live · v1 · 2026-06-14 -->
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Fraunces:ital@1&family=Lora:wght@400;500&display=swap" rel="stylesheet">
 <style>
-:root{--noir:#05060a;--ice:#5fe0ff;--or:#e9d3a0;--rouge:#ff2a1f;--vin:#7a1f2b;--vert:#7be29a;--perle:#eef0f6;--mut:#9fb3c8}
+:root{--noir:#05060a;--ice:#7DD3FC;--or:#e9d3a0;--rouge:#ff2a1f;--vin:#7a1f2b;--vert:#7be29a;--perle:#eef0f6;--mut:#9fb3c8}
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Lora',serif;color:var(--perle);background:var(--noir);line-height:1.6}
 .bg{position:fixed;inset:0;z-index:-1;background:
  radial-gradient(820px 560px at 86% -8%,rgba(233,211,160,.11),transparent 60%),
- radial-gradient(760px 560px at 5% 6%,rgba(95,224,255,.13),transparent 60%),
+ radial-gradient(760px 560px at 5% 6%,rgba(125,211,252,.13),transparent 60%),
  radial-gradient(1000px 820px at 50% 122%,rgba(122,31,43,.36),transparent 64%),var(--noir)}
 .wrap{max-width:820px;margin:0 auto;padding:0 18px 60px}
 header{display:flex;align-items:center;gap:11px;padding:24px 0}
-.led{width:13px;height:13px;border-radius:50%;background:radial-gradient(circle at 50% 40%,#bdf3ff,var(--ice) 60%,rgba(95,224,255,.1));box-shadow:0 0 14px var(--ice);animation:b 4.6s ease-in-out infinite}
+.led{width:13px;height:13px;border-radius:50%;background:radial-gradient(circle at 50% 40%,#bdf3ff,var(--ice) 60%,rgba(125,211,252,.1));box-shadow:0 0 14px var(--ice);animation:b 4.6s ease-in-out infinite}
 @keyframes b{0%,100%{opacity:.5;transform:scale(.85)}50%{opacity:1;transform:scale(1.18)}}
 .brand{font-family:'Cormorant Garamond';letter-spacing:4px;color:#fff;font-size:1.2rem}
 a.home{margin-left:auto;color:var(--mut);text-decoration:none;font-family:'Fraunces';font-style:italic}
@@ -27,10 +27,10 @@ h1{font-family:'Cormorant Garamond';font-weight:700;color:#fff;font-size:clamp(2
 .sub{color:var(--mut);font-family:'Fraunces';font-style:italic;max-width:600px}
 .live{display:inline-flex;align-items:center;gap:8px;margin:14px 0;font-family:'Fraunces';font-style:italic;font-size:.85rem;color:#fff;background:linear-gradient(100deg,var(--rouge),var(--vin));border-radius:999px;padding:5px 14px}
 .live .dot{width:9px;height:9px;border-radius:50%;background:#fff;animation:b 1.6s ease-in-out infinite}
-.card{background:linear-gradient(160deg,rgba(122,31,43,.15),rgba(10,12,20,.6));border:1px solid rgba(95,224,255,.16);border-radius:18px;padding:20px;margin:18px 0}
+.card{background:linear-gradient(160deg,rgba(122,31,43,.15),rgba(10,12,20,.6));border:1px solid rgba(125,211,252,.16);border-radius:18px;padding:20px;margin:18px 0}
 .card h2{font-family:'Cormorant Garamond';color:var(--or);font-size:1.35rem;margin-bottom:8px}
-input{width:100%;background:rgba(5,6,10,.55);border:1px solid rgba(95,224,255,.25);border-radius:11px;color:var(--perle);padding:12px 13px;font-family:'Lora',serif;font-size:1rem;margin-top:8px}
-.btn{margin-top:10px;font-family:'Lora';font-size:1rem;color:#05060a;background:linear-gradient(100deg,#e9d3a0,#fff6df,#5fe0ff,#e9d3a0);background-size:220% 100%;border:none;border-radius:999px;padding:11px 20px;cursor:pointer;animation:sw 6s linear infinite;font-weight:600}
+input{width:100%;background:rgba(5,6,10,.55);border:1px solid rgba(125,211,252,.25);border-radius:11px;color:var(--perle);padding:12px 13px;font-family:'Lora',serif;font-size:1rem;margin-top:8px}
+.btn{margin-top:10px;font-family:'Lora';font-size:1rem;color:#05060a;background:linear-gradient(100deg,#e9d3a0,#fff6df,#7DD3FC,#e9d3a0);background-size:220% 100%;border:none;border-radius:999px;padding:11px 20px;cursor:pointer;animation:sw 6s linear infinite;font-weight:600}
 @keyframes sw{0%{background-position:210% 0}100%{background-position:-60% 0}}
 .frameBox{margin-top:14px;border-radius:14px;overflow:hidden;background:#000;aspect-ratio:16/9}
 .frameBox.audio{aspect-ratio:auto;height:152px;background:transparent}

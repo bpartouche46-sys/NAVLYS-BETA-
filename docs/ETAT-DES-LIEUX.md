@@ -2,6 +2,29 @@
 
 > Mis à jour à la fin de chaque session pour que la suivante reprenne sans tout relire.
 
+## Session 2026-06-25 — ARBITRAGES BRUNO + exécution
+
+### ✅ Décisions tranchées par Bruno (2026-06-25)
+- 🎯 **Slogan figé** : **« Ma méthode, ton argent, ton rythme. »** (tutoiement). → appliqué `CLAUDE.md` §1.
+- 💶 **Prix** : **reporté** (ne rien figer ; on en reparle).
+- 🖥️ **Hetzner** : **à VÉRIFIER d'abord** (que contient-il encore ? facturé ?) avant de garder/arrêter.
+  ⚠️ Indice : la mémoire indique des clés `ELEVENLABS_KEY` + backend voix possibles sur Hetzner
+  (`/root/navlys/config/.env`) → ne PAS arrêter avant vérification.
+- ⚙️ **« Tout dans ton ordre »** : Claude exécute les chantiers dans l'ordre qu'il juge, sans
+  action publique/payante sans feu vert.
+
+### 🛠️ Exécution en cours (Claude)
+- ✅ **Charte appliquée** : **106 couleurs `#5fe0ff → #7DD3FC`** corrigées sur **12 fichiers**
+  de `live-source/` (source déployable). 0 « Jérusalem » dans cette source (à traiter dans
+  `launch-offer.js`/navbio quand cette source sera là).
+- ⏭️ Suite : FAQ unifiée + G1 · rappel procédure Vercel↔GitHub · checklist vérif Hetzner.
+
+### 🔴 Actions qui restent à Bruno
+- Régénérer le **token Vercel** (exposé). · Trancher l'**entité** (FR/IL/DFENSER LTD). · **Vérifier Hetzner**.
+- Légal avant LIVE : avocat NTIC, DPA ElevenLabs/HeyGen, AIPD (budgets = Bruno).
+
+---
+
 ## Session 2026-06-25 — RENFORCEMENT global d'après le « cerveau » récupéré (recup-docs)
 
 ### 🟢 ÉTAT RÉEL du projet (corrigé d'après ~270 docs récupérés + `docs/SYNTHESE-NAVLYS.md`)

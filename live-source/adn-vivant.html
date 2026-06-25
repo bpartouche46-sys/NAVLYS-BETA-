@@ -22,7 +22,7 @@
 var c=document.getElementById('c'),x=c.getContext('2d'),DPR=Math.min(devicePixelRatio||1,2),W,H;
 function size(){W=innerWidth;H=innerHeight;c.width=W*DPR;c.height=H*DPR;x.setTransform(DPR,0,0,DPR,0,0);}
 size();addEventListener('resize',size);
-var ICE='95,224,255', ICE2='150,220,255', OR='233,211,160', WARM='255,122,77';
+var ICE='125,211,252', ICE2='150,220,255', OR='233,211,160', WARM='255,122,77';
 var N=52, TW=4.4;           // segments, nombre de tours
 var spark=[]; for(var i=0;i<70;i++)spark.push(rndSpark());
 function rndSpark(){return{x:Math.random(),y:Math.random(),r:Math.random()*1.6+0.3,sp:0.0012+Math.random()*0.004,tw:Math.random()*6.28};}
