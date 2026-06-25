@@ -1,0 +1,5 @@
+platform,project,url,domain,dns_pointe_vers,status,verdict
+netlify,novafinanceclub,https://brunopartouche.com,brunopartouche.com,75.2.60.5 (Netlify),ready,SEUL site Netlify restant - sert brunopartouche.com
+vercel,navlys-app,https://navlys.com,navlys.com,216.198.79.1 (Vercel),ready,GARDER - sert navlys.com (enfin branche)
+vercel,brunopartouche-teaser,https://brunopartouche-teaser-dk41t39a3-navlys.vercel.app,,n/a,ready,NOUVEAU projet (25/05) - role a clarifier
+vercel,navlys-teaser,https://navlys-teaser-637obavha-navlys.vercel.app,,n/a,ready,archiver (remplace par navlys-app)
