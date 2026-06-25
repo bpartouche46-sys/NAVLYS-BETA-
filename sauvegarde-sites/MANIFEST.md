@@ -39,3 +39,17 @@ réutilisables de l'écosystème :
 
 > Le fichier est conservé ici **tel quel** (fidélité de sauvegarde). Ne pas le
 > redéployer sans appliquer le correctif.
+
+## 🟡 Robustesse signalée (revue Copilot PR #12) — à appliquer sur la SOURCE LIVE, pas ici
+
+> Ces copies restent **verbatim** (fidélité au live). Les améliorations ci-dessous seront
+> appliquées **quand la vraie source sera sous Git** (`live-source/<projet>/`, cf.
+> `docs/PROCEDURE-VERCEL-GITHUB.md`), **jamais** sur le backup pour ne pas le faire diverger.
+
+- **`launch-offer.js`** : le `<style>` est injecté **sans id-guard** → double inclusion = `<style>`
+  dupliqués. → injecter via un `id` unique et ne (ré)injecter que s'il est absent.
+- **`hero-bg-slideshow.js`** : `NV_HERO_BG()` recrée wrap + overlay + vignette à chaque appel
+  → empilement (reload partiel / SPA). → singleton par `id`, remplacer l'instance existante.
+- **`cockpit.js`** : le bloc de *cleanup* masque tous les `<canvas>` non marqués et cache des
+  `<div>` selon leur texte → trop intrusif si l'asset est réutilisé. → rendre **opt-in** (cibler
+  un conteneur explicite plutôt que le document entier).

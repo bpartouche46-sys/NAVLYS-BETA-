@@ -33,7 +33,7 @@ déjà `navlys-alive` — l'asset voix existe donc côté live mais **pas** ici.
 
 ## Contexte technique (faits vérifiés via le connecteur Vercel)
 
-- **Équipe Vercel** : `NAVLYS` / `team_nBtY5FOQMPIT4J8Bmf7wvBSC` (compte bpartouche46@gmail.com).
+- **Équipe Vercel** : `NAVLYS` / `team_nBtY5FOQMPIT4J8Bmf7wvBSC` (compte propriétaire : géré par Bruno, hors dépôt).
 - **`navlys-app`** : framework = `null` (statique « Other »), Node 24.x, **aucun lien Git**,
   déploiements **directs** (pas via GitHub). On suppose le même schéma pour les 5 autres
   (cf. `CLAUDE.md` : « aucun projet relié à GitHub »).
@@ -96,7 +96,9 @@ Pour chaque projet, dans **Vercel → projet → Settings → Git** :
 ### 4️⃣ VÉRIFIER une PREVIEW avant toute promotion
 - Laisser Vercel construire un **déploiement Preview** (URL `*.vercel.app`, **non publique/promue**).
 - **Comparer la preview au live** : pages présentes, **voix `navlys-alive.js` fonctionnelle**,
-  assets/medias, conformité (grep des termes interdits sur HTML **+ JS + CSS**, cf. ERR-005).
+  assets/medias, conformité (grep des termes interdits sur HTML **+ JS + CSS**). ⚠️ **Périmètre du grep** :
+  **uniquement le Root Directory réellement servi** (`live-source/<projet>/`), en **excluant `sauvegarde-sites/`**
+  (archive qui contient volontairement ces termes → faux positifs), cf. ERR-005.
 - **Ne promouvoir en production que sur feu vert explicite de Bruno.** Si la preview manque la
   voix ou des pages → **STOP**, on n'a pas tout capturé (retour étape 1).
 
