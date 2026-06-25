@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>NAVLYS — pièce animée</title>
+<style>
+/* ============================================================
+   NAVLYS — LOGO ANIMÉ (standalone)
+   Rotation 3D lente + halo ICE BLUE pulsé 60 BPM + balayage de
+   lumière dorée sur l'archère & le cerf + étincelles bronze.
+   Référence la pièce PNG voisine (navlys_coin.png).
+   ============================================================ */
+:root{ --ice:#7DD3FC; --bronze:#B87333; }
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{background:#000; display:flex; align-items:center; justify-content:center; min-height:100vh;}
+.stage{position:relative; width:min(80vw,420px); aspect-ratio:1/1; perspective:1200px;}
+.wrap{position:relative; width:100%; height:100%; transform-style:preserve-3d;
+  animation:turn 12s ease-in-out infinite, float 7s ease-in-out infinite;}
+@keyframes turn{
+  0%{transform:rotateY(-24deg) rotateX(3deg)}
+  50%{transform:rotateY(24deg) rotateX(-2deg)}
+  100%{transform:rotateY(-24deg) rotateX(3deg)}
+}
+@keyframes float{0%,100%{margin-top:0}50%{margin-top:-14px}}
+.coin{position:absolute; inset:0; width:100%; height:100%; object-fit:contain;
+  border-radius:50%; animation:halo 1s ease-in-out infinite;}
+@keyframes halo{
+  0%,100%{filter:drop-shadow(0 0 20px rgba(125,211,252,.45)) drop-shadow(0 0 5px rgba(184,115,51,.4))}
+  50%{filter:drop-shadow(0 0 48px rgba(125,211,252,.9)) drop-shadow(0 0 12px rgba(184,115,51,.6))}
+}
+.sweep{position:absolute; inset:0; border-radius:50%; overflow:hidden;
+  pointer-events:none; mix-blend-mode:screen;}
+.sweep::before{content:""; position:absolute; top:-40%; left:-60%; width:60%; height:180%;
+  transform:rotate(18deg);
+  background:linear-gradient(90deg,transparent,rgba(212,155,91,0) 20%,
+    rgba(255,225,170,.9) 50%,rgba(212,155,91,0) 80%,transparent);
+  filter:blur(2px); animation:sweep 4s ease-in-out infinite;}
+@keyframes sweep{0%{left:-60%}55%{left:130%}100%{left:130%}}
+.spark{position:absolute; width:6px; height:6px; border-radius:50%;
+  background:radial-gradient(circle,#ffe1a8,rgba(184,115,51,0)); opacity:0;}
+@keyframes twinkle{0%{opacity:0;transform:translateY(0) scale(.6)}
+  30%{opacity:1}70%{opacity:.7}100%{opacity:0;transform:translateY(-30px) scale(1.1)}}
+@media(prefers-reduced-motion:reduce){.wrap,.coin,.sweep::before{animation:none!important}}
+</style>
+</head>
+<body>
+  <div class="stage" id="stage">
+    <div class="wrap">
+      <img class="coin" src="navlys_coin.png" alt="Logo NAVLYS — pièce de bronze, déesse archère et cerf, halo bleu glacier" />
+      <div class="sweep"></div>
+    </div>
+  </div>
+<script>
+  // étincelles bronze flottantes
+  var stage = document.getElementById("stage");
+  for (var i = 0; i < 16; i++) {
+    var s = document.createElement("span");
+    s.className = "spark";
+    s.style.left = (8 + Math.random() * 84) + "%";
+    s.style.top  = (8 + Math.random() * 84) + "%";
+    s.style.animation = "twinkle " + (2.4 + Math.random() * 2.6).toFixed(2) +
+                        "s ease-in-out " + (Math.random() * 4).toFixed(2) + "s infinite";
+    stage.appendChild(s);
+  }
+</script>
+</body>
+</html>
