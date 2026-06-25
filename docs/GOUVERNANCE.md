@@ -5,6 +5,38 @@
 
 ---
 
+## 0. 🪙 LES 8 RÈGLES GRAVÉES (consolidées du « cerveau » récupéré, 2026-06-25)
+
+> Source : `recup-docs/onedrive/00_ORGANIGRAMME.md` (§ « Règles gravées valables pour tous les
+> départements », règles 1→7) + `recup-docs/onedrive/_MASTER_NAVLYS_NOW.md` (§ « INTERDITS gravés »).
+> Ces 8 règles sont **au-dessus** de tout le travail NAVLYS (stratégie, com, code, calculs, légal).
+
+1. **DÉPERSONNALISATION.** NAVLYS = marque produit dépersonnalisée. **Bruno invisible** sur NAVLYS
+   (il vit sur **brunopartouche.com**). Réputation : **Bruno → NAVLYS, jamais l'inverse.**
+2. **NI CONSEIL, NI PLACEMENT, NI ENCAISSEMENT.** NAVLYS = **éditeur pédagogique** (publisher).
+   **PAS CIF / PAS ORIAS / PAS IOBSP.** On vend de l'information et une méthode — jamais un conseil
+   personnalisé, jamais un ordre (RTO), jamais des fonds clients.
+3. **LE GATE / LE LANCEMENT EST UN POINT DE CONTRÔLE.** Ne jamais déverrouiller / ouvrir un accès
+   public avant la date décidée (`NEXT_PUBLIC_LAUNCH_UNLOCKED` reste `false` tant que non décidé).
+   *(Historiquement « avant 31 mai » ; statut actuel = BETA. Date effective à figer par Bruno.)*
+4. **PARTENAIRES = CARBURANT SEO.** Chaque broker/banque cité **ramène vers NAVLYS** (sens
+   partenaire → NAVLYS). Affiliation en **mode publisher CPA** (comme un média/YouTubeur), pas
+   apport d'affaires. On les garde tous.
+5. **ZÉRO BOT.** Aucun auto-like / auto-follow / auto-DM. La réputation est l'**actif n°1**.
+6. **TON MARITIME + DISCLAIMER.** Langage simple, imagé, maritime, tutoiement, phrases ≤ 20 mots.
+   **Disclaimer éducatif en pied de page PARTOUT** (« Information éducative, pas un conseil personnalisé »).
+7. **SECRETS = ENV ONLY + JAMAIS 2 DÉPLOIEMENTS ENCHAÎNÉS.** Aucun token/clé/`VOICE_ID`/IBAN en
+   clair dans un fichier (variables d'environnement uniquement). Et **jamais deux `vercel deploy`
+   rapprochés** (cause de 404 transitoires / builds en erreur concurrents) — un seul à la fois,
+   attendre READY.
+8. **RIEN SUPPRIMÉ SANS OK BRUNO + BACKUP.** Aucune suppression (fichier, projet, donnée) sans
+   sauvegarde (`.bak` / `_ARCHIVE/`) **et** feu vert explicite de Bruno. On liste, on n'efface pas.
+   Cas particulier gravé : **MX Google `navlys.com` à PRÉSERVER** sur toute modification DNS.
+
+> 🔁 Ces 8 règles sont déclinées concrètement par domaine dans `docs/RENFORCEMENT/`.
+
+---
+
 ## 1. 🔁 Principe « ZÉRO RÉPÉTITION » (capitaliser, jamais refaire deux fois)
 
 > « Je ne veux plus jamais avoir à répéter deux fois ou faire deux fois la même chose. »
