@@ -8,14 +8,14 @@
 <link rel="canonical" href="https://navlys.com/">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Fraunces:ital,wght@1,400;1,500&family=Lora:wght@400;500&display=swap" rel="stylesheet">
 <style>
-:root{--noir:#05060a;--ice:#5fe0ff;--or:#e9d3a0;--rouge:#ff2a1f;--vin:#7a1f2b;--perle:#eef0f6;--mut:#9fb3c8}
+:root{--noir:#05060a;--ice:#7DD3FC;--or:#e9d3a0;--rouge:#ff2a1f;--vin:#7a1f2b;--perle:#eef0f6;--mut:#9fb3c8}
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{font-family:'Lora',serif;color:var(--perle);background:var(--noir);overflow-x:hidden;line-height:1.6}
-.bg{position:fixed;inset:0;z-index:-2;background:radial-gradient(900px 620px at 84% -8%,rgba(233,211,160,.12),transparent 60%),radial-gradient(840px 600px at 6% 6%,rgba(95,224,255,.13),transparent 60%),radial-gradient(1100px 880px at 50% 120%,rgba(122,31,43,.40),transparent 64%),var(--noir)}
+.bg{position:fixed;inset:0;z-index:-2;background:radial-gradient(900px 620px at 84% -8%,rgba(233,211,160,.12),transparent 60%),radial-gradient(840px 600px at 6% 6%,rgba(125,211,252,.13),transparent 60%),radial-gradient(1100px 880px at 50% 120%,rgba(122,31,43,.40),transparent 64%),var(--noir)}
 .wrap{max-width:1080px;margin:0 auto;padding:0 20px}
 header{padding:26px 0 4px;display:flex;align-items:center;gap:12px}
-.led{width:15px;height:15px;border-radius:50%;background:radial-gradient(circle at 50% 38%,#bdf3ff,var(--ice) 60%,rgba(95,224,255,.1));box-shadow:0 0 18px var(--ice);animation:b 4.6s ease-in-out infinite}
+.led{width:15px;height:15px;border-radius:50%;background:radial-gradient(circle at 50% 38%,#bdf3ff,var(--ice) 60%,rgba(125,211,252,.1));box-shadow:0 0 18px var(--ice);animation:b 4.6s ease-in-out infinite}
 @keyframes b{0%,100%{opacity:.5;transform:scale(.85)}50%{opacity:1;transform:scale(1.18)}}
 .logo{font-family:'Cormorant Garamond';letter-spacing:6px;font-size:1.5rem;color:#fff}
 nav.top{margin-left:auto;display:flex;gap:16px;flex-wrap:wrap}
@@ -39,7 +39,7 @@ nav.top a:hover{color:var(--ice)}
 h2.section{font-family:'Cormorant Garamond';font-weight:600;color:#fff;font-size:clamp(1.5rem,4vw,2rem);margin:54px 0 6px}
 .lead{color:var(--mut);font-family:'Fraunces';font-style:italic;margin-bottom:22px;max-width:640px}
 .apps{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:18px}
-.app{display:block;text-decoration:none;color:inherit;border-radius:22px;padding:26px;position:relative;overflow:hidden;background:linear-gradient(160deg,rgba(122,31,43,.22),rgba(10,12,20,.66));border:1px solid rgba(95,224,255,.18);transition:.22s}
+.app{display:block;text-decoration:none;color:inherit;border-radius:22px;padding:26px;position:relative;overflow:hidden;background:linear-gradient(160deg,rgba(122,31,43,.22),rgba(10,12,20,.66));border:1px solid rgba(125,211,252,.18);transition:.22s}
 .app:hover{transform:translateY(-3px);border-color:var(--ice);box-shadow:0 14px 40px rgba(0,0,0,.4)}
 .app .ic{font-size:2.1rem}.app h3{font-family:'Cormorant Garamond';color:#fff;font-size:1.55rem;margin:10px 0 6px}
 .app p{color:var(--mut);font-size:.97rem}
@@ -72,17 +72,17 @@ a.inline{color:var(--ice);text-decoration:none}
   <a class="offer" href="/finance">&#127873; <b>Telecharge &amp; teste GRATUITEMENT &mdash; 0 &euro;</b> &middot; essai libre et gratuit</a>
   <svg class="const" viewBox="0 0 600 660" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="NAVLYS CORE au centre, entoure des modules.">
     <defs>
-      <radialGradient id="coreG" cx="50%" cy="42%" r="60%"><stop offset="0%" stop-color="#d9f6ff"/><stop offset="38%" stop-color="#5fe0ff"/><stop offset="100%" stop-color="#123048"/></radialGradient>
-      <radialGradient id="haloG" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#5fe0ff" stop-opacity=".55"/><stop offset="100%" stop-color="#5fe0ff" stop-opacity="0"/></radialGradient>
+      <radialGradient id="coreG" cx="50%" cy="42%" r="60%"><stop offset="0%" stop-color="#d9f6ff"/><stop offset="38%" stop-color="#7DD3FC"/><stop offset="100%" stop-color="#123048"/></radialGradient>
+      <radialGradient id="haloG" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#7DD3FC" stop-opacity=".55"/><stop offset="100%" stop-color="#7DD3FC" stop-opacity="0"/></radialGradient>
       <filter id="soft" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="3.4"/></filter>
       <clipPath id="brainClip"><path d="M300,232 C330,224 356,232 366,250 C384,250 396,266 392,284 C408,292 410,314 396,326 C404,342 392,360 372,360 C366,374 348,380 330,372 C320,382 308,382 300,378 C292,382 280,382 270,372 C252,380 234,374 228,360 C208,360 196,342 204,326 C190,314 192,292 208,284 C204,266 216,250 234,250 C244,232 270,224 300,232 Z"/></clipPath>
       <radialGradient id="fleshG" cx="38%" cy="30%" r="82%"><stop offset="0%" stop-color="#ffe9d8"/><stop offset="40%" stop-color="#e79a72"/><stop offset="78%" stop-color="#9a2b34"/><stop offset="100%" stop-color="#4d1320"/></radialGradient>
       <linearGradient id="metalG" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#dceffa"/><stop offset="40%" stop-color="#7693a6"/><stop offset="74%" stop-color="#26384a"/><stop offset="100%" stop-color="#0c1722"/></linearGradient>
       <radialGradient id="coreRedG" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#fff4ee"/><stop offset="30%" stop-color="#ff5a3c"/><stop offset="70%" stop-color="#7a1f2b" stop-opacity=".5"/><stop offset="100%" stop-color="#7a1f2b" stop-opacity="0"/></radialGradient>
-      <linearGradient id="seamG" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#5fe0ff" stop-opacity="0"/><stop offset="50%" stop-color="#eafaff" stop-opacity=".95"/><stop offset="100%" stop-color="#5fe0ff" stop-opacity="0"/></linearGradient>
+      <linearGradient id="seamG" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#7DD3FC" stop-opacity="0"/><stop offset="50%" stop-color="#eafaff" stop-opacity=".95"/><stop offset="100%" stop-color="#7DD3FC" stop-opacity="0"/></linearGradient>
       <filter id="glow" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="2.4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
       <filter id="shadow" x="-40%" y="-40%" width="180%" height="180%"><feDropShadow dx="0" dy="6" stdDeviation="9" flood-color="#000" flood-opacity="0.55"/></filter>
-      <style>.orbit{fill:none;stroke:#5fe0ff;stroke-opacity:.22;stroke-width:1}.spoke{stroke:#5fe0ff;stroke-opacity:.16;stroke-width:1}.penta{fill:none;stroke:#e9d3a0;stroke-opacity:.14;stroke-width:1}.elc{fill:#e9d3a0}.eli{fill:#5fe0ff}.breathe2{transform-box:fill-box;transform-origin:center;animation:bre 5.6s ease-in-out infinite}@keyframes bre{0%,100%{transform:scale(.975)}50%{transform:scale(1.035)}}</style>
+      <style>.orbit{fill:none;stroke:#7DD3FC;stroke-opacity:.22;stroke-width:1}.spoke{stroke:#7DD3FC;stroke-opacity:.16;stroke-width:1}.penta{fill:none;stroke:#e9d3a0;stroke-opacity:.14;stroke-width:1}.elc{fill:#e9d3a0}.eli{fill:#7DD3FC}.breathe2{transform-box:fill-box;transform-origin:center;animation:bre 5.6s ease-in-out infinite}@keyframes bre{0%,100%{transform:scale(.975)}50%{transform:scale(1.035)}}</style>
     </defs>
     <polygon class="penta" points="300,68 523,228 437,489 163,489 77,228"/>
     <g class="spoke"><line x1="300" y1="300" x2="300" y2="68"/><line x1="300" y1="300" x2="523" y2="228"/><line x1="300" y1="300" x2="437" y2="489"/><line x1="300" y1="300" x2="163" y2="489"/><line x1="300" y1="300" x2="77" y2="228"/></g>
@@ -125,7 +125,7 @@ a.inline{color:var(--ice);text-decoration:none}
         <g fill="#16242f" stroke="#7fb0c8" stroke-width="1" stroke-opacity=".55">
           <circle cx="312" cy="262" r="2.2"/><circle cx="382" cy="282" r="2.2"/><circle cx="318" cy="350" r="2.2"/><circle cx="388" cy="322" r="2.2"/><circle cx="348" cy="250" r="2"/>
         </g>
-        <g stroke="#5fe0ff" stroke-opacity=".6" stroke-width="1.4" fill="none">
+        <g stroke="#7DD3FC" stroke-opacity=".6" stroke-width="1.4" fill="none">
           <path d="M302,252 H324 V270"/><path d="M390,266 H364 V290"/><path d="M302,358 H328 V336"/><path d="M392,346 H374 V318"/>
         </g>
         <g fill="#eafaff"><circle cx="324" cy="270" r="2.4"/><circle cx="364" cy="290" r="2.4"/><circle cx="328" cy="336" r="2.4"/><circle cx="374" cy="318" r="2.4"/></g>
@@ -147,10 +147,10 @@ a.inline{color:var(--ice);text-decoration:none}
     </g>
     <text x="300" y="392" class="nlabel" style="font-size:21px;letter-spacing:3px">NAVLYS</text>
     <text x="300" y="411" class="nsub" style="fill:#e9d3a0;font-size:13px;letter-spacing:5px">C O R E</text>
-    <a href="/finance"><g class="node"><circle class="hub" cx="300" cy="68" r="40" fill="#0c1018"/><circle class="ring" cx="300" cy="68" r="40" fill="none" stroke="#5fe0ff" stroke-opacity=".5" stroke-width="1.5"/><text x="300" y="76" text-anchor="middle" font-size="26">&#129518;</text><text x="300" y="128" class="nlabel">Finance</text><text x="300" y="146" class="nsub">&eacute;ducation &middot; 0 &euro;</text></g></a>
-    <a href="/next-gen"><g class="node"><circle class="hub" cx="523" cy="228" r="40" fill="#0c1018"/><circle class="ring" cx="523" cy="228" r="40" fill="none" stroke="#5fe0ff" stroke-opacity=".5" stroke-width="1.5"/><text x="523" y="236" text-anchor="middle" font-size="26">&#128214;</text><text x="523" y="288" class="nlabel">Next Gen</text><text x="523" y="306" class="nsub">ta vie &middot; 0 &euro;</text></g></a>
-    <a href="/navlex"><g class="node"><circle class="hub" cx="437" cy="489" r="40" fill="#0c1018"/><circle class="ring" cx="437" cy="489" r="40" fill="none" stroke="#5fe0ff" stroke-opacity=".5" stroke-width="1.5"/><text x="437" y="497" text-anchor="middle" font-size="26">&#9878;</text><text x="437" y="549" class="nlabel">NAVLEX</text><text x="437" y="567" class="nsub">droit &middot; 9,99&euro; HT</text></g></a>
-    <a href="/influenceurs"><g class="node"><circle class="hub" cx="163" cy="489" r="40" fill="#0c1018"/><circle class="ring" cx="163" cy="489" r="40" fill="none" stroke="#5fe0ff" stroke-opacity=".5" stroke-width="1.5"/><text x="163" y="497" text-anchor="middle" font-size="26">&#10024;</text><text x="163" y="549" class="nlabel">Influenceurs</text><text x="163" y="567" class="nsub">le journal</text></g></a>
+    <a href="/finance"><g class="node"><circle class="hub" cx="300" cy="68" r="40" fill="#0c1018"/><circle class="ring" cx="300" cy="68" r="40" fill="none" stroke="#7DD3FC" stroke-opacity=".5" stroke-width="1.5"/><text x="300" y="76" text-anchor="middle" font-size="26">&#129518;</text><text x="300" y="128" class="nlabel">Finance</text><text x="300" y="146" class="nsub">&eacute;ducation &middot; 0 &euro;</text></g></a>
+    <a href="/next-gen"><g class="node"><circle class="hub" cx="523" cy="228" r="40" fill="#0c1018"/><circle class="ring" cx="523" cy="228" r="40" fill="none" stroke="#7DD3FC" stroke-opacity=".5" stroke-width="1.5"/><text x="523" y="236" text-anchor="middle" font-size="26">&#128214;</text><text x="523" y="288" class="nlabel">Next Gen</text><text x="523" y="306" class="nsub">ta vie &middot; 0 &euro;</text></g></a>
+    <a href="/navlex"><g class="node"><circle class="hub" cx="437" cy="489" r="40" fill="#0c1018"/><circle class="ring" cx="437" cy="489" r="40" fill="none" stroke="#7DD3FC" stroke-opacity=".5" stroke-width="1.5"/><text x="437" y="497" text-anchor="middle" font-size="26">&#9878;</text><text x="437" y="549" class="nlabel">NAVLEX</text><text x="437" y="567" class="nsub">droit &middot; 9,99&euro; HT</text></g></a>
+    <a href="/influenceurs"><g class="node"><circle class="hub" cx="163" cy="489" r="40" fill="#0c1018"/><circle class="ring" cx="163" cy="489" r="40" fill="none" stroke="#7DD3FC" stroke-opacity=".5" stroke-width="1.5"/><text x="163" y="497" text-anchor="middle" font-size="26">&#10024;</text><text x="163" y="549" class="nlabel">Influenceurs</text><text x="163" y="567" class="nsub">le journal</text></g></a>
     <a href="/bientot"><g class="node"><circle class="hub" cx="77" cy="228" r="40" fill="#0c1018"/><circle class="ring" cx="77" cy="228" r="40" fill="none" stroke="#e9d3a0" stroke-opacity=".45" stroke-width="1.5"/><text x="77" y="236" text-anchor="middle" font-size="26">&#128718;</text><text x="77" y="288" class="nlabel">Concierge</text><text x="77" y="306" class="nsub">navlys.io &middot; bient&ocirc;t</text></g></a>
   </svg>
   <p class="tagline">Un cerveau. Une personne. <b style="color:#fff">Tout un univers.</b><br>L'IA est le vent, c'est toi qui tiens la barre.</p>
