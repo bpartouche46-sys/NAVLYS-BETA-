@@ -2,163 +2,170 @@
 
 > Mis à jour à la fin de chaque session pour que la suivante reprenne sans tout relire.
 
-## Session 2026-06-24 (l) — ✅ Correction des 4 points de l'ultrareview + réconciliation principale
+## Session 2026-06-25 — ARBITRAGES BRUNO + exécution
 
-- 🔀 **PR #20 fusionnée dans la ligne principale** (incident Hermès + core déployable). Ma branche
-  re-synchronisée sur la principale à jour (incluait l'« ultrareview »).
-- 🛠️ **Les 4 points de `RAPPORT-ULTRAREVIEW-2026-06-24.md` corrigés** :
-  - **M1** : doublon journal **ERR-002 ≈ ERR-004** → consolidé dans **ERR-002** ; ERR-004 devient un
-    **renvoi** (références « ERR-002/004 » préservées). 
-  - **M2** : **disclaimer NAVLYS ajouté** sur `corrections-pretes/navbiolife.com/{cgu,privacy}.html`.
-  - **F1** : charte couleur `sites/navlys-app/finance.html` — ancien Ice Blue `#5fe0ff`/`rgb(95,224,255)`
-    → charte **`#7DD3FC`/`rgb(125,211,252)`** (13 occurrences).
-  - **F2** : « Jérusalem » dans le hub `index.html` — **déjà corrigé** (texte = « narratif méditerranéen
-    conforme »). Vérifié : **0 occurrence** de Jérusalem/Israël dans tout le code des sites.
-- 🔍 **Contrôle conformité repassé (vert)** : 0 terme interdit réel, 0 promesse de rendement chiffrée
-  dans les pages ; disclaimers OK ; `finance.html` structurellement intact.
-- ⏭️ Restent (hors dépôt, côté serveur) : mot de passe cockpit à changer, backups Hetzner, SSH par clés,
-  + révocation Hermès (`docs/INCIDENT-HERMES.md`, à exécuter par Bruno).
+### ✅ Décisions tranchées par Bruno (2026-06-25)
+- 🎯 **Slogan figé** : **« Ma méthode, ton argent, ton rythme. »** (tutoiement). → appliqué `CLAUDE.md` §1.
+- 💶 **Prix** : **reporté** (ne rien figer ; on en reparle).
+- 🖥️ **Hetzner** : **à VÉRIFIER d'abord** (que contient-il encore ? facturé ?) avant de garder/arrêter.
+  ⚠️ Indice : la mémoire indique des clés `ELEVENLABS_KEY` + backend voix possibles sur Hetzner
+  (`/root/navlys/config/.env`) → ne PAS arrêter avant vérification.
+- ⚙️ **« Tout dans ton ordre »** : Claude exécute les chantiers dans l'ordre qu'il juge, sans
+  action publique/payante sans feu vert.
 
-## Session 2026-06-24 (k) — 🚨 INCIDENT SÉCURITÉ : Hermès retiré (hack)
+### 🛠️ Exécution en cours (Claude)
+- ✅ **Charte appliquée** : **106 couleurs `#5fe0ff → #7DD3FC`** corrigées sur **12 fichiers**
+  de `live-source/` (source déployable). 0 « Jérusalem » dans cette source (à traiter dans
+  `launch-offer.js`/navbio quand cette source sera là).
+- ⏭️ Suite : FAQ unifiée + G1 · rappel procédure Vercel↔GitHub · checklist vérif Hetzner.
 
-- 🚨 **Bruno signale : Hermès supprimé = risque de sécurité majeur (hack).** Hermès (ancien
-  opérateur ops : LLM OpenRouter + accès SSH Hetzner + a touché GitHub/Vercel/cockpit/clouds)
-  est **sorti du projet** et **tous ses accès doivent être révoqués**.
-- 🧹 **Dépôt nettoyé (Claude)** : **toutes** les références à Hermès retirées (GOUVERNANCE,
-  ARCHITECTURE, CORE, CHAINE-1-SITES, TESTS, SECRETS, MEMOIRE, SAUVEGARDE, agents directeur/second,
-  core/). `docs/INSTRUCTIONS-HERMES.md` **supprimé**. `OPENROUTER_API_KEY` retiré de `core/.env.example`.
-  Le rôle « mains serveur » devient **« opérateur serveur à redéfinir »**, **bridé par le moteur**.
-- 🔑 **Checklist de révocation pour Bruno** : `docs/INCIDENT-HERMES.md` — révoquer/rotationner
-  **TOUS** ses accès, **y compris la clé API Anthropic** qui lui permettait d'appeler Claude
-  (+ OpenRouter, SSH Hetzner, GitHub, Vercel, clouds, cockpit). Re-vérifier le serveur
-  (portes dérobées : cron/services/clés ajoutées). Journalisé : **ERR-006**.
-- 🟡 **À FAIRE par Bruno** : exécuter la checklist `INCIDENT-HERMES.md` (Claude ne peut pas
-  agir sur les accès externes). Confirmer ici quand fait : « Révocation Hermès faite le JJ/MM ».
+### 🔴 Actions qui restent à Bruno
+- Régénérer le **token Vercel** (exposé). · Trancher l'**entité** (FR/IL/DFENSER LTD). · **Vérifier Hetzner**.
+- Légal avant LIVE : avocat NTIC, DPA ElevenLabs/HeyGen, AIPD (budgets = Bruno).
 
-## Session 2026-06-23 (j) — « tout opérationnel & sécurisé » : code core + sécurité
+---
 
-- 🎯 Demande Bruno : **« rends tout opérationnel à 100% et sécurisé »** (+ « je referai les
-  mots de passe/clés après »). Cadré honnêtement : 3 leviers restent **humains** (accès
-  Hetzner, source des sites dans Git, clés) → Claude rend **100% prêt** tout le reste.
-- 🔐 **Sécurité** : scan dépôt = **0 secret committé** ✅. Créé `docs/SECRETS-ET-CLES.md`
-  (inventaire S1→S10 sans valeurs, **procédure de rotation**, réflexe fuite) + durci
-  `.gitignore` (core/.env, core/.mcp.json, logs, dist).
-- 📊 **Tracker** `docs/OPERATIONNEL-100.md` : « route vers 100% » (statut + QUI + blocage)
-  = source de vérité de l'avancement.
-- 🧠 **CODE DU CORE LIVRÉ** (`core/`) : orchestrateur Agent SDK (TypeScript, headless) +
-  **garde-fous CÂBLÉS** (hook PreToolUse = conformité ERR-003 + STOP argent/prod → feu
-  vert Bruno ; PostToolUse = audit) + config (refuse `bypassPermissions`) + `.env.example` /
-  `.mcp.json.example` (0 secret) + unit **systemd** + README de déploiement.
-  ✅ **Logique garde-fous testée réellement : 18/18** (`core/test/`, via Node type-stripping).
-  API SDK **vérifiée** par sous-agent sur la doc officielle. Scaffold non testé bout-en-bout
-  depuis GitHub (pas d'install réseau) → à valider sur serveur (opérateur à redéfinir).
-- ⏭️ Reste pour le « 100% » réel : rotation clés (Bruno), source sites dans Git (Bruno),
-  install moteur sur Hetzner (opérateur serveur **à redéfinir** — ex-Hermès retiré).
-  Détail = `docs/OPERATIONNEL-100.md`.
+## Session 2026-06-25 — RENFORCEMENT global d'après le « cerveau » récupéré (recup-docs)
 
-## Session 2026-06-23 (i) — core central : blueprint technique + 1ère chaîne choisie
+### 🟢 ÉTAT RÉEL du projet (corrigé d'après ~270 docs récupérés + `docs/SYNTHESE-NAVLYS.md`)
+- **NAVLYS est LANCÉ, en phase BETA.** Le gate a été ouvert (docs : **31 mai / 1ᵉʳ juin 2026**).
+  Source : `recup-docs/onedrive/_MASTER_NAVLYS_NOW.md` (« gate passé le 31 mai ✓, phase BETA en cours »).
+- **Stack RÉELLE = Vercel + Supabase + Resend + Sentry + ElevenLabs + Cloudflare R2 + Claude (+ Stripe à venir).**
+  Le **« core central Hetzner » semble PÉRIMÉ** (absent des docs récents) → à confirmer Bruno. (cf. CLAUDE.md §1.)
+- **Charte couleur confirmée `#7DD3FC`** (`recup-docs/onedrive/_AUDIT_CHARTE_COULEURS.md`).
+- **8 règles gravées** intégrées dans `docs/GOUVERNANCE.md` §0.
+- **Renforcement par domaine** livré dans `docs/RENFORCEMENT/` (01→07).
 
-- 🧠 **Blueprint technique du core central** écrit (`docs/CORE-CENTRAL-TECHNIQUE.md`) :
-  brique = **Claude Agent SDK** (orchestrateur headless + sous-agents + skills + MCP +
-  mémoire Redis + systemd/cron). **Garde-fous câblés dans le moteur** (permissions +
-  hook `PreToolUse` = gardien conformité + STOP argent/prod → feu vert Bruno).
-  Honnêteté : ❌ pas d'auto-bootstrap total (les agents sont déclarés par nous, pas
-  inventés seuls par la machine) ; ❌ pas de boucle auto-programmée (cron/systemd externe).
-- 🎯 **Décision finale Bruno** : 1ʳᵉ chaîne **opérationnelle** = **Veille web**
-  (`docs/VEILLE/`) — choisie car **zéro risque / zéro dépendance**, démarrable tout de suite.
-  ✅ **Déjà testée en réel** : 1ʳᵉ édition `docs/VEILLE/2026-06-23.md` (4 axes sourcés ;
-  fait marquant : cadre AMF/ESMA 2026 **conforte** la ligne NAVLYS éducation-only).
-- ⏭️ **Chaîne Sites / déploiement = la suivante** (`docs/CHAINE-1-SITES.md` reste valable),
-  **en attente** du pré-requis bloquant : rapatrier la **source des sites dans GitHub** via
-  **Claude Code sur le PC du bureau (Windows)** — install en cours côté Bruno. Premier
-  passage prévu = la **Vague 1 déjà validée** (bio.html + index.html).
-- 📦 PR : **#20** — CORE-CENTRAL-TECHNIQUE, CHAINE-1-SITES, VEILLE (note : INSTRUCTIONS-HERMES
-  supprimé depuis — voir session (k), ERR-006).
+### ⚖️ LES 9 DÉCISIONS EN ATTENTE (section 10 de la synthèse — à trancher par Bruno)
+1. 🔴 **Régénérer le token Vercel** (partagé en clair → exposé). Action sensible = Bruno.
+2. **Entité juridique** : FR auto-entrepreneur vs société IL (Mizrahi) / DFENSER LTD → impacte
+   Stripe, factures, contrats. (Avocat NTIC recommandé.)
+3. **Clarifier le « core Hetzner »** : legacy/abandonné ? vs stack Vercel+Supabase.
+4. **Figer le SLOGAN** (« Ma méthode, Votre/Ton argent, Votre/Ton tempo/rythme/contrôle ») +
+   le **prix BETA** : 39 € early-bird verrouillé vs 49 €/mois vs 490 €/an (vs 39 € « à vie » côté mémoire).
+5. **Date de lancement effective** : countdown live = 1ᵉʳ juillet ; docs = 31 mai / 1ᵉʳ juin ;
+   cible interne « 15 juin BETA stable » → **quel cap public unique ?**
+6. **Dépersonnalisation vs scripts** où Bruno apparaît en narrateur (« voix de Bruno ») → arbitrer
+   la frontière public (NAVLYS deperso) / persona narratif toléré-avec-disclaimer.
+7. **Charte couleur** : `#7DD3FC` confirmé → corriger tout `#5fe0ff` résiduel.
+8. **Valider** prospection influenceurs / VIP (aucun JCVD trouvé dans les docs récupérés ; à confirmer).
+9. **Relier Vercel ↔ GitHub** (procédure prête `docs/PROCEDURE-VERCEL-GITHUB.md`) pour déployer par push.
 
-## Session 2026-06-24 (nuit) — 🌙 corrections autonomes post-ultrareview (Bruno absent)
+> ➕ Décisions complémentaires remontées par l'exploration (voir `docs/RENFORCEMENT/`) :
+> domaine NAVBIO (navbio.com ?), statut produit « LÉGENDE » (R&D), DPA ElevenLabs/HeyGen avant LIVE,
+> AIPD biométrie avant droit-à-l'oubli, doublons Vercel à arbitrer, nommage « NOVA » résiduel vs NAVLYS.
 
-> Bruno : « passe les opérations sans t'arrêter, les questions restantes = demain matin. »
-> Tout fait sur GitHub uniquement, rien en prod, aucune action sensible.
+- 🔴 **Aucune action sensible déclenchée** : zéro déploiement, zéro publication, zéro dépense.
+  Travail 100 % en branche `claude/navlys-project-briefing-qi2w9j`. Validation gardien faite (voir RENFORCEMENT).
 
-- ✅ **Tous les points de l'ultrareview corrigés** (détail : `docs/RAPPORT-ULTRAREVIEW-2026-06-24.md` §SUITES) :
-  F1 charte `finance.html` alignée `#7DD3FC` ; F2 déjà OK ; M1 doublon ERR-002/ERR-004 fusionné ;
-  M2 requalifié non-problème (pages légales biographie ≠ contenu financier).
-- ✅ **Bilan dépôt : 0 critique / 0 élevé / 0 moyen / 0 faible restant.** Aucun secret, conformité OK.
-- 🌅 **POUR DEMAIN MATIN — questions/actions qui exigent Bruno** (rien d'autre n'est bloqué) :
-  0. 🚨 **LE PLUS URGENT — révocation Hermès** (incident sécurité, ERR-006) : dérouler
-     `docs/INCIDENT-HERMES.md` (révoquer/rotationner TOUS ses accès, **y compris la clé API
-     Anthropic**, OpenRouter, SSH Hetzner, GitHub, Vercel, clouds, cockpit ; re-vérifier le serveur).
-  1. 🔐 **Serveur** : changer le **mot de passe cockpit** (exposé) + lancer un **backup**
-     + passer **SSH en clés**. Pas-à-pas déjà prêt → `docs/RUNBOOK-BRUNO-100.md` ②③.
-  2. 👀 **Voir en ligne** : importer `NAVLYS-BETA-` sur Vercel pour une preview (RUNBOOK ①), me coller l'URL.
-  3. ❓ **Code des sites non confirmés sur GitHub** : navbiolife.com, navlys.io, et les 2 teasers
-     (NOVA-HUB ne contient que navlys / navlys-core / brunopartouche) → où vit leur source ? (probable : ancien PC).
-  4. ⚖️ **Mentions légales** : compléter `[ÉDITEUR]/[EMAIL]/[HÉBERGEUR]` (cgu/privacy) — hors Git + relecture juridique.
-  5. 🎬 **Vidéos** des présentations (URLs) + **feu vert prod** quand prêt.
-- ⚠️ **Audit du code live NOVA-HUB non réalisé** (clone bloqué par le proxy) → à faire en autorisant
-  l'accès au dépôt NOVA-HUB dans une session, ou via son propre flux de PR.
+## Session 2026-06-24 — DÉCISION : relier les sites LIVE Vercel ↔ GitHub (Phase 0 « code sous Git »)
 
-## Session 2026-06-24 — 🔍 ULTRAREVIEW du dépôt → voir `docs/RAPPORT-ULTRAREVIEW-2026-06-24.md`
+- 🎯 **Décision Bruno** : on relie les sites live Vercel à GitHub (sert aussi l'objectif
+  Phase 0 « code sous Git »). Contrainte technique : l'intégration GitHub est limitée au seul
+  dépôt `NAVLYS-BETA-` (création d'autres repos = 403, PR #12) → **approche MONOREPO** (un
+  sous-dossier par projet via « Root Directory »).
+- 📄 **Livrable** : **`docs/PROCEDURE-VERCEL-GITHUB.md`** (procédure sûre pas-à-pas, ordre
+  obligatoire 1→5, table des 6 projets/domaines, encadré « piège critique »).
+- ⛔ **Piège central gravé** : `sites/<projet>/` = refonte v2 **incomplète** (souvent 1 page) ;
+  le LIVE a plus de pages + des assets moteur dont **`navlys-alive.js` = la voix** (jamais
+  capturée). Relier un projet à un dossier v2 puis pousser ferait **écraser la voix + les
+  pages live**. → **Étape n°1 obligatoire : capturer la vraie source live** de chaque projet
+  dans `live-source/<projet>/` AVANT tout lien Git.
+- 🧩 **Prochaine étape concrète** : capturer la source live (méthode A : `vercel pull` /
+  dernier déploiement, depuis l'ancien PC) → versionner sous `live-source/` → décision Bruno
+  garder-live/v2 par projet → relier dans Vercel → **Preview comparée au live** → promotion
+  prod **seulement sur feu vert de Bruno**.
+- 📓 Maj `docs/PHASE-0-SUIVI.md` (colonne « Source LIVE capturée », rappel monorepo + piège).
+- 🔴 **Aucune action sensible déclenchée** : zéro déploiement, zéro promotion, zéro dépense.
+  Le lien Vercel↔Git lui-même se fait côté **Bruno** (dashboard Vercel) ; Claude n'a pas accès.
 
-- ✅ Audit complet vérifié : **0 critique, 0 élevé**. Dépôt propre et sûr.
-- ✅ **Aucun secret committé**, aucun terme interdit réel, « +8 à 12% » retiré partout,
-  disclaimers 14/16, zéro lien interne ou renvoi de doc cassé.
-- 🟡 4 points mineurs : M1 doublon journal **ERR-002 ≈ ERR-004** (à fusionner) ;
-  M2 disclaimer absent sur `corrections-pretes/navbiolife.com/{cgu,privacy}.html` (versions `sites/` OK) ;
-  F1 charte `#5fe0ff`→`#7DD3FC` dans `sites/navlys-app/finance.html` ; F2 mot « Jérusalem » dans `index.html` (hub).
-- ⚠️ Note : audit du code **live NOVA-HUB** non fait (proxy a refusé le clone) → à auditer à part.
-- 🔧 Tentative initiale en workflow multi-agents : échec technique (schéma StructuredOutput) →
-  audit refait en direct (grep/lecture), plus fiable sur un petit dépôt.
+## Session 2026-06-24 — recherche de la DÉMO VOIX (clone vocal) : localisation
 
-## Session 2026-06-24 — TEST chaîne « Claude Design » → Adobe Express (réussi)
+- 🎯 **Objectif Bruno** : retrouver la démo « voix / clone vocal » (ElevenLabs + fal.ai +
+  HeyGen) qu'il dit avoir déjà construite « dans un des sites ».
+- 🔎 **Constat (recherche exhaustive du dépôt par l'orchestrateur)** : **RIEN dans
+  `NAVLYS-BETA-`** — pas d'ElevenLabs/fal.ai/HeyGen, pas de capture micro
+  (`getUserMedia`/`MediaRecorder`), pas de TTS, pas d'appel API ni de clé. Seule trace audio =
+  un **MP3 statique pré-enregistré** (`<audio src="/media/bruno.mp3">` dans
+  `sites/brunopartouche.com/index.html`) → ce **n'est pas** la démo voix.
+- 🧠 **Pourquoi c'est normal → ERR-006** : ce dépôt = refonte **v2 statique** + mémoire ; les
+  sites **LIVE** sont sur **Vercel non reliés à GitHub**. Le code des fonctionnalités live
+  (voix…) n'est **pas** ici. Clés `ELEVENLABS_KEY`… sur Hetzner (`/root/navlys/config/.env`,
+  Bruno). NB : `docs/PASSATION-HERMES.md` §9 (l.58) note la connexion ElevenLabs **« non faite »**.
+- 🧭 **Plan de localisation — 3 hypothèses (à vérifier dans l'ordre, par Bruno)** :
+  1. **🟢 Vercel LIVE (le + probable)** — la démo est dans un déploiement Vercel.
+     *Comment* : Bruno ouvre chaque site live (navlys.com, brunopartouche.com, navbiolife.com,
+     navlys.io + teasers) → cherche le bouton/page « voix / parler / clone ». Si trouvé :
+     DevTools → **Network** (repérer un appel `elevenlabs`/`fal.run`/`heygen`) + **Sources**
+     (chercher `getUserMedia`, `MediaRecorder`, `xi-api-key`). Côté code source : Vercel →
+     projet → onglet Source / `vercel pull` du dossier depuis l'ancien PC. ⚠️ V7 (cf. ci-dessous) :
+     toute clé `sk-`/`xi-api-key`/`Bearer` visible en front = **clé exposée à révoquer**.
+  2. **🟠 Core Hetzner** — la démo (ou son backend d'appel API) tourne sur le serveur.
+     *Comment* : Bruno regarde `/root/navlys/` (≈9 dossiers, cf. diagnostic 2026-06-22) + le
+     `.env` (présence/usage réel de `ELEVENLABS_KEY`). Diagnostic note **0 conteneur Docker
+     actif** → si backend voix, il n'est probablement **pas en cours d'exécution**. C'est
+     l'**action serveur = Bruno** (Claude n'a aucun accès Hetzner).
+  3. **🔵 Autre dépôt GitHub** — code dans **NOVA-HUB**, **Ai-Suite-PRO**, **gdp-dashboard**
+     (repos cités dans `docs/PASSATION-HERMES.md`) plutôt que dans les sites.
+     *Comment* : Bruno donne accès / Claude grep `eleven|fal\.run|heygen|getUserMedia` dans ces
+     repos. À faire dès qu'un accès est fourni.
+- 🔴 **En attente Bruno** : (a) l'**URL** de la page démo voix si elle est live ; (b) lequel
+  des 3 fronts ouvrir en premier (recommandé : **Vercel live**) ; (c) accès aux autres repos.
+- 📓 **Mémoire** : leçon gravée **ERR-006** (ne pas confondre `NAVLYS-BETA-` v2 avec les sites
+  LIVE Vercel non versionnés). Aucune action sensible — zéro débit, zéro déploiement, zéro
+  contenu public (règle financière + feux verts respectés).
 
-- 🎯 **Question de Bruno** : « exploites-tu Claude Design pour faire des prototypes / des
-  choses finies ? Il faut le tester. »
-- ✅ **Capacité CONFIRMÉE et testée** : Claude crée un visuel fini en HTML autonome puis
-  l'envoie comme **document Adobe Express éditable**. Compte Adobe = `auth` (complet).
-  Connecteurs aussi dispo : Vercel, Figma, Canva.
-- ✅ **Premier livrable** : **`designs/navlys-teaser-card.html`** (carré 1080×1080,
-  « Ouverture 1ᵉʳ juillet », slogan officiel, Méthode 90/10, **disclaimer conforme**,
-  charte ice blue). Import Express **OK** (1 slide, rendu fidèle).
-- 📄 **Recette capitalisée** : **`docs/CLAUDE-DESIGN-PIPELINE.md`** (étapes + polices Adobe
-  validées AGaramondPro/FiraSans + pièges : params en chaînes, PostScript names, conformité).
-- ⚠️ **Limite honnête** : Claude **ne peut pas ouvrir un lien `claude.ai/design/p/…`**
-  (page protégée). Pour exploiter un design fait dans l'app : menu « Send to Adobe Express ».
-- ℹ️ **Sites web responsives** (les 4 maquettes `sites/*`) → ne passent PAS par Express ;
-  Express = visuels marketing. Sites = HTML déployé (Vercel).
-- 💾 **Serveur** : working tree propre, tout poussé sur GitHub → Bruno peut changer d'ordi sans rien perdre.
+## Session 2026-06-24 — revue conformité VOIX (V6) + auto-check sécurité (V7)
 
-## Session 2026-06-23 (nuit) — sécurité vérifiée + design v2 finalisé (Claude autonome)
+- 🎙️ **Test Voix repris** (« ultrareview ») : je ne peux pas lancer le check live faute de
+  l'**URL** de la démo (non fournie) → je n'invente pas. Enrichi `docs/TESTS-FONCTIONNELS.md` §1 :
+  - 🔬 **V6 — batterie de conformité** : 8 questions pièges (rendement, reco nominative, conseil
+    perso, fiscal, vocab interdit, narratif Israël/Jérusalem, public 18+, FOMO) avec, pour chacune,
+    la **ligne rouge interdite** vs la **réponse conforme attendue**. + règle disclaimer audio/écran.
+  - 🔐 **V7 — auto-check sécurité** que **Bruno fait seul** (DevTools → Network/Sources, recherche
+    de `sk-`, `xi-api-key`, `Bearer`…) : clé exposée = révoquer + passer l'appel côté serveur.
+  - ✏️ Correction : V7 réattribué à **Bruno** (Hermès retiré).
+- ⏳ **En attente Bruno** : **l'URL de la démo voix** + outil de clone (ElevenLabs ?) + moteur de
+  transcription. Dès réception → je lance le V7 (fetch du source + grep des clés) à sa place.
 
-- ✅ **E-mails d'inscription protégés** : RLS de `public.inscriptions` vérifié (Supabase MCP) =
-  **INSERT-only pour `anon`, AUCUN SELECT** → e-mails non lisibles publiquement. Clé anon = sans danger.
-  Détail : `docs/AUDIT-SECURITE-NUIT-2026-06-23.md`. → question RLS **CLOSE**.
-- ✅ **Audit live brunopartouche.com (home)** complété (fetch entier) : **propre** (0 terme interdit,
-  0 « Jérusalem », « Pas de promesse. Une discipline. »). Seul écart : compte à rebours « 1ᵉʳ juin » périmé (déjà patché).
-- ✅ **Design v2 finalisé** : cinéma incurvé + **menu HAUT fixe** + rideaux bleu/champagne + charte
-  `#7DD3FC` sur les 4 sites + hub d'aperçu ; conformité **verte**. (PRs #15, #16 fusionnées.)
-- 📋 **`docs/RUNBOOK-BRUNO-100.md`** : les **5 actions restantes (toi seul)** pour atteindre 100 %
-  (import Vercel, sécuriser serveur, rotation secrets, vidéos, déploiement réel).
-- ⚠️ Rien en prod. Tout fusionné dans la branche principale.
+## Session 2026-06-23 — décision Piste B + audit sites v2 + tests
 
-## Session 2026-06-23 — ✅ VÉRIF : le code des sites est DÉJÀ dans GitHub (NOVA-HUB)
+- 🎨 **Décision Bruno : conformité = Piste B (refonte Design v2)**. Les sites `sites/` (v2)
+  remplacent l'existant ; les patchs `corrections-pretes/` (Piste A : C-01→C-05, P-01→P-05,
+  ERR-005) deviennent une **référence archivée** (plus la voie de déploiement).
+- ✅ **Audit Claude des sites v2** (`sites/`) : 0 terme interdit, 0 promesse, disclaimer sur
+  les 10 pages, date 1ᵉʳ juillet cohérente, **aucun lien 404** (cgu/privacy centralisés sur
+  navlys.com ; pas de bug /partenaires en v2).
+- 🟠 **2 points v2 à traiter** : `navlys-app/finance.html` ✅ **Ice Blue aligné `#7DD3FC`**
+  (2026-06-23) — reste à décider le **rouge/vin** (`#ff2a1f`/`#7a1f2b`, gardé car possiblement
+  fonctionnel = scénarios de perte) ; **mentions d'éditeur** des pages légales v2 à compléter (legal).
+- 🧪 **Tests fonctionnels (choix Bruno)** : FAQ **absente du dépôt** → non testable ici ;
+  Voix / NavLex / Partenaires = **accès live requis (Bruno)**, Hermès retiré → appui serveur = Bruno.
+  Plan + résultats partiels dans `docs/TESTS-FONCTIONNELS.md`.
+- ⏳ **En attente Bruno** : où vit la FAQ + infos d'accès pour tester Voix/NavLex/Partenaires.
 
-- 🎯 **Question tranchée** (avant de copier le code depuis l'ancien PC) : **le code est déjà
-  sauvegardé sur GitHub**, inutile de tout recopier à la main.
-- 📦 **Dépôt `bpartouche46-sys/NOVA-HUB`** (public, **actif — maj 2026-06-23**) contient le
-  code source HTML organisé : `sites/navlys`, `sites/navlys-core` (= navlys.com),
-  `sites/brunopartouche`, `sites/_shared`, avec les `vercel.json`. PRs fusionnées le jour même.
-- 📦 **Dépôt privé `bpartouche46-sys-navlys-com`** existe aussi (navlys.com, maj 2026-05-20).
-- ✅ **Conséquence** : la Phase 0 « sauvegarde du code » est **déjà couverte** pour
-  navlys / navlys-core / brunopartouche. Le guide `docs/SAUVEGARDE-CODE-VERCEL.md`
-  (copie depuis l'ancien PC) **n'est PLUS la priorité** pour ces sites.
-- ❓ **À vérifier encore (couverture GitHub incomplète)** : **navbiolife.com**, **navlys.io**,
-  **navlys-teaser**, **brunopartouche-teaser** ne sont pas clairement dans NOVA-HUB →
-  confirmer où vit leur code. + Éléments **server-local non sauvegardés** : cockpit
-  (`/var/www/cockpit/`), 18 skills, médias sous `/root/navlys/`.
-- 🔗 Lien Vercel↔GitHub : les sites tournent encore en `source: cli` → **relier les projets
-  Vercel à NOVA-HUB** (Phase 3) pour que les déploiements partent de Git, plus du CLI.
+## Session 2026-06-23 — QA complémentaire : lien cassé brunopartouche
 
+- 🔗 **Trouvaille** : `brunopartouche.com/partenaires` renvoie **404**, alors que la home
+  a un bouton « Voir les 19 partenaires → » qui pointe dessus (lien cassé).
+  → Correctif **P-05** ajouté (recommandé : rediriger vers `navlys.io/#partenariats`,
+  où les 19 partenaires existent déjà ; alternative : créer la page). Décision Bruno.
+- ⏳ Reste : décider l'option P-05, puis intégrer au déploiement (`MEMO-DEPLOIEMENT.md`).
+
+## Session 2026-06-22 (f) — Phase 0 : suivi + sauvegarde assets + repos
+
+- 📋 **`docs/PHASE-0-SUIVI.md`** (nouveau) : tableau de suivi Phase 0 (snapshot Hetzner,
+  backup.sh, code de chaque site sous GitHub, liaison Vercel↔Git). Le « comment » reste
+  dans `SAUVEGARDE.md` / `SAUVEGARDE-CODE-VERCEL.md` ; ce fichier = le « où on en est ».
+- 💾 **`sauvegarde-sites/_assets-moteur/`** (nouveau) : sauvegarde des assets moteur JS/CSS
+  (cockpit.js, cockpit-mini.js, launch-offer.js, hero-bg-slideshow.js, navlys-family-theme-v2.css)
+  — capturés en lecture seule (fetch live 2026-06-22). Filet **partiel** : navlys-app (403),
+  images/vidéos et home brunopartouche (tronquée) NON capturés → à faire depuis l'ancien PC.
+- 🔴 **Nouvelle non-conformité trouvée → ERR-005** : `launch-offer.js` contient encore
+  « heure de Jérusalem » + escalator ancré au 1ᵉʳ juin. Correctif **P-04** ajouté au patch.
+  Garde-fou : grep des termes interdits sur **HTML + JS + CSS** (pas que le HTML).
+- 🐙 **Repos GitHub privés** : (voir statut dans le tableau / la conversation).
+- ⏳ Le cœur de Phase 0 (snapshot, backup.sh, export source) reste à faire sur l'ancien PC.
 ## Session 2026-06-23 — passation Hermès archivée (avant retrait)
 
 - 📥 **Passation complète reçue d'Hermès** (via Bruno) → consolidée dans

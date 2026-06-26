@@ -71,43 +71,59 @@ Copier ce modèle pour chaque nouvelle erreur :
   HTML live** via l'outil de fetch Vercel » est tracée dans `docs/CARTE-SITES.md`.
 - 👉 **Voir ERR-002** pour le détail, la cause et le garde-fou.
 
-### ERR-005 — Confusion produit : « Next Gen » ≠ application finance
-- **Date** : 2026-06-24
-- **Contexte** : Bruno demande de lancer « l'application NAVLYS Next Gen ».
-- **Symptôme** : Claude a commencé à construire une app **finance (90/10)** étiquetée « Next Gen ».
-- **Cause** : mauvaise lecture de la carte produit. En réalité :
-  **NAVLYS Next Gen = l'application de BIOGRAPHIE** (mémoire/transmission, tables `chapitres`+`souvenirs`),
-  et **NavFin = l'application finance** (méthode 90/10).
-- **Correction appliquée** : page finance renommée **NavFin** ; carte produit écrite dans
-  `docs/PRODUITS-NAVLYS.md` ; vraie app Next Gen = biographie à construire/reprendre.
-- **Garde-fou** : toujours vérifier `docs/PRODUITS-NAVLYS.md` avant de coder une « app NAVLYS ».
-  Next Gen = biographie · NavFin = finance · NAVBIO/navbiolife = vitrine biographie.
+### ERR-005 — « Jérusalem » résiduel + date périmée dans `launch-offer.js`
+- **Date** : 2026-06-22
+- **Contexte** : Phase 0, capture de sauvegarde des assets moteur (fetch lecture seule).
+- **Symptôme** : `launch-offer.js` (navbiolife) contient encore « minuit Asia/Jerusalem » /
+  « heure de Jérusalem » (texte servi au public en état *before*) et un escalator d'offre
+  **ancré au 1ᵉʳ juin 2026** (périmé). Non détecté par la QA initiale (qui n'avait vu que
+  le commentaire de l'`index.html`, corrigé en C-02).
+- **Cause** : la QA conformité (ERR-003) n'avait pas inspecté les **fichiers JS séparés**
+  chargés par les pages — seulement le HTML.
+- **Correction appliquée** : correctif **P-04** ajouté à `corrections-pretes/PATCH-comptes-a-rebours.md`
+  (retrait « Jérusalem » + réancrage 1ᵉʳ juillet). Fichier brut sauvegardé dans `sauvegarde-sites/`.
+  NON déployé (attente feu vert prod).
+- **Garde-fou** : avant tout déploiement, **grepper les termes interdits dans TOUS les
+  fichiers servis** (HTML **+ JS + CSS**), pas seulement le HTML. Inscrit dans
+  `corrections-pretes/MEMO-DEPLOIEMENT.md` §5.
 
-### ERR-006 — Hermès compromis (hack) → retiré du projet + révocation de tous ses accès
+### ERR-006 — Confondre le dépôt GitHub `NAVLYS-BETA-` (refonte v2) avec les sites LIVE Vercel (non versionnés)
 - **Date** : 2026-06-24
-- **Contexte** : Hermès était l'« opérateur ops » (LLM via OpenRouter + accès SSH Hetzner)
-  présenté comme orchestrateur de confiance en surveillance mutuelle avec Claude.
-- **Symptôme** : Bruno signale qu'**Hermès a été supprimé** et constitue un **risque de
-  sécurité majeur (hack)**. Il ne doit plus avoir **aucun** accès ni **aucune** présence
-  dans le projet.
-- **Cause** : un acteur tiers (agent externe via OpenRouter, avec accès serveur + potentiellement
-  une clé API Anthropic pour appeler Claude) devenu non fiable / compromis. Trop d'accès
-  concentrés sur un seul intervenant externe, sans révocation rapide possible.
-- **Correction appliquée** :
-  1. **Toutes les références à Hermès retirées** du dépôt (rôle d'orchestrateur de confiance
-     supprimé partout : GOUVERNANCE, ARCHITECTURE, CORE, CHAINES, TESTS, SECRETS, agents…).
-  2. **`docs/INSTRUCTIONS-HERMES.md` supprimé** (ordre de mission qui lui donnait la main).
-  3. **`OPENROUTER_API_KEY` retiré** de `core/.env.example` (clé qui servait Hermès).
-  4. **Checklist de révocation complète** créée pour Bruno : `docs/INCIDENT-HERMES.md`
-     (révoquer/rotationner TOUS ses accès, **y compris la clé API Anthropic** qui lui
-     permettait d'appeler Claude).
-- **Garde-fou** :
-  - 🔴 **Aucun intervenant externe ne cumule « cerveau + accès serveur + clé API Claude ».**
-    Le moteur du core applique le **moindre privilège** (liste blanche d'outils, hooks
-    PreToolUse, `bypassPermissions` interdit) — un futur opérateur sera **bridé par le code**,
-    pas « de confiance par défaut ».
-  - 🔑 **Toute clé/accès donné à un tiers doit être révocable en 1 geste** et **rotationné
-    immédiatement** au moindre doute (cf. `docs/SECRETS-ET-CLES.md` §4 « fuite »).
-  - 📄 Procédure de sortie d'un intervenant : `docs/INCIDENT-HERMES.md` (réutilisable).
+- **Contexte** : Bruno demande de retrouver une démo « voix / clone vocal »
+  (ElevenLabs + fal.ai + HeyGen) qu'il dit avoir déjà construite « dans un des sites ».
+- **Symptôme** : recherche exhaustive du dépôt `NAVLYS-BETA-` → **AUCUN** code voix/IA
+  (ni ElevenLabs, fal.ai, HeyGen, ni capture micro `getUserMedia`/`MediaRecorder`, ni TTS,
+  ni appel API, ni clé). Seule trace audio = un lecteur **MP3 statique pré-enregistré**
+  (`<audio src="/media/bruno.mp3">` dans `sites/brunopartouche.com/index.html`). Risque :
+  conclure « la démo n'existe pas » alors qu'elle vit simplement **ailleurs**.
+- **Cause** : ce dépôt est la **refonte v2 statique** (maquettes/docs). Les **sites LIVE**
+  sont déployés sur **Vercel sans être reliés à GitHub** (cf. ERR-002 / ERR-004,
+  `CLAUDE.md` : « Aucun projet n'est relié à GitHub »). Le code des **fonctionnalités live**
+  (voix, NavLex, etc.) n'est **pas** dans `NAVLYS-BETA-`. Les clés (`ELEVENLABS_KEY`…) sont
+  sur le serveur Hetzner dans `/root/navlys/config/.env` (Bruno, hors dépôt — cf.
+  `docs/PASSATION-HERMES.md` §8), et la connexion ElevenLabs y est notée « non faite » (§9 l.58).
+- **Correction appliquée** : ne plus assimiler « absent du dépôt » à « inexistant ». Toute
+  recherche de fonctionnalité live se mène sur **3 fronts** : (1) **déploiement Vercel** live,
+  (2) **core Hetzner** (`/root/navlys/`), (3) **autres dépôts** (NOVA-HUB, Ai-Suite-PRO,
+  gdp-dashboard… cf. `docs/PASSATION-HERMES.md`). Plan de localisation consigné dans
+  `docs/ETAT-DES-LIEUX.md` (session 2026-06-24). Aucune action sensible déclenchée.
+- **Garde-fou** : avant d'affirmer qu'un code « n'existe pas », vérifier les **3 sources hors
+  GitHub** (Vercel live / Hetzner / autres repos). Rappel permanent : `NAVLYS-BETA-` = mémoire +
+  refonte v2 statique, **pas** la prod. Inscrit ici (ERR-006) et relié à ERR-002/ERR-004.
 
-<!-- Ajouter les prochaines erreurs ci-dessous : ERR-007, … -->
+### ERR-007 — Chiffre business/financier cité sans source exacte ni mention « non-promesse »
+- **Date** : 2026-06-25
+- **Contexte** : renforcement (`docs/RENFORCEMENT/`) à partir du « cerveau » récupéré.
+  Un cash-in « ~770 k€ » avait été écrit sans correspondance en source, et des projections
+  (816 k€ / 717 k€) attribuées au mauvais fichier.
+- **Symptôme** : risque double — (a) chiffre inventé/mal sourcé, (b) un chiffre de rendement/CA
+  présenté sans garde-fou peut ressembler à une **promesse** (interdit conformité : zéro promesse).
+- **Cause** : reprise d'un chiffre « de tête » sans revérifier le fichier source exact.
+- **Correction appliquée** : chiffres remplacés par les valeurs sourcées (`_PARTENAIRES_LIENS_AUDIT.md`),
+  attribution corrigée, mention « projection NON garantie, à ne jamais publier comme promesse » ajoutée.
+- **Garde-fou** : **tout chiffre business/financier** (CA, rendement, Sharpe, %, projection) doit
+  (1) **citer le fichier source exact** et (2) porter la mention **« projection / donnée — pas une
+  promesse »** s'il touche au public. Vérifier en source avant publication. Inscrit ici + rappelé en
+  tête de `docs/RENFORCEMENT/04-calculs-finance.md`.
+
+<!-- Ajouter les prochaines erreurs ci-dessous : ERR-008, … -->
