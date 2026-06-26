@@ -1,3 +1,8 @@
+> ✅ **FICHIER CANONIQUE — Monétisation** (doctrine NAVLYS : éditeur/publisher, PAS CIF/ORIAS/IOBSP).
+> ⚠️ Le doublon `05_MONETISATION__2.md` (cadre ORIAS) est **NUL/VOID** — ne jamais l'utiliser (ULTRAREVIEW 2026-06-26).
+
+---
+
 # 💰 DÉPARTEMENT 05 — MONÉTISATION
 
 > Briefing autonome. Une conversation qui lit ceci tient la caisse : Stripe, pièce bronze, revenus affiliés, apport d'affaires.

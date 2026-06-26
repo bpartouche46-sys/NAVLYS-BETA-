@@ -1,3 +1,10 @@
+> 🛑 **FICHIER OBSOLÈTE — NE PAS UTILISER (déprécié 2026-06-26, ULTRAREVIEW).**
+> Ce document promeut un cadre **ORIAS / apport d'affaires** qui CONTREDIT la doctrine canonique NAVLYS
+> (« PAS CIF / PAS ORIAS / PAS IOBSP »). Risque pénal latent (intermédiation illégale) s'il est réactivé.
+> ✅ Canonique = `05_MONETISATION.md`. Conservé pour archive ; à déplacer dans `_ARCHIVE/` après OK Bruno.
+
+---
+
 # 💰 DÉPARTEMENT 05 — MONÉTISATION
 
 > Briefing autonome. Une conversation qui lit ceci tient la caisse : Stripe, pièce bronze, revenus affiliés, apport d'affaires.
