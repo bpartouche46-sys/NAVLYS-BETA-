@@ -77,8 +77,8 @@ Format : chaque entrée = `Q (FR)` + `A (FR)` + `Q (EN)` + `A (EN)`. Charte édi
 **EN** — What is Mon Cap Rêvé? — The life-goal simulator. You describe your dream (house, trip, sailboat, retirement). We calculate how much, how long.
 
 ## A18. Combien de temps pour voir des résultats ?
-**FR** — La méthode 90/10 vise du long terme. CAGR raisonnable 4-7 %/an net. Horizon minimum honnête : 3 ans. Hors de cette fenêtre, ne pas commencer.
-**EN** — How long to see results? — The 90/10 method targets long term. Reasonable CAGR 4-7%/year net. Honest minimum horizon: 3 years. Outside that window, don't start.
+**FR** — La méthode 90/10 vise le **long terme** (horizon minimum honnête : 3 ans ; hors de cette fenêtre, ne pas commencer). ⚠️ NAVLYS ne promet **aucun rendement** : performances passées ≠ futures, risque de perte en capital. Contenu éducatif, pas un conseil. _(corrigé ULTRAREVIEW 2026-06-26 — ancienne mention « 4-7 %/an » retirée : promesse de rendement interdite G1)_
+**EN** — The 90/10 method targets the **long term** (honest minimum horizon: 3 years). ⚠️ NAVLYS promises **no return**: past ≠ future, capital-loss risk. Educational content, not advice.
 
 ## A19. Vous traduisez en quelles langues ?
 **FR** — FR + EN au lancement. HE, AR, ES, IT, PT, DE, ZH en vague 2 (vagues T3 2026).
