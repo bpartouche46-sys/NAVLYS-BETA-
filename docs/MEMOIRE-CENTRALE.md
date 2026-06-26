@@ -21,7 +21,7 @@ Claude SYNTHÉTISE l'essentiel dans les bons fichiers de docs/
        ↓
 Commit + push (gravé sur GitHub)
        ↓
-Hermès fait `git pull` sur Hetzner → la mémoire est sur le CORE
+L'opérateur serveur (ou un cron sur Hetzner) fait `git pull` → la mémoire est sur le CORE
        ↓
 ✅ Bruno SUPPRIME la conversation (son essence est sauvegardée)
 ```
@@ -39,7 +39,7 @@ Jamais avant. En cas de doute → on garde.
 - Accès / intervenants (sans secret) → `docs/ACCES-SERVEUR.md` / ce dossier
 - Sinon, fait nouveau sans maison → on crée le bon fichier.
 
-## Mettre la mémoire sur le core (Hetzner) — pour Hermès
+## Mettre la mémoire sur le core (Hetzner) — pour l'opérateur serveur / un cron
 Une seule commande à faire tourner régulièrement sur le serveur (dossier choisi) :
 ```bash
 # 1re fois :
