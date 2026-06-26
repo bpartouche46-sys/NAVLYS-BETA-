@@ -17,7 +17,12 @@
 
 ### ✅ Décision 5 appliquée (2026-06-26) : NAV IA **dépersonnalisé** = canonique (`docs/NAV-IA-G1-SYSTEM-PROMPT.md`) ;
 prompt de mai « Bruno fondateur » passé en **SUPERSÉDÉ**.
-### ⏭️ Reste à trancher : archivage legacy (6), consentement voix (7), Hetzner (8), budgets audit/INPI (9), mix 90/10 vs 80/20 (10).
+### ✅ Décisions 6-8 appliquées/consignées (2026-06-26)
+- **6. Legacy → ÉTUDE DE FAISABILITÉ livrée** (`docs/ETUDE-FAISABILITE-LEGACY.md`) au lieu d'archiver à l'aveugle :
+  ORIAS = **abandon pour NAVLYS** (ou entité séparée plus tard, stratégique + avocat) ; martingale = **garder en débunk éducatif** (renommer) ; FORMULES_v* = **archiver** (juste des prix). Archivage par item = en attente OK Bruno.
+- **7. Consentement voix = signé par BRUNO lui-même.** À faire : signer le PDF avant activation du clone vocal.
+- **8. Hetzner = GARDÉ avec un RÔLE (sauvegarde / DR).** Ne pas arrêter ; à cadrer + vérifier facturation/contenu.
+### ⏭️ Reste : budgets audit/INPI (9), mix 90/10 vs 80/20 (10).
 
 ---
 
