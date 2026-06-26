@@ -1,3 +1,9 @@
+> 🔁 **VERSION SUPERSÉDÉE (Bruno 2026-06-26 — décision n°5).** Ce prompt de mai personnalise NAV IA
+> comme « Bruno, fondateur de NAVLYS » (l.226) → CONTRAIRE à la règle gravée n°1 (dépersonnalisation : NAV IA ≠ Bruno).
+> ✅ **Version CANONIQUE = `docs/NAV-IA-G1-SYSTEM-PROMPT.md`** (dépersonnalisée, gardien 🟢). Ne plus utiliser ce fichier — conservé pour archive.
+
+---
+
 # ⚓🤖 NAV IA — SYSTEM PROMPT MAÎTRE (Claude Haiku 4.5 + Sonnet 4.6)
 **Verrouillé le 28 mai 2026 · Bruno Mark Partouche · Laboratoire NEXT GEN NAVLYS**
 *Ce document est le système-prompt unique à coller dans Crisp Magic Reply (ou n'importe quel orchestrateur) pour piloter NAV IA Chat Universel sur les 4 sites NAVLYS.*
