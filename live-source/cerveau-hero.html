@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NAVLYS — Cerveau héros rotatif (A·B·C)</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{height:100%}
+  body{background:#03040a;overflow:hidden;font-family:'Segoe UI',system-ui,sans-serif}
+  #c{position:fixed;inset:0;display:block}
+  .lab{position:fixed;left:0;right:0;bottom:7%;text-align:center;color:#9fc4d8;font-size:.8rem;letter-spacing:4px;text-transform:uppercase;pointer-events:none}
+  .lab b{color:#e9d3a0}
+  .top{position:fixed;top:20px;left:0;right:0;text-align:center;color:#cfe6f2;font-size:.9rem;letter-spacing:5px}
+</style>
+</head>
+<body>
+  <canvas id="c"></canvas>
+  <div class="top">N A V L Y S &nbsp;·&nbsp; C O R E</div>
+  <div class="lab" id="lab">Concept <b>A</b> — Holographique neural</div>
+<script>
+var c=document.getElementById('c'),x=c.getContext('2d'),DPR=Math.min(devicePixelRatio||1,2);
+function size(){c.width=innerWidth*DPR;c.height=innerHeight*DPR;x.setTransform(DPR,0,0,DPR,0,0);build();}
+addEventListener('resize',size);
+var W=()=>innerWidth,H=()=>innerHeight;
+var RAW="M150,40 C176,33 200,40 209,55 C227,55 238,69 235,85 C249,93 251,112 238,123 C245,138 234,154 217,154 C212,167 195,173 180,166 C170,176 158,174 150,170 C142,174 130,176 120,166 C105,173 88,167 83,154 C66,154 55,138 62,123 C49,112 51,93 65,85 C62,69 73,55 91,55 C100,40 124,33 150,40 Z";
+var ICE='125,211,252', OR='233,211,160', HOT='235,250,255';
+var modes=[
+  {k:'A',name:'Holographique neural',n:170,link:30,pulses:6,human:.5},
+  {k:'B',name:'Impulsions intenses',n:280,link:26,pulses:18,human:.5},
+  {k:'C',name:'Mi-humain / mi-IA',n:200,link:30,pulses:9,human:.62}
+];
+var mi=0,opt=modes[0],path,nodes=[],edges=[],pulses=[],amb=[],scale;
+function build(){
+  // chemin cerveau centré & agrandi
+  var s=Math.min(W()/300,H()/200)*1.7; scale=s;
+  var ox=(W()-300*s)/2, oy=(H()-200*s)/2;
+  var m=new DOMMatrix().translate(ox,oy).scale(s,s);
+  path=new Path2D(); path.addPath(new Path2D(RAW),m);
+  nodes=[]; var tries=0,N=opt.n;
+  while(nodes.length<N&&tries<N*70){tries++;var px=Math.random()*W(),py=Math.random()*H();if(x.isPointInPath(path,px*DPR,py*DPR)){nodes.push({x:px,y:py,bx:px,by:py,ph:Math.random()*6.28});}}
+  edges=[];for(var i=0;i<nodes.length;i++)for(var j=i+1;j<nodes.length;j++){var dx=nodes[i].x-nodes[j].x,dy=nodes[i].y-nodes[j].y;if(dx*dx+dy*dy<opt.link*opt.link*scale*scale*0.5){edges.push({a:i,b:j});}}
+  pulses=[];for(var k=0;k<opt.pulses;k++)spawn();
+  amb=[];for(var a=0;a<34;a++)amb.push({x:Math.random(),y:Math.random(),r:Math.random()*1.6+0.4,sp:0.0014+Math.random()*0.004});
+}
+function spawn(){if(!edges.length)return;pulses.push({e:edges[(Math.random()*edges.length)|0],t:0,sp:0.01+Math.random()*0.02*(opt.k==='B'?1.8:1)});}
+function col(px,a){ var mid=W()/2; return px<mid ? 'rgba('+OR+','+a+')' : 'rgba('+ICE+','+a+')'; }
+function frame(t){
+  var s=t*0.001; x.clearRect(0,0,W(),H());
+  var bg=x.createRadialGradient(W()/2,H()/2,0,W()/2,H()/2,Math.max(W(),H())*0.6);
+  bg.addColorStop(0,'rgba('+ICE+',0.08)');bg.addColorStop(1,'rgba(3,4,10,0)');x.fillStyle=bg;x.fillRect(0,0,W(),H());
+  x.globalCompositeOperation='lighter';
+  for(var a=0;a<amb.length;a++){var p=amb[a];p.y-=p.sp;if(p.y<-0.02){p.y=1.02;p.x=Math.random();}x.beginPath();x.arc(p.x*W(),p.y*H(),p.r,0,6.28);x.fillStyle='rgba(120,200,255,.22)';x.fill();}
+  x.lineWidth=0.6;
+  for(var e=0;e<edges.length;e++){var A=nodes[edges[e].a],B=nodes[edges[e].b];if(!A||!B)continue;x.beginPath();x.moveTo(A.x,A.y);x.lineTo(B.x,B.y);x.strokeStyle=col((A.x+B.x)/2,.10);x.stroke();}
+  for(var i=0;i<nodes.length;i++){var nn=nodes[i];nn.x=nn.bx+Math.sin(s+nn.ph)*1.1;nn.y=nn.by+Math.cos(s*1.2+nn.ph)*1.1;var tw=0.5+0.5*Math.sin(s*4+nn.ph);x.beginPath();x.arc(nn.x,nn.y,1.8,0,6.28);x.fillStyle=col(nn.x,.5+0.5*tw);x.shadowColor=col(nn.x,.9);x.shadowBlur=7;x.fill();x.shadowBlur=0;}
+  for(var q=pulses.length-1;q>=0;q--){var pu=pulses[q];pu.t+=pu.sp;var A2=nodes[pu.e.a],B2=nodes[pu.e.b];if(!A2||!B2){pulses.splice(q,1);continue;}var px=A2.x+(B2.x-A2.x)*pu.t,py=A2.y+(B2.y-A2.y)*pu.t;x.beginPath();x.arc(px,py,2.6,0,6.28);x.fillStyle=col(px,.95);x.shadowColor=col(px,1);x.shadowBlur=12;x.fill();x.shadowBlur=0;if(pu.t>=1){pulses.splice(q,1);spawn();}}
+  x.globalCompositeOperation='source-over';
+  requestAnimationFrame(frame);
+}
+size(); requestAnimationFrame(frame);
+// rotation / renouvellement permanent A -> B -> C
+setInterval(function(){ mi=(mi+1)%modes.length; opt=modes[mi]; build();
+  document.getElementById('lab').innerHTML='Concept <b>'+opt.k+'</b> — '+opt.name;
+},8000);
+</script>
+</body>
+</html>
