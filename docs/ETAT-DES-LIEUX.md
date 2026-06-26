@@ -2,6 +2,91 @@
 
 > Mis à jour à la fin de chaque session pour que la suivante reprenne sans tout relire.
 
+## Session 2026-06-24 (l) — ✅ Correction des 4 points de l'ultrareview + réconciliation principale
+
+- 🔀 **PR #20 fusionnée dans la ligne principale** (incident Hermès + core déployable). Ma branche
+  re-synchronisée sur la principale à jour (incluait l'« ultrareview »).
+- 🛠️ **Les 4 points de `RAPPORT-ULTRAREVIEW-2026-06-24.md` corrigés** :
+  - **M1** : doublon journal **ERR-002 ≈ ERR-004** → consolidé dans **ERR-002** ; ERR-004 devient un
+    **renvoi** (références « ERR-002/004 » préservées). 
+  - **M2** : **disclaimer NAVLYS ajouté** sur `corrections-pretes/navbiolife.com/{cgu,privacy}.html`.
+  - **F1** : charte couleur `sites/navlys-app/finance.html` — ancien Ice Blue `#5fe0ff`/`rgb(95,224,255)`
+    → charte **`#7DD3FC`/`rgb(125,211,252)`** (13 occurrences).
+  - **F2** : « Jérusalem » dans le hub `index.html` — **déjà corrigé** (texte = « narratif méditerranéen
+    conforme »). Vérifié : **0 occurrence** de Jérusalem/Israël dans tout le code des sites.
+- 🔍 **Contrôle conformité repassé (vert)** : 0 terme interdit réel, 0 promesse de rendement chiffrée
+  dans les pages ; disclaimers OK ; `finance.html` structurellement intact.
+- ⏭️ Restent (hors dépôt, côté serveur) : mot de passe cockpit à changer, backups Hetzner, SSH par clés,
+  + révocation Hermès (`docs/INCIDENT-HERMES.md`, à exécuter par Bruno).
+
+## Session 2026-06-24 (k) — 🚨 INCIDENT SÉCURITÉ : Hermès retiré (hack)
+
+- 🚨 **Bruno signale : Hermès supprimé = risque de sécurité majeur (hack).** Hermès (ancien
+  opérateur ops : LLM OpenRouter + accès SSH Hetzner + a touché GitHub/Vercel/cockpit/clouds)
+  est **sorti du projet** et **tous ses accès doivent être révoqués**.
+- 🧹 **Dépôt nettoyé (Claude)** : **toutes** les références à Hermès retirées (GOUVERNANCE,
+  ARCHITECTURE, CORE, CHAINE-1-SITES, TESTS, SECRETS, MEMOIRE, SAUVEGARDE, agents directeur/second,
+  core/). `docs/INSTRUCTIONS-HERMES.md` **supprimé**. `OPENROUTER_API_KEY` retiré de `core/.env.example`.
+  Le rôle « mains serveur » devient **« opérateur serveur à redéfinir »**, **bridé par le moteur**.
+- 🔑 **Checklist de révocation pour Bruno** : `docs/INCIDENT-HERMES.md` — révoquer/rotationner
+  **TOUS** ses accès, **y compris la clé API Anthropic** qui lui permettait d'appeler Claude
+  (+ OpenRouter, SSH Hetzner, GitHub, Vercel, clouds, cockpit). Re-vérifier le serveur
+  (portes dérobées : cron/services/clés ajoutées). Journalisé : **ERR-006**.
+- 🟡 **À FAIRE par Bruno** : exécuter la checklist `INCIDENT-HERMES.md` (Claude ne peut pas
+  agir sur les accès externes). Confirmer ici quand fait : « Révocation Hermès faite le JJ/MM ».
+
+## Session 2026-06-23 (j) — « tout opérationnel & sécurisé » : code core + sécurité
+
+- 🎯 Demande Bruno : **« rends tout opérationnel à 100% et sécurisé »** (+ « je referai les
+  mots de passe/clés après »). Cadré honnêtement : 3 leviers restent **humains** (accès
+  Hetzner, source des sites dans Git, clés) → Claude rend **100% prêt** tout le reste.
+- 🔐 **Sécurité** : scan dépôt = **0 secret committé** ✅. Créé `docs/SECRETS-ET-CLES.md`
+  (inventaire S1→S10 sans valeurs, **procédure de rotation**, réflexe fuite) + durci
+  `.gitignore` (core/.env, core/.mcp.json, logs, dist).
+- 📊 **Tracker** `docs/OPERATIONNEL-100.md` : « route vers 100% » (statut + QUI + blocage)
+  = source de vérité de l'avancement.
+- 🧠 **CODE DU CORE LIVRÉ** (`core/`) : orchestrateur Agent SDK (TypeScript, headless) +
+  **garde-fous CÂBLÉS** (hook PreToolUse = conformité ERR-003 + STOP argent/prod → feu
+  vert Bruno ; PostToolUse = audit) + config (refuse `bypassPermissions`) + `.env.example` /
+  `.mcp.json.example` (0 secret) + unit **systemd** + README de déploiement.
+  ✅ **Logique garde-fous testée réellement : 18/18** (`core/test/`, via Node type-stripping).
+  API SDK **vérifiée** par sous-agent sur la doc officielle. Scaffold non testé bout-en-bout
+  depuis GitHub (pas d'install réseau) → à valider sur serveur (opérateur à redéfinir).
+- ⏭️ Reste pour le « 100% » réel : rotation clés (Bruno), source sites dans Git (Bruno),
+  install moteur sur Hetzner (opérateur serveur **à redéfinir** — ex-Hermès retiré).
+  Détail = `docs/OPERATIONNEL-100.md`.
+
+## Session 2026-06-23 (i) — core central : blueprint technique + 1ère chaîne choisie
+
+- 🧠 **Blueprint technique du core central** écrit (`docs/CORE-CENTRAL-TECHNIQUE.md`) :
+  brique = **Claude Agent SDK** (orchestrateur headless + sous-agents + skills + MCP +
+  mémoire Redis + systemd/cron). **Garde-fous câblés dans le moteur** (permissions +
+  hook `PreToolUse` = gardien conformité + STOP argent/prod → feu vert Bruno).
+  Honnêteté : ❌ pas d'auto-bootstrap total (les agents sont déclarés par nous, pas
+  inventés seuls par la machine) ; ❌ pas de boucle auto-programmée (cron/systemd externe).
+- 🎯 **Décision finale Bruno** : 1ʳᵉ chaîne **opérationnelle** = **Veille web**
+  (`docs/VEILLE/`) — choisie car **zéro risque / zéro dépendance**, démarrable tout de suite.
+  ✅ **Déjà testée en réel** : 1ʳᵉ édition `docs/VEILLE/2026-06-23.md` (4 axes sourcés ;
+  fait marquant : cadre AMF/ESMA 2026 **conforte** la ligne NAVLYS éducation-only).
+- ⏭️ **Chaîne Sites / déploiement = la suivante** (`docs/CHAINE-1-SITES.md` reste valable),
+  **en attente** du pré-requis bloquant : rapatrier la **source des sites dans GitHub** via
+  **Claude Code sur le PC du bureau (Windows)** — install en cours côté Bruno. Premier
+  passage prévu = la **Vague 1 déjà validée** (bio.html + index.html).
+- 📦 PR : **#20** — CORE-CENTRAL-TECHNIQUE, CHAINE-1-SITES, VEILLE (note : INSTRUCTIONS-HERMES
+  supprimé depuis — voir session (k), ERR-006).
+
+## Session 2026-06-24 — 🔍 ULTRAREVIEW du dépôt → voir `docs/RAPPORT-ULTRAREVIEW-2026-06-24.md`
+
+- ✅ Audit complet vérifié : **0 critique, 0 élevé**. Dépôt propre et sûr.
+- ✅ **Aucun secret committé**, aucun terme interdit réel, « +8 à 12% » retiré partout,
+  disclaimers 14/16, zéro lien interne ou renvoi de doc cassé.
+- 🟡 4 points mineurs : M1 doublon journal **ERR-002 ≈ ERR-004** (à fusionner) ;
+  M2 disclaimer absent sur `corrections-pretes/navbiolife.com/{cgu,privacy}.html` (versions `sites/` OK) ;
+  F1 charte `#5fe0ff`→`#7DD3FC` dans `sites/navlys-app/finance.html` ; F2 mot « Jérusalem » dans `index.html` (hub).
+- ⚠️ Note : audit du code **live NOVA-HUB** non fait (proxy a refusé le clone) → à auditer à part.
+- 🔧 Tentative initiale en workflow multi-agents : échec technique (schéma StructuredOutput) →
+  audit refait en direct (grep/lecture), plus fiable sur un petit dépôt.
+
 ## Session 2026-06-24 — TEST chaîne « Claude Design » → Adobe Express (réussi)
 
 - 🎯 **Question de Bruno** : « exploites-tu Claude Design pour faire des prototypes / des
@@ -152,12 +237,12 @@
 - ⚠️ Rien en prod. Pour voir en ligne : importer le repo `NAVLYS-BETA-` sur Vercel (Option 1).
 - Branche : `claude/pre-launch-qa-lcd1pf`.
 
-
 ## Session 2026-06-22 (h) — gouvernance + délégation + contrôle conformité Vague 1
 
 - ⚖️ **Gouvernance gravée** (`docs/GOUVERNANCE.md`, reliée à CLAUDE.md règle d'or) :
   1) **zéro répétition** (tout capitaliser en knowledge/skill/routine, relié au core),
-  2) **Claude + Hermès orchestrateurs en surveillance mutuelle** (gardien arbitre),
+  2) ~~Claude + Hermès orchestrateurs en surveillance mutuelle~~ → **révisé** : Hermès retiré
+     (ERR-006) ; plus d'orchestrateur tiers de confiance, opérateur futur **bridé par le moteur**,
   3) **règle financière** : Bruno **seul** valide tout investissement/débit sur tous les
      comptes (y compris partenaires), **sauf abonnements classiques déjà en cours**.
 - 🎚️ **Délégation décidée par Bruno** : Claude **a la main** (conçoit + modifie + valide)
