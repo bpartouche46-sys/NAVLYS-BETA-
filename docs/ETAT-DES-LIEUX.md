@@ -15,8 +15,9 @@
 3. **Date de lancement PUBLIC figée : 1ᵉʳ juillet 2026 à 00:00 (Europe/Paris).** Appliqué : `CLAUDE.md`.
    → à cascader sur teaser/countdown/com (fuseau **Europe/Paris**, jamais « Jérusalem »).
 
-### ⏭️ Reste à trancher (ULTRAREVIEW) : slogan (entériner « ton rythme »), NAV IA déperso,
-archivage legacy, consentement voix, Hetzner, budgets (audit/INPI), mix 90/10 vs 80/20.
+### ✅ Décision 5 appliquée (2026-06-26) : NAV IA **dépersonnalisé** = canonique (`docs/NAV-IA-G1-SYSTEM-PROMPT.md`) ;
+prompt de mai « Bruno fondateur » passé en **SUPERSÉDÉ**.
+### ⏭️ Reste à trancher : archivage legacy (6), consentement voix (7), Hetzner (8), budgets audit/INPI (9), mix 90/10 vs 80/20 (10).
 
 ---
 
