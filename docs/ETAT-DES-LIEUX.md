@@ -2,6 +2,24 @@
 
 > Mis à jour à la fin de chaque session pour que la suivante reprenne sans tout relire.
 
+## Session 2026-06-26 — DÉCISIONS BRUNO (entité · prix · date) + ULTRAREVIEW
+
+### ✅ Tranché par Bruno (2026-06-26)
+1. **Entité officielle = société française [entité — hors dépôt]** — 20 rue du Rhin, 59200 Tourcoing, France.
+   → option **IL Mizrahi ABANDONNÉE** (conflit déperso + narratif Israël). Appliqué : `stripe_activite_fr.md`.
+2. **Prix / early-bird** : Bruno délègue à Claude « le plus attractif », **sous réserve d'étude**.
+   → **Reco appliquée** : **early-bird 39 €/mois VERROUILLÉ À VIE** (inscrits avant le 1ᵉʳ juillet 2026) ;
+   standard **49 €/mois ou 490 €/an**. ⚠️ **Stripe DOIT honorer le verrouillage à vie** (PAS d'escalade
+   auto au mois 7) → aligne com ↔ implémentation, supprime le risque chargeback / pratique trompeuse (C2 ULTRAREVIEW).
+   Tarif final à reconfirmer après étude (Bruno).
+3. **Date de lancement PUBLIC figée : 1ᵉʳ juillet 2026 à 00:00 (Europe/Paris).** Appliqué : `CLAUDE.md`.
+   → à cascader sur teaser/countdown/com (fuseau **Europe/Paris**, jamais « Jérusalem »).
+
+### ⏭️ Reste à trancher (ULTRAREVIEW) : slogan (entériner « ton rythme »), NAV IA déperso,
+archivage legacy, consentement voix, Hetzner, budgets (audit/INPI), mix 90/10 vs 80/20.
+
+---
+
 ## Session 2026-06-25 — ARBITRAGES BRUNO + exécution
 
 ### ✅ Décisions tranchées par Bruno (2026-06-25)
