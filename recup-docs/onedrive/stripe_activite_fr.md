@@ -88,13 +88,14 @@ EUR 80 (mix abonnement 490€ + one-shot 19-199€)
 ```
 
 ## Champ : Statutory form
-- **Si auto-entrepreneur FR** : fournir SIRET INSEE + KBIS équivalent attestation.
-- **Si entité IL Mizrahi** : Israel limited company + Mizrahi IBAN + KYC docs IL.
+- **Entité officielle (figée Bruno 2026-06-26) : société française DFENSER** — 20 rue du Rhin, 59200 Tourcoing, France.
+  Fournir : SIREN/SIRET + extrait KBIS + IBAN FR au nom de DFENSER.
+  ⛔ Option « IL Mizrahi » ABANDONNÉE (conflit dépersonnalisation + narratif Israël).
 
 ## Documents à préparer à l'avance
-1. Carte d'identité (recto/verso) FR ou IL.
-2. RIB FR (auto-entreprise) OU IBAN IL Mizrahi (société IL).
-3. SIRET INSEE (si AE) ou certificat d'immatriculation IL (si société).
+1. Carte d'identité du représentant légal (recto/verso) FR.
+2. RIB / IBAN FR au nom de **DFENSER**.
+3. Extrait **KBIS** + **SIREN/SIRET** de DFENSER (Tourcoing).
 4. Échantillon contenu pédagogique : URL `navlys.com/client/001` (page démo) ou capture du teaser.
 5. Mention obligatoire visible sur navlys.com : *« NAVLYS publie du contenu éditorial pédagogique. NAVLYS n'est ni IOBSP, ni CIF, ni ORIAS et ne fournit aucun conseil en investissement. »*
 

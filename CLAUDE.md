@@ -64,8 +64,9 @@ jour : **`docs/CARTE-SITES.md`**. ⚠️ Aucun projet n'est relié à GitHub (co
 
 ### 🟢 ÉTAT RÉEL DU PROJET (corrigé 2026-06-25 d'après `recup-docs/`)
 
-- **Statut = LANCÉ / phase BETA active.** Le **gate a été ouvert** (31 mai → 1ᵉʳ juin 2026 selon les
-  docs ; le countdown public actuel affiche 1ᵉʳ juillet → **incohérence à trancher par Bruno**).
+- **Statut = LANCÉ / phase BETA active.** Gate ouvert le 31 mai 2026. **Date de lancement PUBLIC figée
+  (Bruno, 2026-06-26) : 1ᵉʳ juillet 2026 à 00:00 (Europe/Paris).** Entité officielle : **société française DFENSER**
+  (20 rue du Rhin, 59200 Tourcoing).
   Source : `recup-docs/onedrive/_MASTER_NAVLYS_NOW.md` (« lancement gate passé le 31 mai 2026 ✓,
   phase BETA en cours »). Détail des dates et arbitrage : `docs/ETAT-DES-LIEUX.md` + `docs/RENFORCEMENT/01-strategie.md`.
 
