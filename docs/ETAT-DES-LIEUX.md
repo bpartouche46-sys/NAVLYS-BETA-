@@ -2,6 +2,27 @@
 
 > Mis à jour à la fin de chaque session pour que la suivante reprenne sans tout relire.
 
+## Session 2026-06-28 (d) — REFONTE navlys.com PRÊTE (aperçu) + apps backend déployé
+
+- ✅ **Refonte navlys.com construite & vérifiée en aperçu** (design navlys.io : fond animé +
+  logo doré, charte `#7DD3FC`, slogan figé) réunissant applis + partenaires + communauté.
+  Aperçu live : `navlys-app-git-claude-migrate-old-computer-data-q7im6j-navlys.vercel.app`.
+- ✅ **Apps backend opérationnel** : `/api/navlex`, `/api/sav`, `/api/voice` **déployées**
+  (fonctions edge à la racine `/api/`, `vercel.json` → `outputDirectory: live-source`).
+  NAVLEX répond (405 sur GET = OK). Clés env posées par Bruno (ANTHROPIC_API_KEY,
+  ELEVENLABS_API_KEY, ELEVENLABS_VOICE_ID). ⚠️ Les apps n'acceptent QUE les vrais domaines
+  (CORS) → test réel possible uniquement sur navlys.com une fois en prod.
+- 🔌 **Vercel navlys-app** : relié à **NAVLYS-BETA-**. ⚠️ **Découverte clé** : la PRODUCTION
+  n'est PAS pilotée par la branche par défaut — **les push Git créent des APERÇUS** (`target:null`).
+  La prod (navlys.com) = déploiements CLI/`claudenavlys` historiques, mis à jour par **promotion**.
+- 🪧 **ÉTAPE FINALE pour mettre la refonte sur navlys.com** (Bruno, sur DESKTOP — pas mobile) :
+  - Soit **Promote to Production** sur le dernier déploiement (Vercel → navlys-app → Deployments
+    → dernier (refonte) → ⋯ → Promote to Production).
+  - Soit **Settings → Git → Production Branch** = la branche poussée → alors les push deviennent
+    prod automatiquement (= autonomie permanente recherchée).
+  - Claude ne peut PAS promouvoir via API (aucun outil MCP) ni pousser en prod sans ce réglage.
+- 🛟 Rollback dispo (anciens déploiements `isRollbackCandidate`). Rien détruit.
+
 ## Session 2026-06-28 (c) — CONSOLIDATION navlys.com (en cours) + bascule sur nouveau PC
 
 - 🎯 **Demande Bruno** : un seul site **propre** = navlys.com qui réunit tout (les sites « en
