@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 600" role="img" aria-label="Cockpit NAVLYS — vue avant (le cap)">
+  <title>Cockpit NAVLYS — vue AVANT : le cap, l'objectif, la météo</title>
+  <defs>
+    <linearGradient id="skyF" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1a2c4d"/><stop offset=".45" stop-color="#0b1730"/><stop offset="1" stop-color="#040a14"/></linearGradient>
+    <linearGradient id="seaF" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0a2036"/><stop offset="1" stop-color="#020912"/></linearGradient>
+    <radialGradient id="capGlow" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#7DD3FC" stop-opacity=".95"/><stop offset=".4" stop-color="#7DD3FC" stop-opacity=".35"/><stop offset="1" stop-color="#7DD3FC" stop-opacity="0"/></radialGradient>
+    <linearGradient id="sailF" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f4f7fb"/><stop offset="1" stop-color="#aebccf"/></linearGradient>
+    <linearGradient id="mastF" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#6e3f17"/><stop offset=".5" stop-color="#D49B5B"/><stop offset="1" stop-color="#6e3f17"/></linearGradient>
+    <linearGradient id="woodF" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5a3a1f"/><stop offset="1" stop-color="#1c0f06"/></linearGradient>
+    <clipPath id="rotF"><rect x="-22" y="0" width="44" height="190" rx="22"/></clipPath>
+  </defs>
+  <rect width="1000" height="360" fill="url(#skyF)"/>
+  <rect y="360" width="1000" height="240" fill="url(#seaF)"/>
+  <g fill="#cfe6ff" opacity=".9"><circle cx="120" cy="70" r="1.4"/><circle cx="360" cy="90" r="1.2"/><circle cx="760" cy="85" r="1.5"/><circle cx="880" cy="48" r="1.1"/></g>
+  <circle cx="500" cy="120" r="90" fill="url(#capGlow)"/>
+  <g transform="translate(500,120)" fill="#eaf6ff"><path d="M0,-26 L6,-6 L26,0 L6,6 L0,26 L-6,6 L-26,0 L-6,-6 Z"/></g>
+  <text x="500" y="232" text-anchor="middle" fill="#7DD3FC" font-family="Georgia,serif" font-size="15" letter-spacing="3">TON CAP · L'OBJECTIF</text>
+  <line x1="0" y1="360" x2="1000" y2="360" stroke="rgba(125,211,252,.35)"/>
+  <!-- artimon hint -->
+  <g transform="translate(720,150)" opacity=".85">
+    <rect x="-4" y="0" width="8" height="210" fill="url(#mastF)"/>
+    <path d="M0,12 C40,40 52,120 30,196 L0,196 Z" fill="url(#sailF)" opacity=".9"/>
+  </g>
+  <!-- grand mât 90% -->
+  <g transform="translate(360,40)">
+    <rect x="-6" y="0" width="12" height="330" fill="url(#mastF)"/>
+    <path d="M0,16 C95,70 120,230 70,322 L0,322 Z" fill="url(#sailF)"/>
+    <path d="M0,40 C-90,90 -112,240 -64,322 L0,322 Z" fill="url(#sailF)" opacity=".9"/>
+    <text x="20" y="180" fill="#7DD3FC" font-family="Georgia,serif" font-size="18">90%</text>
+  </g>
+  <!-- flettner rotor (au vent) -->
+  <g transform="translate(150,180)">
+    <rect x="-22" y="0" width="44" height="190" rx="22" fill="#13203a" stroke="#D49B5B" stroke-width="2"/>
+    <g clip-path="url(#rotF)">
+      <g>
+        <rect x="-22" y="0" width="44" height="38" fill="#D49B5B" opacity=".85"/>
+        <rect x="-22" y="38" width="44" height="38" fill="#0e1a30" opacity=".85"/>
+        <rect x="-22" y="76" width="44" height="38" fill="#D49B5B" opacity=".85"/>
+        <rect x="-22" y="114" width="44" height="38" fill="#0e1a30" opacity=".85"/>
+        <rect x="-22" y="152" width="44" height="38" fill="#D49B5B" opacity=".85"/>
+        <animateTransform attributeName="transform" type="translate" from="0 0" to="0 76" dur="2.6s" repeatCount="indefinite"/>
+      </g>
+    </g>
+    <ellipse cx="0" cy="0" rx="22" ry="7" fill="#D49B5B"/>
+    <text x="0" y="218" text-anchor="middle" fill="#9aa6b6" font-family="Georgia,serif" font-size="11">Flettner · l'œil</text>
+  </g>
+  <!-- cockpit foreground -->
+  <path d="M-40,600 C200,470 800,470 1040,600 Z" fill="url(#woodF)"/>
+  <path d="M-40,600 C200,470 800,470 1040,600" fill="none" stroke="#D49B5B" stroke-width="3" opacity=".7"/>
+  <g fill="#2a1a0c" stroke="#D49B5B" stroke-width="2"><circle cx="250" cy="540" r="20"/><circle cx="500" cy="556" r="22"/><circle cx="760" cy="540" r="20"/></g>
+  <text x="500" y="585" text-anchor="middle" fill="#D49B5B" font-family="Georgia,serif" font-size="13" letter-spacing="2">AVANT — le cap, le futur, la météo du grand vent</text>
+</svg>

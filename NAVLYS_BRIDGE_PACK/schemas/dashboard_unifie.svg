@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" role="img" aria-label="NAVLYS — dashboard unifié">
+  <defs>
+    <style>
+      .bg { fill: #000; }
+      .ice { fill: #7DD3FC; }
+      .ice-dim { fill: #0E4F66; }
+      .card { fill: rgba(125,211,252,0.06); stroke: #0E4F66; stroke-width: 1; }
+      .card-accent { fill: rgba(125,211,252,0.06); stroke: #7DD3FC; stroke-width: 2; }
+      .text { fill: #F2F4F7; font-family: system-ui, sans-serif; }
+      .text-dim { fill: #9AA3AF; font-family: system-ui, sans-serif; }
+      .label { font-size: 11px; letter-spacing: 1px; }
+      .value { font-size: 22px; fill: #7DD3FC; font-family: system-ui, sans-serif; font-weight: 600; }
+      .title { font-size: 18px; font-weight: 600; }
+      .small { font-size: 10px; }
+    </style>
+  </defs>
+
+  <rect class="bg" x="0" y="0" width="800" height="400" />
+
+  <!-- Top banner: Heading -->
+  <rect class="card-accent" x="40" y="30" width="720" height="60" rx="10" />
+  <text class="ice label" x="60" y="52">TON CAP</text>
+  <text class="text title" x="60" y="78">Voyage — 5 000 € sur 12 mois</text>
+
+  <!-- Acceleration bars (center) -->
+  <rect class="card" x="40" y="110" width="720" height="80" rx="10" />
+  <text class="text-dim label" x="60" y="130">TA ROUTE ACCÉLÉRÉE</text>
+  <rect class="ice-dim" x="60" y="145" width="600" height="10" rx="3" />
+  <rect class="ice" x="60" y="165" width="480" height="10" rx="3" />
+  <text class="text-dim small" x="60" y="186">Tu arrives 2 mois plus tôt, soit 17 % plus vite</text>
+
+  <!-- Card: Fortress 90% -->
+  <rect class="card" x="40" y="210" width="220" height="100" rx="10" />
+  <text class="text-dim label" x="60" y="230">FORTERESSE 90 %</text>
+  <text class="value" x="60" y="262">4 500 €</text>
+  <text class="text-dim small" x="60" y="285">ETF longue durée, dort en sécurité</text>
+
+  <!-- Card: Sailboat 10% -->
+  <rect class="card" x="290" y="210" width="220" height="100" rx="10" />
+  <text class="text-dim label" x="310" y="230">VOILIER 10 %</text>
+  <text class="value" x="310" y="262">500 €</text>
+  <text class="text-dim small" x="310" y="285">Exploration, marge max 250 €</text>
+
+  <!-- Card: Strategy -->
+  <rect class="card" x="540" y="210" width="220" height="100" rx="10" />
+  <text class="text-dim label" x="560" y="230">STRATÉGIE</text>
+  <text class="value" x="560" y="262">demi-Kelly</text>
+  <text class="text-dim small" x="560" y="285">Meilleur compromis ROI/marge</text>
+
+  <!-- Savings highlight -->
+  <text class="ice label" x="60" y="340">ÉCONOMIES DE FRAIS RÉCUPÉRÉES</text>
+  <text class="value" x="60" y="365">600 €/an</text>
+
+  <!-- Disclaimer -->
+  <text class="text-dim small" x="400" y="392" text-anchor="middle">Information pédagogique. Tu restes seul décideur. Teste en simulation.</text>
+</svg>

@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>NAVLYS Finance — éducation financière, veille & Équipage</title>
+<meta name="description" content="NAVLYS Finance : la plateforme d'éducation financière et de veille. Méthode 90/10, communauté privée Équipage Navlys. Projet à vocation informative — aucun conseil personnalisé.">
+<meta property="og:title" content="NAVLYS Finance">
+<meta property="og:description" content="Ma méthode — Ton argent — Ton contrôle. Éducation financière, veille & communauté privée.">
+<meta property="og:type" content="website">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Fraunces:ital,wght@1,400;1,500&family=Lora:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/navlys-v2.css">
+<style>
+/* ===== NAVLYS Finance — composants spécifiques (réutilise la charte v2) ===== */
+.tag{display:inline-block;font-family:'Fraunces';font-style:italic;font-size:.72rem;letter-spacing:2px;color:var(--noir);background:linear-gradient(100deg,var(--champ),var(--champ-pale));padding:4px 12px;border-radius:99px;text-transform:uppercase}
+.hero-h{font-family:'Cormorant Garamond';font-weight:700;color:#fff;font-size:clamp(2.1rem,9vw,3.4rem);line-height:1.02;margin:12px 0 6px}
+.hero-h em{color:var(--ice);font-style:italic}
+.hero-sub{font-family:'Fraunces';font-style:italic;color:var(--champ-pale);font-size:clamp(1rem,4.4vw,1.3rem)}
+.slogan{color:var(--mut);font-family:'Fraunces';font-style:italic;margin-top:8px}
+/* Méthode 90/10 */
+.method{display:grid;grid-template-columns:1fr;gap:14px;margin-top:8px}
+.mcard{position:relative;overflow:hidden;border-radius:18px;padding:22px;border:1px solid var(--line);background:linear-gradient(160deg,rgba(18,48,72,.4),rgba(10,13,20,.72))}
+.mcard .pct{font-family:'Cormorant Garamond';font-weight:700;font-size:2.6rem;line-height:1;color:var(--ice)}
+.mcard.plaisir .pct{color:var(--champ)}
+.mcard h3{font-family:'Cormorant Garamond';color:#fff;font-size:1.4rem;margin:2px 0 6px}
+.mcard p{color:var(--mut);font-size:.95rem}
+.bar{height:12px;border-radius:99px;background:rgba(125,211,252,.1);border:1px solid var(--line);overflow:hidden;margin-top:24px;display:flex}
+.bar i{display:block;height:100%}
+.bar .forte{width:90%;background:linear-gradient(90deg,var(--ice),#4aa8d8)}
+.bar .plai{width:10%;background:linear-gradient(90deg,var(--champ),var(--champ-pale))}
+.barleg{display:flex;justify-content:space-between;color:var(--mut);font-family:'Fraunces';font-style:italic;font-size:.78rem;margin-top:6px}
+/* Modules */
+.mods{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:8px}
+.mod{border-radius:16px;padding:16px;border:1px solid var(--line);background:linear-gradient(160deg,rgba(18,48,72,.3),rgba(10,13,20,.7))}
+.mod .mi{font-size:1.5rem}.mod h4{font-family:'Cormorant Garamond';color:#fff;font-size:1.12rem;margin:6px 0 3px}
+.mod p{color:var(--mut);font-size:.82rem;line-height:1.5}
+/* Tiers / offres */
+.tiers{display:grid;grid-template-columns:1fr;gap:14px;margin-top:8px}
+.tier{position:relative;overflow:hidden;border-radius:20px;padding:22px;border:1px solid var(--line);background:linear-gradient(160deg,rgba(18,48,72,.35),rgba(10,13,20,.72))}
+.tier.best{border:2px solid rgba(125,211,252,.6);animation:flashglow 3.4s ease-in-out infinite alternate}
+.tier .lab{font-family:'Fraunces';font-style:italic;color:var(--ice);letter-spacing:1px}
+.tier .price{font-family:'Cormorant Garamond';font-weight:700;color:#fff;font-size:2.4rem;line-height:1;margin:6px 0}
+.tier .price small{font-size:.9rem;color:var(--mut);font-weight:400}
+.tier ul{list-style:none;margin:12px 0 16px}
+.tier li{color:var(--perle);font-size:.9rem;padding:5px 0 5px 24px;position:relative}
+.tier li::before{content:"✦";position:absolute;left:0;color:var(--ice)}
+.btn{display:inline-block;width:100%;text-align:center;cursor:pointer;color:var(--noir);text-decoration:none;font-family:'Fraunces';font-style:italic;background:linear-gradient(100deg,var(--ice),var(--champ-pale));padding:13px 16px;border-radius:12px;font-size:.95rem;border:none}
+.tier.best .lab{color:var(--champ)}
+.note{color:var(--mut);font-family:'Fraunces';font-style:italic;font-size:.8rem;margin-top:10px}
+/* Form */
+.formwrap{border-radius:20px;padding:22px;border:2px solid rgba(125,211,252,.4);background:linear-gradient(160deg,rgba(18,48,72,.5),rgba(5,6,10,.9));margin-top:8px}
+.formwrap label{display:block;font-family:'Fraunces';font-style:italic;color:var(--mut);font-size:.82rem;margin:10px 0 5px}
+.formwrap input,.formwrap select{width:100%;padding:12px 14px;border-radius:11px;background:rgba(5,8,16,.7);border:1px solid var(--line);color:var(--perle);font-family:'Lora',serif;font-size:.95rem}
+.formwrap input:focus,.formwrap select:focus{outline:none;border-color:var(--ice)}
+.formmsg{margin-top:12px;font-family:'Fraunces';font-style:italic;font-size:.9rem;min-height:1.2em}
+.formmsg.ok{color:var(--ice)}.formmsg.err{color:#ff8a8a}
+/* FAQ */
+.faq details{border:1px solid var(--line);border-radius:12px;padding:4px 16px;margin-top:10px;background:rgba(10,13,20,.5)}
+.faq summary{cursor:pointer;font-family:'Cormorant Garamond';color:#fff;font-size:1.1rem;padding:12px 0;list-style:none}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::before{content:"＋ ";color:var(--ice)}
+.faq details[open] summary::before{content:"− "}
+.faq p{color:var(--mut);font-size:.9rem;padding-bottom:12px}
+@media(min-width:760px){.method{grid-template-columns:1fr 1fr}.tiers{grid-template-columns:repeat(3,1fr)}.mods{grid-template-columns:repeat(3,1fr)}}
+</style>
+</head>
+<body>
+<div class="bg"></div>
+
+<div class="topbar"><span class="led"></span><a class="brand" href="#top">NAVLYS</a>
+  <button class="menu-btn" onclick="NV_menu()" aria-label="Menu" aria-expanded="false">☰</button></div>
+<nav class="dropdown" id="dd">
+  <a href="#top">✦ Accueil</a><a href="#methode">🧭 La méthode 90/10</a><a href="#app">📲 Dans l'app</a><a href="#equipage">⚓ Équipage Navlys</a><a href="#offres">▣ Les offres</a><a href="#rejoindre">✉️ Rejoindre</a><a href="https://brunopartouche.com">🎙️ Qui est Bruno ?</a>
+</nav>
+<div class="bandeau"><div class="scroll">NAVLYS Finance est un projet d'éducation et de veille à vocation informative uniquement. Les contenus ne constituent en aucun cas un conseil personnalisé en investissement, ni une recommandation d'achat ou de vente. Chacun reste seul responsable de ses décisions. Réservé aux 18 ans et +.</div></div>
+
+<section class="cinema" id="top">
+  <div class="curtain left"></div><div class="curtain right"></div>
+  <div class="tie l"></div><div class="tie r"></div>
+  <div class="screen">
+    <div class="poster"></div>
+    <video muted autoplay playsinline loop preload="metadata" src="https://navlys.com/media/presentation.mp4"></video>
+    <div class="reel-title">NAVLYS — présentation</div>
+  </div>
+  <div class="valance"></div>
+  <div class="cine-label"><span class="cine-dot"></span> NAVFIN</div>
+</section>
+
+<main class="feed"><div class="wrap">
+
+  <div style="margin-top:10px"><span class="tag">Finance · Ouverture en avant-première</span></div>
+  <h1 class="hero-h">NAVLYS <em>Finance</em></h1>
+  <p class="hero-sub">La plateforme d'éducation financière, de veille &amp; de communauté.</p>
+  <p class="slogan">Ma méthode — Ton argent — Ton contrôle.</p>
+
+  <div class="flashy" style="margin-top:18px">
+    <span class="badge">ACCÈS ANTICIPÉ</span>
+    <h3>Ouverture <em>le 1ᵉʳ juillet</em></h3>
+    <div class="cd" id="cd">
+      <div class="blk"><div class="v" id="cd-d">—</div><div class="k">Jours</div></div>
+      <div class="blk"><div class="v" id="cd-h">—</div><div class="k">Heures</div></div>
+      <div class="blk"><div class="v" id="cd-m">—</div><div class="k">Min</div></div>
+      <div class="blk"><div class="v" id="cd-s">—</div><div class="k">Sec</div></div>
+    </div>
+    <a class="more" href="#rejoindre">Rejoindre l'Équipage <span class="arr">→</span></a>
+  </div>
+
+  <div class="eyebrow" id="methode"><span class="chip">🧭</span><h2>La méthode 90/10</h2></div>
+  <p class="lead">Une pédagogie simple, jamais une promesse. Tu apprends le cadre — tu gardes la barre.</p>
+  <div class="method">
+    <div class="mcard"><div class="pct">90 %</div><h3>La Forteresse</h3><p>Le socle discipliné : ETF et investissement régulier (DCA). On apprend à construire patiemment, sans pari. Pédagogie, pas conseil personnalisé.</p></div>
+    <div class="mcard plaisir"><div class="pct">10 %</div><h3>Le Capital Plaisir</h3><p>La part exploratoire, assumée et encadrée. Comprendre, tester, rester maître de ses choix — en connaissant le risque de perte.</p></div>
+  </div>
+  <div class="bar"><i class="forte"></i><i class="plai"></i></div>
+  <div class="barleg"><span>Forteresse — 90 %</span><span>Capital Plaisir — 10 %</span></div>
+
+  <div class="eyebrow" id="app"><span class="chip">📲</span><h2>Dans l'application</h2></div>
+  <p class="lead">Tout au même endroit, en euros, 100 % dématérialisé.</p>
+  <div class="mods">
+    <div class="mod"><div class="mi">📰</div><h4>Le brief du jour</h4><p>La veille essentielle, synthétisée — pour comprendre, pas pour suivre des ordres.</p></div>
+    <div class="mod"><div class="mi">🎬</div><h4>Vidéos pédagogiques</h4><p>« Lire un graphique », les bases des ETF, la discipline du DCA.</p></div>
+    <div class="mod"><div class="mi">⚖️</div><h4>NavLex — veille</h4><p>Le repère réglementaire, mis à jour régulièrement, en langage clair.</p></div>
+    <div class="mod"><div class="mi">🌿</div><h4>Ateliers bien-être</h4><p>Respiration, attention au signal faible : garder la tête froide.</p></div>
+    <div class="mod"><div class="mi">📻</div><h4>Radio NAVLYS</h4><p>L'ambiance méditerranéenne, en continu pendant que tu apprends.</p></div>
+    <div class="mod"><div class="mi">⚓</div><h4>Communauté</h4><p>L'Équipage Navlys : échanger entre apprenants, à l'abri du bruit.</p></div>
+  </div>
+
+  <div class="eyebrow" id="equipage"><span class="chip">⚓</span><h2>L'Équipage Navlys</h2></div>
+  <p class="lead">Une communauté privée d'apprenants. On avance ensemble, on garde le cap.</p>
+  <div class="trio">
+    <div class="tcard"><span class="ic">🤝</span><h3>Entre nous</h3><p>Un espace privé, sans promesse ni pression. Des apprenants, une méthode commune.</p><div class="eq"><i></i><i></i><i></i><i></i><i></i></div></div>
+    <div class="tcard"><span class="ic">🧭</span><h3>Un cap clair</h3><p>La méthode 90/10 comme repère partagé : apprendre, vivre, transmettre.</p><div class="eq"><i></i><i></i><i></i><i></i><i></i></div></div>
+    <div class="tcard"><span class="ic">🎙️</span><h3>Avec Bruno</h3><p>La voix du projet : pédagogie, transparence, et zéro langue de bois.</p><div class="eq"><i></i><i></i><i></i><i></i><i></i></div></div>
+  </div>
+
+  <div class="eyebrow" id="offres"><span class="chip">▣</span><h2>Les offres</h2></div>
+  <p class="lead">L'App Trading — un <em>outil pédagogique</em>. Sans conseil personnalisé, sans promesse de gain.</p>
+  <div class="tiers">
+    <div class="tier"><span class="lab">F1 · Découverte</span><div class="price">29,99 €<small> /mois</small></div>
+      <ul><li>Le brief du jour</li><li>Vidéos pédagogiques</li><li>Accès Équipage (lecture)</li></ul>
+      <a class="btn" data-tier="f1" href="#rejoindre">Choisir F1</a></div>
+    <div class="tier best"><span class="lab">F2 · Équipage ★</span><div class="price">39,99 €<small> /mois</small></div>
+      <ul><li>Tout F1</li><li>Ateliers &amp; NavLex</li><li>Communauté complète</li></ul>
+      <a class="btn" data-tier="f2" href="#rejoindre">Choisir F2</a></div>
+    <div class="tier"><span class="lab">F3 · Cap complet</span><div class="price">49,99 €<small> /mois</small></div>
+      <ul><li>Tout F2</li><li>Sessions &amp; contenus avancés</li><li>Priorité communauté</li></ul>
+      <a class="btn" data-tier="f3" href="#rejoindre">Choisir F3</a></div>
+  </div>
+  <p class="note">Paiement sécurisé à l'ouverture (carte internationale, Apple&nbsp;Pay, Google&nbsp;Pay, PayPal). Taxes gérées par le prestataire de paiement. Sans engagement — résiliable à tout moment.</p>
+
+  <div class="eyebrow" id="rejoindre"><span class="chip">✉️</span><h2>Rejoindre l'Équipage</h2></div>
+  <p class="lead">Laisse ton e-mail : tu seras prévenu·e en priorité à l'ouverture du 1ᵉʳ juillet.</p>
+  <div class="formwrap">
+    <form id="joinForm" novalidate>
+      <label for="prenom">Prénom</label>
+      <input type="text" id="prenom" name="prenom" placeholder="Ton prénom" autocomplete="given-name">
+      <label for="email">E-mail *</label>
+      <input type="email" id="email" name="email" placeholder="toi@exemple.com" required autocomplete="email">
+      <label for="interet">Ce qui t'intéresse</label>
+      <select id="interet" name="interet">
+        <option value="">— choisis —</option>
+        <option value="methode-90-10">La méthode 90/10</option>
+        <option value="app-trading">L'App Trading (F1/F2/F3)</option>
+        <option value="communaute">La communauté Équipage</option>
+        <option value="bien-etre">Le bien-être</option>
+        <option value="tout">Tout NAVLYS</option>
+      </select>
+      <div style="margin-top:16px"><button type="submit" class="btn" id="joinBtn">Réserver ma place · 0 €</button></div>
+      <div class="formmsg" id="formMsg" role="status" aria-live="polite"></div>
+    </form>
+  </div>
+
+  <div class="eyebrow"><span class="chip">？</span><h2>Questions fréquentes</h2></div>
+  <div class="faq">
+    <details><summary>NAVLYS donne-t-il des conseils en investissement ?</summary><p>Non. NAVLYS est un projet d'<strong>éducation et de veille à vocation informative uniquement</strong>. Aucun conseil personnalisé, aucune recommandation d'achat ou de vente. Tu restes seul·e responsable de tes décisions.</p></details>
+    <details><summary>Qu'est-ce que la méthode 90/10 ?</summary><p>Une grille pédagogique : 90 % « Forteresse » (ETF, investissement régulier, le socle discipliné) et 10 % « Capital Plaisir » (la part exploratoire, assumée). C'est un repère d'apprentissage, pas une promesse de résultat.</p></details>
+    <details><summary>Vais-je être accompagné·e individuellement ?</summary><p>Non. Il s'agit de contenus pédagogiques et d'une communauté d'apprenants, pas d'un accompagnement personnalisé ni d'une gestion.</p></details>
+    <details><summary>Comment fonctionne le paiement ?</summary><p>À l'ouverture, via un prestataire de paiement sécurisé (carte internationale, Apple&nbsp;Pay, Google&nbsp;Pay, PayPal). Les taxes applicables sont gérées par le prestataire. Sans engagement, résiliable à tout moment.</p></details>
+    <details><summary>Y a-t-il un risque ?</summary><p>Oui : tout investissement comporte un <strong>risque de perte en capital</strong>, et les performances passées ne préjugent pas des performances futures. NAVLYS aide à comprendre, pas à garantir un résultat.</p></details>
+  </div>
+
+  <a class="more" href="https://brunopartouche.com">Qui est derrière NAVLYS ? <span class="arr">→</span></a>
+
+  <footer>
+    <div class="flag">🌊 ⚓ NAVLYS · NAVFIN 🌿</div>
+    <p class="disc">NAVLYS est un projet d'éducation et de veille à vocation informative uniquement. Les contenus ne constituent en aucun cas un conseil personnalisé en investissement, ni une recommandation d'achat ou de vente. Tout investissement comporte un risque de perte en capital ; les performances passées ne préjugent pas des performances futures. Chacun reste seul responsable de ses décisions financières. Réservé aux 18 ans et +. NAVLYS peut percevoir une rémunération en tant que partenaire affilié. Tes contenus restent privés par défaut et t'appartiennent.</p>
+    <p class="legal">© 2026 NAVLYS · <a href="https://navlys.com/cgu">CGU</a> · <a href="https://navlys.com/privacy">Confidentialité</a> · navlys.com</p>
+  </footer>
+</div></main>
+
+<nav class="tabbar">
+  <a class="tab active" href="#top"><span class="i">✦</span>Accueil</a>
+  <a class="tab" href="#methode"><span class="i">🧭</span>Méthode</a>
+  <a class="tab" href="#app"><span class="i">📲</span>App</a>
+  <a class="tab" href="#offres"><span class="i">▣</span>Offres</a>
+  <a class="tab" href="#rejoindre"><span class="i">✉️</span>Rejoindre</a>
+  <a class="tab" href="#" onclick="NV_menu();return false;"><span class="i">☰</span>Menu</a>
+</nav>
+
+<script src="https://assets.lemonsqueezy.com/lemon.js" defer></script>
+<script>
+// ===== Config =====
+const SB_URL = "https://hhrlgyvtqluxpywjiwkd.supabase.co";
+const SB_ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhocmxneXZ0cWx1eHB5d2ppd2tkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODExNzYxMzIsImV4cCI6MjA5Njc1MjEzMn0.tGq_XXd4nJY-aYk9DfWGFJ5DW4C_NJJKb67owmvoejo";
+// 👉 Colle ici tes liens de checkout Lemon Squeezy (un par palier) pour activer le paiement direct :
+const NV_LS = { f1:"", f2:"", f3:"" };
+const NV_TARGET = Date.parse('2026-07-01T00:00:00+02:00');
+
+// ===== Menu =====
+function NV_menu(){ var d=document.getElementById('dd'); var b=document.querySelector('.menu-btn');
+  var open=d.classList.toggle('show'); if(b) b.setAttribute('aria-expanded', open?'true':'false'); }
+document.addEventListener('click',function(e){ var d=document.getElementById('dd'); if(!d.classList.contains('show'))return;
+  if(!d.contains(e.target) && !e.target.classList.contains('menu-btn')) NV_menu(); });
+document.addEventListener('keydown',function(e){ if(e.key==='Escape'){ var d=document.getElementById('dd'); if(d.classList.contains('show')) NV_menu(); }});
+
+// ===== Compte à rebours =====
+function NV_cd(){ var t=NV_TARGET-Date.now(); var ids=['cd-d','cd-h','cd-m','cd-s'];
+  if(t<=0){ ids.forEach(function(i){var el=document.getElementById(i);if(el)el.textContent='0';});
+    var f=document.querySelector('.flashy h3'); if(f) f.innerHTML="C'est <em>ouvert</em> !"; return; }
+  var d=Math.floor(t/864e5),h=Math.floor(t%864e5/36e5),m=Math.floor(t%36e5/6e4),s=Math.floor(t%6e4/1e3);
+  var v={'cd-d':d,'cd-h':h,'cd-m':m,'cd-s':s};
+  for(var k in v){var el=document.getElementById(k); if(el) el.textContent=(v[k]<10?'0':'')+v[k];} }
+NV_cd(); setInterval(NV_cd,1000);
+
+// ===== Paliers : Lemon Squeezy si configuré, sinon pré-inscription =====
+document.querySelectorAll('.btn[data-tier]').forEach(function(b){
+  b.addEventListener('click',function(e){
+    var url=NV_LS[b.getAttribute('data-tier')];
+    if(url){ e.preventDefault(); b.classList.add('lemonsqueezy-button'); b.setAttribute('href',url);
+      if(window.LemonSqueezy&&window.LemonSqueezy.Url){ window.LemonSqueezy.Url.Open(url); } else { window.open(url,'_blank'); } }
+    // sinon : laisse l'ancre #rejoindre faire défiler vers le formulaire
+    var sel=document.getElementById('interet'); if(sel&&!sel.value) sel.value='app-trading';
+  });
+});
+
+// ===== Inscription -> Supabase (REST insert, RLS INSERT-only anon) =====
+document.getElementById('joinForm').addEventListener('submit',function(e){
+  e.preventDefault();
+  var msg=document.getElementById('formMsg'), btn=document.getElementById('joinBtn');
+  var email=document.getElementById('email').value.trim();
+  var prenom=document.getElementById('prenom').value.trim();
+  var interet=document.getElementById('interet').value;
+  msg.className='formmsg';
+  if(!email || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){ msg.className='formmsg err'; msg.textContent="Indique un e-mail valide, s'il te plaît."; return; }
+  btn.disabled=true; var old=btn.textContent; btn.textContent='Envoi…';
+  fetch(SB_URL+'/rest/v1/inscriptions',{ method:'POST',
+    headers:{'Content-Type':'application/json','apikey':SB_ANON,'Authorization':'Bearer '+SB_ANON,'Prefer':'return=minimal'},
+    body:JSON.stringify({email:email, prenom:prenom||null, interet:interet||null, source:'navfin'}) })
+  .then(function(r){ if(r.ok){ msg.className='formmsg ok'; msg.textContent='✓ C\'est noté '+(prenom?prenom:'')+' ! On te prévient en priorité à l\'ouverture.'; document.getElementById('joinForm').reset(); }
+    else { return r.text().then(function(t){ throw new Error(t); }); } })
+  .catch(function(){ msg.className='formmsg err'; msg.textContent="Oups, réessaie dans un instant (ou écris-nous)."; })
+  .finally(function(){ btn.disabled=false; btn.textContent=old; });
+});
+
+// ===== Onglet actif =====
+document.querySelectorAll('.tabbar .tab').forEach(function(t){ t.addEventListener('click',function(){
+  document.querySelectorAll('.tabbar .tab').forEach(function(x){x.classList.remove('active')}); if(t.getAttribute('href')!=='#') t.classList.add('active'); }); });
+</script>
+</body>
+</html>

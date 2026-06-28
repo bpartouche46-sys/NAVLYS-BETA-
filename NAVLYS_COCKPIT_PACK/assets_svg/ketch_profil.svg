@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 540" role="img" aria-label="NAVLYS — ketch deux mâts de profil, voiles 90/10">
+  <title>NAVLYS — Ketch deux mâts (profil) · grand mât 90% · artimon 10%</title>
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#16243f"/><stop offset="1" stop-color="#040a14"/>
+    </linearGradient>
+    <linearGradient id="sea" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0a2036"/><stop offset="1" stop-color="#02060d"/>
+    </linearGradient>
+    <linearGradient id="sail" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f4f7fb"/><stop offset="1" stop-color="#aebccf"/>
+    </linearGradient>
+    <linearGradient id="hull" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#D49B5B"/><stop offset="1" stop-color="#6e3f17"/>
+    </linearGradient>
+    <linearGradient id="mast" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#6e3f17"/><stop offset=".5" stop-color="#D49B5B"/><stop offset="1" stop-color="#6e3f17"/>
+    </linearGradient>
+    <radialGradient id="star" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#7DD3FC" stop-opacity=".9"/><stop offset="1" stop-color="#7DD3FC" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="900" height="360" fill="url(#sky)"/>
+  <rect y="360" width="900" height="180" fill="url(#sea)"/>
+  <g fill="#cfe6ff" opacity=".85">
+    <circle cx="120" cy="60" r="1.5"/><circle cx="300" cy="40" r="1"/><circle cx="520" cy="70" r="1.2"/>
+    <circle cx="700" cy="50" r="1.4"/><circle cx="820" cy="90" r="1"/>
+  </g>
+  <!-- objectif star ahead (à l'avant = à droite) -->
+  <circle cx="760" cy="120" r="70" fill="url(#star)"/>
+  <g transform="translate(760,120)" fill="#eaf6ff"><path d="M0,-22 L5,-5 L22,0 L5,5 L0,22 L-5,5 L-22,0 L-5,-5 Z"/></g>
+  <line x1="0" y1="360" x2="900" y2="360" stroke="rgba(125,211,252,.3)"/>
+
+  <!-- ARTIMON (arrière = gauche) = petit mât, petites voiles = 10% -->
+  <g transform="translate(250,120)">
+    <rect x="-4" y="0" width="8" height="250" fill="url(#mast)"/>
+    <path d="M0,18 C58,55 70,170 38,250 L0,250 Z" fill="url(#sail)" opacity=".92"/>
+    <path d="M0,40 C-50,80 -62,180 -32,250 L0,250 Z" fill="url(#sail)" opacity=".8"/>
+    <text x="-6" y="285" text-anchor="middle" fill="#7DD3FC" font-family="Georgia,serif" font-size="15">10%</text>
+    <text x="-6" y="305" text-anchor="middle" fill="#9aa6b6" font-family="Georgia,serif" font-size="11">Le Jeu Actif</text>
+  </g>
+
+  <!-- GRAND MÂT (avant = droite) = grandes voiles = 90% -->
+  <g transform="translate(560,40)">
+    <rect x="-6" y="0" width="12" height="330" fill="url(#mast)"/>
+    <path d="M0,16 C110,70 134,250 78,330 L0,330 Z" fill="url(#sail)"/>
+    <path d="M0,16 C110,70 134,250 78,330" fill="none" stroke="#90a4bd" stroke-width="1" opacity=".6"/>
+    <path d="M0,44 C-104,96 -128,260 -72,330 L0,330 Z" fill="url(#sail)" opacity=".9"/>
+    <text x="0" y="365" text-anchor="middle" fill="#7DD3FC" font-family="Georgia,serif" font-size="20">90%</text>
+    <text x="0" y="386" text-anchor="middle" fill="#9aa6b6" font-family="Georgia,serif" font-size="11">La Forteresse</text>
+  </g>
+
+  <!-- hull -->
+  <path d="M150,372 C300,360 600,360 770,372 C740,420 660,440 460,440 C300,440 210,420 150,372 Z" fill="url(#hull)"/>
+  <path d="M150,372 C300,360 600,360 770,372" fill="none" stroke="#f0c79a" stroke-width="2" opacity=".5"/>
+  <!-- waterline / wake -->
+  <path d="M120,440 C260,455 660,455 800,440" fill="none" stroke="rgba(125,211,252,.4)" stroke-width="2"/>
+
+  <text x="450" y="510" text-anchor="middle" fill="#D49B5B" font-family="Georgia,serif" font-size="16" letter-spacing="3">NAVLYS — un cap, deux mâts, un seul geste</text>
+</svg>

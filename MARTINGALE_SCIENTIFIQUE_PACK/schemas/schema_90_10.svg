@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0B1F33"/>
+      <stop offset="100%" stop-color="#1B3A5B"/>
+    </linearGradient>
+    <linearGradient id="sea" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1E5A8A"/>
+      <stop offset="100%" stop-color="#0A2E4F"/>
+    </linearGradient>
+    <linearGradient id="land" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#5C4E3A"/>
+      <stop offset="100%" stop-color="#3A2F1F"/>
+    </linearGradient>
+    <linearGradient id="stone" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#B8B8B8"/>
+      <stop offset="100%" stop-color="#7A7A7A"/>
+    </linearGradient>
+  </defs>
+  <!-- Sky -->
+  <rect x="0" y="0" width="800" height="320" fill="url(#sky)"/>
+  <!-- Stars -->
+  <circle cx="80" cy="60" r="1.5" fill="#FFF"/>
+  <circle cx="180" cy="40" r="1" fill="#FFF"/>
+  <circle cx="320" cy="80" r="1.2" fill="#FFF"/>
+  <circle cx="500" cy="50" r="1.5" fill="#FFF"/>
+  <circle cx="680" cy="70" r="1" fill="#FFF"/>
+  <circle cx="720" cy="120" r="1.3" fill="#FFF"/>
+  <!-- Sea -->
+  <rect x="0" y="320" width="800" height="180" fill="url(#sea)"/>
+  <!-- Waves -->
+  <path d="M0,340 Q100,330 200,340 T400,340 T600,340 T800,340" fill="none" stroke="#7DD3FC" stroke-width="1.5" opacity="0.5"/>
+  <path d="M0,370 Q100,360 200,370 T400,370 T600,370 T800,370" fill="none" stroke="#7DD3FC" stroke-width="1.5" opacity="0.4"/>
+  <path d="M0,400 Q100,390 200,400 T400,400 T600,400 T800,400" fill="none" stroke="#7DD3FC" stroke-width="1.5" opacity="0.3"/>
+  <!-- Island land -->
+  <ellipse cx="280" cy="340" rx="240" ry="40" fill="url(#land)"/>
+  <ellipse cx="280" cy="335" rx="220" ry="30" fill="#6B5A42"/>
+  <!-- Fortress base -->
+  <rect x="140" y="200" width="280" height="135" fill="url(#stone)" stroke="#3A3A3A" stroke-width="2"/>
+  <!-- Fortress crenellations -->
+  <rect x="140" y="190" width="20" height="15" fill="url(#stone)" stroke="#3A3A3A" stroke-width="1.5"/>
+  <rect x="180" y="190" width="20" height="15" fill="url(#stone)" stroke="#3A3A3A" stroke-width="1.5"/>
+  <rect x="220" y="190" width="20" height="15" fill="url(#stone)" stroke="#3A3A3A" stroke-width="1.5"/>
+  <rect x="260" y="190" width="20" height="15" fill="url(#stone)" stroke="#3A3A3A" stroke-width="1.5"/>
+  <rect x="300" y="190" width="20" height="15" fill="url(#stone)" stroke="#3A3A3A" stroke-width="1.5"/>
+  <rect x="340" y="190" width="20" height="15" fill="url(#stone)" stroke="#3A3A3A" stroke-width="1.5"/>
+  <rect x="380" y="190" width="20" height="15" fill="url(#stone)" stroke="#3A3A3A" stroke-width="1.5"/>
+  <!-- Towers -->
+  <rect x="130" y="160" width="40" height="180" fill="url(#stone)" stroke="#3A3A3A" stroke-width="2"/>
+  <rect x="390" y="160" width="40" height="180" fill="url(#stone)" stroke="#3A3A3A" stroke-width="2"/>
+  <polygon points="130,160 150,130 170,160" fill="#7DD3FC"/>
+  <polygon points="390,160 410,130 430,160" fill="#7DD3FC"/>
+  <!-- Tower flags -->
+  <line x1="150" y1="130" x2="150" y2="100" stroke="#FFF" stroke-width="2"/>
+  <polygon points="150,100 175,108 150,115" fill="#7DD3FC"/>
+  <line x1="410" y1="130" x2="410" y2="100" stroke="#FFF" stroke-width="2"/>
+  <polygon points="410,100 435,108 410,115" fill="#7DD3FC"/>
+  <!-- Fortress door -->
+  <rect x="260" y="270" width="40" height="65" fill="#2A1F12" stroke="#1A1208" stroke-width="2"/>
+  <!-- Fortress windows -->
+  <rect x="200" y="225" width="15" height="20" fill="#1A2030"/>
+  <rect x="345" y="225" width="15" height="20" fill="#1A2030"/>
+  <!-- Fortress label -->
+  <text x="280" y="252" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="#7DD3FC" text-anchor="middle">90 %</text>
+  <text x="280" y="135" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#7DD3FC" text-anchor="middle">LA FORTERESSE</text>
+  <text x="280" y="155" font-family="Arial, sans-serif" font-size="12" fill="#CFE9FF" text-anchor="middle">The Fortress</text>
+  <!-- Small harbour dock -->
+  <rect x="510" y="335" width="80" height="8" fill="#4A3A28"/>
+  <line x1="515" y1="343" x2="515" y2="360" stroke="#4A3A28" stroke-width="3"/>
+  <line x1="540" y1="343" x2="540" y2="360" stroke="#4A3A28" stroke-width="3"/>
+  <line x1="570" y1="343" x2="570" y2="360" stroke="#4A3A28" stroke-width="3"/>
+  <line x1="585" y1="343" x2="585" y2="360" stroke="#4A3A28" stroke-width="3"/>
+  <!-- Sailboat -->
+  <g transform="translate(640, 290)">
+    <!-- Hull -->
+    <path d="M-40,40 Q-30,55 0,55 Q30,55 40,40 Z" fill="#8B6F4A" stroke="#3A2F1F" stroke-width="2"/>
+    <!-- Mast -->
+    <line x1="0" y1="40" x2="0" y2="-40" stroke="#3A2F1F" stroke-width="3"/>
+    <!-- Main sail -->
+    <path d="M0,-40 L35,30 L0,30 Z" fill="#FFFFFF" stroke="#7DD3FC" stroke-width="1.5"/>
+    <!-- Jib -->
+    <path d="M0,-40 L-25,25 L0,25 Z" fill="#FFFFFF" stroke="#7DD3FC" stroke-width="1.5"/>
+    <!-- Flag -->
+    <line x1="0" y1="-40" x2="0" y2="-55" stroke="#FFF" stroke-width="1"/>
+    <polygon points="0,-55 12,-50 0,-45" fill="#7DD3FC"/>
+  </g>
+  <!-- Sailboat label -->
+  <text x="640" y="380" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#7DD3FC" text-anchor="middle">10 %</text>
+  <text x="640" y="405" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#7DD3FC" text-anchor="middle">LE VOILIER</text>
+  <text x="640" y="422" font-family="Arial, sans-serif" font-size="11" fill="#CFE9FF" text-anchor="middle">The Sailboat</text>
+  <!-- Title -->
+  <text x="400" y="35" font-family="Arial, sans-serif" font-size="22" font-weight="bold" fill="#7DD3FC" text-anchor="middle">NAVLYS — Le système 90 / 10</text>
+  <text x="400" y="58" font-family="Arial, sans-serif" font-size="13" fill="#CFE9FF" text-anchor="middle">La sécurité d'abord. La performance ensuite. — Safety first. Performance after.</text>
+  <!-- Bottom caption -->
+  <text x="400" y="475" font-family="Arial, sans-serif" font-size="12" fill="#7DD3FC" text-anchor="middle" font-style="italic">Si le voilier coule, la forteresse tient. — If the boat sinks, the fortress holds.</text>
+</svg>

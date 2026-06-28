@@ -17,20 +17,22 @@ a{color:inherit}
 .bg{position:fixed;inset:0;z-index:-2;background:
   radial-gradient(900px 620px at 84% -8%,rgba(233,211,160,.10),transparent 60%),
   radial-gradient(840px 600px at 6% 6%,rgba(125,211,252,.14),transparent 60%),
-  radial-gradient(1100px 880px at 50% 120%,rgba(18,48,72,.55),transparent 64%),var(--noir)}
+  radial-gradient(1100px 880px at 50% 120%,rgba(18,48,72,.55),transparent 64%),rgba(5,6,10,.72)}
+/* fond vidéo plein écran (bateau) — injecté par le JS, derrière tout, charte préservée */
+.fondvid{position:fixed;inset:0;width:100%;height:100%;object-fit:cover;z-index:-3;opacity:.20;filter:blur(3px) saturate(1.1);pointer-events:none}
 
 .topbar{position:fixed;top:0;left:0;right:0;height:var(--top-h);z-index:40;display:flex;align-items:center;gap:10px;padding:0 16px;background:rgba(5,6,10,.82);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
 .led{width:13px;height:13px;border-radius:50%;background:radial-gradient(circle at 50% 38%,#bdf3ff,var(--ice) 60%,rgba(125,211,252,.1));box-shadow:0 0 16px var(--ice);animation:pulse 4.6s ease-in-out infinite}
 @keyframes pulse{0%,100%{opacity:.55;transform:scale(.85)}50%{opacity:1;transform:scale(1.15)}}
 .brand{font-family:'Cormorant Garamond';letter-spacing:5px;font-size:1.2rem;color:#fff;text-decoration:none}
-.menu-btn{margin-left:auto;background:rgba(125,211,252,.08);border:1px solid var(--line);color:var(--ice);width:38px;height:38px;border-radius:11px;font-size:1.1rem;cursor:pointer}
+.menu-btn{margin-left:auto;background:rgba(125,211,252,.08);border:1px solid var(--line);color:var(--ice);width:44px;height:44px;border-radius:11px;font-size:1.1rem;cursor:pointer}
 .dropdown{position:fixed;top:calc(var(--top-h) + var(--nav-h));right:10px;z-index:39;min-width:220px;background:rgba(10,13,20,.96);border:1px solid var(--line);border-radius:14px;padding:8px;display:none;flex-direction:column;gap:2px;box-shadow:0 18px 50px rgba(0,0,0,.5)}
 .dropdown.show{display:flex}
 .dropdown a{color:var(--perle);text-decoration:none;font-family:'Fraunces';font-style:italic;font-size:.95rem;padding:11px 14px;border-radius:9px}
 .dropdown a:hover{background:rgba(125,211,252,.12);color:var(--ice)}
 
 .bandeau{position:fixed;top:calc(var(--top-h) + var(--nav-h));left:0;right:0;height:var(--band-h);z-index:38;display:flex;align-items:center;overflow:hidden;background:linear-gradient(90deg,rgba(18,48,72,.9),rgba(5,6,10,.9));border-bottom:1px solid var(--line)}
-.bandeau .scroll{white-space:nowrap;font-family:'Fraunces';font-style:italic;font-size:.74rem;color:var(--mut);padding-left:100%;animation:marquee 34s linear infinite}
+.bandeau .scroll{white-space:nowrap;font-family:'Fraunces';font-style:italic;font-size:.82rem;color:var(--perle);padding-left:100%;animation:marquee 34s linear infinite}
 @keyframes marquee{to{transform:translateX(-100%)}}
 
 /* ===== CINÉMA : quart haut, écran incurvé + rideaux ===== */
@@ -53,7 +55,7 @@ a{color:inherit}
 .cine-label{position:absolute;top:38px;left:23%;z-index:5;display:flex;align-items:center;gap:7px;font-family:'Cormorant Garamond';letter-spacing:3px;color:#fff;font-size:.82rem}
 .cine-dot{width:8px;height:8px;border-radius:50%;background:#ff4d4d;box-shadow:0 0 9px #ff4d4d;animation:livedot 1.4s ease-in-out infinite}
 @keyframes livedot{0%,100%{opacity:.35}50%{opacity:1}}
-.snd{position:absolute;top:34px;right:23%;z-index:5;width:34px;height:34px;border-radius:10px;background:rgba(5,6,10,.6);border:1px solid var(--line);color:var(--ice);font-size:.9rem;cursor:pointer}
+.snd{position:absolute;top:34px;right:23%;z-index:5;width:44px;height:44px;border-radius:10px;background:rgba(5,6,10,.6);border:1px solid var(--line);color:var(--ice);font-size:.9rem;cursor:pointer}
 @keyframes flow{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
 
 /* ===== ZONE SCROLL ===== */
@@ -123,3 +125,12 @@ footer .flag{letter-spacing:3px;margin-bottom:10px;color:var(--champ)}
 .tab{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:var(--mut);text-decoration:none;font-family:'Fraunces';font-style:italic;font-size:.66rem;position:relative}
 .tab .i{font-size:1.15rem;font-style:normal}.tab.active{color:var(--ice)}
 .tab.active::before{content:"";position:absolute;bottom:0;width:26px;height:3px;border-radius:99px;background:linear-gradient(90deg,var(--ice),var(--champ));box-shadow:0 0 10px var(--ice)}
+
+/* ===== Accessibilité (ajouté suite à l'ultrareview) ===== */
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+a:focus-visible,button:focus-visible{outline:2px solid var(--ice);outline-offset:2px;border-radius:4px}
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation:none !important;transition:none !important;scroll-behavior:auto !important}
+}
+/* compacter le cinéma sur petits écrans pour libérer le scroll */
+@media (max-height:700px){:root{--cine-h:24vh}}

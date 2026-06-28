@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>NAVLYS — 7-port journey demo</title>
+<style>
+  :root { --ice: #7DD3FC; --ice-dim: #0E4F66; --bg: #000; --text: #F2F4F7; --text-dim: #9AA3AF; }
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); font-family: system-ui, -apple-system, sans-serif; line-height: 1.55; }
+  header { padding: 32px 20px 20px; text-align: center; border-bottom: 1px solid var(--ice-dim); }
+  header .brand { color: var(--ice); letter-spacing: 3px; font-size: 13px; }
+  header h1 { margin: 8px 0 6px; font-size: 28px; }
+  header p { color: var(--text-dim); margin: 0; font-size: 14px; }
+  main { max-width: 760px; margin: 0 auto; padding: 0 20px 48px; }
+  section.port { padding: 36px 0; border-bottom: 1px dashed var(--ice-dim); scroll-margin-top: 20px; }
+  section.port h2 { color: var(--ice); font-size: 20px; margin: 0 0 8px; }
+  section.port h2 .num { display: inline-block; width: 32px; height: 32px; line-height: 32px; text-align: center; border-radius: 50%; background: var(--ice); color: #000; font-weight: 700; margin-right: 10px; }
+  section.port .image { color: var(--text-dim); font-style: italic; margin: 8px 0 16px; font-size: 14px; }
+  section.port .body { font-size: 15px; }
+  .card { background: rgba(125,211,252,0.05); border: 1px solid var(--ice-dim); border-radius: 10px; padding: 16px; margin-top: 16px; }
+  .card.accent { border-color: var(--ice); }
+  .card .label { color: var(--text-dim); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; }
+  .card .value { color: var(--ice); font-size: 26px; margin-top: 4px; font-weight: 600; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 12px; }
+  @media (max-width: 540px) { .grid-2 { grid-template-columns: 1fr; } }
+  .progress { display: flex; gap: 4px; max-width: 760px; margin: 16px auto 0; padding: 0 20px; }
+  .progress span { flex: 1; height: 4px; background: var(--ice-dim); border-radius: 2px; }
+  .progress span.on { background: var(--ice); }
+  footer { padding: 24px 20px; text-align: center; color: var(--text-dim); font-size: 12px; border-top: 1px solid var(--ice-dim); }
+  .cta { display: inline-block; margin-top: 16px; background: var(--ice); color: #000; padding: 12px 18px; border-radius: 8px; font-weight: 600; text-decoration: none; }
+  .lighthouse-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 8px; margin-top: 12px; }
+  .lighthouse-grid div { border: 1px solid var(--ice); border-radius: 8px; padding: 10px; text-align: center; font-size: 13px; }
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">NAVLYS</div>
+  <h1>Your 7-port journey</h1>
+  <p>One voyage, seven ports, one complete plan</p>
+</header>
+
+<div class="progress">
+  <span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span>
+</div>
+
+<main>
+
+<section class="port" id="p1">
+  <h2><span class="num">1</span>What is your heading?</h2>
+  <div class="image">Image: eight colored lighthouses on the horizon. You click the one that calls you.</div>
+  <div class="body">
+    Pick your dream among 8 prepared buoys. Set a target amount, choose your expected return.
+    <div class="lighthouse-grid">
+      <div>Travel</div><div>Car</div><div>Wedding</div><div>Birth</div>
+      <div>Studies</div><div>Real estate</div><div>Retirement</div><div>Unexpected</div>
+    </div>
+  </div>
+</section>
+
+<section class="port" id="p2">
+  <h2><span class="num">2</span>How long to get there?</h2>
+  <div class="image">Image: three different sails. Cautious, balanced, fast.</div>
+  <div class="body">Each sail changes the ship's speed. You pick the duration that fits you.</div>
+</section>
+
+<section class="port" id="p3">
+  <h2><span class="num">3</span>Where do you stand on fees?</h2>
+  <div class="image">Image: the hull of the ship. If covered in barnacles, it slows down.</div>
+  <div class="body">Describe your current setup: broker, bank, number of trades, average ticket, bank fees.</div>
+</section>
+
+<section class="port" id="p4">
+  <h2><span class="num">4</span>The revealed gap</h2>
+  <div class="image">Image: the tide recedes and reveals the underwater rocks.</div>
+  <div class="body">
+    <div class="card accent">
+      <div class="label">You pay each year</div>
+      <div class="value">600 €</div>
+      <div style="color:var(--text-dim);margin-top:6px;font-size:13px;">in hidden fees you could recover.</div>
+    </div>
+  </div>
+</section>
+
+<section class="port" id="p5">
+  <h2><span class="num">5</span>The 90/10 method</h2>
+  <div class="image">Image: fortress on the island, sailboat going out to explore.</div>
+  <div class="body">The 90 % fortress never moves. The 10 % sailboat may sway, but cannot threaten the fortress.</div>
+</section>
+
+<section class="port" id="p6">
+  <h2><span class="num">6</span>Your unified plan</h2>
+  <div class="image">Image: a personal nautical chart, with the heading, the route, the lighthouses.</div>
+  <div class="body">
+    <div class="grid-2">
+      <div class="card"><div class="label">Heading</div><div class="value">5 000 €</div></div>
+      <div class="card"><div class="label">Months saved</div><div class="value">2</div></div>
+      <div class="card"><div class="label">Fortress 90 %</div><div class="value">4 500 €</div></div>
+      <div class="card"><div class="label">Sailboat 10 %</div><div class="value">500 €</div></div>
+      <div class="card"><div class="label">Max margin</div><div class="value">250 €</div></div>
+      <div class="card"><div class="label">Strategy</div><div class="value">half-Kelly</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="port" id="p7">
+  <h2><span class="num">7</span>Receive your full plan</h2>
+  <div class="image">Image: a sealed bottle. You slip in your email.</div>
+  <div class="body">
+    Receive your plan by email or share it on WhatsApp.
+    <br/><a class="cta" href="#p1">Restart the journey</a>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  Educational information. You remain the sole decision-maker. Test in simulation before any real commitment.
+</footer>
+</body>
+</html>

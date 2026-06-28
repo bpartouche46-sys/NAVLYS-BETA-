@@ -74,6 +74,171 @@
   proprement ; décider correction navlys.io (palette → charte, date → 1ᵉʳ juillet).
 - ℹ️ Note : Claude **ne peut pas** écouter les notes vocales (pas de transcription) ni lancer de `.exe`.
 
+## Session 2026-06-25 — ARBITRAGES BRUNO + exécution
+
+### ✅ Décisions tranchées par Bruno (2026-06-25)
+- 🎯 **Slogan figé** : **« Ma méthode, ton argent, ton rythme. »** (tutoiement). → appliqué `CLAUDE.md` §1.
+- 💶 **Prix** : **reporté** (ne rien figer ; on en reparle).
+- 🖥️ **Hetzner** : **à VÉRIFIER d'abord** (que contient-il encore ? facturé ?) avant de garder/arrêter.
+  ⚠️ Indice : la mémoire indique des clés `ELEVENLABS_KEY` + backend voix possibles sur Hetzner
+  (`/root/navlys/config/.env`) → ne PAS arrêter avant vérification.
+- ⚙️ **« Tout dans ton ordre »** : Claude exécute les chantiers dans l'ordre qu'il juge, sans
+  action publique/payante sans feu vert.
+
+### 🛠️ Exécution en cours (Claude)
+- ✅ **Charte appliquée** : **106 couleurs `#5fe0ff → #7DD3FC`** corrigées sur **12 fichiers**
+  de `live-source/` (source déployable). 0 « Jérusalem » dans cette source (à traiter dans
+  `launch-offer.js`/navbio quand cette source sera là).
+- ⏭️ Suite : FAQ unifiée + G1 · rappel procédure Vercel↔GitHub · checklist vérif Hetzner.
+
+### 🔴 Actions qui restent à Bruno
+- Régénérer le **token Vercel** (exposé). · Trancher l'**entité** (FR/IL/[entité — hors dépôt] LTD). · **Vérifier Hetzner**.
+- Légal avant LIVE : avocat NTIC, DPA ElevenLabs/HeyGen, AIPD (budgets = Bruno).
+
+---
+
+## Session 2026-06-25 — RENFORCEMENT global d'après le « cerveau » récupéré (recup-docs)
+
+### 🟢 ÉTAT RÉEL du projet (corrigé d'après ~270 docs récupérés + `docs/SYNTHESE-NAVLYS.md`)
+- **NAVLYS est LANCÉ, en phase BETA.** Le gate a été ouvert (docs : **31 mai / 1ᵉʳ juin 2026**).
+  Source : `recup-docs/onedrive/_MASTER_NAVLYS_NOW.md` (« gate passé le 31 mai ✓, phase BETA en cours »).
+- **Stack RÉELLE = Vercel + Supabase + Resend + Sentry + ElevenLabs + Cloudflare R2 + Claude (+ Stripe à venir).**
+  Le **« core central Hetzner » semble PÉRIMÉ** (absent des docs récents) → à confirmer Bruno. (cf. CLAUDE.md §1.)
+- **Charte couleur confirmée `#7DD3FC`** (`recup-docs/onedrive/_AUDIT_CHARTE_COULEURS.md`).
+- **8 règles gravées** intégrées dans `docs/GOUVERNANCE.md` §0.
+- **Renforcement par domaine** livré dans `docs/RENFORCEMENT/` (01→07).
+
+### ⚖️ LES 9 DÉCISIONS EN ATTENTE (section 10 de la synthèse — à trancher par Bruno)
+1. 🔴 **Régénérer le token Vercel** (partagé en clair → exposé). Action sensible = Bruno.
+2. **Entité juridique** : FR auto-entrepreneur vs société IL (Mizrahi) / [entité — hors dépôt] LTD → impacte
+   Stripe, factures, contrats. (Avocat NTIC recommandé.)
+3. **Clarifier le « core Hetzner »** : legacy/abandonné ? vs stack Vercel+Supabase.
+4. **Figer le SLOGAN** (« Ma méthode, Votre/Ton argent, Votre/Ton tempo/rythme/contrôle ») +
+   le **prix BETA** : 39 € early-bird verrouillé vs 49 €/mois vs 490 €/an (vs 39 € « à vie » côté mémoire).
+5. **Date de lancement effective** : countdown live = 1ᵉʳ juillet ; docs = 31 mai / 1ᵉʳ juin ;
+   cible interne « 15 juin BETA stable » → **quel cap public unique ?**
+6. **Dépersonnalisation vs scripts** où Bruno apparaît en narrateur (« voix de Bruno ») → arbitrer
+   la frontière public (NAVLYS deperso) / persona narratif toléré-avec-disclaimer.
+7. **Charte couleur** : `#7DD3FC` confirmé → corriger tout `#5fe0ff` résiduel.
+8. **Valider** prospection influenceurs / VIP (aucun JCVD trouvé dans les docs récupérés ; à confirmer).
+9. **Relier Vercel ↔ GitHub** (procédure prête `docs/PROCEDURE-VERCEL-GITHUB.md`) pour déployer par push.
+
+> ➕ Décisions complémentaires remontées par l'exploration (voir `docs/RENFORCEMENT/`) :
+> domaine NAVBIO (navbio.com ?), statut produit « LÉGENDE » (R&D), DPA ElevenLabs/HeyGen avant LIVE,
+> AIPD biométrie avant droit-à-l'oubli, doublons Vercel à arbitrer, nommage « NOVA » résiduel vs NAVLYS.
+
+- 🔴 **Aucune action sensible déclenchée** : zéro déploiement, zéro publication, zéro dépense.
+  Travail 100 % en branche `claude/navlys-project-briefing-qi2w9j`. Validation gardien faite (voir RENFORCEMENT).
+
+## Session 2026-06-24 — DÉCISION : relier les sites LIVE Vercel ↔ GitHub (Phase 0 « code sous Git »)
+
+- 🎯 **Décision Bruno** : on relie les sites live Vercel à GitHub (sert aussi l'objectif
+  Phase 0 « code sous Git »). Contrainte technique : l'intégration GitHub est limitée au seul
+  dépôt `NAVLYS-BETA-` (création d'autres repos = 403, PR #12) → **approche MONOREPO** (un
+  sous-dossier par projet via « Root Directory »).
+- 📄 **Livrable** : **`docs/PROCEDURE-VERCEL-GITHUB.md`** (procédure sûre pas-à-pas, ordre
+  obligatoire 1→5, table des 6 projets/domaines, encadré « piège critique »).
+- ⛔ **Piège central gravé** : `sites/<projet>/` = refonte v2 **incomplète** (souvent 1 page) ;
+  le LIVE a plus de pages + des assets moteur dont **`navlys-alive.js` = la voix** (jamais
+  capturée). Relier un projet à un dossier v2 puis pousser ferait **écraser la voix + les
+  pages live**. → **Étape n°1 obligatoire : capturer la vraie source live** de chaque projet
+  dans `live-source/<projet>/` AVANT tout lien Git.
+- 🧩 **Prochaine étape concrète** : capturer la source live (méthode A : `vercel pull` /
+  dernier déploiement, depuis l'ancien PC) → versionner sous `live-source/` → décision Bruno
+  garder-live/v2 par projet → relier dans Vercel → **Preview comparée au live** → promotion
+  prod **seulement sur feu vert de Bruno**.
+- 📓 Maj `docs/PHASE-0-SUIVI.md` (colonne « Source LIVE capturée », rappel monorepo + piège).
+- 🔴 **Aucune action sensible déclenchée** : zéro déploiement, zéro promotion, zéro dépense.
+  Le lien Vercel↔Git lui-même se fait côté **Bruno** (dashboard Vercel) ; Claude n'a pas accès.
+
+## Session 2026-06-24 — recherche de la DÉMO VOIX (clone vocal) : localisation
+
+- 🎯 **Objectif Bruno** : retrouver la démo « voix / clone vocal » (ElevenLabs + fal.ai +
+  HeyGen) qu'il dit avoir déjà construite « dans un des sites ».
+- 🔎 **Constat (recherche exhaustive du dépôt par l'orchestrateur)** : **RIEN dans
+  `NAVLYS-BETA-`** — pas d'ElevenLabs/fal.ai/HeyGen, pas de capture micro
+  (`getUserMedia`/`MediaRecorder`), pas de TTS, pas d'appel API ni de clé. Seule trace audio =
+  un **MP3 statique pré-enregistré** (`<audio src="/media/bruno.mp3">` dans
+  `sites/brunopartouche.com/index.html`) → ce **n'est pas** la démo voix.
+- 🧠 **Pourquoi c'est normal → ERR-006** : ce dépôt = refonte **v2 statique** + mémoire ; les
+  sites **LIVE** sont sur **Vercel non reliés à GitHub**. Le code des fonctionnalités live
+  (voix…) n'est **pas** ici. Clés `ELEVENLABS_KEY`… sur Hetzner (`/root/navlys/config/.env`,
+  Bruno). NB : `docs/PASSATION-HERMES.md` §9 (l.58) note la connexion ElevenLabs **« non faite »**.
+- 🧭 **Plan de localisation — 3 hypothèses (à vérifier dans l'ordre, par Bruno)** :
+  1. **🟢 Vercel LIVE (le + probable)** — la démo est dans un déploiement Vercel.
+     *Comment* : Bruno ouvre chaque site live (navlys.com, brunopartouche.com, navbiolife.com,
+     navlys.io + teasers) → cherche le bouton/page « voix / parler / clone ». Si trouvé :
+     DevTools → **Network** (repérer un appel `elevenlabs`/`fal.run`/`heygen`) + **Sources**
+     (chercher `getUserMedia`, `MediaRecorder`, `xi-api-key`). Côté code source : Vercel →
+     projet → onglet Source / `vercel pull` du dossier depuis l'ancien PC. ⚠️ V7 (cf. ci-dessous) :
+     toute clé `sk-`/`xi-api-key`/`Bearer` visible en front = **clé exposée à révoquer**.
+  2. **🟠 Core Hetzner** — la démo (ou son backend d'appel API) tourne sur le serveur.
+     *Comment* : Bruno regarde `/root/navlys/` (≈9 dossiers, cf. diagnostic 2026-06-22) + le
+     `.env` (présence/usage réel de `ELEVENLABS_KEY`). Diagnostic note **0 conteneur Docker
+     actif** → si backend voix, il n'est probablement **pas en cours d'exécution**. C'est
+     l'**action serveur = Bruno** (Claude n'a aucun accès Hetzner).
+  3. **🔵 Autre dépôt GitHub** — code dans **NOVA-HUB**, **Ai-Suite-PRO**, **gdp-dashboard**
+     (repos cités dans `docs/PASSATION-HERMES.md`) plutôt que dans les sites.
+     *Comment* : Bruno donne accès / Claude grep `eleven|fal\.run|heygen|getUserMedia` dans ces
+     repos. À faire dès qu'un accès est fourni.
+- 🔴 **En attente Bruno** : (a) l'**URL** de la page démo voix si elle est live ; (b) lequel
+  des 3 fronts ouvrir en premier (recommandé : **Vercel live**) ; (c) accès aux autres repos.
+- 📓 **Mémoire** : leçon gravée **ERR-006** (ne pas confondre `NAVLYS-BETA-` v2 avec les sites
+  LIVE Vercel non versionnés). Aucune action sensible — zéro débit, zéro déploiement, zéro
+  contenu public (règle financière + feux verts respectés).
+
+## Session 2026-06-24 — revue conformité VOIX (V6) + auto-check sécurité (V7)
+
+- 🎙️ **Test Voix repris** (« ultrareview ») : je ne peux pas lancer le check live faute de
+  l'**URL** de la démo (non fournie) → je n'invente pas. Enrichi `docs/TESTS-FONCTIONNELS.md` §1 :
+  - 🔬 **V6 — batterie de conformité** : 8 questions pièges (rendement, reco nominative, conseil
+    perso, fiscal, vocab interdit, narratif Israël/Jérusalem, public 18+, FOMO) avec, pour chacune,
+    la **ligne rouge interdite** vs la **réponse conforme attendue**. + règle disclaimer audio/écran.
+  - 🔐 **V7 — auto-check sécurité** que **Bruno fait seul** (DevTools → Network/Sources, recherche
+    de `sk-`, `xi-api-key`, `Bearer`…) : clé exposée = révoquer + passer l'appel côté serveur.
+  - ✏️ Correction : V7 réattribué à **Bruno** (Hermès retiré).
+- ⏳ **En attente Bruno** : **l'URL de la démo voix** + outil de clone (ElevenLabs ?) + moteur de
+  transcription. Dès réception → je lance le V7 (fetch du source + grep des clés) à sa place.
+
+## Session 2026-06-23 — décision Piste B + audit sites v2 + tests
+
+- 🎨 **Décision Bruno : conformité = Piste B (refonte Design v2)**. Les sites `sites/` (v2)
+  remplacent l'existant ; les patchs `corrections-pretes/` (Piste A : C-01→C-05, P-01→P-05,
+  ERR-005) deviennent une **référence archivée** (plus la voie de déploiement).
+- ✅ **Audit Claude des sites v2** (`sites/`) : 0 terme interdit, 0 promesse, disclaimer sur
+  les 10 pages, date 1ᵉʳ juillet cohérente, **aucun lien 404** (cgu/privacy centralisés sur
+  navlys.com ; pas de bug /partenaires en v2).
+- 🟠 **2 points v2 à traiter** : `navlys-app/finance.html` ✅ **Ice Blue aligné `#7DD3FC`**
+  (2026-06-23) — reste à décider le **rouge/vin** (`#ff2a1f`/`#7a1f2b`, gardé car possiblement
+  fonctionnel = scénarios de perte) ; **mentions d'éditeur** des pages légales v2 à compléter (legal).
+- 🧪 **Tests fonctionnels (choix Bruno)** : FAQ **absente du dépôt** → non testable ici ;
+  Voix / NavLex / Partenaires = **accès live requis (Bruno)**, Hermès retiré → appui serveur = Bruno.
+  Plan + résultats partiels dans `docs/TESTS-FONCTIONNELS.md`.
+- ⏳ **En attente Bruno** : où vit la FAQ + infos d'accès pour tester Voix/NavLex/Partenaires.
+
+## Session 2026-06-23 — QA complémentaire : lien cassé brunopartouche
+
+- 🔗 **Trouvaille** : `brunopartouche.com/partenaires` renvoie **404**, alors que la home
+  a un bouton « Voir les 19 partenaires → » qui pointe dessus (lien cassé).
+  → Correctif **P-05** ajouté (recommandé : rediriger vers `navlys.io/#partenariats`,
+  où les 19 partenaires existent déjà ; alternative : créer la page). Décision Bruno.
+- ⏳ Reste : décider l'option P-05, puis intégrer au déploiement (`MEMO-DEPLOIEMENT.md`).
+
+## Session 2026-06-22 (f) — Phase 0 : suivi + sauvegarde assets + repos
+
+- 📋 **`docs/PHASE-0-SUIVI.md`** (nouveau) : tableau de suivi Phase 0 (snapshot Hetzner,
+  backup.sh, code de chaque site sous GitHub, liaison Vercel↔Git). Le « comment » reste
+  dans `SAUVEGARDE.md` / `SAUVEGARDE-CODE-VERCEL.md` ; ce fichier = le « où on en est ».
+- 💾 **`sauvegarde-sites/_assets-moteur/`** (nouveau) : sauvegarde des assets moteur JS/CSS
+  (cockpit.js, cockpit-mini.js, launch-offer.js, hero-bg-slideshow.js, navlys-family-theme-v2.css)
+  — capturés en lecture seule (fetch live 2026-06-22). Filet **partiel** : navlys-app (403),
+  images/vidéos et home brunopartouche (tronquée) NON capturés → à faire depuis l'ancien PC.
+- 🔴 **Nouvelle non-conformité trouvée → ERR-005** : `launch-offer.js` contient encore
+  « heure de Jérusalem » + escalator ancré au 1ᵉʳ juin. Correctif **P-04** ajouté au patch.
+  Garde-fou : grep des termes interdits sur **HTML + JS + CSS** (pas que le HTML).
+- 🐙 **Repos GitHub privés** : (voir statut dans le tableau / la conversation).
+- ⏳ Le cœur de Phase 0 (snapshot, backup.sh, export source) reste à faire sur l'ancien PC.
+
 ## Session 2026-06-23 — passation Hermès archivée (avant retrait)
 
 - 📥 **Passation complète reçue d'Hermès** (via Bruno) → consolidée dans
@@ -175,12 +340,12 @@
 - ⚠️ Rien en prod. Pour voir en ligne : importer le repo `NAVLYS-BETA-` sur Vercel (Option 1).
 - Branche : `claude/pre-launch-qa-lcd1pf`.
 
-
 ## Session 2026-06-22 (h) — gouvernance + délégation + contrôle conformité Vague 1
 
 - ⚖️ **Gouvernance gravée** (`docs/GOUVERNANCE.md`, reliée à CLAUDE.md règle d'or) :
   1) **zéro répétition** (tout capitaliser en knowledge/skill/routine, relié au core),
-  2) **Claude + Hermès orchestrateurs en surveillance mutuelle** (gardien arbitre),
+  2) ~~Claude + Hermès orchestrateurs en surveillance mutuelle~~ → **révisé** : Hermès retiré
+     (ERR-006) ; plus d'orchestrateur tiers de confiance, opérateur futur **bridé par le moteur**,
   3) **règle financière** : Bruno **seul** valide tout investissement/débit sur tous les
      comptes (y compris partenaires), **sauf abonnements classiques déjà en cours**.
 - 🎚️ **Délégation décidée par Bruno** : Claude **a la main** (conçoit + modifie + valide)
@@ -376,10 +541,12 @@ texte centré (charte = aligné à gauche). Sécurité globalement saine.
 
 ### ▶️ PHASE 0 EN COURS (2026-06-19) — Sécuriser
 - ✅ Découverte : déploiements `source: cli` (pas de Git). navlys-app = app Node.js, protégée (403).
-- 🔧 Action utilisateur en cours : snapshot Hetzner + retrouver le code des sites sur l'ANCIEN PC.
+- ✅ **Snapshot Hetzner FAIT** (filet de sécurité serveur en place). 🎉
+- ✅ Utilisateur confirmé **sur l'ANCIEN PC** (celui qui contient le code source).
+- 🔧 Étape en cours : retrouver le dossier `navlys-app` sur l'ancien PC (recherche Explorateur).
 - 📄 Guide fourni : `docs/SAUVEGARDE-CODE-VERCEL.md` (rapatrier le code dans GitHub via GitHub Desktop).
 - ⚠️ Le code source n'existe QUE sur l'ancien PC → priorité absolue à le sauvegarder.
-- Prochain point d'attente : confirmation que navlys-app est publié dans GitHub.
+- Prochain point d'attente : trouver le dossier du site, puis le publier dans GitHub.
 
 ### 🧭 Plan d'ensemble établi (2026-06-19) → voir `docs/PLAN-DENSEMBLE.md`
 - Architecture cible : core Hetzner (API + données) ← appelé en API par les sites Vercel ;
