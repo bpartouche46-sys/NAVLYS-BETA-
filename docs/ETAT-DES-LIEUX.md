@@ -2,6 +2,28 @@
 
 > Mis à jour à la fin de chaque session pour que la suivante reprenne sans tout relire.
 
+## Session 2026-06-28 — MIGRATION ancien PC → nouveau PC + auto-sync core
+
+- 🎯 **Demande Bruno** (sur l'ancien PC) : *« récupère tout pour ne plus avoir à utiliser
+  l'ancien ordinateur ; je veux tout sur le nouveau »* puis précision : *« ne plus rien mettre
+  à jour depuis l'ancien, tout depuis le neuf, et aussi en automatique sur le core NAVLYS Hetzner. »*
+- 📄 **Livrable principal — `docs/MIGRATION-ANCIEN-PC.md`** (guide unique, 7 étapes, n'en
+  duplique aucune autre : il enchaîne `SAUVEGARDE-CODE-VERCEL.md`, `ACCES-SERVEUR.md`,
+  `SECRETS-ET-CLES.md`, `PROCEDURE-VERCEL-GITHUB.md`). Inventaire ancien PC → code vers GitHub →
+  médias vers cloud → secrets vers coffre → mise en route neuf → **automatisation** →
+  vérification finale avant abandon.
+- ⚙️ **Automatisation (le cœur de la demande)** : GitHub = source unique. Le **neuf pousse**,
+  les **sites Vercel** se redéploient au push, et le **core Hetzner tire tout seul** via cron.
+  - 🆕 **`scripts/sync-core.sh`** : pull auto GitHub→core, **non destructif** (s'arrête si modifs
+    locales sur le core au lieu d'écraser ; `FORCE=1` pour forcer, `POST_HOOK` pour redémarrer un
+    service). Installation cron documentée (`*/5 * * * *`). Syntaxe vérifiée (`bash -n`) OK.
+- ⚠️ **Honnêteté technique** : Claude (cloud isolé) **n'a aucun accès** au disque de l'ancien PC
+  ni au serveur Hetzner → ce sont des **procédures que Bruno exécute** (guidé). Rien de sensible
+  déclenché : zéro accès, zéro déploiement, zéro secret écrit dans Git.
+- 🔴 **Point ouvert rappelé** : le « core Hetzner » est **possiblement legacy** → vérifier qu'il
+  doit rester actif **avant** de brancher le cron (sinon seule l'auto-deploy Vercel suffit).
+- 🌿 Branche : `claude/migrate-old-computer-data-q7im6j`. PR brouillon à ouvrir.
+
 ## Session 2026-06-25 — ARBITRAGES BRUNO + exécution
 
 ### ✅ Décisions tranchées par Bruno (2026-06-25)
