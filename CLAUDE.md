@@ -132,6 +132,8 @@ Commande rapide : `/controle` (voir `.claude/commands/controle.md`).
 | Fichier | Rôle |
 |---------|------|
 | `docs/GOUVERNANCE.md` | **Principes fondamentaux** : zéro répétition · surveillance mutuelle · règle financière (Bruno seul décide) |
+| `docs/AUTONOMIE-CLAUDE.md` | **Modèle opérationnel (2026-06-28)** : Claude autonome sur Vercel+Supabase (déploie en prod seul après conformité) ; **argent + juridique = Bruno**. Hetzner abandonné. |
+| `docs/MIGRATION-ANCIEN-PC.md` | Guide migration ancien→nouveau PC + auto-sync (le volet Hetzner devient optionnel — voir AUTONOMIE-CLAUDE) |
 | `docs/ARCHITECTURE-AGENT-DIRECTEUR.md` | Architecture orchestrateur + sous-agents + feuille de route |
 | `docs/MEMOIRE-CENTRALE.md` | Consolider les conversations sur le core (puis les supprimer) |
 | `docs/STRATEGIE-NAVLYS.md` | Positionnement, méthode 90/10, conformité, produits (F1/F2/F3) |

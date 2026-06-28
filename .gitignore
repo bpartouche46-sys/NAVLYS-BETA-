@@ -20,6 +20,8 @@ dist/
 build/
 .next/
 out/
+.vercel/
+.turbo/
 
 # Système / éditeurs
 .DS_Store
