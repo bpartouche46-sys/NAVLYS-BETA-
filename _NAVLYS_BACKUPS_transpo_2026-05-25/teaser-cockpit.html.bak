@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
+<title>Bruno Partouche — Finance · Méditerranée · Art de vivre</title>
+<meta name="description" content="Bruno Partouche — stratège financier, skipper de Méditerranée, art de vivre. Le pont est déjà ouvert aux curieux. Lancement officiel le 1er juin 2026."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet"/>
+<style>
+  :root{--ink:#02040a;--night:#050B1A;--ice:#7DD3FC;--ice-dim:#0E4F66;
+    --gold-hi:#F4E4B0;--gold:#C9A961;--gold-lo:#7d6a3d;--gold-rim:#E8D4A2;--pearl:#F2F4F7;--muted:#8a93a6;
+    --line:rgba(201,169,97,.22);--accent:#7DD3FC}
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--ink);color:var(--pearl);font-family:"Cormorant Garamond",Georgia,serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  #scene{position:fixed;inset:0;z-index:0;display:block}
+  .cockpit{position:fixed;inset:0;z-index:1;pointer-events:none;overflow:hidden}
+  .pillar{position:absolute;top:0;bottom:0;width:13vw;max-width:190px;background:linear-gradient(90deg,rgba(3,6,12,.96),rgba(6,12,22,.55) 70%,rgba(6,12,22,0));filter:blur(.3px)}
+  .pillar.l{left:0}
+  .pillar.r{right:0;transform:scaleX(-1)}
+  .pillar::after{content:"";position:absolute;top:0;bottom:0;width:2px;background:linear-gradient(180deg,transparent,var(--accent),transparent);opacity:.25;right:8%}
+  .visor{position:absolute;left:0;right:0;top:0;height:16vh;background:linear-gradient(180deg,rgba(3,6,12,.95),rgba(4,8,16,.4) 60%,transparent);filter:blur(.4px)}
+  .dash{position:absolute;left:-2%;right:-2%;bottom:-1%;height:34vh;border-top-left-radius:60% 90%;border-top-right-radius:60% 90%;background:linear-gradient(180deg,rgba(7,12,20,.55),rgba(2,4,9,.97) 55%);box-shadow:0 -2px 0 rgba(125,211,252,.10),0 -30px 80px -40px var(--accent);filter:blur(.2px)}
+  .dash::before{content:"";position:absolute;left:0;right:0;top:0;height:2px;background:linear-gradient(90deg,transparent,var(--accent),transparent);opacity:.4}
+  .gauges{position:absolute;left:0;right:0;bottom:3.2vh;display:flex;gap:clamp(14px,5vw,52px);justify-content:center;align-items:flex-end}
+  .gauge{width:clamp(40px,9vw,78px);aspect-ratio:1;border-radius:50%;position:relative;background:radial-gradient(circle at 50% 42%,rgba(125,211,252,.10),rgba(2,4,9,.9) 70%);border:1px solid rgba(125,211,252,.28);box-shadow:0 0 22px -6px var(--accent),inset 0 0 14px rgba(0,0,0,.6)}
+  .gauge::before{content:"";position:absolute;left:50%;bottom:50%;width:2px;height:34%;background:var(--accent);transform-origin:bottom center;border-radius:2px;box-shadow:0 0 8px var(--accent);animation:needle 6s ease-in-out infinite}
+  .gauge:nth-child(2)::before{animation-duration:8s}
+  .gauge:nth-child(3)::before{animation-duration:5s}
+  .gauge:nth-child(4)::before{animation-duration:7s}
+  .gauge:nth-child(5)::before{animation-duration:9s}
+  @keyframes needle{0%,100%{transform:rotate(-46deg)}50%{transform:rotate(48deg)}}
+  .gauge .ring{position:absolute;inset:18%;border-radius:50%;border:1px dashed rgba(201,169,97,.30)}
+  .gauge .lbl{position:absolute;left:0;right:0;bottom:-16px;text-align:center;font:700 7.5px/1 "JetBrains Mono",monospace;letter-spacing:.12em;color:var(--muted);text-transform:uppercase}
+  .helm{position:absolute;left:50%;bottom:-10vh;transform:translateX(-50%);width:min(56vw,520px);aspect-ratio:1;border-radius:50%;border:3px solid rgba(201,169,97,.22);box-shadow:0 0 60px -20px var(--accent),inset 0 0 60px -30px var(--accent);opacity:.55}
+  .helm::before,.helm::after{content:"";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);background:rgba(201,169,97,.18)}
+  .helm::before{width:100%;height:4px}.helm::after{width:4px;height:100%}
+  body[data-veh="voiture"] .helm,body[data-veh="avion"] .helm{border-radius:14% 14% 46% 46%}
+  body[data-veh="voilier"] .helm{border-style:double;border-width:6px}
+  .glass{position:absolute;inset:0;background:radial-gradient(120% 80% at 50% 0%,rgba(125,211,252,.10),transparent 55%),linear-gradient(115deg,rgba(255,255,255,.05) 0 8%,transparent 9% 40%,rgba(255,255,255,.03) 41% 44%,transparent 45%);mix-blend-mode:screen}
+  .grain{position:fixed;inset:-50%;z-index:2;pointer-events:none;opacity:.16;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");animation:grainShift .5s steps(3) infinite}
+  @keyframes grainShift{0%{transform:translate(0,0)}33%{transform:translate(-3%,2%)}66%{transform:translate(2%,-2%)}100%{transform:translate(0,0)}}
+  .vignette{position:fixed;inset:0;z-index:2;pointer-events:none;background:radial-gradient(120% 100% at 50% 42%,transparent 52%,rgba(0,0,0,.45) 86%,rgba(0,0,0,.7) 100%)}
+  .smudge{position:fixed;inset:0;z-index:2;pointer-events:none;opacity:.5;mix-blend-mode:screen;background:radial-gradient(8vw 10vw at 72% 24%,rgba(125,211,252,.05),transparent 60%),radial-gradient(10vw 7vw at 22% 70%,rgba(201,169,97,.05),transparent 60%),radial-gradient(5vw 5vw at 40% 12%,rgba(255,255,255,.04),transparent 60%)}
+  @media (prefers-reduced-motion:reduce){.grain{animation:none}.gauge::before{animation:none}}
+  .content{position:relative;z-index:3}
+  .lang{position:fixed;top:14px;right:16px;z-index:40;display:flex;border:1px solid var(--line);border-radius:999px;overflow:hidden;background:rgba(2,4,10,.5);backdrop-filter:blur(6px)}
+  .lang button{background:transparent;border:0;color:var(--muted);cursor:pointer;font:600 11px/1 "JetBrains Mono",monospace;letter-spacing:1px;padding:7px 11px}
+  .lang button.on{background:linear-gradient(180deg,var(--gold-hi),var(--gold));color:#1a1206}
+  .veh{position:fixed;top:14px;left:16px;z-index:40;display:flex;gap:6px;background:rgba(2,4,10,.5);border:1px solid var(--line);border-radius:999px;padding:5px;backdrop-filter:blur(6px)}
+  .veh button{background:transparent;border:0;cursor:pointer;font-size:17px;line-height:1;padding:6px 8px;border-radius:999px;filter:grayscale(.5) opacity(.6);transition:.18s}
+  .veh button.on{filter:none;background:rgba(125,211,252,.16);box-shadow:0 0 14px -4px var(--accent)}
+  .veh button:hover{filter:none}
+  .hero{min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:64px 20px 38vh}
+  .logo-wrap{width:min(180px,44vw);aspect-ratio:1;border-radius:50%;overflow:hidden;position:relative;box-shadow:0 0 0 2px rgba(201,169,97,.5),0 0 70px rgba(201,169,97,.40),inset 0 0 30px rgba(0,0,0,.5);background:radial-gradient(circle at 50% 40%,#0a1830,#02040a);animation:floaty 7s ease-in-out infinite}
+  @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+  .logo-wrap video,.logo-wrap img{width:100%;height:100%;object-fit:cover;display:block}
+  .wordmark{font-family:"Cinzel",serif;font-weight:600;letter-spacing:.22em;font-size:clamp(40px,9vw,84px);margin:22px 0 6px;background:linear-gradient(180deg,var(--gold-hi),var(--gold) 70%,var(--gold-lo));-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:0 2px 40px rgba(201,169,97,.25)}
+  .tagline{font-style:italic;font-size:clamp(15px,2.4vw,21px);color:#dbe4f0;margin:0 0 6px;text-shadow:0 2px 18px rgba(0,0,0,.8)}
+  .castoff{font:600 11px/1.4 "JetBrains Mono",monospace;letter-spacing:.18em;color:var(--ice);text-transform:uppercase;margin:8px 0 22px;text-shadow:0 2px 12px rgba(0,0,0,.9)}
+  .cd{display:flex;gap:clamp(8px,2.4vw,22px);align-items:flex-start;justify-content:center;flex-wrap:nowrap}
+  .cd .u{min-width:54px}
+  .cd .n{font-family:"Cinzel",serif;font-weight:600;font-size:clamp(30px,8vw,60px);line-height:1;color:var(--pearl);font-variant-numeric:tabular-nums;text-shadow:0 2px 24px rgba(0,0,0,.9)}
+  .cd .n.ms{color:var(--ice)}
+  .cd .s{font:600 8.5px/1 "JetBrains Mono",monospace;letter-spacing:.18em;color:var(--muted);text-transform:uppercase;margin-top:8px;display:block}
+  .cd .sep{font-family:"Cinzel",serif;font-size:clamp(22px,6vw,46px);color:var(--gold-lo);line-height:1.2}
+  .precision{font:600 9.5px/1 "JetBrains Mono",monospace;letter-spacing:.2em;color:var(--ice);opacity:.7;text-transform:uppercase;margin:16px 0 0;text-shadow:0 1px 10px rgba(0,0,0,.9)}
+  .notify{margin-top:26px;display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+  .notify input{background:rgba(2,4,10,.66);border:1px solid var(--line);border-radius:999px;padding:11px 16px;color:var(--pearl);font-family:inherit;font-size:15px;min-width:230px;outline:none}
+  .notify input:focus{border-color:var(--ice)}
+  .btn{display:inline-block;border:0;cursor:pointer;border-radius:999px;padding:12px 22px;font:700 13px/1 "JetBrains Mono",monospace;letter-spacing:.08em;text-decoration:none}
+  .btn.gold{background:linear-gradient(180deg,var(--gold-hi),var(--gold));color:#1a1206}
+  .btn.ghost{background:rgba(2,4,10,.4);border:1px solid var(--line);color:var(--ice);backdrop-filter:blur(4px)}
+  .scrollhint{margin-top:30px;color:var(--muted);font:600 11px/1 "JetBrains Mono",monospace;letter-spacing:.18em;text-transform:uppercase;animation:bob 2s ease-in-out infinite;text-decoration:none;display:inline-block}
+  @keyframes bob{0%,100%{transform:translateY(0);opacity:.7}50%{transform:translateY(6px);opacity:1}}
+  .sec{max-width:1040px;margin:0 auto;padding:70px 20px;scroll-margin-top:20px;background:linear-gradient(180deg,rgba(2,4,10,0),rgba(2,4,10,.55) 12%,rgba(2,4,10,.55) 88%,rgba(2,4,10,0))}
+  .eyebrow{font:700 11px/1 "JetBrains Mono",monospace;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;text-align:center}
+  .sec h2{font-family:"Cinzel",serif;font-weight:600;font-size:clamp(26px,5vw,44px);text-align:center;margin:0 0 8px;color:var(--pearl)}
+  .sec .lead{text-align:center;color:#c2cad8;font-size:clamp(15px,2.2vw,19px);max-width:680px;margin:0 auto 26px;line-height:1.55}
+  .frame{border:1px solid var(--line);border-radius:20px;overflow:hidden;background:#02040a;box-shadow:0 30px 90px -34px rgba(125,211,252,.4)}
+  .frame iframe{width:100%;border:none;display:block;background:#02040a}
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px;margin-top:8px}
+  .ccard{display:block;text-decoration:none;background:linear-gradient(160deg,rgba(125,211,252,.06),rgba(201,169,97,.05));border:1px solid var(--line);border-radius:18px;padding:20px;transition:.18s;color:inherit}
+  .ccard:hover{transform:translateY(-4px);border-color:rgba(125,211,252,.5);box-shadow:0 20px 50px -24px rgba(125,211,252,.4)}
+  .ccard .ico{font-size:24px}
+  .ccard h3{font-family:"Cinzel",serif;font-weight:600;font-size:19px;margin:10px 0 6px;color:var(--gold-hi)}
+  .ccard p{margin:0 0 12px;font-size:14.5px;color:#c2cad8;line-height:1.5}
+  .ccard .go{font:700 12px/1 "JetBrains Mono",monospace;letter-spacing:.06em;color:var(--ice)}
+  footer{position:relative;z-index:3;text-align:center;padding:30px 20px 50px;color:var(--muted);font-size:12px;line-height:1.6;border-top:1px solid var(--line);max-width:900px;margin:30px auto 0}
+  .toast{position:fixed;z-index:50;left:50%;bottom:30px;transform:translateX(-50%) translateY(20px);opacity:0;transition:.25s;background:rgba(2,4,10,.92);border:1px solid var(--gold);color:var(--gold-hi);padding:12px 20px;border-radius:12px;font-size:14px;pointer-events:none}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+</style>
+</head>
+<body data-veh="voilier">
+<canvas id="scene"></canvas>
+
+<div class="cockpit" aria-hidden="true">
+  <div class="visor"></div>
+  <div class="pillar l"></div>
+  <div class="pillar r"></div>
+  <div class="helm"></div>
+  <div class="dash">
+    <div class="gauges">
+      <div class="gauge"><div class="ring"></div><span class="lbl">CAP</span></div>
+      <div class="gauge"><div class="ring"></div><span class="lbl">VENT</span></div>
+      <div class="gauge"><div class="ring"></div><span class="lbl">VITESSE</span></div>
+      <div class="gauge"><div class="ring"></div><span class="lbl">MARÉE</span></div>
+      <div class="gauge"><div class="ring"></div><span class="lbl">OBJECTIF</span></div>
+    </div>
+  </div>
+  <div class="glass"></div>
+</div>
+
+<div class="grain"></div>
+<div class="smudge"></div>
+<div class="vignette"></div>
+
+<div class="lang">
+  <button id="L-fr" class="on" onclick="setLang('fr')">FR</button>
+  <button id="L-en" onclick="setLang('en')">EN</button>
+</div>
+<div class="veh" role="group" aria-label="cockpit">
+  <button data-v="voilier" class="on" onclick="setVeh('voilier')" title="Voilier">⛵</button>
+  <button data-v="avion" onclick="setVeh('avion')" title="Avion">✈️</button>
+  <button data-v="vaisseau" onclick="setVeh('vaisseau')" title="Vaisseau">🛸</button>
+  <button data-v="voiture" onclick="setVeh('voiture')" title="Voiture de sport">🏎️</button>
+</div>
+
+<div class="content">
+  <section class="hero">
+    <div class="logo-wrap" style="display:grid;place-items:center;background:radial-gradient(circle at 38% 30%,#f0d79a,#C9A961 46%,#8a6d2f 82%,#5b481f 100%)">
+      <span style="font-family:'Cinzel',serif;font-weight:700;font-size:clamp(40px,11vw,72px);color:#2a2208;letter-spacing:.02em">BP</span>
+    </div>
+    <div class="wordmark" style="font-size:clamp(26px,6.4vw,60px);letter-spacing:.12em">BRUNO PARTOUCHE</div>
+    <p class="tagline" id="t-tag">La marée monte. Le navire attend à quai.</p>
+    <div class="castoff" id="t-cast">Appareillage · 1er juin 2026 · minuit, heure de Jérusalem</div>
+    <div class="cd" aria-label="compte à rebours">
+      <div class="u"><div class="n" id="cd-d">00</div><span class="s" id="s-d">Jours</span></div>
+      <div class="sep">:</div>
+      <div class="u"><div class="n" id="cd-h">00</div><span class="s" id="s-h">Heures</span></div>
+      <div class="sep">:</div>
+      <div class="u"><div class="n" id="cd-m">00</div><span class="s" id="s-m">Min</span></div>
+      <div class="sep">:</div>
+      <div class="u"><div class="n" id="cd-s">00</div><span class="s" id="s-s">Sec</span></div>
+    </div>
+    <div class="precision" id="t-prec">Le temps file, le cap tient · rendez-vous au lancement</div>
+    <div class="notify">
+      <input type="email" id="email" placeholder="ton email"/>
+      <button class="btn gold" onclick="notify()" id="t-notify">Être prévenu</button>
+      <a class="btn ghost" href="#cockpit" id="t-try">Essayer le cockpit ↓</a>
+    </div>
+    <a class="scrollhint" href="#cockpit" id="t-scroll">Descends à bord ▾</a>
+  </section>
+
+  <section class="sec" id="cockpit">
+    <div class="eyebrow" id="t-ec">Poste de barre</div>
+    <h2 id="t-hc">Choisis ton cockpit</h2>
+    <p class="lead" id="t-lc">Voilier, avion, vaisseau ou voiture de sport : prends les commandes, tourne la tête à 360°, touche une étoile. Tout est en argent de démonstration — joue, rien ne casse.</p>
+    <div class="frame"><iframe src="/cockpit3.html" title="Cockpit NAVLYS" allow="gyroscope;accelerometer" style="height:min(82vh,860px)" loading="lazy"></iframe></div>
+  </section>
+
+  <section class="sec" id="decouvrir">
+    <div class="eyebrow" id="t-ed">À bord, déjà</div>
+    <h2 id="t-hd">Pour les curieux</h2>
+    <p class="lead" id="t-ld">Le navire n'a pas encore levé l'ancre, mais tu peux déjà visiter le pont. Touche, essaie, reviens le 1er juin.</p>
+    <div class="cards">
+      <a class="ccard" href="a-propos.html"><div class="ico">🧭</div><h3 id="c1h">Simulation</h3><p id="c1p">Teste la méthode 90/10 avec de l'argent fictif. Zéro risque, vrai apprentissage.</p><span class="go" id="c1g">Essayer →</span></a>
+      <a class="ccard" href="credibilite.html"><div class="ico">💼</div><h3 id="c2h">Résultats du jour</h3><p id="c2p">Le journal de bord réel, daté, sans maquillage. La transparence comme quille.</p><span class="go" id="c2g">Voir →</span></a>
+      <a class="ccard" href="app.html"><div class="ico">🌿</div><h3 id="c3h">News &amp; Veille</h3><p id="c3p">La météo des marchés, traduite en langage de marin. Une idée par jour.</p><span class="go" id="c3g">Lire →</span></a>
+      <a class="ccard" href="https://navlys.com" target="_blank" rel="noopener"><div class="ico">🪙</div><h3 id="c4h">Partenaires</h3><p id="c4p">Brokers, exchanges, banques : des fiches claires, des liens transparents.</p><span class="go" id="c4g">Explorer →</span></a>
+    </div>
+  </section>
+
+  <footer id="t-foot">
+    Bruno Partouche — Conseiller en Investissements Financiers (CIF, ORIAS). Informations générales et non contractuelles, ne constituant pas un conseil personnalisé.<br>
+    © 2026 Bruno Partouche · bruno@navlys.com · Méditerranée
+  </footer>
+</div>
+
+<div class="toast" id="toast"></div>
+<script>
+"use strict";
+const LAUNCH=new Date("2026-06-01T00:00:00+03:00").getTime();
+const pad=(n,l)=>String(n).padStart(l,"0");
+const cd_d=document.getElementById("cd-d"),cd_h=document.getElementById("cd-h"),cd_m=document.getElementById("cd-m"),cd_s=document.getElementById("cd-s");
+function tick(){let d=LAUNCH-Date.now();if(d<0)d=0;
+  cd_d.textContent=pad(Math.floor(d/864e5),2);cd_h.textContent=pad(Math.floor(d/36e5)%24,2);
+  cd_m.textContent=pad(Math.floor(d/6e4)%60,2);cd_s.textContent=pad(Math.floor(d/1e3)%60,2);
+  requestAnimationFrame(tick);}
+tick();
+let tt;
+function notify(){
+  const e=document.getElementById("email").value.trim();
+  const ok=/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(e);
+  const msg=ok?(LANG==="fr"?"Merci — tu seras prévenu au lancement.":"Thanks — you'll be notified at launch."):(LANG==="fr"?"Entre un email valide.":"Enter a valid email.");
+  if(ok){window.location.href="mailto:bruno@navlys.com?subject=Bruno%20Partouche%20-%20Me%20pr%C3%A9venir&body="+encodeURIComponent(e);}
+  const el=document.getElementById("toast");el.textContent=msg;el.classList.add("show");clearTimeout(tt);tt=setTimeout(()=>el.classList.remove("show"),2600);
+}
+const cv=document.getElementById("scene"),ctx=cv.getContext("2d");
+let W,H,DPR,stars=[],haze=[],birds=[],clouds=[],shoots=[],dust=[];
+const reduce=matchMedia("(prefers-reduced-motion:reduce)").matches;
+const THEMES={
+  voilier:{accent:"#7DD3FC",sky:["#0a1b2e","#123a52","#caa86a","#f3d9a0"],sea:true,sun:{x:.5,y:.62,c:"#ffe6b0"},stars:.25,clouds:.3,space:false},
+  avion:{accent:"#9ad0ff",sky:["#04122b","#0b3d72","#5aa6e0","#dff0ff"],sea:false,sun:{x:.78,y:.30,c:"#fff4d8"},stars:.15,clouds:1,space:false},
+  vaisseau:{accent:"#b69cff",sky:["#02030a","#070617","#140a2e","#1d1140"],sea:false,sun:null,stars:1,clouds:0,space:true},
+  voiture:{accent:"#ff9bb0",sky:["#04060f","#0b1024","#241433","#3a1c3f"],sea:false,sun:{x:.5,y:.9,c:"#ff8aa0"},stars:.5,clouds:.15,space:false,road:true}
+};
+let TH=THEMES.voilier;
+function resize(){DPR=Math.min(2,devicePixelRatio||1);W=cv.width=innerWidth*DPR;H=cv.height=innerHeight*DPR;build();}
+function build(){
+  const n=Math.round(innerWidth*innerHeight/(reduce?14000:6500));
+  stars=[];for(let i=0;i<n;i++){const t=Math.random();stars.push({x:Math.random()*W,y:Math.random()*H*(TH.space?1:.6),
+    r:(Math.random()*1.4+.3)*DPR,tw:Math.random()*6.28,sp:.006+Math.random()*.03,
+    c:t<.15?"#bcd4ff":t<.3?"#ffe4c0":"#eef6ff"});}
+  haze=[];for(let i=0;i<5;i++)haze.push({x:Math.random()*W,y:Math.random()*H*.7,r:(160+Math.random()*260)*DPR,
+    vx:(Math.random()-.5)*.12*DPR,a:.05+Math.random()*.07,hue:TH.space?[120,90,200][i%3]:38});
+  clouds=[];const cn=Math.round(6*TH.clouds);for(let i=0;i<cn;i++)clouds.push({x:Math.random()*W,y:H*(.45+Math.random()*.4),
+    r:(90+Math.random()*180)*DPR,vx:(.12+Math.random()*.25)*DPR,a:.10+Math.random()*.16});
+  birds=[];if(TH.sea){for(let i=0;i<4;i++)birds.push({x:Math.random()*W,y:H*(.2+Math.random()*.25),vx:(.3+Math.random()*.4)*DPR,ph:Math.random()*6.28});}
+  dust=[];for(let i=0;i<60;i++)dust.push({x:Math.random()*W,y:Math.random()*H,r:Math.random()*1.2*DPR,a:Math.random()*.4,vy:(.1+Math.random()*.5)*DPR});
+}
+addEventListener("resize",resize);
+function vgrad(stops){const g=ctx.createLinearGradient(0,0,0,H);const n=stops.length;stops.forEach((c,i)=>g.addColorStop(i/(n-1),c));return g;}
+function shoot(){shoots.push({x:Math.random()*W,y:-20*DPR,vx:(-2-Math.random()*3)*DPR,vy:(4+Math.random()*4)*DPR,life:1});}
+let tk=0;
+function draw(){
+  tk++;
+  ctx.fillStyle=vgrad(TH.sky);ctx.fillRect(0,0,W,H);
+  if(TH.sun){const s=TH.sun;const g=ctx.createRadialGradient(W*s.x,H*s.y,0,W*s.x,H*s.y,W*.5);
+    g.addColorStop(0,s.c);g.addColorStop(.18,"rgba(255,220,160,.35)");g.addColorStop(1,"rgba(255,220,160,0)");
+    ctx.globalCompositeOperation="screen";ctx.fillStyle=g;ctx.fillRect(0,0,W,H);ctx.globalCompositeOperation="source-over";}
+  haze.forEach(h=>{h.x+=h.vx;if(h.x<-h.r)h.x=W+h.r;if(h.x>W+h.r)h.x=-h.r;
+    const g=ctx.createRadialGradient(h.x,h.y,0,h.x,h.y,h.r);
+    const col=TH.space?"hsla("+h.hue+",60%,60%,":"hsla("+h.hue+",70%,70%,";
+    g.addColorStop(0,col+h.a+")");g.addColorStop(1,col+"0)");
+    ctx.globalCompositeOperation="screen";ctx.fillStyle=g;ctx.fillRect(h.x-h.r,h.y-h.r,h.r*2,h.r*2);ctx.globalCompositeOperation="source-over";});
+  if(TH.stars>0)stars.forEach(s=>{s.tw+=s.sp;const a=(.3+.6*Math.abs(Math.sin(s.tw)))*TH.stars;
+    ctx.globalAlpha=a;ctx.fillStyle=s.c;ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,6.28);ctx.fill();ctx.globalAlpha=1;});
+  clouds.forEach(c=>{c.x+=c.vx;if(c.x-c.r>W)c.x=-c.r;
+    const g=ctx.createRadialGradient(c.x,c.y,0,c.x,c.y,c.r);
+    g.addColorStop(0,"rgba(240,246,255,"+c.a+")");g.addColorStop(.6,"rgba(200,220,245,"+(c.a*.5)+")");g.addColorStop(1,"rgba(200,220,245,0)");
+    ctx.fillStyle=g;ctx.beginPath();ctx.ellipse(c.x,c.y,c.r,c.r*.5,0,0,6.28);ctx.fill();});
+  if(TH.sea){const hy=H*.62;
+    const sg=ctx.createLinearGradient(0,hy,0,H);sg.addColorStop(0,"#0b2d44");sg.addColorStop(1,"#02060c");
+    ctx.fillStyle=sg;ctx.fillRect(0,hy,W,H-hy);
+    ctx.globalCompositeOperation="screen";
+    for(let i=0;i<60;i++){const yy=hy+Math.random()*(H-hy);const ww=(1-(yy-hy)/(H-hy));
+      ctx.fillStyle="rgba(255,224,170,"+(.05+Math.random()*.12*ww)+")";
+      const xx=W*.5+(Math.random()-.5)*W*.16*(1+(yy-hy)/(H-hy)*3);
+      ctx.fillRect(xx,yy,(6+Math.random()*22)*DPR,1.4*DPR);}
+    ctx.globalCompositeOperation="source-over";
+    ctx.strokeStyle="rgba(255,235,190,.18)";ctx.lineWidth=1.2*DPR;ctx.beginPath();ctx.moveTo(0,hy);ctx.lineTo(W,hy);ctx.stroke();}
+  if(TH.road){const hy=H*.66;ctx.globalCompositeOperation="screen";
+    for(let i=0;i<14;i++){const p=((tk*0.6+i*40)%200)/200;const yy=hy+p*(H-hy);const w=p*8*DPR+1;
+      ctx.fillStyle="rgba(255,180,200,"+(.10+p*.25)+")";ctx.fillRect(W*.5-w/2,yy,w,(10+p*40)*DPR);}
+    ctx.globalCompositeOperation="source-over";}
+  birds.forEach(b=>{b.x+=b.vx;b.ph+=.15;if(b.x>W+20)b.x=-20;
+    ctx.strokeStyle="rgba(20,30,40,.5)";ctx.lineWidth=1.4*DPR;const f=Math.sin(b.ph)*4*DPR;
+    ctx.beginPath();ctx.moveTo(b.x-7*DPR,b.y+f);ctx.lineTo(b.x,b.y);ctx.lineTo(b.x+7*DPR,b.y+f);ctx.stroke();});
+  if(TH.space){if(Math.random()<.018)shoot();
+    shoots.forEach(sh=>{sh.x+=sh.vx;sh.y+=sh.vy;sh.life-=.012;
+      const gx=ctx.createLinearGradient(sh.x,sh.y,sh.x-sh.vx*8,sh.y-sh.vy*8);
+      gx.addColorStop(0,"rgba(255,250,245,"+Math.max(0,sh.life)+")");gx.addColorStop(1,"rgba(180,156,255,0)");
+      ctx.strokeStyle=gx;ctx.lineWidth=2*DPR;ctx.beginPath();ctx.moveTo(sh.x,sh.y);ctx.lineTo(sh.x-sh.vx*8,sh.y-sh.vy*8);ctx.stroke();});
+    shoots=shoots.filter(s=>s.life>0&&s.y<H+40*DPR);}
+  dust.forEach(d=>{d.y-=d.vy;if(d.y<0){d.y=H;d.x=Math.random()*W;}ctx.fillStyle="rgba(255,250,240,"+(d.a*.4)+")";
+    ctx.beginPath();ctx.arc(d.x,d.y,d.r,0,6.28);ctx.fill();});
+  requestAnimationFrame(draw);
+}
+resize();draw();
+function setVeh(v){
+  TH=THEMES[v]||THEMES.voilier;
+  document.body.dataset.veh=v;
+  document.documentElement.style.setProperty("--accent",TH.accent);
+  document.querySelectorAll(".veh button").forEach(b=>b.classList.toggle("on",b.dataset.v===v));
+  build();
+}
+const TXT={
+ fr:{tag:"Finance · Méditerranée · Art de vivre.",cast:"Le pont est déjà ouvert aux curieux · lancement officiel le 1er juin 2026",
+   prec:"Prends la barre, explore, reviens · le cap se précise",notify:"Être prévenu",try:"Monter à bord ↓",scroll:"Descends à bord ▾",
+   sd:"Jours",sh:"Heures",sm:"Min",ss:"Sec",
+   ec:"Poste de barre",hc:"Choisis ton cockpit",lc:"Voilier, avion, vaisseau ou voiture de sport : prends les commandes, tourne la tête à 360°, touche une étoile. C'est pour le plaisir — joue, rien ne casse.",
+   ed:"Déjà à quai",hd:"Pour les curieux",ld:"Le grand large attend le 1er juin, mais le pont est déjà ouvert. Explore ma vie, mes offres — et l'aventure NAVLYS, à part.",
+   c1h:"Ma vie",c1p:"Le parcours d'un stratège devenu marin : finance, mer, et l'art de garder le cap.",c1g:"Découvrir →",
+   c2h:"Parcours & crédibilité",c2p:"Diplômes, références, réalisations. Les preuves, posées à plat.",c2g:"Voir →",
+   c3h:"Bien-être & art de vivre",c3p:"Réflexologie, reiki, bols tibétains, trompette : reprendre souffle et cap.",c3g:"Explorer →",
+   c4h:"NAVLYS — l'offre exceptionnelle",c4p:"Mon aventure à part : des outils simples pour viser ton cap financier. À découvrir.",c4g:"Embarquer →",
+   foot:"Bruno Partouche — Conseiller en Investissements Financiers (CIF, ORIAS). Informations générales et non contractuelles, ne constituant pas un conseil personnalisé. © 2026 Bruno Partouche · bruno@navlys.com"},
+ en:{tag:"Finance · Mediterranean · Art of living.",cast:"The deck is already open to the curious · official launch 1 June 2026",
+   prec:"Take the helm, explore, come back · the course is forming",notify:"Notify me",try:"Come aboard ↓",scroll:"Come aboard ▾",
+   sd:"Days",sh:"Hours",sm:"Min",ss:"Sec",
+   ec:"Helm",hc:"Choose your cockpit",lc:"Sailboat, plane, spaceship or sports car: take the controls, look around 360°, tap a star. It's for fun — play, nothing breaks.",
+   ed:"Already at the quay",hd:"For the curious",ld:"The open sea waits for 1 June, but the deck is already open. Explore my life, my offers — and the NAVLYS adventure, kept apart.",
+   c1h:"My life",c1p:"The path of a strategist turned sailor: finance, the sea, and the art of holding course.",c1g:"Discover →",
+   c2h:"Track record",c2p:"Diplomas, references, achievements. The proof, laid flat.",c2g:"See →",
+   c3h:"Well-being & art of living",c3p:"Reflexology, reiki, singing bowls, trumpet: catch your breath and your bearing.",c3g:"Explore →",
+   c4h:"NAVLYS — the exceptional offer",c4p:"My separate venture: simple tools to aim at your financial goal. Worth discovering.",c4g:"Come aboard →",
+   foot:"Bruno Partouche — Financial Investment Advisor (CIF, ORIAS, France). General, non-contractual information, not personalized advice. © 2026 Bruno Partouche · bruno@navlys.com"}
+};
+let LANG="fr";
+function S(id,v){const e=document.getElementById(id);if(e)e.textContent=v;}
+function setLang(l){LANG=l;document.documentElement.lang=l;
+  document.getElementById("L-fr").classList.toggle("on",l==="fr");
+  document.getElementById("L-en").classList.toggle("on",l==="en");
+  const t=TXT[l];
+  S("t-tag",t.tag);S("t-cast",t.cast);S("t-prec",t.prec);S("t-notify",t.notify);S("t-try",t.try);S("t-scroll",t.scroll);
+  S("s-d",t.sd);S("s-h",t.sh);S("s-m",t.sm);S("s-s",t.ss);
+  S("t-ec",t.ec);S("t-hc",t.hc);S("t-lc",t.lc);S("t-ed",t.ed);S("t-hd",t.hd);S("t-ld",t.ld);
+  S("c1h",t.c1h);S("c1p",t.c1p);S("c1g",t.c1g);S("c2h",t.c2h);S("c2p",t.c2p);S("c2g",t.c2g);
+  S("c3h",t.c3h);S("c3p",t.c3p);S("c3g",t.c3g);S("c4h",t.c4h);S("c4p",t.c4p);S("c4g",t.c4g);
+  S("t-foot",t.foot);
+}
+setLang("fr");
+</script>
+</body>
+</html>

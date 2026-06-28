@@ -1,0 +1,21 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NAVLYS — Démo kit logo animé</title>
+<style>
+ body{margin:0;min-height:100vh;background:radial-gradient(circle at 50% 0%,#0a1622,#000 60%);
+  color:#e8eef5;font-family:'Segoe UI',system-ui,Arial,sans-serif;display:flex;flex-direction:column;align-items:center;gap:8px;padding:40px}
+ h1{font-weight:700;letter-spacing:.3em;font-size:18px;color:#ecdcbb}
+ p{color:#9fbdd4;font-size:13px;margin-bottom:24px}
+ .row{display:flex;gap:60px;flex-wrap:wrap;justify-content:center;align-items:center}
+ .cell{display:flex;flex-direction:column;align-items:center;gap:14px}
+ .cap{font-size:12px;letter-spacing:.18em;color:#8fb4cf}
+</style></head><body>
+<h1>POLITIQUE D'ANIMATION — UN SEUL COMPOSANT</h1>
+<p>Même balise, mêmes effets, sur tous les sites &amp; apps. Survole pour voir le halo s'accélérer.</p>
+<div class="row">
+  <div class="cell"><div data-navlys-coin data-src="assets/navlys_coin_cut.png" data-mode="bank" data-ratio="1.065" data-size="240"></div><div class="cap">NAVLYS — cinématique</div></div>
+  <div class="cell"><div data-navlys-coin data-src="assets/navlys_coin_cut.png" data-mode="spin" data-ratio="1.065" data-size="240"></div><div class="cap">NAVLYS — dynamique 360°</div></div>
+  <div class="cell"><div data-navlys-coin data-src="assets/bp_coin_cut.png" data-mode="bank" data-ratio="1" data-size="240"></div><div class="cap">BRUNO PARTOUCHE</div></div>
+</div>
+<script src="navlys-coin.js" defer></script>
+</body></html>

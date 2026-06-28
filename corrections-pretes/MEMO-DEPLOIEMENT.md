@@ -26,6 +26,11 @@
 - [ ] **Diff** contre l'`index.html` actuel du projet → vérifier que **seuls** ces points changent.
 - [ ] Remplacer le fichier.
 
+### A bis. `launch-offer.js` — retirer « Jérusalem » + réancrer (P-04, ERR-005)
+- Source du correctif : `corrections-pretes/PATCH-comptes-a-rebours.md` → **P-04**
+- [ ] Retirer toute mention « Jerusalem / Jérusalem » et réancrer l'escalator sur le 1ᵉʳ juillet.
+- [ ] (Fichier brut de référence : `sauvegarde-sites/_assets-moteur/launch-offer.js`.)
+
 ### B. Pages légales — ajouter `/cgu` et `/privacy` (corrige les 404)
 - Sources : `corrections-pretes/navbiolife.com/cgu.html` et `privacy.html`
 - [ ] Les déposer aux routes `/cgu` et `/privacy` (même mécanisme que `/bio` ailleurs :
@@ -84,9 +89,10 @@
 
 ---
 
-## 5. Contrôle conformité global AVANT chaque déploiement (rappel ERR-003)
-Sur chaque fichier modifié, vérifier l'**absence** de :
-- [ ] « Israël », « Ashkelon », « Jérusalem » ;
+## 5. Contrôle conformité global AVANT chaque déploiement (rappel ERR-003 + ERR-005)
+Sur chaque fichier modifié — **HTML, JS ET CSS** (pas seulement le HTML — cf. ERR-005) —
+vérifier l'**absence** de :
+- [ ] « Israël », « Ashkelon », « Jérusalem », « Jerusalem » ;
 - [ ] toute **promesse de rendement** (chiffre « % par an », « rendement garanti »…) ;
 - [ ] vocabulaire interdit (conseil patrimonial, cabinet, CIF, ORIAS, gestion de patrimoine,
       recommandation d'investissement, clientèle) ;

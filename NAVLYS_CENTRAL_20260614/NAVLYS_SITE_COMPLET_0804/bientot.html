@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>NAVLYS — Bientôt à bord</title>
+<meta name="robots" content="noindex">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Fraunces:ital@1&family=Lora&display=swap" rel="stylesheet">
+<style>
+:root{--noir:#05060a;--ice:#5fe0ff;--or:#e9d3a0;--vin:#7a1f2b;--perle:#eef0f6;--mut:#9fb3c8}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Lora',serif;color:var(--perle);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:left;padding:30px;background:
+ radial-gradient(820px 560px at 86% -8%,rgba(233,211,160,.12),transparent 60%),
+ radial-gradient(760px 560px at 5% 6%,rgba(95,224,255,.12),transparent 60%),
+ radial-gradient(1000px 820px at 50% 122%,rgba(122,31,43,.36),transparent 64%),var(--noir)}
+.box{max-width:540px}
+.led{width:15px;height:15px;border-radius:50%;background:radial-gradient(circle at 50% 40%,#bdf3ff,var(--ice) 60%,rgba(95,224,255,.1));box-shadow:0 0 18px var(--ice);animation:b 4.6s ease-in-out infinite;margin-bottom:18px}
+@keyframes b{0%,100%{opacity:.5;transform:scale(.85)}50%{opacity:1;transform:scale(1.18)}}
+h1{font-family:'Cormorant Garamond';font-weight:700;color:#fff;font-size:clamp(2rem,7vw,3rem);line-height:1.08}
+p{color:var(--mut);font-family:'Fraunces';font-style:italic;margin:14px 0 24px;font-size:1.1rem}
+a{display:inline-block;color:#05060a;background:linear-gradient(100deg,var(--or),#fff6df);text-decoration:none;border-radius:999px;padding:11px 22px;font-weight:600}
+.flag{letter-spacing:3px;margin-top:26px;color:#8fa6c8;font-size:.85rem}
+</style>
+</head>
+<body>
+<div class="box">
+  <div class="led"></div>
+  <h1>Cette branche arrive bientôt.</h1>
+  <p>Elle grandit déjà dans le CORE. Reviens vite — ou commence par une appli déjà prête.</p>
+  <a href="/">‹ Retour à l'univers NAVLYS</a>
+  <div class="flag">🌊 ⚓ NAVLYS 🪝</div>
+</div>
+</body>
+</html>

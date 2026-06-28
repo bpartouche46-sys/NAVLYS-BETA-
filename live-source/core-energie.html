@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NAVLYS CORE — Mode recherche / digestion</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{height:100%}
+  body{background:#03040a;overflow:hidden;font-family:'Segoe UI',system-ui,sans-serif}
+  #c{position:fixed;inset:0;display:block}
+  .ui{position:fixed;left:0;right:0;bottom:9%;text-align:center;color:#eaf2ff;pointer-events:none}
+  .ui .lab{font-size:.8rem;letter-spacing:5px;color:#e9d3a0;text-transform:uppercase;opacity:.85}
+  .ui .st{font-size:1.25rem;margin-top:8px;letter-spacing:1px;min-height:1.6em;
+    background:linear-gradient(90deg,#fff,#7DD3FC,#e9d3a0,#fff);background-size:220% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:sh 6s linear infinite}
+  @keyframes sh{0%{background-position:0 0}100%{background-position:220% 0}}
+  .ui .dots span{animation:bl 1.4s infinite}.ui .dots span:nth-child(2){animation-delay:.2s}.ui .dots span:nth-child(3){animation-delay:.4s}
+  @keyframes bl{0%,100%{opacity:.2}50%{opacity:1}}
+  .top{position:fixed;top:22px;left:0;right:0;text-align:center;color:#9fc4d8;font-size:.78rem;letter-spacing:3px}
+</style>
+</head>
+<body>
+  <canvas id="c"></canvas>
+  <div class="top">N A V L Y S &nbsp;·&nbsp; C O R E</div>
+  <div class="ui">
+    <div class="lab">Intelligence en action</div>
+    <div class="st" id="st">Lecture des bases du client…</div>
+  </div>
+<script>
+var c=document.getElementById('c'),x=c.getContext('2d'),DPR=Math.min(devicePixelRatio||1,2),W,H,CX,CY;
+function size(){W=c.width=innerWidth*DPR;H=c.height=innerHeight*DPR;x.setTransform(DPR,0,0,DPR,0,0);CX=innerWidth/2;CY=innerHeight/2;}
+size();addEventListener('resize',size);
+var ICE='125,211,252', OR='233,211,160', HOT='235,250,255';
+// particules qui CONVERGENT vers le noyau (digestion des infos)
+var inflow=[];for(var i=0;i<150;i++)inflow.push(spawnIn());
+function spawnIn(){var ang=Math.random()*6.283,rad=180+Math.random()*420;return{a:ang,r:rad,sp:0.4+Math.random()*1.3,sz:0.6+Math.random()*1.8,hue:Math.random()<0.5?ICE:OR};}
+// électrons en orbite
+var orb=[];for(var k=0;k<5;k++)orb.push({rx:70+k*16,ry:24+k*8,tilt:k*0.7,sp:0.5+Math.random()*0.7,ph:Math.random()*6.28,hue:k%2?OR:ICE});
+// filaments d'énergie
+var fil=[];for(var f=0;f<16;f++)fil.push({a:Math.random()*6.283,len:0,max:60+Math.random()*120,life:Math.random()});
+function frame(t){
+  var s=t*0.001;
+  x.clearRect(0,0,innerWidth,innerHeight);
+  // halo de fond
+  var bg=x.createRadialGradient(CX,CY,0,CX,CY,Math.max(innerWidth,innerHeight)*0.6);
+  bg.addColorStop(0,'rgba('+ICE+',0.10)');bg.addColorStop(0.4,'rgba('+ICE+',0.03)');bg.addColorStop(1,'rgba(3,4,10,0)');
+  x.fillStyle=bg;x.fillRect(0,0,innerWidth,innerHeight);
+  x.globalCompositeOperation='lighter';
+  // inflow
+  for(var i=0;i<inflow.length;i++){var p=inflow[i];p.r-=p.sp;var px=CX+Math.cos(p.a+s*0.05)*p.r,py=CY+Math.sin(p.a+s*0.05)*p.r*0.86;
+    var al=Math.max(0,Math.min(1,(420-p.r)/420));x.beginPath();x.arc(px,py,p.sz,0,6.283);x.fillStyle='rgba('+p.hue+','+(0.15+0.5*al)+')';x.fill();
+    if(p.r<26){inflow[i]=spawnIn();}}
+  // filaments d'énergie (décharges)
+  for(var f=0;f<fil.length;f++){var fl=fil[f];fl.life+=0.02;if(fl.life>1){fl.life=0;fl.a=Math.random()*6.283;fl.max=60+Math.random()*120;}
+    var ll=fl.max*Math.sin(fl.life*Math.PI);var ex=CX+Math.cos(fl.a)*ll,ey=CY+Math.sin(fl.a)*ll*0.9;
+    x.beginPath();x.moveTo(CX,CY);var mx=CX+Math.cos(fl.a+0.2)*ll*0.5,my=CY+Math.sin(fl.a-0.2)*ll*0.5;x.quadraticCurveTo(mx,my,ex,ey);
+    x.strokeStyle='rgba('+ICE+','+(0.5*Math.sin(fl.life*Math.PI))+')';x.lineWidth=1.2;x.shadowColor='rgba('+ICE+',0.8)';x.shadowBlur=8;x.stroke();x.shadowBlur=0;}
+  // anneaux en rotation (structure énergétique)
+  for(var rr=0;rr<3;rr++){x.save();x.translate(CX,CY);x.rotate(s*(0.3+rr*0.15)+rr);x.beginPath();x.ellipse(0,0,86+rr*22,30+rr*10,0,0,6.283);
+    x.strokeStyle='rgba('+(rr%2?OR:ICE)+','+(0.18+0.06*Math.sin(s*2+rr))+')';x.lineWidth=1.4;x.stroke();x.restore();}
+  // électrons en orbite
+  for(var o=0;o<orb.length;o++){var ob=orb[o];var ang=s*ob.sp+ob.ph;x.save();x.translate(CX,CY);x.rotate(ob.tilt);
+    var ex2=Math.cos(ang)*ob.rx,ey2=Math.sin(ang)*ob.ry;x.beginPath();x.arc(ex2,ey2,2.4,0,6.283);x.fillStyle='rgba('+ob.hue+',0.95)';x.shadowColor='rgba('+ob.hue+',1)';x.shadowBlur=10;x.fill();x.shadowBlur=0;x.restore();}
+  // NOYAU central pulsant
+  var pulse=1+0.12*Math.sin(s*3);var rC=34*pulse;
+  var g=x.createRadialGradient(CX,CY,0,CX,CY,rC*2.4);
+  g.addColorStop(0,'rgba('+HOT+',1)');g.addColorStop(0.3,'rgba('+ICE+',0.9)');g.addColorStop(0.7,'rgba('+ICE+',0.25)');g.addColorStop(1,'rgba('+ICE+',0)');
+  x.beginPath();x.arc(CX,CY,rC*2.4,0,6.283);x.fillStyle=g;x.fill();
+  x.beginPath();x.arc(CX,CY,rC*0.5,0,6.283);x.fillStyle='rgba('+HOT+',1)';x.shadowColor='rgba('+ICE+',1)';x.shadowBlur=30;x.fill();x.shadowBlur=0;
+  x.globalCompositeOperation='source-over';
+  requestAnimationFrame(frame);
+}
+requestAnimationFrame(frame);
+// statuts qui défilent (digestion)
+var msgs=['Lecture des bases du client…','Analyse des souvenirs et documents…','Reconnaissance des visages et des dates…','Tri des meilleurs moments…','Composition du film…','Choix de la musique et du rythme…','Touche finale, lumière et émotion…'];
+var mi=0,el=document.getElementById('st');
+setInterval(function(){mi=(mi+1)%msgs.length;el.style.opacity=0;setTimeout(function(){el.textContent=msgs[mi];el.style.opacity=1;},250);},2600);
+el.style.transition='opacity .25s';
+</script>
+</body>
+</html>

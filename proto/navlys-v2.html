@@ -27,7 +27,8 @@ body{font-family:'Lora',serif;color:var(--perle);background:var(--noir);line-hei
 .bg{position:fixed;inset:0;z-index:-2;background:
   radial-gradient(900px 620px at 84% -8%,rgba(233,211,160,.10),transparent 60%),
   radial-gradient(840px 600px at 6% 6%,rgba(125,211,252,.14),transparent 60%),
-  radial-gradient(1100px 880px at 50% 120%,rgba(18,48,72,.55),transparent 64%),var(--noir)}
+  radial-gradient(1100px 880px at 50% 120%,rgba(18,48,72,.55),transparent 64%),rgba(5,6,10,.72)}
+.fondvid{position:fixed;inset:0;width:100%;height:100%;object-fit:cover;z-index:-3;opacity:.20;filter:blur(3px) saturate(1.1);pointer-events:none}
 
 /* ---- barre haute + dropdown ---- */
 .topbar{position:fixed;top:0;left:0;right:0;height:var(--top-h);z-index:40;display:flex;align-items:center;gap:10px;
@@ -314,6 +315,18 @@ nextReel();
 
 function toggleSound(){var b=document.getElementById('sndBtn');
   if(!v)return;v.muted=!v.muted;b.textContent=v.muted?'🔇':'🔊';if(!v.muted){try{v.play();}catch(e){}}}
+
+/* fond vidéo plein écran (bateau) — derrière tout ; respecte reduced-motion */
+(function(){try{
+  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(reduce)return;
+  var fv=document.createElement('video');
+  fv.className='fondvid';fv.muted=true;fv.loop=true;fv.setAttribute('playsinline','');
+  fv.src='https://navlys-teaser.vercel.app/media/fond.mp4';
+  fv.onerror=function(){fv.remove();};
+  document.body.insertBefore(fv,document.body.firstChild);
+  var pf=fv.play();if(pf&&pf.catch)pf.catch(function(){});
+}catch(e){}})();
 </script>
 </body>
 </html>
