@@ -2,6 +2,36 @@
 
 > Mis à jour à la fin de chaque session pour que la suivante reprenne sans tout relire.
 
+## Session 2026-06-28 (c) — CONSOLIDATION navlys.com (en cours) + bascule sur nouveau PC
+
+- 🎯 **Demande Bruno** : un seul site **propre** = navlys.com qui réunit tout (les sites « en
+  vrac »), réorganisé proprement. + finir aujourd'hui + sites beta actifs à tester.
+- ✅ **Fait** :
+  - **Audit complet** des 14 URLs live → `docs/AUDIT-SITES-2026-06-28.md`.
+  - **Plan unique** → `docs/PLAN-SITE-GLOBAL-NAVLYS.md`.
+  - **Version propre de navlys.com construite** dans `live-source/` : `partenaires.html`
+    (19 partenaires rapatriés de navlys.io) + accueil nettoyé (menu Partenaires + pied
+    « Famille NAVLYS »). Conformité VERT. **PR #35 MERGÉE** dans la branche par défaut.
+  - **Décisions Bruno** : lancement public unique = **1ᵉʳ juillet 2026** ; **navlys.io →
+    fusionner dans navlys.com puis rediriger**.
+- 🔌 **État Vercel (navlys-app) au moment de la bascule** :
+  - **NOVA-HUB = DÉCONNECTÉ** (fait par Bruno) ; **NAVLYS-BETA- = PAS ENCORE reconnecté**.
+  - ⚠️ Le site **reste EN LIGNE** (le dernier déploiement prod continue de servir). Rien cassé.
+  - Bruno a eu du mal avec l'UI Vercel/GitHub (onglets) → **il finit le branchement sur le
+    NOUVEAU PC**.
+- 🪧 **SEULE étape restante pour déployer la version propre** :
+  1. navlys-app → Settings → **Git → Connect → `bpartouche46-sys/NAVLYS-BETA-`** (autoriser
+     l'app Vercel sur ce dépôt : « All repositories » ou cocher NAVLYS-BETA-).
+  2. Settings → **General → Root Directory = `live-source`**.
+  3. Laisser « Production Branch » par défaut → **premier déploiement = APERÇU** ; Claude
+     vérifie puis promeut en prod (filet : rollback dispo).
+- 🛠️ **Reste à construire APRÈS le 1er déploiement v1** : `/journal` (fusion `/tech`+
+  `/influenceurs`), **pages légales** (`/mentions` `/cgu` `/confidentialite`), `/communaute`,
+  **redirections** navlys.io + navlys-teaser → navlys.com, **corrections conformité** sur sites
+  séparés (🔴 « Jérusalem » navbio meta, 🔴 « +8 à 12 % » brunopartouche.com/bio).
+- 🔑 **Accès Claude** : Vercel + Supabase OK (MCP, écriture) ; **GitHub limité à `navlys-beta-`**
+  (ne peut PAS éditer NOVA-HUB) → c'est pourquoi navlys-app doit pointer sur NAVLYS-BETA-.
+
 ## Session 2026-06-28 (b) — DÉCISION MAJEURE : autonomie Claude sur Vercel+Supabase
 
 - 🎯 **Demande Bruno** : *« prends la main et transfère tout sur Hetzner, puis on récupère la
