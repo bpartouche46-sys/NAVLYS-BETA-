@@ -64,7 +64,10 @@ Toute tâche faite **une fois** doit être **capturée** pour être **réutilisa
 > Leçon : **on ne fait plus confiance par défaut à un agent tiers** ; trop d'accès concentrés
 > sur un intervenant non révocable rapidement.
 
-- **Claude** = cerveau **code + conformité**, via **GitHub** (aucun accès serveur direct).
+- **Claude** = cerveau **code + conformité**. Accès **GitHub** (`navlys-beta-`) **+ accès direct
+  Vercel (équipe NAVLYS) et Supabase (`navlys-core`) via MCP** (décision 2026-06-28, vérifié).
+  **Toujours aucun accès SSH serveur** (Hetzner abandonné/legacy). Ces accès MCP sont
+  **révocables en 1 geste** par Bruno (déconnexion du connecteur).
 - **Le gardien** (`.claude/agents/gardien.md`) = **arbitre** conformité/sécurité.
 - **Tout opérateur serveur futur** est **bridé par le moteur du core** (liste blanche d'outils,
   hooks `PreToolUse`, `bypassPermissions` interdit) — **jamais** orchestrateur autonome de confiance.
@@ -102,7 +105,14 @@ d'un moyen de paiement.
 
 ---
 
-## 4. 🎚️ Niveaux de délégation (qui valide quoi) — décidé 2026-06-22
+## 4. 🎚️ Niveaux de délégation (qui valide quoi)
+
+> ⚠️ **MISE À JOUR 2026-06-28 — voir `docs/AUTONOMIE-CLAUDE.md` (source de vérité).**
+> Bruno a **élargi la délégation** : Claude peut désormais **déployer en PRODUCTION seul**
+> (sites publics), **après son contrôle conformité (gardien)**. **Argent + juridique restent
+> Bruno** (règle financière §3 **intacte**), ainsi que le **gate de lancement** et les
+> **suppressions** (règles gravées §0.3 et §0.8). Le détail « qui fait quoi » est dans
+> `docs/AUTONOMIE-CLAUDE.md` §3. Le texte ci-dessous (cadre 2026-06-22) reste l'historique.
 
 Bruno délègue à **Claude la main** sur le travail des sites **avant communication**.
 

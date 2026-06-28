@@ -89,6 +89,59 @@
 - ⏳ **Reste** : `crontab -l` ; **mot de passe cockpit (exposé) + SSL** ; stocker la vidéo
   proprement ; décider correction navlys.io (palette → charte, date → 1ᵉʳ juillet).
 - ℹ️ Note : Claude **ne peut pas** écouter les notes vocales (pas de transcription) ni lancer de `.exe`.
+## Session 2026-06-28 (b) — DÉCISION MAJEURE : autonomie Claude sur Vercel+Supabase
+
+- 🎯 **Demande Bruno** : *« prends la main et transfère tout sur Hetzner, puis on récupère la
+  main sur le neuf ; dis-moi ce qui te manque pour être autonome et mettre à jour le site
+  avec/sans moi, en direct / nouveau PC / mobile. »*
+- 🔎 **Vérification live (2026-06-28)** : Claude a un **accès direct réel** à —
+  - **Vercel équipe NAVLYS** (`team_nBtY5FOQMPIT4J8Bmf7wvBSC`) : 6 projets (`navlys-app`,
+    `navbio`, `brunopartouche`, `navlys-io`, `navlys-teaser`, `brunopartouche-teaser`),
+    déploiements visibles, dernier `navlys-app` = **production READY** (déployé en CLI par
+    `claudenavlys`), **rollback candidate** dispo.
+  - **Supabase `navlys-core`** (eu-west-3, ACTIVE_HEALTHY) : base vivante — `journal`(37),
+    `dossiers`(27), `core_knowledge`(15), `missions`(14), `agents`(14), `navlys_memoire`(10),
+    `inscriptions`(1)… RLS actif partout.
+- ❌ **Hetzner par SSH = impossible pour Claude** (cloud isolé + interdit aux agents) ET
+  **legacy** (0 conteneur). → **Détour Hetzner abandonné** : on travaille **nativement
+  Vercel + Supabase**, déjà accessibles.
+- ⚖️ **3 arbitrages Bruno (AskUserQuestion)** :
+  1. **Architecture = Vercel + Supabase** (drop Hetzner).
+  2. **Autonomie prod = « Prod autonome sauf argent/légal »** → Claude **déploie en production
+     seul** après contrôle conformité. ⚠️ **Modifie la règle gravée « public = Bruno »** —
+     choix explicite de Bruno. Argent + juridique restent Bruno.
+  3. **Code source = push GitHub** (Bruno publie les sites dans `navlys-beta-`).
+- 📄 **Gravé** : nouveau doc **`docs/AUTONOMIE-CLAUDE.md`** (source de vérité du « qui fait
+  quoi »). Amendé **`GOUVERNANCE.md`** §2 (accès Vercel/Supabase révocables) + §4 (délégation
+  élargie). Ajouté à la table de réf. de `CLAUDE.md`.
+- ⏳ **Bloquant restant pour l'autonomie complète** : le **vrai code source des sites** n'est
+  pas encore dans le dépôt (déploiements en CLI, non Git) → **Bruno doit pousser** chaque site
+  dans `navlys-beta-` (monorepo) via GitHub Desktop, sinon risque ERR-006 (écraser la voix/pages
+  live avec la v2). Optionnel ensuite : relier Vercel↔GitHub par projet (auto-deploy au push).
+- 🔴 **Aucune action sensible déclenchée** : zéro déploiement, zéro écriture base, zéro dépense.
+  Tout en lecture seule + docs. Premier déploiement prod attendra le code source + contrôle gardien.
+
+## Session 2026-06-28 — MIGRATION ancien PC → nouveau PC + auto-sync core
+
+- 🎯 **Demande Bruno** (sur l'ancien PC) : *« récupère tout pour ne plus avoir à utiliser
+  l'ancien ordinateur ; je veux tout sur le nouveau »* puis précision : *« ne plus rien mettre
+  à jour depuis l'ancien, tout depuis le neuf, et aussi en automatique sur le core NAVLYS Hetzner. »*
+- 📄 **Livrable principal — `docs/MIGRATION-ANCIEN-PC.md`** (guide unique, 7 étapes, n'en
+  duplique aucune autre : il enchaîne `SAUVEGARDE-CODE-VERCEL.md`, `ACCES-SERVEUR.md`,
+  `SECRETS-ET-CLES.md`, `PROCEDURE-VERCEL-GITHUB.md`). Inventaire ancien PC → code vers GitHub →
+  médias vers cloud → secrets vers coffre → mise en route neuf → **automatisation** →
+  vérification finale avant abandon.
+- ⚙️ **Automatisation (le cœur de la demande)** : GitHub = source unique. Le **neuf pousse**,
+  les **sites Vercel** se redéploient au push, et le **core Hetzner tire tout seul** via cron.
+  - 🆕 **`scripts/sync-core.sh`** : pull auto GitHub→core, **non destructif** (s'arrête si modifs
+    locales sur le core au lieu d'écraser ; `FORCE=1` pour forcer, `POST_HOOK` pour redémarrer un
+    service). Installation cron documentée (`*/5 * * * *`). Syntaxe vérifiée (`bash -n`) OK.
+- ⚠️ **Honnêteté technique** : Claude (cloud isolé) **n'a aucun accès** au disque de l'ancien PC
+  ni au serveur Hetzner → ce sont des **procédures que Bruno exécute** (guidé). Rien de sensible
+  déclenché : zéro accès, zéro déploiement, zéro secret écrit dans Git.
+- 🔴 **Point ouvert rappelé** : le « core Hetzner » est **possiblement legacy** → vérifier qu'il
+  doit rester actif **avant** de brancher le cron (sinon seule l'auto-deploy Vercel suffit).
+- 🌿 Branche : `claude/migrate-old-computer-data-q7im6j`. PR brouillon à ouvrir.
 
 ## Session 2026-06-25 — ARBITRAGES BRUNO + exécution
 
