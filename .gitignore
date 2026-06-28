@@ -36,3 +36,11 @@ core/.env
 core/.mcp.json
 core/logs/
 core/dist/
+
+# Données privées Bruno — JAMAIS dans le dépôt (restent sur Drive)
+**/_E_REPUTATION_*
+**/_DEPARTEMENT_E_REPUTATION_*
+**/_SECURITE_PROCEDURE_OFFICIELLE_KEYS*
+**/*Prospection_JCVD*
+**/*Méditerranée_files/
+Audit approfondi*/

@@ -2,6 +2,22 @@
 
 > Mis à jour à la fin de chaque session pour que la suivante reprenne sans tout relire.
 
+## Session 2026-06-28 — finalisation lancement 1ᵉʳ juillet + sécurité dépôt
+
+- 🔴 **INCIDENT découvert** : le dépôt GitHub est **PUBLIC** et une session parallèle y avait déversé
+  ~30 packs Drive/OneDrive (PII, e-réputation, 2 noms toxiques). Audit complet réalisé.
+- ✅ **Sécurité exécutée** : PII rédigées repo-wide (téléphones, entité → `[entité — hors dépôt]`) ;
+  **fichiers privés retirés** (e-réputation ×6, procédure clés, dossier identité, prospection JCVD) ;
+  doublons imbriqués `sessions/busy-awesome-sagan` supprimés ; `.gitignore` durci.
+- ✅ **Renommage packs toxiques** : `CHEVAL_TROIE_PACK` → `NAVLYS_MARGE_REVELEE_PACK` ;
+  `MARTINGALE_SCIENTIFIQUE_PACK` → `NAVLYS_METHODE_90_10_PACK`.
+- ✅ **Synthèse unique** : `docs/SYNTHESE-NAVLYS-MASTER.md` réunit les 12 rubriques + toutes les
+  recommandations + toute la stratégie de navlys.com (dépersonnalisé). Plan : `docs/PLAN-NETTOYAGE-DEPOT.md`.
+- ✅ **navlys.com prêt à déployer** : countdown = **1ᵉʳ juillet** ✅, 5 pages (index/tarifs/cgu/privacy/mentions),
+  CIF/ORIAS uniquement en négation, 0 `#5fe0ff`, « méditerranéen » retiré du H1 (dépersonnalisation).
+- 🔴 **RESTE À BRUNO** : (1) **passer le dépôt en PRIVÉ** (Settings→Danger Zone) ; (2) **déployer sur Vercel** ;
+  (3) décider la **purge d'historique** (oui/non) ; (4) valider le légal.
+
 ## Session 2026-06-25 — build pages navlys.com (« tout faire »)
 
 - ✅ **Grille tarifaire FIGÉE** (validée Bruno) → `STRATEGIE-NAVLYS.md` §5 (Finance Gratuit/19,99/39,99/79,99 ;
