@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+<title>NAVLYS — Cockpit mobile</title>
+<meta name="theme-color" content="#000000" />
+<style>
+:root{--bronze:#B87333;--cuivre:#D49B5B;--ice:#7DD3FC;--noir:#000;--nuit:#0B1220;--perle:#E5E7EB;--dim:#9aa6b6;
+  --gold:rgba(184,115,51,.5);--or:#C9A961;--down:#e07a5f;
+  --rfont:"Cormorant Garamond","Georgia",serif;--ufont:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0}
+body{font-family:var(--ufont);color:var(--perle);font-size:17px;
+  background:radial-gradient(700px 500px at 50% -8%,#14233f,var(--nuit) 45%,#000 100%);min-height:100vh;padding-bottom:34px}
+.bar{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid var(--gold);
+  position:sticky;top:0;background:rgba(0,0,0,.6);backdrop-filter:blur(4px);z-index:20}
+.brand{display:flex;align-items:center;gap:11px}
+.coin{width:46px;height:46px;filter:drop-shadow(0 0 12px rgba(125,211,252,.45));transform-style:preserve-3d;animation:spinCoin 9s linear infinite}
+@keyframes spinCoin{to{transform:rotateY(360deg)}}
+.brand .n{font-family:var(--rfont);font-size:24px;letter-spacing:6px}
+.lang{display:flex;border:1px solid var(--gold);border-radius:999px;overflow:hidden}
+.lang button{background:transparent;border:0;color:var(--dim);font-weight:700;font-size:15px;padding:7px 14px}
+.lang button.active{background:var(--bronze);color:#1a0e03}
+.wrap{max-width:560px;margin:0 auto;padding:14px}
+.tag{font-size:13px;color:var(--bronze);letter-spacing:.5px;text-align:center;margin:3px 0 12px}
+.stage{position:relative;border:1px solid var(--gold);border-radius:18px;overflow:hidden;height:46vh;min-height:340px;
+  box-shadow:0 12px 40px rgba(0,0,0,.55),inset 0 0 70px rgba(0,0,0,.6);background:#000;perspective:1200px;touch-action:pan-y}
+.rot{position:absolute;inset:0;transform-style:preserve-3d;transition:transform 1s cubic-bezier(.6,.02,.2,1)}
+.rot.flip{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden}.back{transform:rotateY(180deg)}
+.face svg.sc{width:100%;height:100%;display:block;transform-origin:50% 60%;animation:heel 8s ease-in-out infinite}
+@keyframes heel{0%,100%{transform:rotate(-1.3deg)}50%{transform:rotate(1.3deg)}}
+.viewtag{position:absolute;top:9px;left:50%;transform:translateX(-50%);font-family:var(--rfont);font-size:17px;letter-spacing:2px;
+  color:var(--ice);z-index:5;background:rgba(0,0,0,.4);border:1px solid var(--gold);border-radius:999px;padding:4px 14px}
+.center{position:absolute;left:50%;bottom:10px;transform:translateX(-50%);width:90%;z-index:6;display:flex;flex-direction:column;align-items:center;gap:5px;pointer-events:none}
+.med{width:96px;height:96px;filter:drop-shadow(0 0 14px rgba(125,211,252,.45));margin-bottom:-6px}
+.capc{pointer-events:auto;width:100%;text-align:center;background:rgba(6,16,30,.86);border:1px solid var(--gold);border-radius:13px;padding:9px 12px}
+.capc .k{font-size:11px;letter-spacing:2px;color:var(--or);text-transform:uppercase}
+.capc .t{font-family:var(--rfont);font-size:30px;letter-spacing:1px;margin:2px 0 3px}
+.capc .m{font-size:14px;color:var(--dim)} .capc .m b{color:var(--ice)} .capc .e{color:var(--ice);font-weight:700}
+.actions{display:flex;gap:9px;margin:13px 0}
+.btn{flex:1;font-weight:700;font-size:16px;border:1px solid var(--bronze);border-radius:12px;padding:14px;background:linear-gradient(180deg,#2a1a0c,#150b04);color:var(--cuivre)}
+.btn.p{background:linear-gradient(180deg,var(--cuivre),var(--bronze));color:#1a0e03;border-color:#e7b277}
+.coffres{display:flex;gap:9px;margin-bottom:11px}
+.cf{flex:1;border:1px solid var(--gold);border-radius:13px;padding:11px;background:rgba(0,0,0,.3)}
+.cf.f{border-color:rgba(125,211,252,.4)}
+.cf .nm{font-size:14px;color:var(--cuivre);font-weight:700}
+.cf .sb{font-size:11px;color:var(--dim);margin:2px 0 7px;min-height:13px}
+.cf .v{font-family:var(--rfont);font-size:30px}.cf .p{font-size:13px;color:var(--ice)}
+.box{border:1px solid var(--gold);border-radius:14px;padding:13px;background:linear-gradient(180deg,rgba(20,30,48,.7),rgba(6,12,24,.8))}
+.totrow{display:flex;justify-content:space-between;align-items:baseline}
+.totrow .l{font-size:14px;color:var(--dim)}.totrow .b{font-family:var(--rfont);font-size:32px;color:var(--cuivre)}
+.sub{display:flex;justify-content:space-between;font-size:13px;color:var(--dim);margin-top:7px}.sub b{color:var(--or)}
+.proj{font-size:14px;color:var(--dim);margin-top:8px}.proj b{color:var(--ice)}
+.meteo{display:flex;align-items:center;gap:12px;border:1px solid var(--gold);border-radius:13px;padding:11px;margin:11px 0;background:rgba(0,0,0,.25)}
+.meteo svg{width:104px;flex:0 0 auto}
+.needle{transform-box:fill-box;transform-origin:50% 100%;transition:transform .8s cubic-bezier(.5,.05,.2,1)}
+.meteo .txt{font-size:14px;color:var(--dim);line-height:1.5}.meteo .txt b{color:var(--ice)}
+.winches{border:1px solid var(--gold);border-radius:15px;padding:15px;background:linear-gradient(180deg,rgba(20,30,48,.7),rgba(6,12,24,.8));margin-top:11px}
+.winches h4{margin:0 0 13px;font-family:var(--rfont);font-size:20px;color:var(--ice);font-weight:600}
+.w{margin-bottom:18px}.w .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:7px}
+.w .lbl{font-size:15px;font-weight:700;display:flex;align-items:center;gap:9px}
+.drum{width:22px;height:22px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#f6d6ad,var(--bronze) 60%,#5c3514);box-shadow:inset -1px -1px 3px rgba(0,0,0,.5);animation:sd 9s linear infinite}
+@keyframes sd{to{transform:rotate(360deg)}}
+.w .out{font-size:16px;color:var(--ice);font-weight:700}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:16px;border-radius:999px;border:1px solid var(--gold);
+  background:linear-gradient(90deg,var(--bronze) var(--fill,50%),#12203a var(--fill,50%))}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:34px;height:34px;border-radius:50%;border:3px solid #1a0e03;background:radial-gradient(circle at 35% 30%,#f6d6ad,var(--cuivre) 55%,#6e3f17);box-shadow:0 0 14px rgba(125,211,252,.55)}
+input[type=range]::-moz-range-thumb{width:34px;height:34px;border-radius:50%;border:3px solid #1a0e03;background:radial-gradient(circle at 35% 30%,#f6d6ad,var(--cuivre) 55%,#6e3f17)}
+.scale{display:flex;justify-content:space-between;font-size:11px;color:var(--dim);margin-top:2px}
+.band{font-size:13px;color:var(--cuivre);font-weight:700;text-align:center;margin-top:3px}
+.foot{margin-top:18px;text-align:center}
+.sig{font-family:var(--rfont);font-size:18px;color:var(--cuivre);line-height:1.5;margin:0 6px 11px}
+.disc{font-size:13px;color:var(--dim);line-height:1.55;border:1px solid rgba(184,115,51,.25);border-radius:11px;padding:11px;background:rgba(0,0,0,.25)}
+.demo{display:inline-block;margin-top:11px;font-size:11px;letter-spacing:1.5px;color:var(--bronze);text-transform:uppercase;border:1px dashed var(--gold);border-radius:999px;padding:5px 13px}
+.wind{stroke:rgba(125,211,252,.5);stroke-width:1.5;stroke-linecap:round}
+@keyframes drift{0%{opacity:0}20%{opacity:.85}100%{opacity:0;transform:translateX(90px)}}
+@keyframes luff{0%,100%{filter:none}50%{filter:brightness(1.07)}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <radialGradient id="navGold" cx="50%" cy="40%"><stop offset="0%" stop-color="#F4E4B0"/><stop offset="55%" stop-color="#C9A961"/><stop offset="100%" stop-color="#7d6a3d"/></radialGradient>
+  <linearGradient id="navGoldRim" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#E8D4A2"/><stop offset="100%" stop-color="#8B7332"/></linearGradient>
+  <radialGradient id="navInner" cx="50%" cy="45%"><stop offset="0%" stop-color="#1a2845"/><stop offset="100%" stop-color="#050B1A"/></radialGradient>
+  <path id="navArc" d="M 42 152 Q 100 190 158 152" fill="none"/>
+  <path id="navStar" d="M0,-5 1.4,-1.5 5,-1.5 2.2,1 3,5 0,2.5 -3,5 -2.2,1 -5,-1.5 -1.4,-1.5Z"/>
+  <symbol id="med" viewBox="0 0 200 200">
+    <defs>
+      <radialGradient id="navCoin" cx="38%" cy="32%" r="72%"><stop offset="0%" stop-color="#f6d6ad"/><stop offset="42%" stop-color="#D49B5B"/><stop offset="78%" stop-color="#B87333"/><stop offset="100%" stop-color="#5c3514"/></radialGradient>
+      <radialGradient id="navHaloG" cx="50%" cy="50%" r="50%"><stop offset="62%" stop-color="#7DD3FC" stop-opacity="0"/><stop offset="100%" stop-color="#7DD3FC" stop-opacity="0.55"/></radialGradient>
+    </defs>
+    <circle cx="100" cy="100" r="98" fill="url(#navHaloG)"><animate attributeName="opacity" values="0.55;1;0.55" dur="4s" repeatCount="indefinite"/></circle>
+    <circle cx="100" cy="100" r="80" fill="url(#navCoin)" stroke="#3a2207" stroke-width="3"/>
+    <circle cx="100" cy="100" r="80" fill="none" stroke="#f0c79a" stroke-width="1.5" opacity="0.5"/>
+    <circle cx="100" cy="100" r="71" fill="none" stroke="#6e3f17" stroke-width="1" opacity="0.6"/>
+    <g transform="translate(100,78)" fill="#3a2207" opacity="0.9">
+      <path d="M0,-30 L8,-8 L30,0 L8,8 L0,30 L-8,8 L-30,0 L-8,-8 Z"/>
+      <path d="M0,-44 L3,-9 L0,-9 Z M0,44 L-3,9 L0,9 Z M-44,0 L-9,-3 L-9,0 Z M44,0 L9,3 L9,0 Z" opacity="0.5"/>
+    </g>
+    <path d="M44,128 Q100,144 156,128" fill="none" stroke="#3a2207" stroke-width="2.2" opacity="0.6"/>
+    <g><circle cx="100" cy="100" r="63" fill="none" stroke="#F4E4B0" stroke-width="1.6" stroke-dasharray="8 384" opacity="0.85"/><animateTransform attributeName="transform" type="rotate" from="0 100 100" to="360 100 100" dur="9s" repeatCount="indefinite"/></g>
+    <text x="100" y="112" text-anchor="middle" font-family="Cinzel,'Cormorant Garamond',Georgia,serif" font-size="23" font-weight="700" fill="#2a1808" letter-spacing="5">NAVLYS</text>
+  </symbol>
+</defs></svg>
+
+<div class="bar">
+  <a class="brand" href="/" style="text-decoration:none;color:inherit"><svg class="coin" viewBox="0 0 200 200"><use href="#med"/></svg><span class="n">NAVLYS</span></a>
+  <div class="lang"><button id="fr" class="active" onclick="setLang('fr')">FR</button><button id="en" onclick="setLang('en')">EN</button></div>
+</div>
+
+<div class="wrap">
+  <div class="tag" data-i="tagline">vise ton cap, atteins-le.</div>
+  <div class="stage" id="stage">
+    <div class="viewtag" id="viewtag" data-i="view_avant">AVANT · le cap</div>
+    <div class="rot" id="rot">
+      <div class="face front">
+        <svg class="sc" viewBox="0 0 360 460" preserveAspectRatio="xMidYMid slice">
+          <defs>
+            <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1a2c4d"/><stop offset="1" stop-color="#040a14"/></linearGradient>
+            <radialGradient id="glow" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#7DD3FC" stop-opacity=".9"/><stop offset="1" stop-color="#7DD3FC" stop-opacity="0"/></radialGradient>
+            <linearGradient id="sail" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f4f7fb"/><stop offset="1" stop-color="#aebccf"/></linearGradient>
+            <linearGradient id="mast" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#6e3f17"/><stop offset=".5" stop-color="#D49B5B"/><stop offset="1" stop-color="#6e3f17"/></linearGradient>
+            <linearGradient id="wood" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5a3a1f"/><stop offset="1" stop-color="#1c0f06"/></linearGradient>
+            <clipPath id="cr"><rect x="-16" y="0" width="32" height="150" rx="16"/></clipPath>
+          </defs>
+          <rect x="0" y="0" width="360" height="280" fill="url(#sky)"/><rect x="0" y="280" width="360" height="180" fill="#020912"/>
+          <g fill="#cfe6ff" opacity=".85"><circle cx="60" cy="50" r="1.2"/><circle cx="150" cy="30" r="1"/><circle cx="280" cy="60" r="1.3"/><circle cx="320" cy="40" r="1"/></g>
+          <circle cx="180" cy="95" r="62" fill="url(#glow)"><animate attributeName="r" values="54;68;54" dur="4.5s" repeatCount="indefinite"/></circle>
+          <g transform="translate(180,95)"><path d="M0,-20 L5,-5 L20,0 L5,5 L0,20 L-5,5 L-20,0 L-5,-5 Z" fill="#eaf6ff"><animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="36s" repeatCount="indefinite"/></path></g>
+          <text x="180" y="178" text-anchor="middle" fill="#7DD3FC" font-family="Georgia,serif" font-size="13" letter-spacing="2" data-isvg="cap_ahead">TON CAP</text>
+          <line x1="0" y1="280" x2="360" y2="280" stroke="rgba(125,211,252,.3)"/>
+          <g id="wind"></g>
+          <g transform="translate(258,150)" opacity=".85"><rect x="-3" y="0" width="6" height="150" fill="url(#mast)"/><g id="artM" style="transform-box:fill-box;transform-origin:0% 100%"><path d="M0,8 C28,28 36,86 22,140 L0,140 Z" fill="url(#sail)" opacity=".9"/></g></g>
+          <g transform="translate(130,40)"><rect x="-4" y="0" width="8" height="240" fill="url(#mast)"/>
+            <g id="mainM" style="transform-box:fill-box;transform-origin:0% 100%;animation:luff 4s ease-in-out infinite"><path d="M0,12 C70,52 88,168 52,234 L0,234 Z" fill="url(#sail)"/></g>
+            <g id="genM" style="transform-box:fill-box;transform-origin:100% 100%"><path d="M0,30 C-64,66 -80,176 -46,234 L0,234 Z" fill="url(#sail)" opacity=".88"/></g></g>
+          <g transform="translate(54,150)"><rect x="-16" y="0" width="32" height="150" rx="16" fill="#13203a" stroke="#D49B5B" stroke-width="2"/><g id="flz" clip-path="url(#cr)"></g><ellipse cx="0" cy="0" rx="16" ry="5" fill="#D49B5B"/></g>
+          <path d="M-20,460 C90,360 270,360 380,460 Z" fill="url(#wood)"/><path d="M-20,460 C90,360 270,360 380,460" fill="none" stroke="#D49B5B" stroke-width="2.5" opacity=".7"/>
+        </svg>
+      </div>
+      <div class="face back">
+        <svg class="sc" viewBox="0 0 360 460" preserveAspectRatio="xMidYMid slice">
+          <defs><linearGradient id="wake" x1="0.5" y1="0" x2="0.5" y2="1"><stop offset="0" stop-color="rgba(125,211,252,0)"/><stop offset="1" stop-color="rgba(125,211,252,.28)"/></linearGradient></defs>
+          <rect x="0" y="0" width="360" height="250" fill="#0a1428"/><rect x="0" y="250" width="360" height="210" fill="#01060d"/>
+          <g fill="#cfe6ff" opacity=".8"><circle cx="80" cy="50" r="1.1"/><circle cx="250" cy="70" r="1.2"/><circle cx="310" cy="44" r="1"/></g>
+          <line x1="0" y1="250" x2="360" y2="250" stroke="rgba(125,211,252,.3)"/>
+          <path d="M180,250 L290,460 L70,460 Z" fill="url(#wake)"/>
+          <polyline id="eqLine" points="" fill="none" stroke="#7DD3FC" stroke-width="3" stroke-linejoin="round" style="filter:drop-shadow(0 0 5px rgba(125,211,252,.6))"/>
+          <text x="180" y="60" text-anchor="middle" fill="#7DD3FC" font-family="Georgia,serif" font-size="13" letter-spacing="2" data-isvg="wake_behind">TON SILLAGE</text>
+          <g transform="translate(180,40)"><rect x="-3" y="0" width="6" height="180" fill="url(#mast)"/><g id="artB" style="transform-box:fill-box;transform-origin:0% 100%;animation:luff 3.4s ease-in-out infinite"><path d="M0,10 C40,40 50,118 28,174 L0,174 Z" fill="#dbe6f2"/></g></g>
+          <path d="M-20,460 C90,370 270,370 380,460 Z" fill="url(#wood)"/>
+        </svg>
+      </div>
+    </div>
+    <div class="center">
+      <svg class="med" viewBox="0 0 200 200"><use href="#med"/></svg>
+      <div class="capc"><div class="k" data-i="cap_title">Cap du jour</div><div class="t" id="capT">MISTRAL-7</div>
+        <div class="m"><span data-i="cap_entry">Entrée</span> <b id="capE">128,40 €</b> · <span data-i="cap_exit">Sortie</span> <span class="e" id="capX">— %</span></div></div>
+    </div>
+  </div>
+
+  <div class="actions">
+    <button class="btn p" onclick="nextMonth()" data-i="btn_newmonth">Mois suivant ⚓</button>
+    <button class="btn" onclick="rot360()" data-i="btn_rotate">Virer de bord ↻</button>
+  </div>
+
+  <div class="coffres">
+    <div class="cf f"><div class="nm" data-i="forteresse">La Forteresse</div><div class="sb" data-i="forteresse_sub">part sécurisée</div><div class="v" id="fV">900 €</div><div class="p" id="fP">90 %</div></div>
+    <div class="cf"><div class="nm" data-i="actif">Le Jeu Actif</div><div class="sb" data-i="actif_sub">part réactive</div><div class="v" id="aV">100 €</div><div class="p" id="aP">10 %</div></div>
+  </div>
+  <div class="box" style="margin-bottom:11px">
+    <div class="totrow"><span class="l" data-i="total_lab">Total embarqué</span><span class="b" id="tV">1 000 €</span></div>
+    <div class="sub"><span data-i="deposited_lab">dont versé à bord</span> <b id="dV">0 €</b></div>
+    <div class="proj"><span data-i="proj_lab">Illustration sur 1 an (démo · non prédictive)</span> : <b id="pV">1 200 €</b> <span id="dB" style="float:right;color:var(--dim)">Mois 0</span></div>
+  </div>
+
+  <div class="meteo">
+    <svg viewBox="0 0 200 130"><path d="M20,120 A80,80 0 0 1 180,120" fill="none" stroke="#12203a" stroke-width="14" stroke-linecap="round"/>
+      <path d="M20,120 A80,80 0 0 1 73,52" fill="none" stroke="#e07a5f" stroke-width="14" stroke-linecap="round"/>
+      <path d="M127,52 A80,80 0 0 1 180,120" fill="none" stroke="#7DD3FC" stroke-width="14" stroke-linecap="round"/>
+      <g id="ndl" class="needle" transform="rotate(0 100 120)"><polygon points="100,48 105,120 95,120" fill="#D49B5B"/></g>
+      <circle cx="100" cy="120" r="7" fill="#D49B5B" stroke="#1a0e03" stroke-width="2"/></svg>
+    <div class="txt"><div data-i="meteo_cap">Le grand vent global</div><div id="mState" style="color:var(--ice);font-weight:700">Hausse modérée</div><div style="margin-top:5px" data-i="contrast2">Ton cap, lui, <b>ne bouge pas.</b></div></div>
+  </div>
+
+  <div class="winches">
+    <h4 data-i="winches_title">Les winchs — à portée du pouce</h4>
+    <div class="w"><div class="top"><span class="lbl"><span class="drum"></span><span data-i="winch_alloc">Allocation</span></span><span class="out" id="aoOut">90 / 10</span></div>
+      <input type="range" id="aR" min="0" max="100" step="1" value="90" oninput="onAlloc(this)"/><div class="scale"><span>0/100</span><span>100/0</span></div></div>
+    <div class="w"><div class="top"><span class="lbl"><span class="drum"></span><span data-i="winch_realloc">Réaffectation +values</span></span><span class="out" id="reOut">50 %</span></div>
+      <input type="range" id="rR" min="0" max="100" step="1" value="50" oninput="onRealloc(this)"/><div class="scale"><span data-i="realloc_lo">au jeu</span><span data-i="realloc_hi">au coffre</span></div></div>
+    <div class="w"><div class="top"><span class="lbl"><span class="drum"></span><span data-i="winch_voilure">Voilure du jour</span></span><span class="out" id="voOut">50 %</span></div>
+      <input type="range" id="vR" min="0" max="100" step="1" value="50" oninput="onVoil(this)"/><div class="band" id="voBand" data-i="voil_equilibre">Équilibré</div></div>
+    <div class="w"><div class="top"><span class="lbl"><span class="drum"></span><span data-i="winch_deposit">Versement mensuel</span></span><span class="out" id="dpOut">100 €</span></div>
+      <input type="range" id="dpR" min="0" max="1000" step="25" value="100" oninput="onDeposit(this)"/><div class="scale"><span>0 €</span><span>1 000 €</span></div></div>
+  </div>
+
+  <div class="foot">
+    <div class="sig" data-i="signature">« Un cap, une main, un jour. NAVLYS te guide d'un seul geste vers ton objectif. »</div>
+    <div class="disc" data-i="disclaimer">NAVLYS partage des informations générales et pédagogiques. Ce n'est pas un conseil financier personnalisé. Tu décides tout, tu gères tout. Pour une décision importante, parle à un professionnel certifié.</div>
+    <div class="demo" data-i="demo_tag">Prototype · données démo · pas de marché réel</div>
+  </div>
+</div>
+
+<script>
+const I={
+ fr:{tagline:"vise ton cap, atteins-le.",view_avant:"AVANT · le cap",view_arriere:"ARRIÈRE · le sillage",
+  btn_newmonth:"Mois suivant ⚓",btn_rotate:"Virer de bord ↻",cap_title:"Cap du jour",cap_entry:"Entrée",cap_exit:"Sortie",
+  forteresse:"La Forteresse",forteresse_sub:"part sécurisée",actif:"Le Jeu Actif",actif_sub:"part réactive",
+  total_lab:"Total embarqué",deposited_lab:"dont versé à bord",proj_lab:"Illustration sur 1 an (démo · non prédictive)",meteo_cap:"Le grand vent global",
+  contrast2:"Ton cap, lui, <b>ne bouge pas.</b>",winches_title:"Les winchs — à portée du pouce",
+  winch_alloc:"Allocation",winch_realloc:"Réaffectation +values",winch_voilure:"Voilure du jour",winch_deposit:"Versement mensuel",
+  realloc_lo:"au jeu",realloc_hi:"au coffre",
+  voil_prudent:"Prudent",voil_equilibre:"Équilibré",voil_agressif:"Agressif",
+  signature:"« Un cap, une main, un jour. NAVLYS te guide d'un seul geste vers ton objectif. »",
+  disclaimer:"NAVLYS partage des informations générales et pédagogiques. Ce n'est pas un conseil financier personnalisé. Tu décides tout, tu gères tout. Pour une décision importante, parle à un professionnel certifié.",
+  demo_tag:"Prototype · données démo · pas de marché réel · aucune promesse de gain",cap_ahead:"TON CAP",wake_behind:"TON SILLAGE",
+  mkt_up:"Hausse modérée",mkt_neutral:"Vent stable",mkt_down:"Risée de baisse",month:"Mois"},
+ en:{tagline:"aim for your heading, reach it.",view_avant:"FORWARD · the heading",view_arriere:"AFT · the wake",
+  btn_newmonth:"Next month ⚓",btn_rotate:"Come about ↻",cap_title:"Heading of the day",cap_entry:"Entry",cap_exit:"Exit",
+  forteresse:"The Fortress",forteresse_sub:"secured share",actif:"The Active Play",actif_sub:"reactive share",
+  total_lab:"Total aboard",deposited_lab:"of which paid in",proj_lab:"1-year illustration (demo · not predictive)",meteo_cap:"The great global wind",
+  contrast2:"Your heading <b>does not move.</b>",winches_title:"The winches — within thumb reach",
+  winch_alloc:"Allocation",winch_realloc:"Profit reallocation",winch_voilure:"Sail trim of the day",winch_deposit:"Monthly deposit",
+  realloc_lo:"to play",realloc_hi:"to vault",
+  voil_prudent:"Cautious",voil_equilibre:"Balanced",voil_agressif:"Aggressive",
+  signature:"“One heading, one hand, one day. NAVLYS guides you to your goal in a single move.”",
+  disclaimer:"NAVLYS shares general, educational information. This is not personalised financial advice. You decide everything, you manage everything. For any important decision, talk to a certified professional.",
+  demo_tag:"Prototype · demo data · no real market · no promise of gain",cap_ahead:"YOUR HEADING",wake_behind:"YOUR WAKE",
+  mkt_up:"Moderate rise",mkt_neutral:"Steady wind",mkt_down:"Bearish gust",month:"Month"}
+};
+const TK=["MISTRAL-7","ZÉPHYR-3","TRAMONTANE-9","ALIZÉ-5","BORÉE-2","SIROCCO-6"];
+const S={lang:"fr",flip:false,fortShare:.9,realloc:.5,voil:50,deposit:100,market:.4,fort:900,actif:100,cap:1000,deposited:0,month:0,hist:[1000]};
+function fmt(n){return new Intl.NumberFormat(S.lang=="fr"?"fr-FR":"en-US",{maximumFractionDigits:0}).format(Math.round(n))+" €";}
+function fmt2(n){return new Intl.NumberFormat(S.lang=="fr"?"fr-FR":"en-US",{minimumFractionDigits:2,maximumFractionDigits:2}).format(n)+" €";}
+function rnd(a,b){return a+Math.random()*(b-a);}
+function clamp(v,a,b){return Math.max(a,Math.min(b,v));}
+function expoF(){return .4+(S.voil/100)*1.4;}
+function voilKey(){return S.voil<33?"voil_prudent":S.voil<67?"voil_equilibre":"voil_agressif";}
+function setLang(l){S.lang=l;document.documentElement.lang=l;
+  document.getElementById("fr").classList.toggle("active",l=="fr");document.getElementById("en").classList.toggle("active",l=="en");
+  const d=I[l];document.querySelectorAll("[data-i]").forEach(e=>{const k=e.getAttribute("data-i");if(d[k]!==undefined)e.innerHTML=d[k];});
+  document.querySelectorAll("[data-isvg]").forEach(e=>{const k=e.getAttribute("data-isvg");if(d[k]!==undefined)e.textContent=d[k];});
+  vt();sync();render();}
+function vt(){document.getElementById("viewtag").textContent=S.flip?I[S.lang].view_arriere:I[S.lang].view_avant;}
+function rot360(){S.flip=!S.flip;document.getElementById("rot").classList.toggle("flip",S.flip);vt();}
+(function(){const st=document.getElementById("stage");let x0=null;
+  st.addEventListener("touchstart",e=>x0=e.touches[0].clientX,{passive:true});
+  st.addEventListener("touchend",e=>{if(x0===null)return;if(Math.abs(e.changedTouches[0].clientX-x0)>50)rot360();x0=null;},{passive:true});})();
+function onAlloc(el){const f=+el.value;S.fortShare=f/100;S.fort=S.cap*S.fortShare;S.actif=S.cap*(1-S.fortShare);
+  el.style.setProperty("--fill",f+"%");document.getElementById("aoOut").textContent=f+" / "+(100-f);render();}
+function onRealloc(el){S.realloc=+el.value/100;el.style.setProperty("--fill",el.value+"%");document.getElementById("reOut").textContent=el.value+" %";render();}
+function onVoil(el){S.voil=+el.value;el.style.setProperty("--fill",el.value+"%");document.getElementById("voOut").textContent=el.value+" %";document.getElementById("voBand").textContent=I[S.lang][voilKey()];render();}
+function onDeposit(el){S.deposit=+el.value;el.style.setProperty("--fill",(el.value/1000*100)+"%");document.getElementById("dpOut").textContent=fmt(S.deposit);render();}
+function sync(){const a=document.getElementById("aR"),r=document.getElementById("rR"),v=document.getElementById("vR"),dp=document.getElementById("dpR");
+  const af=Math.round(S.fortShare*100);a.value=af;a.style.setProperty("--fill",af+"%");document.getElementById("aoOut").textContent=af+" / "+(100-af);
+  r.value=Math.round(S.realloc*100);r.style.setProperty("--fill",Math.round(S.realloc*100)+"%");document.getElementById("reOut").textContent=Math.round(S.realloc*100)+" %";
+  v.value=S.voil;v.style.setProperty("--fill",S.voil+"%");document.getElementById("voOut").textContent=S.voil+" %";document.getElementById("voBand").textContent=I[S.lang][voilKey()];
+  dp.value=S.deposit;dp.style.setProperty("--fill",(S.deposit/1000*100)+"%");document.getElementById("dpOut").textContent=fmt(S.deposit);}
+function nextMonth(){S.month++;S.market=clamp(S.market+rnd(-.4,.4),-1,1);
+  S.fort+=S.deposit*S.fortShare;S.actif+=S.deposit*(1-S.fortShare);S.deposited+=S.deposit;
+  S.fort*=Math.pow(1.05,1/12);
+  const ef=expoF(),mean=S.market*.04*ef,vol=.06*ef;let r=clamp(mean+rnd(-vol,vol),-.15,.22);
+  const b=S.actif;S.actif*=(1+r);const g=S.actif-b;if(g>0){const m=g*S.realloc;S.actif-=m;S.fort+=m;}
+  S.cap=S.fort+S.actif;S.hist.push(S.cap);if(S.hist.length>90)S.hist.shift();
+  document.getElementById("capT").textContent=TK[Math.floor(Math.random()*TK.length)];
+  document.getElementById("capE").textContent=fmt2(rnd(40,220));
+  // Illustration non prédictive : la sortie peut être positive OU négative (aucune promesse de gain).
+  const xv=rnd(-3.0,3.5);document.getElementById("capX").textContent=(xv>=0?"+":"−")+Math.abs(xv).toFixed(1).replace(".",S.lang=="fr"?",":".")+" %";render();}
+function proj(){let f=S.fort,a=S.actif;const aa=.02+(S.voil/100)*.22,bias=.6+.4*((S.market+1)/2),mA=Math.pow(1+aa*bias,1/12)-1,fm=Math.pow(1.05,1/12)-1;
+  for(let i=0;i<12;i++){f=f*(1+fm)+S.deposit*S.fortShare;a=a*(1+mA)+S.deposit*(1-S.fortShare);}return f+a;}
+function render(){const d=I[S.lang],t=S.cap,fp=t>0?Math.round(S.fort/t*100):0;
+  document.getElementById("fV").textContent=fmt(S.fort);document.getElementById("aV").textContent=fmt(S.actif);
+  document.getElementById("fP").textContent=fp+" %";document.getElementById("aP").textContent=(100-fp)+" %";
+  document.getElementById("tV").textContent=fmt(t);document.getElementById("dV").textContent=fmt(S.deposited);
+  document.getElementById("pV").textContent=fmt(proj());document.getElementById("dB").textContent=d.month+" "+S.month;
+  const wind=(S.market+1)/2,vk=.7+.5*(S.voil/100),mk=clamp(.6+wind*.45*vk,.5,1.12),ak=clamp(.55+wind*.4*vk,.5,1.1);
+  sail("mainM",mk);sail("genM",mk*.95);sail("artM",ak);sail("artB",ak*1.05);
+  const ndl=document.getElementById("ndl");if(ndl)ndl.setAttribute("transform","rotate("+(S.market*80)+" 100 120)");
+  const ms=document.getElementById("mState");
+  if(S.market>.2){ms.textContent=d.mkt_up;ms.style.color="var(--ice)";}else if(S.market<-.2){ms.textContent=d.mkt_down;ms.style.color="#e07a5f";}else{ms.textContent=d.mkt_neutral;ms.style.color="var(--dim)";}
+  eq();}
+function sail(id,k){const e=document.getElementById(id);if(e)e.style.transform="scaleX("+k.toFixed(3)+")";}
+function eq(){const h=S.hist,L=document.getElementById("eqLine");if(!L)return;
+  const x0=50,x1=310,yt=120,yb=330,mn=Math.min.apply(null,h),mx=Math.max.apply(null,h),sp=(mx-mn)||1,n=h.length;let p=[];
+  for(let i=0;i<n;i++){const x=n==1?180:x0+(x1-x0)*i/(n-1),y=yb-(h[i]-mn)/sp*(yb-yt);p.push(x.toFixed(1)+","+y.toFixed(1));}L.setAttribute("points",p.join(" "));}
+function flett(){const g=document.getElementById("flz");if(!g)return;const blk=32;let s="";
+  for(let y=-64;y<200;y+=blk){const i=Math.round((y+64)/blk);s+='<rect x="-16" y="'+y+'" width="32" height="'+blk+'" fill="'+(i%2?"#0e1a30":"#D49B5B")+'" opacity=".85"/>';}
+  g.innerHTML=s;let off=0;(function st(){off=(off+.5)%(blk*2);g.setAttribute("transform","translate(0,"+off.toFixed(2)+")");requestAnimationFrame(st);})();}
+function wind(){const g=document.getElementById("wind");if(!g)return;const y=rnd(110,250),x=rnd(0,140),len=rnd(40,90);
+  const ln=document.createElementNS("http://www.w3.org/2000/svg","line");ln.setAttribute("x1",x);ln.setAttribute("y1",y);
+  ln.setAttribute("x2",x+len);ln.setAttribute("y2",y-rnd(-4,4));ln.setAttribute("class","wind");ln.style.animation="drift "+rnd(2.5,4)+"s linear forwards";g.appendChild(ln);setTimeout(()=>ln.remove(),4200);}
+function init(){flett();setInterval(wind,650);setLang("fr");}
+init();
+</script>
+</body>
+</html>
