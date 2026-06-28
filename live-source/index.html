@@ -2,183 +2,190 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>NAVLYS — Un cerveau. Une personne. Tout un univers.</title>
-<meta name="description" content="NAVLYS CORE, le cerveau central, et son univers d'applications IA + humaines : Finance, Next Gen, NAVLEX, Influenceurs, Journal de l'IA, Radio. Teste gratuitement, 0 €.">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>NAVLYS — Le site référence : applications IA + finance, partenaires, communauté</title>
+<meta name="description" content="NAVLYS — un seul univers : NAVLYS Finance, Next Gen, NAVLEX, Journal, Radio, partenaires et communauté Équipage. Éducation & veille, jamais un conseil. Teste gratuitement, 0 €.">
 <link rel="canonical" href="https://navlys.com/">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Fraunces:ital,wght@1,400;1,500&family=Lora:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Cormorant+Garamond:ital@0;1&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
 <style>
-:root{--noir:#05060a;--ice:#7DD3FC;--or:#e9d3a0;--rouge:#ff2a1f;--vin:#7a1f2b;--perle:#eef0f6;--mut:#9fb3c8}
+:root{--noir:#02040a;--bronze:#B87333;--bronze-clair:#D49B5B;--or:#C9A961;--or-pale:#f3e4c4;--ice:#7DD3FC;--ice-clair:#a8e3ff;--perle:#e7eef2;--perle-doux:#bcc9d1;--brume:#7c8b95;--vert:#3a8c5a}
 *{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{font-family:'Lora',serif;color:var(--perle);background:var(--noir);overflow-x:hidden;line-height:1.6}
-.bg{position:fixed;inset:0;z-index:-2;background:radial-gradient(900px 620px at 84% -8%,rgba(233,211,160,.12),transparent 60%),radial-gradient(840px 600px at 6% 6%,rgba(125,211,252,.13),transparent 60%),radial-gradient(1100px 880px at 50% 120%,rgba(122,31,43,.40),transparent 64%),var(--noir)}
-.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
-header{padding:26px 0 4px;display:flex;align-items:center;gap:12px}
-.led{width:15px;height:15px;border-radius:50%;background:radial-gradient(circle at 50% 38%,#bdf3ff,var(--ice) 60%,rgba(125,211,252,.1));box-shadow:0 0 18px var(--ice);animation:b 4.6s ease-in-out infinite}
-@keyframes b{0%,100%{opacity:.5;transform:scale(.85)}50%{opacity:1;transform:scale(1.18)}}
-.logo{font-family:'Cormorant Garamond';letter-spacing:6px;font-size:1.5rem;color:#fff}
-nav.top{margin-left:auto;display:flex;gap:16px;flex-wrap:wrap}
-nav.top a{color:var(--mut);text-decoration:none;font-family:'Fraunces';font-style:italic;font-size:.95rem}
-nav.top a:hover{color:var(--ice)}
-.intro{text-align:center;font-family:'Fraunces';font-style:italic;color:var(--or);font-size:clamp(.95rem,2.3vw,1.18rem);max-width:760px;margin:26px auto 0;opacity:.92}
-.intro .core{color:#fff;font-style:normal;font-family:'Cormorant Garamond';letter-spacing:3px}
-.offer{display:block;text-align:center;margin:18px auto 0;max-width:560px;font-family:'Fraunces';font-style:italic;font-size:.92rem;color:#05060a;background:linear-gradient(100deg,var(--or),#fff6df);border-radius:999px;padding:8px 18px;text-decoration:none}
-.offer b{font-style:normal}
-.const{display:block;width:100%;max-width:600px;margin:6px auto 0;height:auto}
-.breathe{transform-box:fill-box;transform-origin:center;animation:breathe 4.8s ease-in-out infinite}
-@keyframes breathe{0%,100%{transform:scale(.965)}50%{transform:scale(1.055)}}
-.coreglow{transform-box:fill-box;transform-origin:center;animation:glow 4.8s ease-in-out infinite}
-@keyframes glow{0%,100%{opacity:.45}50%{opacity:.9}}
-.node{cursor:pointer}
-.node:hover .ring{stroke:var(--ice);stroke-width:2.4}
-.node:hover .hub{fill:#10141f}
-.nlabel{font-family:'Cormorant Garamond';fill:#fff;font-size:21px;text-anchor:middle;font-weight:600}
-.nsub{font-family:'Fraunces';font-style:italic;fill:var(--mut);font-size:13px;text-anchor:middle}
-.tagline{text-align:center;color:var(--mut);font-size:clamp(1rem,2.6vw,1.18rem);max-width:600px;margin:6px auto 0}
-h2.section{font-family:'Cormorant Garamond';font-weight:600;color:#fff;font-size:clamp(1.5rem,4vw,2rem);margin:54px 0 6px}
-.lead{color:var(--mut);font-family:'Fraunces';font-style:italic;margin-bottom:22px;max-width:640px}
-.apps{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:18px}
-.app{display:block;text-decoration:none;color:inherit;border-radius:22px;padding:26px;position:relative;overflow:hidden;background:linear-gradient(160deg,rgba(122,31,43,.22),rgba(10,12,20,.66));border:1px solid rgba(125,211,252,.18);transition:.22s}
-.app:hover{transform:translateY(-3px);border-color:var(--ice);box-shadow:0 14px 40px rgba(0,0,0,.4)}
-.app .ic{font-size:2.1rem}.app h3{font-family:'Cormorant Garamond';color:#fff;font-size:1.55rem;margin:10px 0 6px}
-.app p{color:var(--mut);font-size:.97rem}
-.app .go{display:inline-block;margin-top:14px;color:var(--ice);font-family:'Fraunces';font-style:italic}
-.app .tag{position:absolute;top:16px;right:16px;font-size:.7rem;font-family:'Fraunces';font-style:italic;color:#05060a;background:linear-gradient(100deg,var(--or),#fff6df);border-radius:999px;padding:2px 10px}
-.mission{margin-top:54px;border-left:3px solid var(--ice);padding:8px 0 8px 22px;max-width:720px}
-.q{font-family:'Fraunces';font-style:italic;color:var(--or);font-size:1.15rem;margin:30px 0}
-footer{margin:60px 0 40px;border-top:1px solid rgba(255,255,255,.08);padding-top:22px;color:#8fa6c8;font-size:.82rem}
-footer .flag{letter-spacing:3px;margin-bottom:10px}
-.disc{font-style:italic;line-height:1.7;max-width:780px}
-a.inline{color:var(--ice);text-decoration:none}
+html{background:#02040a;scroll-behavior:smooth}
+body{background:transparent;color:var(--perle);font-family:'Cormorant Garamond',Georgia,serif;font-size:20px;line-height:1.55;min-height:100vh;-webkit-text-size-adjust:100%;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(55% 45% at 12% 8%,rgba(125,211,252,0.13),transparent 60%),radial-gradient(50% 40% at 88% 32%,rgba(184,115,51,0.10),transparent 62%),radial-gradient(60% 50% at 50% 120%,rgba(125,211,252,0.06),transparent 64%);animation:respire 18s ease-in-out infinite alternate}
+@keyframes respire{from{opacity:.7}to{opacity:1}}
+
+.fam-nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(2,4,10,0.88);backdrop-filter:blur(18px);border-bottom:1px solid rgba(125,211,252,0.18);padding:12px 18px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;animation:pulse 6s ease-in-out infinite alternate}
+@keyframes pulse{0%{box-shadow:0 0 14px rgba(125,211,252,0.10)}100%{box-shadow:0 0 28px rgba(125,211,252,0.32)}}
+.fam-logo{font-family:'Cinzel',serif;font-size:14px;letter-spacing:.32em;color:var(--or);text-transform:uppercase;font-weight:600;text-decoration:none;white-space:nowrap}
+.fam-links{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+.fam-links a{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--perle-doux);text-decoration:none;transition:.25s}
+.fam-links a:hover{color:var(--ice)}
+.fam-icons{display:flex;gap:10px;align-items:center}
+.fam-icons a{font-size:20px;text-decoration:none;color:var(--ice-clair);padding:2px;transition:.3s}
+.fam-icons a:hover{transform:scale(1.15)}
+
+.prelude{text-align:center;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(18px,3.5vw,24px);color:rgba(168,227,255,0.92);text-shadow:0 0 14px rgba(125,211,252,0.5);padding:96px 20px 8px;position:relative;z-index:5;animation:fadeUp 2s ease .3s both}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+.hero{padding:10px 20px 30px;text-align:center;position:relative;z-index:5}
+.hero .kicker{font-family:'Cinzel',serif;font-size:13px;letter-spacing:.42em;color:var(--ice);text-transform:uppercase;margin-bottom:14px}
+.hero .kicker span{color:var(--or)}
+.brandline{font-family:'Cinzel',serif;font-weight:600;font-size:clamp(54px,12vw,124px);letter-spacing:.13em;text-transform:uppercase;background:linear-gradient(100deg,var(--or-pale),var(--or) 45%,#fff7e6 55%,var(--or) 70%,var(--bronze));background-size:220% auto;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:shine 9s linear infinite;margin:10px 0 18px;line-height:1.05;filter:drop-shadow(0 0 18px rgba(184,115,51,0.35))}
+@keyframes shine{to{background-position:220% center}}
+.hero h1{font-family:'Cormorant Garamond',serif;font-weight:400;font-size:clamp(24px,4.5vw,38px);line-height:1.2;color:var(--perle);margin:0 auto 18px;max-width:880px}
+.hero h1 em{color:var(--or-pale);font-style:italic}
+.brand-tagline{font-family:'Cinzel',serif;font-size:clamp(13px,3vw,19px);letter-spacing:.3em;color:var(--ice-clair);text-transform:uppercase;font-weight:500;margin:18px auto 24px;padding:12px 20px;border-top:1px solid rgba(125,211,252,0.4);border-bottom:1px solid rgba(125,211,252,0.4);max-width:760px;animation:tag-breath 4s ease-in-out infinite alternate;line-height:1.4}
+@keyframes tag-breath{0%{text-shadow:0 0 12px rgba(125,211,252,0.4);border-color:rgba(125,211,252,0.3)}100%{text-shadow:0 0 30px rgba(125,211,252,0.85);border-color:rgba(168,227,255,0.8)}}
+.offer{display:inline-block;margin-top:6px;font-family:'Cinzel',serif;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:#02040a;background:linear-gradient(100deg,var(--or),#fff6df);border-radius:999px;padding:11px 22px;text-decoration:none;transition:.25s}
+.offer:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(201,169,97,.3)}
+
+.wrap{max-width:1200px;margin:0 auto;padding:0 20px;position:relative;z-index:5}
+section{padding:56px 0;border-top:1px solid rgba(125,211,252,0.1)}
+section h2{font-family:'Cormorant Garamond',serif;font-weight:400;font-size:clamp(34px,7vw,56px);line-height:1.05;color:var(--perle);text-align:center;margin-bottom:10px}
+section h2 em{color:var(--or);font-style:italic}
+section .punch{text-align:center;font-style:italic;color:var(--perle-doux);font-size:clamp(17px,3vw,21px);margin:0 auto 36px;max-width:680px}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(280px,100%),1fr));gap:18px}
+.card{padding:24px;background:rgba(2,4,10,0.65);border:1px solid rgba(125,211,252,0.22);border-radius:14px;text-decoration:none;color:var(--perle);transition:.35s;position:relative;display:block;animation:cb 5s ease-in-out infinite alternate}
+@keyframes cb{0%{box-shadow:0 0 14px rgba(125,211,252,0.06)}100%{box-shadow:0 0 24px rgba(125,211,252,0.2)}}
+.card:hover{border-color:rgba(125,211,252,0.65);transform:translateY(-3px);box-shadow:0 14px 36px rgba(125,211,252,0.2)}
+.card .head{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.card .emoji{font-size:32px;line-height:1}
+.card .name{font-family:'Cinzel',serif;font-weight:600;font-size:17px;letter-spacing:.1em;color:var(--or);text-transform:uppercase}
+.card .role{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.22em;color:var(--ice);text-transform:uppercase;margin-top:3px}
+.card .desc{font-style:italic;color:var(--perle-doux);font-size:16px;line-height:1.5;margin-bottom:12px;min-height:46px}
+.card .cta{display:inline-flex;align-items:center;gap:5px;font-family:'Cinzel',serif;font-size:11px;letter-spacing:.18em;color:var(--bronze-clair);text-transform:uppercase;padding:7px 14px;border:1px solid rgba(184,115,51,0.35);border-radius:14px}
+.card:hover .cta{background:rgba(184,115,51,0.15);border-color:var(--bronze-clair)}
+.card .free{position:absolute;top:16px;right:16px;font-family:'Cinzel',serif;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:#02040a;background:linear-gradient(100deg,var(--or),#fff6df);border-radius:999px;padding:3px 10px}
+
+.center-cta{text-align:center;margin-top:30px}
+.btn-or{display:inline-block;font-family:'Cinzel',serif;font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:#02040a;background:linear-gradient(100deg,var(--or),#fff6df);border-radius:999px;padding:13px 26px;text-decoration:none;transition:.25s}
+.btn-or:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(201,169,97,.3)}
+
+footer{padding:46px 20px 70px;text-align:center;border-top:1px solid rgba(184,115,51,0.18);position:relative;z-index:5}
+.foot-fam{display:flex;gap:18px;justify-content:center;flex-wrap:wrap;margin-bottom:14px}
+.foot-fam a{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ice-clair);text-decoration:none}
+.foot-fam a:hover{color:var(--ice)}
+.foot-brand{font-size:20px;color:var(--perle)}
+.foot-brand span{color:var(--or)}
+.foot-meta{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.22em;color:var(--brume);margin:8px 0 16px;text-transform:uppercase}
+.disclaimer{font-style:italic;color:var(--brume);font-size:13.5px;line-height:1.65;max-width:800px;margin:0 auto;padding:18px;border:1px solid rgba(184,115,51,0.18);border-radius:12px;background:rgba(2,4,10,0.55)}
+
+@media(max-width:768px){
+  .fam-links{display:none}
+  .prelude{padding:86px 14px 6px}
+  .brandline{font-size:48px;letter-spacing:.1em}
+  section{padding:38px 0}
+}
 </style>
 </head>
 <body>
-<div class="bg"></div>
+
+<nav class="fam-nav">
+  <a class="fam-logo" href="/">🌊 NAVLYS</a>
+  <div class="fam-links">
+    <a href="/finance">Finance</a>
+    <a href="/next-gen">Next Gen</a>
+    <a href="/navlex">NAVLEX</a>
+    <a href="/partenaires">Partenaires</a>
+    <a href="/tech">Journal</a>
+    <a href="/radio">Radio</a>
+  </div>
+  <div class="fam-icons">
+    <a href="https://navbiolife.com" target="_blank" rel="noopener" title="NAVBIO — biographie vivante">🧬</a>
+    <a href="https://brunopartouche.com" target="_blank" rel="noopener" title="Bruno Partouche">⚓</a>
+  </div>
+</nav>
+
+<div class="prelude">Il y a bien longtemps, l'IA n'existait pas… Mais ça, c'était avant.</div>
+
+<header class="hero">
+  <div class="kicker">NAVLYS <span>CORE</span> · le cerveau central</div>
+  <div class="brandline">NAVLYS</div>
+  <h1>Un cerveau. Une personne. <em>Tout un univers.</em><br>L'IA est le vent, c'est toi qui tiens la barre.</h1>
+  <div class="brand-tagline">Ma méthode · Ton argent · Ton rythme</div>
+  <br>
+  <a class="offer" href="/finance">🎁 Teste gratuitement — 0 €</a>
+</header>
+
 <div class="wrap">
-  <header>
-    <span class="led"></span>
-    <span class="logo">NAVLYS</span>
-    <nav class="top">
-      <a href="/finance">Finance</a>
-      <a href="/next-gen">Next Gen</a>
-      <a href="/navlex">NAVLEX</a>
-      <a href="/partenaires">Partenaires</a>
-      <a href="/influenceurs">Influenceurs</a>
-      <a href="/tech">Journal IA</a>
-      <a href="/radio">Radio</a>
-    </nav>
-  </header>
-  <p class="intro">Il y a bien longtemps... l'IA n'existait pas... Mais ca, c'etait avant. <span class="core">NAVLYS CORE</span></p>
-  <a class="offer" href="/finance">&#127873; <b>Telecharge &amp; teste GRATUITEMENT &mdash; 0 &euro;</b> &middot; essai libre et gratuit</a>
-  <svg class="const" viewBox="0 0 600 660" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="NAVLYS CORE au centre, entoure des modules.">
-    <defs>
-      <radialGradient id="coreG" cx="50%" cy="42%" r="60%"><stop offset="0%" stop-color="#d9f6ff"/><stop offset="38%" stop-color="#7DD3FC"/><stop offset="100%" stop-color="#123048"/></radialGradient>
-      <radialGradient id="haloG" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#7DD3FC" stop-opacity=".55"/><stop offset="100%" stop-color="#7DD3FC" stop-opacity="0"/></radialGradient>
-      <filter id="soft" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="3.4"/></filter>
-      <clipPath id="brainClip"><path d="M300,232 C330,224 356,232 366,250 C384,250 396,266 392,284 C408,292 410,314 396,326 C404,342 392,360 372,360 C366,374 348,380 330,372 C320,382 308,382 300,378 C292,382 280,382 270,372 C252,380 234,374 228,360 C208,360 196,342 204,326 C190,314 192,292 208,284 C204,266 216,250 234,250 C244,232 270,224 300,232 Z"/></clipPath>
-      <radialGradient id="fleshG" cx="38%" cy="30%" r="82%"><stop offset="0%" stop-color="#ffe9d8"/><stop offset="40%" stop-color="#e79a72"/><stop offset="78%" stop-color="#9a2b34"/><stop offset="100%" stop-color="#4d1320"/></radialGradient>
-      <linearGradient id="metalG" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#dceffa"/><stop offset="40%" stop-color="#7693a6"/><stop offset="74%" stop-color="#26384a"/><stop offset="100%" stop-color="#0c1722"/></linearGradient>
-      <radialGradient id="coreRedG" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#fff4ee"/><stop offset="30%" stop-color="#ff5a3c"/><stop offset="70%" stop-color="#7a1f2b" stop-opacity=".5"/><stop offset="100%" stop-color="#7a1f2b" stop-opacity="0"/></radialGradient>
-      <linearGradient id="seamG" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#7DD3FC" stop-opacity="0"/><stop offset="50%" stop-color="#eafaff" stop-opacity=".95"/><stop offset="100%" stop-color="#7DD3FC" stop-opacity="0"/></linearGradient>
-      <filter id="glow" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="2.4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-      <filter id="shadow" x="-40%" y="-40%" width="180%" height="180%"><feDropShadow dx="0" dy="6" stdDeviation="9" flood-color="#000" flood-opacity="0.55"/></filter>
-      <style>.orbit{fill:none;stroke:#7DD3FC;stroke-opacity:.22;stroke-width:1}.spoke{stroke:#7DD3FC;stroke-opacity:.16;stroke-width:1}.penta{fill:none;stroke:#e9d3a0;stroke-opacity:.14;stroke-width:1}.elc{fill:#e9d3a0}.eli{fill:#7DD3FC}.breathe2{transform-box:fill-box;transform-origin:center;animation:bre 5.6s ease-in-out infinite}@keyframes bre{0%,100%{transform:scale(.975)}50%{transform:scale(1.035)}}</style>
-    </defs>
-    <polygon class="penta" points="300,68 523,228 437,489 163,489 77,228"/>
-    <g class="spoke"><line x1="300" y1="300" x2="300" y2="68"/><line x1="300" y1="300" x2="523" y2="228"/><line x1="300" y1="300" x2="437" y2="489"/><line x1="300" y1="300" x2="163" y2="489"/><line x1="300" y1="300" x2="77" y2="228"/></g>
-    <g transform="rotate(0 300 300)"><path id="oA" class="orbit" d="M100,300 a200,66 0 1,0 400,0 a200,66 0 1,0 -400,0"/><circle class="elc" r="5.5" filter="url(#soft)"><animateMotion dur="7s" repeatCount="indefinite"><mpath href="#oA"/></animateMotion></circle></g>
-    <g transform="rotate(60 300 300)"><path id="oB" class="orbit" d="M100,300 a200,66 0 1,0 400,0 a200,66 0 1,0 -400,0"/><circle class="eli" r="5" filter="url(#soft)"><animateMotion dur="8.6s" repeatCount="indefinite"><mpath href="#oB"/></animateMotion></circle></g>
-    <g transform="rotate(120 300 300)"><path id="oC" class="orbit" d="M100,300 a200,66 0 1,0 400,0 a200,66 0 1,0 -400,0"/><circle class="elc" r="4.5" filter="url(#soft)"><animateMotion dur="10.2s" repeatCount="indefinite"><mpath href="#oC"/></animateMotion></circle></g>
-    <g transform="rotate(35 300 300)"><path id="oD" class="orbit" d="M205,300 a95,80 0 1,0 190,0 a95,80 0 1,0 -190,0"/><circle class="eli" r="4" filter="url(#soft)"><animateMotion dur="5.4s" repeatCount="indefinite"><mpath href="#oD"/></animateMotion></circle></g>
-    <g transform="rotate(-52 300 300)"><path id="oE" class="orbit" d="M218,300 a82,70 0 1,0 164,0 a82,70 0 1,0 -164,0"/><circle class="elc" r="3.4" filter="url(#soft)"><animateMotion dur="6.6s" repeatCount="indefinite"><mpath href="#oE"/></animateMotion></circle></g>
-    <circle class="coreglow" cx="300" cy="300" r="120" fill="url(#haloG)"/>
-    <g class="breathe">
-      <ellipse cx="300" cy="304" rx="128" ry="110" fill="url(#haloG)" opacity=".55"/>
-      <path d="M300,232 C330,224 356,232 366,250 C384,250 396,266 392,284 C408,292 410,314 396,326 C404,342 392,360 372,360 C366,374 348,380 330,372 C320,382 308,382 300,378 C292,382 280,382 270,372 C252,380 234,374 228,360 C208,360 196,342 204,326 C190,314 192,292 208,284 C204,266 216,250 234,250 C244,232 270,224 300,232 Z" fill="#0b0f16" filter="url(#shadow)" opacity=".92"/>
-      <g clip-path="url(#brainClip)">
-        <!-- HEMISPHERE HUMAIN (gauche) : chair sculptee, circonvolutions -->
-        <rect x="190" y="224" width="110" height="162" fill="url(#fleshG)"/>
-        <g fill="none" stroke="#6e1c28" stroke-opacity=".55" stroke-width="3.2" stroke-linecap="round">
-          <path d="M236,250 c-11,12 9,20 -2,32 c-11,12 9,21 -2,32 c-9,11 7,18 0,27"/>
-          <path d="M258,246 c13,10 -7,20 4,30 c13,11 -7,22 4,33 c10,9 -4,17 2,25"/>
-          <path d="M280,250 c-13,12 7,20 -4,32 c-13,12 7,22 -4,32 c-7,9 5,16 0,24"/>
-          <path d="M294,258 c11,10 -7,18 2,28 c11,10 -5,18 2,27"/>
-          <path d="M214,278 c14,8 22,1 30,8"/>
-          <path d="M210,308 c16,8 26,0 34,8"/>
-          <path d="M216,338 c16,7 26,-1 34,7"/>
-          <path d="M226,360 c14,6 22,0 30,6"/>
-        </g>
-        <g fill="none" stroke="#ffdcc4" stroke-opacity=".34" stroke-width="1.5" stroke-linecap="round">
-          <path d="M239,252 c-11,12 9,20 -2,32 c-11,12 9,21 -2,32"/>
-          <path d="M261,248 c13,10 -7,20 4,30 c13,11 -7,22 4,33"/>
-          <path d="M283,252 c-13,12 7,20 -4,32 c-13,12 7,22 -4,32"/>
-        </g>
-        <!-- HEMISPHERE IA (droite) : endosquelette mecanique, plaques, engrenages, coeur -->
-        <rect x="300" y="224" width="110" height="162" fill="url(#metalG)"/>
-        <g stroke="#9fc4d8" stroke-opacity=".5" stroke-width="1.4" fill="none">
-          <path d="M300,248 C342,250 374,262 392,288"/>
-          <path d="M300,300 H394"/>
-          <path d="M300,342 C338,358 362,352 386,338"/>
-          <path d="M334,246 V366"/>
-          <path d="M362,254 V358"/>
-        </g>
-        <g fill="#16242f" stroke="#7fb0c8" stroke-width="1" stroke-opacity=".55">
-          <circle cx="312" cy="262" r="2.2"/><circle cx="382" cy="282" r="2.2"/><circle cx="318" cy="350" r="2.2"/><circle cx="388" cy="322" r="2.2"/><circle cx="348" cy="250" r="2"/>
-        </g>
-        <g stroke="#7DD3FC" stroke-opacity=".6" stroke-width="1.4" fill="none">
-          <path d="M302,252 H324 V270"/><path d="M390,266 H364 V290"/><path d="M302,358 H328 V336"/><path d="M392,346 H374 V318"/>
-        </g>
-        <g fill="#eafaff"><circle cx="324" cy="270" r="2.4"/><circle cx="364" cy="290" r="2.4"/><circle cx="328" cy="336" r="2.4"/><circle cx="374" cy="318" r="2.4"/></g>
-        <g><g fill="none"><circle cx="340" cy="276" r="13" stroke="#cfe7f3" stroke-opacity=".75" stroke-width="6" stroke-dasharray="3 5"/><circle cx="340" cy="276" r="7" stroke="#7fb0c8" stroke-width="2"/></g><animateTransform attributeName="transform" attributeType="XML" type="rotate" from="0 340 276" to="360 340 276" dur="11s" repeatCount="indefinite"/></g>
-        <g><g fill="none"><circle cx="368" cy="332" r="11" stroke="#cfe7f3" stroke-opacity=".7" stroke-width="5" stroke-dasharray="3 5"/><circle cx="368" cy="332" r="6" stroke="#7fb0c8" stroke-width="2"/></g><animateTransform attributeName="transform" attributeType="XML" type="rotate" from="360 368 332" to="0 368 332" dur="8s" repeatCount="indefinite"/></g>
-        <circle cx="356" cy="318" r="20" fill="url(#coreRedG)"><animate attributeName="r" values="16;23;16" dur="3s" repeatCount="indefinite"/></circle>
-        <circle cx="356" cy="318" r="5" fill="#ffe7df" filter="url(#glow)"><animate attributeName="opacity" values=".6;1;.6" dur="2s" repeatCount="indefinite"/></circle>
-        <rect x="300" y="226" width="110" height="3" fill="#bfeaff" opacity=".45"><animate attributeName="y" values="232;372;232" dur="6s" repeatCount="indefinite"/></rect>
-      </g>
-      <!-- contour / rim light -->
-      <path d="M300,232 C330,224 356,232 366,250 C384,250 396,266 392,284 C408,292 410,314 396,326 C404,342 392,360 372,360 C366,374 348,380 330,372 C320,382 308,382 300,378 C292,382 280,382 270,372 C252,380 234,374 228,360 C208,360 196,342 204,326 C190,314 192,292 208,284 C204,266 216,250 234,250 C244,232 270,224 300,232 Z" fill="none" stroke="#cfeffe" stroke-opacity=".6" stroke-width="2"/>
-      <!-- couture lumineuse centrale -->
-      <rect x="297.5" y="238" width="5" height="140" fill="url(#seamG)"/>
-      <g fill="#eafaff"><circle cx="300" cy="262" r="2.6"><animate attributeName="opacity" values=".4;1;.4" dur="2.4s" repeatCount="indefinite"/></circle><circle cx="300" cy="306" r="3.2"><animate attributeName="opacity" values="1;.4;1" dur="2.4s" repeatCount="indefinite"/></circle><circle cx="300" cy="350" r="2.6"><animate attributeName="opacity" values=".4;1;.4" dur="3s" repeatCount="indefinite"/></circle></g>
-      <!-- atomes qui tournent DEDANS -->
-      <g transform="rotate(20 300 304)"><path id="iA" d="M236,304 a64,22 0 1,0 128,0 a64,22 0 1,0 -128,0" fill="none"/><circle class="eli" r="3.4" filter="url(#soft)"><animateMotion dur="3.4s" repeatCount="indefinite"><mpath href="#iA"/></animateMotion></circle></g>
-      <g transform="rotate(110 300 304)"><path id="iB" d="M252,304 a48,17 0 1,0 96,0 a48,17 0 1,0 -96,0" fill="none"/><circle class="elc" r="3" filter="url(#soft)"><animateMotion dur="4.4s" repeatCount="indefinite"><mpath href="#iB"/></animateMotion></circle></g>
-      <g transform="rotate(-46 300 304)"><path id="iC" d="M268,304 a32,12 0 1,0 64,0 a32,12 0 1,0 -64,0" fill="none"/><circle class="eli" r="2.6"><animateMotion dur="2.8s" repeatCount="indefinite"><mpath href="#iC"/></animateMotion></circle></g>
-    </g>
-    <text x="300" y="392" class="nlabel" style="font-size:21px;letter-spacing:3px">NAVLYS</text>
-    <text x="300" y="411" class="nsub" style="fill:#e9d3a0;font-size:13px;letter-spacing:5px">C O R E</text>
-    <a href="/finance"><g class="node"><circle class="hub" cx="300" cy="68" r="40" fill="#0c1018"/><circle class="ring" cx="300" cy="68" r="40" fill="none" stroke="#7DD3FC" stroke-opacity=".5" stroke-width="1.5"/><text x="300" y="76" text-anchor="middle" font-size="26">&#129518;</text><text x="300" y="128" class="nlabel">Finance</text><text x="300" y="146" class="nsub">&eacute;ducation &middot; 0 &euro;</text></g></a>
-    <a href="/next-gen"><g class="node"><circle class="hub" cx="523" cy="228" r="40" fill="#0c1018"/><circle class="ring" cx="523" cy="228" r="40" fill="none" stroke="#7DD3FC" stroke-opacity=".5" stroke-width="1.5"/><text x="523" y="236" text-anchor="middle" font-size="26">&#128214;</text><text x="523" y="288" class="nlabel">Next Gen</text><text x="523" y="306" class="nsub">ta vie &middot; 0 &euro;</text></g></a>
-    <a href="/navlex"><g class="node"><circle class="hub" cx="437" cy="489" r="40" fill="#0c1018"/><circle class="ring" cx="437" cy="489" r="40" fill="none" stroke="#7DD3FC" stroke-opacity=".5" stroke-width="1.5"/><text x="437" y="497" text-anchor="middle" font-size="26">&#9878;</text><text x="437" y="549" class="nlabel">NAVLEX</text><text x="437" y="567" class="nsub">droit &middot; 9,99&euro; HT</text></g></a>
-    <a href="/influenceurs"><g class="node"><circle class="hub" cx="163" cy="489" r="40" fill="#0c1018"/><circle class="ring" cx="163" cy="489" r="40" fill="none" stroke="#7DD3FC" stroke-opacity=".5" stroke-width="1.5"/><text x="163" y="497" text-anchor="middle" font-size="26">&#10024;</text><text x="163" y="549" class="nlabel">Influenceurs</text><text x="163" y="567" class="nsub">le journal</text></g></a>
-    <a href="/bientot"><g class="node"><circle class="hub" cx="77" cy="228" r="40" fill="#0c1018"/><circle class="ring" cx="77" cy="228" r="40" fill="none" stroke="#e9d3a0" stroke-opacity=".45" stroke-width="1.5"/><text x="77" y="236" text-anchor="middle" font-size="26">&#128718;</text><text x="77" y="288" class="nlabel">Concierge</text><text x="77" y="306" class="nsub">navlys.io &middot; bient&ocirc;t</text></g></a>
-  </svg>
-  <p class="tagline">Un cerveau. Une personne. <b style="color:#fff">Tout un univers.</b><br>L'IA est le vent, c'est toi qui tiens la barre.</p>
-  <section id="univers">
-    <h2 class="section">Entre dans l'univers</h2>
-    <p class="lead">Deux b&ecirc;tas <b>r&eacute;elles</b>, gratuites &agrave; tester (0 &euro;). Le reste grandit dans le CORE.</p>
-    <div class="apps">
-      <a class="app" href="/finance"><span class="tag">GRATUIT &middot; 0 &euro;</span><div class="ic">&#129518;</div><h3>NAVLYS Finance</h3><p>Comprendre l'argent en bon p&egrave;re de famille, chiffr&eacute; en euros. Cockpit autonome, brief du jour, simulateur du bon sens. Pure education &amp; veille.</p><span class="go">Essayer gratuitement &rsaquo;</span></a>
-      <a class="app" href="/next-gen"><span class="tag">GRATUIT &middot; 0 &euro;</span><div class="ic">&#128214;</div><h3>NAVLYS Next Gen</h3><p>Raconte ou dicte ta vie, chapitre par chapitre. Ton histoire vaut de l'or &mdash; garde-la, transmets-la. Tes souvenirs t'appartiennent.</p><span class="go">&Eacute;crire ma vie &rsaquo;</span></a>
+
+  <section id="apps">
+    <h2>Les <em>applications</em></h2>
+    <p class="punch">Un univers d'outils IA + humains. Deux bêtas réelles à tester gratuitement, le reste grandit dans le CORE.</p>
+    <div class="grid">
+      <a class="card" href="/finance">
+        <span class="free">Gratuit · 0 €</span>
+        <div class="head"><span class="emoji">🧮</span><div><div class="name">NAVLYS Finance</div><div class="role">éducation · méthode 90/10</div></div></div>
+        <div class="desc">Comprendre l'argent en bon père de famille, chiffré en euros. Cockpit, brief du jour, simulateur du bon sens. Éducation & veille, jamais un conseil.</div>
+        <span class="cta">Essayer →</span>
+      </a>
+      <a class="card" href="/next-gen">
+        <span class="free">Gratuit · 0 €</span>
+        <div class="head"><span class="emoji">📖</span><div><div class="name">NAVLYS Next Gen</div><div class="role">ta vie, chapitre par chapitre</div></div></div>
+        <div class="desc">Raconte ou dicte ta vie. Ton histoire vaut de l'or — garde-la, transmets-la. Tes souvenirs t'appartiennent.</div>
+        <span class="cta">Écrire ma vie →</span>
+      </a>
+      <a class="card" href="/navlex">
+        <div class="head"><span class="emoji">⚖️</span><div><div class="name">NAVLEX</div><div class="role">droit · pédagogique</div></div></div>
+        <div class="desc">Tes questions juridiques expliquées simplement. 3 questions offertes. Information pédagogique, pas un conseil d'avocat.</div>
+        <span class="cta">Découvrir →</span>
+      </a>
+      <a class="card" href="/tech">
+        <div class="head"><span class="emoji">✨</span><div><div class="name">Le Journal</div><div class="role">IA & créateurs · veille</div></div></div>
+        <div class="desc">L'actualité de l'IA et de l'économie des créateurs, expliquée simplement, préparée avec NAVLYS CORE.</div>
+        <span class="cta">Lire →</span>
+      </a>
+      <a class="card" href="/radio">
+        <div class="head"><span class="emoji">🎧</span><div><div class="name">NAVLYS Radio</div><div class="role">ambiance · live</div></div></div>
+        <div class="desc">La bande-son de l'Équipage : musique et flux en direct pour travailler, apprendre, respirer.</div>
+        <span class="cta">Écouter →</span>
+      </a>
+      <a class="card" href="/partenaires">
+        <div class="head"><span class="emoji">🤝</span><div><div class="name">Partenaires</div><div class="role">brokers · banques · outils</div></div></div>
+        <div class="desc">Nos partenaires testés (brokers, crypto, néo-banques, outils), en toute transparence sur l'affiliation.</div>
+        <span class="cta">Voir →</span>
+      </a>
     </div>
   </section>
-  <section id="mission" class="mission">
-    <h2 class="section">Notre mission</h2>
-    <p>Mettre l'IA &agrave; la port&eacute;e de tous, en un clic et &agrave; la voix &mdash; pour &eacute;galiser l'acc&egrave;s au savoir, au bien-&ecirc;tre et &agrave; la transmission. L'humain reste la pi&egrave;ce centrale.</p>
-    <p class="q">&laquo; L'IA est le vent, c'est toi qui tiens la barre. &raquo;</p>
-    <p>NAVLYS, c'est aussi un choix de vie : <b>100&nbsp;% d&eacute;mat&eacute;rialis&eacute;</b> &mdash; z&eacute;ro bureau, z&eacute;ro transport, z&eacute;ro papier, dans le respect de la mer M&eacute;diterran&eacute;e qui nous porte.</p>
+
+  <section id="partenaires">
+    <h2>Nos <em>partenaires</em></h2>
+    <p class="punch">Brokers, banques et outils — tous testés, liens d'affiliation transparents, sans surcoût pour toi.</p>
+    <div class="grid">
+      <div class="card"><div class="head"><span class="emoji">📈</span><div><div class="name">Brokers & ETF</div><div class="role">Alpaca · eToro · Trade Republic · Bourse Direct</div></div></div><div class="desc">Pour investir en actions et ETF, du néo-broker européen au PEA français.</div></div>
+      <div class="card"><div class="head"><span class="emoji">🪙</span><div><div class="name">Crypto</div><div class="role">Bybit · OKX · Kraken</div></div></div><div class="desc">Plateformes crypto sélectionnées pour leurs frais et leur sécurité.</div></div>
+      <div class="card"><div class="head"><span class="emoji">💳</span><div><div class="name">Banques & cash</div><div class="role">Revolut · Wise · BoursoBank</div></div></div><div class="desc">Néo-banques et transferts au taux réel, pour le quotidien et l'international.</div></div>
+      <div class="card"><div class="head"><span class="emoji">⚒️</span><div><div class="name">Outils & communauté</div><div class="role">Nas.io · Notion · Vercel · Stripe</div></div></div><div class="desc">Les outils qui font tourner NAVLYS et la communauté.</div></div>
+    </div>
+    <div class="center-cta"><a class="btn-or" href="/partenaires">Voir tous les partenaires →</a></div>
   </section>
-  <footer>
-    <div class="flag">&#127754; &#9875; NAVLYS &#129693;</div>
-    <p style="margin-bottom:12px"><b style="color:#fff;font-family:'Cormorant Garamond';letter-spacing:2px">Famille NAVLYS</b> &middot;
-      <a class="inline" href="/partenaires">Partenaires</a> &middot;
-      <a class="inline" href="https://navbiolife.com" target="_blank" rel="noopener">NAVBIO</a> &middot;
-      <a class="inline" href="https://brunopartouche.com" target="_blank" rel="noopener">Bruno Partouche</a></p>
-    <p class="disc">NAVLYS est un projet d'<b>&eacute;ducation et de veille &agrave; vocation informative uniquement</b>. Les contenus ne constituent en aucun cas un conseil personnalis&eacute; en investissement. Chacun reste seul responsable de ses d&eacute;cisions financi&egrave;res. Tous les tarifs sont indiqu&eacute;s <b>HT</b> (hors taxes). R&eacute;serv&eacute; aux 18 ans et&nbsp;+. Tes contenus restent priv&eacute;s par d&eacute;faut et t'appartiennent.</p>
-    <p style="margin-top:12px">&copy; 2026 NAVLYS &middot; <a class="inline" href="/finance">Finance</a> &middot; <a class="inline" href="/next-gen">Next Gen</a> &middot; <a class="inline" href="/partenaires">Partenaires</a> &middot; navlys.com</p>
-  </footer>
+
+  <section id="communaute">
+    <h2>L'<em>Équipage</em> Navlys</h2>
+    <p class="punch">Une communauté privée pour apprendre ensemble, à ton rythme. Tu n'es jamais seul à la barre.</p>
+    <div class="center-cta"><a class="btn-or" href="/finance">Rejoindre l'aventure →</a></div>
+  </section>
+
+  <section id="mission">
+    <h2>Notre <em>mission</em></h2>
+    <p class="punch">Mettre l'IA à la portée de tous, en un clic et à la voix — pour égaliser l'accès au savoir, au bien-être et à la transmission. L'humain reste la pièce centrale. NAVLYS, c'est aussi 100 % dématérialisé, dans le respect de la Méditerranée qui nous porte.</p>
+  </section>
+
 </div>
+
+<footer>
+  <div class="foot-fam">
+    <a href="/partenaires">Partenaires</a>
+    <a href="https://navbiolife.com" target="_blank" rel="noopener">🧬 NAVBIO</a>
+    <a href="https://brunopartouche.com" target="_blank" rel="noopener">⚓ Bruno Partouche</a>
+  </div>
+  <div class="foot-brand"><span>NAVLYS</span> · le site référence</div>
+  <div class="foot-meta">Applications · Partenaires · Communauté · Journal</div>
+  <div class="disclaimer">NAVLYS est un projet d'<b>éducation et de veille à vocation informative uniquement</b>. Les contenus ne constituent en aucun cas un conseil personnalisé en investissement. Les liens « affilié » génèrent une commission sans surcoût pour toi. Investir comporte un risque de perte en capital. Chacun reste seul responsable de ses décisions. Tous les tarifs sont indiqués <b>HT</b>. Réservé aux 18 ans et +. Tes contenus restent privés par défaut et t'appartiennent. © 2026 NAVLYS · navlys.com</div>
+</footer>
+
 <script src="/navlys-alive.js" defer></script>
 </body>
 </html>

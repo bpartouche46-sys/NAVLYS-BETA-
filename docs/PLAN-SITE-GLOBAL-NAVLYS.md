@@ -25,6 +25,29 @@
 
 ---
 
+## 1bis. 🎨 DÉCISION DESIGN (Bruno, 2026-06-28) — base = le design de navlys.io
+
+> *« navlys.io est superbe — on le mixe avec navlys.com pour avoir UN site référence unique
+> avec toutes les applications + la présentation des partenaires. »*
+
+- **On adopte le design de navlys.io comme base visuelle de navlys.com** (c'est le seul déjà
+  à la **charte officielle** : `#7DD3FC` + Cinzel/Cormorant/JetBrains). On abandonne l'ancien
+  style de navlys.com (Fraunces/Lora + `#5fe0ff`).
+- **navlys.com devient LE site référence unique** : vitrine (style navlys.io) **+ toutes les
+  applications** (Finance, Next Gen, NAVLEX, Radio, Journal) **+ partenaires + communauté**.
+- **navlys.io → redirige** vers navlys.com (plus de doublon).
+- ⚠️ **Nuance dépersonnalisation** : navlys.io met Bruno en avant (« profils · Fondateur ·
+  Skipper »). Sur la marque NAVLYS (dépersonnalisée), on **atténue** la présence de Bruno →
+  simple lien discret vers **brunopartouche.com**. NAVBIO reste un lien sortant (séparé).
+
+### Éléments visuels de navlys.io à CONSERVER (Bruno, 2026-06-28)
+- ✅ **Le fond animé** de navlys.io : dégradés radiaux « qui respirent » (`body::before` +
+  `@keyframes respire`) **+ le slideshow d'images de fond** (`hero-bg-slideshow.js`,
+  `/bg-1.jpg`…`/bg-3.jpg`, parallax).
+- ✅ **L'animation du logo** : le titre « NAVLYS » en dégradé doré **brillant qui défile**
+  (`.brandline` + `@keyframes shine`) + le léger **pulse** de la barre de nav (`@keyframes pulse`).
+- → Ces éléments deviennent la **signature visuelle** de la refonte navlys.com.
+
 ## 2. Structure cible de navlys.com (sitemap propre)
 
 ```
