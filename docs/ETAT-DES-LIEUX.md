@@ -2,6 +2,24 @@
 
 > Mis à jour à la fin de chaque session pour que la suivante reprenne sans tout relire.
 
+## Session 2026-06-24 (m) — 🚀 Écosystème NAVLYS construit (autonomie totale Bruno)
+
+- 🎛️ **Bruno : « fais tout sans me demander, je verrai le résultat final, corrections sur navlys.com en live ».**
+  Garde-fous gardés : 💰 zéro débit sans Bruno · 🚦 conformité avant URL publique.
+- 🧩 **Carte produit complète** (`docs/PRODUITS-NAVLYS.md`) : 5 apps + core. Nom SEO retenu = **« NAVLYS Finance »**.
+- 💶 **Études de prix des 4 produits** (`docs/ETUDES-PRIX-ECOSYSTEME.md`, données réelles 2026) :
+  Lex 9,99/29,99/89 · Biographie 59/99/149€/an · Concierge 9,99/29,99/199+ (luxe devis) · .IO 49/99/199+ (forfait flat).
+  Recette commune : tier gratuit + prix d'attaque + premium/luxe.
+- 🖥️ **5 pages produit + hub construits** (charte v2, **inscription RÉELLE → Supabase**, conformité VERTE) :
+  `sites/navfin` (Finance 8,99/14,99/24,99), `navlys-lex`, `navlys-nextgen` (bio), `navlys-concierge`,
+  `navlys-io`, `navlys-ecosysteme` (hub). Briques communes `assets/navlys-pages.{css,js}`.
+- 💰 **NAVLYS Finance prix d'attaque** appliqués + libellé Lemon Squeezy prêt (manque : 3 liens LS de Bruno).
+- 🔁 **Routine veille quotidienne hors token Claude** : `scripts/veille_navlys.py` + `docs/ROUTINE-VEILLE-QUOTIDIENNE.md`.
+- 🏰 **Vision « One Click → One Million Dollars »** capturée (`docs/MODELE-PARTENAIRES-1CLICK.md`).
+- ⏳ **Restent (Bruno/accès)** : déployer sur Vercel (repo non relié) · liens Lemon Squeezy · **accès NOVA-HUB**
+  pour finir l'app biographie · voix+WhatsApp (`docs/VOIX-WHATSAPP.md`) · banque FR (Revolut, `docs/BANQUE-SOCIETE-FRANCAISE.md`).
+- 🔵 Apps **Concierge / .IO / Lex / biographie complète** = landings + pré-inscription ; le **produit applicatif** reste à développer sur le core.
+
 ## Session 2026-06-24 (l) — ✅ Correction des 4 points de l'ultrareview + réconciliation principale
 
 - 🔀 **PR #20 fusionnée dans la ligne principale** (incident Hermès + core déployable). Ma branche

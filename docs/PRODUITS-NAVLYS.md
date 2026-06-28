@@ -25,11 +25,15 @@
 ## Études de prix — statut
 | Produit | Étude prix faite ? |
 |---|---|
-| NAVLYS Finance | ✅ faite → `docs/ETUDE-PRIX.md` (prix d'attaque 8,99/14,99/24,99) |
-| NavLex | ⬜ à faire (marché : LexisNexis, Doctrine, Predictice, legaltech) |
-| NAVLYS Next Gen (biographie) | ⬜ à faire (marché : livres de vie, Storyworth, biographes) |
-| NAVLYS Concierge | ⬜ à faire (marché : John Paul, conciergeries, services lux) |
-| NAVLYS.IO (employé IA) | ⬜ à faire (marché : chatbots SAV, agents IA SaaS, Intercom/Crisp) |
+| NAVLYS Finance | ✅ faite → `docs/ETUDE-PRIX.md` (prix d'attaque 8,99/14,99/24,99) · page `sites/navfin/` |
+| NavLex | ✅ faite → `docs/ETUDES-PRIX-ECOSYSTEME.md` (9,99/29,99/89) · page `sites/navlys-lex/` |
+| NAVLYS Next Gen (biographie) | ✅ faite (59/99/149 €/an + cadeau) · page `sites/navlys-nextgen/` |
+| NAVLYS Concierge | ✅ faite (9,99/29,99/199+ ; luxe sur devis) · page `sites/navlys-concierge/` |
+| NAVLYS.IO (employé IA) | ✅ faite (49/99/199+ ; forfait flat) · page `sites/navlys-io/` |
+
+> 🌐 **Hub écosystème** : `sites/navlys-ecosysteme/` (vitrine des 5 apps). Briques communes :
+> `assets/navlys-pages.css` + `.js` (tiers + inscription Supabase). ⚠️ L'**app biographie complète**
+> (chapitres/souvenirs, code NOVA-HUB) reste à reprendre — ici c'est la **landing + pré-inscription**.
 
 ## Règle
 Avant tout dev ou tarif : relire cette carte. Next Gen = biographie · Lex = juridique ·
