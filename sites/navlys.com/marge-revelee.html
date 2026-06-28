@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>NAVLYS — Marge Révélée : ce que ta banque garde chaque année</title>
+<meta name="description" content="Calculateur pédagogique gratuit : estime, sur une moyenne, ce que ta banque garde environ chaque année. Information, pas conseil.">
+<meta name="robots" content="index,follow">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Fraunces:ital,wght@1,400;1,500&family=Lora:wght@400;500&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/navlys-v2.css">
+<style>
+.mr{max-width:760px}
+.mr h1{font-family:'Cormorant Garamond';color:#fff;font-size:clamp(1.6rem,5vw,2.3rem);margin:6px 0 4px}
+.mr .sub{color:#8fa6c8;font-style:italic;font-size:.92rem;margin-bottom:16px}
+.mr h2{font-family:'Cormorant Garamond';color:#7DD3FC;font-size:1.25rem;margin:24px 0 8px;border-left:3px solid #7DD3FC;padding-left:12px}
+.mr p,.mr li{color:#cdd6e5;font-size:.96rem;line-height:1.7}
+.calc{background:rgba(125,211,252,.05);border:1px solid rgba(125,211,252,.2);border-radius:16px;padding:18px;margin:14px 0}
+.calc label{display:block;color:#cdd6e5;font-size:.9rem;margin:10px 0 4px}
+.calc input,.calc select{width:100%;box-sizing:border-box;background:#05060a;border:1px solid rgba(125,211,252,.3);border-radius:10px;color:#fff;padding:11px 12px;font-size:1rem;font-family:'Lora'}
+.calc input:focus,.calc select:focus{outline:none;border-color:#7DD3FC}
+.calc .btn{margin-top:16px;width:100%;background:#7DD3FC;color:#05060a;border:none;border-radius:12px;padding:13px;font-size:1.02rem;font-weight:700;font-family:'Cormorant Garamond';letter-spacing:.5px;cursor:pointer}
+.res{display:none;margin-top:16px;padding:16px;background:#05060a;border:1px solid rgba(125,211,252,.25);border-radius:12px}
+.res.on{display:block}
+.res .big{font-family:'JetBrains Mono';color:#7DD3FC;font-size:clamp(1.8rem,7vw,2.6rem);font-weight:700;line-height:1.1}
+.res .row{display:flex;justify-content:space-between;gap:12px;border-bottom:1px solid rgba(125,211,252,.12);padding:8px 0;color:#cdd6e5;font-size:.95rem}
+.res .row b{color:#fff;font-family:'JetBrains Mono'}
+.res .cmp{margin-top:10px;color:#e9d3a0;font-size:.92rem}
+.mr .disc{color:#8fa6c8;font-size:.86rem;line-height:1.6;background:rgba(255,255,255,.03);border-radius:10px;padding:12px;margin-top:14px}
+.mr a{color:#7DD3FC}
+.mr .more{display:inline-block;margin-top:16px}
+.notlist li{margin:2px 0}
+</style>
+</head>
+<body>
+<div class="bg"></div>
+<div class="topbar"><span class="led"></span><a class="brand" href="/">NAVLYS</a>
+  <button class="menu-btn" onclick="NV_menu()" aria-label="Menu">☰</button></div>
+<nav class="dropdown" id="dd"><a href="/">🌊 Accueil</a><a href="/marge-revelee">🔍 Marge Révélée</a><a href="/tarifs">💶 Tarifs</a><a href="/cgu">📄 CGU</a><a href="/mentions">📄 Mentions</a></nav>
+<div class="bandeau"><div class="scroll">NAVLYS partage des informations générales et pédagogiques. Ce n'est pas un conseil personnalisé. Chacun reste seul responsable de ses décisions financières.</div></div>
+
+<main class="feed" style="top:calc(var(--top-h) + var(--band-h));"><div class="wrap mr" style="padding-top:24px">
+  <h1>Marge Révélée</h1>
+  <p class="sub">Combien ta banque garde environ chaque année — sur une moyenne. De l'information, pas du conseil.</p>
+
+  <p>La plupart des gens ne savent pas combien leur banque « garde pour elle » chaque année, à travers les frais et les marges sur leurs encours. Ce calculateur gratuit te donne un <b>ordre de grandeur moyen</b>. Tu entres tes chiffres, tu vois une estimation. Rien n'est enregistré.</p>
+
+  <div class="calc">
+    <label for="bank">Ta banque principale</label>
+    <select id="bank">
+      <option value="BNP_Paribas">BNP Paribas</option>
+      <option value="Credit_Agricole">Crédit Agricole</option>
+      <option value="Societe_Generale">Société Générale</option>
+      <option value="LCL">LCL</option>
+      <option value="La_Banque_Postale">La Banque Postale</option>
+    </select>
+    <label for="current">Solde du compte courant (€)</label>
+    <input id="current" type="number" inputmode="numeric" min="0" placeholder="ex. 3000">
+    <label for="savings">Livret A / épargne réglementée (€)</label>
+    <input id="savings" type="number" inputmode="numeric" min="0" placeholder="ex. 15000">
+    <label for="life">Assurance vie en fonds euros classique (€)</label>
+    <input id="life" type="number" inputmode="numeric" min="0" placeholder="ex. 25000">
+    <label for="mortgage">Capital restant dû sur ton crédit immobilier (€)</label>
+    <input id="mortgage" type="number" inputmode="numeric" min="0" placeholder="ex. 120000">
+    <button class="btn" onclick="MR_calc()">Révéler la marge moyenne</button>
+
+    <div class="res" id="res">
+      <div class="big" id="annual">—</div>
+      <p style="color:#cdd6e5;margin:2px 0 12px">estimés gardés par ta banque, en moyenne, chaque année</p>
+      <div class="row"><span>Sur 10 ans (approx.)</span><b id="ten">—</b></div>
+      <div class="row"><span>Moyenne observée en France</span><b id="avg">≈ 320 € / an</b></div>
+      <p class="cmp" id="cmp"></p>
+      <a class="more" href="/">Voir comment NAVLYS aide à planifier <span class="arr">→</span></a>
+    </div>
+  </div>
+
+  <h2>Ce que NAVLYS ne fait PAS ici</h2>
+  <ul class="notlist">
+    <li>❌ Pas de conseil personnalisé</li>
+    <li>❌ Pas d'audit privé de ta situation</li>
+    <li>❌ Aucun produit proposé en remplacement</li>
+    <li>❌ Aucun rendez-vous pris</li>
+  </ul>
+
+  <p class="disc">⚠️ Les montants affichés sont des <b>estimations moyennes</b> à but pédagogique, calculées à partir de moyennes de marché par type d'encours — ils ne reflètent pas ta situation réelle ni les conditions exactes de ta banque. NAVLYS partage des informations générales et pédagogiques. Ce n'est pas un conseil financier personnalisé. Tu décides tout, tu gères tout. Pour une décision importante, parle à un professionnel certifié. NAVLYS ne dispose d'aucun agrément ORIAS ni statut CIF.</p>
+
+  <a class="more" href="/tarifs">Découvrir les offres NAVLYS <span class="arr">→</span></a>
+
+  <footer>
+    <div class="flag">🌊 ⚓ NAVLYS 🌿</div>
+    <p class="legal">© 2026 NAVLYS · <a href="/tarifs">Tarifs</a> · <a href="/cgu">CGU</a> · <a href="/privacy">Confidentialité</a> · <a href="/mentions">Mentions légales</a> · navlys.com</p>
+  </footer>
+</div></main>
+
+<script>
+// Marges moyennes par banque (points de base), par type d'encours — moyennes de marché, pédagogiques.
+var MR_BPS = {
+  BNP_Paribas:       { current: 90, savings: 60, life: 110, mortgage: 70 },
+  Credit_Agricole:   { current: 80, savings: 55, life: 100, mortgage: 65 },
+  Societe_Generale:  { current: 85, savings: 60, life: 105, mortgage: 70 },
+  LCL:               { current: 80, savings: 55, life:  95, mortgage: 65 },
+  La_Banque_Postale: { current: 70, savings: 50, life:  90, mortgage: 55 }
+};
+var MR_AVG = 320;
+function MR_num(id){ var v = parseFloat(document.getElementById(id).value); return (isNaN(v)||v<0)?0:v; }
+function MR_eur(n){ return Math.round(n).toLocaleString('fr-FR') + ' €'; }
+function MR_calc(){
+  var m = MR_BPS[document.getElementById('bank').value];
+  var b = { current: MR_num('current'), savings: MR_num('savings'), life: MR_num('life'), mortgage: MR_num('mortgage') };
+  var annual = (b.current*m.current + b.savings*m.savings + b.life*m.life + b.mortgage*m.mortgage) / 10000;
+  document.getElementById('annual').textContent = '≈ ' + MR_eur(annual) + ' / an';
+  document.getElementById('ten').textContent = '≈ ' + MR_eur(annual*10);
+  var cmp = document.getElementById('cmp');
+  if (annual > MR_AVG)      cmp.textContent = 'C’est au-dessus de la moyenne observée — il y a sans doute de la marge pour mieux comprendre tes frais.';
+  else if (annual > 0)      cmp.textContent = 'C’est dans la fourchette basse — bon réflexe de regarder quand même.';
+  else                      cmp.textContent = 'Entre au moins un montant pour voir une estimation.';
+  document.getElementById('res').classList.add('on');
+}
+</script>
+<script src="/assets/navlys-v2.js"></script>
+</body>
+</html>
