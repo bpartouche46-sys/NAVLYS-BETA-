@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>NAVLYS.IO — ton employé en ligne, 24/7 (SAV, prospection, FAQ live)</title>
+<meta name="description" content="NAVLYS.IO : un véritable employé en ligne propulsé par le core NAVLYS. SAV, prospection et réponses sur tous tes réseaux et FAQ en direct, 24/7. Forfait fixe, sans surprise.">
+<meta property="og:title" content="NAVLYS.IO"><meta property="og:description" content="Ton employé en ligne 24/7 — SAV, prospection, FAQ live.">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Fraunces:ital,wght@1,400;1,500&family=Lora:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/navlys-v2.css">
+<link rel="stylesheet" href="/assets/navlys-pages.css">
+</head>
+<body>
+<div class="bg"></div>
+<div class="topbar"><span class="led"></span><a class="brand" href="#top">NAVLYS</a>
+  <button class="menu-btn" onclick="NV_menu()" aria-label="Menu" aria-expanded="false">☰</button></div>
+<nav class="dropdown" id="dd">
+  <a href="#top">🤖 Accueil</a><a href="#fait">Ce qu'il fait</a><a href="#offres">Les forfaits</a><a href="#rejoindre">Demander un accès</a><a href="https://navlys.com">🌊 L'écosystème NAVLYS</a>
+</nav>
+<div class="bandeau"><div class="scroll">NAVLYS.IO — un employé en ligne propulsé par le core NAVLYS. Il assiste tes équipes 24/7 (SAV, prospection, FAQ). Les réponses sensibles et les engagements restent validés selon tes règles. Pour les entreprises.</div></div>
+
+<main class="feed" id="top"><div class="wrap">
+  <div style="margin-top:14px"><span class="tag">🤖 NAVLYS.IO · la consécration</span></div>
+  <h1 class="hero-h">Un vrai <em>employé en ligne</em>. 24/7.</h1>
+  <p class="hero-sub">SAV, prospection, réponses sur tous tes réseaux &amp; FAQ en direct.</p>
+  <p class="slogan">Il fait le travail répétitif. Tes équipes font le reste.</p>
+
+  <div class="eyebrow" id="fait"><span class="chip">⚙️</span><h2>Ce qu'il fait pour toi</h2></div>
+  <div class="mods">
+    <div class="mod"><div class="mi">💬</div><h4>SAV 24/7</h4><p>Répond aux clients à toute heure, sur tous les canaux, sans attente.</p></div>
+    <div class="mod"><div class="mi">📣</div><h4>Réseaux sociaux</h4><p>Commentaires et messages : il répond en direct, à ta voix de marque.</p></div>
+    <div class="mod"><div class="mi">❓</div><h4>FAQ live</h4><p>Une FAQ qui répond vraiment, en temps réel, toujours à jour.</p></div>
+    <div class="mod"><div class="mi">🎯</div><h4>Prospection</h4><p>Qualifie, relance, prend les premiers échanges — tu reçois les bons leads.</p></div>
+    <div class="mod"><div class="mi">🧠</div><h4>Propulsé par le core</h4><p>La mémoire et le savoir NAVLYS derrière chaque réponse.</p></div>
+    <div class="mod"><div class="mi">🛡️</div><h4>Sous tes règles</h4><p>Tu fixes ce qu'il peut faire ; les cas sensibles passent par un humain.</p></div>
+  </div>
+
+  <div class="eyebrow" id="offres"><span class="chip">▣</span><h2>Les forfaits</h2></div>
+  <p class="lead">Chez les autres, c'est « au prix de chaque réponse » (imprévisible). Ici : <em>forfait fixe, zéro surprise</em>.</p>
+  <div class="tiers">
+    <div class="tier"><span class="lab">Starter</span><div class="price">49 €<small> /mois</small></div>
+      <ul><li>SAV + FAQ live</li><li>1 canal</li><li>Volume raisonnable</li></ul>
+      <a class="btn" data-tier="io-starter" href="#rejoindre">Choisir Starter</a></div>
+    <div class="tier best"><span class="lab">Pro ★</span><div class="price">99 €<small> /mois</small></div>
+      <ul><li>Tout Starter</li><li>Multi-canaux (réseaux + site)</li><li>Prospection · volume étendu</li></ul>
+      <a class="btn" data-tier="io-pro" href="#rejoindre">Choisir Pro</a></div>
+    <div class="tier"><span class="lab">Business</span><div class="price">dès 199 €<small> /mois</small></div>
+      <ul><li>Tout Pro</li><li>Gros volume</li><li>Multi-équipes · prospection avancée</li></ul>
+      <a class="btn" data-tier="io-business" href="#rejoindre">Choisir Business</a></div>
+  </div>
+  <p class="note">🆓 <strong>Essai 14 jours</strong>. Entreprise / sur-mesure (intégrations, SLA) : sur devis. <strong>Argument clé : prix fixe tout inclus</strong> — pas de facture qui s'envole. <strong>−30 % en annuel</strong>.</p>
+
+  <div class="eyebrow" id="rejoindre"><span class="chip">✉️</span><h2>Demander un accès</h2></div>
+  <p class="lead">Laisse ton e-mail pro : on te contacte pour brancher ton employé en ligne.</p>
+  <div class="formwrap">
+    <form id="joinForm" novalidate>
+      <label for="prenom">Prénom / société</label><input type="text" id="prenom" placeholder="Ton nom ou ta société" autocomplete="organization">
+      <label for="email">E-mail *</label><input type="email" id="email" placeholder="toi@société.com" required autocomplete="email">
+      <label for="interet">Ton besoin principal</label>
+      <select id="interet"><option value="">— choisis —</option><option value="io-sav">SAV / support</option><option value="io-reseaux">Réseaux sociaux</option><option value="io-prospection">Prospection</option><option value="io-tout">Tout à la fois</option></select>
+      <div style="margin-top:16px"><button type="submit" class="btn" id="joinBtn">Demander un accès · 0 €</button></div>
+      <div class="formmsg" id="formMsg" role="status" aria-live="polite"></div>
+    </form>
+  </div>
+
+  <div class="eyebrow"><span class="chip">？</span><h2>Questions fréquentes</h2></div>
+  <div class="faq">
+    <details><summary>En quoi c'est moins cher qu'Intercom &amp; co ?</summary><p>Eux facturent souvent <strong>à chaque réponse</strong> : la note grimpe avec ton succès. NAVLYS.IO, c'est un <strong>forfait fixe</strong> — tu sais ce que tu paies.</p></details>
+    <details><summary>Il répond sur quels canaux ?</summary><p>Site, FAQ, et tes réseaux sociaux. Multi-canaux dès le forfait Pro.</p></details>
+    <details><summary>Et si une demande est délicate ?</summary><p>Tu fixes les règles : les cas sensibles sont transférés à un humain. Il fait le répétitif, pas l'irréversible.</p></details>
+  </div>
+
+  <footer>
+    <div class="flag">🤖 NAVLYS · IO</div>
+    <p class="disc">NAVLYS.IO est un assistant automatisé pour entreprises, propulsé par le core NAVLYS. Le périmètre d'action est défini par le client ; les décisions engageantes et cas sensibles relèvent d'une validation humaine. Service B2B.</p>
+    <p class="legal">© 2026 NAVLYS · <a href="https://navlys.com/cgu">CGU</a> · <a href="https://navlys.com/privacy">Confidentialité</a> · navlys.io</p>
+  </footer>
+</div></main>
+
+<nav class="tabbar">
+  <a class="tab active" href="#top"><span class="i">🤖</span>Accueil</a>
+  <a class="tab" href="#fait"><span class="i">⚙️</span>Capacités</a>
+  <a class="tab" href="#offres"><span class="i">▣</span>Forfaits</a>
+  <a class="tab" href="#rejoindre"><span class="i">✉️</span>Accès</a>
+  <a class="tab" href="#" onclick="NV_menu();return false;"><span class="i">☰</span>Menu</a>
+</nav>
+<script>window.NV_SOURCE="navlys-io";</script>
+<script src="/assets/navlys-pages.js"></script>
+</body>
+</html>

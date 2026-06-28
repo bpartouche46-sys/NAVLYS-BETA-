@@ -1,0 +1,51 @@
+/* ============================================================
+   NAVLYS — composants communs aux pages PRODUIT (offres)
+   Complète navlys-v2.css (charte ice blue). Réutilisé par
+   Finance, Lex, Next Gen (bio), Concierge, .IO.
+   ============================================================ */
+.tag{display:inline-block;font-family:'Fraunces';font-style:italic;font-size:.72rem;letter-spacing:2px;color:var(--noir);background:linear-gradient(100deg,var(--champ),var(--champ-pale));padding:4px 12px;border-radius:99px;text-transform:uppercase}
+.hero-h{font-family:'Cormorant Garamond';font-weight:700;color:#fff;font-size:clamp(2.1rem,9vw,3.4rem);line-height:1.02;margin:12px 0 6px}
+.hero-h em{color:var(--ice);font-style:italic}
+.hero-sub{font-family:'Fraunces';font-style:italic;color:var(--champ-pale);font-size:clamp(1rem,4.4vw,1.3rem)}
+.slogan{color:var(--mut);font-family:'Fraunces';font-style:italic;margin-top:8px}
+.method{display:grid;grid-template-columns:1fr;gap:14px;margin-top:8px}
+.mcard{position:relative;overflow:hidden;border-radius:18px;padding:22px;border:1px solid var(--line);background:linear-gradient(160deg,rgba(18,48,72,.4),rgba(10,13,20,.72))}
+.mcard .pct{font-family:'Cormorant Garamond';font-weight:700;font-size:2.6rem;line-height:1;color:var(--ice)}
+.mcard.alt .pct{color:var(--champ)}
+.mcard h3{font-family:'Cormorant Garamond';color:#fff;font-size:1.4rem;margin:2px 0 6px}
+.mcard p{color:var(--mut);font-size:.95rem}
+.mods{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:8px}
+.mod{border-radius:16px;padding:16px;border:1px solid var(--line);background:linear-gradient(160deg,rgba(18,48,72,.3),rgba(10,13,20,.7))}
+.mod .mi{font-size:1.5rem}.mod h4{font-family:'Cormorant Garamond';color:#fff;font-size:1.12rem;margin:6px 0 3px}
+.mod p{color:var(--mut);font-size:.82rem;line-height:1.5}
+.tiers{display:grid;grid-template-columns:1fr;gap:14px;margin-top:8px}
+.tier{position:relative;overflow:hidden;border-radius:20px;padding:22px;border:1px solid var(--line);background:linear-gradient(160deg,rgba(18,48,72,.35),rgba(10,13,20,.72))}
+.tier.best{border:2px solid rgba(125,211,252,.6);animation:flashglow 3.4s ease-in-out infinite alternate}
+.tier .lab{font-family:'Fraunces';font-style:italic;color:var(--ice);letter-spacing:1px}
+.tier.best .lab{color:var(--champ)}
+.tier .price{font-family:'Cormorant Garamond';font-weight:700;color:#fff;font-size:2.2rem;line-height:1;margin:6px 0}
+.tier .price small{font-size:.9rem;color:var(--mut);font-weight:400}
+.tier ul{list-style:none;margin:12px 0 16px}
+.tier li{color:var(--perle);font-size:.9rem;padding:5px 0 5px 24px;position:relative}
+.tier li::before{content:"✦";position:absolute;left:0;color:var(--ice)}
+.btn{display:inline-block;width:100%;text-align:center;cursor:pointer;color:var(--noir);text-decoration:none;font-family:'Fraunces';font-style:italic;background:linear-gradient(100deg,var(--ice),var(--champ-pale));padding:13px 16px;border-radius:12px;font-size:.95rem;border:none}
+.note{color:var(--mut);font-family:'Fraunces';font-style:italic;font-size:.8rem;margin-top:10px}
+.formwrap{border-radius:20px;padding:22px;border:2px solid rgba(125,211,252,.4);background:linear-gradient(160deg,rgba(18,48,72,.5),rgba(5,6,10,.9));margin-top:8px}
+.formwrap label{display:block;font-family:'Fraunces';font-style:italic;color:var(--mut);font-size:.82rem;margin:10px 0 5px}
+.formwrap input,.formwrap select{width:100%;padding:12px 14px;border-radius:11px;background:rgba(5,8,16,.7);border:1px solid var(--line);color:var(--perle);font-family:'Lora',serif;font-size:.95rem}
+.formwrap input:focus,.formwrap select:focus{outline:none;border-color:var(--ice)}
+.formmsg{margin-top:12px;font-family:'Fraunces';font-style:italic;font-size:.9rem;min-height:1.2em}
+.formmsg.ok{color:var(--ice)}.formmsg.err{color:#ff8a8a}
+.faq details{border:1px solid var(--line);border-radius:12px;padding:4px 16px;margin-top:10px;background:rgba(10,13,20,.5)}
+.faq summary{cursor:pointer;font-family:'Cormorant Garamond';color:#fff;font-size:1.1rem;padding:12px 0;list-style:none}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::before{content:"＋ ";color:var(--ice)}
+.faq details[open] summary::before{content:"− "}
+.faq p{color:var(--mut);font-size:.9rem;padding-bottom:12px}
+/* grille écosystème (hub) */
+.eco{display:grid;grid-template-columns:1fr;gap:14px;margin-top:8px}
+.ecocard{display:flex;gap:14px;align-items:center;border-radius:18px;padding:18px;border:1px solid var(--line);background:linear-gradient(160deg,rgba(18,48,72,.3),rgba(10,13,20,.72));text-decoration:none;animation:cardbreath 5s ease-in-out infinite alternate}
+.ecocard .av{font-size:2rem;width:54px;height:54px;flex:0 0 54px;border-radius:14px;display:flex;align-items:center;justify-content:center;background:rgba(125,211,252,.08);border:1px solid var(--line)}
+.ecocard h4{font-family:'Cormorant Garamond';color:#fff;font-size:1.3rem}.ecocard p{color:var(--mut);font-size:.85rem}
+.ecocard .go{margin-left:auto;color:var(--ice);font-family:'Fraunces';font-style:italic;font-size:.85rem;white-space:nowrap}
+@media(min-width:760px){.method{grid-template-columns:1fr 1fr}.tiers{grid-template-columns:repeat(3,1fr)}.mods{grid-template-columns:repeat(3,1fr)}.eco{grid-template-columns:1fr 1fr}}

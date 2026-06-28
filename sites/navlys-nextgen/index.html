@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>NAVLYS Next Gen — ta biographie vivante, mémoire & transmission</title>
+<meta name="description" content="NAVLYS Next Gen : raconte et transmets ton histoire. Chapitres, souvenirs, photos et voix — réunis dans un livre. Un cadeau de mémoire pour ceux qu'on aime.">
+<meta property="og:title" content="NAVLYS Next Gen"><meta property="og:description" content="Ta biographie vivante — mémoire & transmission.">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Fraunces:ital,wght@1,400;1,500&family=Lora:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/navlys-v2.css">
+<link rel="stylesheet" href="/assets/navlys-pages.css">
+</head>
+<body>
+<div class="bg"></div>
+<div class="topbar"><span class="led"></span><a class="brand" href="#top">NAVLYS</a>
+  <button class="menu-btn" onclick="NV_menu()" aria-label="Menu" aria-expanded="false">☰</button></div>
+<nav class="dropdown" id="dd">
+  <a href="#top">📖 Accueil</a><a href="#comment">Comment ça marche</a><a href="#dans">Ce que tu crées</a><a href="#offres">Les offres</a><a href="#rejoindre">Commencer</a><a href="https://navlys.com">🌊 L'écosystème NAVLYS</a>
+</nav>
+<div class="bandeau"><div class="scroll">NAVLYS Next Gen — ta biographie vivante. Tes souvenirs t'appartiennent et restent privés par défaut. Tu décides de ce que tu partages, et avec qui. Mémoire &amp; transmission, en toute confiance.</div></div>
+
+<main class="feed" id="top"><div class="wrap">
+  <div style="margin-top:14px"><span class="tag">📖 NAVLYS Next Gen · avant-première</span></div>
+  <h1 class="hero-h">Ton histoire <em>mérite un livre</em>.</h1>
+  <p class="hero-sub">Raconte, enregistre ta voix, transmets.</p>
+  <p class="slogan">Une biographie vivante — mémoire &amp; transmission.</p>
+
+  <div class="eyebrow" id="comment"><span class="chip">✨</span><h2>Comment ça marche</h2></div>
+  <div class="mods">
+    <div class="mod"><div class="mi">💬</div><h4>1. On te guide</h4><p>Chaque semaine, une question douce fait remonter un souvenir.</p></div>
+    <div class="mod"><div class="mi">🎙️</div><h4>2. Tu racontes</h4><p>Par écrit ou avec ta <strong>voix</strong> — ajoute tes photos.</p></div>
+    <div class="mod"><div class="mi">📕</div><h4>3. On en fait un livre</h4><p>Tes chapitres deviennent un beau livre relié, à offrir ou garder.</p></div>
+  </div>
+
+  <div class="eyebrow" id="dans"><span class="chip">🧬</span><h2>Ce que tu crées</h2></div>
+  <div class="method">
+    <div class="mcard"><div class="pct">∞</div><h3>Tes chapitres</h3><p>Enfance, rencontres, voyages, leçons de vie… Ton récit, organisé, qui grandit avec toi.</p></div>
+    <div class="mcard alt"><div class="pct">🎁</div><h3>Un héritage</h3><p>Un trésor pour tes proches : ta voix, tes photos, ton histoire — transmis pour de bon.</p></div>
+  </div>
+
+  <div class="eyebrow" id="offres"><span class="chip">▣</span><h2>Les offres</h2></div>
+  <p class="lead">Commence gratuitement. Tu ne paies que si tu veux ton <em>livre</em>.</p>
+  <div class="tiers">
+    <div class="tier"><span class="lab">Essentiel</span><div class="price">59 €<small> /an</small></div>
+      <ul><li>Questions chaque semaine</li><li>1 livre relié</li><li>Couverture couleur</li></ul>
+      <a class="btn" data-tier="bio-essentiel" href="#rejoindre">Choisir Essentiel</a></div>
+    <div class="tier best"><span class="lab">Couleur &amp; Voix ★</span><div class="price">99 €<small> /an</small></div>
+      <ul><li>Tout Essentiel</li><li>Couleur intégrale</li><li>Enregistrement de ta voix</li></ul>
+      <a class="btn" data-tier="bio-couleur" href="#rejoindre">Choisir Couleur &amp; Voix</a></div>
+    <div class="tier"><span class="lab">Famille</span><div class="price">149 €<small> /an</small></div>
+      <ul><li>Tout Couleur &amp; Voix</li><li>Interviews guidées</li><li>2 livres · partage famille illimité</li></ul>
+      <a class="btn" data-tier="bio-famille" href="#rejoindre">Choisir Famille</a></div>
+  </div>
+  <p class="note">🆓 <strong>Commence gratuitement</strong> dans l'app (tes chapitres &amp; souvenirs). 🎁 <strong>Formule Cadeau</strong> : offre une biographie à un proche. Option mensuelle 6,99 €/mois. Tes contenus t'appartiennent.</p>
+
+  <div class="eyebrow" id="rejoindre"><span class="chip">✉️</span><h2>Commencer mon histoire</h2></div>
+  <p class="lead">Laisse ton e-mail : on t'ouvre l'accès en priorité.</p>
+  <div class="formwrap">
+    <form id="joinForm" novalidate>
+      <label for="prenom">Prénom</label><input type="text" id="prenom" placeholder="Ton prénom" autocomplete="given-name">
+      <label for="email">E-mail *</label><input type="email" id="email" placeholder="toi@exemple.com" required autocomplete="email">
+      <label for="interet">C'est pour…</label>
+      <select id="interet"><option value="">— choisis —</option><option value="bio-moi">Raconter ma vie</option><option value="bio-parent">Un parent / grand-parent</option><option value="bio-cadeau">Offrir un cadeau</option><option value="bio-famille">Toute la famille</option></select>
+      <div style="margin-top:16px"><button type="submit" class="btn" id="joinBtn">Réserver ma place · 0 €</button></div>
+      <div class="formmsg" id="formMsg" role="status" aria-live="polite"></div>
+    </form>
+  </div>
+
+  <div class="eyebrow"><span class="chip">？</span><h2>Questions fréquentes</h2></div>
+  <div class="faq">
+    <details><summary>Mes souvenirs sont-ils privés ?</summary><p>Oui. <strong>Privés par défaut</strong> : tu choisis ce que tu partages et avec qui. Tes contenus t'appartiennent.</p></details>
+    <details><summary>Je ne sais pas écrire un livre…</summary><p>Pas besoin : on te pose des questions, tu réponds (à l'écrit ou à la voix), et on met tout en forme.</p></details>
+    <details><summary>Puis-je l'offrir ?</summary><p>Oui, c'est même un des plus beaux cadeaux : la formule Cadeau permet d'offrir une biographie à un proche.</p></details>
+  </div>
+
+  <footer>
+    <div class="flag">📖 NAVLYS · NEXT GEN</div>
+    <p class="disc">NAVLYS Next Gen est un service de création de récit de vie. Tes contenus restent privés par défaut et t'appartiennent ; tu maîtrises tout partage. Réservé aux 18 ans et +.</p>
+    <p class="legal">© 2026 NAVLYS · <a href="https://navlys.com/cgu">CGU</a> · <a href="https://navlys.com/privacy">Confidentialité</a> · navlys.com</p>
+  </footer>
+</div></main>
+
+<nav class="tabbar">
+  <a class="tab active" href="#top"><span class="i">📖</span>Accueil</a>
+  <a class="tab" href="#comment"><span class="i">✨</span>Étapes</a>
+  <a class="tab" href="#offres"><span class="i">▣</span>Offres</a>
+  <a class="tab" href="#rejoindre"><span class="i">✉️</span>Commencer</a>
+  <a class="tab" href="#" onclick="NV_menu();return false;"><span class="i">☰</span>Menu</a>
+</nav>
+<script>window.NV_SOURCE="navlys-nextgen";</script>
+<script src="/assets/navlys-pages.js"></script>
+</body>
+</html>

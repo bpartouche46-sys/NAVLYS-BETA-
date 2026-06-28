@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>NAVLYS Concierge — l'aide à tous, pour tout, au quotidien</title>
+<meta name="description" content="NAVLYS Concierge : votre assistant du quotidien accessible à tous. Démarches, réservations, rappels — et services premium/luxe en option. La conciergerie pour tout le monde.">
+<meta property="og:title" content="NAVLYS Concierge"><meta property="og:description" content="L'aide à tous, pour tout — et le luxe en option.">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Fraunces:ital,wght@1,400;1,500&family=Lora:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/navlys-v2.css">
+<link rel="stylesheet" href="/assets/navlys-pages.css">
+</head>
+<body>
+<div class="bg"></div>
+<div class="topbar"><span class="led"></span><a class="brand" href="#top">NAVLYS</a>
+  <button class="menu-btn" onclick="NV_menu()" aria-label="Menu" aria-expanded="false">☰</button></div>
+<nav class="dropdown" id="dd">
+  <a href="#top">🛎️ Accueil</a><a href="#aide">Ce qu'on fait pour toi</a><a href="#offres">Les formules</a><a href="#rejoindre">Rejoindre</a><a href="https://navlys.com">🌊 L'écosystème NAVLYS</a>
+</nav>
+<div class="bandeau"><div class="scroll">NAVLYS Concierge — une aide bienveillante au quotidien, accessible à tous. Service d'assistance et d'orientation ; les prestations spécifiques restent à la charge et sous la décision du client. Réservé aux 18 ans et +.</div></div>
+
+<main class="feed" id="top"><div class="wrap">
+  <div style="margin-top:14px"><span class="tag">🛎️ NAVLYS Concierge · avant-première</span></div>
+  <h1 class="hero-h">Ton bras droit, <em>pour tout</em>.</h1>
+  <p class="hero-sub">Les petites galères et les grandes envies — on s'en occupe.</p>
+  <p class="slogan">La 1ʳᵉ conciergerie accessible à tous. Le luxe en option.</p>
+
+  <div class="eyebrow" id="aide"><span class="chip">🤝</span><h2>Ce qu'on fait pour toi</h2></div>
+  <div class="mods">
+    <div class="mod"><div class="mi">🗂️</div><h4>Démarches</h4><p>Papiers, rendez-vous, résiliations : on te guide et on simplifie.</p></div>
+    <div class="mod"><div class="mi">📅</div><h4>Réservations</h4><p>Restos, voyages, billets, artisans : on trouve et on organise.</p></div>
+    <div class="mod"><div class="mi">⏰</div><h4>Rappels</h4><p>Plus rien d'oublié : échéances, anniversaires, renouvellements.</p></div>
+    <div class="mod"><div class="mi">🔎</div><h4>Recherches</h4><p>Le bon plan, le bon prestataire, la bonne info — vite.</p></div>
+    <div class="mod"><div class="mi">🤵</div><h4>Humain dédié</h4><p>Sur les formules premium, un contact qui te connaît.</p></div>
+    <div class="mod"><div class="mi">💎</div><h4>Privilèges</h4><p>Accès et services d'exception sur la formule Luxe.</p></div>
+  </div>
+
+  <div class="eyebrow" id="offres"><span class="chip">▣</span><h2>Les formules</h2></div>
+  <p class="lead">Les conciergeries de luxe coûtent des milliers d'€/an. NAVLYS l'ouvre à <em>tous</em>.</p>
+  <div class="tiers">
+    <div class="tier"><span class="lab">Quotidien</span><div class="price">9,99 €<small> /mois</small></div>
+      <ul><li>Assistance illimitée (IA)</li><li>Démarches &amp; réservations</li><li>Rappels &amp; recherches</li></ul>
+      <a class="btn" data-tier="conc-quotidien" href="#rejoindre">Choisir Quotidien</a></div>
+    <div class="tier best"><span class="lab">Premium ★</span><div class="price">29,99 €<small> /mois</small></div>
+      <ul><li>Tout Quotidien</li><li>Traitement prioritaire</li><li>Contact humain dédié</li></ul>
+      <a class="btn" data-tier="conc-premium" href="#rejoindre">Choisir Premium</a></div>
+    <div class="tier"><span class="lab">Privilège · Luxe</span><div class="price">dès 199 €<small> /mois</small></div>
+      <ul><li>Tout Premium</li><li>Services &amp; accès d'exception</li><li>Conciergerie haut de gamme</li></ul>
+      <a class="btn" data-tier="conc-luxe" href="#rejoindre">Découvrir Privilège</a></div>
+  </div>
+  <p class="note">🆓 <strong>Aide de base gratuite</strong> pour commencer. À la carte possible sans abonnement. <strong>−30 % en annuel</strong>. 🚀 <strong>Offre Fondateur</strong> pour les 100 premiers. Privilège/Luxe : sur mesure, sur devis.</p>
+
+  <div class="eyebrow" id="rejoindre"><span class="chip">✉️</span><h2>Rejoindre</h2></div>
+  <p class="lead">Laisse ton e-mail : accès prioritaire à l'ouverture.</p>
+  <div class="formwrap">
+    <form id="joinForm" novalidate>
+      <label for="prenom">Prénom</label><input type="text" id="prenom" placeholder="Ton prénom" autocomplete="given-name">
+      <label for="email">E-mail *</label><input type="email" id="email" placeholder="toi@exemple.com" required autocomplete="email">
+      <label for="interet">Tu cherches…</label>
+      <select id="interet"><option value="">— choisis —</option><option value="conc-quotidien">De l'aide au quotidien</option><option value="conc-premium">Un service premium</option><option value="conc-luxe">Une conciergerie de luxe</option><option value="conc-pro">Pour mon entreprise</option></select>
+      <div style="margin-top:16px"><button type="submit" class="btn" id="joinBtn">Réserver ma place · 0 €</button></div>
+      <div class="formmsg" id="formMsg" role="status" aria-live="polite"></div>
+    </form>
+  </div>
+
+  <div class="eyebrow"><span class="chip">？</span><h2>Questions fréquentes</h2></div>
+  <div class="faq">
+    <details><summary>C'est vraiment pour tout le monde ?</summary><p>Oui — c'est l'idée. Une vraie aide au quotidien dès <strong>9,99 €/mois</strong>, là où les conciergeries classiques coûtent des milliers d'euros par an.</p></details>
+    <details><summary>Qui paie les prestations (resto, billets…) ?</summary><p>NAVLYS organise et facilite ; le coût des prestations elles-mêmes reste à ta charge et sous ta décision.</p></details>
+    <details><summary>Et les services de luxe ?</summary><p>La formule Privilège donne accès à des services et expériences d'exception, sur mesure.</p></details>
+  </div>
+
+  <footer>
+    <div class="flag">🛎️ NAVLYS · CONCIERGE</div>
+    <p class="disc">NAVLYS Concierge est un service d'assistance, d'organisation et d'orientation. Le coût des prestations commandées auprès de tiers reste à la charge du client, qui décide seul de ses engagements. Réservé aux 18 ans et +.</p>
+    <p class="legal">© 2026 NAVLYS · <a href="https://navlys.com/cgu">CGU</a> · <a href="https://navlys.com/privacy">Confidentialité</a> · navlys.com</p>
+  </footer>
+</div></main>
+
+<nav class="tabbar">
+  <a class="tab active" href="#top"><span class="i">🛎️</span>Accueil</a>
+  <a class="tab" href="#aide"><span class="i">🤝</span>Services</a>
+  <a class="tab" href="#offres"><span class="i">▣</span>Formules</a>
+  <a class="tab" href="#rejoindre"><span class="i">✉️</span>Rejoindre</a>
+  <a class="tab" href="#" onclick="NV_menu();return false;"><span class="i">☰</span>Menu</a>
+</nav>
+<script>window.NV_SOURCE="navlys-concierge";</script>
+<script src="/assets/navlys-pages.js"></script>
+</body>
+</html>
