@@ -90,6 +90,33 @@
 - [ ] **Stripe / PayPal** : par prudence, vérifier qu'aucune clé n'a fuité ; sinon rotationner.
 - [ ] **2FA partout** (Hetzner, Anthropic, GitHub, Vercel, Google, Stripe) → activer/vérifier.
 
+### G. 🗑️ DESTRUCTION des fichiers Hermès (tes postes + serveur)
+> Demande de Bruno : « détruire tout fichier Hermès sur mes postes / clés / autre. »
+> ⚠️ **Révoque/rotationne les clés AVANT de supprimer les fichiers** (sections A→F) : une fois
+> les fichiers effacés, tu ne sauras plus *quelles* clés existaient à révoquer. Détruire un
+> fichier ne révoque PAS la clé qu'il contenait — il faut les deux.
+
+**Sur l'ANCIEN PC et le NOUVEAU PC (Windows)** :
+- [ ] **Désinstaller / supprimer l'application Hermès** elle-même (l'agent qui tournait via OpenRouter)
+      et son dossier de config/données.
+- [ ] Rechercher (Explorateur → barre de recherche) et supprimer les dossiers/fichiers liés :
+      `hermes`, `hermès`, `cockpit`, `rclone.conf`, et tout fichier **`.env`** contenant des clés.
+- [ ] Supprimer les **clés SSH privées** qui servaient à atteindre le serveur si elles ne doivent
+      plus exister (`C:\Users\<toi>\.ssh\` → `id_*` non voulues). ⚠️ Garde celle dont **TU** as besoin.
+- [ ] Vider la **corbeille** ensuite (sinon le fichier existe encore).
+- ℹ️ Les **dépôts clonés** (NOVA-HUB, etc.) peuvent être supprimés sans risque : le code est sur GitHub.
+
+**Sur le SERVEUR Hetzner** (console web, je dicte) :
+- [ ] Supprimer **`/var/www/cockpit/`** (le cockpit web qu'il avait monté) si tu ne t'en sers plus.
+- [ ] Supprimer **`rclone`** + ses configs (`~/.config/rclone/`) s'il les avait posées.
+- [ ] Après **rotation** des secrets (section C) : nettoyer/réécrire `/root/navlys/config/.env`
+      avec **les nouvelles** clés uniquement (jamais commité dans Git).
+- [ ] Retirer son entrée de `~/.ssh/authorized_keys` (déjà en section C) et tout fichier qu'il a déposé.
+- [ ] Vérifier qu'aucun **cron/service** Hermès ne subsiste (section C) avant de considérer le poste « propre ».
+
+> 🔒 Rappel : effacer un fichier de clé ≠ rendre la clé inactive. La sécurité vient de la
+> **révocation** (sections A→F) ; la destruction des fichiers est le **complément** (ne rien laisser traîner).
+
 ---
 
 ## ✅ Vérification finale (quand tout est coché)
