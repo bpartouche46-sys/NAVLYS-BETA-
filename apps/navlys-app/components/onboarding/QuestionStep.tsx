@@ -7,6 +7,10 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { saveAnswer, submitQuestionnaireIfComplete } from '@/app/(onboarding)/_actions';
+import { SliderInput } from '@/components/onboarding/inputs/SliderInput';
+import { SingleChoice } from '@/components/onboarding/inputs/SingleChoice';
+import { MultiChoice } from '@/components/onboarding/inputs/MultiChoice';
+import { BinaryChoice } from '@/components/onboarding/inputs/BinaryChoice';
 
 interface Props {
   stepIndex: number;
@@ -55,8 +59,19 @@ export function QuestionStep({ stepIndex, total, question }: Props) {
         {question.label}
       </h2>
 
-      {/* TODO: dispatcher selon question.kind → SliderInput / SingleChoice / MultiChoice / BinaryChoice */}
-      {/* Implémentations détaillées dans /components/onboarding/inputs/* (non fournies par la doc) */}
+      {/* Dispatcher des inputs selon question.kind */}
+      {(question.kind === 'slider' || question.kind === 'log-slider') && (
+        <SliderInput question={question} value={value} onChange={setValue} />
+      )}
+      {question.kind === 'single' && (
+        <SingleChoice question={question} value={value} onChange={setValue} />
+      )}
+      {question.kind === 'multi' && (
+        <MultiChoice question={question} value={value} onChange={setValue} />
+      )}
+      {question.kind === 'binary' && (
+        <BinaryChoice question={question} value={value} onChange={setValue} />
+      )}
 
       <div className="flex gap-3 mt-auto">
         {stepIndex > 1 && (
