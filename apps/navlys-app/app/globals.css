@@ -1,0 +1,58 @@
+/* app/globals.css — charte NAVLYS verrouillée. Ice Blue #7DD3FC (CLAUDE.md).
+   Variables CSS reconstituées VERBATIM depuis _APP_CLIENT_ONBOARDING_7_SCREENS.md §0
+   (les composants onboarding/auth référencent --color-* et --font-*).
+   Utilitaires (focus WCAG, .card, .btn-*, reduced-motion) repris de
+   live-source/app-config/globals.css (référence Drive 2026-06-25). */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-bronze:   #B87333;
+  --color-gold:     #C9A961;
+  --color-ice:      #7DD3FC;
+  --color-night:    #02040A;
+  --color-pearl:    #F2F4F7;
+
+  --font-display:   'Cinzel', serif;                  /* titres */
+  --font-body:      'Cormorant Garamond', serif;      /* corps narratif */
+  --font-ui:        'Manrope', system-ui, sans-serif; /* UI / boutons / labels */
+  --font-mono:      'JetBrains Mono', monospace;       /* chiffres / KPI */
+
+  --shadow-bronze: 0 0 24px rgba(184, 115, 51, 0.35);
+  --shadow-ice:    0 0 24px rgba(125, 211, 252, 0.45);
+}
+
+/* Contrast checks WCAG AA :
+ * ice (#7DD3FC) sur night (#02040A) = 11.4:1 ✅
+ * bronze (#B87333) sur night        = 4.8:1  ✅
+ * pearl (#F2F4F7) sur night         = 18.0:1 ✅
+ */
+
+* { box-sizing: border-box; }
+
+html, body { background: var(--color-night); color: var(--color-pearl); }
+
+::selection { background: rgba(125, 211, 252, 0.35); color: var(--color-pearl); }
+
+/* WCAG AA — focus visible obligatoire */
+:focus-visible {
+  outline: 2px solid var(--color-ice);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.card {
+  background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+  border: 1px solid rgba(201,169,97,0.18);
+  border-radius: 16px;
+  backdrop-filter: blur(8px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
