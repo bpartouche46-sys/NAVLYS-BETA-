@@ -25,29 +25,33 @@
   // compte à rebours
   var TARGET = window.NV_TARGET || (Date.now()+14*86400000);
   function pad(n,l){return String(n).padStart(l||2,'0');}
+  var cdT;
   function tick(){
     var el=document.getElementById('cd-d'); if(!el) return;
     var diff=Math.max(0,TARGET-Date.now());
+    var h=document.getElementById('cd-h'),m=document.getElementById('cd-m'),s=document.getElementById('cd-s');
     el.textContent=Math.floor(diff/86400000);
-    document.getElementById('cd-h').textContent=pad(Math.floor(diff%86400000/3600000));
-    document.getElementById('cd-m').textContent=pad(Math.floor(diff%3600000/60000));
-    document.getElementById('cd-s').textContent=pad(Math.floor(diff%60000/1000));
+    if(h)h.textContent=pad(Math.floor(diff%86400000/3600000));
+    if(m)m.textContent=pad(Math.floor(diff%3600000/60000));
+    if(s)s.textContent=pad(Math.floor(diff%60000/1000));
+    if(diff<=0 && cdT){clearInterval(cdT);cdT=null;}
   }
-  tick(); setInterval(tick,1000);
+  tick(); cdT=setInterval(tick,1000);
 
   // playlist cinéma
-  var REELS = window.NV_REELS || [{src:"https://navlys.com/media/presentation.mp4",title:"NAVLYS — présentation"}];
+  var REELS = (window.NV_REELS && window.NV_REELS.length) ? window.NV_REELS : [{src:"https://navlys.com/media/presentation.mp4",title:"NAVLYS — présentation"}];
   var v=document.getElementById('liveVideo'),
       poster=document.getElementById('reelPoster'),
       rTitle=document.getElementById('reelTitle'),
       dots=document.getElementById('reelDots'),
       idx=-1, hold=null;
-  if(v && dots){
+  if(v && dots && REELS.length){
     REELS.forEach(function(){var d=document.createElement('i');dots.appendChild(d);});
     var setDots=function(){[].forEach.call(dots.children,function(d,i){d.className=i===idx?'on':'';});};
     var next=function(){idx=(idx+1)%REELS.length;play(REELS[idx]);};
     var play=function(r){
-      clearTimeout(hold); if(rTitle)rTitle.textContent=r.title||''; setDots();
+      clearTimeout(hold); v.onended=null; v.onerror=null;
+      if(rTitle)rTitle.textContent=r.title||''; setDots();
       if(r.src){
         if(poster)poster.style.opacity=0; v.style.display='';
         v.src=r.src; v.load(); var p=v.play(); if(p&&p.catch)p.catch(function(){});
