@@ -9,6 +9,14 @@
             "command": "echo '🛡️  NAVLYS — RÈGLE D'\\''OR : lire docs/JOURNAL-ERREURS.md et docs/CHECKLIST-SECURITE.md avant toute action. Ne jamais refaire deux fois la même erreur. Lancer /controle avant de modifier un site.'"
           }
         ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/session-start.sh"
+          }
+        ]
       }
     ]
   }

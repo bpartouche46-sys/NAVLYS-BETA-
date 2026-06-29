@@ -89,6 +89,57 @@
 - ⏳ **Reste** : `crontab -l` ; **mot de passe cockpit (exposé) + SSL** ; stocker la vidéo
   proprement ; décider correction navlys.io (palette → charte, date → 1ᵉʳ juillet).
 - ℹ️ Note : Claude **ne peut pas** écouter les notes vocales (pas de transcription) ni lancer de `.exe`.
+## Session 2026-06-28 (d) — REFONTE navlys.com PRÊTE (aperçu) + apps backend déployé
+
+- ✅ **Refonte navlys.com construite & vérifiée en aperçu** (design navlys.io : fond animé +
+  logo doré, charte `#7DD3FC`, slogan figé) réunissant applis + partenaires + communauté.
+  Aperçu live : `navlys-app-git-claude-migrate-old-computer-data-q7im6j-navlys.vercel.app`.
+- ✅ **Apps backend opérationnel** : `/api/navlex`, `/api/sav`, `/api/voice` **déployées**
+  (fonctions edge à la racine `/api/`, `vercel.json` → `outputDirectory: live-source`).
+  NAVLEX répond (405 sur GET = OK). Clés env posées par Bruno (ANTHROPIC_API_KEY,
+  ELEVENLABS_API_KEY, ELEVENLABS_VOICE_ID). ⚠️ Les apps n'acceptent QUE les vrais domaines
+  (CORS) → test réel possible uniquement sur navlys.com une fois en prod.
+- 🔌 **Vercel navlys-app** : relié à **NAVLYS-BETA-**. ⚠️ **Découverte clé** : la PRODUCTION
+  n'est PAS pilotée par la branche par défaut — **les push Git créent des APERÇUS** (`target:null`).
+  La prod (navlys.com) = déploiements CLI/`claudenavlys` historiques, mis à jour par **promotion**.
+- 🪧 **ÉTAPE FINALE pour mettre la refonte sur navlys.com** (Bruno, sur DESKTOP — pas mobile) :
+  - Soit **Promote to Production** sur le dernier déploiement (Vercel → navlys-app → Deployments
+    → dernier (refonte) → ⋯ → Promote to Production).
+  - Soit **Settings → Git → Production Branch** = la branche poussée → alors les push deviennent
+    prod automatiquement (= autonomie permanente recherchée).
+  - Claude ne peut PAS promouvoir via API (aucun outil MCP) ni pousser en prod sans ce réglage.
+- 🛟 Rollback dispo (anciens déploiements `isRollbackCandidate`). Rien détruit.
+
+## Session 2026-06-28 (c) — CONSOLIDATION navlys.com (en cours) + bascule sur nouveau PC
+
+- 🎯 **Demande Bruno** : un seul site **propre** = navlys.com qui réunit tout (les sites « en
+  vrac »), réorganisé proprement. + finir aujourd'hui + sites beta actifs à tester.
+- ✅ **Fait** :
+  - **Audit complet** des 14 URLs live → `docs/AUDIT-SITES-2026-06-28.md`.
+  - **Plan unique** → `docs/PLAN-SITE-GLOBAL-NAVLYS.md`.
+  - **Version propre de navlys.com construite** dans `live-source/` : `partenaires.html`
+    (19 partenaires rapatriés de navlys.io) + accueil nettoyé (menu Partenaires + pied
+    « Famille NAVLYS »). Conformité VERT. **PR #35 MERGÉE** dans la branche par défaut.
+  - **Décisions Bruno** : lancement public unique = **1ᵉʳ juillet 2026** ; **navlys.io →
+    fusionner dans navlys.com puis rediriger**.
+- 🔌 **État Vercel (navlys-app) au moment de la bascule** :
+  - **NOVA-HUB = DÉCONNECTÉ** (fait par Bruno) ; **NAVLYS-BETA- = PAS ENCORE reconnecté**.
+  - ⚠️ Le site **reste EN LIGNE** (le dernier déploiement prod continue de servir). Rien cassé.
+  - Bruno a eu du mal avec l'UI Vercel/GitHub (onglets) → **il finit le branchement sur le
+    NOUVEAU PC**.
+- 🪧 **SEULE étape restante pour déployer la version propre** :
+  1. navlys-app → Settings → **Git → Connect → `bpartouche46-sys/NAVLYS-BETA-`** (autoriser
+     l'app Vercel sur ce dépôt : « All repositories » ou cocher NAVLYS-BETA-).
+  2. Settings → **General → Root Directory = `live-source`**.
+  3. Laisser « Production Branch » par défaut → **premier déploiement = APERÇU** ; Claude
+     vérifie puis promeut en prod (filet : rollback dispo).
+- 🛠️ **Reste à construire APRÈS le 1er déploiement v1** : `/journal` (fusion `/tech`+
+  `/influenceurs`), **pages légales** (`/mentions` `/cgu` `/confidentialite`), `/communaute`,
+  **redirections** navlys.io + navlys-teaser → navlys.com, **corrections conformité** sur sites
+  séparés (🔴 « Jérusalem » navbio meta, 🔴 « +8 à 12 % » brunopartouche.com/bio).
+- 🔑 **Accès Claude** : Vercel + Supabase OK (MCP, écriture) ; **GitHub limité à `navlys-beta-`**
+  (ne peut PAS éditer NOVA-HUB) → c'est pourquoi navlys-app doit pointer sur NAVLYS-BETA-.
+
 ## Session 2026-06-28 (b) — DÉCISION MAJEURE : autonomie Claude sur Vercel+Supabase
 
 - 🎯 **Demande Bruno** : *« prends la main et transfère tout sur Hetzner, puis on récupère la
