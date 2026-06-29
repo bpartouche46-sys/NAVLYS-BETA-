@@ -53,6 +53,19 @@ body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;bac
 .panel .txt{font-style:italic;color:var(--perle-doux);font-size:17px;line-height:1.55;max-height:190px;overflow:auto;padding-right:6px}
 .panel .txt::-webkit-scrollbar{width:6px}.panel .txt::-webkit-scrollbar-thumb{background:rgba(125,211,252,0.3);border-radius:9px}
 
+/* Bandeau série + thème */
+.day{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.streak{display:inline-flex;align-items:center;gap:6px;font-family:'Cinzel',serif;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#02040a;background:linear-gradient(100deg,var(--or),#fff6df);border-radius:999px;padding:4px 11px}
+.theme{display:inline-flex;align-items:center;gap:6px;font-family:'Cinzel',serif;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--ice-clair);border:1px solid rgba(125,211,252,0.4);border-radius:999px;padding:4px 11px}
+
+/* Format NAVLYS — les 5 temps de la marée */
+.maree{list-style:none;display:flex;flex-direction:column;gap:9px;margin:4px 0 2px;border-left:2px solid rgba(125,211,252,0.28);padding-left:14px}
+.maree li{position:relative}
+.maree li::before{content:"";position:absolute;left:-19px;top:7px;width:8px;height:8px;border-radius:50%;background:var(--ice);box-shadow:0 0 9px var(--ice)}
+.maree li:nth-child(3)::before,.maree li:nth-child(4)::before{background:var(--or);box-shadow:0 0 9px var(--or)}
+.maree .lab{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--or);display:block;margin-bottom:1px}
+.maree .val{font-style:italic;color:var(--perle-doux);font-size:15.5px;line-height:1.45}
+
 .controls{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:2px}
 .btn{display:inline-flex;align-items:center;gap:8px;font-family:'Cinzel',serif;font-size:12px;letter-spacing:.16em;text-transform:uppercase;cursor:pointer;border:none;border-radius:999px;padding:13px 22px;transition:.25s}
 .btn-or{color:#02040a;background:linear-gradient(100deg,var(--or),#fff6df)}
@@ -125,9 +138,19 @@ footer{padding:46px 20px 70px;text-align:center;border-top:1px solid rgba(184,11
     </div>
 
     <div class="panel">
-      <div class="day">Cours du <b id="dayDate">—</b> · <span id="dayNum">leçon</span></div>
+      <div class="day">
+        <span class="streak">🌊 Jour <b id="dayStreak">1</b></span>
+        <span class="theme" id="dayTheme">Thème</span>
+        <span style="font-family:'Cinzel',serif;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ice)">· <b id="dayDate" style="color:var(--or)">—</b></span>
+      </div>
       <h2 id="coursTitre">Le cours du jour arrive…</h2>
-      <div class="txt" id="coursTexte">Bruno dépose ici, chaque matin, sa mini-leçon de 2 à 3 minutes. Le clone la lit avec sa voix, puis NAVLYS la diffuse partout.</div>
+      <ol class="maree" id="maree">
+        <li><span class="lab">Le présage</span><span class="val" id="mPresage">—</span></li>
+        <li><span class="lab">La notion</span><span class="val" id="mNotion">—</span></li>
+        <li><span class="lab">La méthode</span><span class="val" id="mMethode">—</span></li>
+        <li><span class="lab">Le cap</span><span class="val" id="mCap">—</span></li>
+        <li><span class="lab">La prochaine marée</span><span class="val" id="mSuite">Rendez-vous demain, même heure.</span></li>
+      </ol>
       <div class="controls">
         <button class="btn btn-or" id="btnPlay">▶ Écouter le cours</button>
         <button class="btn btn-ice" id="btnStop">■ Stop</button>
@@ -182,28 +205,37 @@ footer{padding:46px 20px 70px;text-align:center;border-top:1px solid rgba(184,11
    - Voix : POST /api/voice { text } -> audio/mpeg (ElevenLabs, voix Bruno)
    ==================================================================== */
 
-/* ---- 1. Contenu du jour (slot éditable / branché Supabase ensuite) ---- */
+/* ---- 1. Contenu du jour — FORMAT NAVLYS (slot éditable / branché Supabase ensuite)
+   Le jour 1 de la série = DEPART. Chaque matin, MasterNav remplace cet objet. ---- */
+const DEPART = "2026-06-29";   // J1 de la série « Le Cours du Jour »
 const COURS = {
   date: null,                 // null => date du jour automatique
-  numero: "Leçon du jour",
-  titre: "La règle des 90/10 : protéger d'abord, faire fructifier ensuite",
-  texte: "Bonjour, c'est Bruno. Aujourd'hui, une idée simple mais qui change tout : la règle des 90 / 10. " +
-         "L'idée n'est pas de deviner le bon coup, mais de protéger ton capital d'abord. Tu gardes une large base " +
-         "tranquille, solide, qui dort bien la nuit — et tu réserves une petite part, mesurée, pour apprendre et " +
-         "explorer sans jamais mettre ton avenir en jeu. Le vent, c'est l'IA et les marchés ; la barre, c'est toi. " +
-         "On ne court pas après le bateau qui passe : on construit le sien, jour après jour. Rendez-vous demain, " +
-         "même heure, pour la prochaine marée. Ceci est de l'éducation, jamais un conseil : tu restes seul maître à bord.",
+  theme: "Méthode 90/10",     // chip de thème (façon Zogo / Money Masters)
+  titre: "Protéger d'abord, faire fructifier ensuite",
+  // Les 5 temps de la marée (affichés + dits par le clone)
+  presage: "Il y a bien longtemps, on croyait qu'investir, c'était deviner le bon coup…",
+  notion:  "La règle des 90/10 : tu gardes une large base tranquille, solide, qui dort bien la nuit — et tu réserves une petite part, mesurée, pour apprendre et explorer.",
+  methode: "On ne court jamais après le bateau qui passe. Le vent, c'est l'IA et les marchés ; la barre, c'est toi. On construit son propre bateau, jour après jour.",
+  cap:     "Ceci est de l'éducation, jamais un conseil : tu restes seul maître à bord.",
   videoUrl: ""                // si tu déposes un MP4 filmé, mets l'URL ici
 };
+// Texte parlé = enchaînement des 5 temps (ta voix le lit dans l'ordre)
+COURS.texte = [COURS.presage, COURS.notion, COURS.methode, COURS.cap,
+  "Rendez-vous demain, même heure, pour la prochaine marée."].join(" ");
 
 /* ---- 2. Remplissage du panneau ---- */
 (function fillPanel(){
   const d = COURS.date ? new Date(COURS.date) : new Date();
   const fmt = d.toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'});
+  const jour = Math.max(1, Math.floor((d - new Date(DEPART)) / 86400000) + 1);
+  document.getElementById('dayStreak').textContent = jour;
+  document.getElementById('dayTheme').textContent = COURS.theme;
   document.getElementById('dayDate').textContent = fmt;
-  document.getElementById('dayNum').textContent = COURS.numero;
   document.getElementById('coursTitre').textContent = COURS.titre;
-  document.getElementById('coursTexte').textContent = COURS.texte;
+  document.getElementById('mPresage').textContent = COURS.presage;
+  document.getElementById('mNotion').textContent  = COURS.notion;
+  document.getElementById('mMethode').textContent = COURS.methode;
+  document.getElementById('mCap').textContent     = COURS.cap;
 
   // Liens de diffusion : partage de l'URL de la page (le clip est attaché à part)
   const url = encodeURIComponent('https://navlys.com/cours');
