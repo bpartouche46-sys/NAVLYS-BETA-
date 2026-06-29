@@ -154,6 +154,7 @@ footer{padding:46px 20px 70px;text-align:center;border-top:1px solid rgba(184,11
       <div class="controls">
         <button class="btn btn-or" id="btnPlay">▶ Écouter le cours</button>
         <button class="btn btn-ice" id="btnStop">■ Stop</button>
+        <button class="btn btn-ice" id="btnClone">🪄 Générer mon clone</button>
         <label class="btn btn-ice" for="clipFile" style="margin-left:auto">🎬 Charger ma vidéo</label>
         <input type="file" id="clipFile" accept="video/*" hidden>
       </div>
@@ -382,6 +383,45 @@ function loadClip(url){
 clipFile.addEventListener('change', e=>{
   const f=e.target.files&&e.target.files[0]; if(!f) return;
   loadClip(URL.createObjectURL(f));
+});
+
+/* ---- 6. Clone animé HeyGen : génère une vraie vidéo (avatar + voix) ---- */
+const btnClone=document.getElementById('btnClone');
+let pollTimer=0;
+async function pollClone(videoId, tries){
+  if(tries>40){ subtitle.textContent='Le clone met du temps… réessaie dans un moment.'; btnClone.disabled=false; btnClone.textContent='🪄 Générer mon clone'; return; }
+  try{
+    const r=await fetch('/api/clone?video_id='+encodeURIComponent(videoId));
+    const d=await r.json();
+    if(d.status==='completed' && d.video_url){
+      loadClip(d.video_url); clip.play().catch(()=>{});
+      subtitle.textContent='Ton clone animé est prêt. 🌊';
+      btnClone.disabled=false; btnClone.textContent='🪄 Générer mon clone';
+      return;
+    }
+    if(d.status==='failed'){ subtitle.textContent='La génération du clone a échoué — réessaie.'; btnClone.disabled=false; btnClone.textContent='🪄 Générer mon clone'; return; }
+    subtitle.textContent='Le clone se fabrique… ('+(tries+1)+')';
+    pollTimer=setTimeout(()=>pollClone(videoId,tries+1), 6000);
+  }catch(_){ pollTimer=setTimeout(()=>pollClone(videoId,tries+1), 6000); }
+}
+btnClone.addEventListener('click', async ()=>{
+  btnClone.disabled=true; btnClone.textContent='… je fabrique ton clone';
+  subtitle.textContent='Lancement de la génération du clone animé…';
+  try{
+    const r=await fetch('/api/clone',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({text:COURS.texte.slice(0,1500)})});
+    const d=await r.json();
+    if(!r.ok || !d.video_id){
+      btnClone.disabled=false; btnClone.textContent='🪄 Générer mon clone';
+      subtitle.textContent='Clone non configuré pour l\'instant.';
+      hint.textContent='Pour activer le vrai clone : renseigne HEYGEN_API_KEY + HEYGEN_AVATAR_ID (et HEYGEN_VOICE_ID) côté Vercel. En attendant, ta voix + l\'avatar animé fonctionnent déjà.';
+      return;
+    }
+    subtitle.textContent='Clone en cours de génération (HeyGen)…';
+    pollClone(d.video_id, 0);
+  }catch(_){
+    btnClone.disabled=false; btnClone.textContent='🪄 Générer mon clone';
+    subtitle.textContent='Service clone injoignable — réessaie plus tard.';
+  }
 });
 </script>
 </body>
