@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>NAVBIO — Ta vie, racontée. Gardée. Transmise.</title>
+<meta name="description" content="NAVBIO · biographie vivante. Découverte officielle le 1ᵉʳ juin 2026 minuit Jérusalem.">
+<link rel="canonical" href="https://navbiolife.com">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:ital@0;1&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--noir:#06080b;--noir2:#080b10;--bronze:#B87333;--bronze-clair:#D49B5B;--or:#C9A961;--or-pale:#f3e4c4;--ice:#7DD3FC;--ice-clair:#a8e3ff;--ice-deep:#3a8db5;--perle:#e7eef2;--perle-doux:#bcc9d1;--brume:#7c8b95}
+*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth;background:#02040a}
+body{background:transparent;color:var(--perle);font-family:'Cormorant Garamond',serif;font-size:19px;line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden;min-height:100vh;position:relative}
+body{-webkit-text-size-adjust:100% !important}
+.wrap{position:relative;z-index:2;max-width:880px;margin:0 auto;padding:0 24px}
+header{min-height:96vh;display:flex;flex-direction:column;justify-content:center;padding:80px 0 60px}
+.kicker{font-family:'Cinzel',serif;font-size:13px;letter-spacing:.4em;color:var(--ice);text-transform:uppercase;margin-bottom:30px}.kicker span{color:var(--or)}
+h1{font-family:'Cormorant Garamond',serif;font-weight:400;font-size:clamp(48px,9vw,90px);line-height:1.05;color:var(--perle);margin-bottom:30px}
+h1 em{font-style:italic;background:linear-gradient(100deg,var(--or-pale),var(--or) 45%,#fff7e6 55%,var(--or) 70%);background-size:220% auto;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:sh 8s linear infinite;font-weight:400}
+@keyframes sh{to{background-position:220% center}}
+.lead{font-style:italic;font-size:clamp(20px,2.8vw,26px);line-height:1.5;color:var(--perle-doux);max-width:680px;margin-bottom:40px}
+
+section{padding:80px 0;border-top:1px solid rgba(184,115,51,0.18)}
+section h2{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(34px,5.5vw,52px);line-height:1.15;color:var(--perle);margin-bottom:30px;text-align:center}
+section h2 em{color:var(--or);font-style:italic}
+.manifeste .body{font-size:clamp(20px,2.5vw,24px);line-height:1.7;color:var(--perle-doux);max-width:720px;margin:0 auto 28px}
+.manifeste .body em{color:var(--or-pale)}
+.signature{text-align:center;margin-top:50px;font-family:'Cinzel',serif;color:var(--or);letter-spacing:.3em;font-size:16px}
+.signature::before{content:"— ";color:var(--brume)}
+.chemins-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(280px,100%),1fr));gap:22px;margin-top:30px}
+.chemin{padding:28px;background:rgba(2,4,10,0.55);border:1px solid rgba(184,115,51,0.22);border-radius:14px;position:relative;transition:.4s}
+.chemin:hover{border-color:rgba(125,211,252,0.5);transform:translateY(-3px);box-shadow:0 12px 32px rgba(125,211,252,0.15)}
+.chemin .num{font-family:'Cinzel',serif;color:var(--ice);font-size:13px;letter-spacing:.3em;margin-bottom:10px}
+.chemin h3{font-weight:500;font-size:clamp(22px,3.2vw,28px);color:var(--or-pale);margin-bottom:10px;line-height:1.2}
+.chemin p{font-style:italic;color:var(--perle-doux);font-size:16px;line-height:1.55}
+.offre .intro{font-style:italic;color:var(--perle-doux);font-size:clamp(17px,2.3vw,20px);margin-bottom:30px;text-align:center}
+footer{padding:60px 0 90px;border-top:1px solid rgba(184,115,51,0.18);text-align:center}
+.brand-foot{font-size:22px;color:var(--perle)}.brand-foot span{color:var(--or)}
+.meta-foot{font-family:'Cinzel',serif;font-size:12px;letter-spacing:.25em;color:var(--brume);margin:8px 0 22px;text-transform:uppercase}
+.disclaimer{font-style:italic;color:var(--brume);font-size:14.5px;line-height:1.7;max-width:580px;margin:0 auto;padding:16px;border:1px solid rgba(184,115,51,0.18);border-radius:10px;background:rgba(2,4,10,0.5)}
+
+/* ═══════════════════════════════════════════════
+   ANNONCE LANCEMENT — Floating modal qui respire Ice Blue à fond
+   ═══════════════════════════════════════════════ */
+.launch-overlay{
+  position:fixed;
+  inset:0;
+  z-index:1000;
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(2,4,10,0.32);
+  padding:24px;
+  pointer-events:auto;
+}
+.launch-overlay.hidden{display:none}
+.launch-card{
+  position:relative;
+  max-width:540px;
+  width:100%;
+  background:linear-gradient(160deg,rgba(2,8,20,0.92),rgba(2,4,10,0.96) 60%);
+  border:2px solid rgba(125,211,252,0.7);
+  border-radius:24px;
+  padding:42px 36px;
+  text-align:center;
+  animation:breath 3.6s ease-in-out infinite alternate;
+  box-shadow:
+    0 0 40px rgba(125,211,252,0.55),
+    0 0 100px rgba(125,211,252,0.32),
+    0 0 200px rgba(125,211,252,0.18),
+    0 0 380px rgba(125,211,252,0.10),
+    inset 0 0 30px rgba(125,211,252,0.06);
+}
+@keyframes breath{
+  0%{
+    box-shadow:
+      0 0 30px rgba(125,211,252,0.35),
+      0 0 80px rgba(125,211,252,0.22),
+      0 0 180px rgba(125,211,252,0.13),
+      0 0 320px rgba(125,211,252,0.07),
+      inset 0 0 22px rgba(125,211,252,0.04);
+    border-color:rgba(125,211,252,0.5);
+    transform:scale(1);
+  }
+  100%{
+    box-shadow:
+      0 0 65px rgba(125,211,252,0.85),
+      0 0 140px rgba(125,211,252,0.50),
+      0 0 280px rgba(125,211,252,0.32),
+      0 0 500px rgba(125,211,252,0.18),
+      inset 0 0 42px rgba(125,211,252,0.14);
+    border-color:rgba(168,227,255,0.95);
+    transform:scale(1.012);
+  }
+}
+.launch-card .badge{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.45em;color:var(--ice-clair);text-transform:uppercase;margin-bottom:14px;display:inline-block;padding:5px 14px;background:rgba(125,211,252,0.18);border-radius:14px;border:1px solid rgba(125,211,252,0.4)}
+.launch-card h2{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(28px,4.5vw,38px);line-height:1.15;color:var(--perle);margin-bottom:12px}
+.launch-card h2 em{color:var(--ice-clair);font-style:italic}
+.launch-card .open-on{font-style:italic;font-size:clamp(17px,2.3vw,20px);color:var(--perle-doux);margin-bottom:22px}
+.launch-card .open-on strong{color:var(--ice-clair);font-weight:500}
+
+.countdown{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-bottom:24px}
+.cdblk{min-width:74px;padding:14px 10px;background:rgba(2,8,20,0.65);border:1.5px solid rgba(125,211,252,0.55);border-radius:12px;animation:cd-glow 3.6s ease-in-out infinite alternate}
+.cdblk .n{font-family:'JetBrains Mono',monospace;font-size:32px;font-weight:700;color:var(--ice-clair);line-height:1;text-shadow:0 0 14px rgba(125,211,252,0.7)}
+.cdblk .u{font-family:'Cinzel',serif;font-size:9.5px;letter-spacing:.3em;color:var(--brume);text-transform:uppercase;margin-top:6px}
+@keyframes cd-glow{
+  0%{box-shadow:0 0 10px rgba(125,211,252,0.25),inset 0 0 8px rgba(125,211,252,0.05);border-color:rgba(125,211,252,0.4)}
+  100%{box-shadow:0 0 28px rgba(125,211,252,0.55),inset 0 0 16px rgba(125,211,252,0.12);border-color:rgba(168,227,255,0.85)}
+}
+
+.launch-card .sub{font-style:italic;font-size:15px;color:var(--brume);margin-bottom:24px}
+.btn-row{display:flex;flex-direction:column;gap:9px;margin-bottom:18px}
+.btn-row button,.btn-row a{display:flex;align-items:center;justify-content:center;gap:10px;padding:13px 16px;border-radius:10px;border:1px solid rgba(125,211,252,0.35);background:rgba(125,211,252,0.06);color:var(--perle);font-family:'Cinzel',serif;font-size:13px;letter-spacing:.14em;cursor:pointer;text-decoration:none;transition:.3s;font-weight:500}
+.btn-row button:hover,.btn-row a:hover{background:rgba(125,211,252,0.18);border-color:rgba(125,211,252,0.7);transform:translateY(-1px);box-shadow:0 0 20px rgba(125,211,252,0.3)}
+.btn-row svg{width:18px;height:18px}
+.email-form{display:none;margin-top:8px}
+.email-form.show{display:block}
+.email-form input{width:100%;padding:13px 14px;border-radius:10px;border:1px solid rgba(125,211,252,0.35);background:rgba(2,8,20,0.6);color:var(--perle);font-family:'JetBrains Mono',monospace;font-size:15px;outline:none;margin-bottom:9px}
+.email-form button{width:100%;padding:13px;border:none;background:linear-gradient(135deg,var(--ice-deep),var(--ice));color:white;border-radius:10px;font-family:'Cinzel',serif;font-size:13px;letter-spacing:.18em;cursor:pointer;box-shadow:0 0 18px rgba(125,211,252,0.35)}
+.cgu{font-style:italic;font-size:13px;color:var(--brume);margin-top:14px;line-height:1.6}
+.cgu a{color:var(--ice);text-decoration:underline}
+.close-btn{position:absolute;top:14px;right:14px;background:rgba(125,211,252,0.12);border:1px solid rgba(125,211,252,0.35);width:32px;height:32px;border-radius:50%;color:var(--ice-clair);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.3s}
+.close-btn:hover{background:rgba(125,211,252,0.25);border-color:rgba(125,211,252,0.7)}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:rgba(125,211,252,0.95);color:#02040a;padding:14px 22px;border-radius:10px;font-family:'Cinzel',serif;font-size:14px;letter-spacing:.12em;font-weight:500;opacity:0;transition:.4s;z-index:1002;box-shadow:0 8px 32px rgba(125,211,252,0.4)}
+.toast.show{opacity:1}
+
+/* Re-show overlay button (after close) */
+.reopen-btn{position:fixed;top:20px;right:20px;z-index:999;background:linear-gradient(135deg,var(--ice-deep),var(--ice));color:white;padding:10px 18px;border:none;border-radius:22px;font-family:'Cinzel',serif;font-size:12px;letter-spacing:.18em;cursor:pointer;box-shadow:0 0 24px rgba(125,211,252,0.5);display:none}
+.reopen-btn.show{display:block;animation:cd-glow 3s ease-in-out infinite alternate}
+
+/* MOBILE */
+@media(max-width:768px){
+  h1{font-size:46px !important;line-height:1.08 !important}
+  h2{font-size:32px !important;line-height:1.18 !important}
+  h3{font-size:22px !important;line-height:1.25 !important}
+  body,p{font-size:18px !important;line-height:1.7 !important}
+  .lead{font-size:21px !important}
+  .launch-card{padding:34px 24px}
+  .launch-card h2{font-size:26px !important}
+  .cdblk{min-width:62px;padding:11px 8px}
+  .cdblk .n{font-size:26px}
+}
+@media(max-width:480px){
+  h1{font-size:38px !important}
+  h2{font-size:28px !important}
+  body,p{font-size:17px !important}
+  .lead{font-size:19px !important}
+  .countdown{gap:8px}
+  .cdblk{min-width:54px;padding:9px 5px}
+  .cdblk .n{font-size:22px}
+  .launch-card{padding:28px 18px}
+}
+
+/* MINI COCKPIT inside teaser card */
+.launch-card{overflow:hidden}
+.card-anim{position:absolute;inset:0;width:100%;height:100%;z-index:0;opacity:0.55;border-radius:24px;pointer-events:none}
+.launch-card > *:not(.card-anim){position:relative;z-index:1}
+.launch-card .close-btn{z-index:2}
+
+/* COMPACT CARD — card plus courte pour distinguer le site derrière */
+.launch-overlay{align-items:flex-start !important;padding-top:8vh !important}
+.launch-card{
+  max-width:680px !important;
+  padding:24px 30px !important;
+  border-radius:18px !important;
+}
+.launch-card h2{font-size:clamp(22px,3.2vw,28px) !important;margin-bottom:8px !important;line-height:1.15 !important}
+.launch-card .badge{margin-bottom:10px !important;font-size:10px !important;padding:4px 12px !important}
+.launch-card .countdown{margin-bottom:14px !important;gap:8px !important}
+.launch-card .cdblk{min-width:60px !important;padding:9px 7px !important}
+.launch-card .cdblk .n{font-size:24px !important}
+.launch-card .cdblk .u{font-size:8.5px !important}
+.launch-card .btn-row{flex-direction:row !important;gap:7px !important;margin-bottom:6px !important;flex-wrap:wrap}
+.launch-card .btn-row > *{flex:1 1 0;min-width:140px;padding:10px 12px !important;font-size:11.5px !important}
+.launch-card .btn-row > * svg{width:15px !important;height:15px !important}
+.launch-card .cgu{margin-top:8px !important;font-size:11.5px !important}
+.launch-card .email-form input{font-size:13px !important;padding:10px 12px !important;margin-bottom:6px !important}
+.launch-card .email-form button{padding:10px !important;font-size:11.5px !important}
+.launch-card .close-btn{top:8px !important;right:8px !important;width:26px !important;height:26px !important;font-size:14px !important}
+.card-anim{opacity:0.42 !important}
+@media(max-width:600px){
+  .launch-overlay{padding-top:6vh !important}
+  .launch-card{padding:18px 20px !important}
+  .launch-card .btn-row{flex-direction:column !important}
+  .launch-card .btn-row > *{min-width:100% !important}
+}
+
+/* LEAD "Pas un livre..." plus gros et un peu plus bas (BM 27 mai) */
+.lead{
+  font-size:clamp(24px,3.4vw,32px) !important;
+  line-height:1.55 !important;
+  margin-top:36px !important;
+  margin-bottom:50px !important;
+}
+@media(max-width:768px){.lead{font-size:24px !important;margin-top:28px !important}}
+@media(max-width:480px){.lead{font-size:22px !important;margin-top:24px !important}}
+
+/* PRELUDE Star Wars-style "il y a bien longtemps..." (BM 27 mai) */
+.prelude{
+  font-family:'Cormorant Garamond',serif !important;
+  font-style:italic !important;
+  font-size:clamp(16px,1.9vw,20px) !important;
+  letter-spacing:.06em !important;
+  color:rgba(168,227,255,0.85) !important;
+  text-shadow:0 0 12px rgba(125,211,252,0.4),0 0 24px rgba(125,211,252,0.18) !important;
+  margin-top:50px !important;
+  margin-bottom:18px !important;
+  max-width:680px !important;
+  animation:prelude-fade 2.4s ease .6s forwards !important;
+  opacity:0 !important;
+}
+@keyframes prelude-fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:768px){.prelude{font-size:17px !important;margin-top:36px !important}}
+@media(max-width:480px){.prelude{font-size:16px !important;margin-top:30px !important}}
+
+/* BRANDLINE NavBioLife (BM 27 mai - style annonce épique) */
+.brandline{
+  font-family:'Cinzel',serif !important;
+  font-weight:600 !important;
+  font-size:clamp(38px,7vw,68px) !important;
+  letter-spacing:.12em !important;
+  text-transform:uppercase !important;
+  background:linear-gradient(100deg,#f3e4c4,#C9A961 35%,#fff7e6 50%,#C9A961 65%,#B87333) !important;
+  background-size:220% auto !important;
+  -webkit-background-clip:text !important;
+  background-clip:text !important;
+  -webkit-text-fill-color:transparent !important;
+  margin:18px 0 28px !important;
+  line-height:1.05 !important;
+  text-shadow:0 0 60px rgba(184,115,51,0.4) !important;
+  animation:brand-shine 9s linear infinite,brand-rise 1.6s ease 1.2s forwards !important;
+  opacity:0 !important;
+  filter:drop-shadow(0 0 18px rgba(184,115,51,0.35)) !important;
+}
+@keyframes brand-shine{to{background-position:220% center}}
+@keyframes brand-rise{from{opacity:0;transform:translateY(20px) scale(0.96)}to{opacity:1;transform:translateY(0) scale(1)}}
+@media(max-width:768px){.brandline{font-size:42px !important;margin:14px 0 22px !important}}
+@media(max-width:480px){.brandline{font-size:34px !important;margin:10px 0 18px !important;letter-spacing:.1em !important}}
+
+/* OVERLAY FIX — launch card devient block en flow, texte visible dessous */
+.launch-overlay{
+  position:relative !important;
+  inset:auto !important;
+  background:transparent !important;
+  padding:18px 16px 0 !important;
+  display:block !important;
+  z-index:5 !important;
+}
+.launch-overlay.hidden{display:none !important}
+.launch-card{margin:0 auto !important;max-width:680px !important}
+/* Header padding-top boost so first content shows below card */
+header{padding-top:30px !important;padding-bottom:60px !important}
+/* Increase prelude/brandline/lead size + center them */
+.prelude{
+  font-size:clamp(20px,2.6vw,26px) !important;
+  margin-top:60px !important;
+  margin-bottom:24px !important;
+  text-align:center !important;
+  color:rgba(168,227,255,0.9) !important;
+}
+.brandline{
+  font-size:clamp(56px,10vw,108px) !important;
+  margin:24px auto 36px !important;
+  text-align:center !important;
+}
+.lead{
+  font-size:clamp(28px,4vw,42px) !important;
+  line-height:1.5 !important;
+  margin:36px auto 60px !important;
+  max-width:780px !important;
+  text-align:center !important;
+}
+h1{text-align:center !important;margin:0 auto 30px !important;max-width:900px}
+.kicker{text-align:center !important}
+@media(max-width:768px){
+  .prelude{font-size:21px !important;margin-top:40px !important}
+  .brandline{font-size:54px !important;margin:18px auto 28px !important}
+  .lead{font-size:26px !important;margin:28px auto 48px !important;line-height:1.55 !important}
+  header{padding-top:22px !important}
+}
+@media(max-width:480px){
+  .prelude{font-size:18px !important;margin-top:32px !important}
+  .brandline{font-size:42px !important;margin:14px auto 22px !important}
+  .lead{font-size:22px !important;margin:22px auto 40px !important}
+}
+</style><link rel="icon" type="image/jpeg" href="/favicon.jpg">
+</head><body>
+
+<button class="reopen-btn" id="reopen" onclick="openLaunch()">⬢ Annonce lancement</button>
+
+<header><div class="wrap">
+<div class="kicker">NAVBIO · <span>Biographie vivante · Mémoire · Transmission</span></div>
+<h1>Ta vie, <em>racontée</em>.<br>Gardée. Transmise.</h1>
+<p class="prelude">il y a bien longtemps, dans une vie lointaine&hellip;</p>
+<div class="brandline">NavBioLife</div>
+<p class="lead">Pas un livre. Pas un album. Une biographie vivante qui s'enrichit, se partage, se transmet. Pour les tiens, et pour ceux qui viendront.</p>
+</div></header>
+
+<section class="manifeste"><div class="wrap">
+<h2>Manifeste <em>NAVBIO</em></h2>
+<p class="body">Nous portons tous une histoire. <em>Des moments, des passages, des choix, des silences.</em> Cette histoire, elle s'efface si on ne la garde pas.</p>
+<p class="body">NAVBIO n'est pas un livre figé. C'est <em>une biographie vivante</em> : qui se construit avec toi, qui s'enrichit chaque saison, qui se partage avec ceux que tu choisis, et qui se transmet — pour que tes enfants, tes petits-enfants, et même les inconnus que tu n'as jamais rencontrés, puissent lire ce que tu as vécu.</p>
+<p class="body">Ce n'est pas que des mots. Ce sont aussi <em>tes photos, tes voix, tes vidéos, tes objets fétiches, tes lieux, tes recettes, tes chansons</em>. Tout ce qui fait ta couleur. Tout ce qui fait ta sève.</p>
+<p class="body">Parce que la transmission, ce n'est pas l'héritage notarié. C'est <em>le rire qu'on raconte 30 ans après, l'odeur d'une cuisine qu'on retrouve dans un parfum, le geste qu'un petit-fils refait sans savoir d'où il vient</em>.</p>
+<p class="body">NAVBIO, c'est ta vie qui devient un héritage qu'on peut <em>encore toucher du doigt</em>.</p>
+<div class="signature">BM</div>
+</div></section>
+
+<section class="chemins"><div class="wrap">
+<h2>Les <em>5 chemins</em></h2>
+<p class="intro" style="text-align:center;font-style:italic;color:var(--perle-doux);font-size:clamp(17px,2.3vw,20px);margin-bottom:44px">Une seule application, 5 façons d'entrer dans ta biographie.</p>
+<div class="chemins-grid">
+  <div class="chemin"><div class="num">1</div><h3>La Vie</h3><p>Les grandes étapes de ton parcours : enfance, jeunesse, rencontres, voyages, métiers, épreuves, victoires.</p></div>
+  <div class="chemin"><div class="num">2</div><h3>La Mémoire</h3><p>Les moments qui t'ont fait. Les voix, les visages, les odeurs. Sauvegardés en haute qualité, à vie.</p></div>
+  <div class="chemin"><div class="num">3</div><h3>La Transmission</h3><p>Ce que tu veux léguer. Tes valeurs, tes leçons, tes recettes. Reçus par ceux que tu choisis.</p></div>
+  <div class="chemin"><div class="num">4</div><h3>Le Bien-être</h3><p>Écrire ta vie soigne. Réflexologie, reiki, méditations à puiser dans ton propre récit.</p></div>
+  <div class="chemin"><div class="num">5</div><h3>La Passion</h3><p>Ce qui te fait vibrer aujourd'hui — musique, mer, sport, art, métier. Mis en lumière, partagé.</p></div>
+</div>
+</div></section>
+
+<section class="offre"><div class="wrap">
+<h2>Offre de <em>Lancement</em></h2>
+<p class="intro">Pendant 30 jours après le 1ᵉʳ juin, escalator dégressif. Les premiers gagnent plus.</p>
+<div id="offer"></div>
+</div></section>
+
+<footer><div class="wrap">
+<div class="brand-foot"><span>NAVBIO</span> — Ta vie, racontée</div>
+<div class="meta-foot">Biographie vivante · Mémoire · Transmission</div>
+<div class="disclaimer">NAVBIO est un service de biographie vivante à usage personnel et familial. Les contenus que tu déposes restent ta propriété. NAVBIO assure le stockage sécurisé et la transmission selon tes choix. Pas de revente de tes données. Pas de pub.<br><br>©2026 NAVBIO™ par Bruno Mark Partouche</div>
+</div></footer>
+
+<!-- LAUNCH OVERLAY — sits on top, breathes Ice Blue, reveals site when closed -->
+<div class="launch-overlay" id="launchOverlay">
+  <div class="launch-card"><canvas class="card-anim" id="cardAnim"></canvas>
+    <button class="close-btn" onclick="closeLaunch()" title="Aperçu du site">×</button>
+    <div class="badge">Lancement BETA</div>
+    <h2 title="Lancement BETA officiel · -50% les 1000 premiers">Ouverture <em>1ᵉʳ juin 2026</em></h2>
+
+    <div class="countdown" id="cd">
+      <div class="cdblk"><div class="n" id="cd-d">—</div><div class="u">Jours</div></div>
+      <div class="cdblk"><div class="n" id="cd-h">—</div><div class="u">Heures</div></div>
+      <div class="cdblk"><div class="n" id="cd-m">—</div><div class="u">Minutes</div></div>
+      <div class="cdblk"><div class="n" id="cd-s">—</div><div class="u">Secondes</div></div>
+      <div class="cdblk"><div class="n" id="cd-ms">—</div><div class="u">Millisec</div></div>
+    </div>
+
+    <div class="btn-row">
+      <button onclick="signGoogle()" title="Réservation BETA via Google · -50% 1000 premiers">
+        <svg viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+        Réserve avec Google
+      </button>
+      <a href="https://wa.me/XXXXXXXXXXX?text=Je%20veux%20rejoindre%20la%20BETA%20NAVBIO" title="Échange direct WhatsApp avec Bruno">
+        <svg viewBox="0 0 24 24"><path fill="#25D366" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        WhatsApp
+      </a>
+      <button onclick="document.getElementById('emailForm').classList.toggle('show')" title="Inscription par e-mail · Lien magique de confirmation">
+        📧 Inscription par e-mail
+      </button>
+    </div>
+    <form class="email-form" id="emailForm" onsubmit="signEmail(event)">
+      <input type="email" id="email" placeholder="ton@email.com" required>
+      <button type="submit">Recevoir ma place BETA</button>
+    </form>
+    <div class="cgu" title="En t'inscrivant, tu acceptes les CGU et la Politique de confidentialité NAVBIO. Inscription = -50% pour les 1000 premiers."><a href="/cgu">CGU</a> · <a href="/privacy">Confidentialité</a> · ⓘ</div>
+  </div>
+</div>
+
+<script src="/cockpit-mini.js"></script>
+<script>
+window.NAVLYS_OFFER_MODE = 'navbio';
+const src = new URLSearchParams(location.search).get('utm_source') || new URLSearchParams(location.search).get('ref') || 'direct';
+localStorage.setItem('navbio-source', src);
+
+const TARGET = Date.parse('2026-05-31T21:00:00Z'); // 1 juin 00:00 Jérusalem
+function tick() {
+  const diff = Math.max(0, TARGET - Date.now());
+  const d = Math.floor(diff/86400000);
+  const h = Math.floor((diff%86400000)/3600000);
+  const m = Math.floor((diff%3600000)/60000);
+  const s = Math.floor((diff%60000)/1000);
+  const ms = Math.floor(diff%1000);
+  document.getElementById('cd-d').textContent = d;
+  document.getElementById('cd-h').textContent = String(h).padStart(2,'0');
+  document.getElementById('cd-m').textContent = String(m).padStart(2,'0');
+  document.getElementById('cd-s').textContent = String(s).padStart(2,'0');
+  document.getElementById('cd-ms').textContent = String(ms).padStart(3,'0');
+}
+tick(); setInterval(tick, 47);
+
+function showToast(msg) {const t=document.createElement('div');t.className='toast';t.textContent=msg;document.body.appendChild(t);requestAnimationFrame(()=>t.classList.add('show'));setTimeout(()=>{t.classList.remove('show');setTimeout(()=>t.remove(),400)},3800);}
+window.closeLaunch = () => {document.getElementById('launchOverlay').classList.add('hidden');document.getElementById('reopen').classList.add('show');};
+window.openLaunch = () => {document.getElementById('launchOverlay').classList.remove('hidden');document.getElementById('reopen').classList.remove('show');};
+window.signGoogle = () => {const s=localStorage.getItem('navbio-source')||'direct';showToast('✓ Inscription Google bientôt active');setTimeout(()=>{window.location.href='https://wa.me/XXXXXXXXXXX?text=Je%20veux%20rejoindre%20BETA%20NAVBIO%20—%20Source%3A%20Google%20%2F%20'+s;},1500);};
+window.signEmail = (e) => {e.preventDefault();const email=document.getElementById('email').value;const s=localStorage.getItem('navbio-source')||'direct';showToast('✓ Ta place est réservée');setTimeout(()=>{window.location.href='https://wa.me/XXXXXXXXXXX?text=Inscription%20NAVBIO%20—%20'+encodeURIComponent(email)+'%20—%20Source%3A%20'+s;},1500);};
+NV_MINI(document.getElementById("cardAnim"),"voiture");
+</script>
+<script src="/launch-offer.js" defer></script>
+<script src="/cockpit.js" defer></script>
+
+<script src="/hero-bg-slideshow.js"></script>
+<script>
+window.addEventListener('load',function(){
+  if(window.NV_HERO_BG) NV_HERO_BG(['/bg-1.jpg','/bg-2.jpg','/bg-3.jpg'],{durationPerSlide:9000,fadeTime:2500,parallax:true});
+});
+</script>
+</body></html>

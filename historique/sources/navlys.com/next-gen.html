@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>NAVLYS Next Gen — Ta biographie vivante</title>
+<meta name="description" content="NAVLYS Next Gen : écris ou dicte ta vie, chapitre par chapitre, et génère ton livre. Tes souvenirs t'appartiennent.">
+<link rel="canonical" href="https://navlys.com/next-gen">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Fraunces:ital@1&family=Lora:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--noir:#05060a;--ice:#5fe0ff;--or:#e9d3a0;--mut:#9fb3c8}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Lora',serif;color:#eef0f6;background:var(--noir);line-height:1.7}
+.wrap{max-width:820px;margin:0 auto;padding:22px 20px 80px}
+.kicker{font-family:'Fraunces';font-style:italic;color:var(--ice);letter-spacing:2px;font-size:.95rem}
+h1{font-family:'Cormorant Garamond';font-weight:600;color:#fff;font-size:clamp(2rem,7vw,3rem);margin:4px 0}
+.intro{color:var(--mut);font-style:italic;font-family:'Fraunces';margin-bottom:8px}
+.hero{display:flex;gap:18px;align-items:center;margin:14px 0 24px;flex-wrap:wrap}
+.hero img{width:120px;border-radius:16px;box-shadow:0 0 40px rgba(95,224,255,.3)}
+.card{border:1px solid rgba(95,224,255,.22);border-radius:18px;padding:18px;background:linear-gradient(160deg,rgba(95,224,255,.06),rgba(10,12,20,.66));margin-bottom:16px}
+label{display:block;color:var(--or);font-family:'Fraunces';font-style:italic;font-size:.9rem;margin-bottom:6px}
+input,textarea{width:100%;background:rgba(5,6,10,.6);border:1px solid rgba(95,224,255,.28);border-radius:12px;color:#eef0f6;padding:12px 14px;font-family:'Lora',serif;font-size:1.05rem}
+textarea{min-height:130px;resize:vertical;line-height:1.7}
+.row{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+button{cursor:pointer;border:none;border-radius:12px;padding:12px 18px;font-family:'Fraunces';font-style:italic;font-size:1rem}
+.b-go{color:#05060a;background:linear-gradient(100deg,var(--or),#fff6df,var(--ice));font-weight:600;flex:1 1 auto}
+.b-mic{background:rgba(95,224,255,.16);color:#fff;border:1px solid rgba(95,224,255,.4)}
+.b-ai{background:rgba(233,211,160,.14);color:var(--or);border:1px solid rgba(233,211,160,.35)}
+.b-ghost{background:transparent;color:var(--mut);border:1px solid rgba(255,255,255,.14)}
+.chap{border-left:3px solid var(--ice);padding:10px 0 10px 16px;margin:14px 0}
+.chap h3{font-family:'Cormorant Garamond';color:#fff;font-size:1.35rem}
+.chap p{color:#dfe8f2;white-space:pre-wrap;margin:6px 0}
+.chap .tools{display:flex;gap:8px;margin-top:6px;flex-wrap:wrap}
+.chap .tools button{padding:6px 12px;font-size:.85rem}
+.count{color:var(--mut);font-size:.85rem;margin:8px 0}
+.disc{margin-top:30px;color:#8fa6c8;font-size:.82rem;font-style:italic;line-height:1.7;border-top:1px solid rgba(255,255,255,.08);padding-top:18px}
+a.home{color:var(--ice);text-decoration:none}
+.toastmini{position:fixed;left:50%;bottom:26px;transform:translateX(-50%);background:rgba(10,12,20,.95);border:1px solid rgba(95,224,255,.4);color:#eef6ff;padding:10px 16px;border-radius:12px;opacity:0;transition:.3s;font-family:'Fraunces';font-style:italic;z-index:50}
+.toastmini.show{opacity:1}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="kicker">📖 NAVLYS Next Gen</p>
+  <h1>NAVLYS Next Gen — Ta biographie vivante</h1>
+  <p class="intro">Écris ou <b>dicte</b> ta vie, chapitre par chapitre. NAVLYS la garde, l'embellit, et la transforme en ton livre. <b>Tes souvenirs t'appartiennent.</b></p>
+  <div class="hero">
+    <img src="/media/adn-navbio.jpg" alt="ADN NAVLYS Next Gen" onerror="this.style.display='none'">
+    <div style="flex:1 1 240px;color:var(--mut)">Tout se sauvegarde automatiquement sur cet appareil. Quand tu es prêt, génère et imprime ton livre (PDF).</div>
+  </div>
+
+  <div class="card">
+    <label>Titre de ton livre / ton nom</label>
+    <input id="title" placeholder="Ex. Bruno — Une vie au fil de la mer">
+  </div>
+
+  <div class="card">
+    <label>Nouveau chapitre — titre</label>
+    <input id="cTitle" placeholder="Ex. Mon enfance / La mer / Une rencontre…">
+    <label style="margin-top:12px">Raconte (écris ou clique 🎤 pour dicter)</label>
+    <textarea id="cText" placeholder="Raconte ce moment de ta vie, simplement, comme tu le dirais à voix haute…"></textarea>
+    <div class="row">
+      <button class="b-mic" id="mic">🎤 Dicter</button>
+      <button class="b-ai" id="embellish">✨ Embellir</button>
+      <button class="b-go" id="add">＋ Ajouter le chapitre</button>
+    </div>
+  </div>
+
+  <p class="count" id="count"></p>
+  <div id="chaps"></div>
+
+  <div class="row" style="margin-top:18px">
+    <button class="b-go" id="read">📖 Lire / Imprimer mon livre (PDF)</button>
+    <button class="b-ghost" id="clear">Tout effacer</button>
+  </div>
+
+  <p class="disc">Tes contenus restent <b>privés par défaut</b> et t'appartiennent. NAVLYS Next Gen t'aide à écrire et embellir, sans jamais inventer ta vie à ta place. <a class="home" href="/">‹ Retour à navlys.com</a></p>
+</div>
+<div class="toastmini" id="tm"></div>
+
+<script>
+var KEY='navbio_v1', SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+var data=load();
+function load(){ try{ return JSON.parse(localStorage.getItem(KEY))||{title:'',chaps:[]}; }catch(e){ return {title:'',chaps:[]}; } }
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify(data)); }catch(e){} }
+function toast(t){ var e=document.getElementById('tm'); e.textContent=t; e.classList.add('show'); clearTimeout(e._t); e._t=setTimeout(function(){e.classList.remove('show');},2400); }
+function esc(t){ var d=document.createElement('div'); d.textContent=t==null?'':t; return d.innerHTML; }
+var $=function(id){return document.getElementById(id);};
+
+$('title').value=data.title||'';
+$('title').addEventListener('input',function(){ data.title=this.value; save(); });
+
+function render(){
+  var c=$('chaps'); c.innerHTML='';
+  data.chaps.forEach(function(ch,i){
+    var d=document.createElement('div'); d.className='chap';
+    d.innerHTML='<h3>'+esc(ch.titre||('Chapitre '+(i+1)))+'</h3><p>'+esc(ch.texte)+'</p>'+
+      (ch.image?'<img src="'+ch.image+'" alt="illustration" style="width:100%;max-width:440px;border-radius:14px;margin:8px 0;box-shadow:0 0 30px rgba(95,224,255,.25)">':'')+
+      '<div class="tools"><button class="b-ai" data-e="'+i+'">✨ Embellir</button><button class="b-ai" data-ill="'+i+'">🖼️ Illustrer</button><button class="b-ghost" data-up="'+i+'">↑ Monter</button><button class="b-ghost" data-del="'+i+'">Supprimer</button></div>';
+    c.appendChild(d);
+  });
+  $('count').textContent=data.chaps.length? (data.chaps.length+' chapitre'+(data.chaps.length>1?'s':'')+' · '+data.chaps.reduce(function(a,b){return a+(b.texte||'').length;},0)+' caractères') : 'Aucun chapitre pour l’instant — commence par en raconter un 🌊';
+}
+render();
+
+$('add').onclick=function(){
+  var t=$('cText').value.trim(); if(!t){ toast('Raconte d’abord ton chapitre 🙂'); return; }
+  data.chaps.push({titre:$('cTitle').value.trim(), texte:t}); save(); render();
+  $('cTitle').value=''; $('cText').value=''; toast('Chapitre ajouté ✓'); window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'});
+};
+$('chaps').addEventListener('click',function(e){
+  var t=e.target;
+  if(t.dataset.del!=null){ if(confirm('Supprimer ce chapitre ?')){ data.chaps.splice(+t.dataset.del,1); save(); render(); } }
+  else if(t.dataset.up!=null){ var i=+t.dataset.up; if(i>0){ var x=data.chaps.splice(i,1)[0]; data.chaps.splice(i-1,0,x); save(); render(); } }
+  else if(t.dataset.e!=null){ embellish(+t.dataset.e); }
+  else if(t.dataset.ill!=null){ illustrate(+t.dataset.ill); }
+});
+function illustrate(i){
+  toast('🖼️ NAVLYS crée ton image…');
+  fetch('/api/illustrate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({text:data.chaps[i].texte})})
+   .then(function(r){ return r.json(); })
+   .then(function(d){ if(d&&d.image){ data.chaps[i].image=d.image; save(); render(); toast('Illustration créée ✨'); } else toast('L’illustration arrive une fois en ligne'); })
+   .catch(function(){ toast('L’illustration arrive une fois en ligne'); });
+}
+
+$('mic').onclick=function start(){
+  if(!SR){ toast('Micro non géré ici — écris ton chapitre'); return; }
+  var rec=new SR(); rec.lang=navigator.language||'fr-FR'; rec.interimResults=true; rec.continuous=true;
+  var base=$('cText').value; var self=this; self.textContent='🔴 J’écoute… (clique pour stopper)';
+  rec.onresult=function(ev){ var s=''; for(var i=ev.resultIndex;i<ev.results.length;i++){ s+=ev.results[i][0].transcript; } $('cText').value=(base?base+' ':'')+s; };
+  rec.onend=function(){ self.textContent='🎤 Dicter'; self.onclick=start; };
+  rec.onerror=function(){ self.textContent='🎤 Dicter'; self.onclick=start; };
+  try{ rec.start(); }catch(e){ self.textContent='🎤 Dicter'; return; }
+  self.onclick=function(){ try{rec.stop();}catch(e){} };
+};
+
+function callEmbellish(text){
+  return fetch('/api/embellir',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({text:text})})
+    .then(function(r){ return r.json(); }).then(function(d){ return (d&&d.text)||null; });
+}
+$('embellish').onclick=function(){
+  var t=$('cText').value.trim(); if(!t){ toast('Écris d’abord quelque chose à embellir'); return; }
+  this.textContent='✨ …'; var self=this;
+  callEmbellish(t).then(function(out){ self.textContent='✨ Embellir'; if(out){ $('cText').value=out; toast('Embelli ✨ — à toi de garder ou retoucher'); } else toast('L’embellissement IA arrive une fois en ligne'); })
+   .catch(function(){ self.textContent='✨ Embellir'; toast('L’embellissement IA arrive une fois en ligne'); });
+};
+function embellish(i){
+  toast('✨ …'); callEmbellish(data.chaps[i].texte).then(function(out){ if(out){ data.chaps[i].texte=out; save(); render(); toast('Chapitre embelli ✨'); } else toast('L’IA arrive une fois en ligne'); }).catch(function(){ toast('L’IA arrive une fois en ligne'); });
+}
+
+$('read').onclick=function(){
+  if(!data.chaps.length){ toast('Ajoute au moins un chapitre 🙂'); return; }
+  var w=window.open('','_blank'); if(!w){ toast('Autorise les pop-ups pour lire ton livre'); return; }
+  var body=data.chaps.map(function(ch,i){ return '<h2>'+esc(ch.titre||('Chapitre '+(i+1)))+'</h2>'+(ch.image?'<img src="'+ch.image+'" style="width:100%;max-width:520px;display:block;margin:10px auto;border-radius:8px">':'')+'<p>'+esc(ch.texte).replace(/\n/g,'<br>')+'</p>'; }).join('');
+  w.document.write('<!doctype html><meta charset=utf-8><title>'+esc(data.title||'Mon livre de vie')+'</title>'+
+    '<style>body{font-family:Georgia,serif;max-width:680px;margin:40px auto;padding:0 24px;color:#1a1a1a;line-height:1.85}'+
+    'h1{font-size:2.6rem;text-align:center;margin:40px 0 6px}.sub{text-align:center;color:#888;font-style:italic;margin-bottom:50px}'+
+    'h2{font-size:1.7rem;margin:34px 0 8px;color:#0a3d5c}p{white-space:pre-wrap}@media print{.np{display:none}}</style>'+
+    '<h1>'+esc(data.title||'Mon livre de vie')+'</h1><div class="sub">— composé avec NAVLYS Next Gen —</div>'+body+
+    '<p class="np" style="text-align:center;margin-top:50px"><button onclick="window.print()" style="padding:12px 22px;font-size:1rem;cursor:pointer">🖨️ Imprimer / Enregistrer en PDF</button></p>');
+  w.document.close();
+};
+
+$('clear').onclick=function(){ if(confirm('Tout effacer ? (ton livre sur cet appareil)')){ data={title:'',chaps:[]}; save(); $('title').value=''; render(); toast('Effacé'); } };
+</script>
+<script src="/navlys-alive.js" defer></script>
+</body>
+</html>

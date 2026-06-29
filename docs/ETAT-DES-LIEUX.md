@@ -2,6 +2,93 @@
 
 > Mis à jour à la fin de chaque session pour que la suivante reprenne sans tout relire.
 
+## Session 2026-06-28 — finalisation lancement 1ᵉʳ juillet + sécurité dépôt
+
+- 🔴 **INCIDENT découvert** : le dépôt GitHub est **PUBLIC** et une session parallèle y avait déversé
+  ~30 packs Drive/OneDrive (PII, e-réputation, 2 noms toxiques). Audit complet réalisé.
+- ✅ **Sécurité exécutée** : PII rédigées repo-wide (téléphones, entité → `[entité — hors dépôt]`) ;
+  **fichiers privés retirés** (e-réputation ×6, procédure clés, dossier identité, prospection JCVD) ;
+  doublons imbriqués `sessions/busy-awesome-sagan` supprimés ; `.gitignore` durci.
+- ✅ **Renommage packs toxiques** : `CHEVAL_TROIE_PACK` → `NAVLYS_MARGE_REVELEE_PACK` ;
+  `MARTINGALE_SCIENTIFIQUE_PACK` → `NAVLYS_METHODE_90_10_PACK`.
+- ✅ **Synthèse unique** : `docs/SYNTHESE-NAVLYS-MASTER.md` réunit les 12 rubriques + toutes les
+  recommandations + toute la stratégie de navlys.com (dépersonnalisé). Plan : `docs/PLAN-NETTOYAGE-DEPOT.md`.
+- ✅ **navlys.com prêt à déployer** : countdown = **1ᵉʳ juillet** ✅, 5 pages (index/tarifs/cgu/privacy/mentions),
+  CIF/ORIAS uniquement en négation, 0 `#5fe0ff`, « méditerranéen » retiré du H1 (dépersonnalisation).
+- 🔴 **RESTE À BRUNO** : (1) **passer le dépôt en PRIVÉ** (Settings→Danger Zone) ; (2) **déployer sur Vercel** ;
+  (3) décider la **purge d'historique** (oui/non) ; (4) valider le légal.
+
+## Session 2026-06-25 — build pages navlys.com (« tout faire »)
+
+- ✅ **Grille tarifaire FIGÉE** (validée Bruno) → `STRATEGIE-NAVLYS.md` §5 (Finance Gratuit/19,99/39,99/79,99 ;
+  NAVBIO numérique à vie 0/29,99/49,99/99,99/199,99 ; NAVLEX 0(5q)/9,99/19,99). Étude concurrentielle sourcée :
+  `docs/STRATEGIE-PRICING-2026-06.md`.
+- ✅ **Pages construites (brouillon, charte #7DD3FC, à déployer par Bruno)** :
+  - `sites/navlys.com/tarifs.html` (grille officielle, 3 produits, freemium, CTAs).
+  - `sites/navlys.com/cgu.html` + `privacy.html` (stubs remplacés par versions complètes) + `mentions.html` (nouveau)
+    → **rebouchent les 404 légaux**. Entité masquée → à compléter + valider juridiquement au déploiement.
+  - `sites/navlys.com/index.html` enrichi : **FAQ « questions honnêtes »** (voix NAVLYS 3ᵉ pers.), **maximes**,
+    **punchline signature** (« vent + barre · sois aware »), liens /tarifs + /mentions.
+- 🔎 Conformité revérifiée sur toutes les pages : 0 donnée privée, 0 géo interdite, 0 promesse, 0 `#5fe0ff`, voix neutre.
+- ⏳ **Reste (enrichissements + déploiement)** : page `/partenaires` (les 19), module « pouls du marché » live,
+  accessibilité (texte XL/contraste), bloc manifeste mémoire ; **déploiement Vercel = Bruno** ; **valider le légal**.
+- 🔴 Sécurité (Bruno) inchangée : régénérer clés API GitHub+Alpaca · WHOIS OVH · cockpit mdp+SSL.
+
+## Session 2026-06-23 (nuit) — ultra-review + correctifs
+
+- 🔬 **Revue adversariale multi-agents** (4 dimensions → re-vérification → synthèse).
+  Verdict : **privé/secrets = PROPRE** (0 fuite) ; **conformité doctrinale = à nettoyer** (0 critique, 8 majeurs, 6 mineurs).
+- ✅ **Correctifs appliqués** :
+  - 🌍 **Géo interdite purgée des pages NAVLYS** : `sites/navlys.com/index.html` (titre, ticker, carte plaisir, Radio) + `proto/navlys-v2.html` (meta, Radio). *(La revue avait raison : mes grep ratant les accents avaient masqué ces occurrences.)* bp.com **conserve** Méditerranée (autorisée).
+  - 🎨 `sites/navlys-app/finance.html` : `#5fe0ff` → **#7DD3FC**.
+  - 📐 `DESIGN-NAVLYS.md` : narratif méditerranéen recadré (bp.com only) + mojibake corrigé.
+  - 💶 `STRATEGIE-NAVLYS.md` + `TESTS-FONCTIONNELS.md` : caveat **F4 PRO 99,99** + « grille à figer ».
+  - 🔗 `INVENTAIRE` : renvoi cassé corrigé, « Votre tempo » marqué variante non officielle.
+- 🟠 **Restent décisions Bruno** (non inventées) : figer **1 grille tarifaire** (F1–F4 vs échelle live) ;
+  figer la **valeur de l'accent doré** (bronze #d4a155 vs champagne #e9d3a0).
+
+## Session 2026-06-23 (nuit) — finalisation autonome (G1)
+
+- ✅ **Modèles légaux rapatriés** (`contenu/legal/`) : **mentions** (A1) · **CGU** (A5) ·
+  **Confidentialité RGPD** (A6 v1.1) — **entité/SIREN/adresse masqués**, à valider juridiquement,
+  rebouchent les 404 `/cgu` `/privacy` au déploiement.
+- ✅ **Plan d'enrichissement du site central** (`docs/PLAN-ENRICHISSEMENT-SITE-CENTRAL.md`) :
+  13 blocs priorisés + corrections conformité + méthode.
+- ✅ **Résumé de session** (`docs/RESUME-SESSION-2026-06-23.md`, format Hermès).
+- ⏭️ **Pour Bruno (demain)** : sécurité (clés API, WHOIS, cockpit/SSL) ; aligner sites live #7DD3FC ;
+  figer 1 grille tarifaire + 1 date ; faire valider le légal ; lancer l'enrichissement (prio 1→6).
+- 🔒 Tout le travail de nuit = **GitHub seul, zéro déploiement, zéro donnée privée** (vérifié).
+
+## Session 2026-06-23 — 💎 mine d'or Drive assimilée (analyse étendue)
+
+- ✅ **Accès Google Drive confirmé** (bpartouche46@gmail.com) → ~110 fichiers NAVLYS lus.
+  **`NAVLYS-MASTER.md` (21 juin) = carte maîtresse** (supplante les cartes antérieures).
+- 📄 **Assimilation PUBLIQUE** → `docs/ASSIMILATION-DRIVE-2026-06-23.md` : slogan officiel,
+  doctrine 2 univers (Méditerranée + Israël = **interdits sur NAVLYS**), charte **#7DD3FC zéro pourpre**,
+  méthode 90/10, tarifs F1–F4 + NAVBIO, paiements (Stripe exclu), **slogans obsolètes à bannir**.
+- 🎯 **Chasse « 1+1 / Van Damme » = INTROUVABLE** (ni sites, ni Drive) → à créer avec Bruno s'il y tient.
+  **Personnes connues = liste Y1** (Hasheur, Yomi Denzel, Coin Bureau…) = **prospects privés**, jamais publics.
+- 🔴 **PRIVÉ gardé hors dépôt** (entité, n°, IDs infra, clés, liste influenceurs, généalogie, banque).
+- 🔴 **Urgences sécurité (MASTER G3)** : régénérer **clés API GitHub + Alpaca** (commitées) ; **privacy WHOIS OVH**.
+- ✅ **Décisions Bruno en attente** : (1) confirmer charte #7DD3FC + aligner sites live (encore #5fe0ff) ;
+  (2) créer ou non le « 1+1 / Van Damme ».
+- 🟢 **À rapatrier sur demande** : pack éditorial E1 (bios 13 réseaux, 9 posts IG, 3 reels, calendrier 90j),
+  modèles légaux (CGV/CGU/RGPD), templates emails Resend.
+
+## Session 2026-06-23 — ✅ 1er backup serveur + sources récupérées (en cours)
+
+- ✅ **SNAPSHOT HETZNER CRÉÉ** par Bruno : **`navlys-core-1782194314`** (2026-06-23) →
+  **premier point de restauration complet** du serveur. Risque « zéro backup » levé.
+- 📥 **Sources récupérées de l'ancien PC** (envoyées par Bruno) : code source **navlys.io**
+  (`index.html`) + **vidéo de marque navlys.io** (ElevenLabs) + outils Windows (DiskInfo, etc.).
+- 🔎 **Audit `index.html` navlys.io** : 🔴 palette **violet/fuchsia/rose** (`#4b1a80/#c026d3/#e81889`)
+  = contraire à la charte « zéro pourpre » ; 🟠 Ice Blue ancien `#5fe0ff` (≠ `#7DD3FC`) ;
+  🔴 compte à rebours périmé (cible `2026-06-15`) ; 🟢 OG + schema.org présents, disclaimer OK.
+  → à clarifier : est-ce la version **live** de navlys.io ou un brouillon local ? (audit antérieur
+  disait navlys.io conforme `#7DD3FC`).
+- ⏳ **Reste** : `crontab -l` ; **mot de passe cockpit (exposé) + SSL** ; stocker la vidéo
+  proprement ; décider correction navlys.io (palette → charte, date → 1ᵉʳ juillet).
+- ℹ️ Note : Claude **ne peut pas** écouter les notes vocales (pas de transcription) ni lancer de `.exe`.
 ## Session 2026-06-28 (d) — REFONTE navlys.com PRÊTE (aperçu) + apps backend déployé
 
 - ✅ **Refonte navlys.com construite & vérifiée en aperçu** (design navlys.io : fond animé +
@@ -271,6 +358,7 @@
   Garde-fou : grep des termes interdits sur **HTML + JS + CSS** (pas que le HTML).
 - 🐙 **Repos GitHub privés** : (voir statut dans le tableau / la conversation).
 - ⏳ Le cœur de Phase 0 (snapshot, backup.sh, export source) reste à faire sur l'ancien PC.
+
 ## Session 2026-06-23 — passation Hermès archivée (avant retrait)
 
 - 📥 **Passation complète reçue d'Hermès** (via Bruno) → consolidée dans
