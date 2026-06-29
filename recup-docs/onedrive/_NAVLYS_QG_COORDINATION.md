@@ -96,9 +96,9 @@ Deux tiroirs Stripe distincts : **NAVLYS** (produit, D5 — clés à fournir) et
 ---
 
 ## 🚀 DÉPLOIEMENT — 25 mai (GO Bruno)
-- **Fait par le QG** : pages d'accès finalisées (clé **CAP2027**, responsive Android/Windows) + **script turnkey** `_DEPLOYER_LES_2_SITES.ps1` (déploie NAVLYS + Bruno, token en env, jamais en clair).
+- **Fait par le QG** : pages d'accès finalisées (clé **[CLÉ RETIRÉE — voir gestionnaire de secrets]**, responsive Android/Windows) + **script turnkey** `_DEPLOYER_LES_2_SITES.ps1` (déploie NAVLYS + Bruno, token en env, jamais en clair).
 - **Réalité QG** : pas de token ni de CLI Vercel ni d'accès API ici (403) → le QG **ne peut pas pousser lui-même**. Le seul élément manquant = le **token Vercel de Bruno** (en variable d'env), que la sécurité interdit de coller en clair.
 - **2 voies pour être en ligne, privé, tout de suite** :
-  1. `$env:VT="<token>"` puis `powershell -ExecutionPolicy Bypass -File ._DEPLOYER_LES_2_SITES.ps1` → déploie les 2 sites. Aperçu : `navlys.com/acces` + `brunopartouche.com/acces.html` (clé CAP2027).
-  2. **Vercel → Settings → Deployment Protection → Password = CAP2027** sur les 2 projets → sites entiers privés en 1 clic, public quand tu veux.
+  1. `$env:VT="<token>"` puis `powershell -ExecutionPolicy Bypass -File ._DEPLOYER_LES_2_SITES.ps1` → déploie les 2 sites. Aperçu : `navlys.com/acces` + `brunopartouche.com/acces.html` (clé [CLÉ RETIRÉE — voir gestionnaire de secrets]).
+  2. **Vercel → Settings → Deployment Protection → Password = [CLÉ RETIRÉE — voir gestionnaire de secrets]** sur les 2 projets → sites entiers privés en 1 clic, public quand tu veux.
 - **Sinon** : le Dépt 02 (qui a déjà le flux token 1 jour) exécute le déploiement aligné.
