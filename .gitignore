@@ -46,3 +46,7 @@ core/dist/
 **/*Prospection_JCVD*
 **/*Méditerranée_files/
 Audit approfondi*/
+
+# Purge : remplacements sensibles (jamais versionnés)
+replacements.local.txt
+navlys-purge-mirror*/
