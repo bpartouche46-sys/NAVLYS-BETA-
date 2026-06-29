@@ -91,9 +91,9 @@ apps/navlys-app/
 
 - [ ] **`lib/data/daily.ts`** — actuellement un **STUB**. Logique réelle de l'« action du jour »,
       calcul du drift d'allocation, banque de « cartes du jour ». (Référencé par le dashboard.)
-- [ ] **`components/onboarding/inputs/*`** — composants `SliderInput / SingleChoice / MultiChoice /
-      BinaryChoice` (la doc met un **TODO** dans `QuestionStep`). Sans eux, le questionnaire ne
-      capture pas encore les réponses côté UI.
+- [x] **`components/onboarding/inputs/*`** — ✅ **CODÉS** (Slider/log, SingleChoice, MultiChoice,
+      BinaryChoice) + dispatcher câblé dans `QuestionStep`. **Questionnaire 12 questions fonctionnel.**
+      Build vert. (Claude, 2026-06-26)
 - [ ] **`components/onboarding/ProgressTopBar.tsx`** — STUB minimal (corps non documenté).
 - [ ] **`app/(onboarding)/blocked/page.tsx`** — corps reconstitué (seule la redirection était documentée) ; vérifier le contenu réel.
 - [ ] **`i18n/{fr,en}.json`** + setup `next-intl` (`i18n.ts`) — 12 locales. Contenus réels manquants
