@@ -5,7 +5,7 @@
 ## Session 2026-06-26 — DÉCISIONS BRUNO (entité · prix · date) + ULTRAREVIEW
 
 ### ✅ Tranché par Bruno (2026-06-26)
-1. **Entité officielle = société française [entité — hors dépôt]** — 20 rue du Rhin, 59200 Tourcoing, France.
+1. **Entité officielle = société française [entité — hors dépôt]** — [adresse — hors dépôt].
    → option **IL Mizrahi ABANDONNÉE** (conflit déperso + narratif Israël). Appliqué : `stripe_activite_fr.md`.
 2. **Prix / early-bird** : Bruno délègue à Claude « le plus attractif », **sous réserve d'étude**.
    → **Reco appliquée** : **early-bird 39 €/mois VERROUILLÉ À VIE** (inscrits avant le 1ᵉʳ juillet 2026) ;

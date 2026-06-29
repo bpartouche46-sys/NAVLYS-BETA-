@@ -66,7 +66,7 @@ jour : **`docs/CARTE-SITES.md`**. ⚠️ Aucun projet n'est relié à GitHub (co
 
 - **Statut = LANCÉ / phase BETA active.** Gate ouvert le 31 mai 2026. **Date de lancement PUBLIC figée
   (Bruno, 2026-06-26) : 1ᵉʳ juillet 2026 à 00:00 (Europe/Paris).** Entité officielle : **société française [entité — hors dépôt]**
-  (20 rue du Rhin, 59200 Tourcoing).
+  ([adresse — hors dépôt]).
   Source : `recup-docs/onedrive/_MASTER_NAVLYS_NOW.md` (« lancement gate passé le 31 mai 2026 ✓,
   phase BETA en cours »). Détail des dates et arbitrage : `docs/ETAT-DES-LIEUX.md` + `docs/RENFORCEMENT/01-strategie.md`.
 

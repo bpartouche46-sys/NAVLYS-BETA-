@@ -88,7 +88,7 @@ EUR 80 (mix abonnement 490€ + one-shot 19-199€)
 ```
 
 ## Champ : Statutory form
-- **Entité officielle (figée Bruno 2026-06-26) : société française [entité — hors dépôt]** — 20 rue du Rhin, 59200 Tourcoing, France.
+- **Entité officielle (figée Bruno 2026-06-26) : société française [entité — hors dépôt]** — [adresse — hors dépôt].
   Fournir : SIREN/SIRET + extrait KBIS + IBAN FR au nom de [entité — hors dépôt].
   ⛔ Option « IL Mizrahi » ABANDONNÉE (conflit dépersonnalisation + narratif Israël).
 
