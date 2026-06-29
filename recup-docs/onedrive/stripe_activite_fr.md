@@ -95,7 +95,7 @@ EUR 80 (mix abonnement 490€ + one-shot 19-199€)
 ## Documents à préparer à l'avance
 1. Carte d'identité du représentant légal (recto/verso) FR.
 2. RIB / IBAN FR au nom de **[entité — hors dépôt]**.
-3. Extrait **KBIS** + **SIREN/SIRET** de [entité — hors dépôt] (Tourcoing).
+3. Extrait **KBIS** + **SIREN/SIRET** de [entité — hors dépôt] ([ville — hors dépôt]).
 4. Échantillon contenu pédagogique : URL `navlys.com/client/001` (page démo) ou capture du teaser.
 5. Mention obligatoire visible sur navlys.com : *« NAVLYS publie du contenu éditorial pédagogique. NAVLYS n'est ni IOBSP, ni CIF, ni ORIAS et ne fournit aucun conseil en investissement. »*
 
