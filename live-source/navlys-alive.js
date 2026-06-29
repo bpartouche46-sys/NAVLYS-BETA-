@@ -491,3 +491,17 @@
   f.style.cssText='position:fixed;inset:0;width:100%;height:100%;border:0;z-index:-4;opacity:.5;pointer-events:none';
   document.body.appendChild(f);
 })();
+
+/* Conformité (gardien) — disclaimer obligatoire injecté sur toute page chargeant ce script.
+   Idempotent : ne fait rien si la page porte déjà un disclaimer (index/partenaires). */
+(function(){
+  function add(){
+    if(document.querySelector('.disclaimer,.nv-disclaimer')) return;
+    var d=document.createElement('div');
+    d.className='nv-disclaimer';
+    d.style.cssText='position:relative;z-index:6;max-width:900px;margin:28px auto 0;padding:16px 22px 44px;font:italic 13px/1.7 Georgia,serif;color:#9fb3c8;text-align:left';
+    d.textContent="NAVLYS est un projet d'éducation et de veille à vocation informative uniquement. Les contenus ne constituent en aucun cas un conseil personnalisé en investissement, ni une recommandation d'achat ou de vente. Investir comporte un risque de perte en capital. Chacun reste seul responsable de ses décisions financières. Réservé aux 18 ans et +.";
+    (document.body||document.documentElement).appendChild(d);
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',add); else add();
+})();
