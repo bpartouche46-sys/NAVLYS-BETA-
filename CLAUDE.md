@@ -64,6 +64,47 @@ install.sh              # installeur Hetzner en une ligne
 - Commits clairs en français (préfixes `feat:`, `fix:`, `docs:`, `chore:`).
 - Push : `git push -u origin <branche>`, puis ouvrir une PR en **draft**.
 
+## ✅ Doctrine de validation de Bruno (STANDING — gravée le 2026-06-29)
+
+> Règle systémique posée par Bruno lui-même : **« Ma réponse par défaut est OUI /
+> VALIDER / VALIDER TOUJOURS. »** Donc :
+
+- **Zéro question fermée.** MasterNav (et tout agent) prend la main, prépare,
+  valide les routines, et exécute sans demander confirmation à chaque étape.
+- **Une seule exception, non négociable (Bible §6 n°1)** : avant un **vrai débit
+  d'argent** (ex. fal.ai, achat, paiement tiers), un **signalement d'UNE ligne**
+  est émis puis l'action suit — ce n'est pas une question, c'est une protection.
+- Les actions externes restent journalisées (`journal`, `agent_runs`) pour que
+  Bruno puisse relire après coup.
+
+## 🪪 Identités des 14 agents (gravées en base `agents` : `prenom`, `handle`)
+
+| Prénom | Handle | Code | Mode |
+|---|---|---|---|
+| Tom | `@navtech` | NAVTECH | prepare |
+| Clara | `@navcom` | NAVCOM | prepare |
+| Victor | `@navfi` | NAVFI | prepare |
+| Léa | `@navbio` | NAVBIO | prepare |
+| Mina | `@navme` | NAVME | auto |
+| Gabriel | `@navgen` | NAVGEN | prepare |
+| Alex | `@navlex` | NAVLEX | prepare |
+| Paul | `@navpart` | NAVPART | prepare |
+| Sentinelle | `@navpte` | NAVPTE | auto |
+| Lena | `@navlead` | NAVLEAD | prepare |
+| Marc | `@navmkt` | NAVMKT | auto |
+| Newton | `@navlab` | NAVLAB | auto |
+| Bianca | `@navbien` | NAVBIEN | prepare |
+| David | `@navdem` | NAVDEM | prepare |
+
+## 🤖 MasterNav — le chef d'orchestre (point d'entrée unique)
+
+But : Bruno parle à **un seul endroit** (bot Telegram), plus jamais Claude Code.
+
+- Bruno écrit `@navfi prépare la mini-leçon du jour` → MasterNav crée la mission
+  pour le bon agent, l'agent prépare, MasterNav renvoie « à valider » dans le chat.
+- Charte complète : **`MASTERNAV.md`**. Code : `navlys_core/masternav.py`.
+- Routines automatiques (cron Supabase) : `sql/routines_cron.sql`.
+
 ## 💡 Conseil d'usage (sessions)
 
 Repartir d'un **nouveau chat par tâche / par jour** plutôt qu'un fil géant :
