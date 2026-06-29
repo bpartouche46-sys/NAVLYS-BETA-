@@ -2,6 +2,36 @@
 
 > Mis à jour à la fin de chaque session pour que la suivante reprenne sans tout relire.
 
+## Session 2026-06-29 — Diag app NAVLYS (Piste A) + écart countdown (Piste B) — LECTURE SEULE
+
+- 🎯 **Demande Bruno** (via raccourci PWA NAVLYS transmis) : (A) vérifier que l'app/site
+  fonctionne + endpoints `/api/navlex` `/api/sav` `/api/voice` ; (B) régler l'incohérence
+  de date du countdown. **Aucune écriture/déploiement/publication** demandée.
+- 🚧 **Limite technique honnête (à retenir)** : la **policy d'egress** de l'environnement
+  Claude **bloque (403 CONNECT)** `navlys.com`, `api.vercel.com` ET `api.supabase.com`.
+  **Aucun connecteur MCP Vercel/Supabase exposé** dans cette session (seul **GitHub** passe).
+  → Claude **n'a PAS pu tester le live ni l'état des déploiements Vercel en exécution réelle**
+  cette fois. Diagnostic = **statique** (code du dépôt) + mémoire. (cf. ERR-006 : le live n'est
+  pas versionné → le code du dépôt ≠ garantie de ce qui est servi en prod.)
+- ✅ **Piste A (statique)** : les 3 endpoints existent en source (`live-source/api/navlex.js`,
+  `sav.js`, `voice.js`, runtime **edge**). `navlex.js` : POST only (GET→405), **CORS fermé**
+  aux vrais domaines (navlys.com/.io/brunopartouche), clé Anthropic côté serveur (conforme
+  règle gravée 7), modèle `claude-haiku-4-5`, anti-abus 12 req/min/IP, disclaimer imposé
+  « ⚖️ Info générale, pas un conseil personnalisé ». `vercel.json` : headers sécu OK
+  (nosniff, SAMEORIGIN, Permissions-Policy microphone=self pour la voix). **À tester en
+  prod par Bruno** (un POST réel depuis navlys.com) — non faisable depuis Claude.
+- 🟠 **Piste B — écart countdown CONFIRMÉ en source** :
+  - **Code refonte** (`live-source/navlys-alive.js` l.386) : `TARGET=new Date(2026,6,1,0,0,0)`
+    = **1ᵉʳ juillet 2026 00:00** (mois JS base 0 → 6 = juillet). Texte l.392 « Ouverture le
+    1er juillet ». **Cohérent en interne** (code refonte).
+  - **Docs internes** : gate déjà passé (**31 mai / 1ᵉʳ juin 2026**, phase BETA active).
+  - → **Écart = le public voit encore un compte à rebours vers le 1ᵉʳ juillet alors que la
+    BETA est ouverte.** **Décision de date = Bruno** (3 options posées dans le rapport).
+  - ⚠️ Le countdown réellement **servi en prod** n'a pas pu être vérifié (egress bloqué) →
+    Bruno doit confirmer ce qu'affiche le site live aujourd'hui.
+- 🔴 **Aucune action sensible** : zéro écriture, zéro déploiement, zéro publication, zéro dépense.
+  Correction du countdown **préparée mais NON appliquée** — attend la date tranchée par Bruno.
+
 ## Session 2026-06-28 (d) — REFONTE navlys.com PRÊTE (aperçu) + apps backend déployé
 
 - ✅ **Refonte navlys.com construite & vérifiée en aperçu** (design navlys.io : fond animé +
