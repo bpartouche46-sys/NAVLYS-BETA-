@@ -16,7 +16,6 @@
 html{scroll-behavior:smooth;background:var(--noir)}
 body{background:transparent;color:var(--perle);font-family:'Cormorant Garamond',Georgia,serif;font-size:19px;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 /* Fond vivant permanent (la "respiration hublot") — toujours derrière tout */
-#bg{position:fixed;inset:0;z-index:0}
 body::after{content:"";position:fixed;inset:0;z-index:1;pointer-events:none;
   background:radial-gradient(60% 45% at 50% 12%,rgba(125,211,252,.10),transparent 60%),radial-gradient(55% 40% at 80% 80%,rgba(201,169,97,.07),transparent 62%);
   animation:hublot 14s ease-in-out infinite alternate}
@@ -80,14 +79,37 @@ main{position:relative;z-index:2;padding-bottom:calc(var(--botbar) + 30px)}
 .botbar a:hover,.botbar a.act{color:var(--ice-clair)}
 .botbar a.act .i{filter:none;text-shadow:0 0 12px rgba(125,211,252,.7)}
 .foot{text-align:center;color:var(--mut);font-size:13px;font-style:italic;padding:26px 16px 0}
+/* Logo animé : la vague ≋ qui se dessine et respire, sans fin */
+.logo{display:inline-flex;align-items:center;gap:8px}
+.wave{display:inline-block;vertical-align:middle;overflow:visible}
+.wave path{fill:none;stroke-linecap:round}
+.wave .w1{stroke:var(--or)}
+.wave .w2{stroke:var(--ice);opacity:.85}
+.wave.wsm{width:34px;height:13px}
+.wave.wsm path{stroke-width:2.4;stroke-dasharray:64;animation:draw 4.6s ease-in-out infinite}
+.wave.whero{width:118px;height:30px;margin:0 auto 4px;display:block}
+.wave.whero path{stroke-width:3;stroke-dasharray:150}
+.wave.whero .w1{animation:draw2 6s ease-in-out infinite}
+.wave.whero .w2{animation:draw2 6s ease-in-out .5s infinite}
+@keyframes draw{0%{stroke-dashoffset:64;opacity:.25}50%{stroke-dashoffset:0;opacity:1}100%{stroke-dashoffset:-64;opacity:.25}}
+@keyframes draw2{0%{stroke-dashoffset:150;opacity:.2}48%{stroke-dashoffset:0;opacity:1}100%{stroke-dashoffset:-150;opacity:.2}}
+/* la page cinéma respire avec le même décor marin vivant que tout le site ;
+   on remonte juste le bouton d'aide au-dessus de la barre basse */
+#nv-living{z-index:0!important}
+#nv-veil{z-index:0!important}
+#nv-sav-btn{bottom:80px!important}
+#nv-sav{bottom:136px!important}
+.nv-bubble{bottom:140px!important}
 </style>
 </head>
 <body>
-<canvas id="bg"></canvas>
 
 <!-- BARRE HAUTE fine + permanente -->
 <div class="topbar">
-  <a class="logo" href="/">≋ NAVLYS</a>
+  <a class="logo" href="/">
+    <svg class="wave wsm" viewBox="0 0 60 16" aria-hidden="true"><path class="w1" d="M2 9 Q9 1 16 9 T30 9 T44 9 T58 9"/></svg>
+    NAVLYS
+  </a>
   <span class="ctx"><span class="dot"></span> Écran vivant</span>
 </div>
 
@@ -100,6 +122,10 @@ main{position:relative;z-index:2;padding-bottom:calc(var(--botbar) + 30px)}
   <div class="veil"></div>
   <div class="title">
     <div class="k">Naviguer l'avenir, ensemble</div>
+    <svg class="wave whero" viewBox="0 0 120 30" aria-hidden="true">
+      <path class="w1" d="M3 17 Q15 4 27 17 T51 17 T75 17 T99 17 T123 17"/>
+      <path class="w2" d="M3 21 Q15 9 27 21 T51 21 T75 21 T99 21 T123 21"/>
+    </svg>
     <div class="b">NAVLYS</div>
   </div>
 </header>
@@ -153,27 +179,9 @@ main{position:relative;z-index:2;padding-bottom:calc(var(--botbar) + 30px)}
   <a href="/cockpit"><span class="i">⛬</span>Cockpit</a>
 </nav>
 
+<!-- Décor marin vivant PARTAGÉ (mer + horizon + voiliers de l'Équipage + respiration) -->
+<script src="/navlys-alive.js" defer></script>
 <script>
-/* Fond vivant permanent : particules ice-blue qui respirent (hublot), toujours derrière */
-(function(){
-  var c=document.getElementById('bg'),x=c.getContext('2d'),DPR=Math.min(devicePixelRatio||1,2),W=0,H=0,P=[];
-  function size(){W=innerWidth;H=innerHeight;c.width=W*DPR;c.height=H*DPR;x.setTransform(DPR,0,0,DPR,0,0);build();}
-  function build(){P=[];var n=Math.min(90,Math.round(W*H/16000));for(var i=0;i<n;i++)P.push({x:Math.random()*W,y:Math.random()*H,r:Math.random()*1.7+.4,vx:(Math.random()-.5)*.18,vy:(Math.random()-.5)*.18,ph:Math.random()*6.28});}
-  function frame(t){
-    var s=t*0.001;x.clearRect(0,0,W,H);
-    var g=x.createRadialGradient(W/2,H*0.1,0,W/2,H*0.1,Math.max(W,H)*0.7);
-    g.addColorStop(0,'rgba(125,211,252,0.06)');g.addColorStop(1,'rgba(3,4,10,0)');x.fillStyle=g;x.fillRect(0,0,W,H);
-    x.globalCompositeOperation='lighter';
-    for(var i=0;i<P.length;i++){var p=P[i];p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>W)p.vx*=-1;if(p.y<0||p.y>H)p.vy*=-1;
-      var tw=.5+.5*Math.sin(s*1.6+p.ph);x.beginPath();x.arc(p.x,p.y,p.r*(0.7+tw*0.6),0,6.28);
-      x.fillStyle='rgba(168,227,255,'+(.18+.4*tw)+')';x.shadowColor='rgba(125,211,252,.8)';x.shadowBlur=8;x.fill();x.shadowBlur=0;}
-    for(var a=0;a<P.length;a++)for(var b=a+1;b<P.length;b++){var dx=P[a].x-P[b].x,dy=P[a].y-P[b].y,dd=dx*dx+dy*dy;
-      if(dd<9000){x.beginPath();x.moveTo(P[a].x,P[a].y);x.lineTo(P[b].x,P[b].y);x.strokeStyle='rgba(125,211,252,'+(.06*(1-dd/9000))+')';x.lineWidth=.6;x.stroke();}}
-    x.globalCompositeOperation='source-over';requestAnimationFrame(frame);
-  }
-  addEventListener('resize',size);size();requestAnimationFrame(frame);
-})();
-
 /* Révélations au scroll : chaque section / carte s'anime quand elle entre */
 (function(){
   var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');}});},{threshold:.15});
