@@ -45,7 +45,26 @@
 
   // particules de lumiere qui montent doucement
   var motes=[]; for(var i=0;i<70;i++){ motes.push({ x:Math.random(), y:Math.random(), r:0.6+Math.random()*2.2, sp:0.006+Math.random()*0.02, ph:Math.random()*6.28, hue:Math.random()<0.5?ICE:OR }); }
+  // voiliers de l'Equipage : glissent doucement sur l'horizon, toujours
+  var boats=[]; for(var bj=0;bj<3;bj++){ boats.push({ x:Math.random()*1.3-0.15, y:0.74+Math.random()*0.11, sp:0.00016+Math.random()*0.00026, sc:0.7+Math.random()*0.85, ph:Math.random()*6.28, hue:bj===1?OR:ICE }); }
   function hx(c,a){ var n=parseInt(c.slice(1),16); return 'rgba('+(n>>16&255)+','+(n>>8&255)+','+(n&255)+','+a+')'; }
+  function voilier(px,py,sc,col,swell){
+    ctx.save(); ctx.translate(px,py+swell); ctx.globalCompositeOperation='lighter';
+    ctx.shadowColor=hx(col,0.6); ctx.shadowBlur=14;
+    // reflet sur l'eau
+    var rfl=ctx.createLinearGradient(0,2*sc,0,28*sc); rfl.addColorStop(0,hx(col,0.20)); rfl.addColorStop(1,'rgba(0,0,0,0)');
+    ctx.fillStyle=rfl; ctx.fillRect(-4*sc,2*sc,8*sc,26*sc);
+    // coque
+    ctx.beginPath(); ctx.moveTo(-17*sc,0); ctx.quadraticCurveTo(0,12*sc,17*sc,0); ctx.quadraticCurveTo(0,5*sc,-17*sc,0); ctx.closePath();
+    ctx.fillStyle=hx(col,0.85); ctx.fill();
+    // mat
+    ctx.strokeStyle=hx(col,0.8); ctx.lineWidth=1.4*sc; ctx.beginPath(); ctx.moveTo(0,0); ctx.lineTo(0,-31*sc); ctx.stroke();
+    // grand-voile
+    ctx.beginPath(); ctx.moveTo(1.6*sc,-30*sc); ctx.lineTo(1.6*sc,-2*sc); ctx.lineTo(15*sc,-2*sc); ctx.closePath(); ctx.fillStyle=hx(col,0.5); ctx.fill();
+    // foc
+    ctx.beginPath(); ctx.moveTo(-1.6*sc,-26*sc); ctx.lineTo(-1.6*sc,-2*sc); ctx.lineTo(-12*sc,-2*sc); ctx.closePath(); ctx.fillStyle=hx(col,0.32); ctx.fill();
+    ctx.restore();
+  }
 
   function frame(t){
     var s=t*0.001;
@@ -65,6 +84,13 @@
     var rg=ctx.createRadialGradient(hx0,hy,0,hx0,hy,H*0.6);
     rg.addColorStop(0, hx(OR,0.16)); rg.addColorStop(0.5, hx(OR,0.05)); rg.addColorStop(1,'rgba(0,0,0,0)');
     ctx.fillStyle=rg; ctx.fillRect(0,0,W,H);
+
+    // --- voiliers de l'Equipage qui glissent sur l'horizon ---
+    for(var bI=0;bI<boats.length;bI++){ var bt=boats[bI];
+      bt.x+=bt.sp; if(bt.x>1.2){ bt.x=-0.2; bt.y=0.74+Math.random()*0.11; bt.sc=0.7+Math.random()*0.85; }
+      voilier(bt.x*W, bt.y*H, bt.sc, bt.hue, Math.sin(s*0.85+bt.ph)*2.2*bt.sc);
+    }
+    ctx.shadowBlur=0; ctx.globalCompositeOperation='source-over';
 
     // --- aurores / rubans de lumiere qui ondulent ---
     ctx.globalCompositeOperation='lighter';
