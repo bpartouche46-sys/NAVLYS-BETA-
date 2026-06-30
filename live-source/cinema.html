@@ -6,6 +6,7 @@
 <title>NAVLYS — Écran de cinéma vivant</title>
 <meta name="description" content="NAVLYS, l'écran de cinéma vivant : barre haute fine, navigation en bas, vidéos incrustées, tout respire.">
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Cormorant+Garamond:ital,wght@0,500;1,500&family=Fraunces:ital@1&family=JetBrains+Mono&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="/media/navlys_favicon.svg">
 <style>
 :root{
   --noir:#03040a;--ice:#7DD3FC;--ice-clair:#a8e3ff;--ice-deep:#3a8db5;
@@ -40,7 +41,9 @@ body::after{content:"";position:fixed;inset:0;z-index:1;pointer-events:none;
   animation:vshift 16s ease-in-out infinite alternate}
 @keyframes vshift{from{filter:hue-rotate(0) brightness(1)}to{filter:hue-rotate(-12deg) brightness(1.12)}}
 .screen .veil{position:absolute;inset:0;background:linear-gradient(0deg,rgba(3,4,10,.92),transparent 55%)}
-.screen .title{position:absolute;left:0;right:0;bottom:14px;text-align:center;z-index:3}
+/* la vraie pièce NAVLYS bronze animée (issue de ton pack) — pièce maîtresse */
+.screen .coin{position:absolute;left:50%;top:44%;transform:translate(-50%,-50%);width:min(30vh,150px);height:min(30vh,150px);z-index:3;filter:drop-shadow(0 6px 26px rgba(125,211,252,.45))}
+.screen .title{position:absolute;left:0;right:0;bottom:12px;text-align:center;z-index:3}
 .screen .title .k{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.4em;color:var(--ice);text-transform:uppercase}
 .screen .title .b{font-family:'Cinzel',serif;font-weight:600;font-size:clamp(30px,9vw,58px);letter-spacing:.12em;
   background:linear-gradient(100deg,var(--or-pale),var(--or) 45%,#fff7e6 55%,var(--or) 70%,var(--bronze));
@@ -120,13 +123,9 @@ main{position:relative;z-index:2;padding-bottom:calc(var(--botbar) + 30px)}
   </video>
   <div class="vfallback"></div>
   <div class="veil"></div>
+  <img class="coin" src="/media/navlys_coin_animated.svg" alt="La pièce NAVLYS qui tourne">
   <div class="title">
     <div class="k">Naviguer l'avenir, ensemble</div>
-    <svg class="wave whero" viewBox="0 0 120 30" aria-hidden="true">
-      <path class="w1" d="M3 17 Q15 4 27 17 T51 17 T75 17 T99 17 T123 17"/>
-      <path class="w2" d="M3 21 Q15 9 27 21 T51 21 T75 21 T99 21 T123 21"/>
-    </svg>
-    <div class="b">NAVLYS</div>
   </div>
 </header>
 
