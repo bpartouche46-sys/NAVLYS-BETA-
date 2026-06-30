@@ -1,4 +1,4 @@
 # Retrigger Vercel Production Deploy
 
-Pushed: 2026-06-30T06:41:44Z
-Reason: forcer le build des fonctions /api (racine)
+Pushed: 2026-06-30T07:03:47Z
+Reason: deployer le /api racine (post-cooldown)
