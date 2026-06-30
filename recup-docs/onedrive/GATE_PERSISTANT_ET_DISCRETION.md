@@ -11,7 +11,7 @@ Deux problèmes, deux remèdes nets — on garde le gate jusqu'au 31 mai, mais o
 
 | Constat | Cause | Remède |
 |---|---|---|
-| Bruno doit retaper `CAP2027` à chaque visite | Le gate ne pose pas de cookie de persistance | **Cookie 30 jours** au premier déverrouillage |
+| Bruno doit retaper `[CLÉ RETIRÉE — voir gestionnaire de secrets]` à chaque visite | Le gate ne pose pas de cookie de persistance | **Cookie 30 jours** au premier déverrouillage |
 | Bruno veut **voir évoluer** le site post-lancement sans déverrouiller le gate au public | Pas de mode preview privé | **Lien preview UUID** dédié à Bruno (clé séparée du code public) |
 | Les deux sites sont indexables, donc visibles publiquement | Pas de directive `noindex` ni `robots.txt` adapté | **Noindex global** pendant la phase teaser + `robots.txt` strict |
 | Bruno veut **réduire la surface exposée** au public | Le teaser actuel montre beaucoup (logo animé, cockpit, cartes essayer) | **Mode « rideau »** : teaser ultra-minimal pour les moteurs/curieux, mode « gate » complet uniquement après code |
@@ -22,9 +22,9 @@ Deux problèmes, deux remèdes nets — on garde le gate jusqu'au 31 mai, mais o
 
 ### 2.1 Comportement attendu
 
-- Quand Bruno (ou n'importe qui ayant le code) tape `CAP2027`, on pose un cookie `gate_unlock=<hash>` valide **30 jours**, `httpOnly`, `secure`, `sameSite=Lax`.
+- Quand Bruno (ou n'importe qui ayant le code) tape `[CLÉ RETIRÉE — voir gestionnaire de secrets]`, on pose un cookie `gate_unlock=<hash>` valide **30 jours**, `httpOnly`, `secure`, `sameSite=Lax`.
 - Aux visites suivantes depuis le même navigateur → le serveur lit le cookie et **saute** le gate. Bruno ne voit plus jamais le sablier.
-- Bonus : URL raccourci `navlys.com/?k=CAP2027` → si le param est valide, on pose le cookie et on redirige `/` sans la query. Bruno peut bookmarker cette URL.
+- Bonus : URL raccourci `navlys.com/?k=[CLÉ RETIRÉE — voir gestionnaire de secrets]` → si le param est valide, on pose le cookie et on redirige `/` sans la query. Bruno peut bookmarker cette URL.
 
 ### 2.2 Code à poser
 
@@ -36,7 +36,7 @@ Crée d'abord `navlys/middleware.ts` :
 import { NextRequest, NextResponse } from 'next/server';
 import { createHash, timingSafeEqual } from 'crypto';
 
-const VALID_CODES = (process.env.GATE_CODES || 'CAP2027').split(',');
+const VALID_CODES = (process.env.GATE_CODES || '[CLÉ RETIRÉE — voir gestionnaire de secrets]').split(',');
 const COOKIE = 'navlys_gate';
 const MAX_AGE_SECONDS = 60 * 60 * 24 * 30; // 30 jours
 const SECRET = process.env.GATE_SECRET || 'navlys-default-please-change';
@@ -97,7 +97,7 @@ Effet : redirection → middleware pose le cookie → URL nettoyée → Bruno ar
 
 ### 2.4 ENV à poser sur Vercel (navlys-app + brunopartouche-teaser)
 ```
-GATE_CODES=CAP2027,CAP-PREVIEW-7K3M2A      # autant que tu veux, séparés par virgules
+GATE_CODES=[CLÉ RETIRÉE — voir gestionnaire de secrets],CAP-PREVIEW-7K3M2A      # autant que tu veux, séparés par virgules
 GATE_SECRET=<générer un random hex 32+ chars, jamais en clair dans un fichier>
 NEXT_PUBLIC_LAUNCH_UNLOCKED=false           # bascule à true le 1ᵉʳ juin
 ```

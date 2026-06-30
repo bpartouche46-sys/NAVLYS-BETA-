@@ -101,9 +101,9 @@ Owns the single `navlys/` Next.js project: deploy, keep the teaser gate active (
 ---
 
 ## 📥 ORDRE QG — 25 mai : aperçu privé par CLÉ D'ACCÈS (les 2 sites)
-- Livré par le QG : `navlys/public/acces.html` + `brunopartouche-LIVE/acces.html` = teaser cockpit **page unique** (4 véhicules, fond animé réaliste, logo/countdown/curieux frontal) **derrière une clé d'accès** (`ACCESS_KEY="CAP2027"`, modifiable en 1 ligne) + **responsive Android (≤560px) & Windows (≥1100px)** ajouté.
+- Livré par le QG : `navlys/public/acces.html` + `brunopartouche-LIVE/acces.html` = teaser cockpit **page unique** (4 véhicules, fond animé réaliste, logo/countdown/curieux frontal) **derrière une clé d'accès** (`ACCESS_KEY="[CLÉ RETIRÉE — voir gestionnaire de secrets]"`, modifiable en 1 ligne) + **responsive Android (≤560px) & Windows (≥1100px)** ajouté.
 - **À FAIRE (Dépt 02)** : déployer ces 2 pages comme **entrée privée** (route `/acces` ou page d'accueil temporaire) sur chaque projet Vercel — **1 seul déploiement, attendre READY**. Garder le gate NAVLYS verrouillé. Ne pas committer de token.
-- **Option plus sûre (recommandée)** : activer **Vercel Password Protection** (Project → Settings → Deployment Protection) = mot de passe serveur, plus robuste que la clé client. La clé client `CAP2027` reste le filet immédiat.
+- **Option plus sûre (recommandée)** : activer **Vercel Password Protection** (Project → Settings → Deployment Protection) = mot de passe serveur, plus robuste que la clé client. La clé client `[CLÉ RETIRÉE — voir gestionnaire de secrets]` reste le filet immédiat.
 - **Quand Bruno dit « public »** : retirer la clé (NAVLYS garde son countdown jusqu'au 1er juin ; Bruno passe public).
 
 ---

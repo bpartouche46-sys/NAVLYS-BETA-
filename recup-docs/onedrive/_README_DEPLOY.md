@@ -2,7 +2,7 @@
 
 > ⚓ **Mise à jour 26 mai 2026** : la page intègre maintenant un **gate à code** demandé à chaque visite (pas de cookie, pas de mémoire). Fond espace animé, médaille BP, compte à rebours vers le 1ᵉʳ juin 2026 minuit Jérusalem, et 4 cadrans jours/heures/minutes/secondes.
 >
-> **Codes valides** (saisis insensible à la casse) : `CAP2027` · `CAPITAINE` · `BRUNO2026`.
+> **Codes valides** (saisis insensible à la casse) : `[CLÉ RETIRÉE — voir gestionnaire de secrets]` · `CAPITAINE` · `BRUNO2026`.
 >
 > **Noindex actif** : Google ne l'indexera pas.
 
