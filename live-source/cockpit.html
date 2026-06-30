@@ -345,7 +345,7 @@ async function sendOrdre(){
 let speaking=false;
 async function briefing(){
   const btn=$('briefBtn');
-  if(speaking){ window.speechSynthesis.cancel(); speaking=false; btn.classList.remove('speaking'); btn.textContent='🔊 Rapport vocal'; return; }
+  if(speaking){ try{window.speechSynthesis.cancel();}catch(e){} if(briefAudio){try{briefAudio.pause();}catch(e){}} speaking=false; btn.classList.remove('speaking'); btn.textContent='🔊 Rapport vocal'; return; }
   btn.textContent='… le Rapporteur prépare';
   try{
     const d=await api('briefing');
@@ -356,14 +356,29 @@ async function briefing(){
   }catch(e){ toast('Rapporteur indisponible : '+e.message); }
   finally{ btn.textContent='🔊 Rapport vocal'; }
 }
-function speak(text){
+let briefAudio=null;
+async function speak(text){
+  const btn=$('briefBtn');
+  // 1) On tente la VRAIE voix NAVLYS (ElevenLabs via /api/voice).
+  try{
+    const r=await fetch('/api/voice',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({text:text.slice(0,1200)})});
+    if(r.ok && (r.headers.get('content-type')||'').includes('audio')){
+      const url=URL.createObjectURL(await r.blob());
+      if(briefAudio){ briefAudio.pause(); }
+      briefAudio=new Audio(url);
+      speaking=true; btn.classList.add('speaking');
+      briefAudio.onended=()=>{speaking=false;btn.classList.remove('speaking');URL.revokeObjectURL(url);};
+      await briefAudio.play();
+      return;
+    }
+  }catch(e){ /* voix NAVLYS indisponible -> on bascule sur la voix du navigateur */ }
+  // 2) Repli : voix du navigateur (toujours dispo, hors-ligne).
   if(!('speechSynthesis' in window)) return;
   window.speechSynthesis.cancel();
   const u=new SpeechSynthesisUtterance(text);
   u.lang='fr-FR'; u.rate=1; u.pitch=1;
   const fr=window.speechSynthesis.getVoices().find(v=>/fr/i.test(v.lang));
   if(fr) u.voice=fr;
-  const btn=$('briefBtn');
   u.onstart=()=>{speaking=true;btn.classList.add('speaking');};
   u.onend=()=>{speaking=false;btn.classList.remove('speaking');};
   window.speechSynthesis.speak(u);
