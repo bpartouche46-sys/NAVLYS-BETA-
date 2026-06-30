@@ -102,6 +102,26 @@ install.sh              # installeur Hetzner en une ligne
   (`default_answer=oui`, `no_answer_timeout_seconds=10`, `escalation_target=MASTERNAV`,
   `auto_validate=true`).
 
+## 🔁 Auto-test & auto-amélioration récursive (STANDING — gravé le 2026-06-30)
+
+> Ordre posé par Bruno : **« Mets tout en place pour t'auto-tester et t'auto-améliorer
+> récursivement, chaque jour un peu plus. »**
+
+- Chaque jour, le cerveau Supabase exécute **`navlys_cycle_recursif()`** (cron
+  `navlys_cycle_recursif`, 10 9 * * * UTC) qui enchaîne :
+  1. **`navlys_autotest()`** — note NAVLYS **/100** sur 5 dimensions (activité,
+     apprentissage, fiabilité, mémoire, contenu), repère le **point faible**, incrémente
+     le **niveau** (`recursive_growth_level`) et journalise (type `autotest`).
+  2. **`navlys_auto_amelioration()`** — enfile une **mission ciblée** sur le point faible
+     vers le bon agent (activité→NAVDEM, apprentissage→NAVLAB, fiabilité→NAVTECH,
+     mémoire→NAVME, contenu→NAVMKT), « un cran de mieux qu'hier », et **bancarise les
+     acquis** (`consolider_apprentissage()`).
+- Traces : table `navlys_autotest`, `journal` (`autotest` / `auto_amelioration`),
+  `core_config` (`auto_test`, `auto_amelioration`, `recursive_growth`,
+  `recursive_growth_level`, `last_autotest_score`, `last_autotest_weak`).
+- Code source : **`sql/auto_amelioration_recursive.sql`**. Doctrine en base :
+  `navlys_memoire` (type `doctrine`). Tourne **seul, 24/7, sans Bruno**.
+
 ## 🖥️ Où tout tourne (sans l'ordinateur de Bruno)
 
 - **Cerveau / agents / routines** = **Supabase** (Edge Functions `core-tick`,
