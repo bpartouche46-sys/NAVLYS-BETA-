@@ -128,7 +128,8 @@ export default async function handler(req) {
   if (req.method !== 'POST') return j({ error: 'POST only' }, 405);
 
   const base = (process.env.SUPABASE_URL || '').replace(/\/$/, '');
-  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  // Accepte les deux noms possibles de la clé service_role selon la config Vercel.
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_SERVICE_ROLE;
   const cockpitToken = process.env.COCKPIT_TOKEN;
   if (!base || !key) return j({ error: 'server not configured (SUPABASE_URL / SERVICE_ROLE_KEY)' }, 500);
   if (!cockpitToken) return j({ error: 'server not configured (COCKPIT_TOKEN manquant)' }, 500);

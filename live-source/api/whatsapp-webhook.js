@@ -196,7 +196,7 @@ export default async function handler(req) {
 
   const d360 = process.env.D360_API_KEY, anth = process.env.ANTHROPIC_API_KEY;
   const base = (process.env.SUPABASE_URL || '').replace(/\/$/, '');
-  const skey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  const skey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_SERVICE_ROLE;
   const bruno = onlyDigits(process.env.BRUNO_WHATSAPP);
 
   let body; try { body = await req.json(); } catch { return new Response('ok', { status: 200 }); }
