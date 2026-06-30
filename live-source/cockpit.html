@@ -271,7 +271,7 @@ function render(){
     const t=(e.type||'default').toLowerCase();
     const cls='jt-'+(['ordre','agent','validation','refus','erreur'].includes(t)?t:'default');
     return `<div class="jrow"><span class="jtype ${cls}">${esc(e.type||'·')}</span>
-      <span class="jmsg">${esc(e.message||'')}</span><span class="jtime">${timeAgo(e.created_at)}</span></div>`;
+      <span class="jmsg">${esc(e.message||'')}</span><span class="jtime">${timeAgo(e.ts||e.created_at)}</span></div>`;
   }).join('') : `<div class="empty">Journal vide pour l'instant.</div>`;
 }
 

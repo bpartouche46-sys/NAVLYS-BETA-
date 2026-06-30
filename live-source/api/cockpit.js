@@ -154,7 +154,7 @@ export default async function handler(req) {
         sbGet(base, key, 'missions',
           'id,titre,statut,departement,priorite,resultat,consigne,assigned_agent,finished_at',
           'id.desc', 200),
-        sbGet(base, key, 'journal', 'id,type,message,created_at', 'created_at.desc', 50),
+        sbGet(base, key, 'journal', 'id,type,message,ts', 'ts.desc', 50),
       ]);
       // Statistiques par statut (pour les compteurs du cockpit).
       const stats = {};
@@ -209,7 +209,7 @@ export default async function handler(req) {
       const [agents, missions, journal] = await Promise.all([
         sbGet(base, key, 'agents', 'id,prenom,autonomie,actif', 'id.asc', 200),
         sbGet(base, key, 'missions', 'id,titre,statut,departement', 'id.desc', 200),
-        sbGet(base, key, 'journal', 'type,message,created_at', 'created_at.desc', 15),
+        sbGet(base, key, 'journal', 'type,message,ts', 'ts.desc', 15),
       ]);
       const stats = {};
       for (const m of missions) stats[m.statut] = (stats[m.statut] || 0) + 1;
