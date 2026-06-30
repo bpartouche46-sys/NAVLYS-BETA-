@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>NAVLYS — Écran de cinéma vivant</title>
+<meta name="description" content="NAVLYS, l'écran de cinéma vivant : barre haute fine, navigation en bas, vidéos incrustées, tout respire.">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Cormorant+Garamond:ital,wght@0,500;1,500&family=Fraunces:ital@1&family=JetBrains+Mono&display=swap" rel="stylesheet">
+<style>
+:root{
+  --noir:#03040a;--ice:#7DD3FC;--ice-clair:#a8e3ff;--ice-deep:#3a8db5;
+  --or:#C9A961;--or-pale:#f3e4c4;--bronze:#B87333;--perle:#e7eef2;--mut:#9fb3c8;--line:rgba(125,211,252,.16);
+  --topbar:46px;--botbar:64px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;background:var(--noir)}
+body{background:transparent;color:var(--perle);font-family:'Cormorant Garamond',Georgia,serif;font-size:19px;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+/* Fond vivant permanent (la "respiration hublot") — toujours derrière tout */
+#bg{position:fixed;inset:0;z-index:0}
+body::after{content:"";position:fixed;inset:0;z-index:1;pointer-events:none;
+  background:radial-gradient(60% 45% at 50% 12%,rgba(125,211,252,.10),transparent 60%),radial-gradient(55% 40% at 80% 80%,rgba(201,169,97,.07),transparent 62%);
+  animation:hublot 14s ease-in-out infinite alternate}
+@keyframes hublot{from{opacity:.65}to{opacity:1}}
+
+/* BARRE HAUTE — fine et permanente */
+.topbar{position:fixed;top:0;left:0;right:0;height:var(--topbar);z-index:50;
+  display:flex;align-items:center;gap:10px;padding:0 16px;
+  background:rgba(3,4,10,.66);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
+.topbar .logo{font-family:'Cinzel',serif;font-size:13px;letter-spacing:.34em;color:var(--or);text-transform:uppercase;text-decoration:none;font-weight:600}
+.topbar .ctx{margin-left:auto;font-family:'Cinzel',serif;font-size:9.5px;letter-spacing:.2em;color:var(--ice-clair);text-transform:uppercase;display:flex;align-items:center;gap:7px}
+.topbar .dot{width:7px;height:7px;border-radius:50%;background:var(--ice);box-shadow:0 0 10px var(--ice);animation:pulse 2.4s ease-in-out infinite alternate}
+@keyframes pulse{from{opacity:.45}to{opacity:1}}
+
+/* ÉCRAN VIDÉO en haut (un quart) */
+.screen{position:relative;z-index:2;margin-top:var(--topbar);height:30vh;min-height:200px;overflow:hidden;border-bottom:1px solid var(--line)}
+.screen video,.screen .vfallback{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.screen .vfallback{background:
+  linear-gradient(120deg,rgba(58,141,181,.30),transparent 55%),
+  radial-gradient(80% 120% at 50% -20%,rgba(125,211,252,.22),transparent 60%),
+  linear-gradient(0deg,rgba(3,4,10,.85),transparent 60%),#06101f;
+  animation:vshift 16s ease-in-out infinite alternate}
+@keyframes vshift{from{filter:hue-rotate(0) brightness(1)}to{filter:hue-rotate(-12deg) brightness(1.12)}}
+.screen .veil{position:absolute;inset:0;background:linear-gradient(0deg,rgba(3,4,10,.92),transparent 55%)}
+.screen .title{position:absolute;left:0;right:0;bottom:14px;text-align:center;z-index:3}
+.screen .title .k{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.4em;color:var(--ice);text-transform:uppercase}
+.screen .title .b{font-family:'Cinzel',serif;font-weight:600;font-size:clamp(30px,9vw,58px);letter-spacing:.12em;
+  background:linear-gradient(100deg,var(--or-pale),var(--or) 45%,#fff7e6 55%,var(--or) 70%,var(--bronze));
+  background-size:220% auto;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+  animation:shine 9s linear infinite;line-height:1}
+@keyframes shine{to{background-position:220% center}}
+
+/* CONTENU qui défile sur le fond vivant */
+main{position:relative;z-index:2;padding-bottom:calc(var(--botbar) + 30px)}
+.wrap{max-width:920px;margin:0 auto;padding:0 20px}
+.sec{padding:64px 0;border-top:1px solid rgba(125,211,252,.08);opacity:0;transform:translateY(26px);transition:opacity 1s ease,transform 1s ease}
+.sec.in{opacity:1;transform:none}
+.sec h2{font-family:'Cormorant Garamond';font-weight:500;font-size:clamp(28px,6vw,46px);text-align:center;line-height:1.1;margin-bottom:10px}
+.sec h2 em{color:var(--or);font-style:italic}
+.sec .lead{text-align:center;font-style:italic;color:var(--mut);max-width:680px;margin:0 auto 26px;font-size:clamp(16px,2.4vw,20px)}
+/* mini écran vidéo incrusté dans une section */
+.inset{position:relative;height:34vh;min-height:200px;border-radius:18px;overflow:hidden;border:1px solid var(--line);box-shadow:0 0 40px rgba(125,211,252,.12)}
+.inset video,.inset .vfallback{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.inset .cap{position:absolute;left:16px;bottom:14px;z-index:3}
+.inset .cap .t{font-family:'Cinzel',serif;font-size:13px;letter-spacing:.14em;color:#fff;text-transform:uppercase}
+.inset .cap .s{font-style:italic;color:var(--ice-clair);font-size:15px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-top:8px}
+.card{background:rgba(3,5,12,.6);border:1px solid var(--line);border-radius:14px;padding:18px;transition:.4s}
+.card.in{}
+.card:hover{border-color:rgba(125,211,252,.5);transform:translateY(-4px);box-shadow:0 14px 36px rgba(125,211,252,.16)}
+.card .ic{font-size:24px}
+.card h3{font-family:'Cinzel',serif;font-size:13px;letter-spacing:.06em;color:var(--or-pale);text-transform:uppercase;margin:8px 0 4px}
+.card p{color:var(--mut);font-size:15px;line-height:1.5}
+
+/* BARRE BASSE — navigation type application */
+.botbar{position:fixed;bottom:0;left:0;right:0;height:var(--botbar);z-index:50;
+  display:flex;justify-content:space-around;align-items:center;
+  background:rgba(3,4,10,.82);backdrop-filter:blur(18px);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom)}
+.botbar a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--mut);font-family:'Cinzel',serif;font-size:8.5px;letter-spacing:.12em;text-transform:uppercase;flex:1;transition:.25s}
+.botbar a .i{font-size:20px;line-height:1;filter:grayscale(.3)}
+.botbar a:hover,.botbar a.act{color:var(--ice-clair)}
+.botbar a.act .i{filter:none;text-shadow:0 0 12px rgba(125,211,252,.7)}
+.foot{text-align:center;color:var(--mut);font-size:13px;font-style:italic;padding:26px 16px 0}
+</style>
+</head>
+<body>
+<canvas id="bg"></canvas>
+
+<!-- BARRE HAUTE fine + permanente -->
+<div class="topbar">
+  <a class="logo" href="/">≋ NAVLYS</a>
+  <span class="ctx"><span class="dot"></span> Écran vivant</span>
+</div>
+
+<!-- ÉCRAN VIDÉO (haut) -->
+<header class="screen">
+  <video autoplay muted loop playsinline poster="" data-speed="0.6">
+    <source src="/media/hero.mp4" type="video/mp4">
+  </video>
+  <div class="vfallback"></div>
+  <div class="veil"></div>
+  <div class="title">
+    <div class="k">Naviguer l'avenir, ensemble</div>
+    <div class="b">NAVLYS</div>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+
+    <section class="sec">
+      <h2>Un cerveau. Une personne. <em>Tout un univers.</em></h2>
+      <p class="lead">L'IA est le vent, c'est toi qui tiens la barre. Tout respire, tout s'anime — comme un écran de cinéma qui ne s'arrête jamais.</p>
+      <div class="inset">
+        <video autoplay muted loop playsinline data-speed="0.55"><source src="/media/cerveau.mp4" type="video/mp4"></video>
+        <div class="vfallback"></div>
+        <div class="cap"><div class="t">Le cerveau NAVLYS</div><div class="s">14 agents, vivants, en continu</div></div>
+      </div>
+    </section>
+
+    <section class="sec">
+      <h2>Les <em>univers</em></h2>
+      <p class="lead">Une seule maison, plusieurs mondes — chacun avec sa vidéo, son souffle.</p>
+      <div class="grid">
+        <div class="card"><div class="ic">📈</div><h3>Finance</h3><p>Comprendre les marchés, sans jargon. Éducation. Gratuit.</p></div>
+        <div class="card"><div class="ic">📖</div><h3>Next Gen</h3><p>Ta vie, racontée, gardée, transmise.</p></div>
+        <div class="card"><div class="ic">⚖️</div><h3>NAVLEX</h3><p>Tes questions de droit, expliquées simplement.</p></div>
+        <div class="card"><div class="ic">🌿</div><h3>Bien-être</h3><p>Réflexologie, reiki, art de vivre méditerranéen.</p></div>
+        <div class="card"><div class="ic">📻</div><h3>Radio</h3><p>Le son de l'univers NAVLYS, en continu.</p></div>
+        <div class="card"><div class="ic">✦</div><h3>Influenceurs</h3><p>Créateurs, IA et tendances — le décryptage.</p></div>
+      </div>
+    </section>
+
+    <section class="sec">
+      <h2>Bientôt : <em>ta voix</em> raconte ta vie</h2>
+      <p class="lead">Tu parles, NAVLYS t'écoute et te répond — à la voix, depuis ton téléphone. Déjà vivant sur le guichet.</p>
+      <div class="inset">
+        <video autoplay muted loop playsinline data-speed="0.6"><source src="/media/voix.mp4" type="video/mp4"></video>
+        <div class="vfallback"></div>
+        <div class="cap"><div class="t">À la voix</div><div class="s">navlys.com/assistance</div></div>
+      </div>
+    </section>
+
+    <div class="foot">NAVLYS — un écran de cinéma vivant. Tout respire, tout s'anime.<br>Espace d'information générale, statut simple citoyen.</div>
+  </div>
+</main>
+
+<!-- BARRE BASSE — navigation app -->
+<nav class="botbar">
+  <a href="/" class="act"><span class="i">≋</span>Accueil</a>
+  <a href="/finance"><span class="i">📈</span>Finance</a>
+  <a href="/next-gen"><span class="i">📖</span>Next Gen</a>
+  <a href="/assistance"><span class="i">🎙️</span>Voix</a>
+  <a href="/cockpit"><span class="i">⛬</span>Cockpit</a>
+</nav>
+
+<script>
+/* Fond vivant permanent : particules ice-blue qui respirent (hublot), toujours derrière */
+(function(){
+  var c=document.getElementById('bg'),x=c.getContext('2d'),DPR=Math.min(devicePixelRatio||1,2),W=0,H=0,P=[];
+  function size(){W=innerWidth;H=innerHeight;c.width=W*DPR;c.height=H*DPR;x.setTransform(DPR,0,0,DPR,0,0);build();}
+  function build(){P=[];var n=Math.min(90,Math.round(W*H/16000));for(var i=0;i<n;i++)P.push({x:Math.random()*W,y:Math.random()*H,r:Math.random()*1.7+.4,vx:(Math.random()-.5)*.18,vy:(Math.random()-.5)*.18,ph:Math.random()*6.28});}
+  function frame(t){
+    var s=t*0.001;x.clearRect(0,0,W,H);
+    var g=x.createRadialGradient(W/2,H*0.1,0,W/2,H*0.1,Math.max(W,H)*0.7);
+    g.addColorStop(0,'rgba(125,211,252,0.06)');g.addColorStop(1,'rgba(3,4,10,0)');x.fillStyle=g;x.fillRect(0,0,W,H);
+    x.globalCompositeOperation='lighter';
+    for(var i=0;i<P.length;i++){var p=P[i];p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>W)p.vx*=-1;if(p.y<0||p.y>H)p.vy*=-1;
+      var tw=.5+.5*Math.sin(s*1.6+p.ph);x.beginPath();x.arc(p.x,p.y,p.r*(0.7+tw*0.6),0,6.28);
+      x.fillStyle='rgba(168,227,255,'+(.18+.4*tw)+')';x.shadowColor='rgba(125,211,252,.8)';x.shadowBlur=8;x.fill();x.shadowBlur=0;}
+    for(var a=0;a<P.length;a++)for(var b=a+1;b<P.length;b++){var dx=P[a].x-P[b].x,dy=P[a].y-P[b].y,dd=dx*dx+dy*dy;
+      if(dd<9000){x.beginPath();x.moveTo(P[a].x,P[a].y);x.lineTo(P[b].x,P[b].y);x.strokeStyle='rgba(125,211,252,'+(.06*(1-dd/9000))+')';x.lineWidth=.6;x.stroke();}}
+    x.globalCompositeOperation='source-over';requestAnimationFrame(frame);
+  }
+  addEventListener('resize',size);size();requestAnimationFrame(frame);
+})();
+
+/* Révélations au scroll : chaque section / carte s'anime quand elle entre */
+(function(){
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');}});},{threshold:.15});
+  document.querySelectorAll('.sec,.card').forEach(function(el){io.observe(el);});
+})();
+
+/* Vidéos HeyGen : ralenties (data-speed) pour les rendre plus longues, somptueuses ;
+   si la vidéo n'existe pas encore, le fond animé (vfallback) reste visible. */
+(function(){
+  document.querySelectorAll('video[data-speed]').forEach(function(v){
+    var sp=parseFloat(v.getAttribute('data-speed'))||0.6;
+    v.addEventListener('loadeddata',function(){ try{v.playbackRate=sp;}catch(e){} });
+    v.addEventListener('error',function(){ v.style.display='none'; });
+    // si aucune source ne charge, on garde le fond
+    var src=v.querySelector('source'); if(src){var img=new Image();}
+  });
+})();
+</script>
+</body>
+</html>
