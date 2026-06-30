@@ -102,9 +102,21 @@ apps/navlys-app/
 - [ ] **`lib/profiles-catalog.ts` / `lib/data/profiles.ts`** : présents et conformes à la doc, mais
       les **contenus éditoriaux finaux** (textes profils, univers) doivent être recoupés avec
       `_CARTOGRAPHE_M3_*` côté Bruno.
-- [ ] **Routes/pages non livrées dans ce pack** : `app/(marketing)/*`, `app/laboratoire/{cartes,hypotheses}`,
-      `app/profil/page.tsx`, `app/legal/{privacy,terms,disclaimer-g1}`, `app/api/webhook/stripe`
-      (V1.1). Listées dans l'arbre `_APP_CLIENT_DOCUMENTATION_TECHNIQUE.md` §2 mais **sans code source**.
+- [x] **Pages éditoriales & légales** — ✅ **FAITES** depuis le contenu réel du dépôt (Claude, 2026-06-30) :
+      - `app/faq/page.tsx` (FAQ 3 sections ← `docs/FAQ-NAVLYS.md`, prix → « page Tarifs », zéro rendement),
+      - `app/(legal)/legal/disclaimer-g1/page.tsx` (G1 complet ← Bible juridique Bloc 2 + décharge),
+      - `app/(legal)/legal/privacy/page.tsx` (RGPD art. 15-22 ← politique NAVBIO adaptée stack NAVLYS :
+        Supabase/Resend/Sentry/ElevenLabs/Anthropic/Vercel, contact `dpo@navlys.com`),
+      - `app/(legal)/legal/terms/page.tsx` (CGU publisher éditorial ← Bible juridique + décharge),
+      - `app/(legal)/legal/ai-voice/page.tsx` (politique voix IA ← `08_CONFORMITE_LEGALE_VOIX_CLONEE.md` §9, IA Act art. 50),
+      - `app/laboratoire/page.tsx` (hub Labo NEXT GEN ← J3X/J5/Cartographe : « on teste, on publie », 5 invalidations, martingale INVALIDÉE, 0 signal d'achat),
+      - `app/profil/page.tsx` (réutilise `getActiveProfile()` + `ProfileReveal`, redirige `/onboarding/dream` si pas de profil).
+      - `app/(legal)/layout.tsx` + `components/legal/G1Footer.tsx` (cadre commun + disclaimer G1 réutilisable).
+      - `middleware.ts` : `/faq` et `/legal/ai-voice` ajoutés aux `PUBLIC_PATHS`. Build VERT (22 routes).
+- [ ] **Routes/pages encore non livrées** : `app/(marketing)/*`, `app/laboratoire/{cartes,hypotheses}` (détail
+      par carte/hypothèse), page **Tarifs** (référencée par FAQ/CGU), `app/api/webhook/stripe` (V1.1).
+      ⚠️ Tous les contenus légaux ci-dessus sont des **projets** (mention « à valider par DPO/avocat NTIC »
+      conservée) — recouper avec les originaux de Bruno avant production. Adresses/entité = `legal@navlys.com`.
 - [ ] **Tests** : `e2e/*.spec.ts` (Playwright), `lib/__tests__/personalization-engine.test.ts` (Jest),
       `playwright.config.ts`, `jest.config.ts` — la doc Jest fournit le test moteur (transcriptible si voulu).
 - [ ] **Versions exactes des dépendances** — `package.json` ici utilise des versions **provisoires**

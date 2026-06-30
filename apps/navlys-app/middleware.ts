@@ -5,9 +5,11 @@ import { createServerClient, type CookieOptions } from '@supabase/ssr';
 
 const PUBLIC_PATHS = [
   '/',
+  '/faq',
   '/legal/privacy',
   '/legal/terms',
   '/legal/disclaimer-g1',
+  '/legal/ai-voice',
   '/auth/sign-in',
   '/auth/callback',
   '/auth/sign-out',
