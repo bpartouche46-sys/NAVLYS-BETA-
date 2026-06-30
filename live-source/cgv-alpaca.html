@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>NAVLYS — CGV · Programme de parrainage Alpaca (PROJET à valider)</title>
+<meta name="description" content="Conditions du programme de parrainage NAVLYS × Alpaca : paliers, validation des filleuls, cumul affiliation, données. Document de travail — à faire relire avant mise en ligne.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="canonical" href="https://navlys.com/cgv-alpaca">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Cormorant+Garamond:ital@0;1&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+:root{--noir:#02040a;--bronze:#B87333;--bronze-clair:#D49B5B;--or:#C9A961;--or-pale:#f3e4c4;--ice:#7DD3FC;--ice-clair:#a8e3ff;--perle:#e7eef2;--perle-doux:#bcc9d1;--brume:#7c8b95;--vert:#3a8c5a}
+*{margin:0;padding:0;box-sizing:border-box}
+html{background:#02040a;scroll-behavior:smooth}
+body{background:transparent;color:var(--perle);font-family:'Cormorant Garamond',Georgia,serif;font-size:19px;line-height:1.6;min-height:100vh;-webkit-text-size-adjust:100%;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(55% 45% at 12% 8%,rgba(125,211,252,0.12),transparent 60%),radial-gradient(50% 40% at 88% 32%,rgba(184,115,51,0.09),transparent 62%),radial-gradient(60% 50% at 50% 120%,rgba(125,211,252,0.05),transparent 64%);animation:respire 18s ease-in-out infinite alternate}
+@keyframes respire{from{opacity:.7}to{opacity:1}}
+
+.fam-nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(2,4,10,0.88);backdrop-filter:blur(18px);border-bottom:1px solid rgba(125,211,252,0.18);padding:12px 18px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.fam-logo{font-family:'Cinzel',serif;font-size:14px;letter-spacing:.32em;color:var(--or);text-transform:uppercase;font-weight:600;text-decoration:none;white-space:nowrap}
+.fam-links{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+.fam-links a{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--perle-doux);text-decoration:none;transition:.25s}
+.fam-links a:hover{color:var(--ice)}
+
+.draft{position:relative;z-index:5;margin:84px auto 0;max-width:900px;padding:14px 20px;border:1px solid rgba(212,155,91,0.5);border-radius:12px;background:linear-gradient(100deg,rgba(184,115,51,0.16),rgba(2,4,10,0.7));text-align:center}
+.draft b{font-family:'Cinzel',serif;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--bronze-clair)}
+.draft span{display:block;font-style:italic;color:var(--perle-doux);font-size:15px;margin-top:6px}
+
+.hero{padding:24px 20px 6px;text-align:center;position:relative;z-index:5}
+.hero .kicker{font-family:'Cinzel',serif;font-size:12px;letter-spacing:.4em;color:var(--ice);text-transform:uppercase;margin-bottom:10px}
+.hero h1{font-family:'Cormorant Garamond',serif;font-weight:400;font-size:clamp(28px,5vw,44px);line-height:1.1;color:var(--perle);margin:0 auto;max-width:820px}
+.hero h1 em{color:var(--or);font-style:italic}
+.ref{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--brume);margin-top:10px;letter-spacing:.04em}
+
+.wrap{max-width:860px;margin:0 auto;padding:10px 20px;position:relative;z-index:5}
+article{padding:26px 0;border-top:1px solid rgba(125,211,252,0.12)}
+article h2{font-family:'Cinzel',serif;font-weight:600;font-size:16px;letter-spacing:.06em;color:var(--or);text-transform:uppercase;margin-bottom:12px}
+article h3{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:21px;color:var(--ice-clair);margin:18px 0 6px}
+article p{margin:0 0 12px;color:var(--perle-doux)}
+article b{color:var(--perle);font-weight:600}
+article ul{margin:0 0 12px 22px;color:var(--perle-doux)}
+article li{margin-bottom:7px}
+.todo{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--bronze-clair);background:rgba(184,115,51,0.12);border:1px dashed rgba(212,155,91,0.4);border-radius:6px;padding:1px 7px}
+table{width:100%;border-collapse:collapse;margin:10px 0 14px;font-size:16px}
+th,td{border:1px solid rgba(125,211,252,0.18);padding:9px 12px;text-align:left;color:var(--perle-doux)}
+th{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ice)}
+.callout{font-style:italic;color:var(--perle-doux);border-left:2px solid rgba(125,211,252,0.4);padding:6px 0 6px 14px;margin:12px 0}
+
+footer{padding:40px 20px 70px;text-align:center;border-top:1px solid rgba(184,115,51,0.18);position:relative;z-index:5;margin-top:24px}
+.foot-fam{display:flex;gap:18px;justify-content:center;flex-wrap:wrap;margin-bottom:14px}
+.foot-fam a{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ice-clair);text-decoration:none}
+.foot-brand{font-size:19px;color:var(--perle)}.foot-brand span{color:var(--or)}
+.disclaimer{font-style:italic;color:var(--brume);font-size:13px;line-height:1.6;max-width:820px;margin:14px auto 0;padding:16px;border:1px solid rgba(184,115,51,0.18);border-radius:12px;background:rgba(2,4,10,0.55)}
+@media(max-width:768px){.fam-links{display:none}}
+</style>
+</head>
+<body>
+
+<nav class="fam-nav">
+  <a class="fam-logo" href="/">🌊 NAVLYS</a>
+  <div class="fam-links">
+    <a href="/cours">Cours du jour</a>
+    <a href="/faq">FAQ</a>
+    <a href="/alpaca">Alpaca</a>
+    <a href="/partenaires">Partenaires</a>
+  </div>
+</nav>
+
+<div class="draft">
+  <b>⚠️ Projet — document de travail, non publié</b>
+  <span>Texte préparé par l'agent juridique NAVLYS, complété en version cohérente. <b style="color:var(--perle)">À faire relire par un professionnel du droit avant toute mise en ligne.</b> Les champs <span class="todo">[À CONFIRMER]</span> attendent tes informations.</span>
+</div>
+
+<header class="hero">
+  <div class="kicker">NAVLYS · conditions générales</div>
+  <h1>Programme de <em>parrainage Alpaca</em> & avantages d'abonnement</h1>
+  <div class="ref">Réf. CGV-PARR-ALPACA — v1.0 (projet) · Éditeur : <span class="todo">[À CONFIRMER]</span> · SIREN : <span class="todo">[À CONFIRMER]</span></div>
+</header>
+
+<div class="wrap">
+
+  <article>
+    <h2>X.1 — Présentation générale</h2>
+    <p>NAVLYS, édité par <span class="todo">[ÉDITEUR À CONFIRMER]</span>, propose à ses membres actifs un programme de parrainage en lien avec le courtier en ligne <b>Alpaca Markets</b> (ci-après « Alpaca »), permettant d'obtenir des avantages sur l'abonnement NAVLYS en contrepartie de la mise en relation de nouveaux clients avec ce courtier.</p>
+    <p><b>NAVLYS n'est pas un conseiller en investissement. NAVLYS ne détient aucun agrément ORIAS. NAVLYS ne gère, ne détient et ne manipule aucun fonds pour le compte de tiers.</b> Le présent programme constitue exclusivement un mécanisme de récompense d'abonnement, sans lien avec une quelconque recommandation d'investissement personnalisée.</p>
+  </article>
+
+  <article>
+    <h2>X.2 — Mécanisme des paliers de parrainage</h2>
+    <p>Le programme fonctionne par paliers cumulatifs, calculés sur la base du nombre de filleuls <b>validés</b> (conditions à l'article X.3) :</p>
+    <table>
+      <tr><th>Palier</th><th>Filleuls validés</th><th>Avantage</th></tr>
+      <tr><td><b>Découverte</b></td><td>1 filleul validé</td><td>Accès <b>NAVLYS Finance F3</b> offert « à vie »*</td></tr>
+      <tr><td><b>Ambassadeur</b></td><td>3 filleuls validés</td><td>Accès <b>NAVLYS Finance F4 PRO</b> offert « à vie »*</td></tr>
+      <tr><td><b>Elite</b></td><td>10 filleuls validés (période glissante de 6 mois)</td><td>Statut <b>NAVLYS Elite</b>, accès complet « à vie »*</td></tr>
+    </table>
+    <p class="callout">* <b>Précision importante :</b> l'expression « à vie » désigne la durée de vie du programme de parrainage tel que maintenu par NAVLYS, sous réserve des conditions de modification et d'arrêt prévues à l'article X.6. Elle ne constitue pas un engagement contractuel perpétuel et irrévocable.</p>
+  </article>
+
+  <article>
+    <h2>X.3 — Conditions de validation d'un filleul</h2>
+    <p>Un filleul n'est comptabilisé comme <b>validé</b> que si l'ensemble des conditions suivantes sont réunies cumulativement :</p>
+    <p><b>a) Nouveauté client Alpaca</b> — le filleul doit être un nouveau client Alpaca, c'est-à-dire ne pas avoir détenu de compte Alpaca actif ou clôturé au cours des 12 mois précédant son inscription via le lien de parrainage NAVLYS.</p>
+    <p><b>b) KYC complet et approuvé</b> — le filleul doit avoir obtenu la validation complète de son processus KYC (Know Your Customer) auprès d'Alpaca, conformément aux exigences réglementaires applicables au courtier.</p>
+    <p><b>c) Premier dépôt réel effectué</b> — le filleul doit avoir effectué au moins un dépôt de fonds réels (hors compte démo / paper trading), d'un montant minimal défini par Alpaca et communiqué sur la page de parrainage au moment de l'inscription.</p>
+    <p><b>d) Absence de fermeture dans les 30 jours</b> — le compte Alpaca doit rester ouvert et actif pendant au moins 30 jours calendaires suivant la validation du KYC. Toute fermeture, suspension ou restriction dans ce délai invalide le filleul.</p>
+    <p><b>e) Parrain membre actif NAVLYS</b> — le parrain doit être titulaire d'un abonnement NAVLYS actif et à jour de paiement au moment de la validation du filleul et de l'attribution de l'avantage. Tout abonnement suspendu, résilié ou en impayé suspend le droit à l'avantage jusqu'à régularisation.</p>
+  </article>
+
+  <article>
+    <h2>X.4 — Cumul avec le programme d'affiliation cash</h2>
+    <p>Le programme de parrainage Alpaca est <b>cumulable</b> avec le programme d'affiliation cash NAVLYS, dans les conditions suivantes :</p>
+    <ul>
+      <li>Le membre parrain peut percevoir, en sus des avantages d'abonnement (article X.2), une <b>commission d'affiliation en numéraire</b> au taux indiqué sur la page de parrainage en vigueur <span class="todo">[TAUX À CONFIRMER]</span>, sur les revenus d'affiliation générés par ses filleuls validés.</li>
+      <li>Cette commission est versée par Alpaca à NAVLYS, qui la rétrocède au membre parrain selon les modalités du contrat d'affiliation NAVLYS.</li>
+      <li>Le versement est subordonné à la perception effective des sommes correspondantes par NAVLYS et au respect, par le parrain, des présentes conditions.</li>
+    </ul>
+  </article>
+
+  <article>
+    <h2>X.5 — Fiscalité & responsabilité du membre</h2>
+    <p>Les avantages et commissions perçus dans le cadre du programme peuvent constituer un <b>revenu imposable</b>. Il appartient à chaque membre de déclarer ces sommes et de se conformer à ses obligations fiscales et sociales selon sa situation et sa juridiction. NAVLYS ne fournit aucun conseil fiscal.</p>
+    <p>NAVLYS n'est pas responsable des décisions, conditions ou pratiques d'Alpaca, ni de l'évolution des offres de ce courtier. La relation contractuelle relative à l'ouverture et à la tenue du compte de courtage lie exclusivement le filleul et Alpaca.</p>
+  </article>
+
+  <article>
+    <h2>X.6 — Modification, suspension & arrêt du programme</h2>
+    <p>NAVLYS peut <b>modifier, suspendre ou cesser</b> le programme de parrainage à tout moment, notamment en cas d'évolution réglementaire, de changement des conditions d'Alpaca, ou pour tout motif légitime.</p>
+    <p>Les avantages déjà acquis par un membre à la date de prise d'effet d'une modification sont <b>préservés</b> dans les conditions où ils ont été obtenus, sauf obligation légale contraire. Toute modification substantielle est communiquée aux membres par un moyen approprié (e-mail, espace membre ou présente page) avec un préavis raisonnable.</p>
+    <p>En cas de fraude, d'abus, de multi-comptes ou de contournement des conditions, NAVLYS se réserve le droit d'invalider les filleuls concernés et de retirer les avantages correspondants.</p>
+  </article>
+
+  <article>
+    <h2>X.7 — Données personnelles (RGPD)</h2>
+    <p>Les données nécessaires à la gestion du parrainage (identité du parrain et du filleul, suivi des validations) sont traitées par NAVLYS en qualité de responsable de traitement, sur la base de l'exécution du présent programme et de son intérêt légitime à en prévenir les abus.</p>
+    <p>Conformément au RGPD, chaque personne dispose d'un droit d'accès, de rectification, d'effacement, de limitation et d'opposition, qu'elle peut exercer à l'adresse <span class="todo">[CONTACT DPO / E-MAIL À CONFIRMER]</span>. Les données sont conservées pour la durée nécessaire à la gestion du programme et au respect des obligations légales.</p>
+  </article>
+
+  <article>
+    <h2>X.8 — Transparence, conformité & réclamations</h2>
+    <p>Conformément à la <b>loi n°2023-451 du 9 juin 2023</b> encadrant l'influence commerciale, toute communication relative au programme mentionne son caractère promotionnel et la nature affiliée des liens. Les liens Alpaca sont des liens d'affiliation : ils n'entraînent <b>aucun surcoût</b> pour l'utilisateur et ne constituent jamais une recommandation d'investir.</p>
+    <p>Pour toute réclamation relative au programme, le membre peut contacter NAVLYS à l'adresse <span class="todo">[E-MAIL RÉCLAMATIONS À CONFIRMER]</span>. Les présentes conditions sont régies par le droit <span class="todo">[DROIT APPLICABLE À CONFIRMER]</span>.</p>
+  </article>
+
+</div>
+
+<footer>
+  <div class="foot-fam">
+    <a href="/">Accueil</a>
+    <a href="/alpaca">Page Alpaca</a>
+    <a href="/faq">FAQ</a>
+    <a href="/partenaires">Partenaires</a>
+  </div>
+  <div class="foot-brand"><span>NAVLYS</span> · conditions de parrainage (projet)</div>
+  <div class="disclaimer"><b>Document de travail.</b> Ce texte est un projet préparé avec l'aide d'un agent NAVLYS ; il <b>n'a pas valeur de conditions générales opposables</b> tant qu'il n'a pas été relu et validé par un professionnel du droit et publié officiellement. NAVLYS agit en <b>simple citoyen</b> : éducation et information uniquement, jamais un conseil personnalisé en investissement. Investir comporte un risque de perte en capital. Réservé aux 18 ans et +. © 2026 NAVLYS · navlys.com</div>
+</footer>
+
+<script src="/navlys-alive.js" defer></script>
+</body>
+</html>
