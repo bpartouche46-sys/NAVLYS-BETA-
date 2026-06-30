@@ -1,4 +1,4 @@
 # Retrigger Vercel Production Deploy
 
-Pushed: 2026-06-30T05:59:56Z
-Reason: activer BRUNO_WHATSAPP (pilote WhatsApp)
+Pushed: 2026-06-30T06:41:44Z
+Reason: forcer le build des fonctions /api (racine)
