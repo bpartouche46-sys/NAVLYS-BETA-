@@ -17,7 +17,7 @@ export default async function handler(req){
   if(req.method==='OPTIONS') return new Response(null,{status:204,headers:cors(origin)});
   if(req.method!=='POST') return new Response(JSON.stringify({error:'POST only'}),{status:405,headers:{...cors(origin),'Content-Type':'application/json'}});
   if(!ALLOWED.includes(origin)) return new Response(JSON.stringify({error:'origin not allowed'}),{status:403,headers:{...cors(origin),'Content-Type':'application/json'}});
-  const key = process.env.ELEVENLABS_API_KEY;
+  const key = process.env.ELEVENLABS_API_KEY || process.env.ELEVENLABS_API_KEY2;
   if(!key) return new Response(JSON.stringify({error:'server not configured (ELEVENLABS_API_KEY)'}),{status:500,headers:{...cors(origin),'Content-Type':'application/json'}});
   const ip = req.headers.get('x-forwarded-for')||'anon';
   if(limited(ip)) return new Response(JSON.stringify({error:'trop de demandes, patiente une minute'}),{status:429,headers:{...cors(origin),'Content-Type':'application/json'}});
