@@ -1,0 +1,37 @@
+{
+  "name": "NAVLYS — Un cap, une main, un jour",
+  "short_name": "NAVLYS",
+  "description": "Ton univers NAVLYS, à portée de voix, sur ton téléphone. Humain + IA, accessible à tous.",
+  "start_url": "/",
+  "scope": "/",
+  "id": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#03040a",
+  "theme_color": "#03040a",
+  "lang": "fr",
+  "dir": "ltr",
+  "categories": ["finance", "lifestyle", "productivity"],
+  "icons": [
+    { "src": "/media/icon-192.svg", "sizes": "192x192", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "/media/icon-512.svg", "sizes": "512x512", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "/media/icon-maskable.svg", "sizes": "512x512", "type": "image/svg+xml", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    {
+      "name": "Assistance vocale",
+      "short_name": "Voix",
+      "description": "Parler à NAVLYS, à la voix",
+      "url": "/assistance",
+      "icons": [{ "src": "/media/icon-192.svg", "sizes": "192x192" }]
+    },
+    {
+      "name": "Écran de cinéma vivant",
+      "short_name": "Cinéma",
+      "description": "L'univers NAVLYS qui respire",
+      "url": "/cinema",
+      "icons": [{ "src": "/media/icon-192.svg", "sizes": "192x192" }]
+    }
+  ],
+  "prefer_related_applications": false
+}

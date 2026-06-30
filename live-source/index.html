@@ -8,6 +8,11 @@
 <link rel="canonical" href="https://navlys.com/">
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Cormorant+Garamond:ital@0;1&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
 <link rel="icon" type="image/svg+xml" href="/media/navlys_favicon.svg">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#03040a">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="NAVLYS">
+<link rel="apple-touch-icon" href="/media/icon-192.svg">
 <style>
 :root{--noir:#02040a;--bronze:#B87333;--bronze-clair:#D49B5B;--or:#C9A961;--or-pale:#f3e4c4;--ice:#7DD3FC;--ice-clair:#a8e3ff;--perle:#e7eef2;--perle-doux:#bcc9d1;--brume:#7c8b95;--vert:#3a8c5a}
 *{margin:0;padding:0;box-sizing:border-box}
@@ -188,5 +193,7 @@ footer{padding:46px 20px 70px;text-align:center;border-top:1px solid rgba(184,11
 </footer>
 
 <script src="/navlys-alive.js" defer></script>
+<script>/* NAVLYS installable comme une appli mobile (hors-ligne + écran d'accueil) */
+if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('/sw.js').catch(function(){});});}</script>
 </body>
 </html>

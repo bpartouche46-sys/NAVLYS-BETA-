@@ -7,6 +7,11 @@
 <meta name="description" content="NAVLYS, l'écran de cinéma vivant : barre haute fine, navigation en bas, vidéos incrustées, tout respire.">
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Cormorant+Garamond:ital,wght@0,500;1,500&family=Fraunces:ital@1&family=JetBrains+Mono&display=swap" rel="stylesheet">
 <link rel="icon" type="image/svg+xml" href="/media/navlys_favicon.svg">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#03040a">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="NAVLYS">
+<link rel="apple-touch-icon" href="/media/icon-192.svg">
 <style>
 :root{
   --noir:#03040a;--ice:#7DD3FC;--ice-clair:#a8e3ff;--ice-deep:#3a8db5;
@@ -198,6 +203,9 @@ main{position:relative;z-index:2;padding-bottom:calc(var(--botbar) + 30px)}
     var src=v.querySelector('source'); if(src){var img=new Image();}
   });
 })();
+
+/* NAVLYS installable comme une appli mobile (hors-ligne + écran d'accueil) */
+if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('/sw.js').catch(function(){});});}
 </script>
 </body>
 </html>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <radialGradient id="g512" cx="256" cy="256" r="256" gradientUnits="userSpaceOnUse">
+      <stop offset="0%"   stop-color="#E8B27A"/>
+      <stop offset="55%"  stop-color="#B87333"/>
+      <stop offset="100%" stop-color="#8B5A2B"/>
+    </radialGradient>
+    <radialGradient id="halo512" cx="256" cy="256" r="280" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#7DD3FC" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#7DD3FC" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="512" height="512" fill="#000" rx="88"/>
+  <circle cx="256" cy="256" r="240" fill="url(#halo512)"/>
+  <circle cx="256" cy="256" r="200" fill="url(#g512)" stroke="#5C3A18" stroke-width="6"/>
+  <circle cx="256" cy="256" r="170" fill="none" stroke="#5C3A18" stroke-width="2" stroke-dasharray="4 6" opacity="0.55"/>
+  <circle cx="256" cy="256" r="150" fill="none" stroke="#5C3A18" stroke-width="1" opacity="0.4"/>
+  <text x="256" y="270" text-anchor="middle"
+        font-family="'Cormorant Garamond','EB Garamond',serif"
+        font-size="120" font-weight="600" letter-spacing="6" fill="#3B2410">N</text>
+  <g transform="translate(256,180)" fill="#5C3A18" opacity="0.65">
+    <polygon points="0,-10 2.5,-2.5 10,0 2.5,2.5 0,10 -2.5,2.5 -10,0 -2.5,-2.5"/>
+  </g>
+</svg>
