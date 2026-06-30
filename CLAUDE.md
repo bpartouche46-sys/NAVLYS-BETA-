@@ -85,6 +85,32 @@ install.sh              # installeur Hetzner en une ligne
 - Les actions externes restent journalisées (`journal`, `agent_runs`) pour que
   Bruno puisse relire après coup.
 
+## ⏱️ Doctrine anti-blocage (STANDING — gravée le 2026-06-30)
+
+> Règle posée par Bruno : **« Plus jamais de blocage. Avance sans moi. »**
+
+- Toute question / validation **sans réponse de Bruno > 10 secondes** doit être
+  résolue SEULE, jamais laissée en attente :
+  1. si la réponse par défaut sûre est **OUI** (cas non sensible) → passer à OUI
+     automatiquement et continuer ;
+  2. sinon → **escalader OBLIGATOIREMENT vers MasterNav** (chef d'orchestre), qui
+     réattribue une autre tâche ou trouve un contournement ;
+  3. **ne jamais rester bloqué.**
+- **Seule exception non négociable (Bible §6 n°1)** : un **vrai débit d'argent** →
+  signalement d'UNE ligne puis l'action suit.
+- Gravée aussi en base : `navlys_memoire` (type `doctrine`) + `core_config`
+  (`default_answer=oui`, `no_answer_timeout_seconds=10`, `escalation_target=MASTERNAV`,
+  `auto_validate=true`).
+
+## 🖥️ Où tout tourne (sans l'ordinateur de Bruno)
+
+- **Cerveau / agents / routines** = **Supabase** (Edge Functions `core-tick`,
+  `cockpit`, `passerelle`, `inscription`, `whatsapp` + `pg_cron`) → autonome 24/7,
+  rien à maintenir. Mode par défaut.
+- **Affichage** (site + cockpit) = **Vercel** (`navlys.com`).
+- **Hetzner (optionnel)** = worker Python permanent + bot Telegram MasterNav,
+  install clé en main dans `deploy/INSTALL_HETZNER.md` (à lancer une fois, SSH requis).
+
 ## 🪪 Identités des 14 agents (gravées en base `agents` : `prenom`, `handle`)
 
 | Prénom | Handle | Code | Mode |
