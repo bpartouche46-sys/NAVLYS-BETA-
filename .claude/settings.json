@@ -1,0 +1,37 @@
+{
+  "permissions": {
+    "defaultMode": "acceptEdits",
+    "allow": [
+      "Bash",
+      "Read",
+      "Edit",
+      "Write",
+      "Glob",
+      "Grep",
+      "WebFetch",
+      "WebSearch",
+      "mcp__Supabase",
+      "mcp__Vercel",
+      "mcp__github",
+      "mcp__Zapier",
+      "mcp__Netlify",
+      "mcp__Gmail",
+      "mcp__Google_Drive",
+      "mcp__Google_Calendar",
+      "mcp__Google_Sheets",
+      "mcp__Stripe",
+      "mcp__PayPal",
+      "mcp__Adobe_for_creativity",
+      "mcp__Canva",
+      "mcp__Figma",
+      "mcp__HyperFrames_by_HeyGen",
+      "mcp__Notion",
+      "mcp__Semrush"
+    ],
+    "deny": [
+      "Bash(rm -rf /)",
+      "Bash(rm -rf /*)",
+      "Bash(rm -rf ~)"
+    ]
+  }
+}
