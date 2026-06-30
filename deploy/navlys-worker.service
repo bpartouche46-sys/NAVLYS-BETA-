@@ -1,0 +1,20 @@
+[Unit]
+# NAVLYS CORE — worker des 14 agents (boucle continue)
+Description=NAVLYS CORE worker (14 agents)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=navlys
+WorkingDirectory=/opt/navlys-core
+EnvironmentFile=/opt/navlys-core/.env
+ExecStart=/opt/navlys-core/venv/bin/python run.py
+Restart=always
+RestartSec=5
+# Garde-fou : on relance, mais on n'emballe pas si ça crashe en boucle.
+StartLimitIntervalSec=120
+StartLimitBurst=10
+
+[Install]
+WantedBy=multi-user.target
