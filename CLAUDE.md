@@ -58,11 +58,19 @@ install.sh              # installeur Hetzner en une ligne
 - `SUPABASE_SERVICE_ROLE_KEY` = **serveur uniquement**.
 - Clé OpenRouter avec **spend limit**.
 
-## 🛠️ Workflow Git de cette session
+## 🛠️ Workflow — LIVE direct (STANDING — gravé le 2026-06-30 par Bruno)
 
-- Branche de dev : **`claude/daily-chat-sessions-esrwh7`**.
+> Règle posée par Bruno : **« Je ne veux plus de PR. Installation LIVE. »**
+
+- **Fini les PR.** On publie **directement sur `main`** → Vercel met `navlys.com`
+  à jour tout seul. Chaque push = mise en ligne immédiate.
+- **En pages.** Un nouvel élément = une **nouvelle page live** (ex. `/cockpit`),
+  isolée, qui ne peut pas casser les pages existantes — même en test.
+- **Intégré au bon endroit.** Dès qu'on sait **où** ça va sur un site, on le branche
+  directement dans la page concernée, en ligne.
+- **Seule sécurité gardée** : toujours **tester** chaque fichier avant de publier
+  (`node --check` pour le JS, extraction + check du `<script>` des HTML, logique).
 - Commits clairs en français (préfixes `feat:`, `fix:`, `docs:`, `chore:`).
-- Push : `git push -u origin <branche>`, puis ouvrir une PR en **draft**.
 
 ## ✅ Doctrine de validation de Bruno (STANDING — gravée le 2026-06-29)
 
