@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Maskable icon: la zone safe est le cercle central de 80% du canvas. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <radialGradient id="gM" cx="256" cy="256" r="256" gradientUnits="userSpaceOnUse">
+      <stop offset="0%"   stop-color="#E8B27A"/>
+      <stop offset="55%"  stop-color="#B87333"/>
+      <stop offset="100%" stop-color="#8B5A2B"/>
+    </radialGradient>
+  </defs>
+  <!-- Fond plein (safe area = cercle r=205) -->
+  <rect width="512" height="512" fill="#000"/>
+  <circle cx="256" cy="256" r="160" fill="url(#gM)" stroke="#5C3A18" stroke-width="4"/>
+  <circle cx="256" cy="256" r="135" fill="none" stroke="#5C3A18" stroke-width="1.5" stroke-dasharray="3 5" opacity="0.5"/>
+  <text x="256" y="278" text-anchor="middle"
+        font-family="'Cormorant Garamond','EB Garamond',serif"
+        font-size="120" font-weight="700" letter-spacing="4" fill="#3B2410">N</text>
+</svg>

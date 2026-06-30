@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 144 144" width="144" height="144">
+  <defs>
+    <radialGradient id="g144" cx="72" cy="72" r="72" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#E8B27A"/><stop offset="55%" stop-color="#B87333"/><stop offset="100%" stop-color="#8B5A2B"/>
+    </radialGradient>
+  </defs>
+  <rect width="144" height="144" fill="#000" rx="24"/>
+  <circle cx="72" cy="72" r="60" fill="url(#g144)" stroke="#5C3A18" stroke-width="2"/>
+  <circle cx="72" cy="72" r="48" fill="none" stroke="#5C3A18" stroke-width="0.8" opacity="0.45"/>
+  <text x="72" y="84" text-anchor="middle" font-family="'Cormorant Garamond',serif" font-size="42" font-weight="700" fill="#3B2410">N</text>
+</svg>
