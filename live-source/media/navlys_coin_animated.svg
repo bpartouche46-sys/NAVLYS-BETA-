@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-200 -200 400 400" width="400" height="400" role="img" aria-label="Pièce NAVLYS bronze animée avec halo ICE BLUE">
+  <title>NAVLYS — la pièce qui tourne</title>
+  <defs>
+    <!-- Bronze patine: gradient radial pour relief de la face -->
+    <radialGradient id="bronzeFace" cx="0" cy="0" r="160" gradientUnits="userSpaceOnUse">
+      <stop offset="0%"   stop-color="#E8B27A"/>
+      <stop offset="35%"  stop-color="#C48A4A"/>
+      <stop offset="65%"  stop-color="#B87333"/>
+      <stop offset="100%" stop-color="#8B5A2B"/>
+    </radialGradient>
+    <!-- Bronze tranche (vue de profil) -->
+    <linearGradient id="bronzeEdge" x1="0" y1="-160" x2="0" y2="160" gradientUnits="userSpaceOnUse">
+      <stop offset="0%"   stop-color="#8B5A2B"/>
+      <stop offset="50%"  stop-color="#D9A76A"/>
+      <stop offset="100%" stop-color="#6B4321"/>
+    </linearGradient>
+    <!-- Halo ICE BLUE -->
+    <radialGradient id="iceHalo" cx="0" cy="0" r="200" gradientUnits="userSpaceOnUse">
+      <stop offset="0%"   stop-color="#7DD3FC" stop-opacity="0.55"/>
+      <stop offset="55%"  stop-color="#7DD3FC" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#7DD3FC" stop-opacity="0"/>
+    </radialGradient>
+    <!-- Ombre douce -->
+    <filter id="softShadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="4"/>
+      <feOffset dx="0" dy="4" result="off"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.45"/></feComponentTransfer>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <!-- Gravure intérieure (cercle décoratif) -->
+    <linearGradient id="engrave" x1="0" y1="-1" x2="0" y2="1">
+      <stop offset="0%"   stop-color="#5C3A18" stop-opacity="0.85"/>
+      <stop offset="100%" stop-color="#3B2410" stop-opacity="0.85"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Halo ICE BLUE pulsant 60 BPM (1 battement = 1 s) -->
+  <circle cx="0" cy="0" r="180" fill="url(#iceHalo)">
+    <animate attributeName="r"       values="170;195;170" dur="1s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.85;1;0.85" dur="1s" repeatCount="indefinite"/>
+  </circle>
+
+  <!-- Pièce: rotation autour de l'axe vertical via scaleX -->
+  <g filter="url(#softShadow)">
+    <g id="coin">
+      <!-- Tranche fine (visible quand scaleX ≈ 0) -->
+      <rect x="-6" y="-150" width="12" height="300" rx="6" fill="url(#bronzeEdge)"/>
+      <!-- Face -->
+      <g>
+        <circle cx="0" cy="0" r="150" fill="url(#bronzeFace)" stroke="#5C3A18" stroke-width="3"/>
+        <!-- Anneau intérieur gravé -->
+        <circle cx="0" cy="0" r="130" fill="none" stroke="url(#engrave)" stroke-width="2" stroke-dasharray="3 4" opacity="0.7"/>
+        <circle cx="0" cy="0" r="115" fill="none" stroke="#5C3A18" stroke-width="1" opacity="0.55"/>
+        <!-- Texte NAVLYS centré -->
+        <text x="0" y="6"
+              text-anchor="middle"
+              dominant-baseline="middle"
+              font-family="'Cormorant Garamond', 'EB Garamond', 'Times New Roman', serif"
+              font-size="58"
+              font-weight="600"
+              letter-spacing="6"
+              fill="#3B2410">NAVLYS</text>
+        <!-- Étoile maritime gravée sous le mot -->
+        <g transform="translate(0,55)" fill="#5C3A18" opacity="0.75">
+          <polygon points="0,-10 2.5,-2.5 10,0 2.5,2.5 0,10 -2.5,2.5 -10,0 -2.5,-2.5"/>
+        </g>
+        <!-- Petite couronne supérieure: étoile + tiret -->
+        <g transform="translate(0,-90)" fill="#5C3A18" opacity="0.65">
+          <line x1="-40" y1="0" x2="-15" y2="0" stroke="#5C3A18" stroke-width="2"/>
+          <polygon points="0,-7 2,-2 7,0 2,2 0,7 -2,2 -7,0 -2,-2"/>
+          <line x1="15" y1="0" x2="40" y2="0" stroke="#5C3A18" stroke-width="2"/>
+        </g>
+      </g>
+      <!-- Animation: rotation pièce 8 s autour axe vertical -->
+      <animateTransform attributeName="transform"
+                        type="scale"
+                        values="1 1; 0.05 1; -1 1; -0.05 1; 1 1"
+                        keyTimes="0; 0.25; 0.5; 0.75; 1"
+                        dur="8s"
+                        repeatCount="indefinite"/>
+    </g>
+  </g>
+</svg>
