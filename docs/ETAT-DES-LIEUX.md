@@ -2,6 +2,17 @@
 
 > Mis à jour à la fin de chaque session pour que la suivante reprenne sans tout relire.
 
+## Session 2026-06-30 — /controle (routine gardien exécutée)
+
+- ✅ **Routine exécutée** : lecture `JOURNAL-ERREURS`, `CHECKLIST-SECURITE`, `ETAT-DES-LIEUX`, `ROUTINE`, puis audit par l’agent **gardien**.
+- ✅ **État Git local validé** : branche `copilot/review-session-history-tips`, `git status` propre, `git diff` vide.
+- ✅ **Contrôle récidives** : aucune reproduction détectée des erreurs **ERR-001 → ERR-007** dans l’état actuel du dépôt local.
+- ⚠️ **Correction appliquée** : aucune (pas nécessaire).
+- 🛑 **À décider (hors périmètre local)** : audit prod complémentaire Vercel/Hetzner si contrôle live demandé.
+- 📓 **Leçon** : aucune nouvelle erreur détectée, donc aucune nouvelle entrée `ERR-XXX`.
+
+---
+
 ## Session 2026-06-25 — ARBITRAGES BRUNO + exécution
 
 ### ✅ Décisions tranchées par Bruno (2026-06-25)
