@@ -1,13 +1,17 @@
 /**
  * NAVLYS — Service Worker (scope racine)
  *
- * Rend NAVLYS installable comme une appli mobile et ouvrable même hors réseau.
- *   - Shell (pages, logo, moteur vivant) → cache-first
- *   - Images                            → stale-while-revalidate
+ * Rend NAVLYS installable et ouvrable hors réseau, SANS jamais figer le code.
+ *   - Pages (navigations) + JS  → NETWORK-FIRST (toujours frais ; cache = secours hors-ligne)
+ *   - Images / médias           → stale-while-revalidate
  *   - Installation résiliente : un fichier manquant ne casse pas l'install.
+ *
+ * ⚠️ Leçon gravée (2026-07-01) : un cache-first sur navlys-alive.js figeait
+ * l'ancien code sur les téléphones → les correctifs n'arrivaient jamais.
+ * Bump de VERSION à chaque changement = purge immédiate des vieux caches.
  */
 
-const VERSION = 'navlys-v1.0.0';
+const VERSION = 'navlys-v1.1.0';
 const SHELL_CACHE = `${VERSION}-shell`;
 const IMG_CACHE = `${VERSION}-img`;
 
@@ -24,26 +28,20 @@ const SHELL_FILES = [
   '/media/icon-512.svg',
 ];
 
-// --- Installation : on précharge le shell (chaque fichier indépendamment) ---
+// --- Installation : préchargement du shell (chaque fichier indépendamment) ---
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(SHELL_CACHE).then((cache) =>
-      Promise.all(
-        SHELL_FILES.map((f) =>
-          cache.add(f).catch(() => null) // un 404 ne doit pas tout casser
-        )
-      )
+      Promise.all(SHELL_FILES.map((f) => cache.add(f).catch(() => null)))
     ).then(() => self.skipWaiting())
   );
 });
 
-// --- Activation : nettoyage des anciens caches ---
+// --- Activation : purge de TOUS les caches d'une autre version ---
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys().then((keys) =>
-      Promise.all(
-        keys.filter((k) => !k.startsWith(VERSION)).map((k) => caches.delete(k))
-      )
+      Promise.all(keys.filter((k) => !k.startsWith(VERSION)).map((k) => caches.delete(k)))
     ).then(() => self.clients.claim())
   );
 });
@@ -56,24 +54,34 @@ self.addEventListener('fetch', (event) => {
   // On ne gère que notre propre origine (les API Supabase restent en réseau direct)
   if (url.origin !== self.location.origin) return;
 
-  if (event.request.destination === 'image') {
+  const isDoc = event.request.mode === 'navigate' || event.request.destination === 'document';
+  const isScript = event.request.destination === 'script' || url.pathname.endsWith('.js');
+
+  // Code & pages : toujours frais → network-first (cache = secours hors-ligne)
+  if (isDoc || isScript) {
+    event.respondWith(networkFirst(event.request, SHELL_CACHE));
+    return;
+  }
+  // Images / médias : rapides → stale-while-revalidate
+  if (event.request.destination === 'image' || url.pathname.startsWith('/media/')) {
     event.respondWith(staleWhileRevalidate(event.request, IMG_CACHE));
     return;
   }
-  event.respondWith(cacheFirst(event.request, SHELL_CACHE));
+  // Reste : network-first prudent
+  event.respondWith(networkFirst(event.request, SHELL_CACHE));
 });
 
-async function cacheFirst(request, cacheName) {
-  const cached = await caches.match(request);
-  if (cached) return cached;
+async function networkFirst(request, cacheName) {
   try {
     const response = await fetch(request);
-    if (response.ok) {
+    if (response && response.ok) {
       const cache = await caches.open(cacheName);
       cache.put(request, response.clone());
     }
     return response;
   } catch (_err) {
+    const cached = await caches.match(request);
+    if (cached) return cached;
     return new Response('Hors mer — réseau indisponible.', {
       status: 503,
       headers: { 'Content-Type': 'text/plain; charset=utf-8' },
@@ -84,7 +92,7 @@ async function cacheFirst(request, cacheName) {
 async function staleWhileRevalidate(request, cacheName) {
   const cached = await caches.match(request);
   const networkFetch = fetch(request).then((response) => {
-    if (response.ok) {
+    if (response && response.ok) {
       caches.open(cacheName).then((cache) => cache.put(request, response.clone()));
     }
     return response;
