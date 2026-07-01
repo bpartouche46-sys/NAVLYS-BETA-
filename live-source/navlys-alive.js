@@ -163,13 +163,10 @@
   document.body.appendChild(panel);
   btn.onclick=function(){ var open=panel.style.display==='flex'; panel.style.display=open?'none':'flex'; if(!open) document.getElementById('nv-q').focus(); };
 
-  function listen(text, el){
-    el.textContent='🔊 …';
-    fetch('/api/voice',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({text:text})})
-     .then(function(r){ if(!r.ok) throw 0; return r.blob(); })
-     .then(function(b){ var a=new Audio(URL.createObjectURL(b)); a.play(); el.textContent='🔊 réécouter'; })
-     .catch(function(){ el.textContent='🔊 voix bientôt en ligne'; });
-  }
+  var NV_SAV='https://hhrlgyvtqluxpywjiwkd.supabase.co/functions/v1/assistant';
+  var nvSess=localStorage.getItem('nv_sav_session'); if(!nvSess){ nvSess='web-'+Math.abs(Math.floor((performance.now()*1000)%1e9)); localStorage.setItem('nv_sav_session',nvSess); }
+  function nvSpeak(text){ if(!('speechSynthesis'in window))return; try{var u=new SpeechSynthesisUtterance(String(text).replace(/[*_#>`]|🌊|👋|😊|🚀/g,''));u.lang='fr-FR';u.rate=1.02;speechSynthesis.cancel();speechSynthesis.speak(u);}catch(e){} }
+  function listen(text, el){ nvSpeak(text); el.textContent='🔊 réécouter'; }
   function add(cls, txt, withVoice){
     var bd=document.getElementById('nv-bd');
     var d=document.createElement('div'); d.className='b '+cls; d.appendChild(document.createTextNode(txt));
@@ -180,10 +177,10 @@
     var q=document.getElementById('nv-q'); var t=q.value.trim(); if(!t) return;
     add('u',t,false); q.value='';
     var p=add('n','… un instant',false);
-    fetch('/api/sav',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message:t})})
-     .then(function(r){ return r.json().then(function(d){return {ok:r.ok,d:d};}); })
-     .then(function(o){ p.remove(); add('n', (o.ok&&o.d.answer)?o.d.answer:'Le SAV te répond dès que NAVLYS est en ligne sur navlys.com 🌊', o.ok&&o.d.answer); })
-     .catch(function(){ p.remove(); add('n','Le SAV te répond dès que NAVLYS est en ligne 🌊',false); });
+    fetch(NV_SAV,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({session:nvSess,text:t})})
+     .then(function(r){ return r.json(); })
+     .then(function(d){ p.remove(); var rep=(d&&d.reply)?d.reply:'Je note ta demande, l\'équipe NAVLYS revient vers toi très vite. 🌊'; add('n',rep,true); nvSpeak(rep); })
+     .catch(function(){ p.remove(); add('n','Connexion difficile, réessaie dans un instant. 🌊',false); });
   }
   panel.querySelector('#nv-snd').onclick=send;
   panel.querySelector('#nv-q').addEventListener('keydown',function(e){ if(e.key==='Enter'&&!e.shiftKey){ e.preventDefault(); send(); } });
@@ -294,6 +291,8 @@
     '<a href="https://www.facebook.com/sharer/sharer.php?u='+E(url)+'" target="_blank" rel="noopener">🔵 <span>Facebook</span></a>'+
     '<a href="https://twitter.com/intent/tweet?text='+E(msg)+'&url='+E(url)+'" target="_blank" rel="noopener">✖️ <span>X (Twitter)</span></a>'+
     '<a href="https://t.me/share/url?url='+E(url)+'&text='+E(msg)+'" target="_blank" rel="noopener">✈️ <span>Telegram</span></a>'+
+    '<a href="https://www.reddit.com/submit?url='+E(url)+'&title='+E(msg)+'" target="_blank" rel="noopener">👽 <span>Reddit</span></a>'+
+    '<button id="nv-youtube">▶️ <span>YouTube (copie + ouvre)</span></button>'+
     '<button id="nv-insta">📸 <span>Instagram (copie + ouvre)</span></button>'+
     '<a href="mailto:?subject='+E('NAVLYS')+'&body='+E(msg+'\n'+url)+'">✉️ <span>E-mail</span></a>'+
     '<div class="sep"></div>'+
@@ -330,6 +329,7 @@
   };
   shareM.querySelector('#nv-copy').onclick=function(){ (navigator.clipboard?navigator.clipboard.writeText(url):0); toast('Lien copié ✓'); };
   shareM.querySelector('#nv-insta').onclick=function(){ (navigator.clipboard?navigator.clipboard.writeText(url):0); toast('Lien copié — colle-le dans ta story Instagram 📸'); setTimeout(function(){window.open('https://instagram.com','_blank');},400); };
+  var ytB=shareM.querySelector('#nv-youtube'); if(ytB) ytB.onclick=function(){ (navigator.clipboard?navigator.clipboard.writeText(url):0); toast('Lien copié — colle-le dans ta description / Short YouTube ▶️'); setTimeout(function(){window.open('https://www.youtube.com','_blank');},400); };
 
   // actions menu
   gearM.querySelector('#nv-account').onclick=function(){ toast('Espace Identité & Compte — en ligne très bientôt 👤'); };
