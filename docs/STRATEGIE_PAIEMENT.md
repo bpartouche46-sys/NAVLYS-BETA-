@@ -49,3 +49,41 @@ aux comptes d'encaissement pour les dépenses opérationnelles.
 
 Dès que les clés test sont là, la caisse crée de vrais liens de paiement de test.
 Le passage en réel = remplacer par les clés live + `payment_provider` voulu.
+
+## 🇮🇱 Encaisser EN DIRECT sur le compte Mizrahi (rail israélien) — gravé 2026-07-01
+
+> Vision de Bruno : **« un paiement direct par carte sur mon compte, sans passer
+> par tous les intermédiaires. »** Voici la vérité technique, sans enrobage.
+
+**La règle incontournable des cartes.** On ne peut PAS encaisser une carte avec
+« zéro intermédiaire » : les réseaux (Visa/Mastercard) imposent un **acquéreur**
+(סליקה). En Israël, les acquéreurs sont **Isracard, CAL, Max**. C'est eux qui
+créditent **directement ton compte Mizrahi** (moins une commission ~1–2,5 %).
+
+**Mais** on peut supprimer les intermédiaires **étrangers** (Stripe/PayPal/Lemon
+Squeezy) : un **gateway israélien** local + un **accord de סליקה** = l'argent
+tombe **directement sur Mizrahi**, tu gardes la marge, tu es le marchand.
+
+**Les gateways israéliens (branchables sur la caisse `paiement`)**
+
+| Gateway | Pourquoi | API |
+|---|---|---|
+| **PayPlus** | Le plus moderne, Apple Pay / Google Pay / Bit intégrés | REST propre — **recommandé** pour brancher |
+| **Cardcom** | API REST documentée + webhooks + abonnements natifs | REST solide |
+| **Meshulam / Grow** | Page de paiement hébergée, **PCI le plus léger** | Redirection simple |
+| **Tranzila** | Iframe, tokenisation, 3-D Secure, Bit | Historique, fiable |
+
+**Le compromis à connaître (honnête).** En devenant ton propre marchand, **c'est
+toi qui gères la TVA** sur les ventes UE/UK (guichet OSS) — ce que le Merchant of
+Record faisait à ta place. → **Stratégie hybride recommandée** : rail israélien
+(PayPlus) pour encaisser en direct sur Mizrahi + garder un MoR en secours pour la
+TVA UE quand utile. À valider avec le comptable (pas de conseil fiscal personnalisé).
+
+**La seule action que Claude ne peut PAS faire à ta place** : ouvrir l'accord de
+**סליקה** (KYC + ta signature), soit via Mizrahi (demander leur solution סליקה),
+soit en t'inscrivant chez **PayPlus / Grow / Cardcom** (ils négocient l'acquéreur).
+Dès que tu as les identifiants API du gateway → je l'ajoute comme provider dans la
+caisse `paiement` (à côté de Stripe/PayPal), bascule en une ligne, testé.
+
+**Clés à fournir plus tard** (Supabase → Edge Functions → Secrets), ex. PayPlus :
+`PAYPLUS_API_KEY`, `PAYPLUS_SECRET_KEY`, `PAYPLUS_PAYMENT_PAGE_UID`.
