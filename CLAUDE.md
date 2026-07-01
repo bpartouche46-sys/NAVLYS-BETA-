@@ -58,6 +58,22 @@ install.sh              # installeur Hetzner en une ligne
 - `SUPABASE_SERVICE_ROLE_KEY` = **serveur uniquement**.
 - Clé OpenRouter avec **spend limit**.
 
+## 📜 RÈGLEMENT NAVLYS CORE BM (STANDING — gravé le 2026-07-01) — gouvernance n°1
+
+> Règle d'or de Bruno : **« Chaque fois que tu t'apprêtes à t'interrompre pour me
+> demander une validation, mets en place un script/une procédure qui évite de le
+> refaire ensuite. Avance sans t'arrêter jusqu'au 100 % opérationnel,
+> commercialisable, testé et validé mobile + PC. »**
+
+- Face à un choix : consulter le règlement (doc **`docs/REGLEMENT_NAVLYS_CORE_BM.md`**
+  + table `core_reglement`), appliquer, **avancer**.
+- Un cas qui, avant, m'aurait fait demander → **`navlys_regle(situation, decision)`**
+  (grave la règle), puis continuer. Plus jamais à redemander.
+- **Seule exception non négociable (Bible §6 n°1)** : un **vrai débit d'argent** →
+  signalement d'UNE ligne, puis l'action suit.
+- Gravé en base : `core_reglement`, `navlys_regle()`, `core_config.reglement_bm=actif`,
+  `navlys_memoire` (doctrine).
+
 ## 🛠️ Workflow — LIVE direct (STANDING — gravé le 2026-06-30 par Bruno)
 
 > Règle posée par Bruno : **« Je ne veux plus de PR. Installation LIVE. »**
