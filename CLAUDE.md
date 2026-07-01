@@ -138,6 +138,28 @@ install.sh              # installeur Hetzner en une ligne
 - **Pont temps réel** (mail provider → CORE) : Zapier/webhook → RPC `navlys_incident`
   (Gmail : nouvel e-mail d'un provider {Stripe, Vercel, Supabase, Alpaca…} → POST).
 
+## 🛡️ Indépendance & résilience des dépendances (STANDING — gravé le 2026-07-01)
+
+> Ordre de Bruno : **« Si problème sur un MCP ou autre, trouve la solution ou les
+> alternatives — toujours vers 100 % autonome avec notre propre CORE et nos
+> développements (app, prompts, veille en Python). Contourne toujours, ou recrée
+> l'environnement indépendant stable à la place. »**
+
+- Dès qu'une dépendance externe (MCP, provider, API) flappe / bloque / coûte :
+  1. **journaliser** (`navlys_dependance(source, sujet, detail)` ou `navlys_incident`) ;
+  2. **chercher pour de vrai** des alternatives sur le net **et les forums
+     spécialisés** (Stack Overflow, Reddit, GitHub issues…) ;
+  3. **construire une brique interne stable** (Edge Function ou worker Python) pour
+     s'en passer — contourner ou recréer l'environnement indépendant.
+- **Veille quotidienne** : cron `navlys_veille_resilience` (20 6 * * *) enfile un
+  audit des dépendances vers NAVLAB. Module worker : **`navlys_core/veille_resilience.py`**
+  (vraies recherches DuckDuckGo + forums, bancarise les pistes dans `core_knowledge`).
+- Gravé en base : `core_config` (`autonomy_target=100`,
+  `dependency_policy=remplacer_toute_dependance_instable_par_brique_interne`,
+  `veille_resilience=true`) + `navlys_memoire` (type `doctrine`).
+- **Déjà appliqué** : proxy bloque `curl` → passage par `pg_net` ; Vercel flappe →
+  vérif en local. On ne reste jamais bloqué.
+
 ## 🖥️ Où tout tourne (sans l'ordinateur de Bruno)
 
 - **Cerveau / agents / routines** = **Supabase** (Edge Functions `core-tick`,
