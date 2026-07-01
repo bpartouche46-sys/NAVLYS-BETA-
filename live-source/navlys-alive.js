@@ -8,7 +8,7 @@
   #nv-living{position:fixed;inset:0;z-index:-4;width:100%;height:100%;display:block}
   #nv-video{position:fixed;inset:0;z-index:-3;width:100%;height:100%;object-fit:cover;opacity:.82;filter:saturate(1.06)}
   #nv-veil{position:fixed;inset:0;z-index:-2;pointer-events:none;background:radial-gradient(1400px 1000px at 50% 26%,transparent,rgba(5,6,10,.16) 80%,rgba(5,6,10,.42))}
-  .nv-bubble{position:fixed;right:18px;bottom:96px;z-index:60;max-width:260px;
+  .nv-bubble{position:fixed;right:16px;bottom:80px;z-index:55;max-width:min(360px,calc(100vw - 32px));pointer-events:auto;
     background:linear-gradient(150deg,rgba(125,211,252,.16),rgba(10,12,20,.92));
     border:1px solid rgba(125,211,252,.4);border-radius:16px;padding:12px 15px;color:#eef0f6;
     font-family:'Lora',serif;font-size:.92rem;box-shadow:0 10px 34px rgba(0,0,0,.5);
@@ -147,7 +147,7 @@
     requestAnimationFrame(function(){ b.classList.add('show'); });
     var kill=function(){ b.classList.remove('show'); setTimeout(function(){b.remove();},650); };
     b.querySelector('.x').onclick=kill;
-    setTimeout(kill, 6500);
+    setTimeout(kill, 5000);
     schedule();
   }
   function schedule(){ setTimeout(bubble, 9000+Math.random()*7000); }
@@ -365,6 +365,8 @@
   .nv-tab,.nv-menu a,.nv-menu button,.nv-bubble,#nv-sav .b,#nv-sav textarea,.nv-btn,.nv-lang,#nv-count{
     font-family:'Atkinson Hyperlegible','Lora',serif!important;letter-spacing:.2px}
   body{font-size:1.12rem;line-height:1.78}
+  /* lisibilité sur fond animé : ombre douce derrière le texte courant (pas les titres dégradés) */
+  p,li,.lead,.intro,.tagline,.q,.desc,.punch,.disc{text-shadow:0 1px 3px rgba(0,0,0,.5)}
   p,li{font-size:1.13rem;line-height:1.78}
   .lead,.intro{font-size:1.2rem}
   .app p{font-size:1.12rem}
@@ -555,4 +557,40 @@
     nav.innerHTML=items.map(function(it){ var on=(it[0]===path)?' class="on"':''; return '<a href="'+it[0]+'"'+on+'><span class="i">'+it[1]+'</span>'+it[2]+'</a>'; }).join('');
     d.body.appendChild(nav);
   }
+})();
+
+/* ============================================================
+   LE BATTEMENT PERMANENT — le cœur vivant de NAVLYS
+   Un point de vie qui bat sur CHAQUE page, au centre-bas,
+   discret mais toujours là. « au cœur de l'application. »
+   Respecte prefers-reduced-motion (fige au lieu d'animer).
+   ============================================================ */
+(function(){
+  var d=document;
+  function boot(){
+    if(d.getElementById('nv-heart')) return;
+    var reduce = false;
+    try{ reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches; }catch(e){}
+    var css=''
+      +'#nv-heart{position:fixed;left:50%;bottom:80px;transform:translateX(-50%);'
+      +'z-index:54;pointer-events:none;width:14px;height:14px;border-radius:50%;'
+      +'background:radial-gradient(circle at 50% 42%,#e8f8ff 0%,#7DD3FC 42%,#2b8fc4 100%);'
+      +'box-shadow:0 0 10px rgba(125,211,252,.65),0 0 22px rgba(125,211,252,.35);'
+      +'opacity:.9;will-change:transform,opacity}'
+      +'#nv-heart::after{content:"";position:absolute;inset:-8px;border-radius:50%;'
+      +'border:1px solid rgba(125,211,252,.5);opacity:0}'
+      +(reduce?''
+        :'@keyframes nvBeat{0%{transform:translateX(-50%) scale(1)}'
+         +'12%{transform:translateX(-50%) scale(1.35)}22%{transform:translateX(-50%) scale(1)}'
+         +'34%{transform:translateX(-50%) scale(1.22)}46%{transform:translateX(-50%) scale(1)}'
+         +'100%{transform:translateX(-50%) scale(1)}}'
+         +'@keyframes nvPulse{0%{opacity:.5;transform:scale(.6)}70%{opacity:0;transform:scale(1.9)}100%{opacity:0}}'
+         +'#nv-heart{animation:nvBeat 3.2s ease-in-out infinite}'
+         +'#nv-heart::after{animation:nvPulse 3.2s ease-out infinite}');
+    var s=d.createElement('style'); s.textContent=css; d.head.appendChild(s);
+    var h=d.createElement('div'); h.id='nv-heart';
+    h.setAttribute('aria-hidden','true'); h.title='NAVLYS — le cœur bat.';
+    d.body.appendChild(h);
+  }
+  if(d.readyState==='loading') d.addEventListener('DOMContentLoaded',boot); else boot();
 })();
