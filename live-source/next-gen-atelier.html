@@ -112,8 +112,10 @@ body{background:transparent;color:var(--perle);font-family:'Cormorant Garamond',
     <div class="row" style="justify-content:center">
       <button class="btn or" id="play">▶ Lire le déroulé</button>
       <button class="btn ice" id="reroll">✨ Nouvelle version (fondus / morphing)</button>
+      <button class="btn ice" id="promo">📣 Ma promo du jour</button>
     </div>
     <div class="note" id="recitNote">Le récit corrigé et « donné vie » s'affiche pendant la lecture. Bientôt : coloriage des vieilles photos, vidéos et musique générées (étape IA, sur ton accord).</div>
+    <div class="note" id="promoBox" style="display:none;border-left:2px solid var(--or);text-align:left;padding-left:12px"></div>
   </div>
 </div>
 
@@ -220,6 +222,16 @@ var EFFECTS=[
   {t:'Ken Burns (panoramique)',on:{transform:'scale(1.18) translate(-3%, -2%)'}}
 ];
 document.getElementById('reroll').onclick=function(){ seqEffect=(seqEffect+1)%EFFECTS.length; recitNote.textContent='Nouvelle version : '+EFFECTS[seqEffect].t+'. Appuie sur Lire.'; };
+document.getElementById('promo').onclick=function(){
+  var pb=document.getElementById('promoBox'); pb.style.display='block'; pb.textContent='NAVLYS écrit ta promo du jour…';
+  post('promo', polished||recit.join('. ')).then(function(d){
+    var txt=(d&&d.ok&&d.promo)?d.promo:'';
+    if(!txt){ pb.textContent='Ajoute d’abord un peu de récit, puis réessaie.'; return; }
+    pb.innerHTML='<b style="color:var(--or-pale)">📣 Promo du jour</b><br>'+txt.replace(/[&<>]/g,function(c){return c=='&'?'&amp;':c=='<'?'&lt;':'&gt;';})+'<br><span id="sharep" style="cursor:pointer;color:var(--ice-clair)">📤 Partager</span>';
+    speak(txt);
+    var sp=document.getElementById('sharep'); if(sp) sp.onclick=function(){ if(navigator.share){navigator.share({title:'NAVLYS Next Gen',text:txt}).catch(function(){});} else if(navigator.clipboard){navigator.clipboard.writeText(txt); sp.textContent='✓ copié — colle où tu veux';} };
+  });
+};
 document.getElementById('play').onclick=function(){ playMontage(); };
 function playMontage(){
   var slides=screen.querySelectorAll('.slide'); if(!slides.length){ speak(polished); return; }

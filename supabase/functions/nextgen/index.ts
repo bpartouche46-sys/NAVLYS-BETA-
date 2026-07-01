@@ -35,6 +35,11 @@ Deno.serve(async (req) => {
       let data: any = {}; try { data = JSON.parse(out.replace(/^```json?|```$/g, "").trim()); } catch { data = { sequences: [] }; }
       return J({ ok: true, sequences: Array.isArray(data.sequences) ? data.sequences.slice(0, 12) : [] });
     }
+    if (action === "promo") {
+      const sys = "Tu es NAVLYS Next Gen, auto-influenceur bienveillant. À partir du récit de vie, écris UNE promo du jour COURTE (2-3 phrases), chaleureuse et engageante, qui donne envie de découvrir cette histoire — sans exagérer ni rien promettre. Ajoute 2-3 hashtags sobres. Français. Réponds UNIQUEMENT par la promo.";
+      const out = await ask(sys, "Récit :\n" + (texte || "(vide)"), 400);
+      return J({ ok: true, promo: out });
+    }
     const sys = "Tu es l'écrivain NAVLYS Next Gen. Réécris ce récit de vie en corrigeant l'orthographe, la ponctuation et les tournures maladroites, et en lui donnant VIE (rythme, images, émotion) — SANS inventer de faits, SANS changer le sens, en gardant la voix et la simplicité de la personne. Français. Réponds UNIQUEMENT par le texte réécrit.";
     const out = await ask(sys, (sujet ? ("Contexte : " + sujet + "\n") : "") + "Récit :\n" + (texte || "(vide)"), 2000);
     return J({ ok: true, texte_poli: out || texte });
