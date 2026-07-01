@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>NAVLYS NEXT GEN — Portail communauté & veille (BETA) — Variante Glacier</title>
+<meta name="description" content="NAVLYS NEXT GEN — projet d'éducation financière, veille stratégique et communauté privée d'apprentissage. Média du mode de vie méditerranéen. Version beta.">
+<meta name="theme-color" content="#05060a">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Fraunces:ital,opsz,wght@1,9..144,500;1,9..144,600&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="/media/navlys_favicon.svg">
+<style>
+/* ── Palette NAVLYS « Glacier » — 100 % charte : bleu glacier + or champagne + fond nuit.
+   Zéro pourpre / mauve / fuchsia (valeurs ET noms de variables). ── */
+:root{
+  --noir:#05060a; --noir2:#070a12; --bleu:#0c4a6e; --ciel:#38bdf8;
+  --cyan:#5fe0ff; --ice:#7dd3fc; --champagne:#e9d3a0; --perle:#e7eef2;
+  --perle-dim:#9fb3c8; --ligne:rgba(233,211,160,.18); --carte:rgba(10,20,34,.55);
+  --carte2:rgba(12,24,40,.46);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--noir); color:var(--perle);
+  font-family:'Lora',Georgia,serif; line-height:1.6; text-align:left;
+  -webkit-font-smoothing:antialiased; overflow-x:hidden;
+  background-image:
+    radial-gradient(120% 90% at 8% -5%, rgba(12,74,110,.55), transparent 55%),
+    radial-gradient(90% 80% at 100% 0%, rgba(56,189,248,.30), transparent 55%),
+    radial-gradient(120% 100% at 50% 110%, rgba(95,224,255,.20), transparent 60%),
+    linear-gradient(180deg,#05060a 0%,#070a12 60%,#05060a 100%);
+  background-attachment:fixed;
+}
+h1,h2,h3,.serif{font-family:'Cormorant Garamond',serif; font-weight:600; letter-spacing:.3px; line-height:1.12; margin:0 0 .4em}
+.swash{font-family:'Fraunces',serif; font-style:italic; font-weight:600}
+a{color:var(--ice); text-decoration:none}
+a:hover{color:var(--champagne)}
+.wrap{max-width:1120px; margin:0 auto; padding:0 26px}
+.gold{
+  background:linear-gradient(100deg,#e9d3a0 0%,#fff4d8 25%,#e9d3a0 50%,#caa86a 75%,#e9d3a0 100%);
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+  background-size:200% auto; animation:shimmer 7s linear infinite;
+}
+@keyframes shimmer{to{background-position:200% center}}
+.glow{text-shadow:0 0 22px rgba(95,224,255,.45)}
+header.nav{position:sticky; top:0; z-index:50; backdrop-filter:blur(14px);
+  background:linear-gradient(180deg,rgba(5,6,10,.92),rgba(5,6,10,.55));
+  border-bottom:1px solid var(--ligne)}
+.nav-in{display:flex; align-items:center; gap:18px; padding:14px 26px; max-width:1180px; margin:0 auto}
+.brand{display:flex; align-items:center; gap:12px; font-family:'Cormorant Garamond',serif; font-size:1.5rem; font-weight:600}
+.brand .mark{width:34px;height:34px;border-radius:50%;
+  background:radial-gradient(circle at 35% 30%,#7dd3fc,#38bdf8 45%,#0c4a6e 80%);
+  box-shadow:0 0 18px rgba(95,224,255,.6); position:relative; flex:none}
+.brand .mark::after{content:"";position:absolute;inset:6px;border-radius:50%;
+  border:1px solid rgba(233,211,160,.7)}
+.brand b{font-weight:600;letter-spacing:1px}
+.brand .ng{font-size:.62rem;letter-spacing:3px;color:var(--champagne);font-family:'Lora',serif;align-self:flex-start;margin-top:6px}
+nav.links{display:flex; gap:4px; margin-left:auto; flex-wrap:wrap}
+nav.links button{background:none;border:0;color:var(--perle-dim);font-family:'Lora',serif;
+  font-size:.86rem;letter-spacing:.4px;padding:8px 13px;border-radius:9px;cursor:pointer;transition:.2s}
+nav.links button:hover{color:var(--perle);background:rgba(56,189,248,.16)}
+nav.links button.active{color:var(--noir);background:linear-gradient(90deg,var(--champagne),#fff4d8);font-weight:600}
+.beta{display:inline-block;font-family:'Lora',serif;font-size:.6rem;letter-spacing:3px;
+  padding:4px 10px;border:1px solid var(--ice);border-radius:30px;color:var(--ice);
+  text-transform:uppercase;box-shadow:0 0 14px rgba(95,224,255,.35)}
+.view{display:none; animation:fade .6s ease}
+.view.on{display:block}
+@keyframes fade{from{opacity:0;filter:blur(8px);transform:translateY(14px)}to{opacity:1;filter:blur(0);transform:none}}
+section{padding:62px 0}
+.eyebrow{font-family:'Lora',serif;letter-spacing:4px;text-transform:uppercase;font-size:.72rem;color:var(--champagne);margin-bottom:14px}
+.lede{font-size:1.18rem;color:var(--perle-dim);max-width:60ch}
+.h-xl{font-size:clamp(2.6rem,6vw,4.6rem)}
+.h-lg{font-size:clamp(2rem,4vw,3rem)}
+.hero{padding:74px 0 40px}
+.hero p.tag{font-family:'Fraunces',serif;font-style:italic;font-size:1.45rem;color:var(--champagne);margin:.2em 0 1.1em}
+.cta-row{display:flex;gap:14px;flex-wrap:wrap;margin-top:26px}
+.btn{display:inline-block;padding:14px 26px;border-radius:40px;font-family:'Lora',serif;
+  font-size:.95rem;cursor:pointer;border:1px solid transparent;transition:.25s;letter-spacing:.5px}
+.btn.primary{background:linear-gradient(95deg,var(--cyan),var(--ciel));color:#04121c;font-weight:600;
+  box-shadow:0 8px 30px rgba(95,224,255,.4)}
+.btn.primary:hover{transform:translateY(-2px);box-shadow:0 12px 38px rgba(95,224,255,.55)}
+.btn.ghost{background:rgba(233,211,160,.06);border-color:var(--ligne);color:var(--champagne)}
+.btn.ghost:hover{border-color:var(--champagne);background:rgba(233,211,160,.12)}
+.grid{display:grid;gap:20px;margin-top:36px}
+.g3{grid-template-columns:repeat(3,1fr)}
+.g2{grid-template-columns:repeat(2,1fr)}
+.card{background:var(--carte);border:1px solid var(--ligne);border-radius:18px;padding:26px;
+  backdrop-filter:blur(6px);transition:.3s;position:relative;overflow:hidden}
+.card::before{content:"";position:absolute;inset:0;border-radius:18px;padding:1px;
+  background:linear-gradient(130deg,rgba(95,224,255,.5),transparent 40%,transparent 60%,rgba(233,211,160,.4));
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;mask-composite:exclude;opacity:0;transition:.3s}
+.card:hover{transform:translateY(-5px)}
+.card:hover::before{opacity:1}
+.card .ico{font-size:1.7rem;margin-bottom:8px}
+.card h3{font-size:1.7rem;color:var(--perle)}
+.card .k{color:var(--champagne);font-size:.74rem;letter-spacing:2px;text-transform:uppercase}
+.card p{color:var(--perle-dim);font-size:.96rem;margin:.5em 0 0}
+.pill{display:inline-block;font-size:.68rem;letter-spacing:1.5px;text-transform:uppercase;
+  padding:3px 10px;border-radius:20px;background:rgba(56,189,248,.2);color:var(--ice);border:1px solid rgba(125,211,252,.3);margin-top:14px}
+.sig{display:flex;gap:14px;align-items:flex-start;padding:18px 0;border-bottom:1px solid var(--ligne)}
+.sig .dot{width:10px;height:10px;border-radius:50%;margin-top:8px;flex:none;box-shadow:0 0 10px currentColor}
+.sig h4{font-family:'Cormorant Garamond',serif;font-size:1.3rem;margin:0;color:var(--perle)}
+.sig p{margin:.2em 0 0;color:var(--perle-dim);font-size:.93rem}
+.tagx{font-size:.66rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--champagne);margin-left:auto;white-space:nowrap}
+.filterbar{display:flex;gap:10px;flex-wrap:wrap;margin:24px 0 6px}
+.filterbar button{background:rgba(233,211,160,.05);border:1px solid var(--ligne);color:var(--perle-dim);
+  padding:8px 16px;border-radius:30px;cursor:pointer;font-family:'Lora',serif;font-size:.84rem;transition:.2s}
+.filterbar button.active{background:linear-gradient(90deg,var(--cyan),var(--ciel));color:#04121c;font-weight:600;border-color:transparent}
+.tier{background:var(--carte2);border:1px solid var(--ligne);border-radius:18px;padding:26px;text-align:left;transition:.3s}
+.tier:hover{transform:translateY(-4px);border-color:rgba(125,211,252,.4)}
+.tier.feat{border-color:var(--champagne);box-shadow:0 0 40px rgba(233,211,160,.12)}
+.tier .price{font-family:'Cormorant Garamond',serif;font-size:2.6rem;color:var(--champagne);margin:.1em 0}
+.tier .price small{font-size:.9rem;color:var(--perle-dim);font-family:'Lora',serif}
+.tier ul{list-style:none;padding:0;margin:14px 0 0}
+.tier li{padding:6px 0 6px 24px;position:relative;color:var(--perle-dim);font-size:.92rem}
+.tier li::before{content:"✦";position:absolute;left:0;color:var(--ice)}
+.panel{background:var(--carte);border:1px solid var(--ligne);border-radius:20px;padding:30px;backdrop-filter:blur(8px)}
+.field{margin:14px 0}
+label{display:block;font-size:.78rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--champagne);margin-bottom:6px}
+input,select{width:100%;background:rgba(5,6,10,.6);border:1px solid var(--ligne);border-radius:12px;
+  padding:13px 15px;color:var(--perle);font-family:'Lora',serif;font-size:.95rem;outline:none;transition:.2s}
+input:focus,select:focus{border-color:var(--ice);box-shadow:0 0 0 3px rgba(95,224,255,.18)}
+.note{font-size:.8rem;color:var(--perle-dim)}
+.dash{display:none}
+.dash.on{display:block;animation:fade .5s}
+.statline{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:20px 0}
+.stat{background:rgba(5,6,10,.45);border:1px solid var(--ligne);border-radius:14px;padding:16px}
+.stat b{display:block;font-family:'Cormorant Garamond',serif;font-size:2rem;color:var(--champagne)}
+.stat span{font-size:.74rem;letter-spacing:1px;text-transform:uppercase;color:var(--perle-dim)}
+.feed{margin-top:14px}
+.feed .it{padding:12px 0;border-bottom:1px solid var(--ligne);font-size:.92rem;color:var(--perle-dim)}
+.feed .it b{color:var(--perle);font-family:'Cormorant Garamond',serif;font-weight:600}
+.partners{display:flex;gap:16px;flex-wrap:wrap;margin-top:24px}
+.partners .p{padding:12px 22px;border:1px solid var(--ligne);border-radius:12px;background:rgba(233,211,160,.04);
+  letter-spacing:1px;color:var(--champagne);font-family:'Cormorant Garamond',serif;font-size:1.25rem}
+.med{background:
+  radial-gradient(100% 120% at 0% 0%,rgba(95,224,255,.18),transparent 50%),
+  linear-gradient(160deg,rgba(12,74,110,.42),rgba(10,7,16,.5));
+  border:1px solid var(--ligne);border-radius:22px;padding:40px;margin-top:20px}
+.toast{position:fixed;left:50%;bottom:30px;transform:translateX(-50%) translateY(120px);
+  background:linear-gradient(95deg,var(--ciel),var(--cyan));color:#04121c;font-weight:600;padding:15px 26px;border-radius:40px;
+  box-shadow:0 12px 40px rgba(95,224,255,.5);transition:.45s;z-index:100;max-width:90vw;font-size:.92rem}
+.toast.show{transform:translateX(-50%) translateY(0)}
+.disclaimer{background:rgba(5,6,10,.6);border:1px solid var(--ligne);border-left:3px solid var(--champagne);
+  border-radius:12px;padding:18px 22px;font-size:.86rem;color:var(--perle-dim);margin-top:30px}
+footer{border-top:1px solid var(--ligne);margin-top:30px;padding:46px 0;color:var(--perle-dim);font-size:.84rem}
+footer .cols{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:30px}
+footer a{display:block;color:var(--perle-dim);padding:3px 0}
+footer a:hover{color:var(--ice)}
+.legalbar{margin-top:26px;padding-top:18px;border-top:1px solid var(--ligne);font-size:.78rem;color:#6b7d92}
+@media(max-width:860px){.g3,.g2{grid-template-columns:1fr}.statline{grid-template-columns:1fr}
+  footer .cols{grid-template-columns:1fr}nav.links{display:none}.menu-toggle{display:block!important}}
+.menu-toggle{display:none;margin-left:auto;background:none;border:1px solid var(--ligne);color:var(--champagne);
+  border-radius:10px;padding:8px 12px;cursor:pointer}
+.mobile-menu{display:none;flex-direction:column;padding:8px 26px 18px;border-bottom:1px solid var(--ligne);background:rgba(5,6,10,.96)}
+.mobile-menu.on{display:flex}
+.mobile-menu button{background:none;border:0;color:var(--perle);text-align:left;padding:11px 4px;font-family:'Lora',serif;font-size:1rem;cursor:pointer;border-bottom:1px solid var(--ligne)}
+/* le battement permanent — cœur vivant, discret, coin bas-gauche (n'entre pas en conflit avec le toast centré) */
+#nv-heart{position:fixed;left:18px;bottom:20px;z-index:40;width:12px;height:12px;border-radius:50%;pointer-events:none;
+  background:radial-gradient(circle at 50% 42%,#e8f8ff,#7dd3fc 45%,#2b8fc4);box-shadow:0 0 10px rgba(125,211,252,.6);animation:nvBeat 3.2s ease-in-out infinite}
+@keyframes nvBeat{0%,22%,46%,100%{transform:scale(1)}12%{transform:scale(1.35)}34%{transform:scale(1.2)}}
+@media(prefers-reduced-motion:reduce){#nv-heart{animation:none}.gold{animation:none}.view{animation:none}}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-in">
+    <div class="brand"><span class="mark"></span><b>NAVLYS</b><span class="ng">NEXT GEN</span></div>
+    <nav class="links" id="navlinks">
+      <button data-go="accueil" class="active">Accueil</button>
+      <button data-go="univers">L'univers</button>
+      <button data-go="veille">Veille</button>
+      <button data-go="communaute">Communauté</button>
+      <button data-go="journal">Journal IA</button>
+      <button data-go="membres">Espace membres</button>
+      <button data-go="rejoindre">Rejoindre</button>
+    </nav>
+    <button class="menu-toggle" id="mtoggle" aria-label="Menu">☰</button>
+  </div>
+  <div class="mobile-menu" id="mobilemenu"></div>
+</header>
+
+<div class="wrap">
+
+<!-- ACCUEIL -->
+<div class="view on" id="accueil">
+  <section class="hero">
+    <span class="beta">● Beta opérationnelle</span>
+    <h1 class="h-xl gold glow" style="margin-top:18px">NAVLYS <span class="swash">Next Gen</span></h1>
+    <p class="tag">Un cerveau, une personne, tout un univers.</p>
+    <p class="lede">Un projet d'<b style="color:var(--perle)">éducation financière</b>, de <b style="color:var(--perle)">veille stratégique</b> et de <b style="color:var(--perle)">communauté privée d'apprentissage</b> — porté par un art de vivre méditerranéen. L'IA est le vent ; c'est toi qui tiens la barre.</p>
+    <div class="cta-row">
+      <button class="btn primary" data-go="rejoindre">Rejoindre la communauté</button>
+      <button class="btn ghost" data-go="univers">Découvrir l'univers</button>
+    </div>
+  </section>
+
+  <section style="padding-top:10px">
+    <div class="eyebrow">Ce que tu trouves ici</div>
+    <h2 class="h-lg">Comprendre, décrypter, naviguer</h2>
+    <div class="grid g3">
+      <div class="card"><div class="ico">🧭</div><div class="k">Éducation</div><h3>Apprendre les marchés</h3><p>Décryptage pédagogique de la finance et de la crypto, sans jargon : comprendre <i>pourquoi</i> ça bouge, à ton rythme.</p></div>
+      <div class="card"><div class="ico">📡</div><div class="k">Veille stratégique</div><h3>Le radar des tendances</h3><p>Une veille quotidienne qui filtre le bruit et met en lumière les signaux qui comptent — en angle pédagogique.</p></div>
+      <div class="card"><div class="ico">⚓</div><div class="k">Communauté privée</div><h3>Un équipage</h3><p>Un cercle d'apprenants qui partagent analyses, lectures et questions. On avance ensemble, jamais seul.</p></div>
+    </div>
+  </section>
+</div>
+
+<!-- UNIVERS -->
+<div class="view" id="univers">
+  <section>
+    <div class="eyebrow">L'univers NAVLYS</div>
+    <h2 class="h-lg">Six modules, une même boussole</h2>
+    <p class="lede">Chaque module sert l'éducation et la veille. Aucun n'est un service de conseil ou de gestion : ce sont des espaces pour <i>apprendre</i> et <i>comprendre</i>.</p>
+    <div class="grid g3">
+      <div class="card"><div class="ico">📈</div><div class="k">Finance · éducation</div><h3>NAVFIN</h3><p>Le briefing marché crypto &amp; finance, résumé en angle pédagogique. La matière première du Journal IA.</p><span class="pill">Beta disponible</span></div>
+      <div class="card"><div class="ico">📰</div><div class="k">Média</div><h3>Journal IA</h3><p>Le décryptage du jour : ce qui bouge, expliqué simplement, sans promesse ni recommandation.</p></div>
+      <div class="card"><div class="ico">📖</div><div class="k">Transmission</div><h3>NAVBIO</h3><p>La biographie vivante : raconter et transmettre une histoire de vie, « ma vie en images ».</p></div>
+      <div class="card"><div class="ico">⚖️</div><div class="k">Repères</div><h3>NAVLEX</h3><p>Comprendre le cadre : repères généraux et culture juridique, à visée informative.</p></div>
+      <div class="card"><div class="ico">📻</div><div class="k">Voix</div><h3>Radio NAVLYS</h3><p>Le ton de l'univers : conversations, sérénité, vent et marée. Le mode de vie en audio.</p></div>
+      <div class="card"><div class="ico">✨</div><div class="k">Réseau</div><h3>Influenceurs</h3><p>Un cercle de voix qui relaient le décryptage pédagogique et l'art de vivre méditerranéen.</p></div>
+    </div>
+  </section>
+</div>
+
+<!-- VEILLE -->
+<div class="view" id="veille">
+  <section>
+    <div class="eyebrow">Veille stratégique</div>
+    <h2 class="h-lg">Le radar des tendances</h2>
+    <p class="lede">Une sélection de signaux du jour, filtrés et expliqués. Ci-dessous : des <b style="color:var(--champagne)">données d'exemple</b> pour illustrer le format de la beta.</p>
+    <div class="filterbar" id="vfilter">
+      <button class="active" data-f="all">Tout</button>
+      <button data-f="crypto">Crypto</button>
+      <button data-f="marches">Marchés</button>
+      <button data-f="macro">Macro</button>
+      <button data-f="mer">Art de vivre</button>
+    </div>
+    <div id="siglist"></div>
+    <div class="disclaimer">Exemple pédagogique. Cette veille ne constitue pas un conseil personnalisé ni une recommandation d'achat ou de vente.</div>
+  </section>
+</div>
+
+<!-- COMMUNAUTE -->
+<div class="view" id="communaute">
+  <section>
+    <div class="eyebrow">Communauté privée d'apprentissage</div>
+    <h2 class="h-lg">Choisis ton niveau d'accès</h2>
+    <p class="lede">Des paliers d'<b style="color:var(--perle)">accès apprenant</b> au contenu éducatif et à la communauté. Aucun produit financier, aucune gestion de fonds — uniquement de l'éducation et de la veille.</p>
+    <div class="grid g3">
+      <div class="tier"><div class="k" style="color:var(--champagne);letter-spacing:2px;text-transform:uppercase;font-size:.74rem">Mousse</div><div class="price">Gratuit</div><ul><li>Accès au Journal IA public</li><li>1 briefing marché / semaine</li><li>Newsletter du large</li></ul><button class="btn ghost" style="margin-top:18px;width:100%" data-go="rejoindre">Embarquer</button></div>
+      <div class="tier feat"><span class="pill">Le plus choisi</span><div class="k" style="color:var(--champagne);letter-spacing:2px;text-transform:uppercase;font-size:.74rem;margin-top:6px">Équipage</div><div class="price">29,99 <small>€/mois</small></div><ul><li>Veille stratégique complète</li><li>Briefings quotidiens NAVFIN</li><li>Communauté privée &amp; ateliers</li><li>Archives du décryptage</li></ul><button class="btn primary" style="margin-top:18px;width:100%" data-go="rejoindre">Rejoindre</button></div>
+      <div class="tier"><div class="k" style="color:var(--champagne);letter-spacing:2px;text-transform:uppercase;font-size:.74rem">Capitaine</div><div class="price">99,99 <small>€/mois</small></div><ul><li>Tout l'Équipage</li><li>Masterclass mensuelles</li><li>Coaching de vie &amp; sessions bien-être</li><li>Cercle restreint</li></ul><button class="btn ghost" style="margin-top:18px;width:100%" data-go="rejoindre">Demander l'accès</button></div>
+    </div>
+    <div class="disclaimer">Les paliers donnent accès à des contenus d'éducation et de veille. Ils ne constituent ni un produit d'investissement, ni un mandat de gestion, ni une promesse de rendement.</div>
+  </section>
+</div>
+
+<!-- JOURNAL IA -->
+<div class="view" id="journal">
+  <section>
+    <div class="eyebrow">Journal IA</div>
+    <h2 class="h-lg">Le décryptage du jour</h2>
+    <p class="lede">Articles courts, lisibles en une minute. <b style="color:var(--champagne)">Contenus d'exemple</b> pour la beta.</p>
+    <div class="grid g2" style="margin-top:30px">
+      <div class="card"><div class="k">Décryptage · exemple</div><h3>Pourquoi le marché « respire » avant une décision de banque centrale</h3><p>On t'explique simplement le mécanisme de l'attente : volatilité, anticipation, et pourquoi le calme précède souvent l'annonce. Aucune recommandation — juste comprendre.</p><span class="pill">Lecture 1 min</span></div>
+      <div class="card"><div class="k">Décryptage · exemple</div><h3>Crypto : lire un graphique sans se faire emporter par l'émotion</h3><p>Les trois pièges du débutant, et la posture sereine : « l'IA est le vent, c'est toi qui tiens la barre ». Pédagogie, pas de signal d'achat.</p><span class="pill">Lecture 1 min</span></div>
+      <div class="card"><div class="k">Art de vivre · exemple</div><h3>De Corinthe à Suez : ce que la mer apprend sur la patience</h3><p>Un carnet de bord entre les îles grecques. Tilos, 100 % énergie verte, comme métaphore d'une économie qui change de cap.</p><span class="pill">Carnet</span></div>
+      <div class="card"><div class="k">Méthode · exemple</div><h3>La règle du « comprendre avant d'agir »</h3><p>Pourquoi l'éducation passe toujours avant la décision — et reste, elle, entre tes mains.</p><span class="pill">Méthode</span></div>
+    </div>
+  </section>
+</div>
+
+<!-- MEMBRES -->
+<div class="view" id="membres">
+  <section>
+    <div class="eyebrow">Espace membres</div>
+    <h2 class="h-lg">Le pont de l'équipage</h2>
+    <p class="lede">Démonstration de l'espace membres de la beta. <b style="color:var(--champagne)">Aucun compte réel</b> — connecte-toi avec n'importe quel identifiant pour visiter le tableau de bord factice.</p>
+    <div class="grid g2" style="margin-top:30px;align-items:start">
+      <div class="panel" id="loginPanel">
+        <h3 style="font-size:1.9rem">Connexion <span class="beta" style="vertical-align:middle">démo</span></h3>
+        <div class="field"><label>Identifiant (apprenant)</label><input id="mUser" placeholder="ton prénom de bord" autocomplete="off"></div>
+        <div class="field"><label>Code d'accès</label><input id="mPass" type="password" placeholder="n'importe quoi — c'est une démo" autocomplete="off"></div>
+        <button class="btn primary" style="width:100%" id="loginBtn">Monter à bord</button>
+        <p class="note" style="margin-top:14px">Espace de démonstration : aucune donnée n'est envoyée ni stockée sur un serveur.</p>
+      </div>
+      <div class="panel dash" id="dashPanel">
+        <h3 style="font-size:1.9rem">Bonjour, <span class="gold" id="mName">moussaillon</span> ⚓</h3>
+        <p class="note">Tableau de bord factice — données d'exemple.</p>
+        <div class="statline">
+          <div class="stat"><b>14</b><span>Briefings lus</span></div>
+          <div class="stat"><b>3</b><span>Ateliers à venir</span></div>
+          <div class="stat"><b>Équipage</b><span>Ton palier</span></div>
+        </div>
+        <h4 style="font-family:'Cormorant Garamond',serif;font-size:1.4rem;color:var(--champagne);margin:18px 0 0">Ton fil d'apprentissage</h4>
+        <div class="feed">
+          <div class="it"><b>NAVFIN</b> — Briefing du jour publié · angle pédagogique (exemple)</div>
+          <div class="it"><b>Atelier</b> — « Lire un graphique sereinement » · jeudi 20h (exemple)</div>
+          <div class="it"><b>Veille</b> — 5 nouveaux signaux filtrés ce matin (exemple)</div>
+          <div class="it"><b>Radio NAVLYS</b> — Nouvel épisode : « le vent et la barre » (exemple)</div>
+        </div>
+        <button class="btn ghost" style="margin-top:20px" id="logoutBtn">Quitter le pont</button>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- REJOINDRE -->
+<div class="view" id="rejoindre">
+  <section>
+    <div class="eyebrow">Rejoindre</div>
+    <h2 class="h-lg">Reçois le vent du large</h2>
+    <p class="lede">Inscris-toi à la lettre NAVLYS : décryptages, veille et carnets de mer. Formulaire de démonstration (beta) — propre, mais non connecté à un serveur.</p>
+    <div class="grid g2" style="margin-top:30px;align-items:start">
+      <form class="panel" id="newsForm" novalidate>
+        <h3 style="font-size:1.9rem">Newsletter du large</h3>
+        <div class="field"><label>Prénom de bord</label><input id="nName" placeholder="Bruno" autocomplete="off"></div>
+        <div class="field"><label>E-mail</label><input id="nEmail" type="email" placeholder="toi@exemple.com" autocomplete="off"></div>
+        <div class="field"><label>Centre d'intérêt</label>
+          <select id="nTopic"><option>Éducation financière</option><option>Veille &amp; décryptage crypto</option><option>Art de vivre méditerranéen</option><option>Communauté &amp; ateliers</option></select></div>
+        <label style="display:flex;gap:10px;align-items:flex-start;text-transform:none;letter-spacing:0;color:var(--perle-dim);font-size:.86rem;margin:6px 0 16px">
+          <input type="checkbox" id="nCgu" style="width:auto;margin-top:4px"> J'ai lu la nature informative de NAVLYS et j'accepte de recevoir la lettre.</label>
+        <button class="btn primary" style="width:100%" type="submit">M'inscrire à la lettre</button>
+        <p class="note" style="margin-top:12px">Connecté à Resend via <code>/api/subscribe</code> une fois déployé. En ouverture locale (double-clic), le formulaire bascule en mode démo.</p>
+      </form>
+      <div>
+        <div class="med">
+          <div class="eyebrow">Le port d'attache</div>
+          <h3 style="font-size:2rem">Une vie en mer Méditerranée</h3>
+          <p style="color:var(--perle-dim)">De Corinthe à Suez, au fil des îles grecques — Tilos, 100 % énergie verte. La sérénité de la mer infuse toute la pédagogie NAVLYS : prendre du recul, comprendre les courants, tenir le cap.</p>
+          <button class="btn ghost" style="margin-top:16px" onclick="window.open('https://wa.me/33756833469?text=Bonjour%20NAVLYS%2C%20je%20d%C3%A9couvre%20la%20beta%20Next%20Gen','_blank')">Écrire sur WhatsApp</button>
+        </div>
+        <div style="margin-top:20px">
+          <div class="eyebrow">Partenaires affiliés</div>
+          <div class="partners">
+            <span class="p">Binance</span><span class="p">Bybit</span><span class="p">OKX</span><span class="p">Plus500</span><span class="p">Alpaca</span>
+          </div>
+          <p class="note" style="margin-top:12px">NAVLYS est partenaire affilié de ces plateformes. Les liens d'affiliation peuvent générer une commission, sans coût supplémentaire pour toi, et ne constituent pas une recommandation personnalisée.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+</div><!-- /wrap -->
+
+<footer>
+  <div class="wrap">
+    <div class="cols">
+      <div>
+        <div class="brand" style="font-size:1.3rem;margin-bottom:10px"><span class="mark"></span><b>NAVLYS</b><span class="ng">NEXT GEN</span></div>
+        <p style="max-width:34ch">Éducation financière, veille stratégique, communauté privée d'apprentissage et média du mode de vie méditerranéen.</p>
+        <span class="beta">Version beta</span>
+      </div>
+      <div>
+        <div class="eyebrow">Naviguer</div>
+        <a data-go="univers">L'univers</a><a data-go="veille">Veille</a><a data-go="communaute">Communauté</a><a data-go="journal">Journal IA</a><a data-go="rejoindre">Rejoindre</a>
+      </div>
+      <div>
+        <div class="eyebrow">Contact</div>
+        <a href="https://wa.me/33756833469" target="_blank" rel="noopener">WhatsApp</a>
+        <a>contact@navlys.com</a><a>presse@navlys.com</a><a>partenaires@navlys.com</a>
+      </div>
+    </div>
+    <div class="disclaimer" style="margin-top:30px">
+      Navlys est un projet d'éducation et de veille à vocation informative uniquement. Les contenus diffusés ne constituent en aucun cas un conseil personnalisé en investissement, ni une recommandation d'achat ou de vente. Chacun reste seul responsable de ses décisions financières.
+    </div>
+    <div class="legalbar">© 2026 NAVLYS · Mentions légales · CGU · Confidentialité — NAVLYS NEXT GEN, beta opérationnelle.</div>
+  </div>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<div id="nv-heart" aria-hidden="true" title="NAVLYS — le cœur bat."></div>
+
+<script>
+(function(){
+  "use strict";
+  var views = document.querySelectorAll('.view');
+  var navBtns = document.querySelectorAll('#navlinks button');
+  function go(id){
+    var found=false;
+    views.forEach(function(v){ var on=v.id===id; v.classList.toggle('on',on); if(on)found=true; });
+    if(!found){document.getElementById('accueil').classList.add('on'); id='accueil';}
+    navBtns.forEach(function(b){ b.classList.toggle('active', b.getAttribute('data-go')===id); });
+    window.scrollTo({top:0,behavior:'smooth'});
+    document.getElementById('mobilemenu').classList.remove('on');
+  }
+  document.addEventListener('click',function(e){
+    var t=e.target.closest('[data-go]'); if(t){ e.preventDefault(); go(t.getAttribute('data-go')); }
+  });
+  var mm=document.getElementById('mobilemenu');
+  navBtns.forEach(function(b){
+    var c=document.createElement('button'); c.textContent=b.textContent;
+    c.setAttribute('data-go',b.getAttribute('data-go')); mm.appendChild(c);
+  });
+  document.getElementById('mtoggle').addEventListener('click',function(){ mm.classList.toggle('on'); });
+
+  var signals=[
+    {f:'crypto',c:'#7dd3fc',t:'Bitcoin consolide après un fort mouvement',d:'On décrypte la notion de consolidation : pourquoi un marché « reprend son souffle ».',x:'Crypto · exemple'},
+    {f:'crypto',c:'#5fe0ff',t:"Ethereum : montée d'intérêt autour des frais de réseau",d:"Comprendre ce qu'est un « frais de gas » et pourquoi il varie.",x:'Crypto · exemple'},
+    {f:'marches',c:'#38bdf8',t:'Indices actions : prudence avant les résultats trimestriels',d:"Le mécanisme d'anticipation des résultats, expliqué simplement.",x:'Marchés · exemple'},
+    {f:'macro',c:'#e9d3a0',t:'Inflation : ce que « décélération » veut dire pour ton quotidien',d:'Décryptage pédagogique, sans projection ni conseil.',x:'Macro · exemple'},
+    {f:'marches',c:'#38bdf8',t:'Or : valeur refuge, vraiment ? Nuances',d:'On distingue le récit médiatique des faits, pour apprendre à lire.',x:'Marchés · exemple'},
+    {f:'mer',c:'#5fe0ff',t:'Tilos, île 100 % énergie verte : leçon de transition',d:'Quand un petit territoire change de cap — métaphore pédagogique.',x:'Art de vivre · exemple'},
+    {f:'macro',c:'#e9d3a0',t:'Taux directeurs : le « pourquoi » derrière les annonces',d:"Comprendre le rôle d'une banque centrale, niveau débutant.",x:'Macro · exemple'}
+  ];
+  var sl=document.getElementById('siglist');
+  function renderSig(f){
+    sl.innerHTML='';
+    signals.filter(function(s){return f==='all'||s.f===f;}).forEach(function(s){
+      var el=document.createElement('div'); el.className='sig';
+      el.innerHTML='<span class="dot" style="color:'+s.c+'"></span>'+
+        '<div><h4>'+s.t+'</h4><p>'+s.d+'</p></div><span class="tagx">'+s.x+'</span>';
+      sl.appendChild(el);
+    });
+  }
+  renderSig('all');
+  document.getElementById('vfilter').addEventListener('click',function(e){
+    var b=e.target.closest('button'); if(!b)return;
+    this.querySelectorAll('button').forEach(function(x){x.classList.remove('active');});
+    b.classList.add('active'); renderSig(b.getAttribute('data-f'));
+  });
+
+  var loginP=document.getElementById('loginPanel'), dashP=document.getElementById('dashPanel');
+  document.getElementById('loginBtn').addEventListener('click',function(){
+    var u=document.getElementById('mUser').value.trim()||'moussaillon';
+    document.getElementById('mName').textContent=u;
+    loginP.style.display='none'; dashP.classList.add('on');
+    toast('Bienvenue à bord, '+u+' — espace de démonstration.');
+  });
+  document.getElementById('logoutBtn').addEventListener('click',function(){
+    dashP.classList.remove('on'); loginP.style.display='block';
+    document.getElementById('mUser').value=''; document.getElementById('mPass').value='';
+  });
+
+  // Endpoint d'inscription : fonction serverless Vercel + Resend (voir navlys-newsletter-api/).
+  // En local (file://) ou si l'endpoint n'est pas déployé, bascule automatique en mode démo.
+  var SUBSCRIBE_ENDPOINT = "/api/subscribe";
+  var newsForm=document.getElementById('newsForm');
+  newsForm.addEventListener('submit',function(e){
+    e.preventDefault();
+    var em=document.getElementById('nEmail').value.trim();
+    var cg=document.getElementById('nCgu').checked;
+    var nm=document.getElementById('nName').value.trim();
+    var tp=document.getElementById('nTopic').value;
+    if(!em||em.indexOf('@')<1||em.indexOf('.')<2){ toast('Indique un e-mail valide, moussaillon.'); return; }
+    if(!cg){ toast('Coche la case pour recevoir la lettre du large.'); return; }
+    var btn=newsForm.querySelector('button[type=submit]'); var old=btn.textContent;
+    btn.textContent='Envoi…'; btn.disabled=true;
+    function done(msg){ toast(msg); newsForm.reset(); btn.textContent=old; btn.disabled=false; }
+    var local = location.protocol==='file:';
+    if(local){ done('Inscription enregistrée (mode démo) — merci, '+(nm||'moussaillon')+' !'); return; }
+    try{
+      fetch(SUBSCRIBE_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({name:nm,email:em,topic:tp})})
+        .then(function(r){ if(!r.ok) throw new Error('http'); return r.json().catch(function(){return {};}); })
+        .then(function(){ done('Bienvenue à bord, '+(nm||'moussaillon')+' — tu es inscrit à la lettre.'); })
+        .catch(function(){ done('Inscription enregistrée (mode démo) — merci, '+(nm||'moussaillon')+' !'); });
+    }catch(err){ done('Inscription enregistrée (mode démo) — merci !'); }
+  });
+
+  function toast(msg){
+    var t=document.getElementById('toast'); if(!t)return;
+    t.textContent=msg; t.classList.add('show');
+    clearTimeout(toast._t); toast._t=setTimeout(function(){ t.classList.remove('show'); },4200);
+  }
+})();
+</script>
+</body>
+</html>
