@@ -122,6 +122,22 @@ install.sh              # installeur Hetzner en une ligne
 - Code source : **`sql/auto_amelioration_recursive.sql`**. Doctrine en base :
   `navlys_memoire` (type `doctrine`). Tourne **seul, 24/7, sans Bruno**.
 
+## 🩹 Auto-cicatrisation des incidents (STANDING — gravé le 2026-07-01)
+
+> Ordre de Bruno : **« À chaque bug/erreur/plainte/débit carte/alerte mail, règle le
+> problème EN TEMPS RÉEL et crée une routine interne au CORE pour ne plus jamais y réfléchir. »**
+
+- Tout événement passe par **`navlys_incident(source, sujet, contenu, [categorie], [severite])`** :
+  classe (paiement/technique/sécurité/plainte/juridique), route vers le bon agent
+  (paiement→NAVFI, sécurité→NAVPTE, plainte→NAVDEM, juridique→NAVLEX, technique→NAVTECH),
+  et si une **règle connue** existe → **AUTO-RÉSOLU**.
+- Chaque incident résolu devient une **règle permanente** via
+  **`navlys_incident_apprendre(id, motif, action)`** → plus jamais à y penser.
+- **`navlys_incidents_relance()`** (cron `*/30 * * * *`) ré-escalade ce qui traîne.
+- Tables `core_incidents` + `core_incident_rules`. Code : **`sql/core_incidents_autocicatrisation.sql`**.
+- **Pont temps réel** (mail provider → CORE) : Zapier/webhook → RPC `navlys_incident`
+  (Gmail : nouvel e-mail d'un provider {Stripe, Vercel, Supabase, Alpaca…} → POST).
+
 ## 🖥️ Où tout tourne (sans l'ordinateur de Bruno)
 
 - **Cerveau / agents / routines** = **Supabase** (Edge Functions `core-tick`,
