@@ -517,3 +517,42 @@
   f.style.cssText='position:fixed;inset:0;width:100%;height:100%;border:0;z-index:-4;opacity:.5;pointer-events:none';
   document.body.appendChild(f);
 })();
+
+/* ====================================================================
+   NAVLYS — COQUE APP CINÉMA (site entier) : favicon de marque + installable
+   (PWA) + barre basse de navigation FEUTRÉE, injectés sur CHAQUE page d'un
+   coup. Discret, sombre, ice/or — ne couvre jamais le contenu. v1 · 2026-06-30
+   ==================================================================== */
+(function(){
+  var d=document, head=d.head||d.getElementsByTagName('head')[0];
+  function has(sel){ return !!d.querySelector(sel); }
+  function addLink(rel,href,type){ if(has('link[rel="'+rel+'"]'))return; var l=d.createElement('link'); l.rel=rel; l.href=href; if(type)l.type=type; head.appendChild(l); }
+  function addMeta(name,content){ if(has('meta[name="'+name+'"]'))return; var m=d.createElement('meta'); m.name=name; m.content=content; head.appendChild(m); }
+
+  // Marque + installable, sur toutes les pages
+  addLink('icon','/media/navlys_favicon.svg','image/svg+xml');
+  addLink('manifest','/manifest.webmanifest');
+  addLink('apple-touch-icon','/media/icon-192.svg');
+  addMeta('theme-color','#03040a');
+  addMeta('apple-mobile-web-app-capable','yes');
+  addMeta('apple-mobile-web-app-title','NAVLYS');
+  if('serviceWorker' in navigator){ window.addEventListener('load',function(){ navigator.serviceWorker.register('/sw.js').catch(function(){}); }); }
+
+  // Barre basse app (feutrée) — sauf si la page en a déjà une (ex. /cinema)
+  if(!has('.botbar') && !has('#nv-botbar')){
+    var path=(location.pathname||'/').replace(/index\.html$/,'').replace(/\.html$/,'').replace(/\/+$/,'')||'/';
+    var items=[['/','≋','Accueil'],['/finance','📈','Finance'],['/next-gen','📖','Next Gen'],['/assistance','🎙️','Voix'],['/cockpit','⛬','Cockpit']];
+    var css='#nv-botbar{position:fixed;bottom:0;left:0;right:0;height:60px;z-index:59;display:flex;justify-content:space-around;align-items:center;'
+      +'background:rgba(4,6,12,.80);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid rgba(125,211,252,.14);padding-bottom:env(safe-area-inset-bottom)}'
+      +"#nv-botbar a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:#8fa2b3;font-family:'Cinzel','Cormorant Garamond',serif;font-size:8.5px;letter-spacing:.12em;text-transform:uppercase;flex:1;transition:.25s}"
+      +'#nv-botbar a .i{font-size:19px;line-height:1;filter:grayscale(.35) opacity(.85)}'
+      +'#nv-botbar a:hover,#nv-botbar a.on{color:#a8e3ff}'
+      +'#nv-botbar a.on .i{filter:none;text-shadow:0 0 12px rgba(125,211,252,.6)}'
+      +'body{padding-bottom:74px!important}'
+      +'#nv-sav-btn{bottom:72px!important}#nv-sav{bottom:128px!important}.nv-bubble{bottom:132px!important}';
+    var s=d.createElement('style'); s.textContent=css; head.appendChild(s);
+    var nav=d.createElement('nav'); nav.id='nv-botbar';
+    nav.innerHTML=items.map(function(it){ var on=(it[0]===path)?' class="on"':''; return '<a href="'+it[0]+'"'+on+'><span class="i">'+it[1]+'</span>'+it[2]+'</a>'; }).join('');
+    d.body.appendChild(nav);
+  }
+})();
