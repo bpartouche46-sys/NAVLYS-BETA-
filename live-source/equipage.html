@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>NAVLYS — L'Équipage : la flotte des 14 équipes</title>
+<meta name="description" content="La flotte NAVLYS en pyramide : le navire amiral NAVLYS en tête, les 14 équipes (NAVLEX, Next Gen, NAVFI, NAVLAB…) en formation, sur la mer qui respire.">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Cormorant+Garamond:ital@0;1&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="/media/navlys_favicon.svg">
+<style>
+:root{--noir:#03040a;--ice:#7DD3FC;--ice-clair:#a8e3ff;--or:#e9d3a0;--or2:#C9A961;--perle:#e7eef2;--mut:#9fb3c8;--line:rgba(125,211,252,.16)}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%;background:var(--noir);overflow-x:hidden}
+body{color:var(--perle);font-family:'Cormorant Garamond',Georgia,serif}
+#sea{position:fixed;inset:0;z-index:0;width:100%;height:100%;display:block}
+.top{position:fixed;top:0;left:0;right:0;z-index:5;display:flex;align-items:center;gap:10px;padding:12px 16px;background:linear-gradient(180deg,rgba(3,4,10,.7),transparent)}
+.top a.logo{font-family:'Cinzel',serif;font-size:13px;letter-spacing:.3em;color:var(--or);text-transform:uppercase;text-decoration:none}
+.top .tag{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.16em;color:var(--mut);text-transform:uppercase}
+.title{position:fixed;top:16%;left:0;right:0;z-index:4;text-align:center;pointer-events:none;padding:0 16px}
+.title .k{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.4em;color:var(--ice);text-transform:uppercase}
+.title h1{font-family:'Cinzel',serif;font-weight:600;font-size:clamp(28px,8vw,60px);letter-spacing:.12em;
+  background:linear-gradient(100deg,#f3e4c4,var(--or2) 45%,#fff7e6 55%,var(--or2) 70%,#B87333);background-size:220% auto;
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:sh 9s linear infinite;margin:6px 0}
+@keyframes sh{to{background-position:220% center}}
+.title p{color:var(--ice-clair);font-style:italic;font-size:clamp(15px,3.2vw,20px);text-shadow:0 0 14px rgba(125,211,252,.4)}
+.legend{position:fixed;bottom:0;left:0;right:0;z-index:5;padding:14px 12px calc(14px + env(safe-area-inset-bottom));
+  background:linear-gradient(0deg,rgba(3,4,10,.9),transparent);display:flex;gap:7px;flex-wrap:wrap;justify-content:center}
+.legend a{font-family:'Cinzel',serif;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--mut);text-decoration:none;
+  border:1px solid var(--line);border-radius:999px;padding:5px 10px;transition:.25s}
+.legend a:hover{color:var(--ice-clair);border-color:rgba(125,211,252,.5)}
+.legend a b{color:var(--or)}
+</style>
+</head>
+<body>
+<canvas id="sea"></canvas>
+<div class="top"><a class="logo" href="/">≋ NAVLYS</a><span class="tag">L'Équipage</span></div>
+<div class="title">
+  <div class="k">La flotte des 14 équipes</div>
+  <h1>L'Équipage NAVLYS</h1>
+  <p>Le navire amiral en tête, chaque équipe à son bord — un cap, une main, un jour.</p>
+</div>
+<nav class="legend" id="legend"></nav>
+
+<script>
+/* Flotte NAVLYS en pyramide — navire amiral + 14 équipes, sur la mer vivante. Pur code. */
+(function(){
+  var ICE='#7DD3FC', OR='#e9d3a0';
+  var FLEET=[
+    {code:'NAVLYS', nom:'Amiral', href:'/', flag:true},
+    {code:'NAVLEX', nom:'Alex', href:'/navlex'},
+    {code:'NEXT GEN', nom:'Léa', href:'/next-gen'},
+    {code:'NAVFI', nom:'Victor', href:'/finance'},
+    {code:'NAVTECH', nom:'Tom', href:'/'},
+    {code:'NAVCOM', nom:'Clara', href:'/'},
+    {code:'NAVMKT', nom:'Marc', href:'/'},
+    {code:'NAVLAB', nom:'Newton', href:'/'},
+    {code:'NAVLEAD', nom:'Lena', href:'/'},
+    {code:'NAVPART', nom:'Paul', href:'/partenaires'},
+    {code:'NAVPTE', nom:'Sentinelle', href:'/'},
+    {code:'NAVGEN', nom:'Gabriel', href:'/'},
+    {code:'NAVBIEN', nom:'Bianca', href:'/'},
+    {code:'NAVME', nom:'Mina', href:'/'},
+    {code:'NAVDEM', nom:'David', href:'/assistance'}
+  ];
+  // légende cliquable
+  var leg=document.getElementById('legend');
+  leg.innerHTML=FLEET.map(function(b){ return '<a href="'+b.href+'"><b>'+b.code+'</b> · '+b.nom+'</a>'; }).join('');
+
+  // formation pyramide : rangs de 1,2,3,4,5 (=15)
+  var rows=[1,2,3,4,5], pos=[], i=0;
+  for(var r=0;r<rows.length;r++){ for(var c=0;c<rows[r];c++){ if(i<FLEET.length){ pos.push({r:r,c:c,n:rows[r]}); i++; } } }
+
+  var cv=document.getElementById('sea'), x=cv.getContext('2d'), W=0,H=0,DPR=Math.min(devicePixelRatio||1,2);
+  function size(){W=innerWidth;H=innerHeight;cv.width=W*DPR;cv.height=H*DPR;x.setTransform(DPR,0,0,DPR,0,0);}
+  addEventListener('resize',size); size();
+  function hx(c,a){var n=parseInt(c.slice(1),16);return 'rgba('+(n>>16&255)+','+(n>>8&255)+','+(n&255)+','+a+')';}
+
+  function voilier(px,py,sc,gold,label,sub){
+    x.save(); x.translate(px,py);
+    var col = gold?OR:ICE;
+    // reflet
+    x.globalCompositeOperation='lighter';
+    var rf=x.createLinearGradient(0,3*sc,0,30*sc); rf.addColorStop(0,hx(col,0.18)); rf.addColorStop(1,'rgba(0,0,0,0)');
+    x.fillStyle=rf; x.fillRect(-5*sc,3*sc,10*sc,28*sc);
+    x.shadowColor=hx(col,0.6); x.shadowBlur=gold?18:10;
+    // coque
+    x.beginPath(); x.moveTo(-18*sc,0); x.quadraticCurveTo(0,13*sc,18*sc,0); x.quadraticCurveTo(0,5*sc,-18*sc,0); x.closePath();
+    x.fillStyle=hx(col,0.9); x.fill();
+    // mât
+    x.strokeStyle=hx(col,0.85); x.lineWidth=1.5*sc; x.beginPath(); x.moveTo(0,0); x.lineTo(0,-34*sc); x.stroke();
+    // grand-voile
+    x.beginPath(); x.moveTo(1.8*sc,-33*sc); x.lineTo(1.8*sc,-2*sc); x.lineTo(17*sc,-2*sc); x.closePath(); x.fillStyle=hx(col,gold?0.62:0.5); x.fill();
+    // foc
+    x.beginPath(); x.moveTo(-1.8*sc,-28*sc); x.lineTo(-1.8*sc,-2*sc); x.lineTo(-13*sc,-2*sc); x.closePath(); x.fillStyle=hx(col,0.32); x.fill();
+    x.shadowBlur=0; x.globalCompositeOperation='source-over';
+    // pavillon (label)
+    if(label){
+      x.font='600 '+(gold?11:9)*sc/1+'px Cinzel, serif'; x.textAlign='center';
+      x.fillStyle=hx(gold?OR:'#a8e3ff',0.95); x.fillText(label, 0, -40*sc);
+      if(sub){ x.font=(6.5*sc)+'px Cormorant Garamond, serif'; x.fillStyle='rgba(159,179,200,.85)'; x.fillText(sub, 0, -40*sc+11*sc); }
+    }
+    x.restore();
+  }
+
+  function frame(t){
+    var s=t*0.001;
+    // ciel -> mer
+    var g=x.createLinearGradient(0,0,0,H);
+    g.addColorStop(0,'#04060d'); g.addColorStop(.34,'#071226'); g.addColorStop(.62,'#0a2740');
+    g.addColorStop(.82,hx(ICE,.10)); g.addColorStop(.93,hx(OR,.09)); g.addColorStop(1,'#06070c');
+    x.fillStyle=g; x.fillRect(0,0,W,H);
+    // halo horizon
+    var hy=H*0.82, rg=x.createRadialGradient(W/2,hy,0,W/2,hy,H*0.7);
+    rg.addColorStop(0,hx(OR,.14)); rg.addColorStop(.5,hx(OR,.04)); rg.addColorStop(1,'rgba(0,0,0,0)');
+    x.fillStyle=rg; x.fillRect(0,0,W,H);
+    // aurores
+    x.globalCompositeOperation='lighter';
+    for(var a=0;a<3;a++){ var by=H*(0.28+a*0.12), amp=20+a*12, col=a===1?OR:ICE; x.beginPath();
+      for(var xx=0;xx<=W;xx+=16){ var yy=by+Math.sin(xx*0.004+s*(0.4+a*0.2)+a)*amp+Math.sin(xx*0.0015-s*0.25)*amp*0.5; xx===0?x.moveTo(xx,yy):x.lineTo(xx,yy); }
+      x.strokeStyle=hx(col,.06); x.lineWidth=16+a*7; x.shadowColor=hx(col,.4); x.shadowBlur=30; x.stroke(); }
+    x.shadowBlur=0; x.globalCompositeOperation='source-over';
+
+    // FLOTTE en pyramide, centrée, avançant doucement
+    var cx=W/2, topY=H*0.40, rowH=Math.min(78, H*0.09), colW=Math.min(120, W*0.17);
+    var baseScale=Math.max(0.6, Math.min(1.15, W/1100));
+    for(var k=0;k<pos.length;k++){
+      var p=pos[k], b=FLEET[k];
+      var px=cx + (p.c-(p.n-1)/2)*colW;
+      var py=topY + p.r*rowH + Math.sin(s*0.9+k)*3;       // roulis
+      var drift=Math.sin(s*0.15+p.r)* (6+p.r*2);           // la formation ondule
+      var sc=baseScale*(b.flag?1.35:1)*(1 - p.r*0.05);
+      voilier(px+drift, py, sc, !!b.flag, b.code, b.nom);
+    }
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+})();
+</script>
+<script src="/navlys-alive.js" defer></script>
+</body>
+</html>
