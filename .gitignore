@@ -4,3 +4,7 @@ __pycache__/
 .venv/
 venv/
 *.log
+
+# bases locales de test (offline)
+navlys_core/*.db
+*.db
