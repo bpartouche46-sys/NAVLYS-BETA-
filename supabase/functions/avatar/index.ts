@@ -22,7 +22,8 @@
 //        → audio (ta voix) + rendu fal.ai, renvoie les URLs de suivi.
 // ============================================================
 
-const FAL_KEY = Deno.env.get("FAL_KEY") ?? "";
+// tolérant aux noms de secret (FAL_KEY canonique, ou NAVLYS_AVATAR / FAL_AI_KEY)
+const FAL_KEY = Deno.env.get("FAL_KEY") ?? Deno.env.get("NAVLYS_AVATAR") ?? Deno.env.get("FAL_AI_KEY") ?? "";
 const AVATAR_IMAGE_URL = Deno.env.get("AVATAR_IMAGE_URL") ?? "";
 const XI_KEY = Deno.env.get("ELEVENLABS_API_KEY") ?? "";
 const VOICE_ID = Deno.env.get("ELEVENLABS_VOICE_ID") ?? "6hUoby5ZAVW4JqvIJeri";
