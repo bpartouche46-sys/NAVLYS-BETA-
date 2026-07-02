@@ -176,6 +176,20 @@ install.sh              # installeur Hetzner en une ligne
 - **Déjà appliqué** : proxy bloque `curl` → passage par `pg_net` ; Vercel flappe →
   vérif en local. On ne reste jamais bloqué.
 
+## 🗣️ Doctrine de communication (STANDING — gravée le 2026-07-02)
+
+> Règle de Bruno : **« On est à l'ère moderne, l'ère d'internet, du mobile. On
+> s'adresse toujours à UNE personne. »**
+
+- **Tutoiement toujours** — jamais de vouvoiement, jamais de langage administratif.
+- **Direct, mais courtois et poli** ; directif mais chaleureux. La politesse est de règle.
+- **Par le prénom** : dès qu'on a le nom/prénom (inscription), on salue et on parle
+  à la personne par son **prénom**, tout simplement : « Bonjour Gérard, comment
+  vas-tu ? Que puis-je faire pour toi ? ».
+- S'applique à **toutes** les communications (SAV, FAQ, pubs, e-mails, voix, pages).
+- Gravé dans le SAV (`assistant` : SYSTEM + injection du prénom) et dans `core_faq`
+  (tutoiement). Toute nouvelle communication NAVLYS suit cette règle par défaut.
+
 ## 🖥️ Où tout tourne (sans l'ordinateur de Bruno)
 
 - **Cerveau / agents / routines** = **Supabase** (Edge Functions `core-tick`,
