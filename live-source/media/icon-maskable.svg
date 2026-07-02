@@ -1,18 +1,123 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Maskable icon: la zone safe est le cercle central de 80% du canvas. -->
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
-  <defs>
-    <radialGradient id="gM" cx="256" cy="256" r="256" gradientUnits="userSpaceOnUse">
-      <stop offset="0%"   stop-color="#E8B27A"/>
-      <stop offset="55%"  stop-color="#B87333"/>
-      <stop offset="100%" stop-color="#8B5A2B"/>
-    </radialGradient>
-  </defs>
-  <!-- Fond plein (safe area = cercle r=205) -->
-  <rect width="512" height="512" fill="#000"/>
-  <circle cx="256" cy="256" r="160" fill="url(#gM)" stroke="#5C3A18" stroke-width="4"/>
-  <circle cx="256" cy="256" r="135" fill="none" stroke="#5C3A18" stroke-width="1.5" stroke-dasharray="3 5" opacity="0.5"/>
-  <text x="256" y="278" text-anchor="middle"
-        font-family="'Cormorant Garamond','EB Garamond',serif"
-        font-size="120" font-weight="700" letter-spacing="4" fill="#3B2410">N</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" role="img" aria-label="NAVLYS — le cerf et la dame à l'arc">
+<defs>
+  <radialGradient id="bg" cx="50%" cy="46%" r="60%">
+    <stop offset="0%" stop-color="#0b1220"/>
+    <stop offset="55%" stop-color="#05070e"/>
+    <stop offset="100%" stop-color="#020308"/>
+  </radialGradient>
+  <radialGradient id="backlight" cx="50%" cy="46%" r="50%">
+    <stop offset="0%" stop-color="#BAE6FD" stop-opacity="0.55"/>
+    <stop offset="45%" stop-color="#7DD3FC" stop-opacity="0.35"/>
+    <stop offset="80%" stop-color="#0EA5E9" stop-opacity="0.10"/>
+    <stop offset="100%" stop-color="#0EA5E9" stop-opacity="0"/>
+  </radialGradient>
+  <linearGradient id="gold" x1="0%" y1="0%" x2="0%" y2="100%">
+    <stop offset="0%" stop-color="#f6e4b8"/>
+    <stop offset="45%" stop-color="#e7c877"/>
+    <stop offset="100%" stop-color="#b78a34"/>
+  </linearGradient>
+  <linearGradient id="goldRim" x1="0%" y1="0%" x2="100%" y2="100%">
+    <stop offset="0%" stop-color="#f6e4b8"/>
+    <stop offset="50%" stop-color="#c89b3c"/>
+    <stop offset="100%" stop-color="#8a6522"/>
+  </linearGradient>
+  <filter id="glow" x="-40%" y="-40%" width="180%" height="180%">
+    <feGaussianBlur stdDeviation="7"/>
+    <feComponentTransfer><feFuncA type="linear" slope="1.4"/></feComponentTransfer>
+    <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+  <filter id="softgold" x="-30%" y="-30%" width="160%" height="160%">
+    <feGaussianBlur stdDeviation="1.1"/>
+    <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+</defs>
+
+<!-- fond -->
+<rect width="512" height="512" fill="url(#bg)"/>
+<!-- étoiles discrètes -->
+<g fill="#BAE6FD">
+  <circle cx="86" cy="70" r="1.3" opacity=".8"/><circle cx="430" cy="96" r="1.6" opacity=".9"/>
+  <circle cx="70" cy="430" r="1.1" opacity=".6"/><circle cx="446" cy="424" r="1.4" opacity=".8"/>
+  <circle cx="256" cy="46" r="1" opacity=".7"/><circle cx="462" cy="250" r="1.1" opacity=".6"/>
+  <circle cx="52" cy="250" r="1" opacity=".6"/>
+</g>
+
+<!-- FOND RÉTROÉCLAIRÉ -->
+<circle cx="256" cy="248" r="205" fill="url(#backlight)" filter="url(#glow)"/>
+
+<!-- 9 LISSES : 9 anneaux d'or concentriques -->
+<g fill="none" stroke="url(#goldRim)">
+  <circle cx="256" cy="248" r="186" stroke-width="5"/>
+  <circle cx="256" cy="248" r="178" stroke-width="1.4" opacity=".85"/>
+  <circle cx="256" cy="248" r="171" stroke-width="1" opacity=".55"/>
+  <circle cx="256" cy="248" r="164" stroke-width="1" opacity=".45"/>
+  <circle cx="256" cy="248" r="157" stroke-width="1" opacity=".4"/>
+  <circle cx="256" cy="248" r="150" stroke-width="1" opacity=".4"/>
+  <circle cx="256" cy="248" r="143" stroke-width="1" opacity=".45"/>
+  <circle cx="256" cy="248" r="136" stroke-width="1.4" opacity=".6"/>
+  <circle cx="256" cy="248" r="128" stroke-width="2.4" opacity=".9"/>
+</g>
+<!-- disque intérieur sombre -->
+<circle cx="256" cy="248" r="126" fill="#04060c"/>
+<circle cx="256" cy="248" r="126" fill="url(#backlight)" opacity=".25"/>
+
+<g filter="url(#softgold)">
+  <!-- ================= LE CERF (bois + tête, face) ================= -->
+  <g stroke="url(#gold)" fill="url(#gold)" stroke-linecap="round" stroke-linejoin="round">
+    <!-- bois gauche -->
+    <g fill="none" stroke-width="4.2">
+      <path d="M239,178 C232,150 225,132 214,118"/>
+      <path d="M231,158 C221,150 213,146 203,146"/>
+      <path d="M226,142 C217,132 210,127 200,125"/>
+      <path d="M221,127 C214,119 208,114 201,111"/>
+      <path d="M214,118 C210,108 208,101 208,93"/>
+    </g>
+    <!-- bois droit (miroir) -->
+    <g fill="none" stroke-width="4.2">
+      <path d="M273,178 C280,150 287,132 298,118"/>
+      <path d="M281,158 C291,150 299,146 309,146"/>
+      <path d="M286,142 C295,132 302,127 312,125"/>
+      <path d="M291,127 C298,119 304,114 311,111"/>
+      <path d="M298,118 C302,108 304,101 304,93"/>
+    </g>
+    <!-- oreilles -->
+    <path d="M236,186 C224,180 214,182 210,192 C220,196 231,194 240,190 Z"/>
+    <path d="M276,186 C288,180 298,182 302,192 C292,196 281,194 272,190 Z"/>
+    <!-- tête / museau -->
+    <path d="M256,182
+             C243,182 233,190 231,204
+             C229,218 236,232 244,246
+             C249,255 253,262 256,268
+             C259,262 263,255 268,246
+             C276,232 283,218 281,204
+             C279,190 269,182 256,182 Z"/>
+    <!-- naseau -->
+    <ellipse cx="256" cy="256" rx="6.5" ry="4.5" fill="#04060c"/>
+    <!-- yeux -->
+    <circle cx="244" cy="212" r="3.4" fill="#04060c"/>
+    <circle cx="268" cy="212" r="3.4" fill="#04060c"/>
+  </g>
+
+  <!-- ================= LA DAME À L'ARC (l'arc de Diane) ================= -->
+  <!-- l'arc (courbure) -->
+  <path d="M192,296 C212,330 236,344 256,344 C276,344 300,330 320,296"
+        fill="none" stroke="url(#gold)" stroke-width="5" stroke-linecap="round"/>
+  <!-- corde de l'arc -->
+  <path d="M197,296 L315,296" stroke="url(#gold)" stroke-width="1.7" opacity=".95"/>
+  <!-- flèche encochée, pointant vers le bas (le cerf reste libre) -->
+  <line x1="256" y1="288" x2="256" y2="352" stroke="url(#gold)" stroke-width="3.4" stroke-linecap="round"/>
+  <!-- pointe -->
+  <path d="M256,360 L249,344 L263,344 Z" fill="url(#gold)"/>
+  <!-- empennage -->
+  <path d="M256,290 L248,278 L256,283 L264,278 Z" fill="url(#gold)"/>
+</g>
+
+<!-- socle : NAVLYS -->
+<g transform="translate(256,392)">
+  <text x="0" y="0" text-anchor="middle" font-family="'Cormorant Garamond','EB Garamond',Georgia,serif"
+        font-size="34" font-weight="600" letter-spacing="7" fill="url(#goldRim)">NAVLYS</text>
+  <text x="0" y="22" text-anchor="middle" font-family="'EB Garamond',Georgia,serif"
+        font-size="11" font-style="italic" letter-spacing="3" fill="#7DD3FC" opacity=".9">un cap · une main · un jour</text>
+</g>
 </svg>
