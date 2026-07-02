@@ -1674,8 +1674,16 @@
 
   /* ---------- init ---------- */
   function init(){
-    var saved='fr';
-    try{ saved=localStorage.getItem('nv-lang')||'fr'; }catch(e){}
+    var saved='';
+    try{ saved=localStorage.getItem('nv-lang')||''; }catch(e){}
+    if(!saved){
+      /* langue par défaut = celle de l'utilisateur (téléphone / navigateur) */
+      var nav='fr';
+      try{ nav=String(navigator.language||navigator.userLanguage||'fr').toLowerCase(); }catch(e){}
+      if(nav.indexOf('en')===0) saved='en';
+      else if(nav.indexOf('ru')===0) saved='ru';
+      else saved='fr';
+    }
     LANG=normLang(saved);
     if(document.documentElement) document.documentElement.lang=LANG;
     startObserver();

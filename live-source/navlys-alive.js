@@ -158,10 +158,13 @@
   document.body.appendChild(btn);
   var panel=document.createElement('div'); panel.id='nv-sav';
   panel.innerHTML='<div class="hd"><span class="dot"></span> NAVLYS · Aide &amp; SAV</div>'+
-    '<div class="bd" id="nv-bd"><div class="b n">Bonjour 👋 Je suis là pour t\'aider sur NAVLYS — une question, une idée ? Écris-moi.</div></div>'+
+    '<div class="bd" id="nv-bd"><div class="b n">Bonjour 👋 Je suis là pour t\'aider sur NAVLYS — une question, une idée ? Écris-moi.<br><span class="lt" id="nv-hello">🔊 écouter Bruno</span></div></div>'+
     '<div class="ft"><textarea id="nv-q" placeholder="Ta question…"></textarea><button class="snd" id="nv-snd">→</button></div>';
   document.body.appendChild(panel);
   btn.onclick=function(){ var open=panel.style.display==='flex'; panel.style.display=open?'none':'flex'; if(!open) document.getElementById('nv-q').focus(); };
+  /* accueil : la VRAIE voix de Bruno (mp3 statique, clone ElevenLabs) */
+  var helloBtn=panel.querySelector('#nv-hello');
+  if(helloBtn){ helloBtn.onclick=function(){ try{ var a=new Audio('/media/voix-accueil.mp3'); a.play(); helloBtn.textContent='🔊 réécouter Bruno'; }catch(e){} }; }
 
   var NV_SAV='https://hhrlgyvtqluxpywjiwkd.supabase.co/functions/v1/assistant';
   var nvSess=localStorage.getItem('nv_sav_session'); if(!nvSess){ nvSess='web-'+Math.abs(Math.floor((performance.now()*1000)%1e9)); localStorage.setItem('nv_sav_session',nvSess); }
@@ -421,16 +424,19 @@
   body,p,li,.lead,.intro,.tagline,.app p,.app h3,.disc,.q,nav.top a,.go,.tag,
   .nv-tab,.nv-menu a,.nv-menu button,.nv-bubble,#nv-sav .b,#nv-sav textarea,.nv-btn,.nv-lang,#nv-count{
     font-family:'Atkinson Hyperlegible','Lora',serif!important;letter-spacing:.2px}
-  body{font-size:1.12rem;line-height:1.78}
+  body{font-size:1.22rem;line-height:1.9}
   /* lisibilité sur fond animé : ombre douce derrière le texte courant (pas les titres dégradés) */
-  p,li,.lead,.intro,.tagline,.q,.desc,.punch,.disc{text-shadow:0 1px 3px rgba(0,0,0,.5)}
-  p,li{font-size:1.13rem;line-height:1.78}
-  .lead,.intro{font-size:1.2rem}
-  .app p{font-size:1.12rem}
-  .disc{font-size:1.02rem;line-height:1.85}
-  nav.top a{font-size:1.05rem}
-  .nv-tab{font-size:1.02rem}
-  .tagline{font-size:1.22rem}
+  p,li,.lead,.intro,.tagline,.q,.desc,.punch,.disc{text-shadow:0 1px 4px rgba(0,0,0,.6)}
+  /* textes PLUS GROS et AÉRÉS : phrases courtes qui respirent, jamais de pavé */
+  p,li{font-size:1.24rem;line-height:1.9;margin-bottom:.55em;max-width:34em}
+  .lead,.intro{font-size:1.34rem;line-height:1.85}
+  .app p{font-size:1.22rem}
+  .disc{font-size:1.08rem;line-height:1.9}
+  nav.top a{font-size:1.1rem}
+  .nv-tab{font-size:1.06rem}
+  .tagline{font-size:1.32rem;line-height:1.7}
+  h1,h2{line-height:1.18}
+  h3{line-height:1.3}
   .nv-btn,.nv-lang,.nv-menu a,.nv-menu button{min-height:42px}
   :focus-visible{outline:3px solid ${ICE};outline-offset:2px;border-radius:6px}
   @media (prefers-reduced-motion: reduce){
