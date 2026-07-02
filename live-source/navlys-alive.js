@@ -165,6 +165,21 @@
 
   var NV_SAV='https://hhrlgyvtqluxpywjiwkd.supabase.co/functions/v1/assistant';
   var nvSess=localStorage.getItem('nv_sav_session'); if(!nvSess){ nvSess='web-'+Math.abs(Math.floor((performance.now()*1000)%1e9)); localStorage.setItem('nv_sav_session',nvSess); }
+  /* prénom connu (lecture tolérante) : le concierge salue la personne par son prénom */
+  function nvPrenom(){ var ks=['nv-prenom','nvprenom','prenom','nv_user_prenom']; var i,v; for(i=0;i<ks.length;i++){ try{ v=localStorage.getItem(ks[i]); }catch(e){ v=null; } if(v&&v.trim()) return v.trim().slice(0,40); } return ''; }
+  function nvSetPrenom(v){ v=(v||'').trim().slice(0,40); if(v){ try{ localStorage.setItem('nv-prenom',v); }catch(e){} } }
+  /* capture progressive : tout champ « prénom » de la page alimente le prénom connu */
+  try{
+    var ins=document.querySelectorAll('input');
+    Array.prototype.forEach.call(ins,function(el){
+      var tag=((el.name||'')+' '+(el.id||'')+' '+(el.getAttribute('placeholder')||'')).toLowerCase();
+      if(tag.indexOf('prenom')>-1||tag.indexOf('prénom')>-1||tag.indexOf('first')>-1){
+        if(el.value) nvSetPrenom(el.value);
+        el.addEventListener('change',function(){ nvSetPrenom(el.value); });
+        el.addEventListener('blur',function(){ nvSetPrenom(el.value); });
+      }
+    });
+  }catch(e){}
   function nvSpeak(text){ if(!('speechSynthesis'in window))return; try{var u=new SpeechSynthesisUtterance(String(text).replace(/[*_#>`]|🌊|👋|😊|🚀/g,''));u.lang='fr-FR';u.rate=1.02;speechSynthesis.cancel();speechSynthesis.speak(u);}catch(e){} }
   function listen(text, el){ nvSpeak(text); el.textContent='🔊 réécouter'; }
   function add(cls, txt, withVoice){
@@ -177,7 +192,7 @@
     var q=document.getElementById('nv-q'); var t=q.value.trim(); if(!t) return;
     add('u',t,false); q.value='';
     var p=add('n','… un instant',false);
-    fetch(NV_SAV,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({session:nvSess,text:t})})
+    fetch(NV_SAV,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({session:nvSess,text:t,nom:nvPrenom()})})
      .then(function(r){ return r.json(); })
      .then(function(d){ p.remove(); var rep=(d&&d.reply)?d.reply:'Je note ta demande, l\'équipe NAVLYS revient vers toi très vite. 🌊'; add('n',rep,true); nvSpeak(rep); })
      .catch(function(){ p.remove(); add('n','Connexion difficile, réessaie dans un instant. 🌊',false); });
