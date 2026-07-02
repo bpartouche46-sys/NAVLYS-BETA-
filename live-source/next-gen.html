@@ -6,6 +6,7 @@
 <title>NAVLYS Next Gen — Ta vie, racontée. Gardée. Transmise.</title>
 <meta name="description" content="NAVLYS Next Gen — la biographie vivante. Écris ta vie : elle s'enrichit, se partage, se transmet. Pour les tiens, et ceux qui viendront. Lancement le 14 juillet 2026.">
 <link rel="canonical" href="https://navlys.com/next-gen">
+<script>document.documentElement.className+=' nav-js';</script>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:ital@0;1&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
@@ -72,6 +73,20 @@ footer{padding:56px 0 90px;border-top:1px solid rgba(184,115,51,.16);text-align:
 .meta-foot{font-family:'Cinzel',serif;font-size:12px;letter-spacing:.25em;color:var(--brume);margin:8px 0 22px;text-transform:uppercase}
 .disclaimer{font-style:italic;color:var(--brume);font-size:14px;line-height:1.7;max-width:600px;margin:0 auto;padding:16px;border:1px solid rgba(184,115,51,.18);border-radius:10px;background:rgba(2,4,10,.5)}
 @media(max-width:600px){.btn-row>*{min-width:100%}}
+/* ── Animations NAVLYS : révélations au scroll + micro-interactions (sobres) ── */
+.nav-js .reveal{opacity:0}
+.reveal.in{opacity:1;animation:navRise .8s cubic-bezier(.22,.61,.36,1) backwards}
+@keyframes navRise{from{opacity:0;transform:translateY(22px)}}
+.navBreathe{animation:navBreathe 5s ease-in-out infinite}
+@keyframes navBreathe{0%,100%{opacity:.86}50%{opacity:1}}
+.chemin .num{transition:letter-spacing .3s ease,color .3s ease}
+.chemin:hover .num{letter-spacing:.4em;color:var(--ice-clair)}
+.chemin h3{transition:color .3s ease}
+.chemin:hover h3{color:#fff7e6}
+@media (prefers-reduced-motion:reduce){
+  .nav-js .reveal,.reveal.in{opacity:1!important;animation:none!important;transform:none!important}
+  .navBreathe{animation:none!important}
+}
 </style>
 </head>
 <body>
@@ -94,7 +109,7 @@ footer{padding:56px 0 90px;border-top:1px solid rgba(184,115,51,.16);text-align:
 <div class="launch" id="lancement">
   <div class="launch-card">
     <canvas class="card-anim" id="cardAnim"></canvas>
-    <div class="badge">Lancement</div>
+    <div class="badge navBreathe">Lancement</div>
     <h2>Ouverture le <em>14 juillet 2026</em></h2>
     <div class="countdown" id="cd">
       <div class="cdblk"><div class="n" id="cd-d">—</div><div class="u">Jours</div></div>
@@ -119,23 +134,23 @@ footer{padding:56px 0 90px;border-top:1px solid rgba(184,115,51,.16);text-align:
 
 <section class="manifeste"><div class="wrap">
 <h2>Manifeste <em>Next Gen</em></h2>
-<p class="body">Nous portons tous une histoire. <em>Des moments, des passages, des choix, des silences.</em> Cette histoire, elle s'efface si on ne la garde pas.</p>
-<p class="body">NAVLYS Next Gen n'est pas un livre figé. C'est <em>une biographie vivante</em> : qui se construit avec toi, qui s'enrichit chaque saison, qui se partage avec ceux que tu choisis, et qui se transmet — pour que tes enfants, tes petits-enfants, et même les inconnus que tu n'as jamais rencontrés, puissent lire ce que tu as vécu.</p>
-<p class="body">Ce n'est pas que des mots. Ce sont aussi <em>tes photos, tes voix, tes vidéos, tes objets fétiches, tes lieux, tes recettes, tes chansons</em>. Tout ce qui fait ta couleur. Tout ce qui fait ta sève.</p>
-<p class="body">Parce que la transmission, ce n'est pas l'héritage notarié. C'est <em>le rire qu'on raconte 30 ans après, l'odeur d'une cuisine qu'on retrouve dans un parfum, le geste qu'un petit-fils refait sans savoir d'où il vient</em>.</p>
-<p class="body">NAVLYS Next Gen, c'est ta vie qui devient un héritage qu'on peut <em>encore toucher du doigt</em>.</p>
+<p class="body reveal">Nous portons tous une histoire. <em>Des moments, des passages, des choix, des silences.</em> Cette histoire, elle s'efface si on ne la garde pas.</p>
+<p class="body reveal">NAVLYS Next Gen n'est pas un livre figé. C'est <em>une biographie vivante</em> : qui se construit avec toi, qui s'enrichit chaque saison, qui se partage avec ceux que tu choisis, et qui se transmet — pour que tes enfants, tes petits-enfants, et même les inconnus que tu n'as jamais rencontrés, puissent lire ce que tu as vécu.</p>
+<p class="body reveal">Ce n'est pas que des mots. Ce sont aussi <em>tes photos, tes voix, tes vidéos, tes objets fétiches, tes lieux, tes recettes, tes chansons</em>. Tout ce qui fait ta couleur. Tout ce qui fait ta sève.</p>
+<p class="body reveal">Parce que la transmission, ce n'est pas l'héritage notarié. C'est <em>le rire qu'on raconte 30 ans après, l'odeur d'une cuisine qu'on retrouve dans un parfum, le geste qu'un petit-fils refait sans savoir d'où il vient</em>.</p>
+<p class="body reveal">NAVLYS Next Gen, c'est ta vie qui devient un héritage qu'on peut <em>encore toucher du doigt</em>.</p>
 <div class="signature">BM</div>
 </div></section>
 
 <section class="chemins"><div class="wrap">
 <h2>Les <em>5 chemins</em></h2>
-<p class="intro">Une seule application, 5 façons d'entrer dans ta biographie.</p>
+<p class="intro reveal">Une seule application, 5 façons d'entrer dans ta biographie.</p>
 <div class="chemins-grid">
-  <div class="chemin"><div class="num">1</div><h3>La Vie</h3><p>Les grandes étapes de ton parcours : enfance, jeunesse, rencontres, voyages, métiers, épreuves, victoires.</p></div>
-  <div class="chemin"><div class="num">2</div><h3>La Mémoire</h3><p>Les moments qui t'ont fait. Les voix, les visages, les odeurs. Sauvegardés en haute qualité, à vie.</p></div>
-  <div class="chemin"><div class="num">3</div><h3>La Transmission</h3><p>Ce que tu veux léguer. Tes valeurs, tes leçons, tes recettes. Reçus par ceux que tu choisis.</p></div>
-  <div class="chemin"><div class="num">4</div><h3>Le Bien-être</h3><p>Écrire ta vie soigne. Réflexologie, reiki, méditations à puiser dans ton propre récit.</p></div>
-  <div class="chemin"><div class="num">5</div><h3>La Passion</h3><p>Ce qui te fait vibrer aujourd'hui — musique, mer, sport, art, métier. Mis en lumière, partagé.</p></div>
+  <div class="chemin reveal"><div class="num">1</div><h3>La Vie</h3><p>Les grandes étapes de ton parcours : enfance, jeunesse, rencontres, voyages, métiers, épreuves, victoires.</p></div>
+  <div class="chemin reveal"><div class="num">2</div><h3>La Mémoire</h3><p>Les moments qui t'ont fait. Les voix, les visages, les odeurs. Sauvegardés en haute qualité, à vie.</p></div>
+  <div class="chemin reveal"><div class="num">3</div><h3>La Transmission</h3><p>Ce que tu veux léguer. Tes valeurs, tes leçons, tes recettes. Reçus par ceux que tu choisis.</p></div>
+  <div class="chemin reveal"><div class="num">4</div><h3>Le Bien-être</h3><p>Écrire ta vie soigne. Réflexologie, reiki, méditations à puiser dans ton propre récit.</p></div>
+  <div class="chemin reveal"><div class="num">5</div><h3>La Passion</h3><p>Ce qui te fait vibrer aujourd'hui — musique, mer, sport, art, métier. Mis en lumière, partagé.</p></div>
 </div>
 </div></section>
 
@@ -191,6 +206,36 @@ window.signEmail=function(e){
     x.globalCompositeOperation='source-over';requestAnimationFrame(frame);
   }
   window.addEventListener('resize',size);size();requestAnimationFrame(frame);
+})();
+
+/* révélations au scroll — vanilla, sûr (échoue en montrant tout) */
+(function(){
+  try{
+    var els=document.querySelectorAll('.reveal');
+    if(!els.length)return;
+    var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var i;
+    if(reduce||!('IntersectionObserver' in window)){
+      for(i=0;i<els.length;i++)els[i].classList.add('in');
+      return;
+    }
+    var obs=new IntersectionObserver(function(entries){
+      var d=0;
+      for(var k=0;k<entries.length;k++){
+        var e=entries[k];
+        if(e.isIntersecting){
+          e.target.style.animationDelay=(d*70)+'ms';
+          e.target.classList.add('in');
+          obs.unobserve(e.target);
+          d++;
+        }
+      }
+    },{threshold:0.12,rootMargin:'0px 0px -6% 0px'});
+    for(i=0;i<els.length;i++)obs.observe(els[i]);
+  }catch(err){
+    var all=document.querySelectorAll('.reveal');
+    for(var j=0;j<all.length;j++)all[j].classList.add('in');
+  }
 })();
 </script>
 <script src="/navlys-alive.js" defer></script>

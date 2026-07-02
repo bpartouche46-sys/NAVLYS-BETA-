@@ -17,6 +17,14 @@
   .ui .dots span{animation:bl 1.4s infinite}.ui .dots span:nth-child(2){animation-delay:.2s}.ui .dots span:nth-child(3){animation-delay:.4s}
   @keyframes bl{0%,100%{opacity:.2}50%{opacity:1}}
   .top{position:fixed;top:22px;left:0;right:0;text-align:center;color:#9fc4d8;font-size:.78rem;letter-spacing:3px}
+  /* ── Animations NAVLYS : entrées douces des overlays (sobres) ── */
+  .top{animation:navFadeDown 1.2s ease .2s backwards}
+  .ui{animation:navFadeUp 1.4s ease .5s backwards}
+  @keyframes navFadeDown{from{opacity:0;transform:translateY(-8px)}}
+  @keyframes navFadeUp{from{opacity:0;transform:translateY(12px)}}
+  @media (prefers-reduced-motion:reduce){
+    *{animation-duration:.001ms!important;animation-delay:0s!important;animation-iteration-count:1!important}
+  }
 </style>
 </head>
 <body>

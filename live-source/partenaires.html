@@ -6,6 +6,7 @@
 <title>NAVLYS — Partenaires · brokers, banques & outils testés</title>
 <meta name="description" content="Les partenaires de NAVLYS : brokers actions & ETF, crypto, néo-banques et outils. Tous testés, liens d'affiliation transparents. Éducation & veille, jamais un conseil.">
 <link rel="canonical" href="https://navlys.com/partenaires">
+<script>document.documentElement.className+=' nav-js';</script>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Cormorant+Garamond:ital@0;1&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
 <style>
 :root{--noir:#02040a;--bronze:#B87333;--bronze-clair:#D49B5B;--or:#C9A961;--or-pale:#f3e4c4;--ice:#7DD3FC;--ice-clair:#a8e3ff;--perle:#e7eef2;--perle-doux:#bcc9d1;--brume:#7c8b95;--vert:#3a8c5a}
@@ -44,6 +45,24 @@ footer{padding:44px 20px 70px;text-align:center;border-top:1px solid rgba(184,11
 .foot-fam a{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ice-clair);text-decoration:none}
 .disclaimer{font-style:italic;color:var(--brume);font-size:13.5px;line-height:1.65;max-width:800px;margin:0 auto;padding:18px;border:1px solid rgba(184,115,51,0.18);border-radius:12px;background:rgba(2,4,10,0.55)}
 @media(max-width:768px){.fam-links{display:none}.hero{padding:84px 14px 6px}}
+/* ── Animations NAVLYS : révélations au scroll + micro-interactions (sobres) ── */
+.nav-js .reveal{opacity:0}
+.reveal.in{opacity:1;animation:navRise .75s cubic-bezier(.22,.61,.36,1) backwards}
+@keyframes navRise{from{opacity:0;transform:translateY(20px)}}
+.navBreathe{animation:navBreathe 5s ease-in-out infinite}
+@keyframes navBreathe{0%,100%{opacity:.86}50%{opacity:1}}
+h2.cat{transition:text-shadow .3s ease}
+h2.cat.in{animation:navRise .75s cubic-bezier(.22,.61,.36,1) backwards}
+.card .emoji{transition:transform .3s ease}
+.card:hover .emoji{transform:scale(1.12) rotate(-4deg)}
+.fam-links a{position:relative}
+.fam-links a::after{content:"";position:absolute;left:0;bottom:-3px;height:1px;width:0;background:var(--ice);transition:width .25s ease}
+.fam-links a:hover::after,.fam-links a.on::after{width:100%}
+@media (prefers-reduced-motion:reduce){
+  .nav-js .reveal,.reveal.in,h2.cat.in{opacity:1!important;animation:none!important;transform:none!important}
+  .navBreathe{animation:none!important}
+  .card:hover .emoji{transform:none!important}
+}
 </style>
 </head>
 <body>
@@ -61,43 +80,43 @@ footer{padding:44px 20px 70px;text-align:center;border-top:1px solid rgba(184,11
 
 <header class="hero">
   <h1>Partenaires</h1>
-  <div class="sub">Brokers, banques &amp; outils — tous testés.</div>
+  <div class="sub navBreathe">Brokers, banques &amp; outils — tous testés.</div>
   <p>Les liens marqués <b>« affilié »</b> nous versent une petite commission, <b>sans aucun surcoût pour toi</b>. On ne référence que ce qu'on utilise vraiment. C'est de l'<b>éducation et de la veille</b>, jamais un conseil personnalisé.</p>
 </header>
 
 <div class="wrap">
   <section>
-    <h2 class="cat">📈 Brokers actions &amp; ETF</h2>
+    <h2 class="cat reveal">📈 Brokers actions &amp; ETF</h2>
     <div class="grid">
-      <a class="card" href="https://alpaca.markets/?ref=BP001" target="_blank" rel="noopener"><span class="aff">affilié</span><div class="head"><span class="emoji">🦙</span><div><div class="name">Alpaca</div><div class="role">API · actions US</div></div></div><div class="desc">Broker actions US, 0 € de commission, API moderne.</div><span class="cta">Découvrir →</span></a>
-      <a class="card" href="https://www.etoro.com/?ref=BP001" target="_blank" rel="noopener"><span class="aff">affilié</span><div class="head"><span class="emoji">📊</span><div><div class="name">eToro</div><div class="role">multi-actifs</div></div></div><div class="desc">Multi-actifs et copy trading. <i>(Investir comporte des risques.)</i></div><span class="cta">Découvrir →</span></a>
-      <a class="card" href="https://www.traderepublic.com/" target="_blank" rel="noopener"><div class="head"><span class="emoji">🇪🇺</span><div><div class="name">Trade Republic</div><div class="role">néo-broker EU</div></div></div><div class="desc">1 €/ordre, plans ETF (DCA) gratuits. Européen.</div><span class="cta">Découvrir →</span></a>
-      <a class="card" href="https://www.boursedirect.fr/" target="_blank" rel="noopener"><div class="head"><span class="emoji">🇫🇷</span><div><div class="name">Bourse Direct</div><div class="role">PEA · PEA-PME · CTO</div></div></div><div class="desc">Référence française pour l'enveloppe fiscale (PEA).</div><span class="cta">Découvrir →</span></a>
+      <a class="card reveal" href="https://alpaca.markets/?ref=BP001" target="_blank" rel="noopener"><span class="aff">affilié</span><div class="head"><span class="emoji">🦙</span><div><div class="name">Alpaca</div><div class="role">API · actions US</div></div></div><div class="desc">Broker actions US, 0 € de commission, API moderne.</div><span class="cta">Découvrir →</span></a>
+      <a class="card reveal" href="https://www.etoro.com/?ref=BP001" target="_blank" rel="noopener"><span class="aff">affilié</span><div class="head"><span class="emoji">📊</span><div><div class="name">eToro</div><div class="role">multi-actifs</div></div></div><div class="desc">Multi-actifs et copy trading. <i>(Investir comporte des risques.)</i></div><span class="cta">Découvrir →</span></a>
+      <a class="card reveal" href="https://www.traderepublic.com/" target="_blank" rel="noopener"><div class="head"><span class="emoji">🇪🇺</span><div><div class="name">Trade Republic</div><div class="role">néo-broker EU</div></div></div><div class="desc">1 €/ordre, plans ETF (DCA) gratuits. Européen.</div><span class="cta">Découvrir →</span></a>
+      <a class="card reveal" href="https://www.boursedirect.fr/" target="_blank" rel="noopener"><div class="head"><span class="emoji">🇫🇷</span><div><div class="name">Bourse Direct</div><div class="role">PEA · PEA-PME · CTO</div></div></div><div class="desc">Référence française pour l'enveloppe fiscale (PEA).</div><span class="cta">Découvrir →</span></a>
     </div>
   </section>
   <section>
-    <h2 class="cat">🪙 Crypto</h2>
+    <h2 class="cat reveal">🪙 Crypto</h2>
     <div class="grid">
-      <a class="card" href="https://www.bybit.com/?ref=BP001" target="_blank" rel="noopener"><span class="aff">affilié</span><div class="head"><span class="emoji">⚡</span><div><div class="name">Bybit</div><div class="role">spot · API</div></div></div><div class="desc">Spot crypto, frais bas. <i>(Actif volatil, risque élevé.)</i></div><span class="cta">Découvrir →</span></a>
-      <a class="card" href="https://www.okx.com/?ref=BP001" target="_blank" rel="noopener"><span class="aff">affilié</span><div class="head"><span class="emoji">🔶</span><div><div class="name">OKX</div><div class="role">exchange · DEX</div></div></div><div class="desc">Earn et DEX intégré. <i>(Actif volatil, risque élevé.)</i></div><span class="cta">Découvrir →</span></a>
-      <a class="card" href="https://www.kraken.com/" target="_blank" rel="noopener"><div class="head"><span class="emoji">🐙</span><div><div class="name">Kraken</div><div class="role">sécurité</div></div></div><div class="desc">Éprouvé depuis 2013, réputé pour sa sécurité. <i>(Risque élevé.)</i></div><span class="cta">Découvrir →</span></a>
+      <a class="card reveal" href="https://www.bybit.com/?ref=BP001" target="_blank" rel="noopener"><span class="aff">affilié</span><div class="head"><span class="emoji">⚡</span><div><div class="name">Bybit</div><div class="role">spot · API</div></div></div><div class="desc">Spot crypto, frais bas. <i>(Actif volatil, risque élevé.)</i></div><span class="cta">Découvrir →</span></a>
+      <a class="card reveal" href="https://www.okx.com/?ref=BP001" target="_blank" rel="noopener"><span class="aff">affilié</span><div class="head"><span class="emoji">🔶</span><div><div class="name">OKX</div><div class="role">exchange · DEX</div></div></div><div class="desc">Earn et DEX intégré. <i>(Actif volatil, risque élevé.)</i></div><span class="cta">Découvrir →</span></a>
+      <a class="card reveal" href="https://www.kraken.com/" target="_blank" rel="noopener"><div class="head"><span class="emoji">🐙</span><div><div class="name">Kraken</div><div class="role">sécurité</div></div></div><div class="desc">Éprouvé depuis 2013, réputé pour sa sécurité. <i>(Risque élevé.)</i></div><span class="cta">Découvrir →</span></a>
     </div>
   </section>
   <section>
-    <h2 class="cat">💳 Néo-banques &amp; cash</h2>
+    <h2 class="cat reveal">💳 Néo-banques &amp; cash</h2>
     <div class="grid">
-      <a class="card" href="https://revolut.com/?ref=BP001" target="_blank" rel="noopener"><span class="aff">affilié</span><div class="head"><span class="emoji">💳</span><div><div class="name">Revolut</div><div class="role">néo-banque</div></div></div><div class="desc">Multi-devises, pratique au quotidien et en voyage.</div><span class="cta">Découvrir →</span></a>
-      <a class="card" href="https://www.wise.com/?ref=BP001" target="_blank" rel="noopener"><span class="aff">affilié</span><div class="head"><span class="emoji">🌐</span><div><div class="name">Wise</div><div class="role">transferts</div></div></div><div class="desc">Transferts internationaux au taux réel.</div><span class="cta">Découvrir →</span></a>
-      <a class="card" href="https://www.boursobank.com/" target="_blank" rel="noopener"><div class="head"><span class="emoji">🏦</span><div><div class="name">BoursoBank</div><div class="role">banque en ligne FR</div></div></div><div class="desc">Combo banque + courtage français, simple.</div><span class="cta">Découvrir →</span></a>
+      <a class="card reveal" href="https://revolut.com/?ref=BP001" target="_blank" rel="noopener"><span class="aff">affilié</span><div class="head"><span class="emoji">💳</span><div><div class="name">Revolut</div><div class="role">néo-banque</div></div></div><div class="desc">Multi-devises, pratique au quotidien et en voyage.</div><span class="cta">Découvrir →</span></a>
+      <a class="card reveal" href="https://www.wise.com/?ref=BP001" target="_blank" rel="noopener"><span class="aff">affilié</span><div class="head"><span class="emoji">🌐</span><div><div class="name">Wise</div><div class="role">transferts</div></div></div><div class="desc">Transferts internationaux au taux réel.</div><span class="cta">Découvrir →</span></a>
+      <a class="card reveal" href="https://www.boursobank.com/" target="_blank" rel="noopener"><div class="head"><span class="emoji">🏦</span><div><div class="name">BoursoBank</div><div class="role">banque en ligne FR</div></div></div><div class="desc">Combo banque + courtage français, simple.</div><span class="cta">Découvrir →</span></a>
     </div>
   </section>
   <section>
-    <h2 class="cat">⚒️ Outils &amp; communauté</h2>
+    <h2 class="cat reveal">⚒️ Outils &amp; communauté</h2>
     <div class="grid">
-      <a class="card" href="https://nas.io/" target="_blank" rel="noopener"><div class="head"><span class="emoji">🌟</span><div><div class="name">Nas.io</div><div class="role">communauté</div></div></div><div class="desc">La plateforme de la communauté privée (Équipage NAVLYS).</div><span class="cta">Découvrir →</span></a>
-      <a class="card" href="https://www.notion.so/?ref=BP001" target="_blank" rel="noopener"><span class="aff">affilié</span><div class="head"><span class="emoji">🗂️</span><div><div class="name">Notion</div><div class="role">organisation</div></div></div><div class="desc">Notes, wiki, projets. On y centralise le travail.</div><span class="cta">Découvrir →</span></a>
-      <a class="card" href="https://vercel.com/?ref=BP001" target="_blank" rel="noopener"><span class="aff">affilié</span><div class="head"><span class="emoji">▲</span><div><div class="name">Vercel</div><div class="role">hébergement</div></div></div><div class="desc">Héberge tous nos sites : SSL auto, CDN mondial.</div><span class="cta">Découvrir →</span></a>
-      <a class="card" href="https://stripe.com/" target="_blank" rel="noopener"><div class="head"><span class="emoji">💎</span><div><div class="name">Stripe</div><div class="role">paiements</div></div></div><div class="desc">Le standard mondial du paiement en ligne.</div><span class="cta">Découvrir →</span></a>
+      <a class="card reveal" href="https://nas.io/" target="_blank" rel="noopener"><div class="head"><span class="emoji">🌟</span><div><div class="name">Nas.io</div><div class="role">communauté</div></div></div><div class="desc">La plateforme de la communauté privée (Équipage NAVLYS).</div><span class="cta">Découvrir →</span></a>
+      <a class="card reveal" href="https://www.notion.so/?ref=BP001" target="_blank" rel="noopener"><span class="aff">affilié</span><div class="head"><span class="emoji">🗂️</span><div><div class="name">Notion</div><div class="role">organisation</div></div></div><div class="desc">Notes, wiki, projets. On y centralise le travail.</div><span class="cta">Découvrir →</span></a>
+      <a class="card reveal" href="https://vercel.com/?ref=BP001" target="_blank" rel="noopener"><span class="aff">affilié</span><div class="head"><span class="emoji">▲</span><div><div class="name">Vercel</div><div class="role">hébergement</div></div></div><div class="desc">Héberge tous nos sites : SSL auto, CDN mondial.</div><span class="cta">Découvrir →</span></a>
+      <a class="card reveal" href="https://stripe.com/" target="_blank" rel="noopener"><div class="head"><span class="emoji">💎</span><div><div class="name">Stripe</div><div class="role">paiements</div></div></div><div class="desc">Le standard mondial du paiement en ligne.</div><span class="cta">Découvrir →</span></a>
     </div>
     <p class="note">⚠️ Liste en cours de consolidation (14 partenaires affichés). D'autres seront ajoutés après vérification — on n'invente rien.</p>
   </section>
@@ -111,6 +130,37 @@ footer{padding:44px 20px 70px;text-align:center;border-top:1px solid rgba(184,11
   </div>
   <div class="disclaimer">NAVLYS est un projet d'<b>éducation et de veille à vocation informative uniquement</b>. Les contenus ne constituent en aucun cas un conseil personnalisé en investissement. Les liens « affilié » génèrent une commission sans surcoût pour toi. Investir comporte un risque de perte en capital. Chacun reste seul responsable de ses décisions. Réservé aux 18 ans et +. © 2026 NAVLYS · navlys.com</div>
 </footer>
+<script>
+/* révélations au scroll — vanilla, sûr (échoue en montrant tout) */
+(function(){
+  try{
+    var els=document.querySelectorAll('.reveal');
+    if(!els.length)return;
+    var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var i;
+    if(reduce||!('IntersectionObserver' in window)){
+      for(i=0;i<els.length;i++)els[i].classList.add('in');
+      return;
+    }
+    var obs=new IntersectionObserver(function(entries){
+      var d=0;
+      for(var k=0;k<entries.length;k++){
+        var e=entries[k];
+        if(e.isIntersecting){
+          e.target.style.animationDelay=(d*70)+'ms';
+          e.target.classList.add('in');
+          obs.unobserve(e.target);
+          d++;
+        }
+      }
+    },{threshold:0.12,rootMargin:'0px 0px -6% 0px'});
+    for(i=0;i<els.length;i++)obs.observe(els[i]);
+  }catch(err){
+    var all=document.querySelectorAll('.reveal');
+    for(var j=0;j<all.length;j++)all[j].classList.add('in');
+  }
+})();
+</script>
 <script src="/navlys-alive.js" defer></script>
 </body>
 </html>
