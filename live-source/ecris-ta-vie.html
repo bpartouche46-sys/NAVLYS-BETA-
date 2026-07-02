@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <meta name="robots" content="noindex, nofollow" />
 <title>NAVLYS Next Gen — Écris ta vie</title>
+<script>document.documentElement.className+=' nav-js';</script>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Fraunces:ital,wght@1,400;1,500&family=Lora&display=swap" rel="stylesheet">
 <style>
   :root{
@@ -50,6 +51,22 @@
   .btn-or{background:linear-gradient(100deg,var(--or),#fff6df);color:#05060a;border:none;font-weight:600}
   .flag{text-align:center;letter-spacing:3px;color:#7f95b6;font-size:.8rem;margin-top:34px}
   .note{text-align:center;color:var(--mut);font-size:.86rem;margin-top:8px}
+  /* ── Animations NAVLYS : révélations au scroll + micro-interactions (sobres) ── */
+  .nav-js .reveal{opacity:0}
+  .reveal.in{opacity:1;animation:navRise .75s cubic-bezier(.22,.61,.36,1) backwards}
+  @keyframes navRise{from{opacity:0;transform:translateY(20px)}}
+  .navBreathe{animation:navBreathe 5s ease-in-out infinite}
+  @keyframes navBreathe{0%,100%{opacity:.86}50%{opacity:1}}
+  .q{transition:border-color .3s ease,box-shadow .3s ease,transform .3s ease}
+  .q:hover{border-color:rgba(125,211,252,.4);box-shadow:0 12px 30px rgba(125,211,252,.10)}
+  .q:focus-within{border-color:var(--ice);box-shadow:0 0 0 3px rgba(125,211,252,.12)}
+  .btn-or{transition:transform .2s ease,box-shadow .2s ease}
+  .btn-or:hover{transform:translateY(-2px);box-shadow:0 10px 26px rgba(233,211,160,.28)}
+  @media (prefers-reduced-motion:reduce){
+    .nav-js .reveal,.reveal.in{opacity:1!important;animation:none!important;transform:none!important}
+    .navBreathe{animation:none!important}
+    .q:hover,.btn-or:hover{transform:none!important}
+  }
 </style>
 </head>
 <body>
@@ -62,7 +79,7 @@
     <div class="kicker">NAVLYS · NEXT GEN</div>
     <h1>Écris ta vie</h1>
     <p class="sub">Ta vie est un film. Voici l'écran. Réponds comme ça vient — Léa transformera tes mots en chapitres.</p>
-    <div class="by">🎬 accompagné par Léa <span style="color:var(--mut)">@navbio</span></div>
+    <div class="by navBreathe">🎬 accompagné par Léa <span style="color:var(--mut)">@navbio</span></div>
   </header>
 
   <div id="questions"></div>
@@ -94,7 +111,7 @@ const data = JSON.parse(localStorage.getItem(KEY)||'{}');
 
 const box=document.getElementById('questions');
 QUESTIONS.forEach((q,i)=>{
-  const wrap=document.createElement('div'); wrap.className='q';
+  const wrap=document.createElement('div'); wrap.className='q reveal';
   wrap.innerHTML=`<div class="num">Chapitre ${i+1}</div><div class="txt">${q}</div>
     <textarea id="a${i}" placeholder="Écris ici, librement…"></textarea>
     <div class="saved" id="s${i}"></div>`;
@@ -118,6 +135,36 @@ document.getElementById('export').addEventListener('click',()=>{
 document.getElementById('clear').addEventListener('click',()=>{
   if(confirm('Effacer toutes tes réponses sur cet appareil ?')){ localStorage.removeItem(KEY); location.reload(); }
 });
+
+/* révélations au scroll — vanilla, sûr (échoue en montrant tout) */
+(function(){
+  try{
+    var els=document.querySelectorAll('.reveal');
+    if(!els.length)return;
+    var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var i;
+    if(reduce||!('IntersectionObserver' in window)){
+      for(i=0;i<els.length;i++)els[i].classList.add('in');
+      return;
+    }
+    var obs=new IntersectionObserver(function(entries){
+      var d=0;
+      for(var k=0;k<entries.length;k++){
+        var e=entries[k];
+        if(e.isIntersecting){
+          e.target.style.animationDelay=(d*70)+'ms';
+          e.target.classList.add('in');
+          obs.unobserve(e.target);
+          d++;
+        }
+      }
+    },{threshold:0.12,rootMargin:'0px 0px -6% 0px'});
+    for(i=0;i<els.length;i++)obs.observe(els[i]);
+  }catch(err){
+    var all=document.querySelectorAll('.reveal');
+    for(var j=0;j<all.length;j++)all[j].classList.add('in');
+  }
+})();
 </script>
 </body>
 </html>
