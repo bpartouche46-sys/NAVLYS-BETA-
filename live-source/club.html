@@ -59,6 +59,38 @@ textarea{min-height:80px;resize:vertical}
     <p class="lead">Recommande NAVLYS autour de toi, gagne des crédits, et débloque des <b>mois offerts</b> et des surclassements. Toi aussi, deviens un pilier de l'équipage.</p>
   </div>
 
+  <div class="card" style="text-align:center;border-color:rgba(201,169,97,.4)">
+    <div class="kick" style="color:var(--or)">Flash équipage</div>
+    <div id="flashmsg" style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.3rem;color:var(--ice-clair);min-height:1.6em;transition:opacity .4s">…</div>
+  </div>
+
+  <h2>La cagnotte de l'équipage</h2>
+  <div class="card" style="text-align:center">
+    <div style="font-family:'Cinzel',serif;font-weight:700;font-size:clamp(34px,11vw,66px);letter-spacing:.03em;background:linear-gradient(100deg,var(--or-pale),var(--or) 45%,#fff7e6 55%,var(--or) 70%,var(--bronze));background-size:220% auto;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;text-shadow:0 0 30px rgba(125,211,252,.25);animation:sh 9s linear infinite">
+      <span id="cag">0</span> <span style="font-size:.38em;color:var(--ice)">crédits</span>
+    </div>
+    <p style="margin-top:4px">Elle monte à chaque membre qui embarque ou partage NAVLYS. Plus on est nombreux, plus elle grossit — et elle se <b>redistribue</b> en mois offerts et récompenses.</p>
+    <p class="disc" style="margin-top:10px">🎁 Concours <b>gratuit</b>, sans obligation d'achat — <b>ce n'est pas un jeu d'argent</b>. Un juste retour à l'équipage, en remerciement. <em>Bientôt, quand NAVLYS sera rentable : une vraie cagnotte en euros, redistribuée aux membres.</em></p>
+  </div>
+  <script>
+  (function(){
+    var el=document.getElementById('cag');
+    if(el){
+      var target=1240, t0=null;
+      function ease(t){return 1-Math.pow(1-t,3);}
+      function fmt(n){return n.toLocaleString('fr-FR');}
+      function step(ts){ if(!t0)t0=ts; var p=Math.min(1,(ts-t0)/1500); el.textContent=fmt(Math.floor(target*ease(p))); if(p<1){requestAnimationFrame(step);} else { el.textContent=fmt(target); setInterval(function(){ target+=Math.floor(Math.random()*4)+1; el.textContent=fmt(target); },5000); } }
+      requestAnimationFrame(step);
+    }
+    var fm=document.getElementById('flashmsg');
+    if(fm){
+      var msgs=['Parraine 10 amis → 100 crédits.','2 500 crédits = 1 an offert.','Affilié ? 40 % récurrents à vie.','Les premiers embarqués sont les mieux récompensés.'];
+      var i=0; fm.textContent=msgs[0];
+      setInterval(function(){ fm.style.opacity='0'; setTimeout(function(){ i=(i+1)%msgs.length; fm.textContent=msgs[i]; fm.style.opacity='1'; },400); },4200);
+    }
+  })();
+  </script>
+
   <h2>Ta progression</h2>
   <div class="card">
     <div class="bar"><i></i></div>
