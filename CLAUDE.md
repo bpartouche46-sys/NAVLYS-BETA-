@@ -288,6 +288,20 @@ But : Bruno parle à **un seul endroit** (bot Telegram), plus jamais Claude Code
 - Charte complète : **`MASTERNAV.md`**. Code : `navlys_core/masternav.py`.
 - Routines automatiques (cron Supabase) : `sql/routines_cron.sql`.
 
+## 🎬 Studio vidéo & skills (gravé le 2026-07-02)
+
+- **21 skills vidéo installés** (HyperFrames by HeyGen) : `/hyperframes` (composer),
+  `website-to-video`, `talking-head-recut`, `product-launch-video`, `slideshow`,
+  `motion-graphics`, `music-to-video`, `embedded-captions`, `faceless-explainer`,
+  `remotion-best-practices`, `remotion-to-hyperframes`… → compositions HTML/GSAP
+  rendues en MP4 (équivalent Remotion, + rendu cloud HeyGen via MCP).
+- Les skills ne sont PAS dans Git (lourds) : **`skills-lock.json` est commité** ;
+  dans une nouvelle session, restaurer avec **`npx -y skills experimental_install`**.
+- **Context engineering NAVLYS** (déjà en place, c'est notre doctrine) : CLAUDE.md
+  = mémoire de session ; nouveau chat par tâche ; continuité par commits Git ;
+  mémoire longue en base (`navlys_memoire`, `core_reglement`, `core_knowledge`) ;
+  règles gravées au lieu de questions répétées (`navlys_regle`).
+
 ## 💡 Conseil d'usage (sessions)
 
 Repartir d'un **nouveau chat par tâche / par jour** plutôt qu'un fil géant :
