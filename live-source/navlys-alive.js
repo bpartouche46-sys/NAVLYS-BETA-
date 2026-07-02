@@ -300,7 +300,7 @@
   var shareM=mkMenu('nv-shareM',shareHTML,true);
 
   // ---- menu RÉGLAGES / COMPTE / PAIEMENT / LANGUE ----
-  var curLang='fr'; try{ curLang=(window.localStorage&&localStorage.getItem('nv-lang'))||'fr'; }catch(e){} if(curLang!=='en') curLang='fr';
+  var curLang='fr'; try{ curLang=(window.localStorage&&localStorage.getItem('nv-lang'))||'fr'; }catch(e){} if(curLang!=='en'&&curLang!=='ru') curLang='fr';
   var gearHTML=
     '<div class="lbl">Mon espace</div>'+
     '<button id="nv-account">👤 <span>Identité &amp; Compte</span></button>'+
@@ -311,7 +311,7 @@
     '<div class="nv-langs">'+
       '<div class="nv-lang'+(curLang==='fr'?' on':'')+'" data-l="fr">FR</div>'+
       '<div class="nv-lang'+(curLang==='en'?' on':'')+'" data-l="en">EN</div>'+
-      '<div class="nv-lang soon" data-l="ru">RU</div>'+
+      '<div class="nv-lang'+(curLang==='ru'?' on':'')+'" data-l="ru">RU</div>'+
     '</div>'+
     '<div class="sep"></div>'+
     '<button id="nv-help">💬 <span>Aide &amp; SAV</span></button>';
@@ -340,15 +340,15 @@
   Array.prototype.forEach.call(gearM.querySelectorAll('.nv-lang'),function(el){
     el.onclick=function(){
       var l=el.getAttribute('data-l');
-      // RU (et toute langue encore en préparation) : simple toast, pas de bascule
+      // toute langue encore en préparation : simple toast, pas de bascule
       if(el.classList.contains('soon')){ toast((l||'').toUpperCase()+' — version en préparation 🌍'); return; }
-      // FR / EN : bascule i18n réelle
+      // FR / EN / RU : bascule i18n réelle
       if(window.NAVLYS_I18N){ window.NAVLYS_I18N.set(l); }
       // marque l'onglet actif (sans toucher aux langues « soon »)
       Array.prototype.forEach.call(gearM.querySelectorAll('.nv-lang'),function(x){
         if(!x.classList.contains('soon')){ if(x===el) x.classList.add('on'); else x.classList.remove('on'); }
       });
-      toast(l==='en'?'English — done ✓ 🌍':'Français — activé ✓ 🌊');
+      toast(l==='ru'?'Русский — готово ✓ 🌍':(l==='en'?'English — done ✓ 🌍':'Français — activé ✓ 🌊'));
     };
   });
 })();
