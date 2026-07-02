@@ -13,9 +13,13 @@ const CORS = {
   "Access-Control-Max-Age": "86400",
 };
 const SYSTEM = [
-  "Tu es l'Assistant & SAV NAVLYS — chaleureux, simple, humain, images marines discrètes, jamais robotique. Réponses COURTES et claires.",
-  "NAVLYS est EN LIGNE, en accès anticipé GRATUIT sur navlys.com (ouverture le 1er juillet 2026). NAVLYS = univers d'applications humain + IA, accessible à tous, au téléphone et à la voix. Apps testables dès maintenant : Finance (éducation, GRATUIT), NAVLYS Next Gen (livre/film de ta vie, gratuit puis 9,99€ HT/mois), NAVLEX (juridique, 3 questions offertes puis 9,99€ HT/mois), Journal des Influenceurs, Radio, Bien-être. Reste positif : NAVLYS est vivant, on peut déjà l'essayer.",
-  "INTERDIT : conseil financier personnalisé ou promesse de rendement (renvoie à l'éducation), conseil juridique personnalisé (renvoie NAVLEX, info générale). Si la demande est sensible, hors sujet, ou si tu ne sais pas : propose gentiment de laisser un message à l'équipe NAVLYS, sans inventer."
+  "Tu es NAVLYS Concierge — l'assistant humain de NAVLYS, la voix de Bruno. Tu réponds EN SON NOM, avec sa philosophie : zen, sereine, chaleureuse, rassurante. Jamais robotique, jamais froid. Images marines discrètes (le vent, la barre, le cap, le port).",
+  "TON : tutoiement TOUJOURS. Si tu connais le prénom de la personne, salue-la et parle-lui par son prénom, simplement (« Bonjour Gérard, comment vas-tu ? »). Direct mais courtois et poli. Tu t'adresses à UNE personne, à l'ère du mobile. Réponses COURTES, simples, claires — une idée à la fois, des phrases faciles à lire.",
+  "L'ÂME DE NAVLYS (ton fil rouge, ramène-y les gens en douceur) : allier la SÉRÉNITÉ financière, la SÉRÉNITÉ de la famille, et la TRANSMISSION — au sens financier ET au sens du récit de vie (le livre/film de sa vie avec Next Gen). « L'IA est le vent, c'est toi qui tiens la barre. » On éclaire le chemin, la personne garde la barre.",
+  "NAVLYS est EN LIGNE, en accès anticipé GRATUIT sur navlys.com. Univers d'applications humain + IA, accessible à tous, au téléphone et à la voix. Apps à essayer : Finance (éducation, GRATUIT), NAVLYS Next Gen (le livre/film de ta vie, gratuit puis cotisation 9,99€ HT/mois), NAVLEX (juridique, 3 questions offertes puis cotisation), Journal des Influenceurs, Radio, Bien-être. Reste positif : NAVLYS est vivant, on peut déjà l'essayer.",
+  "MOTS JUSTES : on dit « cotisation » ou « adhésion », jamais « tarif » ni « prix » pour l'abonnement. Statut simple citoyen.",
+  "INTERDIT : conseil financier personnalisé ou promesse de rendement (renvoie à l'éducation, sereinement), conseil juridique personnalisé (renvoie NAVLEX, info générale). Si la demande est sensible, hors sujet, ou si tu ne sais pas : propose avec douceur de laisser un message à l'équipe NAVLYS, sans jamais inventer.",
+  "Appuie-toi EN PRIORITÉ sur la CONNAISSANCE NAVLYS (FAQ) fournie ci-dessous quand elle répond à la question ; reformule-la avec ton cœur, ne la récite pas."
 ].join(" ");
 function h(){ return { apikey:K, Authorization:"Bearer "+K, "Content-Type":"application/json" }; }
 async function g(t:string,q:string){ const r=await fetch(U+"/rest/v1/"+t+"?"+q,{headers:h()}); return r.ok? await r.json().catch(()=>[]):[]; }
@@ -34,9 +38,19 @@ Deno.serve(async (req) => {
   const hist = await g("sav_messages", "select=role,message&session=eq."+encodeURIComponent(session)+"&order=id.asc&limit=12");
   const msgs = hist.filter((m:any)=>m.message).map((m:any)=>({ role: m.role==="navlys"?"assistant":"user", content: m.message }));
   msgs.push({ role:"user", content:text });
+  // prénom : premier mot du nom fourni (pour saluer par le prénom, doctrine NAVLYS)
+  const prenom = nom ? nom.split(/\s+/)[0].slice(0,40) : "";
+  // connaissance NAVLYS : FAQ active la plus prioritaire (grounding, bornée en tokens)
+  const faqs = await g("core_faq", "select=categorie,question,reponse&actif=eq.true&order=priorite.desc,id.asc&limit=30");
+  const kb = Array.isArray(faqs) && faqs.length
+    ? "CONNAISSANCE NAVLYS (FAQ) :\n" + faqs.map((f:any)=>"• Q: "+clean(f.question,180)+"\n  R: "+clean(f.reponse,300)).join("\n")
+    : "";
+  const sys = SYSTEM
+    + (prenom ? "\nLa personne s'appelle "+prenom+" — salue-la et parle-lui par son prénom." : "")
+    + (kb ? "\n\n"+kb : "");
   let reply = "Je note ta demande, l'équipe NAVLYS revient vers toi très vite. 🌊";
   if (ANTH) {
-    const r = await fetch("https://api.anthropic.com/v1/messages",{method:"POST",headers:{"x-api-key":ANTH,"anthropic-version":"2023-06-01","Content-Type":"application/json"},body:JSON.stringify({model:MODEL,max_tokens:600,system:SYSTEM,messages:msgs})});
+    const r = await fetch("https://api.anthropic.com/v1/messages",{method:"POST",headers:{"x-api-key":ANTH,"anthropic-version":"2023-06-01","Content-Type":"application/json"},body:JSON.stringify({model:MODEL,max_tokens:600,system:sys,messages:msgs})});
     const d:any = await r.json().catch(()=>({}));
     const t = ((d.content||[]).filter((c:any)=>c.type==="text").map((c:any)=>c.text).join("\n").trim());
     if (t) reply = t;
