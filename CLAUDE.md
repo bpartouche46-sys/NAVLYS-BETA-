@@ -231,6 +231,26 @@ sûr aligné doctrine : **autonome > dépendance externe** ; **OUI > attendre** 
 ne pose une question QUE pour un vrai débit d'argent ou un secret que moi seul ne
 peux pas obtenir.
 
+## 🌍 Doctrine des langues & traductions (STANDING — gravée le 2026-07-02)
+
+> Règles posées par Bruno après la mise en ligne du FR/EN/RU :
+
+- **Langue par défaut = celle de l'utilisateur**, détectée automatiquement
+  (`navigator.language`) quand aucune préférence n'est enregistrée (`nv-lang`).
+- **Pas à pas** : on ajoute les langues une à une, en perfectionnant d'abord
+  FR/EN (la référence), puis RU, puis hébreu/arabe (RTL, navlys.co.il), etc.
+- **Preuve avant publication (irréfutabilité)** : chaque nouvelle langue est
+  validée par **re-bascule (back-translation)** vers une langue déjà sûre
+  (FR ou EN) — on retraduit un échantillon significatif dans l'autre sens et on
+  vérifie que le sens, le ton (tutoiement, chaleur) et les mots-clés
+  (cotisation/adhésion, statut simple citoyen) reviennent intacts.
+- Registre : tutoiement (« ты », etc.), JAMAIS un mot « prix/tarif » pour
+  l'adhésion, marques et nombres non traduits, cyrillique/RTL corrects.
+- Moteur : `live-source/navlys-i18n.js` (dictionnaires FR→XX alignés 1:1 sur
+  les clés FR normalisées ; on traduit TOUJOURS depuis le FR d'origine).
+- **Textes UI** : gros et aérés (calque lisibilité `navlys-alive.js`) — phrases
+  courtes, retours à la ligne, jamais de pavé.
+
 ## 🖥️ Où tout tourne (sans l'ordinateur de Bruno)
 
 - **Cerveau / agents / routines** = **Supabase** (Edge Functions `core-tick`,
