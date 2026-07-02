@@ -4,16 +4,14 @@
 // Réglages expressifs : stability basse + style haut = voix vivante, émotive.
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 
-const XI =
-  Deno.env.get("ELEVENLABS_API_KEY") ||
-  Deno.env.get("ELEVENLAB_KEY") ||
-  Deno.env.get("ELEVEN_KEY") ||
-  Deno.env.get("XI_KEY") ||
-  Deno.env.get("XI_API_KEY") || "";
+// Toutes les clés candidates (lecture tolérante) : on essaie CHACUNE jusqu'à
+// trouver celle qu'ElevenLabs accepte — plus jamais bloqué par un nom de secret.
+const KEYS = [
+  "ELEVENLABS_API_KEY", "ELEVENLAB_KEY", "ELEVEN_KEY", "XI_KEY", "XI_API_KEY",
+].map((n) => Deno.env.get(n) || "").filter((v, i, a) => v && a.indexOf(v) === i);
 
-// Voix par défaut : configurable (NAVLYS_VOICE_ID) sinon une voix chaleureuse.
-// « Antoni » (ErXwobaYiN019PkySvjV) = voix masculine chaude et expressive.
-const DEFAULT_VOICE = Deno.env.get("NAVLYS_VOICE_ID") || "ErXwobaYiN019PkySvjV";
+// Voix par défaut : LA VOIX DE BRUNO — clone « navlys core la voix ».
+const DEFAULT_VOICE = Deno.env.get("NAVLYS_VOICE_ID") || "6hUoby5ZAVW4JqvIJeri";
 const MODEL = Deno.env.get("NAVLYS_VOICE_MODEL") || "eleven_multilingual_v2";
 
 const CORS = {
@@ -40,29 +38,32 @@ function b64(buf: ArrayBuffer): string {
 
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response(null, { status: 204, headers: CORS });
-  if (req.method === "GET") return J({ ok: true, service: "navlys-voix", key: XI ? "présente" : "absente", voice: DEFAULT_VOICE });
+  if (req.method === "GET") return J({ ok: true, service: "navlys-voix", keys: KEYS.length, voice: DEFAULT_VOICE });
   if (req.method !== "POST") return J({ error: "method" }, 405);
 
   const b: any = await req.json().catch(() => ({}));
   const text = clean(b.text, 1200);
   const voice = clean(b.voice, 60) || DEFAULT_VOICE;
   if (!text) return J({ error: "vide" }, 400);
-  if (!XI) return J({ ok: false, error: "cle_absente", hint: "Poser ELEVENLABS_API_KEY (ou ELEVENLAB_KEY) dans les secrets Supabase." }, 200);
+  if (!KEYS.length) return J({ ok: false, error: "cle_absente", hint: "Poser ELEVENLABS_API_KEY (ou ELEVENLAB_KEY) dans les secrets Supabase." }, 200);
 
-  const r = await fetch("https://api.elevenlabs.io/v1/text-to-speech/" + voice, {
-    method: "POST",
-    headers: { "xi-api-key": XI, "Content-Type": "application/json", "Accept": "audio/mpeg" },
-    body: JSON.stringify({
-      text,
-      model_id: MODEL,
-      voice_settings: { stability: 0.30, similarity_boost: 0.75, style: 0.65, use_speaker_boost: true },
-    }),
-  });
-
-  if (!r.ok) {
-    const msg = await r.text().catch(() => "");
-    return J({ ok: false, error: "eleven_" + r.status, detail: msg.slice(0, 300) }, 200);
+  let lastErr = "";
+  for (const key of KEYS) {
+    const r = await fetch("https://api.elevenlabs.io/v1/text-to-speech/" + voice, {
+      method: "POST",
+      headers: { "xi-api-key": key, "Content-Type": "application/json", "Accept": "audio/mpeg" },
+      body: JSON.stringify({
+        text,
+        model_id: MODEL,
+        voice_settings: { stability: 0.30, similarity_boost: 0.75, style: 0.65, use_speaker_boost: true },
+      }),
+    });
+    if (r.ok) {
+      const audio = await r.arrayBuffer();
+      return J({ ok: true, voice, model: MODEL, audio: "data:audio/mpeg;base64," + b64(audio) });
+    }
+    lastErr = "eleven_" + r.status + " " + (await r.text().catch(() => "")).slice(0, 200);
+    if (r.status !== 401) break; // autre erreur que la clé : inutile d'essayer les suivantes
   }
-  const audio = await r.arrayBuffer();
-  return J({ ok: true, voice, model: MODEL, audio: "data:audio/mpeg;base64," + b64(audio) });
+  return J({ ok: false, error: "toutes_cles_refusees", detail: lastErr }, 200);
 });
