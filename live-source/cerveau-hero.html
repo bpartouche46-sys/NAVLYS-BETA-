@@ -12,6 +12,14 @@
   .lab{position:fixed;left:0;right:0;bottom:7%;text-align:center;color:#9fc4d8;font-size:.8rem;letter-spacing:4px;text-transform:uppercase;pointer-events:none}
   .lab b{color:#e9d3a0}
   .top{position:fixed;top:20px;left:0;right:0;text-align:center;color:#cfe6f2;font-size:.9rem;letter-spacing:5px}
+  /* ── Animations NAVLYS : entrées douces des overlays (sobres) ── */
+  .top{animation:navFadeDown 1.2s ease .2s backwards}
+  .lab{animation:navFadeUp 1.4s ease .5s backwards}
+  @keyframes navFadeDown{from{opacity:0;transform:translateY(-8px)}}
+  @keyframes navFadeUp{from{opacity:0;transform:translateY(12px)}}
+  @media (prefers-reduced-motion:reduce){
+    *{animation-duration:.001ms!important;animation-delay:0s!important;animation-iteration-count:1!important}
+  }
 </style>
 </head>
 <body>

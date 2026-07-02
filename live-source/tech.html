@@ -6,6 +6,7 @@
 <title>NAVLYS — Le Journal de l'IA · Daily News</title>
 <meta name="description" content="Le Journal de l'IA par NAVLYS : les sorties de modèles et l'essor des agents, expliqués simplement. L'IA à la portée de tous.">
 <link rel="canonical" href="https://navlys.com/tech">
+<script>document.documentElement.className+=' nav-js';</script>
 <!-- navlys.com/tech · Journal de l'IA · v1 · 2026-06-14 -->
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Fraunces:ital@1&family=Lora:wght@400;500&display=swap" rel="stylesheet">
 <style>
@@ -37,6 +38,25 @@ article p{margin:8px 0}
 .sources a{color:var(--ice);text-decoration:none}
 .disc{margin-top:26px;font-size:.8rem;color:#8fa6c8;font-style:italic;line-height:1.7;border-top:1px solid rgba(255,255,255,.08);padding-top:18px}
 .flag{letter-spacing:3px;margin-top:16px;color:#8fa6c8}
+/* ── Animations NAVLYS : révélations au scroll + micro-interactions (sobres) ── */
+.nav-js .reveal{opacity:0}
+.reveal.in{opacity:1;animation:navRise .75s cubic-bezier(.22,.61,.36,1) backwards}
+@keyframes navRise{from{opacity:0;transform:translateY(20px)}}
+.navBreathe{animation:navBreathe 5s ease-in-out infinite}
+@keyframes navBreathe{0%,100%{opacity:.86}50%{opacity:1}}
+article{transition:transform .3s ease}
+article:hover{transform:translateX(4px)}
+article .cat{transition:box-shadow .25s ease}
+article:hover .cat{box-shadow:0 0 16px rgba(233,211,160,.35)}
+article h2{transition:color .25s ease}
+article:hover h2{color:#eaf7ff}
+.sources a{transition:color .2s ease,text-shadow .2s ease}
+.sources a:hover{text-shadow:0 0 12px rgba(125,211,252,.5)}
+@media (prefers-reduced-motion:reduce){
+  .nav-js .reveal,.reveal.in{opacity:1!important;animation:none!important;transform:none!important}
+  .navBreathe{animation:none!important}
+  article:hover{transform:none!important}
+}
 </style>
 </head>
 <body>
@@ -49,26 +69,26 @@ article p{margin:8px 0}
   </header>
 
   <div class="masthead">
-    <div class="kick">LE JOURNAL DE L'IA · DAILY NEWS</div>
+    <div class="kick navBreathe">LE JOURNAL DE L'IA · DAILY NEWS</div>
     <h1>Tech &amp; IA</h1>
   </div>
   <p class="dateline">Édition du dimanche 14 juin 2026 · l'IA expliquée simplement · préparé avec NAVLYS CORE</p>
 
-  <article>
+  <article class="reveal">
     <span class="cat">MODÈLES</span>
     <h2>La course des cerveaux s'accélère</h2>
     <p>Coup sur coup : <b>OpenAI</b> sort <b>GPT-5.5</b> (versions Pro et Instant), <b>Google</b> pousse <b>Gemini 3.1 Pro</b>, <b>Moonshot</b> ouvre <b>Kimi K2.7-Code</b>, et <b>Huawei</b> dévoile <b>HarmonyOS 7</b>, pensé pour brancher <span class="stat">2 000+</span> agents spécialisés.</p>
     <p>Traduction NAVLYS : la puissance devient abondante. Ce qui comptera, ce n'est pas « quel modèle », mais <b>qui sait s'en servir simplement, pour de vraies vies</b>.</p>
   </article>
 
-  <article>
+  <article class="reveal">
     <span class="cat">AGENTS</span>
     <h2>L'ère des agents est là</h2>
     <p>Le <b>protocole MCP</b> d'Anthropic a dépassé <span class="stat">97 millions</span> d'installations, et tous les grands fournisseurs s'y branchent : c'est devenu la prise standard par laquelle une IA se connecte aux outils, aux données, au monde. À la conférence GTC 2026, ce ne sont plus les modèles qui ont volé la vedette, mais les <b>agents</b> qui agissent.</p>
     <p class="pull">« Un agent, ce n'est plus une IA qui parle — c'est une IA qui fait. Chez NAVLYS, elle prépare, et c'est toujours toi qui valides. »</p>
   </article>
 
-  <article>
+  <article class="reveal">
     <span class="cat">NOTRE REGARD</span>
     <h2>L'IA pour tous, pas que pour les géants</h2>
     <p>Pendant que les milliards s'échangent, une question reste : <b>et toi ?</b> NAVLYS existe pour ça — mettre cette puissance à la portée de chacun, en un clic et à la voix, avec l'humain au centre et des garde-fous clairs. L'IA est le vent ; c'est toi qui tiens la barre.</p>
@@ -84,6 +104,37 @@ article p{margin:8px 0}
   </p>
   <div class="flag">🌊 ⚓ NAVLYS 🪝 — « Humaniser l'intelligence artificielle. »</div>
 </div>
+<script>
+/* révélations au scroll — vanilla, sûr (échoue en montrant tout) */
+(function(){
+  try{
+    var els=document.querySelectorAll('.reveal');
+    if(!els.length)return;
+    var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var i;
+    if(reduce||!('IntersectionObserver' in window)){
+      for(i=0;i<els.length;i++)els[i].classList.add('in');
+      return;
+    }
+    var obs=new IntersectionObserver(function(entries){
+      var d=0;
+      for(var k=0;k<entries.length;k++){
+        var e=entries[k];
+        if(e.isIntersecting){
+          e.target.style.animationDelay=(d*70)+'ms';
+          e.target.classList.add('in');
+          obs.unobserve(e.target);
+          d++;
+        }
+      }
+    },{threshold:0.12,rootMargin:'0px 0px -6% 0px'});
+    for(i=0;i<els.length;i++)obs.observe(els[i]);
+  }catch(err){
+    var all=document.querySelectorAll('.reveal');
+    for(var j=0;j<all.length;j++)all[j].classList.add('in');
+  }
+})();
+</script>
 <script src="/navlys-alive.js" defer></script>
 </body>
 </html>
