@@ -300,6 +300,7 @@
   var shareM=mkMenu('nv-shareM',shareHTML,true);
 
   // ---- menu RÉGLAGES / COMPTE / PAIEMENT / LANGUE ----
+  var curLang='fr'; try{ curLang=(window.localStorage&&localStorage.getItem('nv-lang'))||'fr'; }catch(e){} if(curLang!=='en') curLang='fr';
   var gearHTML=
     '<div class="lbl">Mon espace</div>'+
     '<button id="nv-account">👤 <span>Identité &amp; Compte</span></button>'+
@@ -308,8 +309,8 @@
     '<div class="sep"></div>'+
     '<div class="lbl">Langue</div>'+
     '<div class="nv-langs">'+
-      '<div class="nv-lang on" data-l="fr">FR</div>'+
-      '<div class="nv-lang soon" data-l="en">EN</div>'+
+      '<div class="nv-lang'+(curLang==='fr'?' on':'')+'" data-l="fr">FR</div>'+
+      '<div class="nv-lang'+(curLang==='en'?' on':'')+'" data-l="en">EN</div>'+
       '<div class="nv-lang soon" data-l="ru">RU</div>'+
     '</div>'+
     '<div class="sep"></div>'+
@@ -337,7 +338,18 @@
   gearM.querySelector('#nv-settings').onclick=function(){ toast('Réglages personnels — en chemin 🎛️'); };
   gearM.querySelector('#nv-help').onclick=function(){ closeAll(); var b=document.getElementById('nv-sav-btn'); if(b) b.click(); };
   Array.prototype.forEach.call(gearM.querySelectorAll('.nv-lang'),function(el){
-    el.onclick=function(){ if(el.classList.contains('soon')){ toast(el.dataset.l.toUpperCase()+' — version en préparation 🌍'); } };
+    el.onclick=function(){
+      var l=el.getAttribute('data-l');
+      // RU (et toute langue encore en préparation) : simple toast, pas de bascule
+      if(el.classList.contains('soon')){ toast((l||'').toUpperCase()+' — version en préparation 🌍'); return; }
+      // FR / EN : bascule i18n réelle
+      if(window.NAVLYS_I18N){ window.NAVLYS_I18N.set(l); }
+      // marque l'onglet actif (sans toucher aux langues « soon »)
+      Array.prototype.forEach.call(gearM.querySelectorAll('.nv-lang'),function(x){
+        if(!x.classList.contains('soon')){ if(x===el) x.classList.add('on'); else x.classList.remove('on'); }
+      });
+      toast(l==='en'?'English — done ✓ 🌍':'Français — activé ✓ 🌊');
+    };
   });
 })();
 
@@ -593,4 +605,19 @@
     d.body.appendChild(h);
   }
   if(d.readyState==='loading') d.addEventListener('DOMContentLoaded',boot); else boot();
+})();
+
+/* ====================================================================
+   NAVLYS — CHARGEUR i18n : garantit que le module de traduction FR<->EN
+   (navlys-i18n.js) est présent sur CHAQUE page qui embarque ce chrome,
+   pour que la bascule de langue fonctionne partout (au moins sur le
+   chrome partagé). N'injecte rien si déjà chargé. v1 · 2026-07-02
+   ==================================================================== */
+(function(){
+  var d=document;
+  if(window.NAVLYS_I18N) return;
+  var scripts=d.getElementsByTagName('script'), i;
+  for(i=0;i<scripts.length;i++){ if((scripts[i].src||'').indexOf('navlys-i18n.js')!==-1) return; }
+  var s=d.createElement('script'); s.src='/navlys-i18n.js'; s.defer=true;
+  (d.head||d.getElementsByTagName('head')[0]||d.body).appendChild(s);
 })();
