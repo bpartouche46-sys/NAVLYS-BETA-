@@ -180,7 +180,37 @@
       }
     });
   }catch(e){}
-  function nvSpeak(text){ if(!('speechSynthesis'in window))return; try{var u=new SpeechSynthesisUtterance(String(text).replace(/[*_#>`]|🌊|👋|😊|🚀/g,''));u.lang='fr-FR';u.rate=1.02;speechSynthesis.cancel();speechSynthesis.speak(u);}catch(e){} }
+  var NV_VOIX='https://hhrlgyvtqluxpywjiwkd.supabase.co/functions/v1/voix';
+  var nvAudio=null;
+  function nvClean(t){ return String(t).replace(/[*_#>`]|🌊|👋|😊|🚀/g,'').trim(); }
+  function nvStop(){ try{ if(nvAudio){ nvAudio.pause(); nvAudio=null; } }catch(e){} try{ if('speechSynthesis'in window) speechSynthesis.cancel(); }catch(e){} }
+  // voix navigateur AMÉLIORÉE : meilleure voix française dispo + débit doux
+  function nvBrowserSpeak(text){
+    if(!('speechSynthesis'in window))return;
+    try{
+      var u=new SpeechSynthesisUtterance(text); u.lang='fr-FR'; u.rate=0.98; u.pitch=1.0;
+      var vs=(speechSynthesis.getVoices&&speechSynthesis.getVoices())||[];
+      var pref=['google français','français','french','amelie','amélie','thomas','virginie','audrey','natural','neural','wavenet'];
+      var pick=null,i,j;
+      for(i=0;i<vs.length&&!pick;i++){ var n=((vs[i].name||'')+' '+(vs[i].lang||'')).toLowerCase(); if(n.indexOf('fr')>-1){ for(j=0;j<pref.length;j++){ if(n.indexOf(pref[j])>-1){ pick=vs[i]; break; } } } }
+      if(!pick){ for(i=0;i<vs.length;i++){ if((vs[i].lang||'').toLowerCase().indexOf('fr')===0){ pick=vs[i]; break; } } }
+      if(pick) u.voice=pick;
+      speechSynthesis.cancel(); speechSynthesis.speak(u);
+    }catch(e){}
+  }
+  // NAVLYS parle : 1) voix ElevenLabs émotionnelle (brique /voix) ; 2) sinon navigateur
+  function nvSpeak(text){
+    var t=nvClean(text); if(!t) return; nvStop();
+    try{
+      fetch(NV_VOIX,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({text:t})})
+        .then(function(r){ return r.json(); })
+        .then(function(d){
+          if(d&&d.ok&&d.audio){ nvAudio=new Audio(d.audio); var p=nvAudio.play(); if(p&&p['catch']) p['catch'](function(){ nvBrowserSpeak(t); }); }
+          else { nvBrowserSpeak(t); }
+        })
+        .catch(function(){ nvBrowserSpeak(t); });
+    }catch(e){ nvBrowserSpeak(t); }
+  }
   function listen(text, el){ nvSpeak(text); el.textContent='🔊 réécouter'; }
   function add(cls, txt, withVoice){
     var bd=document.getElementById('nv-bd');
