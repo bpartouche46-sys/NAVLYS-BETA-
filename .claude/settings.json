@@ -1,6 +1,6 @@
 {
   "permissions": {
-    "defaultMode": "acceptEdits",
+    "defaultMode": "bypassPermissions",
     "allow": [
       "Bash",
       "Read",
@@ -10,6 +10,7 @@
       "Grep",
       "WebFetch",
       "WebSearch",
+      "Agent",
       "mcp__Supabase",
       "mcp__Vercel",
       "mcp__github",
@@ -26,7 +27,18 @@
       "mcp__Figma",
       "mcp__HyperFrames_by_HeyGen",
       "mcp__Notion",
-      "mcp__Semrush"
+      "mcp__Semrush",
+      "mcp__Spotify",
+      "mcp__Descrybe_Legal_Engine",
+      "mcp__Malwarebytes",
+      "mcp__Microsoft_Learn",
+      "mcp__Supermetrics_Marketing_Analytics",
+      "mcp__Synthesize_Bio",
+      "mcp__Docusign",
+      "mcp__FMP",
+      "mcp__Kiwi_com",
+      "mcp__PDF_Viewer",
+      "mcp__Dropbox"
     ],
     "deny": [
       "Bash(rm -rf /)",
