@@ -8,3 +8,7 @@ venv/
 # bases locales de test (offline)
 navlys_core/*.db
 *.db
+
+# skills installés localement (restaurés via: npx -y skills experimental_install)
+.agents/
+.claude/skills/
