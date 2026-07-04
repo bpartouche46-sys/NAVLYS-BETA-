@@ -40,15 +40,39 @@ Deno.serve(async (req) => {
   msgs.push({ role:"user", content:text });
   // prénom : premier mot du nom fourni (pour saluer par le prénom, doctrine NAVLYS)
   const prenom = nom ? nom.split(/\s+/)[0].slice(0,40) : "";
+  // LANGUE : l'alphabet du message gagne (hébreu/cyrillique), sinon la langue du site (lang), sinon fr
+  const langParam = clean(b.lang,8).toLowerCase();
+  let lang = "fr";
+  if (/[֐-׿]/.test(text)) lang = "he";
+  else if (/[Ѐ-ӿ]/.test(text)) lang = "ru";
+  else if (langParam.indexOf("he")===0) lang = "he";
+  else if (langParam.indexOf("ru")===0) lang = "ru";
+  else if (langParam.indexOf("en")===0) lang = "en";
+  else if (/^[\x00-\x7F]*$/.test(text) && /\b(the|you|is|what|how|hello|hi|please|thanks|can|do|my)\b/i.test(text)) lang = "en";
+  const LANGNAME: Record<string,string> = { fr:"français", en:"anglais", ru:"russe", he:"hébreu" };
+  const LANGREGLE =
+    "LANGUE DE RÉPONSE : réponds TOUJOURS dans la langue du dernier message de la personne. " +
+    "Si le message ne permet pas de trancher, réponds en " + (LANGNAME[lang]||"français") + ". " +
+    "Registre par langue — FR : tutoiement chaleureux. EN : warm, direct « you ». " +
+    "RU : « ты » chaleureux. HE : tutoiement chaleureux (את/אתה), hébreu naturel. " +
+    "Dans TOUTES les langues : même philosophie zen et sereine, mêmes garde-fous (aucun conseil personnalisé), " +
+    "et jamais un mot signifiant « prix/tarif » pour l'adhésion (membership / членство / דמי חבר).";
   // connaissance NAVLYS : FAQ active la plus prioritaire (grounding, bornée en tokens)
   const faqs = await g("core_faq", "select=categorie,question,reponse&actif=eq.true&order=priorite.desc,id.asc&limit=30");
   const kb = Array.isArray(faqs) && faqs.length
     ? "CONNAISSANCE NAVLYS (FAQ) :\n" + faqs.map((f:any)=>"• Q: "+clean(f.question,180)+"\n  R: "+clean(f.reponse,300)).join("\n")
     : "";
   const sys = SYSTEM
+    + "\n" + LANGREGLE
     + (prenom ? "\nLa personne s'appelle "+prenom+" — salue-la et parle-lui par son prénom." : "")
     + (kb ? "\n\n"+kb : "");
-  let reply = "Je note ta demande, l'équipe NAVLYS revient vers toi très vite. 🌊";
+  const FALLBACK: Record<string,string> = {
+    fr: "Je note ta demande, l'équipe NAVLYS revient vers toi très vite. 🌊",
+    en: "Got it — the NAVLYS team will get back to you very soon. 🌊",
+    ru: "Принято — команда NAVLYS очень скоро тебе ответит. 🌊",
+    he: "קיבלתי — צוות NAVLYS יחזור אליך ממש בקרוב. 🌊",
+  };
+  let reply = FALLBACK[lang] || FALLBACK.fr;
   if (ANTH) {
     const r = await fetch("https://api.anthropic.com/v1/messages",{method:"POST",headers:{"x-api-key":ANTH,"anthropic-version":"2023-06-01","Content-Type":"application/json"},body:JSON.stringify({model:MODEL,max_tokens:600,system:sys,messages:msgs})});
     const d:any = await r.json().catch(()=>({}));
