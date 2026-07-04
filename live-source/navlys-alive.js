@@ -225,7 +225,8 @@
     var q=document.getElementById('nv-q'); var t=q.value.trim(); if(!t) return;
     add('u',t,false); q.value='';
     var p=add('n','… un instant',false);
-    fetch(NV_SAV,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({session:nvSess,text:t,nom:nvPrenom()})})
+    var nvLng='fr'; try{ nvLng=(window.NAVLYS_I18N&&window.NAVLYS_I18N.lang&&window.NAVLYS_I18N.lang())||localStorage.getItem('nv-lang')||navigator.language||'fr'; }catch(e){}
+    fetch(NV_SAV,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({session:nvSess,text:t,nom:nvPrenom(),lang:nvLng})})
      .then(function(r){ return r.json(); })
      .then(function(d){ p.remove(); var rep=(d&&d.reply)?d.reply:'Je note ta demande, l\'équipe NAVLYS revient vers toi très vite. 🌊'; add('n',rep,true); nvSpeak(rep); })
      .catch(function(){ p.remove(); add('n','Connexion difficile, réessaie dans un instant. 🌊',false); });
