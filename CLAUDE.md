@@ -86,6 +86,10 @@ install.sh              # installeur Hetzner en une ligne
   directement dans la page concernée, en ligne.
 - **Seule sécurité gardée** : toujours **tester** chaque fichier avant de publier
   (`node --check` pour le JS, extraction + check du `<script>` des HTML, logique).
+- **On corrige AVEC la communauté** (gravé 2026-07-04, règle n°16) : toujours en
+  ligne d'abord, puis itération guidée par le bouton **💡 Améliorer**
+  (`core_feedback` → lire → appliquer → répondre). Jamais de perfection cachée
+  en local.
 - Commits clairs en français (préfixes `feat:`, `fix:`, `docs:`, `chore:`).
 
 ## ✅ Doctrine de validation de Bruno (STANDING — gravée le 2026-06-29)
