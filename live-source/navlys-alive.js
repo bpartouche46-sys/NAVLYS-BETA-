@@ -34,6 +34,25 @@
   #nv-sav .ft{display:flex;gap:7px;padding:11px;border-top:1px solid rgba(125,211,252,.2)}
   #nv-sav textarea{flex:1;background:rgba(5,6,10,.6);border:1px solid rgba(125,211,252,.25);border-radius:11px;color:#eef0f6;padding:9px;font-family:'Lora',serif;font-size:.95rem;resize:none;height:42px}
   #nv-sav .snd{border:none;cursor:pointer;background:${ICE};color:${NOIR};border-radius:10px;padding:0 14px;font-weight:600}
+  /* ---------- bouton RETOUR (bas-gauche, toutes les apps) ---------- */
+  #nv-fb-btn{position:fixed;left:18px;bottom:18px;z-index:61;border:1px solid rgba(233,211,160,.5);cursor:pointer;
+    background:rgba(6,8,14,.82);color:${OR};font-family:'Lora',serif;font-weight:600;border-radius:999px;padding:12px 16px;
+    box-shadow:0 8px 26px rgba(0,0,0,.45)}
+  #nv-fb{position:fixed;left:18px;bottom:74px;z-index:62;width:min(360px,92vw);display:none;flex-direction:column;
+    background:linear-gradient(160deg,rgba(233,211,160,.10),rgba(10,12,20,.96));border:1px solid rgba(233,211,160,.35);
+    border-radius:18px;overflow:hidden;box-shadow:0 16px 50px rgba(0,0,0,.6)}
+  #nv-fb .hd{padding:13px 15px;border-bottom:1px solid rgba(233,211,160,.25);color:#fff;font-family:'Cormorant Garamond';letter-spacing:1px}
+  #nv-fb .hd small{display:block;color:#b9c6d6;font-family:'Lora',serif;font-size:.8rem;letter-spacing:0;margin-top:3px}
+  #nv-fb .bd{padding:13px;display:flex;flex-direction:column;gap:9px}
+  #nv-fb .row{display:flex;gap:7px;flex-wrap:wrap}
+  #nv-fb .opt{flex:1;text-align:center;cursor:pointer;border:1px solid rgba(125,211,252,.25);border-radius:9px;padding:8px 4px;
+    color:#cfe0f2;font-family:'Lora',serif;font-size:.85rem;min-height:42px}
+  #nv-fb .opt.on{background:rgba(125,211,252,.18);color:#fff;border-color:rgba(125,211,252,.55)}
+  #nv-fb textarea{background:rgba(5,6,10,.92);border:1px solid rgba(233,211,160,.3);border-radius:11px;color:#eef0f6;
+    padding:10px;font-family:'Lora',serif;font-size:.95rem;resize:none;height:84px}
+  #nv-fb .go{border:none;cursor:pointer;background:linear-gradient(100deg,${OR},#fff6df,${OR});color:${NOIR};
+    border-radius:11px;padding:12px;font-weight:700;font-family:'Lora',serif}
+  #nv-fb .ok{color:${OR};font-family:'Lora',serif;font-size:.9rem;padding:4px 2px;display:none}
   `;
   var st=document.createElement('style'); st.textContent=css; document.head.appendChild(st);
 
@@ -233,6 +252,53 @@
   }
   panel.querySelector('#nv-snd').onclick=send;
   panel.querySelector('#nv-q').addEventListener('keydown',function(e){ if(e.key==='Enter'&&!e.shiftKey){ e.preventDefault(); send(); } });
+
+  /* ---------- RETOUR : bouton bas-gauche, toutes les applications ----------
+     Critiques / remarques / suggestions, pour soi ou pour la communauté.
+     Part directement chez nous : core_feedback + journal + routage agent. */
+  var NV_FB='https://hhrlgyvtqluxpywjiwkd.supabase.co/functions/v1/retour';
+  var fbBtn=document.createElement('button'); fbBtn.id='nv-fb-btn'; fbBtn.textContent='💡 Améliorer';
+  document.body.appendChild(fbBtn);
+  var fbApp=(location.pathname==='/'||location.pathname==='')?'Accueil':location.pathname.replace(/^\//,'').replace(/\.html$/,'');
+  var fb=document.createElement('div'); fb.id='nv-fb';
+  fb.innerHTML='<div class="hd">💡 Ton avis compte<small>Application : '+fbApp+' — dis-nous tout, on lit, on applique, on répond.</small></div>'+
+    '<div class="bd">'+
+      '<div class="row" id="nv-fb-t">'+
+        '<div class="opt" data-v="critique">🐞 Critique</div>'+
+        '<div class="opt" data-v="remarque">💬 Remarque</div>'+
+        '<div class="opt on" data-v="suggestion">💡 Suggestion</div>'+
+      '</div>'+
+      '<div class="row" id="nv-fb-p">'+
+        '<div class="opt on" data-v="perso">Pour mon usage</div>'+
+        '<div class="opt" data-v="communaute">Pour la communauté</div>'+
+      '</div>'+
+      '<textarea id="nv-fb-msg" placeholder="Ce que tu changerais, ce qui te manque, ce que tu adores…"></textarea>'+
+      '<button class="go" id="nv-fb-go">Envoyer mon retour</button>'+
+      '<div class="ok" id="nv-fb-ok"></div>'+
+    '</div>';
+  document.body.appendChild(fb);
+  fbBtn.onclick=function(){ var open=fb.style.display==='flex'; fb.style.display=open?'none':'flex'; if(!open){ var m=document.getElementById('nv-fb-msg'); if(m) m.focus(); } };
+  function fbPick(rowId){
+    var row=document.getElementById(rowId);
+    Array.prototype.forEach.call(row.querySelectorAll('.opt'),function(o){
+      o.onclick=function(){ Array.prototype.forEach.call(row.querySelectorAll('.opt'),function(x){ x.classList.remove('on'); }); o.classList.add('on'); };
+    });
+  }
+  fbPick('nv-fb-t'); fbPick('nv-fb-p');
+  function fbVal(rowId){ var on=document.getElementById(rowId).querySelector('.opt.on'); return on?on.getAttribute('data-v'):''; }
+  document.getElementById('nv-fb-go').onclick=function(){
+    var msgEl=document.getElementById('nv-fb-msg'), okEl=document.getElementById('nv-fb-ok');
+    var msg=(msgEl.value||'').trim(); if(!msg){ msgEl.focus(); return; }
+    var lng='fr'; try{ lng=(window.NAVLYS_I18N&&window.NAVLYS_I18N.lang&&window.NAVLYS_I18N.lang())||localStorage.getItem('nv-lang')||navigator.language||'fr'; }catch(e){}
+    okEl.style.display='block'; okEl.textContent='… envoi en cours';
+    fetch(NV_FB,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
+      page:location.pathname||'/', type:fbVal('nv-fb-t'), portee:fbVal('nv-fb-p'),
+      message:msg, prenom:nvPrenom(), lang:lng, session:nvSess })})
+     .then(function(r){ return r.json(); })
+     .then(function(d){ okEl.textContent=(d&&d.merci)?d.merci:'Merci, c\'est bien arrivé 🙏'; msgEl.value='';
+       setTimeout(function(){ fb.style.display='none'; okEl.style.display='none'; },3200); })
+     .catch(function(){ okEl.textContent='Connexion difficile — réessaie dans un instant 🌊'; });
+  };
 })();
 
 /* ====================================================================
