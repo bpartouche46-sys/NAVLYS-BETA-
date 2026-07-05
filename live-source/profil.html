@@ -87,8 +87,10 @@ h2::after{content:"";flex:1;height:1px;background:var(--line)}
   'use strict';
   var $=function(id){return document.getElementById(id);};
   var COMPTE='https://hhrlgyvtqluxpywjiwkd.supabase.co/functions/v1/compte';
-  var NOMS={essai:'Essai libre',n1:'Entrée',n2:'Duo',n3:'Trio',n4:'Grand large',univers:'Univers NAVLYS',universplus:'Univers Plus',integral:'Univers Intégral',coffret:'Coffret 1 an',
+  var NOMS={essai:'Essai libre',n1:'Entrée',n2:'Duo',n3:'Trio',n4:'Grand large',univers:'Univers NAVLYS',universplus:'Univers Plus',integral:'Univers Intégral',
+    cadeau1:'Coffret Cadeau (1 an)',cadeau2:'Package Double (1 an)',cadeau3:'Package Triple (1 an)',coffret:'Coffret 1 an',
     palier1:'Entrée',palier2:'Duo',palier3:'Trio',palier4:'Grand large',palier5:'Cap au nord',palier6:'Univers entier'};
+  var UNIQUES={cadeau1:1,cadeau2:1,cadeau3:1,coffret:1};
   var APPS=[
     {code:'accueil',nom:'L\'Univers NAVLYS',url:'/'},{code:'finance',nom:'Finance',url:'/finance'},
     {code:'next-gen',nom:'Next Gen — biographie',url:'/next-gen'},{code:'assistance',nom:'L\'Aide & le Concierge',url:'/assistance'},
@@ -113,7 +115,7 @@ h2::after{content:"";flex:1;height:1px;background:var(--line)}
     $('p-sous').textContent = M.prenom ? 'Comment vas-tu ? Voici ton espace — tout est à toi ici.' : 'Ton espace — tout est à toi ici.';
     $('p-formule').innerHTML =
       '<div class="ligne"><span class="l">Formule</span><span class="v">'+(NOMS[M.formule]||M.formule)+'</span></div>'+
-      '<div class="ligne"><span class="l">Cotisation</span><span class="v">'+(Number(M.montant)>0?fmt(M.montant)+' € HT'+(M.formule==='coffret'?' (une fois)':' / mois'):'0 € — essai gratuit')+'</span></div>'+
+      '<div class="ligne"><span class="l">Cotisation</span><span class="v">'+(Number(M.montant)>0?fmt(M.montant)+' € HT'+(UNIQUES[M.formule]?' (1 an, réglé une fois)':'/mois — réglée à l\'année'):'0 € — essai gratuit')+'</span></div>'+
       '<div class="ligne"><span class="l">État</span><span class="v '+st[1]+'">'+st[0]+'</span></div>'+
       '<div class="ligne"><span class="l">E-mail</span><span class="v">'+M.email+'</span></div>';
     sel=(M.apps||[]).slice();

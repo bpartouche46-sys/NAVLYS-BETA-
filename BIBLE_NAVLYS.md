@@ -26,8 +26,13 @@
 > **contrôle ses volumes** (photos, vidéos, créations vidéo/mois, stockage) pour
 > rester rentable — source de vérité technique : table `formules` (Supabase),
 > les applications la lisent et bloquent au quota. 9,99 = **découverte, non
-> complète**. **Offre de lancement : −50 % à vie sur tout passage de formule
-> supérieure.**
+> complète**. **Abonnement À L'ANNÉE uniquement — aucun abonnement au mois**
+> (cotisation affichée en HT/mois, réglée ×12 à l'année, `recurrence=an`).
+> **Offre de lancement : −50 % à vie sur tout passage de formule supérieure.**
+> **Coffrets cadeaux** tout pré-fournis, 1 an offert en package : −20 % (1 produit,
+> 95,99) · −30 % (2 produits, 167,99) · −40 % (3 produits, 215,99). Offres non
+> cumulables. L'ancien coffret fêtes 99,99 est supprimé (incohérent avec
+> Univers 599,88/an).
 
 | Code | Formule | Cotisation | Contenu |
 |------|---------|-----------|---------|
@@ -39,7 +44,9 @@
 | `univers` | Univers NAVLYS | 49,99/mois | toutes les apps · 2 500 photos · 120 vidéos · 20 créations/mois · 50 Go |
 | `universplus` | Univers Plus | 99,99/mois | toutes les apps · volumes ×3 · 150 Go |
 | `integral` | Univers Intégral | 149,99/mois | **100 % du site, apps existantes ET futures, à vie** · volumes libres (usage personnel) |
-| `coffret` | Coffret 1 an (cadeau) | 99,99 une fois | 1 an Univers + biographie Next Gen |
+| `cadeau1` | Coffret Cadeau (1 an) | 95,99 une fois | 1 produit · volumes Entrée · −20 % |
+| `cadeau2` | Package Double (1 an) | 167,99 une fois | 2 produits · volumes Duo · −30 % |
+| `cadeau3` | Package Triple (1 an) | 215,99 une fois | 3 produits · volumes Trio · −40 % |
 
 > Anciens Stripe price IDs (échelle 2026-06, conservés pour référence) :
 > `price_1TkpVd…` 9,99 · `price_1TkpVt…` 19,99 · `price_1TkpVv…` 29,99 ·

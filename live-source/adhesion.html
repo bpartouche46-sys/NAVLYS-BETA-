@@ -67,7 +67,7 @@ h2::after{content:"";flex:1;height:1px;background:var(--line)}
   </div>
   <input id="a-web" type="text" style="display:none" tabindex="-1" autocomplete="off">
 
-  <h2>2 · Ta cotisation <span style="letter-spacing:0;text-transform:none;font-family:'Atkinson Hyperlegible',sans-serif;font-size:.75rem;color:var(--mut)">(HT · mensuelle · sans engagement)</span></h2>
+  <h2>2 · Ta cotisation <span style="letter-spacing:0;text-transform:none;font-family:'Atkinson Hyperlegible',sans-serif;font-size:.75rem;color:var(--mut)">(HT · réglée à l'année — chez NAVLYS, aucun abonnement au mois)</span></h2>
   <div class="formules" id="a-formules"></div>
   <p class="note">Sur une même cotisation, <b>c'est toi qui choisis</b> le ou les produits que tu veux.
   À <b>zéro euro</b>, tu testes gratuitement chaque application en standard, déjà installée chez toi.
@@ -76,6 +76,9 @@ h2::after{content:"";flex:1;height:1px;background:var(--line)}
   100 % du site et des applications, <b>existantes et futures, à vie</b>.</p>
   <p class="note">🎁 <b>Offre de lancement : −50 % à vie sur tout passage à la formule supérieure.</b>
   Tu montes quand tu veux, la remise te suit pour toujours.</p>
+  <p class="note">🎀 <b>Les coffrets cadeaux</b> : tout pré-fourni en package, 1 an d'abonnement offert dedans —
+  <b>−20 %</b> pour 1 produit, <b>−30 %</b> pour 2, <b>−40 %</b> pour 3. Réglé une fois, prêt à offrir.
+  <i>Les offres ne se cumulent pas entre elles.</i></p>
 
   <h2>3 · Tes applications</h2>
   <div class="apps" id="a-apps"></div>
@@ -109,7 +112,9 @@ h2::after{content:"";flex:1;height:1px;background:var(--line)}
     {code:'univers',    nom:'Univers NAVLYS',   montant:49.99,  quota:99, inclu:'Toutes les applications. 2 500 photos · 120 vidéos · 20 créations/mois · 50 Go.', badge:'populaire'},
     {code:'universplus',nom:'Univers Plus',     montant:99.99,  quota:99, inclu:'Toutes les applications, volumes ×3 : 7 500 photos · 360 vidéos · 60 créations/mois · 150 Go.'},
     {code:'integral',   nom:'Univers Intégral', montant:149.99, quota:99, inclu:'100 % de NAVLYS : toutes les applications existantes ET futures, à vie. Volumes libres (usage personnel).', badge:'100 % à vie'},
-    {code:'coffret',    nom:'Coffret 1 an',     montant:99.99,  quota:99, unique:true, inclu:'1 an Univers NAVLYS + ta biographie Next Gen. Paiement unique — idéal cadeau.', badge:'cadeau'}
+    {code:'cadeau1',    nom:'Coffret Cadeau',   montant:95.99,  quota:1,  unique:true, inclu:'1 an offert en package, tout pré-fourni : 1 application au choix (volumes Entrée). Au lieu de 119,88.', badge:'−20 %'},
+    {code:'cadeau2',    nom:'Package Double',   montant:167.99, quota:2,  unique:true, inclu:'1 an · 2 applications (volumes Duo), tout pré-fourni. Au lieu de 239,88.', badge:'−30 %'},
+    {code:'cadeau3',    nom:'Package Triple',   montant:215.99, quota:3,  unique:true, inclu:'1 an · 3 applications (volumes Trio), tout pré-fourni. Au lieu de 359,88.', badge:'−40 %'}
   ];
   var APPS=[
     {code:'accueil',   ico:'🌊', nom:'L\'Univers NAVLYS',        det:'l\'accueil vivant, ton point d\'entrée', dispo:true},
@@ -135,7 +140,7 @@ h2::after{content:"";flex:1;height:1px;background:var(--line)}
       h+='<div class="f'+(f.code===fSel?' on':'')+'" data-f="'+f.code+'">'+
         (f.badge?'<span class="badge">'+f.badge+'</span>':'')+
         '<div class="nom">'+f.nom+'</div>'+
-        '<div class="prix">'+(f.montant===0?'0 €':fmt(f.montant)+' €')+' <small>'+(f.montant===0?'essai gratuit':(f.unique?'HT · une fois':'HT / mois'))+'</small></div>'+
+        '<div class="prix">'+(f.montant===0?'0 €':fmt(f.montant)+' €')+' <small>'+(f.montant===0?'essai gratuit':(f.unique?'HT · 1 an, réglé une fois':'HT/mois — à l\'année : '+fmt(f.montant*12)+' € HT'))+'</small></div>'+
         '<div class="inclu">'+f.inclu+'</div></div>';
     });
     $('a-formules').innerHTML=h;
@@ -190,8 +195,8 @@ h2::after{content:"";flex:1;height:1px;background:var(--line)}
       if(f.montant===0||mode==='precommande'){ location.href='/profil?bienvenue=1'; return; }
       $('a-etat').textContent='… ouverture du règlement sécurisé';
       fetch(CAISSE,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
-        montant:f.montant, devise:'eur', recurrence:(f.unique?'':'mois'),
-        libelle:'Cotisation NAVLYS — '+f.nom+' — '+email,
+        montant:(f.unique?f.montant:Math.round(f.montant*12*100)/100), devise:'eur', recurrence:(f.unique?'':'an'),
+        libelle:'Cotisation annuelle NAVLYS — '+f.nom+' — '+email,
         success_url:'https://navlys.com/profil?paye=ok',
         cancel_url:'https://navlys.com/adhesion?paye=annule' })})
       .then(function(r){return r.json();})
