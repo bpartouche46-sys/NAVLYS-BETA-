@@ -1,4 +1,4 @@
-/* NAVLYS — dictionnaire FR -> ARABE (RTL). Généré le 2026-07-05. */
+/* NAVLYS — dictionnaire FR -> ARABE (RTL). */
 window.NAVLYS_DICT_AR = {
 "Accueil": "الرئيسية",
 "Influenceurs": "المؤثرون",
@@ -1316,5 +1316,14 @@ window.NAVLYS_DICT_AR = {
 "Verdict": "الحكم",
 "Mer lue en direct ✓ — change tes seuils, tout se recalcule.": "قُرئ البحر مباشرة ✓ — غيّر عتباتك، فيُعاد حساب كل شيء.",
 "La mer ne répond pas — réessaie dans un instant. 🌊": "البحر لا يجيب — حاول مجددًا بعد لحظة. 🌊",
-"La mer ne répond pas — vérifie ta connexion et rouvre la page. 🌊": "البحر لا يجيب — تحقق من اتصالك وأعد فتح الصفحة. 🌊"
+"La mer ne répond pas — vérifie ta connexion et rouvre la page. 🌊": "البحر لا يجيب — تحقق من اتصالك وأعد فتح الصفحة. 🌊",
+"Découverte gratuite : chaque application en standard, installée mobile & PC. 100 photos · 20 documents scannés · 1 vidéo · 1 Go.": "اكتشاف مجاني: كل تطبيق في الباقة القياسية، مثبّت على الجوال والحاسوب. 100 صورة · 20 مستندًا ممسوحًا · فيديو 1 · 1 جيجابايت.",
+"1 application au choix. 2 000 photos · 500 documents scannés · 5 vidéos · 5 Go.": "تطبيق واحد من اختيارك. 2,000 صورة · 500 مستند ممسوح · 5 فيديوهات · 5 جيجابايت.",
+"2 applications au choix. 5 000 photos · 1 500 documents · 12 vidéos · 15 Go.": "تطبيقان من اختيارك. 5,000 صورة · 1,500 مستند · 12 فيديو · 15 جيجابايت.",
+"3 applications au choix. 10 000 photos · 3 000 documents · 20 vidéos · 30 Go.": "3 تطبيقات من اختيارك. 10,000 صورة · 3,000 مستند · 20 فيديو · 30 جيجابايت.",
+"4 applications au choix. 25 000 photos · 6 000 documents · 40 vidéos · 60 Go.": "4 تطبيقات من اختيارك. 25,000 صورة · 6,000 مستند · 40 فيديو · 60 جيجابايت.",
+"Toutes les applications. 50 000 photos · 15 000 documents · 80 vidéos · 150 Go.": "كل التطبيقات. 50,000 صورة · 15,000 مستند · 80 فيديو · 150 جيجابايت.",
+"Toutes les applications, volumes ×3 : 150 000 photos · 45 000 documents · 240 vidéos · 500 Go.": "كل التطبيقات، أحجام ×3: 150,000 صورة · 45,000 مستند · 240 فيديو · 500 جيجابايت.",
+"100 % de NAVLYS : toutes les applications existantes ET futures, à vie. Photos, documents et vidéos en volumes libres (usage personnel).": "‏100% من NAVLYS: كل التطبيقات الحالية والمستقبلية، مدى الحياة. صور ومستندات وفيديوهات بأحجام حرة (استخدام شخصي).",
+"📸 Des milliers de photos, tes documents scannés (vérifie tes dates, bâtis le CV de ta vie et de tes métiers), et la vidéo en bonus. Tout t'appartient.": "📸 آلاف الصور، مستنداتك الممسوحة (تحقّق من تواريخك، ابنِ سيرة حياتك ومهنك)، والفيديو هدية. كل شيء ملك لك."
 };

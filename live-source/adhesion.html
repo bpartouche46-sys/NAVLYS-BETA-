@@ -85,6 +85,7 @@ h2::after{content:"";flex:1;height:1px;background:var(--line)}
   <div class="formules" id="a-formules"></div>
   <p class="note">Ton abonnement t'ouvre l'univers NAVLYS — dedans, <b>c'est toi qui commandes</b>.
   À <b>zéro euro</b>, tu testes tout gratuitement.</p>
+  <p class="note npunch">📸 Des milliers de photos, tes documents scannés (vérifie tes dates, bâtis le CV de ta vie et de tes métiers), et la vidéo en bonus. Tout t'appartient.</p>
   <p class="note">Tu changes d'applications ou de niveau quand tu veux :
   🎁 <b>−50 % à vie sur toute montée de formule</b> — ou tout de suite l'<b>offre à vie</b>,
   tous produits, avec ou sans limite (Univers Intégral).</p>
@@ -118,14 +119,14 @@ h2::after{content:"";flex:1;height:1px;background:var(--line)}
   'use strict';
   var $=function(id){return document.getElementById(id);};
   var FORMULES=[
-    {code:'essai',      nom:'Essai libre',      montant:0,      quota:99, inclu:'Découverte gratuite : chaque application en standard, installée mobile & PC. 10 photos · 1 vidéo · 200 Mo.', badge:'0 €'},
-    {code:'n1',         nom:'Entrée',           montant:9.99,   quota:1,  inclu:'Formule découverte (non complète) : 1 application au choix. 100 photos · 5 vidéos · 1 création vidéo/mois · 2 Go.', badge:'départ'},
-    {code:'n2',         nom:'Duo',              montant:19.99,  quota:2,  inclu:'2 applications au choix. 300 photos · 15 vidéos · 3 créations/mois · 5 Go.'},
-    {code:'n3',         nom:'Trio',             montant:29.99,  quota:3,  inclu:'3 applications au choix. 600 photos · 30 vidéos · 6 créations/mois · 10 Go.'},
-    {code:'n4',         nom:'Grand large',      montant:39.99,  quota:4,  inclu:'4 applications au choix. 1 200 photos · 60 vidéos · 10 créations/mois · 20 Go.'},
-    {code:'univers',    nom:'Univers NAVLYS',   montant:49.99,  quota:99, inclu:'Toutes les applications. 2 500 photos · 120 vidéos · 20 créations/mois · 50 Go.', badge:'populaire'},
-    {code:'universplus',nom:'Univers Plus',     montant:99.99,  quota:99, inclu:'Toutes les applications, volumes ×3 : 7 500 photos · 360 vidéos · 60 créations/mois · 150 Go.'},
-    {code:'integral',   nom:'Univers Intégral', montant:149.99, quota:99, inclu:'100 % de NAVLYS : toutes les applications existantes ET futures, à vie. Volumes libres (usage personnel).', badge:'100 % à vie'}
+    {code:'essai',      nom:'Essai libre',      montant:0,      quota:99, inclu:'Découverte gratuite : chaque application en standard, installée mobile & PC. 100 photos · 20 documents scannés · 1 vidéo · 1 Go.', badge:'0 €'},
+    {code:'n1',         nom:'Entrée',           montant:9.99,   quota:1,  inclu:'1 application au choix. 2 000 photos · 500 documents scannés · 5 vidéos · 5 Go.', badge:'départ'},
+    {code:'n2',         nom:'Duo',              montant:19.99,  quota:2,  inclu:'2 applications au choix. 5 000 photos · 1 500 documents · 12 vidéos · 15 Go.'},
+    {code:'n3',         nom:'Trio',             montant:29.99,  quota:3,  inclu:'3 applications au choix. 10 000 photos · 3 000 documents · 20 vidéos · 30 Go.'},
+    {code:'n4',         nom:'Grand large',      montant:39.99,  quota:4,  inclu:'4 applications au choix. 25 000 photos · 6 000 documents · 40 vidéos · 60 Go.'},
+    {code:'univers',    nom:'Univers NAVLYS',   montant:49.99,  quota:99, inclu:'Toutes les applications. 50 000 photos · 15 000 documents · 80 vidéos · 150 Go.', badge:'populaire'},
+    {code:'universplus',nom:'Univers Plus',     montant:99.99,  quota:99, inclu:'Toutes les applications, volumes ×3 : 150 000 photos · 45 000 documents · 240 vidéos · 500 Go.'},
+    {code:'integral',   nom:'Univers Intégral', montant:149.99, quota:99, inclu:'100 % de NAVLYS : toutes les applications existantes ET futures, à vie. Photos, documents et vidéos en volumes libres (usage personnel).', badge:'100 % à vie'}
   ];
   var CADEAUX=[
     {code:'cadeau1', nom:'Coffret Cadeau · 1 application',   montant:95.99,  quota:1, unique:true, badge:'−20 %'},

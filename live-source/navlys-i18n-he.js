@@ -1,4 +1,4 @@
-/* NAVLYS — dictionnaire FR -> HÉBREU (RTL). Généré le 2026-07-05. */
+/* NAVLYS — dictionnaire FR -> HÉBREU (RTL). */
 window.NAVLYS_DICT_HE = {
 "Accueil": "דף הבית",
 "Influenceurs": "משפיענים",
@@ -1316,5 +1316,14 @@ window.NAVLYS_DICT_HE = {
 "Verdict": "פסק דין",
 "Mer lue en direct ✓ — change tes seuils, tout se recalcule.": "הים נקרא בשידור חי ✓ — שנה את הספים שלך, הכול מחושב מחדש.",
 "La mer ne répond pas — réessaie dans un instant. 🌊": "הים לא עונה — נסה שוב בעוד רגע. 🌊",
-"La mer ne répond pas — vérifie ta connexion et rouvre la page. 🌊": "הים לא עונה — בדוק את החיבור שלך ופתח את הדף מחדש. 🌊"
+"La mer ne répond pas — vérifie ta connexion et rouvre la page. 🌊": "הים לא עונה — בדוק את החיבור שלך ופתח את הדף מחדש. 🌊",
+"Découverte gratuite : chaque application en standard, installée mobile & PC. 100 photos · 20 documents scannés · 1 vidéo · 1 Go.": "היכרות חינם: כל אפליקציה בסטנדרט, מותקנת בנייד ובמחשב. 100 תמונות · 20 מסמכים סרוקים · סרטון 1 · 1 GB.",
+"1 application au choix. 2 000 photos · 500 documents scannés · 5 vidéos · 5 Go.": "אפליקציה אחת לבחירה. 2,000 תמונות · 500 מסמכים סרוקים · 5 סרטונים · 5 GB.",
+"2 applications au choix. 5 000 photos · 1 500 documents · 12 vidéos · 15 Go.": "2 אפליקציות לבחירה. 5,000 תמונות · 1,500 מסמכים · 12 סרטונים · 15 GB.",
+"3 applications au choix. 10 000 photos · 3 000 documents · 20 vidéos · 30 Go.": "3 אפליקציות לבחירה. 10,000 תמונות · 3,000 מסמכים · 20 סרטונים · 30 GB.",
+"4 applications au choix. 25 000 photos · 6 000 documents · 40 vidéos · 60 Go.": "4 אפליקציות לבחירה. 25,000 תמונות · 6,000 מסמכים · 40 סרטונים · 60 GB.",
+"Toutes les applications. 50 000 photos · 15 000 documents · 80 vidéos · 150 Go.": "כל האפליקציות. 50,000 תמונות · 15,000 מסמכים · 80 סרטונים · 150 GB.",
+"Toutes les applications, volumes ×3 : 150 000 photos · 45 000 documents · 240 vidéos · 500 Go.": "כל האפליקציות, נפחים ×3: 150,000 תמונות · 45,000 מסמכים · 240 סרטונים · 500 GB.",
+"100 % de NAVLYS : toutes les applications existantes ET futures, à vie. Photos, documents et vidéos en volumes libres (usage personnel).": "‏100% מ־NAVLYS: כל האפליקציות הקיימות והעתידיות, לכל החיים. תמונות, מסמכים וסרטונים בנפחים חופשיים (שימוש אישי).",
+"📸 Des milliers de photos, tes documents scannés (vérifie tes dates, bâtis le CV de ta vie et de tes métiers), et la vidéo en bonus. Tout t'appartient.": "📸 אלפי תמונות, המסמכים הסרוקים שלך (בדוק את התאריכים, בנה את קורות החיים של חייך ומקצועותיך), וסרטון במתנה. הכול שייך לך."
 };
