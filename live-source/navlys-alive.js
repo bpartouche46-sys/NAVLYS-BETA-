@@ -291,6 +291,8 @@
   function send(){
     var q=document.getElementById('nv-q'); var t=q.value.trim(); if(!t) return;
     add('u',t,false); q.value='';
+    // 0-bis) RÉGLAGE DU MOT D'ÉVEIL au clavier (si NAVLYS l'attend)
+    try{ if(window.NAVLYS_WAKE&&window.NAVLYS_WAKE.attend()){ window.NAVLYS_WAKE.defini(t); return; } }catch(e){}
     var nvLng='fr'; try{ nvLng=(window.NAVLYS_I18N&&window.NAVLYS_I18N.lang&&window.NAVLYS_I18N.lang())||localStorage.getItem('nv-lang')||navigator.language||'fr'; }catch(e){}
     // 0) COMMANDE DE LANGUE : « réponds-moi en hébreu », "speak Russian"…
     var cible=nvCmdLangue(t);
@@ -318,28 +320,98 @@
   panel.querySelector('#nv-snd').onclick=send;
   panel.querySelector('#nv-q').addEventListener('keydown',function(e){ if(e.key==='Enter'&&!e.shiftKey){ e.preventDefault(); send(); } });
 
-  /* ---------- MICRO : parle, je t'écoute — dans la langue du site ---------- */
+  /* ---------- MAINS LIBRES : écoute continue + MOT D'ÉVEIL personnel ----------
+     (gravé 2026-07-05, demande de Bruno) La personne parle SANS toucher à rien.
+     Elle choisit SON mot secret : le dire réveille NAVLYS, « stop / dors » l'endort.
+     Une seule contrainte navigateur : le tout 1er accès micro exige un geste
+     (le bouton 🎙️). Ensuite tout est à la voix. Écoute redémarrée en boucle. */
   (function(){
     var micBtn=panel.querySelector('#nv-mic'); if(!micBtn) return;
     var SR=window.SpeechRecognition||window.webkitSpeechRecognition;
-    if(!SR){ micBtn.style.display='none'; return; } /* iOS Safari : dictée clavier à la place */
-    var rec=null, actif=false;
-    micBtn.onclick=function(){
-      if(actif){ try{ rec.stop(); }catch(e){} return; }
+    if(!SR){ micBtn.title='Dictée : utilise le micro de ton clavier 🎙️'; return; } /* iOS Safari */
+
+    var LS={ on:'nv-mains-libres', mot:'nv-mot-eveil' };
+    function getMot(){ try{ return (localStorage.getItem(LS.mot)||'').trim(); }catch(e){ return ''; } }
+    function setMot(m){ try{ localStorage.setItem(LS.mot, m); }catch(e){} }
+    function estOn(){ try{ return localStorage.getItem(LS.on)==='oui'; }catch(e){ return false; } }
+    function setOn(v){ try{ localStorage.setItem(LS.on, v?'oui':'non'); }catch(e){} }
+
+    var MOTS_STOP=['stop','dors','tais toi','au revoir','stop navlys','sleep','stop listening','стоп','спи','замолчи','пока','עצור','לך לישון','די','توقف','نم','قف','مع السلامة'];
+    var DORT_MSG={fr:'😴 Je dors. Dis ton mot pour me réveiller.',en:'😴 I\'m asleep. Say your word to wake me.',ru:'😴 Я сплю. Скажи своё слово, чтобы разбудить.',he:'😴 אני ישן. תגיד את המילה שלך כדי להעיר אותי.',ar:'😴 أنا نائم. قل كلمتك لإيقاظي.'};
+    var EVEIL_MSG={fr:'👂 Je t\'écoute, vas-y.',en:'👂 I\'m listening, go ahead.',ru:'👂 Я слушаю, говори.',he:'👂 אני מקשיב, דבר.',ar:'👂 أنا أستمع، تفضّل.'};
+    var DEMANDE_MOT={fr:'Choisis TON mot secret pour me réveiller (ex. « Capitaine », « NAVLYS », ton prénom…). Dis-le ou écris-le.',en:'Choose YOUR secret word to wake me (e.g. "Captain", "NAVLYS", your name…). Say it or type it.',ru:'Выбери СВОЁ секретное слово, чтобы будить меня (напр. «Капитан», «NAVLYS», твоё имя…). Скажи или напиши.',he:'בחר את מילת הסוד שלך כדי להעיר אותי (למשל «קפטן», «NAVLYS», השם שלך…). אמור או כתוב אותה.',ar:'اختر كلمتك السرية لإيقاظي (مثل «كابتن»، «NAVLYS»، اسمك…). قلها أو اكتبها.'};
+    var MOT_OK={fr:'Parfait ! Dis « %s » quand tu veux me parler. 🌊',en:'Perfect! Say "%s" whenever you want to talk to me. 🌊',ru:'Отлично! Скажи «%s», когда захочешь поговорить. 🌊',he:'מעולה! תגיד «%s» מתי שתרצה לדבר איתי. 🌊',ar:'ممتاز! قل «%s» متى أردت أن تكلمني. 🌊'};
+    function L(){ var l='fr'; try{ l=(window.NAVLYS_I18N&&window.NAVLYS_I18N.lang&&window.NAVLYS_I18N.lang())||localStorage.getItem('nv-lang')||'fr'; }catch(e){} return (['en','ru','he','ar'].indexOf(l)>-1)?l:'fr'; }
+
+    var rec=null, running=false, eveille=false, attendMot=false, veutTourner=false;
+    function poser(cls,txt){ add(cls,txt,cls==='n'); if(cls==='n') nvSpeak(txt); }
+
+    function demarrer(){
+      if(running) return;
       try{
-        rec=new SR(); rec.lang=nvLangCode(); rec.interimResults=true; rec.maxAlternatives=1;
-        var q=document.getElementById('nv-q');
-        rec.onresult=function(ev){
-          var txt=''; for(var i=0;i<ev.results.length;i++){ txt+=ev.results[i][0].transcript; }
-          q.value=txt;
-          if(ev.results[ev.results.length-1].isFinal){ send(); }
-        };
-        rec.onstart=function(){ actif=true; micBtn.classList.add('on'); };
-        rec.onend=function(){ actif=false; micBtn.classList.remove('on'); };
-        rec.onerror=function(){ actif=false; micBtn.classList.remove('on'); };
+        rec=new SR(); rec.lang=nvLangCode(); rec.continuous=true; rec.interimResults=true; rec.maxAlternatives=1;
+        rec.onstart=function(){ running=true; micBtn.classList.add('on'); };
+        rec.onresult=onResult;
+        rec.onerror=function(ev){ if(ev&&ev.error==='not-allowed'){ veutTourner=false; setOn(false); micBtn.classList.remove('on'); poser('n', L()==='fr'?'Je n\'ai pas accès au micro — autorise-le puis retouche 🎙️.':'I can\'t reach the mic — allow it, then tap 🎙️ again.'); } };
+        rec.onend=function(){ running=false; if(veutTourner && document.visibilityState==='visible'){ setTimeout(function(){ try{ demarrer(); }catch(e){} }, 350); } else micBtn.classList.remove('on'); };
         rec.start();
-      }catch(e){ actif=false; micBtn.classList.remove('on'); }
+      }catch(e){ running=false; }
+    }
+    function stopper(){ veutTourner=false; try{ if(rec) rec.stop(); }catch(e){} micBtn.classList.remove('on'); }
+
+    var q=document.getElementById('nv-q');
+    function onResult(ev){
+      var txt=''; for(var i=ev.resultIndex;i<ev.results.length;i++){ txt+=ev.results[i][0].transcript; }
+      var fin=ev.results[ev.results.length-1].isFinal;
+      var norm=nvNorm(txt);
+
+      if(attendMot){ /* réglage du mot d'éveil */
+        if(fin && norm){ var m=norm.split(' ').slice(0,3).join(' '); setMot(m); attendMot=false; eveille=false; poser('n', MOT_OK[L()].replace('%s', m)); }
+        return;
+      }
+      if(!eveille){ /* on dort : on cherche le mot d'éveil */
+        var mot=nvNorm(getMot()||'navlys');
+        if(norm.indexOf(mot)>-1){
+          eveille=true; poser('n', EVEIL_MSG[L()]);
+          var reste=norm.slice(norm.indexOf(mot)+mot.length).trim();
+          if(fin && reste.length>1){ q.value=reste; send(); }
+        }
+        return;
+      }
+      /* réveillé : on capte l'ordre */
+      q.value=txt;
+      if(fin){
+        var stop=false, s; for(s=0;s<MOTS_STOP.length;s++){ if(norm.indexOf(nvNorm(MOTS_STOP[s]))>-1){ stop=true; break; } }
+        if(stop){ eveille=false; q.value=''; poser('n', DORT_MSG[L()]); return; }
+        if(norm.length>1){ send(); }
+      }
+    }
+
+    micBtn.onclick=function(){
+      if(veutTourner){ setOn(false); stopper(); poser('n', DORT_MSG[L()]); return; }
+      /* 1er lancement : le geste qui débloque le micro (contrainte navigateur) */
+      setOn(true); veutTourner=true; eveille=false;
+      if(!getMot()){ attendMot=true; eveille=true; poser('n', DEMANDE_MOT[L()]); }
+      else { poser('n', DORT_MSG[L()].replace('😴','🎧')); }
+      demarrer();
     };
+    /* si la personne a déjà activé les mains libres avant : on relance tout seul */
+    if(estOn()){ veutTourner=true; eveille=false; setTimeout(demarrer, 600); }
+
+    /* réglage du mot d'éveil aussi possible au CLAVIER, via send() : si on attend
+       le mot et que la personne l'écrit, on l'enregistre (capté dans send). */
+    window.NAVLYS_WAKE={ attend:function(){ return attendMot; }, defini:function(m){ var mm=nvNorm(m).split(' ').slice(0,3).join(' '); setMot(mm); attendMot=false; eveille=false; poser('n', MOT_OK[L()].replace('%s', mm)); } };
+
+    /* ---- Sur les PAGES APPLICATIONS : l'Aide s'ouvre par défaut, micro en avant ---- */
+    var APP_PAGES=['/finance','/next-gen','/next-gen-atelier','/next-gen-beta','/ecris-ta-vie','/navlex','/mer','/assistance','/idee','/profil','/cockpit','/club','/radio','/cinema','/io','/copilote'];
+    var pth=location.pathname.replace(/\.html$/,'').replace(/\/$/,'')||'/';
+    if(APP_PAGES.indexOf(pth)>-1){
+      setTimeout(function(){
+        if(panel.style.display!=='flex'){ panel.style.display='flex'; }
+        micBtn.classList.add('on'); setTimeout(function(){ if(!running) micBtn.classList.remove('on'); },1600);
+        if(!estOn()){ var l=L(); poser('n', {fr:'Astuce : touche le micro 🎙️ une fois, choisis ton mot secret, puis parle-moi sans rien toucher.',en:'Tip: tap the mic 🎙️ once, choose your secret word, then talk to me hands-free.',ru:'Совет: коснись микрофона 🎙️ один раз, выбери секретное слово и говори без рук.',he:'טיפ: גע במיקרופון 🎙️ פעם אחת, בחר מילת סוד, ואז דבר איתי בלי ידיים.',ar:'نصيحة: المس الميكروفون 🎙️ مرة واحدة، اختر كلمتك السرية، ثم كلّمني بدون لمس.'}[l]); }
+      }, 900);
+    }
   })();
 
   /* ---------- RETOUR : bouton bas-gauche, toutes les applications ----------
