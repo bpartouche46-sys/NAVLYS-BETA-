@@ -146,6 +146,8 @@
   v.autoplay=true; v.muted=true; v.loop=true; v.playsInline=true; v.setAttribute('playsinline','');
   v.src='/media/fond.mp4';
   v.onerror=function(){ v.remove(); }; // pas de film => le decor cinema vivant reste la star
+  // fond SANS voix => boucle RALENTIE (règle Bruno 2026-07-05)
+  v.onloadeddata=function(){ try{ v.playbackRate=0.65; }catch(e){} };
   document.body.appendChild(v);
 
   /* ---------- bulles promo (apparaissent / disparaissent) ---------- */
@@ -207,16 +209,26 @@
   var nvAudio=null;
   function nvClean(t){ return String(t).replace(/[*_#>`]|🌊|👋|😊|🚀/g,'').trim(); }
   function nvStop(){ try{ if(nvAudio){ nvAudio.pause(); nvAudio=null; } }catch(e){} try{ if('speechSynthesis'in window) speechSynthesis.cancel(); }catch(e){} }
-  // voix navigateur AMÉLIORÉE : meilleure voix française dispo + débit doux
+  // voix navigateur AMÉLIORÉE : meilleure voix DANS LA LANGUE DU SITE + débit doux
+  function nvLangCode(){
+    var l='fr';
+    try{ l=(window.NAVLYS_I18N&&window.NAVLYS_I18N.lang&&window.NAVLYS_I18N.lang())||localStorage.getItem('nv-lang')||'fr'; }catch(e){}
+    if(l==='en') return 'en-US';
+    if(l==='ru') return 'ru-RU';
+    if(l==='he') return 'he-IL';
+    if(l==='ar') return 'ar-SA';
+    return 'fr-FR';
+  }
   function nvBrowserSpeak(text){
     if(!('speechSynthesis'in window))return;
     try{
-      var u=new SpeechSynthesisUtterance(text); u.lang='fr-FR'; u.rate=0.98; u.pitch=1.0;
+      var code=nvLangCode(), base=code.slice(0,2);
+      var u=new SpeechSynthesisUtterance(text); u.lang=code; u.rate=0.98; u.pitch=1.0;
       var vs=(speechSynthesis.getVoices&&speechSynthesis.getVoices())||[];
-      var pref=['google français','français','french','amelie','amélie','thomas','virginie','audrey','natural','neural','wavenet'];
+      var pref=['google','natural','neural','wavenet','amelie','amélie','thomas','virginie','audrey'];
       var pick=null,i,j;
-      for(i=0;i<vs.length&&!pick;i++){ var n=((vs[i].name||'')+' '+(vs[i].lang||'')).toLowerCase(); if(n.indexOf('fr')>-1){ for(j=0;j<pref.length;j++){ if(n.indexOf(pref[j])>-1){ pick=vs[i]; break; } } } }
-      if(!pick){ for(i=0;i<vs.length;i++){ if((vs[i].lang||'').toLowerCase().indexOf('fr')===0){ pick=vs[i]; break; } } }
+      for(i=0;i<vs.length&&!pick;i++){ var n=((vs[i].name||'')+' '+(vs[i].lang||'')).toLowerCase(); if(n.indexOf(base)>-1){ for(j=0;j<pref.length;j++){ if(n.indexOf(pref[j])>-1){ pick=vs[i]; break; } } } }
+      if(!pick){ for(i=0;i<vs.length;i++){ if((vs[i].lang||'').toLowerCase().indexOf(base)===0){ pick=vs[i]; break; } } }
       if(pick) u.voice=pick;
       speechSynthesis.cancel(); speechSynthesis.speak(u);
     }catch(e){}
@@ -262,7 +274,7 @@
   document.body.appendChild(fbBtn);
   var fbApp=(location.pathname==='/'||location.pathname==='')?'Accueil':location.pathname.replace(/^\//,'').replace(/\.html$/,'');
   var fb=document.createElement('div'); fb.id='nv-fb';
-  fb.innerHTML='<div class="hd">💡 Ton avis compte<small>Application : '+fbApp+' — dis-nous tout, on lit, on applique, on répond.</small></div>'+
+  fb.innerHTML='<div class="hd">💡 Ton avis compte<small><span>Application</span> : '+fbApp+' — <span>dis-nous tout, on lit, on applique, on répond.</span></small></div>'+
     '<div class="bd">'+
       '<div class="row" id="nv-fb-t">'+
         '<div class="opt" data-v="critique">🐞 Critique</div>'+
@@ -418,7 +430,7 @@
   var shareM=mkMenu('nv-shareM',shareHTML,true);
 
   // ---- menu RÉGLAGES / COMPTE / PAIEMENT / LANGUE ----
-  var curLang='fr'; try{ curLang=(window.localStorage&&localStorage.getItem('nv-lang'))||'fr'; }catch(e){} if(curLang!=='en'&&curLang!=='ru') curLang='fr';
+  var curLang='fr'; try{ curLang=(window.localStorage&&localStorage.getItem('nv-lang'))||'fr'; }catch(e){} if(['en','ru','he','ar'].indexOf(curLang)<0) curLang='fr';
   var gearHTML=
     '<div class="lbl">Mon espace</div>'+
     '<button id="nv-account">👤 <span>Identité &amp; Compte</span></button>'+
@@ -430,6 +442,8 @@
       '<div class="nv-lang'+(curLang==='fr'?' on':'')+'" data-l="fr">FR</div>'+
       '<div class="nv-lang'+(curLang==='en'?' on':'')+'" data-l="en">EN</div>'+
       '<div class="nv-lang'+(curLang==='ru'?' on':'')+'" data-l="ru">RU</div>'+
+      '<div class="nv-lang'+(curLang==='he'?' on':'')+'" data-l="he">עב</div>'+
+      '<div class="nv-lang'+(curLang==='ar'?' on':'')+'" data-l="ar">ع</div>'+
     '</div>'+
     '<div class="sep"></div>'+
     '<button id="nv-help">💬 <span>Aide &amp; SAV</span></button>';
@@ -466,7 +480,7 @@
       Array.prototype.forEach.call(gearM.querySelectorAll('.nv-lang'),function(x){
         if(!x.classList.contains('soon')){ if(x===el) x.classList.add('on'); else x.classList.remove('on'); }
       });
-      toast(l==='ru'?'Русский — готово ✓ 🌍':(l==='en'?'English — done ✓ 🌍':'Français — activé ✓ 🌊'));
+      toast(l==='ru'?'Русский — готово ✓ 🌍':(l==='en'?'English — done ✓ 🌍':(l==='he'?'עברית — מוכן ✓ 🌍':(l==='ar'?'العربية — جاهز ✓ 🌍':'Français — activé ✓ 🌊'))));
     };
   });
 })();
