@@ -39,7 +39,8 @@
     background:rgba(6,8,14,.82);color:${OR};font-family:'Lora',serif;font-weight:600;border-radius:999px;padding:12px 16px;
     box-shadow:0 8px 26px rgba(0,0,0,.45)}
   #nv-fb{position:fixed;left:18px;bottom:140px;z-index:62;width:min(360px,92vw);display:none;flex-direction:column;
-    background:linear-gradient(160deg,rgba(233,211,160,.10),rgba(10,12,20,.96));border:1px solid rgba(233,211,160,.35);
+    background:linear-gradient(160deg,rgba(28,26,18,.96),rgba(6,8,13,.97));border:1px solid rgba(233,211,160,.35);
+    -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
     border-radius:18px;overflow:hidden;box-shadow:0 16px 50px rgba(0,0,0,.6)}
   #nv-fb .hd{padding:13px 15px;border-bottom:1px solid rgba(233,211,160,.25);color:#fff;font-family:'Cormorant Garamond';letter-spacing:1px}
   #nv-fb .hd small{display:block;color:#b9c6d6;font-family:'Lora',serif;font-size:.8rem;letter-spacing:0;margin-top:3px}
