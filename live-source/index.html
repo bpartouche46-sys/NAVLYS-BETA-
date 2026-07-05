@@ -192,6 +192,69 @@ footer{padding:46px 20px 70px;text-align:center;border-top:1px solid rgba(184,11
   <div class="disclaimer">NAVLYS est un projet d'<b>éducation et de veille à vocation informative uniquement</b>. Les contenus ne constituent en aucun cas un conseil personnalisé en investissement. Les liens « affilié » génèrent une commission sans surcoût pour toi. Investir comporte un risque de perte en capital. Chacun reste seul responsable de ses décisions. Tous les tarifs sont indiqués <b>HT</b>. Réservé aux 18 ans et +. Tes contenus restent privés par défaut et t'appartiennent. © 2026 NAVLYS · navlys.com</div>
 </footer>
 
+<style>
+/* Encadrés VIVANTS : vignette animée (ou vraie vidéo produit dès qu'elle existe) */
+#apps .card .vive{display:block;width:100%;height:64px;border-radius:12px;margin-bottom:12px;
+  border:1px solid rgba(125,211,252,.14);background:rgba(4,7,14,.55);object-fit:cover}
+</style>
+<script>
+/* ====================================================================
+   NAVLYS — Encadrés vivants (gravé 2026-07-05, demande de Bruno)
+   Chaque carte d'application reçoit une VIGNETTE VIVANTE :
+   1) si /media/demo-<app>.mp4 existe -> vraie vidéo du produit en utilisation
+      (muette, en boucle) — les vidéos du studio s'y logent toutes seules ;
+   2) sinon -> animation canvas maison (charte ice/or), douce et sobre.
+   Respecte prefers-reduced-motion (image fixe). Pause hors écran (batterie).
+==================================================================== */
+(function(){
+  'use strict';
+  var ICE='#7DD3FC', OR='#e9d3a0';
+  var calme=false; try{ calme=matchMedia('(prefers-reduced-motion: reduce)').matches; }catch(e){}
+  var TYPES={'/finance':'finance','/next-gen':'vie','/navlex':'lex','/tech':'journal','/radio':'radio','/partenaires':'liens'};
+  var DESSINS={
+    finance:function(c,t){ var w=c.width,h=c.height; c2.strokeStyle=ICE; c2.lineWidth=2; c2.beginPath();
+      for(var x=0;x<=w;x+=6){ var p=x/w, y=h-8-(h-22)*p - Math.sin(p*7+t/600)*5*(1-p*0.4); x?c2.lineTo(x,y):c2.moveTo(x,y); } c2.stroke();
+      c2.fillStyle=OR; c2.font='12px serif'; c2.fillText('€', w-16+Math.sin(t/500)*2, 16+Math.cos(t/700)*2); },
+    vie:function(c,t){ var w=c.width,h=c.height; c2.strokeStyle='rgba(233,211,160,.8)'; c2.lineWidth=1.6;
+      for(var l=0;l<4;l++){ var y=13+l*13, prog=Math.min(1,Math.max(0,(t/900-l*0.45)%4)); c2.beginPath(); c2.moveTo(14,y); c2.lineTo(14+(w-28)*Math.min(1,prog),y); c2.stroke(); }
+      c2.fillStyle=ICE; c2.fillRect(14+((t/18)%(w-30)),8,1.6,h-16); },
+    lex:function(c,t){ var w=c.width,h=c.height,cx=w/2,a=Math.sin(t/900)*0.12; c2.strokeStyle=ICE; c2.lineWidth=1.8;
+      c2.beginPath(); c2.moveTo(cx,10); c2.lineTo(cx,h-12); c2.stroke();
+      c2.beginPath(); c2.moveTo(cx-34,22+a*30); c2.lineTo(cx+34,22-a*30); c2.stroke();
+      c2.strokeStyle=OR; c2.beginPath(); c2.arc(cx-34,30+a*30,8,0,Math.PI); c2.stroke();
+      c2.beginPath(); c2.arc(cx+34,30-a*30,8,0,Math.PI); c2.stroke(); },
+    journal:function(c,t){ var w=c.width,h=c.height; c2.fillStyle='rgba(125,211,252,.85)';
+      for(var l=0;l<3;l++){ var y=14+l*16, len=(w*0.4)+Math.sin(t/700+l)*w*0.14; c2.fillRect(14,y,Math.max(30,len),2.4); }
+      c2.fillStyle=OR; var s=7+Math.sin(t/300)*2; c2.beginPath(); c2.arc(w-22,16,s/2,0,7); c2.fill(); },
+    radio:function(c,t){ var w=c.width,h=c.height; c2.fillStyle=ICE;
+      for(var b=0;b<16;b++){ var x=10+b*((w-20)/16), amp=(h-20)*(0.25+0.7*Math.abs(Math.sin(t/260+b*0.9))); c2.fillRect(x,(h-amp)/2,4,amp); } },
+    liens:function(c,t){ var w=c.width,h=c.height,y=h/2,p=Math.abs(Math.sin(t/1100))*8; c2.lineWidth=2;
+      c2.strokeStyle=ICE; c2.beginPath(); c2.arc(w/2-14+p,y,12,0,7); c2.stroke();
+      c2.strokeStyle=OR;  c2.beginPath(); c2.arc(w/2+14-p,y,12,0,7); c2.stroke(); }
+  };
+  var c2=null;
+  document.querySelectorAll('#apps .card').forEach(function(card){
+    var type=TYPES[(card.getAttribute('href')||'')]; if(!type) return;
+    // 1) la vraie vidéo du produit, si le studio l'a livrée
+    var v=document.createElement('video');
+    v.className='vive'; v.muted=true; v.loop=true; v.playsInline=true; v.autoplay=!calme; v.preload='metadata';
+    v.src='/media/demo-'+type+'.mp4';
+    v.addEventListener('canplay',function(){ if(!v.parentNode){ card.insertBefore(v,card.querySelector('.head')); if(!calme) v.play().catch(function(){}); } },{once:true});
+    // 2) sinon : vignette animée maison
+    v.addEventListener('error',function(){
+      var c=document.createElement('canvas'); c.className='vive';
+      card.insertBefore(c,card.querySelector('.head'));
+      c.width=c.clientWidth||300; c.height=64; c2=c.getContext('2d');
+      var visible=true, obs;
+      try{ obs=new IntersectionObserver(function(es){ visible=es[0].isIntersecting; }); obs.observe(c); }catch(e){}
+      function frame(t){ c.width=c.clientWidth||c.width; c2=c.getContext('2d'); c2.clearRect(0,0,c.width,c.height);
+        DESSINS[type](c, calme?1200:t); if(!calme && document.visibilityState==='visible') requestAnimationFrame(function(tt){ if(visible) frame(tt); else setTimeout(function(){requestAnimationFrame(frame);},600); });
+      }
+      requestAnimationFrame(frame);
+    },{once:true});
+  });
+})();
+</script>
 <script src="/navlys-alive.js" defer></script>
 <script src="/navlys-i18n.js" defer></script>
 <script>/* NAVLYS installable comme une appli mobile (hors-ligne + écran d'accueil) */
