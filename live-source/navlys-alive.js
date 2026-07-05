@@ -311,6 +311,7 @@
   var pages=[
     {n:'Accueil',h:'/'},
     {n:'Adhésion',h:'/adhesion'},
+    {n:'Ton idée',h:'/idee'},
     {n:'Finance',h:'/finance'},
     {n:'Next Gen',h:'/next-gen'},
     {n:'NAVLEX',h:'/navlex'},
