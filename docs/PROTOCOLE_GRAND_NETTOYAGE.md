@@ -81,15 +81,29 @@ Pipeline J0, pour UN partenaire unique (affilié à vie) :
 | H+4 | Déployer les briques (assistant, voix, retour, veilleur, sauvegarde, météo…) |
 | H+6 | Encaissement : rail choisi (PayPlus/banque directe/Lemon) branché |
 | H+8 | i18n langue(s) du partenaire + concierge à SA voix (clone ElevenLabs) |
-| H+10 | Tests de bout en bout (santé verte) → remise des accès au partenaire |
-| J1 | EN LIGNE. Le partenaire exploite ; NAVLYS reste le cerveau ; contrat affilié à vie |
+| H+10 | Tests de bout en bout (santé verte) → ouverture de l'accès UTILISATEUR au partenaire |
+| J1 | EN LIGNE. Le partenaire exploite SA marque ; NAVLYS WEB SERVICE gère TOUT |
 
 **Principe d'isolation :** 1 partenaire = 1 repo + 1 projet Supabase + 1 jeu de
 clés + 1 CORE. Aucun partage de secrets ni de données entre cerveaux.
 
-**Modèle partenaire (à contractualiser avec NAVLEX) :** partenaire/affilié à vie —
-part récurrente sur l'encaissement, cerveau maintenu par NAVLYS, marque du
-partenaire devant, NAVLYS CORE dedans.
+## 5bis. LE MODÈLE : NAVLYS WEB SERVICE, GESTIONNAIRE DE TOUT
+> Précision de Bruno (gravée le 2026-07-05, règle n°22) : le sous-traitant pour
+> tout, c'est NOTRE CORE principal — la société israélienne **NAVLYS WEB SERVICE**.
+> Tout passe par nous.
+
+- **Domaines** : déposés et détenus par NAVLYS WEB SERVICE (jamais au nom du partenaire).
+- **Sites** : déployés et hébergés sur NOS comptes (Vercel/Supabase de la société).
+- **Sécurité** : secrets, clés, sauvegardes — créés, détenus et tournés par nous.
+- **Gestion** : maintenance, briques, mises à jour, incidents — nous, 24/7.
+- **Le partenaire** : utilise le système sous SA marque, encaisse via le rail
+  que nous opérons, et reste **dépendant de nous** — c'est le cœur du modèle :
+  un abonné-partenaire à vie, pas un propriétaire d'infrastructure.
+- **Ce que le partenaire reçoit** : un accès UTILISATEUR/exploitant (cockpit,
+  contenus, stats), jamais les accès racine (registrar, hébergeur, base, clés).
+- **Contrat (mission NAVLEX)** : licence d'exploitation + affiliation à vie,
+  réversibilité encadrée (si départ : la marque part, l'infrastructure reste),
+  conformité israélienne (société, facturation, TVA).
 
 ## 6. ORDRE D'EXÉCUTION LE JOUR J
 
