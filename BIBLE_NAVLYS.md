@@ -20,17 +20,32 @@
   animations, au logo et aux textes d'accent. Fond sombre.
 - **Interdit** : tout pourpre / mauve / fuchsia.
 
-## 3. Politique de prix (HT)
+## 3. Politique de cotisations (HT) — gravée le 2026-07-05 par Bruno
 
-| Palier | Prix | Stripe price ID |
-|--------|------|-----------------|
-| 1 | 9,99  | `price_1TkpVdLtUVKEi3CkVOqeWCkO` |
-| 2 | 19,99 | `price_1TkpVtLtUVKEi3Ck3kWL2jQo` |
-| 3 | 29,99 | `price_1TkpVvLtUVKEi3CkJ7D9YyRr` |
-| 4 | 49,99 | `price_1TkpVxLtUVKEi3Ck3Q9RFxIH` |
-| 5 | 79,99 | `price_1TkpVyLtUVKEi3CkIXhca0wq` |
-| 6 | 99,99 | `price_1TkpW0LtUVKEi3Cko1mo2wl1` |
-| Coffret fêtes (1 an + biographie) | 99,99 | `price_1TkpW1LtUVKEi3CkGFfLTq4u` |
+> Principe : chaque tranche de 9,99 fait monter d'une formule. Chaque formule
+> **contrôle ses volumes** (photos, vidéos, créations vidéo/mois, stockage) pour
+> rester rentable — source de vérité technique : table `formules` (Supabase),
+> les applications la lisent et bloquent au quota. 9,99 = **découverte, non
+> complète**. **Offre de lancement : −50 % à vie sur tout passage de formule
+> supérieure.**
+
+| Code | Formule | Cotisation | Contenu |
+|------|---------|-----------|---------|
+| `essai` | Essai libre | 0 € | découverte standard installée mobile+PC · 10 photos · 1 vidéo · 200 Mo |
+| `n1` | Entrée | 9,99/mois | 1 app · 100 photos · 5 vidéos · 1 création/mois · 2 Go |
+| `n2` | Duo | 19,99/mois | 2 apps · 300 photos · 15 vidéos · 3 créations/mois · 5 Go |
+| `n3` | Trio | 29,99/mois | 3 apps · 600 photos · 30 vidéos · 6 créations/mois · 10 Go |
+| `n4` | Grand large | 39,99/mois | 4 apps · 1 200 photos · 60 vidéos · 10 créations/mois · 20 Go |
+| `univers` | Univers NAVLYS | 49,99/mois | toutes les apps · 2 500 photos · 120 vidéos · 20 créations/mois · 50 Go |
+| `universplus` | Univers Plus | 99,99/mois | toutes les apps · volumes ×3 · 150 Go |
+| `integral` | Univers Intégral | 149,99/mois | **100 % du site, apps existantes ET futures, à vie** · volumes libres (usage personnel) |
+| `coffret` | Coffret 1 an (cadeau) | 99,99 une fois | 1 an Univers + biographie Next Gen |
+
+> Anciens Stripe price IDs (échelle 2026-06, conservés pour référence) :
+> `price_1TkpVd…` 9,99 · `price_1TkpVt…` 19,99 · `price_1TkpVv…` 29,99 ·
+> `price_1TkpVx…` 49,99 · `price_1TkpVy…` 79,99 · `price_1TkpW0…` 99,99 ·
+> `price_1TkpW1…` coffret. La caisse actuelle crée les abonnements en
+> `price_data` dynamique — ces IDs ne sont plus nécessaires.
 
 - **Paiement** : Stripe = rail principal (compte `acct_1TYn17LtUVKEi3Ck`).
   PayPal / Wise / Lemon Squeezy = rails secondaires à étudier plus tard.
