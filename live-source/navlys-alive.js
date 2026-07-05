@@ -310,6 +310,7 @@
   var ICE='#7DD3FC', OR='#e9d3a0', NOIR='#05060a';
   var pages=[
     {n:'Accueil',h:'/'},
+    {n:'Adhésion',h:'/adhesion'},
     {n:'Finance',h:'/finance'},
     {n:'Next Gen',h:'/next-gen'},
     {n:'NAVLEX',h:'/navlex'},
@@ -538,7 +539,7 @@
   });
 
   // --- compte à rebours réel jusqu'au 1er juillet 2026, 00:00 ---
-  var band=document.createElement('a'); band.id='nv-count'; band.href='/finance'; document.body.appendChild(band);
+  var band=document.createElement('a'); band.id='nv-count'; band.href='/adhesion'; document.body.appendChild(band);
   var TARGET=new Date(2026,6,1,0,0,0).getTime();
   function pad(n){ return (n<10?'0':'')+n; }
   function tick(){
