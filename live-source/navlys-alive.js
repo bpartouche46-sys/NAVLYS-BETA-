@@ -34,6 +34,9 @@
   #nv-sav .ft{display:flex;gap:7px;padding:11px;border-top:1px solid rgba(125,211,252,.2)}
   #nv-sav textarea{flex:1;background:rgba(5,6,10,.6);border:1px solid rgba(125,211,252,.25);border-radius:11px;color:#eef0f6;padding:9px;font-family:'Lora',serif;font-size:.95rem;resize:none;height:42px}
   #nv-sav .snd{border:none;cursor:pointer;background:${ICE};color:${NOIR};border-radius:10px;padding:0 14px;font-weight:600}
+  #nv-sav .mic{border:1px solid rgba(125,211,252,.4);cursor:pointer;background:rgba(125,211,252,.12);color:#a8e3ff;border-radius:10px;padding:0 12px;font-size:1.05rem}
+  #nv-sav .mic.on{background:rgba(233,211,160,.25);border-color:rgba(233,211,160,.7);animation:nvMicPulse 1.1s ease-in-out infinite}
+  @keyframes nvMicPulse{0%,100%{box-shadow:0 0 0 0 rgba(233,211,160,.35)}50%{box-shadow:0 0 0 7px rgba(233,211,160,0)}}
   /* ---------- bouton RETOUR (bas-gauche, toutes les apps) ---------- */
   #nv-fb-btn{position:fixed;left:18px;bottom:84px;z-index:61;border:1px solid rgba(233,211,160,.5);cursor:pointer;
     background:rgba(6,8,14,.82);color:${OR};font-family:'Lora',serif;font-weight:600;border-radius:999px;padding:12px 16px;
@@ -181,7 +184,7 @@
   var panel=document.createElement('div'); panel.id='nv-sav';
   panel.innerHTML='<div class="hd"><span class="dot"></span> NAVLYS · Aide &amp; SAV</div>'+
     '<div class="bd" id="nv-bd"><div class="b n">Bonjour 👋 Je suis là pour t\'aider sur NAVLYS — une question, une idée ? Écris-moi.<br><span class="lt" id="nv-hello">🔊 écouter Bruno</span></div></div>'+
-    '<div class="ft"><textarea id="nv-q" placeholder="Ta question…"></textarea><button class="snd" id="nv-snd">→</button></div>';
+    '<div class="ft"><textarea id="nv-q" placeholder="Ta question…"></textarea><button class="mic" id="nv-mic" title="Parle — je t\'écoute">🎙️</button><button class="snd" id="nv-snd">→</button></div>';
   document.body.appendChild(panel);
   btn.onclick=function(){ var open=panel.style.display==='flex'; panel.style.display=open?'none':'flex'; if(!open) document.getElementById('nv-q').focus(); };
   /* accueil : la VRAIE voix de Bruno (mp3 statique, clone ElevenLabs) */
@@ -189,6 +192,8 @@
   if(helloBtn){ helloBtn.onclick=function(){ try{ var a=new Audio('/media/voix-accueil.mp3'); a.play(); helloBtn.textContent='🔊 réécouter Bruno'; }catch(e){} }; }
 
   var NV_SAV='https://hhrlgyvtqluxpywjiwkd.supabase.co/functions/v1/assistant';
+  // LE SAVOIR LOCAL (Bible condensée, 5 langues) : réponses instantanées sans réseau
+  try{ var nvSav=document.createElement('script'); nvSav.src='/navlys-savoir.js'; nvSav.defer=true; (document.head||document.documentElement).appendChild(nvSav); }catch(e){}
   var nvSess=localStorage.getItem('nv_sav_session'); if(!nvSess){ nvSess='web-'+Math.abs(Math.floor((performance.now()*1000)%1e9)); localStorage.setItem('nv_sav_session',nvSess); }
   /* prénom connu (lecture tolérante) : le concierge salue la personne par son prénom */
   function nvPrenom(){ var ks=['nv-prenom','nvprenom','prenom','nv_user_prenom']; var i,v; for(i=0;i<ks.length;i++){ try{ v=localStorage.getItem(ks[i]); }catch(e){ v=null; } if(v&&v.trim()) return v.trim().slice(0,40); } return ''; }
@@ -253,11 +258,58 @@
     if(withVoice){ var lt=document.createElement('span'); lt.className='lt'; lt.textContent='🔊 écouter'; lt.onclick=function(){listen(txt,lt);}; d.appendChild(document.createElement('br')); d.appendChild(lt); }
     bd.appendChild(d); bd.scrollTop=bd.scrollHeight; return d;
   }
+  /* ---------- COMMANDE DE LANGUE à la voix ou au texte (gravé 2026-07-05) ----
+     « réponds-moi en hébreu » / "speak English" / «говори по-русски» /
+     «דבר איתי בעברית» / «تكلم بالعربية» → tout le site bascule + confirmation
+     dans la langue cible. Comprise dans les 5 langues. */
+  var NV_LANG_NOMS={
+    fr:['francais','french','франц','צרפתית','الفرنسية','fr'],
+    en:['anglais','english','англ','אנגלית','الإنجليزية','الانجليزية','en'],
+    ru:['russe','russian','русск','по-русски','רוסית','الروسية','ru'],
+    he:['hebreu','hebrew','иврит','на иврите','עברית','بالعبرية','العبرية'],
+    ar:['arabe','arabic','арабск','по-арабски','ערבית','العربية','بالعربية']
+  };
+  var NV_LANG_VERBES=['parle','reponds','répond','passe','mets','bascule','speak','answer','talk','switch','reply','говори','отвечай','ответь','перейди','דבר','תדבר','תענה','ענה','עבור','تكلم','تحدث','أجب','اجب','حول'];
+  var NV_LANG_OK={
+    fr:'Avec plaisir ! On continue en français. 🌊',
+    en:'With pleasure! We continue in English. 🌊',
+    ru:'С удовольствием! Продолжаем по-русски. 🌊',
+    he:'בשמחה! ממשיכים בעברית. 🌊',
+    ar:'بكل سرور! نكمل بالعربية. 🌊'
+  };
+  function nvNorm(s){ s=String(s||'').toLowerCase(); try{ s=s.normalize('NFD').replace(/[̀-ͯ]/g,''); }catch(e){} return s.replace(/[’']/g,' ').replace(/\s+/g,' ').trim(); }
+  function nvCmdLangue(texte){
+    var t=nvNorm(texte); if(!t) return null;
+    var verbe=false, i;
+    for(i=0;i<NV_LANG_VERBES.length;i++){ if(t.indexOf(NV_LANG_VERBES[i])>-1){ verbe=true; break; } }
+    var cible=null, len=0, l, j;
+    for(l in NV_LANG_NOMS){ for(j=0;j<NV_LANG_NOMS[l].length;j++){ var n=nvNorm(NV_LANG_NOMS[l][j]); if(n.length>2&&n.length>len&&t.indexOf(n)>-1){ cible=l; len=n.length; } } }
+    /* commande = un nom de langue + (un verbe de commande OU une phrase courte) */
+    if(cible && (verbe || t.length<=32)) return cible;
+    return null;
+  }
   function send(){
     var q=document.getElementById('nv-q'); var t=q.value.trim(); if(!t) return;
     add('u',t,false); q.value='';
-    var p=add('n','… un instant',false);
     var nvLng='fr'; try{ nvLng=(window.NAVLYS_I18N&&window.NAVLYS_I18N.lang&&window.NAVLYS_I18N.lang())||localStorage.getItem('nv-lang')||navigator.language||'fr'; }catch(e){}
+    // 0) COMMANDE DE LANGUE : « réponds-moi en hébreu », "speak Russian"…
+    var cible=nvCmdLangue(t);
+    if(cible){
+      try{ if(window.NAVLYS_I18N) window.NAVLYS_I18N.set(cible); }catch(e){}
+      var okMsg=NV_LANG_OK[cible]||NV_LANG_OK.fr;
+      add('n',okMsg,true); nvSpeak(okMsg);
+      try{ fetch(NV_SAV,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({session:nvSess,text:t,nom:nvPrenom(),lang:cible,journal_seul:true,reponse_locale:okMsg})}).catch(function(){}); }catch(e){}
+      return;
+    }
+    // 1) LE SAVOIR LOCAL d'abord : réponse INSTANTANÉE si la Bible connaît la question
+    var loc=null; try{ loc=window.NAVLYS_SAVOIR_CHERCHE?window.NAVLYS_SAVOIR_CHERCHE(t,nvLng):null; }catch(e){}
+    if(loc){
+      add('n',loc,true); nvSpeak(loc);
+      try{ fetch(NV_SAV,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({session:nvSess,text:t,nom:nvPrenom(),lang:nvLng,journal_seul:true,reponse_locale:loc})}).catch(function(){}); }catch(e){}
+      return;
+    }
+    // 2) sinon : le cerveau NAVLYS
+    var p=add('n','… un instant',false);
     fetch(NV_SAV,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({session:nvSess,text:t,nom:nvPrenom(),lang:nvLng})})
      .then(function(r){ return r.json(); })
      .then(function(d){ p.remove(); var rep=(d&&d.reply)?d.reply:'Je note ta demande, l\'équipe NAVLYS revient vers toi très vite. 🌊'; add('n',rep,true); nvSpeak(rep); })
@@ -265,6 +317,30 @@
   }
   panel.querySelector('#nv-snd').onclick=send;
   panel.querySelector('#nv-q').addEventListener('keydown',function(e){ if(e.key==='Enter'&&!e.shiftKey){ e.preventDefault(); send(); } });
+
+  /* ---------- MICRO : parle, je t'écoute — dans la langue du site ---------- */
+  (function(){
+    var micBtn=panel.querySelector('#nv-mic'); if(!micBtn) return;
+    var SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+    if(!SR){ micBtn.style.display='none'; return; } /* iOS Safari : dictée clavier à la place */
+    var rec=null, actif=false;
+    micBtn.onclick=function(){
+      if(actif){ try{ rec.stop(); }catch(e){} return; }
+      try{
+        rec=new SR(); rec.lang=nvLangCode(); rec.interimResults=true; rec.maxAlternatives=1;
+        var q=document.getElementById('nv-q');
+        rec.onresult=function(ev){
+          var txt=''; for(var i=0;i<ev.results.length;i++){ txt+=ev.results[i][0].transcript; }
+          q.value=txt;
+          if(ev.results[ev.results.length-1].isFinal){ send(); }
+        };
+        rec.onstart=function(){ actif=true; micBtn.classList.add('on'); };
+        rec.onend=function(){ actif=false; micBtn.classList.remove('on'); };
+        rec.onerror=function(){ actif=false; micBtn.classList.remove('on'); };
+        rec.start();
+      }catch(e){ actif=false; micBtn.classList.remove('on'); }
+    };
+  })();
 
   /* ---------- RETOUR : bouton bas-gauche, toutes les applications ----------
      Critiques / remarques / suggestions, pour soi ou pour la communauté.
