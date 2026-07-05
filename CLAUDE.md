@@ -230,6 +230,10 @@ la mienne, celle d'un agent, celle d'une brique — je fais un post-mortem immé
 valable pour TOUTES les applications du même univers. Règles n°17-20 déjà gravées :
 schéma SQL lu avant toute requête ; index jsonb = entier ; jamais d'émoji récent
 (SVG maison sinon) ; jamais d'appel externe côté client sans plan B interne.
+Règle n°23 (2026-07-05) : un check de santé ne compte que les états TERMINAUX en
+erreur (`failed`), jamais les transitoires (`running`/`starting`) — le faux
+« santé rouge » venait de crons en cours d'exécution comptés comme échecs
+(fix : `sql/fix_navlys_sante_faux_positif.sql`, appliqué en base, santé VERTE).
 
 **Cohérence multi-chantiers (gravé 2026-07-05)** : avant de poursuivre un chantier
 (navlys.com, navlys.io, finance, next-gen, concierge…), refaire une analyse complète —
