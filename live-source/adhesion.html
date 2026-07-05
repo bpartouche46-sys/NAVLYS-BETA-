@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Rejoins NAVLYS — ta cotisation, tes applications</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Cormorant+Garamond:ital,wght@0,400;1,400&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="/media/navlys_favicon.svg">
+<link rel="manifest" href="/manifest.webmanifest">
+<style>
+:root{--noir:#05060a;--ice:#7DD3FC;--ice-clair:#a8e3ff;--or:#e9d3a0;--or-fonce:#C9A961;--perle:#e7eef2;--mut:#9fb3c8;--line:rgba(125,211,252,.18);--ok:#34d399}
+*{margin:0;padding:0;box-sizing:border-box}
+html{background:var(--noir)}
+body{background:var(--noir);color:var(--perle);font-family:'Atkinson Hyperlegible',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+.wrap{max-width:860px;margin:0 auto;padding:34px 16px 110px}
+.k{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:var(--ice);text-align:center}
+h1{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:400;font-size:clamp(30px,8vw,46px);text-align:center;color:#eafaff;margin:8px 0 4px}
+.sub{text-align:center;color:var(--mut);font-size:1rem;max-width:38em;margin:0 auto 26px;line-height:1.75}
+h2{font-family:'Cinzel',serif;font-weight:600;font-size:14px;letter-spacing:.16em;text-transform:uppercase;color:var(--or);display:flex;align-items:center;gap:12px;margin:30px 0 12px}
+h2::after{content:"";flex:1;height:1px;background:var(--line)}
+.champs{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px}
+.champ{background:rgba(6,8,16,.7);border:1px solid var(--line);border-radius:12px;padding:11px 13px}
+.champ label{display:block;font-size:.78rem;color:var(--mut);margin-bottom:5px}
+.champ input{width:100%;background:none;border:none;outline:none;color:var(--ice-clair);font-size:1.08rem;font-weight:700}
+.formules{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:10px}
+.f{background:rgba(6,8,16,.72);border:1px solid var(--line);border-radius:15px;padding:15px 14px;cursor:pointer;position:relative;transition:border-color .2s, background .2s}
+.f:hover{border-color:rgba(125,211,252,.4)}
+.f.on{border-color:var(--or);background:linear-gradient(160deg,rgba(233,211,160,.08),rgba(6,8,16,.85))}
+.f .nom{font-family:'Cinzel',serif;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ice)}
+.f .prix{font-family:'Cormorant Garamond',serif;font-size:1.9rem;color:#eafaff;margin:4px 0 2px}
+.f .prix small{font-size:.85rem;color:var(--mut);font-family:'Atkinson Hyperlegible',sans-serif}
+.f .inclu{color:var(--mut);font-size:.86rem;line-height:1.55}
+.f .badge{position:absolute;top:-9px;right:12px;background:linear-gradient(100deg,var(--or),#fff6df,var(--or));color:var(--noir);font-size:.7rem;font-weight:700;border-radius:999px;padding:3px 10px}
+.apps{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:9px}
+.app{display:flex;align-items:center;gap:10px;background:rgba(6,8,16,.72);border:1px solid var(--line);border-radius:13px;padding:11px 13px;cursor:pointer;transition:border-color .2s}
+.app.on{border-color:var(--ice);background:rgba(125,211,252,.08)}
+.app .ico{font-size:1.3rem;width:32px;text-align:center;flex:none}
+.app .t{flex:1;min-width:0}
+.app .t b{display:block;font-size:.95rem;color:#eafaff}
+.app .t small{color:var(--mut);font-size:.8rem;line-height:1.4}
+.app .dispo{flex:none;font-size:.68rem;font-weight:700;border-radius:999px;padding:3px 9px;letter-spacing:.05em}
+.app .dispo.d{background:rgba(52,211,153,.15);color:var(--ok);border:1px solid rgba(52,211,153,.35)}
+.app .dispo.p{background:rgba(233,211,160,.12);color:var(--or);border:1px solid rgba(233,211,160,.35)}
+.note{color:var(--mut);font-size:.88rem;line-height:1.7;margin-top:10px}
+.note b{color:var(--or)}
+.cta{display:block;width:100%;margin-top:26px;border:none;cursor:pointer;background:linear-gradient(100deg,var(--or),#fff6df,var(--or));color:var(--noir);border-radius:14px;padding:17px;font-weight:700;font-size:1.1rem;font-family:'Atkinson Hyperlegible',sans-serif;box-shadow:0 12px 40px rgba(233,211,160,.18)}
+.cta:disabled{opacity:.55;cursor:wait}
+.etat{text-align:center;color:var(--or);font-size:.95rem;margin-top:12px;min-height:1.4em;line-height:1.6}
+.install{margin-top:34px;background:rgba(6,8,16,.72);border:1px solid var(--line);border-radius:15px;padding:16px}
+.install b{color:#eafaff}
+.install p{color:var(--mut);font-size:.9rem;line-height:1.7;margin-top:5px}
+.install button{margin-top:10px;border:1px solid rgba(125,211,252,.45);background:rgba(125,211,252,.1);color:var(--ice-clair);border-radius:11px;padding:11px 16px;font-weight:700;cursor:pointer;font-family:'Atkinson Hyperlegible',sans-serif}
+.disc{text-align:center;color:var(--mut);font-size:.83rem;margin-top:34px;line-height:1.75;max-width:44em;margin-left:auto;margin-right:auto}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="k">✦ Adhésion · enregistrement immédiat, mobile &amp; ordinateur</div>
+  <h1>Rejoins NAVLYS</h1>
+  <p class="sub">Un cerveau. Une personne. Tout un univers. Choisis ta cotisation, choisis tes applications —
+  et teste <b>gratuitement</b> chaque application, installée directement sur ton mobile ou ton ordinateur.</p>
+
+  <h2>1 · Toi</h2>
+  <div class="champs">
+    <div class="champ"><label>Ton prénom</label><input id="a-prenom" type="text" autocomplete="given-name" placeholder="Gérard"></div>
+    <div class="champ"><label>Ton e-mail</label><input id="a-email" type="email" autocomplete="email" placeholder="toi@exemple.com"></div>
+  </div>
+  <input id="a-web" type="text" style="display:none" tabindex="-1" autocomplete="off">
+
+  <h2>2 · Ta cotisation <span style="letter-spacing:0;text-transform:none;font-family:'Atkinson Hyperlegible',sans-serif;font-size:.75rem;color:var(--mut)">(HT · mensuelle · sans engagement)</span></h2>
+  <div class="formules" id="a-formules"></div>
+  <p class="note">Sur une même cotisation, <b>c'est toi qui choisis</b> le ou les produits que tu veux.
+  Et à <b>zéro euro</b>, tu testes gratuitement chaque application en version standard, déjà installée chez toi.</p>
+
+  <h2>3 · Tes applications</h2>
+  <div class="apps" id="a-apps"></div>
+  <p class="note" id="a-quota"></p>
+
+  <button class="cta" id="a-go">Je m'enregistre — accès immédiat</button>
+  <p class="etat" id="a-etat"></p>
+
+  <div class="install">
+    <b>📲 NAVLYS installé chez toi, en standard</b>
+    <p>Dès ton enregistrement, installe NAVLYS comme une application : présent sur ton écran d'accueil,
+    mobile et ordinateur. Sur iPhone : Partager → « Sur l'écran d'accueil ».</p>
+    <button id="a-install" style="display:none">Installer NAVLYS maintenant</button>
+  </div>
+
+  <p class="disc">Cotisations affichées hors taxes. Contenu éducatif et informatif uniquement — NAVLYS est porté par un
+  simple citoyen : jamais de conseil financier personnalisé, jamais de promesse de rendement.
+  Les applications marquées « précommande » s'activent à leur ouverture ; on te prévient en premier.</p>
+</div>
+
+<script>
+(function(){
+  'use strict';
+  var $=function(id){return document.getElementById(id);};
+  var FORMULES=[
+    {code:'essai',    nom:'Essai libre',   montant:0,     quota:99, inclu:'Test gratuit de chaque application, en standard, installée sur ton mobile & PC.', badge:'0 €'},
+    {code:'palier1',  nom:'Entrée',        montant:9.99,  quota:1,  inclu:'1 application au choix, complète, plus l\'univers d\'accueil.', badge:'départ'},
+    {code:'palier2',  nom:'Duo',           montant:19.99, quota:2,  inclu:'2 applications au choix, complètes.'},
+    {code:'palier3',  nom:'Trio',          montant:29.99, quota:3,  inclu:'3 applications au choix, complètes.'},
+    {code:'palier4',  nom:'Grand large',   montant:49.99, quota:5,  inclu:'5 applications au choix + accès anticipé aux nouveautés.'},
+    {code:'palier5',  nom:'Cap au nord',   montant:79.99, quota:7,  inclu:'7 applications + concierge vocal prioritaire.'},
+    {code:'palier6',  nom:'Univers entier',montant:99.99, quota:99, inclu:'Toutes les applications, tout NAVLYS, sans limite.'},
+    {code:'coffret',  nom:'Coffret 1 an',  montant:99.99, quota:99, unique:true, inclu:'1 an complet + ta biographie Next Gen. Paiement unique — idéal cadeau.', badge:'cadeau'}
+  ];
+  var APPS=[
+    {code:'accueil',   ico:'🌊', nom:'L\'Univers NAVLYS',        det:'l\'accueil vivant, ton point d\'entrée', dispo:true},
+    {code:'finance',   ico:'📈', nom:'Finance',                  det:'éducation & veille, méthode 90/10',      dispo:true},
+    {code:'next-gen',  ico:'📖', nom:'Next Gen — ta biographie', det:'écris, dicte, garde ta vie en livre',    dispo:true},
+    {code:'assistance',ico:'🎙️', nom:'L\'Aide & le Concierge',   det:'réponses à la voix, dans ta langue',     dispo:true},
+    {code:'radio',     ico:'📻', nom:'Radio NAVLYS',             det:'la radio de l\'univers, en continu',     dispo:true},
+    {code:'navlex',    ico:'⚖️', nom:'NAVLEX',                   det:'tes repères juridiques simples',         dispo:true},
+    {code:'mer',       ico:'⚓', nom:'La Mer',                   det:'météo marine, vagues & vents 3 jours',   dispo:true},
+    {code:'cinema',    ico:'🎬', nom:'Cinéma NAVLYS',            det:'l\'univers en images et en musique',     dispo:true},
+    {code:'cockpit',   ico:'🧭', nom:'Cockpit personnel',        det:'ton tableau de bord à toi',              dispo:false},
+    {code:'navjeu',    ico:'🎲', nom:'NAVJEU',                   det:'l\'environnement de jeu du matin',       dispo:false}
+  ];
+  var COMPTE='https://hhrlgyvtqluxpywjiwkd.supabase.co/functions/v1/compte';
+  var CAISSE='https://hhrlgyvtqluxpywjiwkd.supabase.co/functions/v1/paiement';
+  var fSel='essai', aSel=[];
+
+  function fmt(n){ return n.toFixed(2).replace('.',','); }
+  function quota(){ var f=FORMULES.filter(function(x){return x.code===fSel;})[0]; return f?f.quota:1; }
+  function rendreF(){
+    var h='';
+    FORMULES.forEach(function(f){
+      h+='<div class="f'+(f.code===fSel?' on':'')+'" data-f="'+f.code+'">'+
+        (f.badge?'<span class="badge">'+f.badge+'</span>':'')+
+        '<div class="nom">'+f.nom+'</div>'+
+        '<div class="prix">'+(f.montant===0?'0 €':fmt(f.montant)+' €')+' <small>'+(f.montant===0?'essai gratuit':(f.unique?'HT · une fois':'HT / mois'))+'</small></div>'+
+        '<div class="inclu">'+f.inclu+'</div></div>';
+    });
+    $('a-formules').innerHTML=h;
+    Array.prototype.forEach.call(document.querySelectorAll('.f'),function(el){
+      el.onclick=function(){ fSel=el.getAttribute('data-f'); if(quota()<aSel.length) aSel=aSel.slice(0,quota()); rendreF(); rendreA(); };
+    });
+    rendreQuota();
+  }
+  function rendreA(){
+    var h='';
+    APPS.forEach(function(a){
+      h+='<div class="app'+(aSel.indexOf(a.code)>-1?' on':'')+'" data-a="'+a.code+'">'+
+        '<span class="ico">'+a.ico+'</span>'+
+        '<span class="t"><b>'+a.nom+'</b><small>'+a.det+'</small></span>'+
+        '<span class="dispo '+(a.dispo?'d':'p')+'">'+(a.dispo?'à la commande':'précommande')+'</span></div>';
+    });
+    $('a-apps').innerHTML=h;
+    Array.prototype.forEach.call(document.querySelectorAll('.app'),function(el){
+      el.onclick=function(){
+        var c=el.getAttribute('data-a'), i=aSel.indexOf(c);
+        if(i>-1){ aSel.splice(i,1); }
+        else{ if(aSel.length>=quota()){ $('a-etat').textContent='Ta formule inclut '+quota()+' application'+(quota()>1?'s':'')+' — passe au-dessus pour en prendre plus.'; return; } aSel.push(c); }
+        $('a-etat').textContent=''; rendreA();
+      };
+    });
+    rendreQuota();
+  }
+  function rendreQuota(){
+    var q=quota();
+    $('a-quota').innerHTML = q>=99
+      ? '<b>Toutes les applications</b> sont incluses dans cette formule — coche celles que tu veux voir en premier.'
+      : 'Ta formule inclut <b>'+q+' application'+(q>1?'s':'')+' au choix</b> ('+aSel.length+'/'+q+' choisie'+(aSel.length>1?'s':'')+'). Les « précommande » s\'activent à l\'ouverture.';
+  }
+
+  $('a-go').onclick=function(){
+    var prenom=($('a-prenom').value||'').trim(), email=($('a-email').value||'').trim();
+    if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){ $('a-etat').textContent='Écris ton e-mail pour créer ton accès.'; $('a-email').focus(); return; }
+    var f=FORMULES.filter(function(x){return x.code===fSel;})[0];
+    var apps=aSel.length?aSel:(f.montant===0?APPS.map(function(a){return a.code;}):[]);
+    if(f.montant>0&&!apps.length){ $('a-etat').textContent='Choisis au moins une application — c\'est toi qui décides.'; return; }
+    var lng='fr'; try{ lng=(window.NAVLYS_I18N&&window.NAVLYS_I18N.lang&&window.NAVLYS_I18N.lang())||localStorage.getItem('nv-lang')||navigator.language||'fr'; }catch(e){}
+    var toutPre = apps.length>0 && apps.every(function(c){ var a=APPS.filter(function(x){return x.code===c;})[0]; return a&&!a.dispo; });
+    var mode = f.montant===0 ? 'essai' : (toutPre?'precommande':'commande');
+    var go=$('a-go'); go.disabled=true; $('a-etat').textContent='… création de ton accès';
+    fetch(COMPTE,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
+      action:'inscrire', website:$('a-web').value, prenom:prenom, email:email, lang:lng,
+      formule:f.code, montant:f.montant, apps:apps, mode:mode })})
+    .then(function(r){return r.json();})
+    .then(function(d){
+      if(!d||!d.ok||!d.membre){ go.disabled=false; $('a-etat').textContent=(d&&d.error)||'Réessaie dans un instant.'; return; }
+      try{ localStorage.setItem('nv-token',d.membre.token); localStorage.setItem('nv-prenom',prenom||''); }catch(e){}
+      if(f.montant===0||mode==='precommande'){ location.href='/profil?bienvenue=1'; return; }
+      $('a-etat').textContent='… ouverture du règlement sécurisé';
+      fetch(CAISSE,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
+        montant:f.montant, devise:'eur', recurrence:(f.unique?'':'mois'),
+        libelle:'Cotisation NAVLYS — '+f.nom+' — '+email,
+        success_url:'https://navlys.com/profil?paye=ok',
+        cancel_url:'https://navlys.com/adhesion?paye=annule' })})
+      .then(function(r){return r.json();})
+      .then(function(p){
+        if(p&&p.ok&&p.url){ location.href=p.url; }
+        else{ go.disabled=false; $('a-etat').textContent='La caisse ne répond pas — ton accès est créé, tu pourras régler depuis ton profil. '+((p&&p.error)||''); setTimeout(function(){location.href='/profil?bienvenue=1';},2600); }
+      })
+      .catch(function(){ go.disabled=false; location.href='/profil?bienvenue=1'; });
+    })
+    .catch(function(){ go.disabled=false; $('a-etat').textContent='Connexion difficile — réessaie dans un instant. 🌊'; });
+  };
+
+  // installation PWA (mobile + PC)
+  var defered=null;
+  window.addEventListener('beforeinstallprompt',function(e){ e.preventDefault(); defered=e; $('a-install').style.display='inline-block'; });
+  $('a-install').onclick=function(){ if(defered){ defered.prompt(); defered=null; $('a-install').style.display='none'; } };
+  if(new URLSearchParams(location.search).get('paye')==='annule'){ $('a-etat').textContent='Règlement annulé — ton accès reste prêt, tu peux réessayer quand tu veux.'; }
+
+  rendreF(); rendreA();
+})();
+</script>
+<script src="/navlys-alive.js" defer></script>
+</body>
+</html>
