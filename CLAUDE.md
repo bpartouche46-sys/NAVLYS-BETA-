@@ -267,8 +267,24 @@ peux pas obtenir.
   (cotisation/adhésion, statut simple citoyen) reviennent intacts.
 - Registre : tutoiement (« ты », etc.), JAMAIS un mot « prix/tarif » pour
   l'adhésion, marques et nombres non traduits, cyrillique/RTL corrects.
-- Moteur : `live-source/navlys-i18n.js` (dictionnaires FR→XX alignés 1:1 sur
-  les clés FR normalisées ; on traduit TOUJOURS depuis le FR d'origine).
+- Moteur : `live-source/navlys-i18n.js` **v3 — 5 langues (gravé 2026-07-05)** :
+  FR/EN/RU dans le fichier principal (RU = tableau `RU_VALUES` aligné 1:1 par
+  index sur les clés de `DICT` — JAMAIS d'édition manuelle : script aligné +
+  vérif runtime, règle n°33) ; **hébreu/arabe (RTL)** dans `navlys-i18n-he.js`
+  / `navlys-i18n-ar.js` (objets clés FR, chargés à la demande, `dir=rtl`
+  auto). On traduit TOUJOURS depuis le FR d'origine.
+- **Banc de preuve : `tools/check-i18n.mjs`** (Playwright, pages × langues) —
+  passe AVANT tout push. Tout nouveau texte visible = clé dans LES 5 LANGUES
+  dans le même commit ; `<br>`/`<b>` coupent en fragments → une clé par
+  fragment (règle n°34).
+- **Voix & avatar (gravé 2026-07-05)** : voix TAMISÉE par défaut (stability
+  .55, style .15, similarity .80, sans boost) — réglable par secrets
+  `NAVLYS_VOICE_*` sans redéploiement (règle n°35). Brique `avatar` v15 :
+  `POST {text}` = voix clonée + visage (fal.ai exige `prompt`, posé par
+  défaut) ; `GET ?copie=url&nom=f.mp4` = copie serveur d'un média provider
+  vers notre Storage (le proxy bloque fal.media côté poste, règle n°32) ;
+  vidéo héros : `storage avatar/bruno-avatar-accueil.mp4`, intégrée sur `/`
+  (muette en boucle, son au toucher).
 - **Textes UI** : gros et aérés (calque lisibilité `navlys-alive.js`) — phrases
   courtes, retours à la ligne, jamais de pavé.
 
