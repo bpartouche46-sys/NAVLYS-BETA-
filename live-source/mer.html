@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>La Mer de Bruno — Césarée · vagues & vents 3 jours</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Cormorant+Garamond:ital,wght@0,400;1,400&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="/media/navlys_favicon.svg">
+<style>
+:root{--noir:#03040a;--ice:#7DD3FC;--ice-clair:#a8e3ff;--or:#C9A961;--or-pale:#f3e4c4;--perle:#e7eef2;--mut:#9fb3c8;--line:rgba(125,211,252,.18);--ok:#34d399;--warn:#fbbf24;--non:#fca5a5}
+*{margin:0;padding:0;box-sizing:border-box}
+html{background:var(--noir)}
+body{background:var(--noir);color:var(--perle);font-family:'Atkinson Hyperlegible',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+.wrap{max-width:760px;margin:0 auto;padding:34px 16px 90px}
+.k{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:var(--ice);text-align:center}
+h1{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:400;font-size:clamp(30px,8vw,46px);text-align:center;color:#eafaff;margin:8px 0 4px}
+.sub{text-align:center;color:var(--mut);font-size:.98rem;max-width:36em;margin:0 auto 22px;line-height:1.7}
+.regles{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:8px}
+.champ{background:rgba(6,8,16,.7);border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+.champ label{display:block;font-size:.78rem;color:var(--mut);margin-bottom:5px;line-height:1.35}
+.champ input{width:100%;background:none;border:none;outline:none;color:var(--ice-clair);font-size:1.15rem;font-weight:700;font-variant-numeric:tabular-nums}
+.att{color:var(--mut);font-size:.85rem;margin-top:6px;text-align:center}
+.jour{margin-top:26px}
+.jour h2{font-family:'Cinzel',serif;font-weight:600;font-size:14px;letter-spacing:.16em;text-transform:uppercase;color:var(--or);display:flex;align-items:center;gap:12px;margin-bottom:6px}
+.jour h2::after{content:"";flex:1;height:1px;background:var(--line)}
+.best{font-size:.95rem;color:var(--ok);margin:4px 0 10px;font-weight:700}
+.best.no{color:var(--non)}
+.tbl{width:100%;border-collapse:collapse;font-size:.92rem}
+.tbl th{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ice);text-align:left;padding:8px 6px;border-bottom:1px solid var(--line);white-space:nowrap}
+.tbl td{padding:9px 6px;border-bottom:1px solid rgba(125,211,252,.08);font-variant-numeric:tabular-nums;white-space:nowrap}
+.v-ok{color:var(--ok);font-weight:700}
+.v-warn{color:var(--warn);font-weight:700}
+.v-non{color:var(--non);font-weight:700}
+.fl{display:inline-block;font-size:1.05rem}
+.scroll{overflow-x:auto}
+.disc{text-align:center;color:var(--mut);font-size:.85rem;margin-top:32px;line-height:1.75;max-width:40em;margin-left:auto;margin-right:auto}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="k">⚓ La mer de Bruno · Césarée, Israël</div>
+  <h1>Vagues &amp; vents — 3 jours</h1>
+  <p class="sub">Prévision marine en direct (Open-Meteo, point large de Césarée) pour ton catamaran de 4 × 2 m.
+  Verdict par créneau selon TES seuils : ✅ tu sors · ⚠️ limite · ⛔ reste au port.</p>
+
+  <div class="regles">
+    <div class="champ"><label>Vent max pour sortir (km/h)</label><input id="s-vent" type="number" value="15"></div>
+    <div class="champ"><label>Rafales max (km/h)</label><input id="s-raf" type="number" value="25"></div>
+    <div class="champ"><label>Vague max (m)</label><input id="s-vag" type="number" value="0.6" step="0.1"></div>
+  </div>
+  <p class="att" id="etat">⏳ Lecture de la mer en cours…</p>
+
+  <div id="jours"></div>
+
+  <p class="disc">🌊 Hauteur de vague = « hauteur significative » au large : près du bord, à Césarée, c'est souvent
+  <b>moins</b> — mais on décide toujours sur le chiffre prudent. Direction du vent = d'où il VIENT (la flèche montre où il va).
+  Données Open-Meteo, heure locale d'Israël, rafraîchies à chaque ouverture. Prévision = aide à la décision,
+  jamais une garantie : sur l'eau, c'est toujours le capitaine qui décide. NAVLYS · info générale.</p>
+</div>
+
+<script>
+(function(){
+  var LAT=32.5, LON=34.88, TZ='Asia%2FJerusalem';
+  var $=function(id){ return document.getElementById(id); };
+  function seuils(){ return {
+    vent: parseFloat($('s-vent').value)||15,
+    raf: parseFloat($('s-raf').value)||25,
+    vag: parseFloat($('s-vag').value)||0.6 }; }
+  var ROSE=['N','NNE','NE','ENE','E','ESE','SE','SSE','S','SSO','SO','OSO','O','ONO','NO','NNO'];
+  function rose(d){ return ROSE[Math.round(((d%360)+360)%360/22.5)%16]; }
+  function fleche(d){ return '<span class="fl" style="transform:rotate('+((d+180)%360)+'deg);display:inline-block">↑</span>'; }
+  var DATA=null;
+  function verdict(v,w,g,s){
+    if(v==null||w==null) return {c:'v-warn',t:'?'};
+    if(v<=s.vag && w<=s.vent && (g==null||g<=s.raf)) return {c:'v-ok',t:'✅ tu sors'};
+    if(v<=s.vag*1.25 && w<=s.vent*1.2) return {c:'v-warn',t:'⚠️ limite'};
+    return {c:'v-non',t:'⛔ au port'};
+  }
+  function nomJour(iso){
+    var d=new Date(iso+'T12:00:00');
+    var n=['dimanche','lundi','mardi','mercredi','jeudi','vendredi','samedi'][d.getDay()];
+    return n+' '+d.getDate()+'/'+(d.getMonth()+1);
+  }
+  function rendre(){
+    if(!DATA) return;
+    var s=seuils(), H=DATA.heures, zone=$('jours'); zone.innerHTML='';
+    var jours={};
+    for(var i=0;i<H.length;i++){ var d=H[i].t.slice(0,10); (jours[d]=jours[d]||[]).push(H[i]); }
+    var ds=Object.keys(jours).sort();
+    for(var j=0;j<ds.length&&j<3;j++){
+      var rows=jours[ds[j]].filter(function(h){ var hh=parseInt(h.t.slice(11,13),10); return hh>=6&&hh<=19; });
+      var best=null;
+      var html='<div class="jour"><h2>'+ (j===0?'Aujourd\'hui':(j===1?'Demain':'Après-demain')) +' — '+nomJour(ds[j])+'</h2>';
+      var lignes='';
+      for(var k=0;k<rows.length;k++){
+        var h=rows[k], vd=verdict(h.vague,h.vent,h.raf,s);
+        if(vd.t.indexOf('✅')===0 && (best==null)) best=h;
+        if(best && vd.t.indexOf('✅')===0 && h.vent<best.vent) best=h;
+        lignes+='<tr><td>'+h.t.slice(11,16)+'</td>'+
+          '<td>'+(h.vague==null?'—':h.vague.toFixed(2)+' m')+'</td>'+
+          '<td>'+(h.vent==null?'—':Math.round(h.vent)+' km/h')+'</td>'+
+          '<td>'+(h.raf==null?'—':Math.round(h.raf))+'</td>'+
+          '<td>'+(h.dir==null?'—':fleche(h.dir)+' '+rose(h.dir))+'</td>'+
+          '<td class="'+vd.c+'">'+vd.t+'</td></tr>';
+      }
+      html+= best ? '<div class="best">🏄 Meilleur créneau : '+best.t.slice(11,16)+' — vague '+best.vague.toFixed(2)+' m, vent '+Math.round(best.vent)+' km/h '+rose(best.dir)+'</div>'
+                  : '<div class="best no">🛋️ Aucun créneau dans tes seuils — la mer attendra, toi tu restes beau et sec.</div>';
+      html+='<div class="scroll"><table class="tbl"><thead><tr><th>Heure</th><th>Vague</th><th>Vent</th><th>Raf.</th><th>Direction</th><th>Verdict</th></tr></thead><tbody>'+lignes+'</tbody></table></div></div>';
+      zone.innerHTML+=html;
+    }
+    $('etat').textContent='Mer lue en direct ✓ — change tes seuils, tout se recalcule.';
+  }
+  function charger(){
+    var uM='https://marine-api.open-meteo.com/v1/marine?latitude='+LAT+'&longitude='+LON+'&hourly=wave_height&timezone='+TZ+'&forecast_days=3';
+    var uV='https://api.open-meteo.com/v1/forecast?latitude='+LAT+'&longitude='+LON+'&hourly=wind_speed_10m,wind_direction_10m,wind_gusts_10m&timezone='+TZ+'&forecast_days=3&wind_speed_unit=kmh';
+    function planB(){ /* relais interne NAVLYS si l'accès direct est bloqué */
+      fetch('https://hhrlgyvtqluxpywjiwkd.supabase.co/functions/v1/mer')
+        .then(function(r){return r.json();})
+        .then(function(d){ if(d&&d.ok&&d.heures){ DATA={heures:d.heures}; rendre(); }
+          else $('etat').textContent='La mer ne répond pas — réessaie dans un instant. 🌊'; })
+        .catch(function(){ $('etat').textContent='La mer ne répond pas — vérifie ta connexion et rouvre la page. 🌊'; });
+    }
+    Promise.all([fetch(uM).then(function(r){return r.json();}), fetch(uV).then(function(r){return r.json();})])
+      .then(function(rs){
+        var m=rs[0].hourly||{}, v=rs[1].hourly||{}, heures=[];
+        var times=m.time||v.time||[];
+        for(var i=0;i<times.length;i++){
+          heures.push({ t:times[i],
+            vague:(m.wave_height&&m.wave_height[i]!=null)?m.wave_height[i]:null,
+            vent:(v.wind_speed_10m&&v.wind_speed_10m[i]!=null)?v.wind_speed_10m[i]:null,
+            raf:(v.wind_gusts_10m&&v.wind_gusts_10m[i]!=null)?v.wind_gusts_10m[i]:null,
+            dir:(v.wind_direction_10m&&v.wind_direction_10m[i]!=null)?v.wind_direction_10m[i]:null });
+        }
+        DATA={heures:heures}; rendre();
+      })
+      .catch(planB);
+  }
+  ['s-vent','s-raf','s-vag'].forEach(function(id){ $(id).addEventListener('input', rendre); });
+  charger();
+})();
+</script>
+<script src="/navlys-alive.js" defer></script>
+</body>
+</html>
