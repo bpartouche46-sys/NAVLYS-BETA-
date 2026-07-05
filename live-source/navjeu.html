@@ -37,6 +37,24 @@ h2::after{content:"";flex:1;height:1px;background:var(--line)}
 .scroll{overflow-x:auto;max-height:420px;overflow-y:auto}
 .verdict{margin-top:18px;border:1px solid rgba(233,211,160,.4);border-radius:14px;padding:16px 18px;background:linear-gradient(160deg,rgba(233,211,160,.08),rgba(6,8,14,.85));line-height:1.75}
 .verdict b{color:var(--or-pale)}
+.rituel{border:1px solid var(--line);border-radius:18px;padding:18px;background:radial-gradient(120% 100% at 50% 0%,rgba(125,211,252,.07),rgba(4,6,12,.9));margin-bottom:10px}
+.meteo{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.meteo .ic{font-size:44px;line-height:1}
+.meteo .tt{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.5rem;color:#eafaff}
+.meteo .dd{color:var(--mut);font-size:.92rem;line-height:1.55}
+.infos{margin-top:12px;display:flex;flex-direction:column;gap:7px}
+.infos .i{font-size:.95rem;color:var(--perle);line-height:1.6}
+.infos .i b{color:var(--or-pale)}
+.choix{margin-top:16px}
+.choix .q{font-family:'Cinzel',serif;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--ice);margin-bottom:10px}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{flex:1;min-width:70px;text-align:center;cursor:pointer;border:1px solid var(--line);border-radius:12px;padding:13px 6px;color:#cfe0f2;font-weight:700;font-size:1.05rem;min-height:48px}
+.chip.on{background:rgba(125,211,252,.18);color:#fff;border-color:rgba(125,211,252,.6)}
+.jouer{display:flex;gap:10px;margin-top:12px;flex-wrap:wrap;align-items:center}
+.capline{color:var(--mut);font-size:.9rem;margin-top:10px}
+.capline input{width:110px;background:rgba(5,6,10,.7);border:1px solid var(--line);border-radius:8px;color:var(--ice-clair);font-weight:700;padding:6px 8px;font-size:1rem}
+#banniere{display:none;margin:14px 0;border:1px solid rgba(52,211,153,.5);border-radius:12px;padding:12px 15px;color:var(--ok);font-weight:700;background:rgba(52,211,153,.08)}
+#zen{display:none;margin:14px 0;border:1px solid var(--line);border-radius:12px;padding:14px 16px;color:var(--ice-clair);line-height:1.7}
 .disc{text-align:center;color:var(--mut);font-size:.85rem;margin-top:34px;line-height:1.75;max-width:40em;margin-left:auto;margin-right:auto}
 </style>
 </head>
@@ -48,6 +66,42 @@ h2::after{content:"";flex:1;height:1px;background:var(--line)}
   et le <b>glissement réel</b> est dans les règles (un « −0,1 % » affiché se ferme en vrai entre −0,2 % et −2 % —
   tu le sais, la table le sait aussi). Après une perte : à toi de choisir — doubler comme au casino, tempérer, ou mise constante.</p>
 
+
+  <!-- ══ LE RITUEL DU MATIN ══ -->
+  <div class="rituel">
+    <div class="meteo">
+      <div class="ic" id="m-ic">⏳</div>
+      <div>
+        <div class="tt" id="m-tt">La météo de la bourse arrive…</div>
+        <div class="dd" id="m-dd">Lecture en direct des marchés (SPY · QQQ).</div>
+      </div>
+    </div>
+    <div class="infos">
+      <div class="i" id="m-conseil">…</div>
+      <div class="i">📰 <b>Avant de jouer :</b> jette un œil aux nouvelles du jour et à tes 5 actions — c'est TON œil qui fait la fiabilité.</div>
+      <div class="i">⚓ <b>La règle d'or :</b> objectif atteint → on range les jetons. Jour rouge → on ne joue pas, la forteresse travaille.</div>
+    </div>
+    <div class="choix">
+      <div class="q">Envie de jouer aujourd'hui ? Choisis ta part de risque</div>
+      <div class="chips" id="chips">
+        <div class="chip" data-r="5">5 %</div>
+        <div class="chip on" data-r="10">10 %</div>
+        <div class="chip" data-r="15">15 %</div>
+        <div class="chip" data-r="20">20 %</div>
+      </div>
+      <div class="capline">Ton capital : <input id="capital" type="number" value="10000"> € — la part choisie devient ta poche de jeu du jour.</div>
+      <div class="jouer">
+        <button class="btn or" id="b-oui">✅ Je joue — ouvre ma table</button>
+        <button class="btn" id="b-non" style="background:none;border:1px solid var(--line);color:var(--ice-clair)">🛋️ Pas aujourd'hui</button>
+        <button class="btn" id="b-vox" style="flex:0;min-width:64px" title="À la voix : dis « jouer », « cinq », « dix », « quinze », « vingt » ou « pas aujourd'hui »">🎤</button>
+      </div>
+      <div class="att" id="vox-etat"></div>
+    </div>
+  </div>
+  <div id="banniere"></div>
+  <div id="zen"></div>
+
+  <div id="zone-table" style="display:none">
   <h2>🎛️ Les règles de ta table</h2>
   <div class="grid">
     <div class="champ"><label>Mise de départ (% de la poche)</label><input id="mise0" type="number" value="40" step="5"></div>
@@ -88,6 +142,8 @@ h2::after{content:"";flex:1;height:1px;background:var(--line)}
     </div>
     <div class="verdict" id="v-mille"></div>
   </div>
+
+  </div><!-- /zone-table -->
 
   <p class="disc">⚓ Table pédagogique personnelle : des jetons, pas des euros — aucun ordre, aucun débit, aucune promesse.
   La « fiabilité de celle qui monte » est une hypothèse que TU règles : personne ne la connaît d'avance, et c'est elle qui décide de tout.
@@ -165,6 +221,69 @@ h2::after{content:"";flex:1;height:1px;background:var(--line)}
       $('res2').style.display='block';
       $('att').textContent='5 000 journées jouées — jetons virtuels uniquement.';
     },30);
+  };
+
+  /* ══ RITUEL DU MATIN ══ */
+  var NV_METEO='https://hhrlgyvtqluxpywjiwkd.supabase.co/functions/v1/meteo';
+  var METEO={ soleil:{ic:'☀️',tt:'Grand soleil sur les marchés',c:'🟢 Météo verte : si tes actions confirment, la journée se prête au jeu — dans ta part choisie, jamais plus.'},
+              nuages:{ic:'⛅',tt:'Ciel voilé — marché hésitant',c:'🟡 Météo mitigée : joue petit ou passe ton tour ; les demi-journées font les demi-regrets.'},
+              orage:{ic:'⛈️',tt:'Orage — marché rouge pour tout le monde',c:'🔴 Ta propre règle : jour rouge, ON NE JOUE PAS. La forteresse travaille, toi tu respires.'} };
+  function majMeteo(d){
+    var m=METEO[d.meteo]||METEO.nuages;
+    document.getElementById('m-ic').textContent=m.ic;
+    document.getElementById('m-tt').textContent=m.tt;
+    var det=(d.indices||[]).map(function(x){return x.sym+' '+(x.pct>=0?'+':'')+x.pct+' %';}).join(' · ');
+    document.getElementById('m-dd').textContent=(d.source==='alpaca'?'En direct : ':'Démo (marché fermé ou clés absentes) : ')+det;
+    document.getElementById('m-conseil').innerHTML=m.c;
+  }
+  try{
+    fetch(NV_METEO).then(function(r){return r.json();}).then(function(d){ if(d&&d.ok) majMeteo(d); })
+      .catch(function(){ majMeteo({meteo:'nuages',indices:[],source:'demo'}); });
+  }catch(e){}
+  var chips=document.getElementById('chips');
+  function risque(){ var on=chips.querySelector('.chip.on'); return on?parseFloat(on.getAttribute('data-r')):10; }
+  Array.prototype.forEach.call(chips.querySelectorAll('.chip'),function(c){
+    c.onclick=function(){ Array.prototype.forEach.call(chips.querySelectorAll('.chip'),function(x){x.classList.remove('on');}); c.classList.add('on'); };
+  });
+  function ouvrirTable(){
+    var cap=parseFloat(document.getElementById('capital').value)||10000;
+    var rq=risque(), poche=cap*rq/100;
+    document.getElementById('zone-table').style.display='block';
+    document.getElementById('zen').style.display='none';
+    var b=document.getElementById('banniere');
+    b.style.display='block';
+    b.textContent='🎟️ Table ouverte — aujourd\'hui tu joues '+rq+' % de ton capital, soit '+poche.toLocaleString('fr-FR')+' € de jetons. Objectif +1 % de la poche = '+(poche*0.01).toLocaleString('fr-FR')+' €, puis on range.';
+    b.scrollIntoView({behavior:'smooth',block:'center'});
+  }
+  function jourOff(){
+    document.getElementById('zone-table').style.display='none';
+    document.getElementById('banniere').style.display='none';
+    var z=document.getElementById('zen');
+    z.style.display='block';
+    z.textContent='🛋️ Sage décision. Aujourd\'hui la table reste fermée : ta forteresse travaille toute seule, et toi tu profites. À demain matin pour la météo.';
+  }
+  document.getElementById('b-oui').onclick=ouvrirTable;
+  document.getElementById('b-non').onclick=jourOff;
+  /* à la voix : « jouer », « cinq/dix/quinze/vingt », « pas aujourd'hui » */
+  document.getElementById('b-vox').onclick=function(){
+    var SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+    var et=document.getElementById('vox-etat');
+    if(!SR){ et.textContent='La voix n\'est pas disponible sur ce navigateur — essaie Chrome.'; return; }
+    et.textContent='🎤 Je t\'écoute… dis « jouer », un pourcentage, ou « pas aujourd\'hui ».';
+    var r=new SR(); r.lang='fr-FR'; r.interimResults=false; r.maxAlternatives=3;
+    r.onresult=function(ev){
+      var t=''; for(var i=0;i<ev.results.length;i++){ t+=' '+ev.results[i][0].transcript; } t=t.toLowerCase();
+      et.textContent='Entendu : « '+t.trim()+' »';
+      function pick(rv){ Array.prototype.forEach.call(chips.querySelectorAll('.chip'),function(x){ x.classList.toggle('on', x.getAttribute('data-r')===String(rv)); }); }
+      if(t.indexOf('vingt')>-1||t.indexOf('20')>-1) pick(20);
+      else if(t.indexOf('quinze')>-1||t.indexOf('15')>-1) pick(15);
+      else if(t.indexOf('dix')>-1||t.indexOf('10')>-1) pick(10);
+      else if(t.indexOf('cinq')>-1||t.indexOf('5')>-1) pick(5);
+      if(t.indexOf('pas aujourd')>-1||t.indexOf('non')>-1) jourOff();
+      else if(t.indexOf('jouer')>-1||t.indexOf('joue')>-1||t.indexOf('table')>-1||t.indexOf('oui')>-1) ouvrirTable();
+    };
+    r.onerror=function(){ et.textContent='Micro indisponible — autorise-le et réessaie.'; };
+    try{ r.start(); }catch(e){}
   };
 })();
 </script>
