@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>NAVFI — Ta Martingale : le tableau réel de calcul</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Cormorant+Garamond:ital,wght@0,400;1,400&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="/media/navlys_favicon.svg">
+<style>
+:root{--noir:#03040a;--ice:#7DD3FC;--ice-clair:#a8e3ff;--or:#C9A961;--or-pale:#f3e4c4;--perle:#e7eef2;--mut:#9fb3c8;--line:rgba(125,211,252,.18);--ok:#34d399;--warn:#fbbf24}
+*{margin:0;padding:0;box-sizing:border-box}
+html{background:var(--noir)}
+body{background:var(--noir);color:var(--perle);font-family:'Atkinson Hyperlegible',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+.wrap{max-width:820px;margin:0 auto;padding:34px 16px 90px}
+.k{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:var(--ice);text-align:center}
+h1{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:400;font-size:clamp(30px,8vw,48px);text-align:center;color:#eafaff;margin:8px 0 4px}
+.sub{text-align:center;color:var(--mut);font-size:1rem;max-width:38em;margin:0 auto 26px;line-height:1.7}
+h2{font-family:'Cinzel',serif;font-weight:600;font-size:14px;letter-spacing:.18em;text-transform:uppercase;color:var(--or);display:flex;align-items:center;gap:12px;margin:34px 0 14px}
+h2::after{content:"";flex:1;height:1px;background:var(--line)}
+/* paramètres */
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.champ{background:rgba(6,8,16,.7);border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+.champ label{display:block;font-size:.78rem;letter-spacing:.04em;color:var(--mut);margin-bottom:5px}
+.champ input{width:100%;background:none;border:none;outline:none;color:var(--ice-clair);font-size:1.15rem;font-weight:700;font-variant-numeric:tabular-nums}
+.btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.btn{flex:1;min-width:220px;border:none;cursor:pointer;font-family:'Cinzel',serif;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:#04121c;font-weight:700;border-radius:999px;padding:15px 20px;min-height:50px;background:linear-gradient(90deg,var(--ice),var(--ice-clair))}
+.btn.or{background:linear-gradient(90deg,var(--or),var(--or-pale))}
+.att{color:var(--mut);font-size:.85rem;margin-top:8px;text-align:center}
+/* résultats */
+.res{display:none;margin-top:8px}
+.tuiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin:14px 0}
+.tuile{background:rgba(7,10,18,.8);border:1px solid var(--line);border-radius:12px;padding:14px 10px;text-align:center}
+.tuile .n{font-family:'Cormorant Garamond',serif;font-size:clamp(22px,5.5vw,30px);color:var(--ice-clair);font-variant-numeric:tabular-nums;line-height:1.1}
+.tuile .l{font-size:.74rem;letter-spacing:.05em;text-transform:uppercase;color:var(--mut);margin-top:6px;line-height:1.4}
+.tbl{width:100%;border-collapse:collapse;font-size:.9rem;margin-top:8px}
+.tbl th{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ice);text-align:left;padding:8px 7px;border-bottom:1px solid var(--line);white-space:nowrap}
+.tbl td{padding:9px 7px;border-bottom:1px solid rgba(125,211,252,.08);font-variant-numeric:tabular-nums;white-space:nowrap}
+.tbl td.best{color:var(--or-pale);font-weight:700}
+.scroll{overflow-x:auto}
+.verdict{margin-top:18px;border:1px solid rgba(233,211,160,.4);border-radius:14px;padding:16px 18px;background:linear-gradient(160deg,rgba(233,211,160,.08),rgba(6,8,14,.85));line-height:1.75}
+.verdict b{color:var(--or-pale)}
+.disc{text-align:center;color:var(--mut);font-size:.85rem;margin-top:34px;line-height:1.75;max-width:40em;margin-left:auto;margin-right:auto}
+@media(max-width:560px){.tbl{font-size:.8rem}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="k">NAVFI · atelier personnel de Bruno</div>
+  <h1>Ta Martingale — le tableau réel</h1>
+  <p class="sub">Tes règles, tes chiffres, testés sur des milliers de journées de bourse <b>simulées</b> :
+  90/10, quatre à cinq actions à risque, sortie à −0,1 % sur le bas, paliers +2 % · +3,5 % · +4 % sur le haut,
+  objectif +1 % par jour. La machine calcule — <b>et dit la vérité</b>, pas ce qui fait plaisir.</p>
+
+  <h2>⚙️ Tes réglages (modifie tout)</h2>
+  <div class="grid">
+    <div class="champ"><label>Capital total (€)</label><input id="cap" type="number" value="10000"></div>
+    <div class="champ"><label>Poche risque (%) — le « 10 » du 90/10</label><input id="poche" type="number" value="10"></div>
+    <div class="champ"><label>Nombre d'actions (4–5)</label><input id="nb" type="number" value="4" min="1" max="8"></div>
+    <div class="champ"><label>Volatilité/jour d'une action à risque (%)</label><input id="vol" type="number" value="3" step="0.5"></div>
+    <div class="champ"><label>Sortie sur le bas (%)</label><input id="stop" type="number" value="-0.1" step="0.1"></div>
+    <div class="champ"><label>Palier 1 (%) — 1/3 sort</label><input id="tp1" type="number" value="2" step="0.5"></div>
+    <div class="champ"><label>Palier 2 (%) — 1/3 sort</label><input id="tp2" type="number" value="3.5" step="0.5"></div>
+    <div class="champ"><label>Palier 3 (%) — dernier 1/3</label><input id="tp3" type="number" value="4" step="0.5"></div>
+    <div class="champ"><label>Frais + écart par aller-retour (%)</label><input id="frais" type="number" value="0.1" step="0.05"></div>
+    <div class="champ"><label>Objectif portefeuille / jour (%)</label><input id="obj" type="number" value="1" step="0.5"></div>
+  </div>
+  <div class="btns">
+    <button class="btn" id="b-run">▶ Tester MA martingale (2 000 journées)</button>
+    <button class="btn or" id="b-grid">🔬 Tester toutes les possibilités</button>
+  </div>
+  <p class="att" id="att">Le calcul tourne dans ton téléphone — rien ne sort, rien n'est placé, aucun ordre réel.</p>
+
+  <!-- résultats du test simple -->
+  <div class="res" id="res1">
+    <h2>📊 Résultat de TA règle</h2>
+    <div class="tuiles">
+      <div class="tuile"><div class="n" id="r-medj">—</div><div class="l">gain médian / jour<br>(portefeuille entier)</div></div>
+      <div class="tuile"><div class="n" id="r-objpct">—</div><div class="l">jours qui atteignent<br>ton objectif</div></div>
+      <div class="tuile"><div class="n" id="r-stoppct">—</div><div class="l">positions coupées<br>à la sortie basse</div></div>
+      <div class="tuile"><div class="n" id="r-mois">—</div><div class="l">résultat médian<br>sur 21 jours (1 mois)</div></div>
+      <div class="tuile"><div class="n" id="r-pire">—</div><div class="l">pire mois simulé<br>(5 % les plus durs)</div></div>
+      <div class="tuile"><div class="n" id="r-meil">—</div><div class="l">meilleur mois simulé<br>(5 % les meilleurs)</div></div>
+    </div>
+    <div class="verdict" id="verdict1"></div>
+  </div>
+
+  <!-- résultats de la grille -->
+  <div class="res" id="res2">
+    <h2>🔬 Toutes les possibilités — classées par ce qui tient</h2>
+    <p class="att">Chaque ligne = une variante testée sur 4 800 journées simulées. Classement par gain médian par jour.</p>
+    <div class="scroll"><table class="tbl" id="t-grid">
+      <thead><tr><th>#</th><th>Sortie basse</th><th>Paliers hauts</th><th>Actions</th><th>Médiane / jour</th><th>Jours ≥ objectif</th><th>Coupées au stop</th><th>Mois médian</th></tr></thead>
+      <tbody></tbody>
+    </table></div>
+    <div class="verdict" id="verdict2"></div>
+  </div>
+
+  <p class="disc">⚓ Atelier personnel et pédagogique : un <b>simulateur</b>, pas un conseil. Les marchés simulés sont
+  aléatoires (volatilité choisie ci-dessus) — la réalité peut faire pire. Aucun ordre n'est passé, aucun argent n'est
+  engagé ici. NAVLYS · statut simple citoyen — l'éducation éclaire, la décision reste dans tes mains, et rien ne
+  garantit jamais un rendement.</p>
+</div>
+
+<script>
+(function(){
+  var $=function(id){ return document.getElementById(id); };
+  function num(id){ return parseFloat($(id).value)||0; }
+  function pct(x,d){ return (x>=0?'+':'')+(x*100).toFixed(d==null?2:d)+' %'; }
+
+  /* RNG reproductible (mulberry32) + tirage normal (Box-Muller) */
+  function rng(seed){ return function(){ seed|=0; seed=seed+0x6D2B79F5|0; var t=Math.imul(seed^seed>>>15,1|seed); t=t+Math.imul(t^t>>>7,61|t)^t; return ((t^t>>>14)>>>0)/4294967296; }; }
+  function normal(r){ var u=0,v=0; while(u===0)u=r(); while(v===0)v=r(); return Math.sqrt(-2*Math.log(u))*Math.cos(6.2831853*v); }
+
+  /* Une JOURNÉE pour UNE action : chemin intraday, stop + 3 paliers (1/3 chacun).
+     Retourne le rendement net de la position (frais inclus). */
+  function jourAction(r, volJour, stop, tps, frais){
+    var steps=120, s=1, sd=volJour/Math.sqrt(steps);
+    var partRestante=1, gain=0, t1=false,t2=false, i;
+    for(i=0;i<steps;i++){
+      s*=(1+sd*normal(r));
+      var rd=s-1;
+      if(!t1 && rd>=tps[0]){ gain+=(1/3)*(tps[0]-frais); partRestante-=1/3; t1=true; }
+      if(!t2 && rd>=tps[1]){ gain+=(1/3)*(tps[1]-frais); partRestante-=1/3; t2=true; }
+      if(rd>=tps[2]){ gain+=partRestante*(tps[2]-frais); return gain; }
+      if(rd<=stop){ gain+=partRestante*(stop-frais); return gain; }
+    }
+    return gain+partRestante*((s-1)-frais); /* clôture fin de journée */
+  }
+
+  /* Simule N journées de portefeuille. Retourne {jours:[], stops: proportion} */
+  function simule(nJours, nb, volJour, stop, tps, frais, pochePct, seed){
+    var r=rng(seed), jours=[], nStop=0, nPos=0, j, a;
+    for(j=0;j<nJours;j++){
+      var somme=0;
+      for(a=0;a<nb;a++){
+        var g=jourAction(r, volJour, stop, tps, frais);
+        somme+=g; nPos++;
+        if(g<=stop-frais+1e-9) nStop++;
+      }
+      var rPoche=somme/nb;                 /* rendement de la poche risque */
+      jours.push(rPoche*pochePct);         /* impact portefeuille entier */
+    }
+    return { jours:jours, stopRate:nStop/nPos };
+  }
+  function quantile(arr,q){ var a=arr.slice().sort(function(x,y){return x-y;}); var i=Math.min(a.length-1,Math.max(0,Math.floor(q*(a.length-1)))); return a[i]; }
+  function mois(jours){ /* agrège par blocs de 21 jours (composé) */
+    var out=[],i,j; for(i=0;i+21<=jours.length;i+=21){ var c=1; for(j=0;j<21;j++) c*=(1+jours[i+j]); out.push(c-1); } return out;
+  }
+
+  function lireParams(){
+    return {
+      nb: Math.max(1,Math.min(8,Math.round(num('nb')))),
+      vol: num('vol')/100,
+      stop: num('stop')/100,
+      tps: [num('tp1')/100, num('tp2')/100, num('tp3')/100],
+      frais: num('frais')/100,
+      poche: num('poche')/100,
+      obj: num('obj')/100,
+      cap: num('cap')
+    };
+  }
+
+  /* ---------- TEST 1 : ta règle ---------- */
+  $('b-run').onclick=function(){
+    var p=lireParams();
+    $('att').textContent='… calcul en cours (2 000 journées)';
+    setTimeout(function(){
+      var s=simule(2000, p.nb, p.vol, p.stop, p.tps, p.frais, p.poche, 20260705);
+      var medJ=quantile(s.jours,0.5);
+      var objOK=0,i; for(i=0;i<s.jours.length;i++){ if(s.jours[i]>=p.obj) objOK++; }
+      var ms=mois(s.jours);
+      $('r-medj').textContent=pct(medJ,3);
+      $('r-objpct').textContent=(100*objOK/s.jours.length).toFixed(1)+' %';
+      $('r-stoppct').textContent=(100*s.stopRate).toFixed(0)+' %';
+      $('r-mois').textContent=pct(quantile(ms,0.5),2);
+      $('r-pire').textContent=pct(quantile(ms,0.05),2);
+      $('r-meil').textContent=pct(quantile(ms,0.95),2);
+      /* verdict honnête, calculé */
+      var maxPoche=p.tps[2]; /* gain max possible d'une journée de poche */
+      var maxPortef=maxPoche*p.poche;
+      var v='<b>Lecture honnête :</b> ';
+      if(p.obj>maxPortef){
+        v+='ton objectif de '+pct(p.obj,1)+'/jour est <b>mathématiquement hors de portée</b> avec ces réglages : même une journée parfaite (tout sort au palier '+pct(p.tps[2],1)+') ne rapporte que '+pct(maxPortef,2)+' au portefeuille, car seule la poche de '+(p.poche*100).toFixed(0)+' % travaille. ';
+        v+='Pour approcher '+pct(p.obj,1)+'/jour il faudrait : une poche plus grande, des paliers plus hauts, ou accepter que l\'objectif soit un objectif de poche ('+pct(p.obj,1)+' sur la poche = '+pct(p.obj*p.poche,2)+' sur le portefeuille). ';
+      }
+      v+='Avec la sortie basse à '+pct(p.stop,2)+', <b>'+(100*s.stopRate).toFixed(0)+' % des positions sont coupées</b> par le simple bruit du marché (une action qui bouge de '+(p.vol*100).toFixed(1)+' %/jour traverse '+pct(p.stop,2)+' presque à chaque séance) — et chaque coupe paie les frais. ';
+      v+='Résultat médian : '+pct(medJ,3)+'/jour, soit '+pct(quantile(ms,0.5),2)+' le mois médian. ';
+      v+=(medJ<=0? 'En l\'état, la règle <b>perd doucement</b> : les frais mangent les micro-sorties. Regarde la grille ci-dessous — élargir la sortie basse change tout.' : 'La règle tient un gain médian positif — vérifie le pire mois avant d\'en penser du bien.');
+      $('verdict1').innerHTML=v;
+      $('res1').style.display='block';
+      $('att').textContent='Calcul terminé — rien ne sort de ton téléphone.';
+    },30);
+  };
+
+  /* ---------- TEST 2 : toutes les possibilités ---------- */
+  $('b-grid').onclick=function(){
+    var p=lireParams();
+    $('att').textContent='… la grille tourne (32 variantes × 4 800 journées)';
+    setTimeout(function(){
+      var stops=[-0.001,-0.005,-0.01,-0.02];
+      var jeuxTP=[[0.02,0.035,0.04],[0.01,0.02,0.03],[0.03,0.05,0.08],[0.005,0.01,0.015]];
+      var nbs=[4,5];
+      var rows=[],i,j,k;
+      for(i=0;i<stops.length;i++) for(j=0;j<jeuxTP.length;j++) for(k=0;k<nbs.length;k++){
+        var s=simule(4800, nbs[k], p.vol, stops[i], jeuxTP[j], p.frais, p.poche, 777000+i*100+j*10+k);
+        var med=quantile(s.jours,0.5);
+        var okObj=0,x; for(x=0;x<s.jours.length;x++){ if(s.jours[x]>=p.obj) okObj++; }
+        var ms=mois(s.jours);
+        rows.push({ stop:stops[i], tps:jeuxTP[j], nb:nbs[k], med:med, obj:100*okObj/s.jours.length, stopr:100*s.stopRate, mois:quantile(ms,0.5) });
+      }
+      rows.sort(function(a,b){ return b.med-a.med; });
+      var tb=$('t-grid').querySelector('tbody'); tb.innerHTML='';
+      for(i=0;i<rows.length;i++){
+        var r=rows[i], tr=document.createElement('tr');
+        tr.innerHTML='<td>'+(i+1)+'</td><td>'+pct(r.stop,1)+'</td><td>'+r.tps.map(function(t){return (t*100).toFixed(1);}).join(' / ')+' %</td><td>'+r.nb+'</td>'+
+          '<td class="'+(i===0?'best':'')+'">'+pct(r.med,3)+'</td><td>'+r.obj.toFixed(1)+' %</td><td>'+r.stopr.toFixed(0)+' %</td><td>'+pct(r.mois,2)+'</td>';
+        tb.appendChild(tr);
+      }
+      var top=rows[0], flop=rows[rows.length-1];
+      $('verdict2').innerHTML='<b>Ce que la grille montre :</b> la meilleure variante ('+pct(top.stop,1)+' en bas, paliers '+top.tps.map(function(t){return (t*100).toFixed(1);}).join('/')+' %, '+top.nb+' actions) fait '+pct(top.med,3)+'/jour en médiane — et même elle n\'atteint ton objectif que '+top.obj.toFixed(1)+' % des jours. '+
+      'La pire ('+pct(flop.stop,1)+' / '+flop.tps.map(function(t){return (t*100).toFixed(1);}).join('/')+' %) fait '+pct(flop.med,3)+'/jour. '+
+      '<b>La leçon constante :</b> plus la sortie basse est serrée, plus le bruit + les frais grignotent ; un « +1 % par jour quoi qu\'il arrive » n\'existe dans aucune variante — c\'est la promesse qu\'aucun marché ne signe. Ta force reste le 90/10 : la poche apprend, le socle dort tranquille.';
+      $('res2').style.display='block';
+      $('att').textContent='Grille terminée — 153 600 journées simulées dans ton téléphone.';
+    },30);
+  };
+})();
+</script>
+<script src="/navlys-alive.js" defer></script>
+</body>
+</html>
