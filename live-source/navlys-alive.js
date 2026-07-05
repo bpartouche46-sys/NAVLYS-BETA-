@@ -16,11 +16,11 @@
   .nv-bubble.show{opacity:1;transform:translateY(0) scale(1)}
   .nv-bubble b{color:${OR};font-style:normal}
   .nv-bubble .x{position:absolute;top:6px;right:9px;color:#9fb3c8;cursor:pointer;font-size:.9rem}
-  #nv-sav-btn{position:fixed;right:18px;bottom:18px;z-index:61;border:none;cursor:pointer;
+  #nv-sav-btn{position:fixed;right:18px;bottom:84px;z-index:61;border:none;cursor:pointer;
     background:linear-gradient(100deg,${OR},#fff6df,${ICE},${OR});background-size:220% 100%;animation:nvsw 6s linear infinite;
     color:${NOIR};font-family:'Lora',serif;font-weight:600;border-radius:999px;padding:12px 18px;box-shadow:0 8px 26px rgba(0,0,0,.45)}
   @keyframes nvsw{0%{background-position:210% 0}100%{background-position:-60% 0}}
-  #nv-sav{position:fixed;right:18px;bottom:74px;z-index:62;width:min(360px,92vw);display:none;flex-direction:column;
+  #nv-sav{position:fixed;right:18px;bottom:140px;z-index:62;width:min(360px,92vw);display:none;flex-direction:column;
     background:linear-gradient(160deg,rgba(125,211,252,.10),rgba(10,12,20,.96));border:1px solid rgba(125,211,252,.3);
     border-radius:18px;overflow:hidden;box-shadow:0 16px 50px rgba(0,0,0,.6)}
   #nv-sav .hd{padding:13px 15px;border-bottom:1px solid rgba(125,211,252,.2);display:flex;align-items:center;gap:9px;color:#fff;font-family:'Cormorant Garamond';letter-spacing:1px}
@@ -35,10 +35,10 @@
   #nv-sav textarea{flex:1;background:rgba(5,6,10,.6);border:1px solid rgba(125,211,252,.25);border-radius:11px;color:#eef0f6;padding:9px;font-family:'Lora',serif;font-size:.95rem;resize:none;height:42px}
   #nv-sav .snd{border:none;cursor:pointer;background:${ICE};color:${NOIR};border-radius:10px;padding:0 14px;font-weight:600}
   /* ---------- bouton RETOUR (bas-gauche, toutes les apps) ---------- */
-  #nv-fb-btn{position:fixed;left:18px;bottom:18px;z-index:61;border:1px solid rgba(233,211,160,.5);cursor:pointer;
+  #nv-fb-btn{position:fixed;left:18px;bottom:84px;z-index:61;border:1px solid rgba(233,211,160,.5);cursor:pointer;
     background:rgba(6,8,14,.82);color:${OR};font-family:'Lora',serif;font-weight:600;border-radius:999px;padding:12px 16px;
     box-shadow:0 8px 26px rgba(0,0,0,.45)}
-  #nv-fb{position:fixed;left:18px;bottom:74px;z-index:62;width:min(360px,92vw);display:none;flex-direction:column;
+  #nv-fb{position:fixed;left:18px;bottom:140px;z-index:62;width:min(360px,92vw);display:none;flex-direction:column;
     background:linear-gradient(160deg,rgba(233,211,160,.10),rgba(10,12,20,.96));border:1px solid rgba(233,211,160,.35);
     border-radius:18px;overflow:hidden;box-shadow:0 16px 50px rgba(0,0,0,.6)}
   #nv-fb .hd{padding:13px 15px;border-bottom:1px solid rgba(233,211,160,.25);color:#fff;font-family:'Cormorant Garamond';letter-spacing:1px}
@@ -377,7 +377,7 @@
     return '<a class="nv-tab'+(act?' active':'')+'" href="'+p.h+'">'+p.n+'</a>';
   }).join('');
   bar.innerHTML=
-    '<a class="nv-brand" href="/"><span class="gem"></span><b>NAVLYS</b></a>'+
+    '<a class="nv-brand" href="/" aria-label="NAVLYS — accueil"><img src="/media/icon-96.svg" alt="NAVLYS" style="height:34px;width:34px;display:block"></a>'+
     '<div class="nv-tabs">'+tabs+'</div>'+
     '<div class="nv-actions">'+
       '<button class="nv-btn share" id="nv-shareB">📤<span class="t">&nbsp;Partager</span></button>'+
@@ -523,20 +523,17 @@
   function ready(fn){ if(document.querySelector('#nv-top .nv-actions')) fn(); else setTimeout(function(){ready(fn);},120); }
   ready(function(){
     var act=document.querySelector('#nv-top .nv-actions');
-    var saved=parseFloat((window.localStorage&&localStorage.getItem('nvfs'))||'1')||1;
-    document.documentElement.style.setProperty('--nv-fs',saved);
-    function setFs(v){ v=Math.max(1,Math.min(1.7,Math.round(v*100)/100)); document.documentElement.style.setProperty('--nv-fs',v); try{localStorage.setItem('nvfs',v);}catch(e){} }
-    function cur(){ return parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--nv-fs'))||1; }
-    var am=document.createElement('button'); am.className='nv-btn'; am.title='Réduire le texte'; am.textContent='A−'; am.style.fontWeight='700';
-    var ap=document.createElement('button'); ap.className='nv-btn'; ap.title='Agrandir le texte'; ap.textContent='A+'; ap.style.fontWeight='700';
-    am.onclick=function(){ setFs(cur()-0.12); }; ap.onclick=function(){ setFs(cur()+0.12); };
+    /* taille de texte FIXE (les textes sont déjà grands) — plus de A-/A+ :
+       l'échelle variable faisait déborder le bandeau et disparaître les langues */
+    document.documentElement.style.setProperty('--nv-fs','1');
+    try{ localStorage.removeItem('nvfs'); }catch(e){}
     var au=document.createElement('audio'); au.id='nv-audio'; au.loop=true; au.src='/media/ambiance.mp3'; document.body.appendChild(au);
     var mu=document.createElement('button'); mu.className='nv-btn'; mu.title='Musique NAVLYS'; mu.textContent='🎵';
     mu.onclick=function(){
       if(au.paused){ au.play().then(function(){ mu.textContent='🎶'; }).catch(function(){ toast('Radio NAVLYS arrive — choisis ta musique 🎵'); setTimeout(function(){location.href='/radio';},700); }); }
       else { au.pause(); mu.textContent='🎵'; }
     };
-    act.insertBefore(mu, act.firstChild); act.insertBefore(ap, act.firstChild); act.insertBefore(am, act.firstChild);
+    act.insertBefore(mu, act.firstChild);
   });
 
   // --- compte à rebours réel jusqu'au 1er juillet 2026, 00:00 ---
