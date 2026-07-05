@@ -70,7 +70,12 @@ h2::after{content:"";flex:1;height:1px;background:var(--line)}
   <h2>2 · Ta cotisation <span style="letter-spacing:0;text-transform:none;font-family:'Atkinson Hyperlegible',sans-serif;font-size:.75rem;color:var(--mut)">(HT · mensuelle · sans engagement)</span></h2>
   <div class="formules" id="a-formules"></div>
   <p class="note">Sur une même cotisation, <b>c'est toi qui choisis</b> le ou les produits que tu veux.
-  Et à <b>zéro euro</b>, tu testes gratuitement chaque application en version standard, déjà installée chez toi.</p>
+  À <b>zéro euro</b>, tu testes gratuitement chaque application en standard, déjà installée chez toi.
+  Chaque tranche de 9,99 te fait <b>monter d'une formule</b> — et chaque formule a ses volumes
+  (photos, vidéos, créations) écrits noir sur blanc. Au sommet : <b>Univers Intégral</b>,
+  100 % du site et des applications, <b>existantes et futures, à vie</b>.</p>
+  <p class="note">🎁 <b>Offre de lancement : −50 % à vie sur tout passage à la formule supérieure.</b>
+  Tu montes quand tu veux, la remise te suit pour toujours.</p>
 
   <h2>3 · Tes applications</h2>
   <div class="apps" id="a-apps"></div>
@@ -96,14 +101,15 @@ h2::after{content:"";flex:1;height:1px;background:var(--line)}
   'use strict';
   var $=function(id){return document.getElementById(id);};
   var FORMULES=[
-    {code:'essai',    nom:'Essai libre',   montant:0,     quota:99, inclu:'Test gratuit de chaque application, en standard, installée sur ton mobile & PC.', badge:'0 €'},
-    {code:'palier1',  nom:'Entrée',        montant:9.99,  quota:1,  inclu:'1 application au choix, complète, plus l\'univers d\'accueil.', badge:'départ'},
-    {code:'palier2',  nom:'Duo',           montant:19.99, quota:2,  inclu:'2 applications au choix, complètes.'},
-    {code:'palier3',  nom:'Trio',          montant:29.99, quota:3,  inclu:'3 applications au choix, complètes.'},
-    {code:'palier4',  nom:'Grand large',   montant:49.99, quota:5,  inclu:'5 applications au choix + accès anticipé aux nouveautés.'},
-    {code:'palier5',  nom:'Cap au nord',   montant:79.99, quota:7,  inclu:'7 applications + concierge vocal prioritaire.'},
-    {code:'palier6',  nom:'Univers entier',montant:99.99, quota:99, inclu:'Toutes les applications, tout NAVLYS, sans limite.'},
-    {code:'coffret',  nom:'Coffret 1 an',  montant:99.99, quota:99, unique:true, inclu:'1 an complet + ta biographie Next Gen. Paiement unique — idéal cadeau.', badge:'cadeau'}
+    {code:'essai',      nom:'Essai libre',      montant:0,      quota:99, inclu:'Découverte gratuite : chaque application en standard, installée mobile & PC. 10 photos · 1 vidéo · 200 Mo.', badge:'0 €'},
+    {code:'n1',         nom:'Entrée',           montant:9.99,   quota:1,  inclu:'Formule découverte (non complète) : 1 application au choix. 100 photos · 5 vidéos · 1 création vidéo/mois · 2 Go.', badge:'départ'},
+    {code:'n2',         nom:'Duo',              montant:19.99,  quota:2,  inclu:'2 applications au choix. 300 photos · 15 vidéos · 3 créations/mois · 5 Go.'},
+    {code:'n3',         nom:'Trio',             montant:29.99,  quota:3,  inclu:'3 applications au choix. 600 photos · 30 vidéos · 6 créations/mois · 10 Go.'},
+    {code:'n4',         nom:'Grand large',      montant:39.99,  quota:4,  inclu:'4 applications au choix. 1 200 photos · 60 vidéos · 10 créations/mois · 20 Go.'},
+    {code:'univers',    nom:'Univers NAVLYS',   montant:49.99,  quota:99, inclu:'Toutes les applications. 2 500 photos · 120 vidéos · 20 créations/mois · 50 Go.', badge:'populaire'},
+    {code:'universplus',nom:'Univers Plus',     montant:99.99,  quota:99, inclu:'Toutes les applications, volumes ×3 : 7 500 photos · 360 vidéos · 60 créations/mois · 150 Go.'},
+    {code:'integral',   nom:'Univers Intégral', montant:149.99, quota:99, inclu:'100 % de NAVLYS : toutes les applications existantes ET futures, à vie. Volumes libres (usage personnel).', badge:'100 % à vie'},
+    {code:'coffret',    nom:'Coffret 1 an',     montant:99.99,  quota:99, unique:true, inclu:'1 an Univers NAVLYS + ta biographie Next Gen. Paiement unique — idéal cadeau.', badge:'cadeau'}
   ];
   var APPS=[
     {code:'accueil',   ico:'🌊', nom:'L\'Univers NAVLYS',        det:'l\'accueil vivant, ton point d\'entrée', dispo:true},
