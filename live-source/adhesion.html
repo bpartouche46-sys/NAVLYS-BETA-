@@ -234,7 +234,7 @@ h2::after{content:"";flex:1;height:1px;background:var(--line)}
     .then(function(r){return r.json();})
     .then(function(d){
       if(!d||!d.ok||!d.membre){ go.disabled=false; $('a-etat').textContent=(d&&d.error)||'Réessaie dans un instant.'; return; }
-      try{ localStorage.setItem('nv-token',d.membre.token); localStorage.setItem('nv-prenom',prenom||''); }catch(e){}
+      try{ localStorage.setItem('nv-token',d.membre.token); localStorage.setItem('nv-prenom',prenom||''); localStorage.setItem('nv-email',email||''); }catch(e){}
       if(f.montant===0||mode==='precommande'){ location.href='/profil?bienvenue=1'; return; }
       $('a-etat').textContent='… ouverture du règlement sécurisé';
       var montant, recurrence, libelle;

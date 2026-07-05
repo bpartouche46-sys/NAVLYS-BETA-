@@ -152,7 +152,7 @@ h2::after{content:"";flex:1;height:1px;background:var(--line)}
   $('p-save').onclick=function(){
     var lng=$('p-lang').value;
     post({action:'maj',token:token,prenom:$('p-prenom').value,lang:lng,params:{voix:$('p-voix').value}})
-    .then(function(d){ if(d&&d.ok){ M=d.membre; try{ localStorage.setItem('nv-prenom',M.prenom||''); localStorage.setItem('nv-lang',lng); }catch(e){} rendre(); $('p-etat').textContent='Enregistré — tes paramétrages sont à jour, partout.'; }
+    .then(function(d){ if(d&&d.ok){ M=d.membre; try{ localStorage.setItem('nv-prenom',M.prenom||''); if(M.email)localStorage.setItem('nv-email',M.email); localStorage.setItem('nv-lang',lng); }catch(e){} rendre(); $('p-etat').textContent='Enregistré — tes paramétrages sont à jour, partout.'; }
       else $('p-etat').textContent=(d&&d.error)||'Réessaie dans un instant.'; })
     .catch(function(){ $('p-etat').textContent='Connexion difficile — réessaie dans un instant. 🌊'; });
   };
