@@ -224,6 +224,19 @@ install.sh              # installeur Hetzner en une ligne
 **Doctrine de ton (rappel) :** tutoiement + prénom, cotisation (jamais tarif),
 statut simple citoyen, jamais complaisant (« rien n'est fini »).
 
+**CHECK-APRÈS d'erreur (gravé 2026-07-05, ordre de Bruno)** : à CHAQUE erreur —
+la mienne, celle d'un agent, celle d'une brique — je fais un post-mortem immédiat
+(comprendre la cause racine) et je grave une règle réutilisable (`navlys_regle`)
+valable pour TOUTES les applications du même univers. Règles n°17-20 déjà gravées :
+schéma SQL lu avant toute requête ; index jsonb = entier ; jamais d'émoji récent
+(SVG maison sinon) ; jamais d'appel externe côté client sans plan B interne.
+
+**Cohérence multi-chantiers (gravé 2026-07-05)** : avant de poursuivre un chantier
+(navlys.com, navlys.io, finance, next-gen, concierge…), refaire une analyse complète —
+santé des pages (pg_net), file des missions/agents, incidents, retours 💡 — et
+finaliser ce qui doit l'être avant d'ouvrir du neuf. Améliorations permanentes en
+fil rouge : vidéos, logo, mise en page mobile/web.
+
 **Argent (Bible §6)** : signalement d'UNE ligne avant tout vrai débit, puis j'avance.
 
 **Confiance & orchestration (gravé 2026-07-02)** : chaque bug / erreur / question
