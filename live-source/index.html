@@ -40,6 +40,19 @@ body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;bac
 .brandline{font-family:'Cinzel',serif;font-weight:600;font-size:clamp(54px,12vw,124px);letter-spacing:.13em;text-transform:uppercase;background:linear-gradient(100deg,var(--or-pale),var(--or) 45%,#fff7e6 55%,var(--or) 70%,var(--bronze));background-size:220% auto;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:shine 9s linear infinite;margin:10px 0 18px;line-height:1.05;filter:drop-shadow(0 0 18px rgba(184,115,51,0.35))}
 @keyframes shine{to{background-position:220% center}}
 .hero h1{font-family:'Cormorant Garamond',serif;font-weight:400;font-size:clamp(31px,6.5vw,52px);line-height:1.22;color:var(--perle);margin:0 auto 18px;max-width:920px}
+/* ---------- ENCADRÉ CINÉMA (demande Bruno 2026-07-05) : cadre fixe ~3/4 haut
+   d'écran ; les annonces se REMPLACENT en fondu au lieu de s'empiler. ---------- */
+.hero.cine{position:relative;min-height:72vh;margin:12px 12px 30px;padding:26px 14px;
+  border:1px solid rgba(233,211,160,.32);border-radius:22px;overflow:hidden;
+  display:flex;flex-direction:column;justify-content:center;align-items:center;
+  background:radial-gradient(120% 90% at 50% 0%,rgba(125,211,252,.07),rgba(3,4,10,0) 60%);
+  box-shadow:0 18px 60px rgba(0,0,0,.45), inset 0 0 46px rgba(125,211,252,.05)}
+.annonces{position:relative;width:100%;max-width:920px;min-height:6.4em;display:grid;place-items:center;margin:6px auto 10px}
+.annonces>*{grid-area:1/1;opacity:0;transition:opacity 1.4s ease;margin:0 auto;text-align:center;pointer-events:none}
+.annonces>.on{opacity:1;pointer-events:auto}
+.annonces .prelude{padding:0}
+.annonces h1{margin:0 auto}
+.annonces .brand-tagline{margin:0 auto}
 .hero h1 em{color:var(--or-pale);font-style:italic}
 .brand-tagline{font-family:'Cinzel',serif;font-size:clamp(13px,3vw,19px);letter-spacing:.3em;color:var(--ice-clair);text-transform:uppercase;font-weight:500;margin:18px auto 24px;padding:12px 20px;border-top:1px solid rgba(125,211,252,0.4);border-bottom:1px solid rgba(125,211,252,0.4);max-width:760px;animation:tag-breath 4s ease-in-out infinite alternate;line-height:1.4}
 @keyframes tag-breath{0%{text-shadow:0 0 12px rgba(125,211,252,0.4);border-color:rgba(125,211,252,0.3)}100%{text-shadow:0 0 30px rgba(125,211,252,0.85);border-color:rgba(168,227,255,0.8)}}
@@ -104,15 +117,16 @@ footer{padding:46px 20px 70px;text-align:center;border-top:1px solid rgba(184,11
   </div>
 </nav>
 
-<div class="prelude">Il y a bien longtemps, l'IA n'existait pas… Mais ça, c'était avant.</div>
-
-<header class="hero">
+<header class="hero cine">
   <div class="kicker">NAVLYS <span>CORE</span> · le cerveau central</div>
   <div class="brandline">NAVLYS</div>
-  <h1>Un cerveau. Une personne.<br><em>Tout un univers.</em><br>L'IA est le vent, c'est toi qui tiens la barre.</h1>
-  <div class="brand-tagline">Ma méthode · Ton argent · Ton rythme</div>
-  <br>
-  <a class="offer" href="/finance">🎁 Teste gratuitement — 0 €</a>
+  <div class="annonces" id="nv-annonces">
+    <div class="prelude on">Il y a bien longtemps, l'IA n'existait pas… Mais ça, c'était avant.</div>
+    <h1>Un cerveau. Une personne.<br><em>Tout un univers.</em></h1>
+    <h1 aria-hidden="true">L'IA est le vent,<br><em>c'est toi qui tiens la barre.</em></h1>
+    <div class="brand-tagline">Ma méthode · Ton argent · Ton rythme</div>
+  </div>
+  <a class="offer" href="/adhesion">🎁 Teste gratuitement — 0 €</a>
 </header>
 
 <div class="wrap">
@@ -197,6 +211,17 @@ footer{padding:46px 20px 70px;text-align:center;border-top:1px solid rgba(184,11
 #apps .card .vive{display:block;width:100%;height:64px;border-radius:12px;margin-bottom:12px;
   border:1px solid rgba(125,211,252,.14);background:rgba(4,7,14,.55);object-fit:cover}
 </style>
+<script>
+/* Annonces du cinéma : une seule visible, fondu, l'une remplace l'autre. */
+(function(){
+  'use strict';
+  var els=document.querySelectorAll('#nv-annonces>*'); if(!els.length) return;
+  var calme=false; try{ calme=matchMedia('(prefers-reduced-motion: reduce)').matches; }catch(e){}
+  if(calme){ els.forEach(function(e){e.classList.remove('on');}); els[1].classList.add('on'); return; }
+  var i=0;
+  setInterval(function(){ els[i].classList.remove('on'); i=(i+1)%els.length; els[i].classList.add('on'); }, 4600);
+})();
+</script>
 <script>
 /* ====================================================================
    NAVLYS — Encadrés vivants (gravé 2026-07-05, demande de Bruno)
