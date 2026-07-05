@@ -197,6 +197,8 @@
   var nvSess=localStorage.getItem('nv_sav_session'); if(!nvSess){ nvSess='web-'+Math.abs(Math.floor((performance.now()*1000)%1e9)); localStorage.setItem('nv_sav_session',nvSess); }
   /* prénom connu (lecture tolérante) : le concierge salue la personne par son prénom */
   function nvPrenom(){ var ks=['nv-prenom','nvprenom','prenom','nv_user_prenom']; var i,v; for(i=0;i<ks.length;i++){ try{ v=localStorage.getItem(ks[i]); }catch(e){ v=null; } if(v&&v.trim()) return v.trim().slice(0,40); } return ''; }
+  /* e-mail connu (lecture tolérante) : sert à reconnaître le fondateur → accès direct au cerveau central */
+  function nvEmail(){ var ks=['nv-email','nvemail','email','nv_user_email']; var i,v; for(i=0;i<ks.length;i++){ try{ v=localStorage.getItem(ks[i]); }catch(e){ v=null; } if(v&&v.trim()&&v.indexOf('@')>-1) return v.trim().slice(0,160); } return ''; }
   function nvSetPrenom(v){ v=(v||'').trim().slice(0,40); if(v){ try{ localStorage.setItem('nv-prenom',v); }catch(e){} } }
   /* capture progressive : tout champ « prénom » de la page alimente le prénom connu */
   try{
@@ -300,19 +302,19 @@
       try{ if(window.NAVLYS_I18N) window.NAVLYS_I18N.set(cible); }catch(e){}
       var okMsg=NV_LANG_OK[cible]||NV_LANG_OK.fr;
       add('n',okMsg,true); nvSpeak(okMsg);
-      try{ fetch(NV_SAV,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({session:nvSess,text:t,nom:nvPrenom(),lang:cible,journal_seul:true,reponse_locale:okMsg})}).catch(function(){}); }catch(e){}
+      try{ fetch(NV_SAV,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({session:nvSess,text:t,nom:nvPrenom(),email:nvEmail(),lang:cible,journal_seul:true,reponse_locale:okMsg})}).catch(function(){}); }catch(e){}
       return;
     }
     // 1) LE SAVOIR LOCAL d'abord : réponse INSTANTANÉE si la Bible connaît la question
     var loc=null; try{ loc=window.NAVLYS_SAVOIR_CHERCHE?window.NAVLYS_SAVOIR_CHERCHE(t,nvLng):null; }catch(e){}
     if(loc){
       add('n',loc,true); nvSpeak(loc);
-      try{ fetch(NV_SAV,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({session:nvSess,text:t,nom:nvPrenom(),lang:nvLng,journal_seul:true,reponse_locale:loc})}).catch(function(){}); }catch(e){}
+      try{ fetch(NV_SAV,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({session:nvSess,text:t,nom:nvPrenom(),email:nvEmail(),lang:nvLng,journal_seul:true,reponse_locale:loc})}).catch(function(){}); }catch(e){}
       return;
     }
     // 2) sinon : le cerveau NAVLYS
     var p=add('n','… un instant',false);
-    fetch(NV_SAV,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({session:nvSess,text:t,nom:nvPrenom(),lang:nvLng})})
+    fetch(NV_SAV,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({session:nvSess,text:t,nom:nvPrenom(),email:nvEmail(),lang:nvLng})})
      .then(function(r){ return r.json(); })
      .then(function(d){ p.remove(); var rep=(d&&d.reply)?d.reply:'Je note ta demande, l\'équipe NAVLYS revient vers toi très vite. 🌊'; add('n',rep,true); nvSpeak(rep); })
      .catch(function(){ p.remove(); add('n','Connexion difficile, réessaie dans un instant. 🌊',false); });
@@ -454,7 +456,7 @@
     okEl.style.display='block'; okEl.textContent='… envoi en cours';
     fetch(NV_FB,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
       page:location.pathname||'/', type:fbVal('nv-fb-t'), portee:fbVal('nv-fb-p'),
-      message:msg, prenom:nvPrenom(), lang:lng, session:nvSess })})
+      message:msg, prenom:nvPrenom(), email:nvEmail(), lang:lng, session:nvSess })})
      .then(function(r){ return r.json(); })
      .then(function(d){ okEl.textContent=(d&&d.merci)?d.merci:'Merci, c\'est bien arrivé 🙏'; msgEl.value='';
        setTimeout(function(){ fb.style.display='none'; okEl.style.display='none'; },3200); })
