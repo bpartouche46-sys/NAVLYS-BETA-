@@ -31,6 +31,20 @@ h2::after{content:"";flex:1;height:1px;background:var(--line)}
 .f .prix small{font-size:.85rem;color:var(--mut);font-family:'Atkinson Hyperlegible',sans-serif}
 .f .inclu{color:var(--mut);font-size:.86rem;line-height:1.55}
 .f .badge{position:absolute;top:-9px;right:12px;background:linear-gradient(100deg,var(--or),#fff6df,var(--or));color:var(--noir);font-size:.7rem;font-weight:700;border-radius:999px;padding:3px 10px}
+.cadeaux{margin-top:6px}
+.cadeau{display:flex;align-items:baseline;gap:10px;padding:10px 2px;border-bottom:1px dashed var(--line);cursor:pointer;color:var(--perle);font-size:.95rem}
+.cadeau:first-child{border-top:1px dashed var(--line)}
+.cadeau .rem{color:var(--or);font-weight:700;flex:none;min-width:56px}
+.cadeau .n{flex:1;min-width:0}
+.cadeau .px{color:var(--ice-clair);font-weight:700;white-space:nowrap}
+.cadeau .px small{color:var(--mut);font-weight:400}
+.cadeau.on{color:var(--or)}
+.cadeau.on .n::after{content:" ✓"}
+.paies{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:9px}
+.paie{background:rgba(6,8,16,.72);border:1px solid var(--line);border-radius:13px;padding:12px 14px;cursor:pointer;transition:border-color .2s}
+.paie.on{border-color:var(--or);background:linear-gradient(160deg,rgba(233,211,160,.08),rgba(6,8,16,.85))}
+.paie b{display:block;color:#eafaff;font-size:.95rem}
+.paie small{display:block;color:var(--mut);font-size:.8rem;line-height:1.45;margin-top:3px}
 .apps{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:9px}
 .app{display:flex;align-items:center;gap:10px;background:rgba(6,8,16,.72);border:1px solid var(--line);border-radius:13px;padding:11px 13px;cursor:pointer;transition:border-color .2s}
 .app.on{border-color:var(--ice);background:rgba(125,211,252,.08)}
@@ -67,22 +81,23 @@ h2::after{content:"";flex:1;height:1px;background:var(--line)}
   </div>
   <input id="a-web" type="text" style="display:none" tabindex="-1" autocomplete="off">
 
-  <h2>2 · Ta cotisation <span style="letter-spacing:0;text-transform:none;font-family:'Atkinson Hyperlegible',sans-serif;font-size:.75rem;color:var(--mut)">(HT · réglée à l'année — chez NAVLYS, aucun abonnement au mois)</span></h2>
+  <h2>2 · Ta cotisation <span style="letter-spacing:0;text-transform:none;font-family:'Atkinson Hyperlegible',sans-serif;font-size:.75rem;color:var(--mut)">(HT · engagement à l'année — carte débitée par mois, ou l'année en une fois avec −5 % en plus)</span></h2>
   <div class="formules" id="a-formules"></div>
-  <p class="note">Sur une même cotisation, <b>c'est toi qui choisis</b> le ou les produits que tu veux.
-  À <b>zéro euro</b>, tu testes gratuitement chaque application en standard, déjà installée chez toi.
-  Chaque tranche de 9,99 te fait <b>monter d'une formule</b> — et chaque formule a ses volumes
-  (photos, vidéos, créations) écrits noir sur blanc. Au sommet : <b>Univers Intégral</b>,
-  100 % du site et des applications, <b>existantes et futures, à vie</b>.</p>
-  <p class="note">🎁 <b>Offre de lancement : −50 % à vie sur tout passage à la formule supérieure.</b>
-  Tu montes quand tu veux, la remise te suit pour toujours.</p>
-  <p class="note">🎀 <b>Les coffrets cadeaux</b> : tout pré-fourni en package, 1 an d'abonnement offert dedans —
-  <b>−20 %</b> pour 1 produit, <b>−30 %</b> pour 2, <b>−40 %</b> pour 3. Réglé une fois, prêt à offrir.
-  <i>Les offres ne se cumulent pas entre elles.</i></p>
+  <p class="note">Ton abonnement t'ouvre l'univers NAVLYS — dedans, <b>c'est toi qui commandes</b>.
+  À <b>zéro euro</b>, tu testes tout gratuitement.</p>
+  <p class="note">Tu changes d'applications ou de niveau quand tu veux :
+  🎁 <b>−50 % à vie sur toute montée de formule</b> — ou tout de suite l'<b>offre à vie</b>,
+  tous produits, avec ou sans limite (Univers Intégral).</p>
+  <p class="note">🎀 <b>Coffrets cadeaux</b> — 1 an offert, réglé une fois, prêt à offrir.
+  <i>Les offres ne se cumulent pas.</i></p>
+  <div class="cadeaux" id="a-cadeaux"></div>
 
   <h2>3 · Tes applications</h2>
   <div class="apps" id="a-apps"></div>
   <p class="note" id="a-quota"></p>
+
+  <h2 id="h-paie">4 · Ton règlement</h2>
+  <div class="paies" id="a-paies"></div>
 
   <button class="cta" id="a-go">Je m'enregistre — accès immédiat</button>
   <p class="etat" id="a-etat"></p>
@@ -95,8 +110,7 @@ h2::after{content:"";flex:1;height:1px;background:var(--line)}
   </div>
 
   <p class="disc">Cotisations affichées hors taxes. Contenu éducatif et informatif uniquement — NAVLYS est porté par un
-  simple citoyen : jamais de conseil financier personnalisé, jamais de promesse de rendement.
-  Les applications marquées « précommande » s'activent à leur ouverture ; on te prévient en premier.</p>
+  simple citoyen : jamais de conseil financier personnalisé, jamais de promesse de rendement.</p>
 </div>
 
 <script>
@@ -111,43 +125,72 @@ h2::after{content:"";flex:1;height:1px;background:var(--line)}
     {code:'n4',         nom:'Grand large',      montant:39.99,  quota:4,  inclu:'4 applications au choix. 1 200 photos · 60 vidéos · 10 créations/mois · 20 Go.'},
     {code:'univers',    nom:'Univers NAVLYS',   montant:49.99,  quota:99, inclu:'Toutes les applications. 2 500 photos · 120 vidéos · 20 créations/mois · 50 Go.', badge:'populaire'},
     {code:'universplus',nom:'Univers Plus',     montant:99.99,  quota:99, inclu:'Toutes les applications, volumes ×3 : 7 500 photos · 360 vidéos · 60 créations/mois · 150 Go.'},
-    {code:'integral',   nom:'Univers Intégral', montant:149.99, quota:99, inclu:'100 % de NAVLYS : toutes les applications existantes ET futures, à vie. Volumes libres (usage personnel).', badge:'100 % à vie'},
-    {code:'cadeau1',    nom:'Coffret Cadeau',   montant:95.99,  quota:1,  unique:true, inclu:'1 an offert en package, tout pré-fourni : 1 application au choix (volumes Entrée). Au lieu de 119,88.', badge:'−20 %'},
-    {code:'cadeau2',    nom:'Package Double',   montant:167.99, quota:2,  unique:true, inclu:'1 an · 2 applications (volumes Duo), tout pré-fourni. Au lieu de 239,88.', badge:'−30 %'},
-    {code:'cadeau3',    nom:'Package Triple',   montant:215.99, quota:3,  unique:true, inclu:'1 an · 3 applications (volumes Trio), tout pré-fourni. Au lieu de 359,88.', badge:'−40 %'}
+    {code:'integral',   nom:'Univers Intégral', montant:149.99, quota:99, inclu:'100 % de NAVLYS : toutes les applications existantes ET futures, à vie. Volumes libres (usage personnel).', badge:'100 % à vie'}
+  ];
+  var CADEAUX=[
+    {code:'cadeau1', nom:'Coffret Cadeau · 1 application',   montant:95.99,  quota:1, unique:true, badge:'−20 %'},
+    {code:'cadeau2', nom:'Package Double · 2 applications',  montant:167.99, quota:2, unique:true, badge:'−30 %'},
+    {code:'cadeau3', nom:'Package Triple · 3 applications',  montant:215.99, quota:3, unique:true, badge:'−40 %'}
   ];
   var APPS=[
     {code:'accueil',   ico:'🌊', nom:'L\'Univers NAVLYS',        det:'l\'accueil vivant, ton point d\'entrée', dispo:true},
     {code:'finance',   ico:'📈', nom:'Finance',                  det:'éducation & veille, méthode 90/10',      dispo:true},
     {code:'next-gen',  ico:'📖', nom:'Next Gen — ta biographie', det:'écris, dicte, garde ta vie en livre',    dispo:true},
     {code:'assistance',ico:'🎙️', nom:'L\'Aide & le Concierge',   det:'réponses à la voix, dans ta langue',     dispo:true},
-    {code:'radio',     ico:'📻', nom:'Radio NAVLYS',             det:'la radio de l\'univers, en continu',     dispo:true},
     {code:'navlex',    ico:'⚖️', nom:'NAVLEX',                   det:'tes repères juridiques simples',         dispo:true},
-    {code:'mer',       ico:'⚓', nom:'La Mer',                   det:'météo marine, vagues & vents 3 jours',   dispo:true},
-    {code:'cinema',    ico:'🎬', nom:'Cinéma NAVLYS',            det:'l\'univers en images et en musique',     dispo:true},
-    {code:'cockpit',   ico:'🧭', nom:'Cockpit personnel',        det:'ton tableau de bord à toi',              dispo:false},
-    {code:'navjeu',    ico:'🎲', nom:'NAVJEU',                   det:'l\'environnement de jeu du matin',       dispo:false}
+    {code:'mer',       ico:'⚓', nom:'La Mer',                   det:'météo marine, vagues & vents 3 jours',   dispo:true}
   ];
   var COMPTE='https://hhrlgyvtqluxpywjiwkd.supabase.co/functions/v1/compte';
   var CAISSE='https://hhrlgyvtqluxpywjiwkd.supabase.co/functions/v1/paiement';
-  var fSel='essai', aSel=[];
+  var fSel='essai', aSel=[], pSel='mois';
 
   function fmt(n){ return n.toFixed(2).replace('.',','); }
-  function quota(){ var f=FORMULES.filter(function(x){return x.code===fSel;})[0]; return f?f.quota:1; }
+  function getF(code){ return FORMULES.concat(CADEAUX).filter(function(x){return x.code===code;})[0]; }
+  function quota(){ var f=getF(fSel); return f?f.quota:1; }
+  function choisirF(code){ fSel=code; if(quota()<aSel.length) aSel=aSel.slice(0,quota()); rendreF(); rendreA(); }
   function rendreF(){
     var h='';
     FORMULES.forEach(function(f){
       h+='<div class="f'+(f.code===fSel?' on':'')+'" data-f="'+f.code+'">'+
         (f.badge?'<span class="badge">'+f.badge+'</span>':'')+
         '<div class="nom">'+f.nom+'</div>'+
-        '<div class="prix">'+(f.montant===0?'0 €':fmt(f.montant)+' €')+' <small>'+(f.montant===0?'essai gratuit':(f.unique?'HT · 1 an, réglé une fois':'HT/mois — à l\'année : '+fmt(f.montant*12)+' € HT'))+'</small></div>'+
+        '<div class="prix">'+(f.montant===0?'0 €':fmt(f.montant)+' €')+' <small>'+(f.montant===0?'essai gratuit':'HT/mois — engagement à l\'année')+'</small></div>'+
         '<div class="inclu">'+f.inclu+'</div></div>';
     });
     $('a-formules').innerHTML=h;
     Array.prototype.forEach.call(document.querySelectorAll('.f'),function(el){
-      el.onclick=function(){ fSel=el.getAttribute('data-f'); if(quota()<aSel.length) aSel=aSel.slice(0,quota()); rendreF(); rendreA(); };
+      el.onclick=function(){ choisirF(el.getAttribute('data-f')); };
     });
-    rendreQuota();
+    rendreCadeaux(); rendrePaie(); rendreQuota();
+  }
+  function rendreCadeaux(){
+    var h='';
+    CADEAUX.forEach(function(c){
+      h+='<div class="cadeau'+(c.code===fSel?' on':'')+'" data-f="'+c.code+'">'+
+        '<span class="rem">'+c.badge+'</span>'+
+        '<span class="n">'+c.nom+'</span>'+
+        '<span class="px">'+fmt(c.montant)+' € <small>HT · réglé une fois</small></span></div>';
+    });
+    $('a-cadeaux').innerHTML=h;
+    Array.prototype.forEach.call(document.querySelectorAll('.cadeau'),function(el){
+      el.onclick=function(){ choisirF(el.getAttribute('data-f')); };
+    });
+  }
+  function rendrePaie(){
+    var f=getF(fSel), bloc=$('a-paies'), titre=$('h-paie');
+    if(!f||f.montant===0){ titre.style.display='none'; bloc.style.display='none'; bloc.innerHTML=''; return; }
+    titre.style.display=''; bloc.style.display='';
+    if(f.unique){
+      bloc.innerHTML='<p class="note" style="margin-top:0">🎀 <b>'+fmt(f.montant)+' € HT</b>, réglé une fois. 1 an offert dedans.</p>';
+      return;
+    }
+    var an=Math.round(f.montant*12*0.95*100)/100;
+    bloc.innerHTML=
+      '<div class="paie'+(pSel==='mois'?' on':'')+'" data-p="mois"><b>💳 Par mois — '+fmt(f.montant)+' € × 12</b><small>Engagement 1 an, léger chaque mois.</small></div>'+
+      '<div class="paie'+(pSel==='an'?' on':'')+'" data-p="an"><b>✨ En une fois — '+fmt(an)+' €</b><small>−5 % en plus, tout est réglé.</small></div>';
+    Array.prototype.forEach.call(document.querySelectorAll('.paie'),function(el){
+      el.onclick=function(){ pSel=el.getAttribute('data-p'); rendrePaie(); };
+    });
   }
   function rendreA(){
     var h='';
@@ -172,13 +215,13 @@ h2::after{content:"";flex:1;height:1px;background:var(--line)}
     var q=quota();
     $('a-quota').innerHTML = q>=99
       ? '<b>Toutes les applications</b> sont incluses dans cette formule — coche celles que tu veux voir en premier.'
-      : 'Ta formule inclut <b>'+q+' application'+(q>1?'s':'')+' au choix</b> ('+aSel.length+'/'+q+' choisie'+(aSel.length>1?'s':'')+'). Les « précommande » s\'activent à l\'ouverture.';
+      : 'Ta formule inclut <b>'+q+' application'+(q>1?'s':'')+' au choix</b> ('+aSel.length+'/'+q+' choisie'+(aSel.length>1?'s':'')+').';
   }
 
   $('a-go').onclick=function(){
     var prenom=($('a-prenom').value||'').trim(), email=($('a-email').value||'').trim();
     if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){ $('a-etat').textContent='Écris ton e-mail pour créer ton accès.'; $('a-email').focus(); return; }
-    var f=FORMULES.filter(function(x){return x.code===fSel;})[0];
+    var f=getF(fSel);
     var apps=aSel.length?aSel:(f.montant===0?APPS.map(function(a){return a.code;}):[]);
     if(f.montant>0&&!apps.length){ $('a-etat').textContent='Choisis au moins une application — c\'est toi qui décides.'; return; }
     var lng='fr'; try{ lng=(window.NAVLYS_I18N&&window.NAVLYS_I18N.lang&&window.NAVLYS_I18N.lang())||localStorage.getItem('nv-lang')||navigator.language||'fr'; }catch(e){}
@@ -194,9 +237,13 @@ h2::after{content:"";flex:1;height:1px;background:var(--line)}
       try{ localStorage.setItem('nv-token',d.membre.token); localStorage.setItem('nv-prenom',prenom||''); }catch(e){}
       if(f.montant===0||mode==='precommande'){ location.href='/profil?bienvenue=1'; return; }
       $('a-etat').textContent='… ouverture du règlement sécurisé';
+      var montant, recurrence, libelle;
+      if(f.unique){ montant=f.montant; recurrence=''; libelle='Coffret NAVLYS — 1 an réglé une fois — '+f.nom+' — '+email; }
+      else if(pSel==='an'){ montant=Math.round(f.montant*12*0.95*100)/100; recurrence='an'; libelle='Cotisation NAVLYS — engagement 1 an, réglée en une fois (−5 %) — '+f.nom+' — '+email; }
+      else { montant=f.montant; recurrence='mois'; libelle='Cotisation NAVLYS — engagement 1 an, réglée par mois — '+f.nom+' — '+email; }
       fetch(CAISSE,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
-        montant:(f.unique?f.montant:Math.round(f.montant*12*100)/100), devise:'eur', recurrence:(f.unique?'':'an'),
-        libelle:'Cotisation annuelle NAVLYS — '+f.nom+' — '+email,
+        montant:montant, devise:'eur', recurrence:recurrence,
+        libelle:libelle,
         success_url:'https://navlys.com/profil?paye=ok',
         cancel_url:'https://navlys.com/adhesion?paye=annule' })})
       .then(function(r){return r.json();})
