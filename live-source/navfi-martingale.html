@@ -96,6 +96,31 @@ h2::after{content:"";flex:1;height:1px;background:var(--line)}
     <div class="verdict" id="verdict2"></div>
   </div>
 
+
+  <!-- LE SYSTÈME COMPLET 90/10 -->
+  <h2>⚓ Le système complet — forteresse + poche + jours verts</h2>
+  <p class="att" style="text-align:left">Ta doctrine entière : <b>90 % forteresse</b> (actions montantes + obligations d'État, ~6,5 %/an),
+  <b>10 % poche</b> de jeu, gains partagés <b>50 % forteresse / 50 % re-risque</b>, et la règle qu'on a fixée :
+  <b>les jours rouges pour tout le monde, on ne joue pas</b> (signal du matin, fiabilité réglable).</p>
+  <div class="grid">
+    <div class="champ"><label>Fiabilité du signal du matin (%)</label><input id="fiab" type="number" value="65" min="50" max="100"></div>
+    <div class="champ"><label>Forteresse : rendement/an (%)</label><input id="fort" type="number" value="6.5" step="0.5"></div>
+  </div>
+  <div class="btns">
+    <button class="btn or" id="b-sys">⚓ Tester LE SYSTÈME sur 100 années simulées</button>
+  </div>
+  <div class="res" id="res3">
+    <div class="tuiles">
+      <div class="tuile"><div class="n" id="s-an">—</div><div class="l">résultat médian<br>après 1 an (base 100)</div></div>
+      <div class="tuile"><div class="n" id="s-pire">—</div><div class="l">pire 5 %<br>des années</div></div>
+      <div class="tuile"><div class="n" id="s-top">—</div><div class="l">meilleur 5 %<br>des années</div></div>
+      <div class="tuile"><div class="n" id="s-jj">—</div><div class="l">jours joués<br>par an</div></div>
+      <div class="tuile"><div class="n" id="s-un">—</div><div class="l">jours joués où la poche<br>fait ≥ +1 %</div></div>
+      <div class="tuile"><div class="n" id="s-med">—</div><div class="l">médiane de la poche<br>un jour joué</div></div>
+    </div>
+    <div class="verdict" id="verdict3"></div>
+  </div>
+
   <p class="disc">⚓ Atelier personnel et pédagogique : un <b>simulateur</b>, pas un conseil. Les marchés simulés sont
   aléatoires (volatilité choisie ci-dessus) — la réalité peut faire pire. Aucun ordre n'est passé, aucun argent n'est
   engagé ici. NAVLYS · statut simple citoyen — l'éducation éclaire, la décision reste dans tes mains, et rien ne
@@ -223,6 +248,66 @@ h2::after{content:"";flex:1;height:1px;background:var(--line)}
       '<b>La leçon constante :</b> plus la sortie basse est serrée, plus le bruit + les frais grignotent ; un « +1 % par jour quoi qu\'il arrive » n\'existe dans aucune variante — c\'est la promesse qu\'aucun marché ne signe. Ta force reste le 90/10 : la poche apprend, le socle dort tranquille.';
       $('res2').style.display='block';
       $('att').textContent='Grille terminée — 153 600 journées simulées dans ton téléphone.';
+    },30);
+  };
+
+  /* ---------- LE SYSTÈME COMPLET (doctrine Bruno) ---------- */
+  function jourAction2(r, mkt, beta, volIdio, stop, tps, frais){
+    var steps=120, sc=1, sdI=volIdio/Math.sqrt(steps);
+    var part=1, gain=0, t1=false,t2=false, i;
+    for(i=0;i<steps;i++){
+      sc*=(1+beta*mkt[i]+sdI*normal(r));
+      var rd=sc-1;
+      if(!t1 && rd>=tps[0]){ gain+=(1/3)*(tps[0]-frais); part-=1/3; t1=true; }
+      if(!t2 && rd>=tps[1]){ gain+=(1/3)*(tps[1]-frais); part-=1/3; t2=true; }
+      if(rd>=tps[2]){ gain+=part*(tps[2]-frais); return gain; }
+      if(rd<=stop){ gain+=part*(stop-frais); return gain; }
+    }
+    return gain+part*((sc-1)-frais);
+  }
+  $('b-sys').onclick=function(){
+    var p=lireParams();
+    var fiab=Math.max(0.5,Math.min(1,(parseFloat($('fiab').value)||65)/100));
+    var fAn=(parseFloat($('fort').value)||6.5)/100;
+    $('att').textContent='… 100 années simulées en cours';
+    setTimeout(function(){
+      var tot=[],uns=[],jjs=[],meds=[];
+      var volMkt=0.01, muMkt=0.0003, beta=1.1;
+      var volIdio=Math.max(0.005, Math.sqrt(Math.max(0, p.vol*p.vol - beta*beta*volMkt*volMkt)));
+      var sSim, jour, iStep, aIdx;
+      for(sSim=0;sSim<100;sSim++){
+        var r=rng(31000+sSim), F=90, Pp=10, jj=0, un=0, poch=[];
+        for(jour=0;jour<252;jour++){
+          var steps=120, sdM=volMkt/Math.sqrt(steps), mkt=[], mm=0;
+          for(iStep=0;iStep<steps;iStep++){ var dm=muMkt/steps+sdM*normal(r); mkt.push(dm); mm+=dm; }
+          var vert=mm>0;
+          var joue=(r()<fiab)?vert:!vert;
+          F*=(1+fAn/252+0.002*normal(r));
+          if(!joue) continue;
+          jj++;
+          var somme=0;
+          for(aIdx=0;aIdx<p.nb;aIdx++) somme+=jourAction2(r, mkt, beta, volIdio, p.stop, p.tps, p.frais);
+          var rP=somme/p.nb; poch.push(rP);
+          if(rP>=0.01) un++;
+          var g=Pp*rP;
+          if(g>0){ F+=g/2; Pp+=g/2; } else Pp+=g;
+          if(Pp<1) Pp=1;
+        }
+        tot.push(F+Pp); jjs.push(jj); uns.push(jj?100*un/jj:0); meds.push(poch.length?quantile(poch,0.5):0);
+      }
+      $('s-an').textContent=quantile(tot,0.5).toFixed(1);
+      $('s-pire').textContent=quantile(tot,0.05).toFixed(1);
+      $('s-top').textContent=quantile(tot,0.95).toFixed(1);
+      $('s-jj').textContent=Math.round(quantile(jjs,0.5));
+      $('s-un').textContent=quantile(uns,0.5).toFixed(1)+' %';
+      $('s-med').textContent=pct(quantile(meds,0.5),2);
+      var mp=quantile(meds,0.5);
+      $('verdict3').innerHTML='<b>Lecture honnête :</b> ton filtre « jours rouges = on ne joue pas » est un VRAI avantage — '+
+        (mp>0? 'avec cette fiabilité, la poche gagne en médiane '+pct(mp,2)+' par jour joué. ' : 'mais à cette fiabilité, la médiane par jour joué reste '+pct(mp,2)+' — monte la fiabilité du signal ou élargis la sortie basse. ')+
+        'Attention : la sortie basse trop serrée (−0,1 %) coupe la position avant que le jour vert travaille — teste −1 % et compare. '+
+        'Et même avec un signal parfait, « +1 % chaque jour joué, sûr » n\'existe pas : le bruit propre de chaque action reste plus fort que la couleur du marché. Le système, lui, tient : la forteresse encaisse 50 % de chaque gain et grossit toute l\'année.';
+      $('res3').style.display='block';
+      $('att').textContent='Système complet simulé — 100 années, dans ton téléphone.';
     },30);
   };
 })();
