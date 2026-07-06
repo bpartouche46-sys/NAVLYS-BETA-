@@ -200,6 +200,8 @@
   /* e-mail connu (lecture tolérante) : sert à reconnaître le fondateur → accès direct au cerveau central */
   function nvEmail(){ var ks=['nv-email','nvemail','email','nv_user_email']; var i,v; for(i=0;i<ks.length;i++){ try{ v=localStorage.getItem(ks[i]); }catch(e){ v=null; } if(v&&v.trim()&&v.indexOf('@')>-1) return v.trim().slice(0,160); } return ''; }
   function nvSetPrenom(v){ v=(v||'').trim().slice(0,40); if(v){ try{ localStorage.setItem('nv-prenom',v); }catch(e){} } }
+  /* je salue par le prénom dès que je le connais (tutoiement, 1re personne) */
+  try{ var _p=nvPrenom(); if(_p){ var _bd=document.getElementById('nv-bd'); if(_bd){ _bd.innerHTML='<div class="b n">Bonjour '+_p.replace(/[<>&]/g,'')+' 👋 Ravi de te revoir — dis-moi, je t\'écoute.<br><span class="lt" id="nv-hello">🔊 écouter Bruno</span></div>'; var _h=_bd.querySelector('#nv-hello'); if(_h) _h.onclick=function(){ try{ var a=new Audio('/media/voix-accueil.mp3'); a.play(); _h.textContent='🔊 réécouter Bruno'; }catch(e){} }; } } }catch(e){}
   /* capture progressive : tout champ « prénom » de la page alimente le prénom connu */
   try{
     var ins=document.querySelectorAll('input');
