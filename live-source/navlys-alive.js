@@ -166,6 +166,7 @@
   var pi=Math.floor(Math.random()*promos.length);
   function bubble(){
     if(document.hidden) return schedule();
+    var _old=document.querySelector('.nv-bubble'); if(_old){ _old.remove(); } // une seule bulle à la fois (plus de texte sur texte)
     var b=document.createElement('div'); b.className='nv-bubble';
     b.innerHTML='<span class="x">✕</span>'+promos[pi%promos.length]; pi++;
     document.body.appendChild(b);
@@ -189,7 +190,7 @@
   btn.onclick=function(){ var open=panel.style.display==='flex'; panel.style.display=open?'none':'flex'; if(!open) document.getElementById('nv-q').focus(); };
   /* accueil : la VRAIE voix de Bruno (mp3 statique, clone ElevenLabs) */
   var helloBtn=panel.querySelector('#nv-hello');
-  if(helloBtn){ helloBtn.onclick=function(){ try{ var a=new Audio('/media/voix-accueil.mp3'); a.play(); helloBtn.textContent='🔊 réécouter Bruno'; }catch(e){} }; }
+  if(helloBtn){ helloBtn.onclick=function(){ try{ nvStop(); nvAudio=new Audio('/media/voix-accueil.mp3'); nvAudio.play(); helloBtn.textContent='🔊 réécouter Bruno'; }catch(e){} }; }
 
   var NV_SAV='https://hhrlgyvtqluxpywjiwkd.supabase.co/functions/v1/assistant';
   // LE SAVOIR LOCAL (Bible condensée, 5 langues) : réponses instantanées sans réseau
@@ -201,7 +202,7 @@
   function nvEmail(){ var ks=['nv-email','nvemail','email','nv_user_email']; var i,v; for(i=0;i<ks.length;i++){ try{ v=localStorage.getItem(ks[i]); }catch(e){ v=null; } if(v&&v.trim()&&v.indexOf('@')>-1) return v.trim().slice(0,160); } return ''; }
   function nvSetPrenom(v){ v=(v||'').trim().slice(0,40); if(v){ try{ localStorage.setItem('nv-prenom',v); }catch(e){} } }
   /* je salue par le prénom dès que je le connais (tutoiement, 1re personne) */
-  try{ var _p=nvPrenom(); if(_p){ var _bd=document.getElementById('nv-bd'); if(_bd){ _bd.innerHTML='<div class="b n">Bonjour '+_p.replace(/[<>&]/g,'')+' 👋 Ravi de te revoir — dis-moi, je t\'écoute.<br><span class="lt" id="nv-hello">🔊 écouter Bruno</span></div>'; var _h=_bd.querySelector('#nv-hello'); if(_h) _h.onclick=function(){ try{ var a=new Audio('/media/voix-accueil.mp3'); a.play(); _h.textContent='🔊 réécouter Bruno'; }catch(e){} }; } } }catch(e){}
+  try{ var _p=nvPrenom(); if(_p){ var _bd=document.getElementById('nv-bd'); if(_bd){ _bd.innerHTML='<div class="b n">Bonjour '+_p.replace(/[<>&]/g,'')+' 👋 Ravi de te revoir — dis-moi, je t\'écoute.<br><span class="lt" id="nv-hello">🔊 écouter Bruno</span></div>'; var _h=_bd.querySelector('#nv-hello'); if(_h) _h.onclick=function(){ try{ nvStop(); nvAudio=new Audio('/media/voix-accueil.mp3'); nvAudio.play(); _h.textContent='🔊 réécouter Bruno'; }catch(e){} }; } } }catch(e){}
   /* capture progressive : tout champ « prénom » de la page alimente le prénom connu */
   try{
     var ins=document.querySelectorAll('input');
@@ -215,9 +216,9 @@
     });
   }catch(e){}
   var NV_VOIX='https://hhrlgyvtqluxpywjiwkd.supabase.co/functions/v1/voix';
-  var nvAudio=null;
+  var nvAudio=null, nvSpeakSeq=0;
   function nvClean(t){ return String(t).replace(/[*_#>`]|🌊|👋|😊|🚀/g,'').trim(); }
-  function nvStop(){ try{ if(nvAudio){ nvAudio.pause(); nvAudio=null; } }catch(e){} try{ if('speechSynthesis'in window) speechSynthesis.cancel(); }catch(e){} }
+  function nvStop(){ nvSpeakSeq++; try{ if(nvAudio){ nvAudio.pause(); nvAudio=null; } }catch(e){} try{ if('speechSynthesis'in window) speechSynthesis.cancel(); }catch(e){} }
   // voix navigateur AMÉLIORÉE : meilleure voix DANS LA LANGUE DU SITE + débit doux
   function nvLangCode(){
     var l='fr';
@@ -244,15 +245,16 @@
   }
   // NAVLYS parle : 1) voix ElevenLabs émotionnelle (brique /voix) ; 2) sinon navigateur
   function nvSpeak(text){
-    var t=nvClean(text); if(!t) return; nvStop();
+    var t=nvClean(text); if(!t) return; nvStop(); var seq=++nvSpeakSeq; // une seule voix à la fois
     try{
       fetch(NV_VOIX,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({text:t})})
         .then(function(r){ return r.json(); })
         .then(function(d){
-          if(d&&d.ok&&d.audio){ nvAudio=new Audio(d.audio); var p=nvAudio.play(); if(p&&p['catch']) p['catch'](function(){ nvBrowserSpeak(t); }); }
-          else { nvBrowserSpeak(t); }
+          if(seq!==nvSpeakSeq) return; // un nouveau nvSpeak a démarré entre-temps → on abandonne (plus de "plusieurs Bruno")
+          if(d&&d.ok&&d.audio){ nvStop(); nvAudio=new Audio(d.audio); var p=nvAudio.play(); if(p&&p['catch']) p['catch'](function(){ if(seq===nvSpeakSeq) nvBrowserSpeak(t); }); }
+          else if(seq===nvSpeakSeq){ nvBrowserSpeak(t); }
         })
-        .catch(function(){ nvBrowserSpeak(t); });
+        .catch(function(){ if(seq===nvSpeakSeq) nvBrowserSpeak(t); });
     }catch(e){ nvBrowserSpeak(t); }
   }
   function listen(text, el){ nvSpeak(text); el.textContent='🔊 réécouter'; }
