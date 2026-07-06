@@ -48,11 +48,14 @@ body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;bac
   background:radial-gradient(120% 90% at 50% 0%,rgba(125,211,252,.07),rgba(3,4,10,0) 60%);
   box-shadow:0 18px 60px rgba(0,0,0,.45), inset 0 0 46px rgba(125,211,252,.05)}
 .annonces{position:relative;width:100%;max-width:920px;min-height:6.4em;display:grid;place-items:center;margin:6px auto 10px}
-.annonces>*{grid-area:1/1;opacity:0;transition:opacity 1.4s ease;margin:0 auto;text-align:center;pointer-events:none}
+.annonces>*{grid-area:1/1;opacity:0;transition:opacity .85s ease;margin:0 auto;text-align:center;pointer-events:none}
 .annonces>.on{opacity:1;pointer-events:auto}
 .annonces .prelude{padding:0}
 .annonces h1{margin:0 auto}
 .annonces .brand-tagline{margin:0 auto}
+.hero .prelude-fixe{padding:4px 16px 12px;animation:fadeUp 1.6s ease .2s both}
+.annonces.tous{display:block}
+.annonces.tous>*{opacity:1;grid-area:auto;position:static;margin:10px auto;transition:opacity .85s ease}
 .hero h1 em{color:var(--or-pale);font-style:italic}
 .brand-tagline{font-family:'Cinzel',serif;font-size:clamp(13px,3vw,19px);letter-spacing:.3em;color:var(--ice-clair);text-transform:uppercase;font-weight:500;margin:18px auto 24px;padding:12px 20px;border-top:1px solid rgba(125,211,252,0.4);border-bottom:1px solid rgba(125,211,252,0.4);max-width:760px;animation:tag-breath 4s ease-in-out infinite alternate;line-height:1.4}
 @keyframes tag-breath{0%{text-shadow:0 0 12px rgba(125,211,252,0.4);border-color:rgba(125,211,252,0.3)}100%{text-shadow:0 0 30px rgba(125,211,252,0.85);border-color:rgba(168,227,255,0.8)}}
@@ -120,10 +123,10 @@ footer{padding:46px 20px 70px;text-align:center;border-top:1px solid rgba(184,11
 
 <header class="hero cine">
   <div class="kicker">NAVLYS <span>CORE</span> · le cerveau central</div>
+  <div class="prelude prelude-fixe">Il y a bien longtemps, l'IA n'existait pas… Mais ça, c'était avant.</div>
   <div class="brandline">NAVLYS</div>
   <div class="annonces" id="nv-annonces">
-    <div class="prelude on">Il y a bien longtemps, l'IA n'existait pas… Mais ça, c'était avant.</div>
-    <h1>Un cerveau. Une personne.<br><em>Tout un univers.</em></h1>
+    <h1 class="on">Un cerveau. Une personne.<br><em>Tout un univers.</em></h1>
     <h1 aria-hidden="true">L'IA est le vent,<br><em>c'est toi qui tiens la barre.</em></h1>
     <div class="brand-tagline">Ma méthode · Ton argent · Ton rythme</div>
   </div>
@@ -278,11 +281,27 @@ footer{padding:46px 20px 70px;text-align:center;border-top:1px solid rgba(184,11
 /* Annonces du cinéma : une seule visible, fondu, l'une remplace l'autre. */
 (function(){
   'use strict';
-  var els=document.querySelectorAll('#nv-annonces>*'); if(!els.length) return;
+  var box=document.getElementById('nv-annonces');
+  var els=document.querySelectorAll('#nv-annonces>*'); if(!box||!els.length) return;
   var calme=false; try{ calme=matchMedia('(prefers-reduced-motion: reduce)').matches; }catch(e){}
-  if(calme){ els.forEach(function(e){e.classList.remove('on');}); els[1].classList.add('on'); return; }
+  if(calme){ box.classList.add('tous'); els.forEach(function(e){e.classList.remove('on');}); return; }
   var i=0;
-  setInterval(function(){ els[i].classList.remove('on'); i=(i+1)%els.length; els[i].classList.add('on'); }, 4600);
+  // Les phrases défilent UNE PAR UNE (chacune efface la précédente)…
+  function seul(){
+    box.classList.remove('tous');
+    for(var k=0;k<els.length;k++) els[k].classList.remove('on');
+    els[i].classList.add('on');
+    i++;
+    if(i<els.length){ setTimeout(seul, 2700); }
+    else { setTimeout(tous, 2700); }
+  }
+  // …puis TOUT LE MESSAGE ENSEMBLE.
+  function tous(){
+    for(var k=0;k<els.length;k++) els[k].classList.remove('on');
+    box.classList.add('tous');
+    setTimeout(function(){ box.classList.remove('tous'); i=0; seul(); }, 5200);
+  }
+  seul();
 })();
 </script>
 <script>
