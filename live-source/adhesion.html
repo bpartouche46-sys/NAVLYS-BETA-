@@ -87,8 +87,8 @@ h2::after{content:"";flex:1;height:1px;background:var(--line)}
   À <b>zéro euro</b>, tu testes tout gratuitement.</p>
   <p class="note npunch">📸 Des milliers de photos, tes documents scannés (vérifie tes dates, bâtis le CV de ta vie et de tes métiers), et la vidéo en bonus. Tout t'appartient.</p>
   <p class="note">Tu changes d'applications ou de niveau quand tu veux :
-  🎁 <b>−50 % à vie sur toute montée de formule</b> — ou tout de suite l'<b>offre à vie</b>,
-  tous produits, avec ou sans limite (Univers Intégral).</p>
+  🎁 <b>−50 % sur toute montée de formule</b> — ou tout de suite l'<b>Accès Fondateur</b>,
+  toutes les applications, sans mensualité.</p>
   <p class="note">🎀 <b>Coffrets cadeaux</b> — 1 an offert, réglé une fois, prêt à offrir.
   <i>Les offres ne se cumulent pas.</i></p>
   <div class="cadeaux" id="a-cadeaux"></div>
@@ -123,7 +123,7 @@ h2::after{content:"";flex:1;height:1px;background:var(--line)}
   var FORMULES=[
     {code:'essai',   nom:'Découverte',     montant:0,    quota:99, inclu:'Découverte gratuite : tout l\'univers à l\'essai, à la voix, sur ton téléphone. 100 photos · 20 documents scannés · 1 vidéo · 1 Go.', badge:'0 €'},
     {code:'univers', nom:'Univers NAVLYS', montant:19.99, quota:99, inclu:'Le bouquet INFINI d\'applications, dès l\'entrée — toutes les apps, à la voix, à un prix qui défie le monde. Espace généreux — 5 000 photos · 1 500 documents · 12 vidéos · 15 Go — extensible à la voix : dis « augmente mon espace ».', badge:'populaire'},
-    {code:'integral',nom:'NAVLYS à vie',   montant:299,   quota:99, avie:true, inclu:'100 % de NAVLYS, à vie : le bouquet infini d\'applications existantes ET futures. Photos, documents et vidéos en volumes libres, extensibles à la voix.', badge:'à vie'}
+    {code:'integral',nom:'Accès Fondateur', montant:299, quota:99, avie:true, inclu:'Toutes les applications, sans mensualité, tant que NAVLYS existe. Espace généreux (comme Univers), extensible à la voix en option. Un seul règlement.', badge:'sans mensualité'}
   ];
   var CADEAUX=[
     {code:'cadeau1', nom:'Coffret Cadeau · 1 application',   montant:95.99,  quota:1, unique:true, badge:'−20 %'},
@@ -179,7 +179,7 @@ h2::after{content:"";flex:1;height:1px;background:var(--line)}
     if(!f||f.montant===0){ titre.style.display='none'; bloc.style.display='none'; bloc.innerHTML=''; return; }
     titre.style.display=''; bloc.style.display='';
     if(f.avie){
-      bloc.innerHTML='<p class="note" style="margin-top:0">✨ <b>'+fmt(f.montant)+' € HT</b> — réglé une fois, pour toujours. Aucun renouvellement.</p>';
+      bloc.innerHTML='<p class="note" style="margin-top:0">✨ <b>'+fmt(f.montant)+' € HT</b> — réglé une fois, sans mensualité. Aucun renouvellement.</p>';
       return;
     }
     if(f.unique){

@@ -1,4 +1,4 @@
-/* NAVLYS NAVLYS_DICT_HE */
+/* NAVLYS_DICT_HE */
 window.NAVLYS_DICT_HE = {
 "Accueil": "דף הבית",
 "Influenceurs": "משפיענים",
@@ -1331,5 +1331,10 @@ window.NAVLYS_DICT_HE = {
 "100 % de NAVLYS, à vie : toutes les applications existantes ET futures. Photos, documents et vidéos en volumes libres, extensibles à la voix.": "‏100% מ־NAVLYS, לכל החיים: כל האפליקציות הקיימות והעתידיות. תמונות, מסמכים וסרטונים בנפחים חופשיים, ניתנים להרחבה בקול.",
 "Découverte": "גילוי",
 "NAVLYS à vie": "NAVLYS לכל החיים",
-"à vie": "לכל החיים"
+"à vie": "לכל החיים",
+"Accès Fondateur": "גישת מייסד",
+"sans mensualité": "בלי תשלום חודשי",
+"Toutes les applications, sans mensualité, tant que NAVLYS existe. Espace généreux (comme Univers), extensible à la voix en option. Un seul règlement.": "כל האפליקציות, בלי תשלום חודשי, כל עוד NAVLYS קיים. מקום נדיב (כמו Univers), ניתן להרחבה בקול כאופציה. תשלום אחד.",
+"−50 % sur toute montée de formule": "‎−50% על כל שדרוג",
+", toutes les applications, sans mensualité.": ", כל האפליקציות, בלי תשלום חודשי."
 };
