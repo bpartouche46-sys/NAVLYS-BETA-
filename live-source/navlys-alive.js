@@ -615,8 +615,8 @@
   var ytB=shareM.querySelector('#nv-youtube'); if(ytB) ytB.onclick=function(){ (navigator.clipboard?navigator.clipboard.writeText(url):0); toast('Lien copié — colle-le dans ta description / Short YouTube ▶️'); setTimeout(function(){window.open('https://www.youtube.com','_blank');},400); };
 
   // actions menu
-  gearM.querySelector('#nv-account').onclick=function(){ toast('Espace Identité & Compte — en ligne très bientôt 👤'); };
-  gearM.querySelector('#nv-pay').onclick=function(){ toast('Abonnement & Paiement sécurisé — en ligne très bientôt 💳'); };
+  gearM.querySelector('#nv-account').onclick=function(){ closeAll(); location.href='/profil'; };
+  gearM.querySelector('#nv-pay').onclick=function(){ closeAll(); location.href='/adhesion'; };
   gearM.querySelector('#nv-settings').onclick=function(){ toast('Réglages personnels — en chemin 🎛️'); };
   gearM.querySelector('#nv-help').onclick=function(){ closeAll(); var b=document.getElementById('nv-sav-btn'); if(b) b.click(); };
   Array.prototype.forEach.call(gearM.querySelectorAll('.nv-lang'),function(el){
