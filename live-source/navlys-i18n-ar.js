@@ -1,4 +1,4 @@
-/* NAVLYS — dictionnaire FR -> ARABE (RTL). */
+/* NAVLYS NAVLYS_DICT_AR */
 window.NAVLYS_DICT_AR = {
 "Accueil": "الرئيسية",
 "Influenceurs": "المؤثرون",
@@ -1325,5 +1325,11 @@ window.NAVLYS_DICT_AR = {
 "Toutes les applications. 50 000 photos · 15 000 documents · 80 vidéos · 150 Go.": "كل التطبيقات. 50,000 صورة · 15,000 مستند · 80 فيديو · 150 جيجابايت.",
 "Toutes les applications, volumes ×3 : 150 000 photos · 45 000 documents · 240 vidéos · 500 Go.": "كل التطبيقات، أحجام ×3: 150,000 صورة · 45,000 مستند · 240 فيديو · 500 جيجابايت.",
 "100 % de NAVLYS : toutes les applications existantes ET futures, à vie. Photos, documents et vidéos en volumes libres (usage personnel).": "‏100% من NAVLYS: كل التطبيقات الحالية والمستقبلية، مدى الحياة. صور ومستندات وفيديوهات بأحجام حرة (استخدام شخصي).",
-"📸 Des milliers de photos, tes documents scannés (vérifie tes dates, bâtis le CV de ta vie et de tes métiers), et la vidéo en bonus. Tout t'appartient.": "📸 آلاف الصور، مستنداتك الممسوحة (تحقّق من تواريخك، ابنِ سيرة حياتك ومهنك)، والفيديو هدية. كل شيء ملك لك."
+"📸 Des milliers de photos, tes documents scannés (vérifie tes dates, bâtis le CV de ta vie et de tes métiers), et la vidéo en bonus. Tout t'appartient.": "📸 آلاف الصور، مستنداتك الممسوحة (تحقّق من تواريخك، ابنِ سيرة حياتك ومهنك)، والفيديو هدية. كل شيء ملك لك.",
+"Découverte gratuite : tout l'univers à l'essai, à la voix, sur ton téléphone. 100 photos · 20 documents scannés · 1 vidéo · 1 Go.": "اكتشاف مجاني: كل العالم للتجربة، بالصوت، على هاتفك. 100 صورة · 20 مستندًا ممسوحًا · فيديو 1 · 1 جيجابايت.",
+"Tout l'univers NAVLYS : toutes les applications. Espace généreux — 5 000 photos · 1 500 documents · 12 vidéos · 15 Go — et extensible à la voix : dis « augmente mon espace ».": "كل عالم NAVLYS: كل التطبيقات. مساحة سخية — 5,000 صورة · 1,500 مستند · 12 فيديو · 15 جيجابايت — وقابلة للتوسيع بالصوت: قل فقط «زِد مساحتي».",
+"100 % de NAVLYS, à vie : toutes les applications existantes ET futures. Photos, documents et vidéos en volumes libres, extensibles à la voix.": "‏100% من NAVLYS، مدى الحياة: كل التطبيقات الحالية والمستقبلية. صور ومستندات وفيديوهات بأحجام حرة، قابلة للتوسيع بالصوت.",
+"Découverte": "اكتشاف",
+"NAVLYS à vie": "NAVLYS مدى الحياة",
+"à vie": "مدى الحياة"
 };

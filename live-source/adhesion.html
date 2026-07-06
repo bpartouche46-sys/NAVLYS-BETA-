@@ -118,15 +118,12 @@ h2::after{content:"";flex:1;height:1px;background:var(--line)}
 (function(){
   'use strict';
   var $=function(id){return document.getElementById(id);};
+  /* Grille TRÈS SIMPLE (BM, gravé 2026-07-06) : 3 offres. 9,99 €/mois en vedette,
+     tout inclus, espace extensible à la voix. À vie réglé une fois. */
   var FORMULES=[
-    {code:'essai',      nom:'Essai libre',      montant:0,      quota:99, inclu:'Découverte gratuite : chaque application en standard, installée mobile & PC. 100 photos · 20 documents scannés · 1 vidéo · 1 Go.', badge:'0 €'},
-    {code:'n1',         nom:'Entrée',           montant:9.99,   quota:1,  inclu:'1 application au choix. 2 000 photos · 500 documents scannés · 5 vidéos · 5 Go.', badge:'départ'},
-    {code:'n2',         nom:'Duo',              montant:19.99,  quota:2,  inclu:'2 applications au choix. 5 000 photos · 1 500 documents · 12 vidéos · 15 Go.'},
-    {code:'n3',         nom:'Trio',             montant:29.99,  quota:3,  inclu:'3 applications au choix. 10 000 photos · 3 000 documents · 20 vidéos · 30 Go.'},
-    {code:'n4',         nom:'Grand large',      montant:39.99,  quota:4,  inclu:'4 applications au choix. 25 000 photos · 6 000 documents · 40 vidéos · 60 Go.'},
-    {code:'univers',    nom:'Univers NAVLYS',   montant:49.99,  quota:99, inclu:'Toutes les applications. 50 000 photos · 15 000 documents · 80 vidéos · 150 Go.', badge:'populaire'},
-    {code:'universplus',nom:'Univers Plus',     montant:99.99,  quota:99, inclu:'Toutes les applications, volumes ×3 : 150 000 photos · 45 000 documents · 240 vidéos · 500 Go.'},
-    {code:'integral',   nom:'Univers Intégral', montant:149.99, quota:99, inclu:'100 % de NAVLYS : toutes les applications existantes ET futures, à vie. Photos, documents et vidéos en volumes libres (usage personnel).', badge:'100 % à vie'}
+    {code:'essai',   nom:'Découverte',     montant:0,    quota:99, inclu:'Découverte gratuite : tout l\'univers à l\'essai, à la voix, sur ton téléphone. 100 photos · 20 documents scannés · 1 vidéo · 1 Go.', badge:'0 €'},
+    {code:'univers', nom:'Univers NAVLYS', montant:9.99, quota:99, inclu:'Tout l\'univers NAVLYS : toutes les applications. Espace généreux — 5 000 photos · 1 500 documents · 12 vidéos · 15 Go — et extensible à la voix : dis « augmente mon espace ».', badge:'populaire'},
+    {code:'integral',nom:'NAVLYS à vie',   montant:199,  quota:99, avie:true, inclu:'100 % de NAVLYS, à vie : toutes les applications existantes ET futures. Photos, documents et vidéos en volumes libres, extensibles à la voix.', badge:'à vie'}
   ];
   var CADEAUX=[
     {code:'cadeau1', nom:'Coffret Cadeau · 1 application',   montant:95.99,  quota:1, unique:true, badge:'−20 %'},
@@ -181,6 +178,10 @@ h2::after{content:"";flex:1;height:1px;background:var(--line)}
     var f=getF(fSel), bloc=$('a-paies'), titre=$('h-paie');
     if(!f||f.montant===0){ titre.style.display='none'; bloc.style.display='none'; bloc.innerHTML=''; return; }
     titre.style.display=''; bloc.style.display='';
+    if(f.avie){
+      bloc.innerHTML='<p class="note" style="margin-top:0">✨ <b>'+fmt(f.montant)+' € HT</b> — réglé une fois, pour toujours. Aucun renouvellement.</p>';
+      return;
+    }
     if(f.unique){
       bloc.innerHTML='<p class="note" style="margin-top:0">🎀 <b>'+fmt(f.montant)+' € HT</b>, réglé une fois. 1 an offert dedans.</p>';
       return;
@@ -223,7 +224,7 @@ h2::after{content:"";flex:1;height:1px;background:var(--line)}
     var prenom=($('a-prenom').value||'').trim(), email=($('a-email').value||'').trim();
     if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){ $('a-etat').textContent='Écris ton e-mail pour créer ton accès.'; $('a-email').focus(); return; }
     var f=getF(fSel);
-    var apps=aSel.length?aSel:(f.montant===0?APPS.map(function(a){return a.code;}):[]);
+    var apps=aSel.length?aSel:((f.montant===0||quota()>=99)?APPS.map(function(a){return a.code;}):[]);
     if(f.montant>0&&!apps.length){ $('a-etat').textContent='Choisis au moins une application — c\'est toi qui décides.'; return; }
     var lng='fr'; try{ lng=(window.NAVLYS_I18N&&window.NAVLYS_I18N.lang&&window.NAVLYS_I18N.lang())||localStorage.getItem('nv-lang')||navigator.language||'fr'; }catch(e){}
     var toutPre = apps.length>0 && apps.every(function(c){ var a=APPS.filter(function(x){return x.code===c;})[0]; return a&&!a.dispo; });
@@ -239,7 +240,8 @@ h2::after{content:"";flex:1;height:1px;background:var(--line)}
       if(f.montant===0||mode==='precommande'){ location.href='/profil?bienvenue=1'; return; }
       $('a-etat').textContent='… ouverture du règlement sécurisé';
       var montant, recurrence, libelle;
-      if(f.unique){ montant=f.montant; recurrence=''; libelle='Coffret NAVLYS — 1 an réglé une fois — '+f.nom+' — '+email; }
+      if(f.avie){ montant=f.montant; recurrence=''; libelle='NAVLYS à vie — réglé une fois — '+f.nom+' — '+email; }
+      else if(f.unique){ montant=f.montant; recurrence=''; libelle='Coffret NAVLYS — 1 an réglé une fois — '+f.nom+' — '+email; }
       else if(pSel==='an'){ montant=Math.round(f.montant*12*0.95*100)/100; recurrence='an'; libelle='Cotisation NAVLYS — engagement 1 an, réglée en une fois (−5 %) — '+f.nom+' — '+email; }
       else { montant=f.montant; recurrence='mois'; libelle='Cotisation NAVLYS — engagement 1 an, réglée par mois — '+f.nom+' — '+email; }
       fetch(CAISSE,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({

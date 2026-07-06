@@ -1,4 +1,4 @@
-/* NAVLYS — dictionnaire FR -> HÉBREU (RTL). */
+/* NAVLYS NAVLYS_DICT_HE */
 window.NAVLYS_DICT_HE = {
 "Accueil": "דף הבית",
 "Influenceurs": "משפיענים",
@@ -1325,5 +1325,11 @@ window.NAVLYS_DICT_HE = {
 "Toutes les applications. 50 000 photos · 15 000 documents · 80 vidéos · 150 Go.": "כל האפליקציות. 50,000 תמונות · 15,000 מסמכים · 80 סרטונים · 150 GB.",
 "Toutes les applications, volumes ×3 : 150 000 photos · 45 000 documents · 240 vidéos · 500 Go.": "כל האפליקציות, נפחים ×3: 150,000 תמונות · 45,000 מסמכים · 240 סרטונים · 500 GB.",
 "100 % de NAVLYS : toutes les applications existantes ET futures, à vie. Photos, documents et vidéos en volumes libres (usage personnel).": "‏100% מ־NAVLYS: כל האפליקציות הקיימות והעתידיות, לכל החיים. תמונות, מסמכים וסרטונים בנפחים חופשיים (שימוש אישי).",
-"📸 Des milliers de photos, tes documents scannés (vérifie tes dates, bâtis le CV de ta vie et de tes métiers), et la vidéo en bonus. Tout t'appartient.": "📸 אלפי תמונות, המסמכים הסרוקים שלך (בדוק את התאריכים, בנה את קורות החיים של חייך ומקצועותיך), וסרטון במתנה. הכול שייך לך."
+"📸 Des milliers de photos, tes documents scannés (vérifie tes dates, bâtis le CV de ta vie et de tes métiers), et la vidéo en bonus. Tout t'appartient.": "📸 אלפי תמונות, המסמכים הסרוקים שלך (בדוק את התאריכים, בנה את קורות החיים של חייך ומקצועותיך), וסרטון במתנה. הכול שייך לך.",
+"Découverte gratuite : tout l'univers à l'essai, à la voix, sur ton téléphone. 100 photos · 20 documents scannés · 1 vidéo · 1 Go.": "היכרות חינם: כל היקום להתנסות, בקול, בטלפון שלך. 100 תמונות · 20 מסמכים סרוקים · סרטון 1 · 1 GB.",
+"Tout l'univers NAVLYS : toutes les applications. Espace généreux — 5 000 photos · 1 500 documents · 12 vidéos · 15 Go — et extensible à la voix : dis « augmente mon espace ».": "כל היקום של NAVLYS: כל האפליקציות. מקום נדיב — 5,000 תמונות · 1,500 מסמכים · 12 סרטונים · 15 GB — וניתן להרחבה בקול: פשוט אמור «הגדל לי את המקום».",
+"100 % de NAVLYS, à vie : toutes les applications existantes ET futures. Photos, documents et vidéos en volumes libres, extensibles à la voix.": "‏100% מ־NAVLYS, לכל החיים: כל האפליקציות הקיימות והעתידיות. תמונות, מסמכים וסרטונים בנפחים חופשיים, ניתנים להרחבה בקול.",
+"Découverte": "גילוי",
+"NAVLYS à vie": "NAVLYS לכל החיים",
+"à vie": "לכל החיים"
 };
