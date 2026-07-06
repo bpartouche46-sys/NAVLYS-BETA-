@@ -142,6 +142,20 @@ h2::after{content:"";flex:1;height:1px;background:var(--line)}
   var CAISSE='https://hhrlgyvtqluxpywjiwkd.supabase.co/functions/v1/paiement';
   var fSel='essai', aSel=[], pSel='mois';
 
+  // Paddle.js (overlay) — chargé à la demande, token PUBLIC récupéré via ?config.
+  // Plan B interne : si indispo ou pas prêt, on retombe sur le règlement serveur.
+  var PADDLE_CFG=null;
+  (function loadPaddle(){
+    var s=document.createElement('script'); s.src='https://cdn.paddle.com/paddle/v2/paddle.js'; s.async=true;
+    s.onload=function(){
+      fetch(CAISSE+'?config').then(function(r){return r.json();}).then(function(c){
+        PADDLE_CFG=c;
+        try{ if(c&&c.has_token&&window.Paddle){ window.Paddle.Environment.set(c.paddle.env==='sandbox'?'sandbox':'production'); window.Paddle.Initialize({token:c.paddle.token}); } }catch(e){}
+      }).catch(function(){});
+    };
+    document.head.appendChild(s);
+  })();
+
   function fmt(n){ return n.toFixed(2).replace('.',','); }
   function getF(code){ return FORMULES.concat(CADEAUX).filter(function(x){return x.code===code;})[0]; }
   function quota(){ var f=getF(fSel); return f?f.quota:1; }
@@ -239,6 +253,16 @@ h2::after{content:"";flex:1;height:1px;background:var(--line)}
       try{ localStorage.setItem('nv-token',d.membre.token); localStorage.setItem('nv-prenom',prenom||''); localStorage.setItem('nv-email',email||''); }catch(e){}
       if(f.montant===0||mode==='precommande'){ location.href='/profil?bienvenue=1'; return; }
       $('a-etat').textContent='… ouverture du règlement sécurisé';
+      // Paddle.js overlay si prêt (vrai price_id + token) — sinon plan B serveur juste après
+      try{
+        var pid = f.avie ? (PADDLE_CFG&&PADDLE_CFG.paddle&&PADDLE_CFG.paddle.price_avie) : (PADDLE_CFG&&PADDLE_CFG.paddle&&PADDLE_CFG.paddle.price_mois);
+        if(window.Paddle&&PADDLE_CFG&&PADDLE_CFG.has_token&&pid&&/^pri_/.test(pid)){
+          window.Paddle.Checkout.open({ items:[{priceId:pid,quantity:1}], customer:{email:email},
+            customData:{formule:f.code,prenom:prenom},
+            settings:{ displayMode:'overlay', successUrl:'https://navlys.com/profil?paye=ok' } });
+          go.disabled=false; $('a-etat').textContent='Règlement sécurisé ouvert — finalise dans la fenêtre Paddle.'; return;
+        }
+      }catch(e){}
       var montant, recurrence, libelle;
       if(f.avie){ montant=f.montant; recurrence=''; libelle='NAVLYS à vie — réglé une fois — '+f.nom+' — '+email; }
       else if(f.unique){ montant=f.montant; recurrence=''; libelle='Coffret NAVLYS — 1 an réglé une fois — '+f.nom+' — '+email; }
