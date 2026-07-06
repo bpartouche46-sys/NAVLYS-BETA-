@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>NAVLYS — Croissance du CORE</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Cormorant+Garamond:ital,wght@0,400;1,400&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="/media/navlys_favicon.svg">
+<style>
+:root{--noir:#03040a;--ice:#7DD3FC;--ice-clair:#a8e3ff;--or:#C9A961;--or-pale:#f3e4c4;--perle:#e7eef2;--mut:#9fb3c8;--line:rgba(125,211,252,.18);--ok:#34d399}
+*{margin:0;padding:0;box-sizing:border-box}
+html{background:var(--noir)}
+body{background:var(--noir);color:var(--perle);font-family:'Atkinson Hyperlegible',system-ui,sans-serif;-webkit-font-smoothing:antialiased;min-height:100vh}
+.wrap{max-width:720px;margin:0 auto;padding:34px 20px 80px}
+.k{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:var(--ice);text-align:center}
+h1{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:400;font-size:clamp(32px,8vw,50px);text-align:center;color:#eafaff;margin:8px 0 6px}
+.sub{text-align:center;color:var(--mut);font-size:1rem;margin:0 auto 24px;line-height:1.7;max-width:34em}
+.head{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-bottom:26px}
+.tuile{border:1px solid var(--line);border-radius:18px;padding:18px 22px;text-align:center;background:radial-gradient(120% 100% at 50% 0%,rgba(125,211,252,.08),rgba(4,6,12,.9));min-width:150px}
+.tuile .n{font-family:'Cormorant Garamond',serif;font-size:2.6rem;color:var(--or-pale);line-height:1}
+.tuile .l{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--mut);margin-top:6px}
+.tuile .d{font-size:.82rem;color:var(--ok);margin-top:4px;min-height:1.1em}
+.bloc{border:1px solid var(--line);border-radius:16px;padding:16px 18px;margin-bottom:14px;background:rgba(5,7,14,.6)}
+.bloc .t{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.bloc .nom{font-family:'Cinzel',serif;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--ice-clair)}
+.bloc .pct{font-family:'Cormorant Garamond',serif;font-size:1.5rem;color:var(--or-pale)}
+.bar{height:9px;border-radius:99px;background:rgba(125,211,252,.12);margin:10px 0 8px;overflow:hidden}
+.bar>span{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,var(--ice),var(--or));width:0;transition:width 1.2s ease}
+.meta{display:flex;gap:16px;flex-wrap:wrap;font-size:.86rem;color:var(--mut)}
+.meta b{color:var(--perle)}
+.up{color:var(--ok)}
+.btn{display:block;margin:22px auto 0;border:1px solid var(--line);cursor:pointer;font-family:'Cinzel',serif;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--ice-clair);background:none;border-radius:999px;padding:12px 22px}
+.msg{text-align:center;color:var(--mut);margin-top:16px;min-height:1.3em}
+.disc{text-align:center;color:var(--mut);font-size:.82rem;margin-top:26px;line-height:1.7}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="k">NAVLYS CORE · croissance interne</div>
+  <h1>Où en sont mes bibles</h1>
+  <p class="sub">Chaque jour, mon cerveau gagne en mémoire, en règles et en savoir. Ici, je te montre exactement où j'en suis — mesuré chez nous, pas ailleurs.</p>
+
+  <div class="head" id="head"></div>
+  <div id="blocs"></div>
+  <button class="btn" id="refresh">↻ Rafraîchir</button>
+  <div class="msg" id="msg">Je mesure…</div>
+
+  <p class="disc">Mesure interne (Supabase) — 100 % sous notre contrôle. Le score /100 vient de l'auto-test quotidien ; la taille est le volume réel de contenu appris ; le % situe chaque bible vers sa maturité. « Hier » se remplit dès le 2ᵉ jour de mesure.</p>
+</div>
+
+<script>
+(function(){
+  var API='https://hhrlgyvtqluxpywjiwkd.supabase.co/functions/v1/croissance';
+  var $=function(id){return document.getElementById(id);};
+  function ko(n){ n=Number(n||0); if(n>=1000000) return (n/1000000).toFixed(1)+' Mo'; if(n>=1000) return (n/1000).toFixed(1)+' Ko'; return n+' o'; }
+  function render(d){
+    if(!d||!d.ok){ $('msg').textContent='Mesure indisponible — réessaie dans un instant.'; return; }
+    var dsc = d.score_hier!=null ? (d.score - d.score_hier) : 0;
+    $('head').innerHTML =
+      '<div class="tuile"><div class="n">'+Math.round(d.score)+'<span style="font-size:1.1rem;color:var(--mut)">/100</span></div><div class="l">Score du jour</div><div class="d">'+(dsc>0?('+'+dsc+' vs hier'):(d.score_hier!=null?'stable':'1er jour'))+'</div></div>'+
+      '<div class="tuile"><div class="n">'+d.niveau+'</div><div class="l">Niveau de croissance</div><div class="d">récursif, chaque jour</div></div>';
+    var h='';
+    (d.sources||[]).forEach(function(s){
+      var dt = s.taille_hier!=null ? (s.taille - s.taille_hier) : null;
+      h+='<div class="bloc">'+
+        '<div class="t"><span class="nom">'+s.source+'</span><span class="pct">'+Math.round(s.pct)+'%</span></div>'+
+        '<div class="bar"><span data-w="'+Math.round(s.pct)+'"></span></div>'+
+        '<div class="meta"><span><b>'+s.entrees+'</b> entrées</span><span><b>'+ko(s.taille)+'</b> appris</span>'+
+        (dt!=null?('<span class="'+(dt>0?'up':'')+'">'+(dt>0?('+'+ko(dt)+' depuis hier'):'stable')+'</span>'):'<span>1er jour de mesure</span>')+
+        '</div></div>';
+    });
+    $('blocs').innerHTML=h;
+    setTimeout(function(){ Array.prototype.forEach.call(document.querySelectorAll('.bar>span'),function(el){ el.style.width=el.getAttribute('data-w')+'%'; }); },80);
+    var t = d.autotest_ts ? new Date(d.autotest_ts) : null;
+    $('msg').textContent = 'Dernière mesure : '+(t?t.toLocaleString('fr-FR'):d.jour);
+  }
+  function charge(){ $('msg').textContent='Je mesure…'; fetch(API).then(function(r){return r.json();}).then(render).catch(function(){ $('msg').textContent='Réseau indisponible — réessaie.'; }); }
+  $('refresh').onclick=charge;
+  charge();
+})();
+</script>
+<script src="/navlys-alive.js" defer></script>
+</body>
+</html>
