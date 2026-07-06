@@ -129,6 +129,8 @@ footer{padding:46px 20px 70px;text-align:center;border-top:1px solid rgba(184,11
   </div>
   <a class="offer" href="/adhesion">🎁 Teste gratuitement — 0 €</a>
   <div id="nv-hero-video">
+    <img id="nv-hero-coin" src="/media/navlys_coin_animated.svg" alt="" aria-hidden="true">
+    <span id="nv-hero-plate">NAVLYS</span>
     <video id="nv-bruno" src="https://hhrlgyvtqluxpywjiwkd.supabase.co/storage/v1/object/public/avatar/bruno-avatar-accueil.mp4"
       autoplay muted loop playsinline poster="/media/bm-face.jpg"></video>
     <span id="nv-bruno-note">🔊 touche pour la voix</span>
@@ -216,12 +218,22 @@ footer{padding:46px 20px 70px;text-align:center;border-top:1px solid rgba(184,11
 /* Encadrés VIVANTS : vignette animée (ou vraie vidéo produit dès qu'elle existe) */
 #apps .card .vive{display:block;width:100%;height:64px;border-radius:12px;margin-bottom:12px;
   border:1px solid rgba(125,211,252,.14);background:rgba(4,7,14,.55);object-fit:cover}
-/* Encadré vivant du héros : Bruno te parle (son au toucher) */
-#nv-hero-video{margin:14px auto 0;max-width:300px;position:relative;cursor:pointer}
-#nv-hero-video video{display:block;width:100%;border-radius:16px;border:1px solid rgba(233,211,160,.4);
-  box-shadow:0 14px 44px rgba(0,0,0,.45), 0 0 30px rgba(125,211,252,.12)}
-#nv-hero-video span{position:absolute;left:50%;bottom:8px;transform:translateX(-50%);white-space:nowrap;
-  background:rgba(5,6,10,.72);border:1px solid rgba(125,211,252,.3);color:#a8e3ff;border-radius:999px;
+/* Encadré vivant du héros : Bruno te parle, sur un fond NAVLYS animé (son au toucher) */
+#nv-hero-video{margin:22px auto 0;max-width:340px;position:relative;cursor:pointer;padding:22px 22px 26px;
+  border-radius:24px;background:radial-gradient(120% 120% at 50% 0%, rgba(125,211,252,.10), rgba(5,7,14,.86) 60%);
+  border:1px solid rgba(233,211,160,.22);box-shadow:0 20px 60px rgba(0,0,0,.5)}
+/* pièce/logo NAVLYS qui tourne, en fond derrière le visage */
+#nv-hero-coin{position:absolute;top:50%;left:50%;width:210px;height:210px;transform:translate(-50%,-54%);
+  opacity:.16;filter:drop-shadow(0 0 22px rgba(125,211,252,.5));animation:nvSpin 26s linear infinite;pointer-events:none;z-index:0}
+@keyframes nvSpin{to{transform:translate(-50%,-54%) rotate(360deg)}}
+/* plaque NAVLYS derrière lui, comme un tableau */
+#nv-hero-plate{position:absolute;top:12px;left:50%;transform:translateX(-50%);z-index:1;
+  font-family:'Cinzel','Lora',serif;letter-spacing:.42em;font-size:.82rem;color:rgba(233,211,160,.7);
+  padding:3px 14px;border:1px solid rgba(233,211,160,.25);border-radius:8px;background:rgba(5,7,14,.5);pointer-events:none}
+#nv-hero-video video{position:relative;z-index:2;display:block;width:100%;border-radius:16px;
+  border:1px solid rgba(233,211,160,.4);box-shadow:0 14px 44px rgba(0,0,0,.45), 0 0 30px rgba(125,211,252,.14)}
+#nv-bruno-note{position:absolute;left:50%;bottom:10px;z-index:3;transform:translateX(-50%);white-space:nowrap;
+  background:rgba(5,6,10,.78);border:1px solid rgba(125,211,252,.3);color:#a8e3ff;border-radius:999px;
   padding:4px 12px;font-size:.78rem;pointer-events:none}
 </style>
 <script>
