@@ -225,15 +225,40 @@ footer{padding:46px 20px 70px;text-align:center;border-top:1px solid rgba(184,11
   padding:4px 12px;font-size:.78rem;pointer-events:none}
 </style>
 <script>
-/* Bruno te parle : muet en boucle ; un toucher = le son (règle mobile). */
+/* Bruno te parle DANS TA LANGUE, en direct (voix clonée, gravé 2026-07-05).
+   Un toucher → sa voix clonée dit l'intro dans la langue du site (5 langues).
+   La vidéo tourne en visuel (muette) ; le son vient du clone live (brique /voix). */
 (function(){
   'use strict';
   var w=document.getElementById('nv-hero-video'), v=document.getElementById('nv-bruno'), n=document.getElementById('nv-bruno-note');
   if(!w||!v) return;
   v.onerror=function(){ w.style.display='none'; };
+  var VOIX='https://hhrlgyvtqluxpywjiwkd.supabase.co/functions/v1/voix';
+  var SP={
+    fr:"Bonjour, moi c'est Bruno. Bienvenue chez NAVLYS. Ici, l'intelligence artificielle est à ta portée, à la voix, pour t'aider, t'apprendre, et garder précieusement ton histoire. L'IA, c'est le vent. Toi, tu tiens la barre. Alors monte à bord, on avance ensemble.",
+    en:"Hello, I'm Bruno. Welcome to NAVLYS. Here, artificial intelligence is within your reach, by voice, to help you, teach you, and carefully keep your story. AI is the wind. You hold the helm. So come aboard, let's move forward together.",
+    ru:"Здравствуй, я Бруно. Добро пожаловать в NAVLYS. Здесь искусственный интеллект на расстоянии голоса, чтобы помочь тебе, научить тебя и бережно сохранить твою историю. ИИ — это ветер. А штурвал держишь ты. Поднимайся на борт, идём вперёд вместе.",
+    he:"שלום, אני ברונו. ברוך הבא ל-NAVLYS. כאן הבינה המלאכותית במרחק קול, כדי לעזור לך, ללמד אותך, ולשמור בקפידה על הסיפור שלך. הבינה המלאכותית היא הרוח. ואתה זה שמחזיק בהגה. עלה על הסיפון, נתקדם יחד.",
+    ar:"مرحبًا، أنا برونو. أهلًا بك في NAVLYS. هنا الذكاء الاصطناعي على بُعد صوت، ليساعدك، ويعلّمك، ويحفظ قصتك بعناية. الذكاء الاصطناعي هو الريح. وأنت من يمسك الدفة. اصعد على متن السفينة، نتقدّم معًا.",
+  };
+  var NOTE={fr:'🔊 touche : je te parle',en:'🔊 tap: I speak to you',ru:'🔊 коснись: я говорю',he:'🔊 גע: אני מדבר אליך',ar:'🔊 المس: أكلّمك'};
+  var OFF={fr:'🔇 toucher pour couper',en:'🔇 tap to stop',ru:'🔇 коснись, чтобы выключить',he:'🔇 גע כדי לעצור',ar:'🔇 المس للإيقاف'};
+  function L(){ var l='fr'; try{ l=(window.NAVLYS_I18N&&window.NAVLYS_I18N.lang&&window.NAVLYS_I18N.lang())||localStorage.getItem('nv-lang')||'fr'; }catch(e){} return (['fr','en','ru','he','ar'].indexOf(l)>-1)?l:'fr'; }
+  if(n) n.textContent=NOTE[L()];
+  var a=null, playing=false;
+  function stop(){ try{ if(a){a.pause();a=null;} }catch(e){} playing=false; try{ v.pause(); }catch(e){} if(n) n.textContent=NOTE[L()]; }
   w.addEventListener('click',function(){
-    if(v.muted){ v.muted=false; v.currentTime=0; v.play().catch(function(){}); n.textContent='🔇 toucher pour couper'; }
-    else { v.muted=true; n.textContent='🔊 touche pour la voix'; }
+    if(playing){ stop(); return; }
+    var l=L();
+    if(n) n.textContent='… 🔊'; try{ v.currentTime=0; v.play().catch(function(){}); }catch(e){}
+    try{
+      fetch(VOIX,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({text:SP[l]})})
+        .then(function(r){return r.json();})
+        .then(function(d){
+          if(d&&d.ok&&d.audio){ a=new Audio(d.audio); playing=true; if(n) n.textContent=OFF[l]; a.onended=stop; var p=a.play(); if(p&&p['catch']) p['catch'](stop); }
+          else { /* secours : le son de la vidéo si présent */ try{ v.muted=false; }catch(e){} playing=true; if(n) n.textContent=OFF[l]; }
+        })['catch'](function(){ try{ v.muted=false; }catch(e){} playing=true; if(n) n.textContent=OFF[l]; });
+    }catch(e){ try{ v.muted=false; }catch(e2){} }
   });
 })();
 </script>
