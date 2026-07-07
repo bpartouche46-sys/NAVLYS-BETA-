@@ -428,7 +428,7 @@ window.NAVLYS_setVideo = function(v, rate, srcs){
     var MOT_OK={fr:'Parfait ! Dis « %s » quand tu veux me parler. 🌊',en:'Perfect! Say "%s" whenever you want to talk to me. 🌊',ru:'Отлично! Скажи «%s», когда захочешь поговорить. 🌊',he:'מעולה! תגיד «%s» מתי שתרצה לדבר איתי. 🌊',ar:'ممتاز! قل «%s» متى أردت أن تكلمني. 🌊'};
     function L(){ var l='fr'; try{ l=(window.NAVLYS_I18N&&window.NAVLYS_I18N.lang&&window.NAVLYS_I18N.lang())||localStorage.getItem('nv-lang')||'fr'; }catch(e){} return (['en','ru','he','ar'].indexOf(l)>-1)?l:'fr'; }
 
-    var rec=null, running=false, eveille=false, attendMot=false, veutTourner=false;
+    var rec=null, running=false, eveille=false, attendMot=false, veutTourner=false, lastHeard=Date.now();
     function poser(cls,txt){ add(cls,txt,cls==='n'); if(cls==='n') nvSpeak(txt); }
 
     function demarrer(){
@@ -438,7 +438,14 @@ window.NAVLYS_setVideo = function(v, rate, srcs){
         rec.onstart=function(){ running=true; micBtn.classList.add('on'); };
         rec.onresult=onResult;
         rec.onerror=function(ev){ if(ev&&ev.error==='not-allowed'){ veutTourner=false; setOn(false); micBtn.classList.remove('on'); poser('n', L()==='fr'?'Je n\'ai pas accès au micro — autorise-le puis retouche 🎙️.':'I can\'t reach the mic — allow it, then tap 🎙️ again.'); } };
-        rec.onend=function(){ running=false; if(veutTourner && document.visibilityState==='visible'){ setTimeout(function(){ try{ demarrer(); }catch(e){} }, 350); } else micBtn.classList.remove('on'); };
+        /* FIX bip (2026-07-07) : chaque redémarrage du micro joue le bip système
+           Android → on ne relance QUE si la personne est en conversation active
+           (éveillée, page visible, activité < 2 min). Sinon : micro COUPÉ net. */
+        rec.onend=function(){ running=false;
+          var actif = veutTourner && eveille && document.visibilityState==='visible' && (Date.now()-lastHeard < 120000);
+          if(actif){ setTimeout(function(){ try{ demarrer(); }catch(e){} }, 350); }
+          else { veutTourner=false; eveille=false; setOn(false); micBtn.classList.remove('on'); }
+        };
         rec.start();
       }catch(e){ running=false; }
     }
@@ -446,6 +453,7 @@ window.NAVLYS_setVideo = function(v, rate, srcs){
 
     var q=document.getElementById('nv-q');
     function onResult(ev){
+      lastHeard=Date.now();
       var txt=''; for(var i=ev.resultIndex;i<ev.results.length;i++){ txt+=ev.results[i][0].transcript; }
       var fin=ev.results[ev.results.length-1].isFinal;
       var norm=nvNorm(txt);
@@ -473,15 +481,15 @@ window.NAVLYS_setVideo = function(v, rate, srcs){
     }
 
     micBtn.onclick=function(){
-      if(veutTourner){ setOn(false); stopper(); poser('n', DORT_MSG[L()]); return; }
-      /* 1er lancement : le geste qui débloque le micro (contrainte navigateur) */
-      setOn(true); veutTourner=true; eveille=false;
-      if(!getMot()){ attendMot=true; eveille=true; poser('n', DEMANDE_MOT[L()]); }
-      else { poser('n', DORT_MSG[L()].replace('😴','🎧')); }
+      if(veutTourner){ veutTourner=false; eveille=false; setOn(false); stopper(); poser('n', DORT_MSG[L()]); return; }
+      /* FIX bip : le micro ne se branche QUE sur ce geste, et on écoute DIRECT
+         (plus de mode veille qui redémarre en boucle = plus de bips). */
+      setOn(true); veutTourner=true; eveille=true; attendMot=false; lastHeard=Date.now();
+      poser('n', EVEIL_MSG[L()]);
       demarrer();
     };
-    /* si la personne a déjà activé les mains libres avant : on relance tout seul */
-    if(estOn()){ veutTourner=true; eveille=false; setTimeout(demarrer, 600); }
+    /* plus JAMAIS de relance auto du micro au chargement (source des bips) —
+       le micro n'existe que sur le geste 🎙️. */
 
     /* réglage du mot d'éveil aussi possible au CLAVIER, via send() : si on attend
        le mot et que la personne l'écrit, on l'enregistre (capté dans send). */
