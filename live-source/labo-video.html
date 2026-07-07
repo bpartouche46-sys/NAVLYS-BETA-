@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>NAVLYS — Labo vidéo (banc d'essai avatars)</title>
+<meta name="description" content="NAVLYS Labo vidéo : banc d'essai des avatars et voix — plusieurs prestataires, à toi de juger.">
+<meta name="robots" content="noindex">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Lora:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--noir:#05060a;--ice:#7DD3FC;--or:#e9d3a0;--perle:#eef0f6;--mut:#9fb3c8}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Lora',serif;color:var(--perle);background:var(--noir);line-height:1.6}
+.bg{position:fixed;inset:0;z-index:-1;background:radial-gradient(820px 560px at 86% -8%,rgba(233,211,160,.11),transparent 60%),radial-gradient(760px 560px at 5% 6%,rgba(125,211,252,.12),transparent 60%),var(--noir)}
+.wrap{max-width:920px;margin:0 auto;padding:0 18px 60px}
+header{display:flex;align-items:center;gap:11px;padding:24px 0}
+.brand{font-family:'Cormorant Garamond';letter-spacing:4px;color:#fff;font-size:1.2rem}
+a.home{margin-left:auto;color:var(--mut);text-decoration:none;font-style:italic}
+h1{font-family:'Cormorant Garamond';color:#fff;font-size:clamp(1.8rem,5vw,2.6rem);margin:6px 0}
+.sub{color:var(--mut);max-width:640px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;margin-top:26px}
+.slot{background:linear-gradient(160deg,rgba(125,211,252,.08),rgba(10,12,20,.7));border:1px solid rgba(125,211,252,.2);border-radius:16px;overflow:hidden;display:none}
+.slot.on{display:block}
+.slot video{width:100%;aspect-ratio:9/12;object-fit:cover;background:#04060d;display:block}
+.slot .cap{padding:10px 13px}
+.slot .cap b{font-family:'Cormorant Garamond';color:var(--or);font-size:1.05rem}
+.slot .cap span{display:block;color:var(--mut);font-size:.82rem;margin-top:2px}
+.note{margin-top:26px;border-left:3px solid var(--or);padding-left:14px;color:var(--mut);font-size:.95rem}
+.empty{margin-top:30px;text-align:center;color:var(--mut);font-style:italic;display:none}
+</style>
+</head>
+<body>
+<div class="bg"></div>
+<div class="wrap">
+  <header><span class="brand">NAVLYS</span><span style="color:var(--mut);font-style:italic">· Labo vidéo</span><a class="home" href="/">‹ Accueil</a></header>
+  <h1>Le banc d'essai des avatars 🎬</h1>
+  <p class="sub">Chaque essai vient d'un prestataire différent (gratuits d'abord). Regarde les yeux, la bouche, la synchro voix/lèvres — puis donne ton verdict avec le bouton <b>💡 Améliorer</b> en bas à gauche (cite le n° de l'essai).</p>
+
+  <div class="grid" id="grid"></div>
+  <p class="empty" id="empty">Aucun essai en ligne pour l'instant — les premières vidéos arrivent ici automatiquement.</p>
+
+  <p class="note">⚠️ La voix est <b>incrustée dans chaque vidéo</b> à la génération : une désynchronisation voix/lèvres se corrige en <b>régénérant</b> chez un meilleur prestataire, pas par un réglage de retard côté site. C'est exactement ce que ce labo compare.</p>
+</div>
+<script>
+(function(){
+  var BASE='https://hhrlgyvtqluxpywjiwkd.supabase.co/storage/v1/object/public/avatar/';
+  /* essais numérotés : chaque fichier déposé dans le Storage apparaît tout seul */
+  var TESTS=[
+    {f:'bruno-avatar-accueil.mp4', n:'Essai 0 — actuel', p:'fal.ai (référence, celui qui te gêne)'},
+    {f:'test-1.mp4', n:'Essai 1', p:'prestataire A'},
+    {f:'test-2.mp4', n:'Essai 2', p:'prestataire B'},
+    {f:'test-3.mp4', n:'Essai 3', p:'prestataire C'},
+    {f:'test-4.mp4', n:'Essai 4', p:'prestataire D'},
+    {f:'test-5.mp4', n:'Essai 5', p:'prestataire E'},
+    {f:'test-6.mp4', n:'Essai 6', p:'prestataire F'}
+  ];
+  var grid=document.getElementById('grid'), shown=0;
+  TESTS.forEach(function(t){
+    var d=document.createElement('div'); d.className='slot';
+    d.innerHTML='<video controls playsinline preload="metadata"></video><div class="cap"><b>'+t.n+'</b><span>'+t.p+'</span></div>';
+    var v=d.querySelector('video'); v.src=BASE+t.f;
+    v.addEventListener('loadeddata',function(){ d.classList.add('on'); shown++; });
+    v.addEventListener('error',function(){ d.remove(); check(); });
+    grid.appendChild(d);
+  });
+  function check(){ if(!grid.children.length) document.getElementById('empty').style.display='block'; }
+  setTimeout(check, 6000);
+})();
+</script>
+<script src="/navlys-alive.js" defer></script>
+</body>
+</html>
