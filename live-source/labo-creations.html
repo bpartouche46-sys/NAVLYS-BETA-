@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>NAVLYS — Labo créations (spots & visuels)</title>
+<meta name="description" content="NAVLYS Labo créations : spots et visuels générés chez les prestataires gratuits — à toi de juger.">
+<meta name="robots" content="noindex">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Lora:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--noir:#05060a;--ice:#7DD3FC;--or:#e9d3a0;--perle:#eef0f6;--mut:#9fb3c8}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Lora',serif;color:var(--perle);background:var(--noir);line-height:1.6}
+.bg{position:fixed;inset:0;z-index:-1;background:radial-gradient(820px 560px at 86% -8%,rgba(233,211,160,.11),transparent 60%),radial-gradient(760px 560px at 5% 6%,rgba(125,211,252,.12),transparent 60%),var(--noir)}
+.wrap{max-width:980px;margin:0 auto;padding:0 18px 60px}
+header{display:flex;align-items:center;gap:11px;padding:24px 0}
+.brand{font-family:'Cormorant Garamond';letter-spacing:4px;color:#fff;font-size:1.2rem}
+a.home{margin-left:auto;color:var(--mut);text-decoration:none;font-style:italic}
+h1{font-family:'Cormorant Garamond';color:#fff;font-size:clamp(1.8rem,5vw,2.6rem);margin:6px 0}
+.sub{color:var(--mut);max-width:660px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin-top:26px}
+.c{background:linear-gradient(160deg,rgba(125,211,252,.08),rgba(10,12,20,.7));border:1px solid rgba(125,211,252,.2);border-radius:16px;overflow:hidden}
+.c .ph{position:relative;aspect-ratio:1/1;background:#04060d;display:flex;align-items:center;justify-content:center;color:var(--mut);font-style:italic;font-size:.85rem}
+.c img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .8s}
+.c img.on{opacity:1}
+.c .cap{padding:11px 14px}
+.c .cap b{font-family:'Cormorant Garamond';color:var(--or);font-size:1.08rem}
+.c .cap i{display:block;color:var(--ice);font-size:.86rem;margin-top:2px}
+.c .cap span{display:block;color:var(--mut);font-size:.78rem;margin-top:4px}
+.note{margin-top:26px;border-left:3px solid var(--or);padding-left:14px;color:var(--mut);font-size:.95rem}
+</style>
+</head>
+<body>
+<div class="bg"></div>
+<div class="wrap">
+  <header><span class="brand">NAVLYS</span><span style="color:var(--mut);font-style:italic">· Labo créations</span><a class="home" href="/">‹ Accueil</a></header>
+  <h1>Les créations du jour 🎨</h1>
+  <p class="sub">Spots et visuels générés à partir de <b>tes textes</b>, chez les prestataires <b>gratuits</b> (routeur média NAVLYS). Juge en humain — lumière, émotion, justesse — et donne ton verdict avec <b>💡 Améliorer</b> (cite le n°).</p>
+
+  <div class="grid" id="g"></div>
+
+  <p class="note">Générées en direct chez le prestataire gratuit (Pollinations, sans clé). Dès que d'autres clés gratuites sont posées (Gemini, Cloudflare, Hugging Face), le labo compare plusieurs moteurs sur les mêmes textes. Les vidéos, elles, s'essaient sur <a href="/labo-video" style="color:var(--ice)">/labo-video</a>.</p>
+</div>
+<script>
+(function(){
+  var P='https://image.pollinations.ai/prompt/';
+  var Q='?nologo=true&width=1024&height=1024&seed=';
+  var CREA=[
+    {n:'Création 1 — L\'adage', t:'« L\'IA est le vent, c\'est toi qui tiens la barre. »', p:'luminous sailing ship on calm night sea, ice blue and champagne gold light, cinematic, elegant, stars', s:11},
+    {n:'Création 2 — Next Gen', t:'« Ton histoire vaut de l\'or — écris-la, transmets-la. »', p:'old family photo album coming alive with golden light particles, memories rising, warm champagne glow, ice blue accents, cinematic', s:12},
+    {n:'Création 3 — NAVFIN', t:'« En euros et en confiance — le cap serein. »', p:'serene ship captain cockpit overlooking calm golden sea at dusk, compass, ice blue instruments, cinematic elegance', s:13},
+    {n:'Création 4 — Radio', t:'« La bande-son de l\'Équipage, en continu. »', p:'glowing sound waves over dark mediterranean sea at night, radio waves of light, ice blue and gold, cinematic', s:14},
+    {n:'Création 5 — Le cerveau', t:'« Un cerveau. Une personne. Tout un univers. »', p:'luminous brain made of light breathing above the ocean, ice blue neurons, champagne gold sparks, dark elegant background', s:15},
+    {n:'Création 6 — L\'Équipage', t:'« 14 équipes en formation, un navire amiral : NAVLYS. »', p:'fleet of fourteen luminous sailboats in formation on the horizon at dawn, ice blue and champagne gold, cinematic wide shot', s:16}
+  ];
+  var g=document.getElementById('g'), imgs=[];
+  CREA.forEach(function(c){
+    var d=document.createElement('div'); d.className='c';
+    d.innerHTML='<div class="ph"><span>… la création arrive</span><img alt=""></div>'+
+      '<div class="cap"><b>'+c.n+'</b><i>'+c.t+'</i><span>moteur : Pollinations (gratuit, sans clé)</span></div>';
+    var im=d.querySelector('img'); im._url=P+encodeURIComponent(c.p)+Q+c.s; im._msg=d.querySelector('.ph span');
+    imgs.push(im); g.appendChild(d);
+  });
+  /* le gratuit refuse les rafales (429) → on charge UNE création à la fois, avec une relance */
+  var i=0;
+  function next(){ if(i>=imgs.length) return; var im=imgs[i++], tries=0;
+    function go(){ tries++;
+      im.onload=function(){ im.classList.add('on'); setTimeout(next,1200); };
+      im.onerror=function(){
+        if(tries<3){ im._msg.textContent='… le moteur gratuit souffle, nouvel essai'; setTimeout(go, 9000); }
+        else { im._msg.textContent='indisponible pour le moment — recharge la page dans une minute 🌊'; setTimeout(next,800); }
+      };
+      im.src=im._url+(tries>1?('&r='+tries):'');
+    }
+    go();
+  }
+  next();
+})();
+</script>
+<script src="/navlys-alive.js" defer></script>
+</body>
+</html>
