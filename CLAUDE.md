@@ -180,6 +180,28 @@ install.sh              # installeur Hetzner en une ligne
 - **Déjà appliqué** : proxy bloque `curl` → passage par `pg_net` ; Vercel flappe →
   vérif en local. On ne reste jamais bloqué.
 
+## 🎨 Routeur média multi-prestataires (STANDING — gravé le 2026-07-07)
+
+> Ordre de Bruno : **« Mets un agent sur tous les prestataires (et concurrents),
+> utilise leurs accès/tokens gratuits quotidiens, réduis chaque jour notre conso,
+> teste chez différents prestataires, mémorise les nuances, jongle selon la demande. »**
+
+- **Edge function `media`** (`GET`=diag readiness · `POST {type,prompt,size,token}`) :
+  prend **toujours le meilleur prestataire GRATUIT légitime dispo**, **bascule seul**,
+  compte les quotas du jour, et ne touche au **payant qu'en dernier recours — réservé
+  admin (token=cockpit_pass) + signalement d'UNE ligne** (Bible §6).
+- **Registre `core_media_providers`** (priorité croissante) : `pollinations` (image,
+  **sans clé, marche déjà**) → `cloudflare` (≈100/j, `CLOUDFLARE_AI_TOKEN`+`CLOUDFLARE_ACCOUNT_ID`)
+  → `huggingface` (`HF_TOKEN`) → `gemini` (`GEMINI_API_KEY`, image+vidéo) →
+  puis payants `stability`/`fal`/`openai`/`replicate`. Ajout d'une clé gratuite = un
+  cran de plus débloqué, sans redéploiement (lecture tolérante des secrets, règle n°4).
+- **Quotas** : `core_media_usage` (par prestataire × jour) ; RPC `navlys_media_candidats`
+  / `navlys_media_utilise`. **Veille quotidienne** (cron `navlys_media_veille`, 06:30 UTC)
+  → mission NAVLAB : auditer les offres gratuites, repérer nouveautés/nuances, enrichir le registre.
+- **Frontière éthique gravée (non négociable)** : offres gratuites **officielles**
+  uniquement, **un compte légitime par prestataire**, **jamais** de farming / multi-comptes /
+  contournement de limites. Autonome, oui ; abusif, jamais.
+
 ## 🗣️ Doctrine de communication (STANDING — gravée le 2026-07-02)
 
 > Règle de Bruno : **« On est à l'ère moderne, l'ère d'internet, du mobile. On
