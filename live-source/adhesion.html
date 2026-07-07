@@ -87,8 +87,8 @@ h2::after{content:"";flex:1;height:1px;background:var(--line)}
   À <b>zéro euro</b>, tu testes tout gratuitement.</p>
   <p class="note npunch">📸 Des milliers de photos, tes documents scannés (vérifie tes dates, bâtis le CV de ta vie et de tes métiers), et la vidéo en bonus. Tout t'appartient.</p>
   <p class="note">Tu changes d'applications ou de niveau quand tu veux :
-  🎁 <b>−50 % à vie sur toute montée de formule</b> — ou tout de suite l'<b>offre à vie</b>,
-  tous produits, avec ou sans limite (Univers Intégral).</p>
+  🎁 <b>−50 % sur toute montée de formule</b> — ou tout de suite l'<b>Accès Fondateur</b>,
+  toutes les applications, sans mensualité.</p>
   <p class="note">🎀 <b>Coffrets cadeaux</b> — 1 an offert, réglé une fois, prêt à offrir.
   <i>Les offres ne se cumulent pas.</i></p>
   <div class="cadeaux" id="a-cadeaux"></div>
@@ -123,7 +123,7 @@ h2::after{content:"";flex:1;height:1px;background:var(--line)}
   var FORMULES=[
     {code:'essai',   nom:'Découverte',     montant:0,    quota:99, inclu:'Découverte gratuite : tout l\'univers à l\'essai, à la voix, sur ton téléphone. 100 photos · 20 documents scannés · 1 vidéo · 1 Go.', badge:'0 €'},
     {code:'univers', nom:'Univers NAVLYS', montant:19.99, quota:99, inclu:'Le bouquet INFINI d\'applications, dès l\'entrée — toutes les apps, à la voix, à un prix qui défie le monde. Espace généreux — 5 000 photos · 1 500 documents · 12 vidéos · 15 Go — extensible à la voix : dis « augmente mon espace ».', badge:'populaire'},
-    {code:'integral',nom:'NAVLYS à vie',   montant:299,   quota:99, avie:true, inclu:'100 % de NAVLYS, à vie : le bouquet infini d\'applications existantes ET futures. Photos, documents et vidéos en volumes libres, extensibles à la voix.', badge:'à vie'}
+    {code:'integral',nom:'Accès Fondateur', montant:299, quota:99, avie:true, inclu:'Toutes les applications, sans mensualité, tant que NAVLYS existe. Espace généreux (comme Univers), extensible à la voix en option. Un seul règlement.', badge:'sans mensualité'}
   ];
   var CADEAUX=[
     {code:'cadeau1', nom:'Coffret Cadeau · 1 application',   montant:95.99,  quota:1, unique:true, badge:'−20 %'},
@@ -141,6 +141,20 @@ h2::after{content:"";flex:1;height:1px;background:var(--line)}
   var COMPTE='https://hhrlgyvtqluxpywjiwkd.supabase.co/functions/v1/compte';
   var CAISSE='https://hhrlgyvtqluxpywjiwkd.supabase.co/functions/v1/paiement';
   var fSel='essai', aSel=[], pSel='mois';
+
+  // Paddle.js (overlay) — chargé à la demande, token PUBLIC récupéré via ?config.
+  // Plan B interne : si indispo ou pas prêt, on retombe sur le règlement serveur.
+  var PADDLE_CFG=null;
+  (function loadPaddle(){
+    var s=document.createElement('script'); s.src='https://cdn.paddle.com/paddle/v2/paddle.js'; s.async=true;
+    s.onload=function(){
+      fetch(CAISSE+'?config').then(function(r){return r.json();}).then(function(c){
+        PADDLE_CFG=c;
+        try{ if(c&&c.has_token&&window.Paddle){ window.Paddle.Environment.set(c.paddle.env==='sandbox'?'sandbox':'production'); window.Paddle.Initialize({token:c.paddle.token}); } }catch(e){}
+      }).catch(function(){});
+    };
+    document.head.appendChild(s);
+  })();
 
   function fmt(n){ return n.toFixed(2).replace('.',','); }
   function getF(code){ return FORMULES.concat(CADEAUX).filter(function(x){return x.code===code;})[0]; }
@@ -179,7 +193,7 @@ h2::after{content:"";flex:1;height:1px;background:var(--line)}
     if(!f||f.montant===0){ titre.style.display='none'; bloc.style.display='none'; bloc.innerHTML=''; return; }
     titre.style.display=''; bloc.style.display='';
     if(f.avie){
-      bloc.innerHTML='<p class="note" style="margin-top:0">✨ <b>'+fmt(f.montant)+' € HT</b> — réglé une fois, pour toujours. Aucun renouvellement.</p>';
+      bloc.innerHTML='<p class="note" style="margin-top:0">✨ <b>'+fmt(f.montant)+' € HT</b> — réglé une fois, sans mensualité. Aucun renouvellement.</p>';
       return;
     }
     if(f.unique){
@@ -239,6 +253,16 @@ h2::after{content:"";flex:1;height:1px;background:var(--line)}
       try{ localStorage.setItem('nv-token',d.membre.token); localStorage.setItem('nv-prenom',prenom||''); localStorage.setItem('nv-email',email||''); }catch(e){}
       if(f.montant===0||mode==='precommande'){ location.href='/profil?bienvenue=1'; return; }
       $('a-etat').textContent='… ouverture du règlement sécurisé';
+      // Paddle.js overlay si prêt (vrai price_id + token) — sinon plan B serveur juste après
+      try{
+        var pid = f.avie ? (PADDLE_CFG&&PADDLE_CFG.paddle&&PADDLE_CFG.paddle.price_avie) : (PADDLE_CFG&&PADDLE_CFG.paddle&&PADDLE_CFG.paddle.price_mois);
+        if(window.Paddle&&PADDLE_CFG&&PADDLE_CFG.has_token&&pid&&/^pri_/.test(pid)){
+          window.Paddle.Checkout.open({ items:[{priceId:pid,quantity:1}], customer:{email:email},
+            customData:{formule:f.code,prenom:prenom},
+            settings:{ displayMode:'overlay', successUrl:'https://navlys.com/profil?paye=ok' } });
+          go.disabled=false; $('a-etat').textContent='Règlement sécurisé ouvert — finalise dans la fenêtre Paddle.'; return;
+        }
+      }catch(e){}
       var montant, recurrence, libelle;
       if(f.avie){ montant=f.montant; recurrence=''; libelle='NAVLYS à vie — réglé une fois — '+f.nom+' — '+email; }
       else if(f.unique){ montant=f.montant; recurrence=''; libelle='Coffret NAVLYS — 1 an réglé une fois — '+f.nom+' — '+email; }
@@ -268,6 +292,14 @@ h2::after{content:"";flex:1;height:1px;background:var(--line)}
   rendreF(); rendreA();
 })();
 </script>
+<footer style="margin:48px auto 24px;max-width:720px;padding:22px 18px;border-top:1px solid rgba(125,211,252,.18);text-align:center;color:#9fb3c8;font-size:.9rem;line-height:1.9">
+  <nav style="display:flex;gap:18px;justify-content:center;flex-wrap:wrap;margin-bottom:10px">
+    <a href="/conditions" style="color:#a8e3ff;text-decoration:none">Conditions</a>
+    <a href="/confidentialite" style="color:#a8e3ff;text-decoration:none">Confidentialité</a>
+    <a href="/remboursement" style="color:#a8e3ff;text-decoration:none">Remboursement</a>
+  </nav>
+  <div>NAVLYS — navlys.com · Paiement sécurisé via Paddle.com (Merchant of Record).</div>
+</footer>
 <script src="/navlys-alive.js" defer></script>
 </body>
 </html>

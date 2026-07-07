@@ -8,14 +8,18 @@
   #nv-living{position:fixed;inset:0;z-index:-4;width:100%;height:100%;display:block}
   #nv-video{position:fixed;inset:0;z-index:-3;width:100%;height:100%;object-fit:cover;opacity:.82;filter:saturate(1.06)}
   #nv-veil{position:fixed;inset:0;z-index:-2;pointer-events:none;background:radial-gradient(1400px 1000px at 50% 26%,transparent,rgba(5,6,10,.16) 80%,rgba(5,6,10,.42))}
-  .nv-bubble{position:fixed;right:16px;bottom:80px;z-index:55;max-width:min(360px,calc(100vw - 32px));pointer-events:auto;
-    background:linear-gradient(150deg,rgba(125,211,252,.16),rgba(10,12,20,.92));
-    border:1px solid rgba(125,211,252,.4);border-radius:16px;padding:12px 15px;color:#eef0f6;
-    font-family:'Lora',serif;font-size:.92rem;box-shadow:0 10px 34px rgba(0,0,0,.5);
-    opacity:0;transform:translateY(14px) scale(.96);transition:opacity .6s,transform .6s}
-  .nv-bubble.show{opacity:1;transform:translateY(0) scale(1)}
-  .nv-bubble b{color:${OR};font-style:normal}
-  .nv-bubble .x{position:absolute;top:6px;right:9px;color:#9fb3c8;cursor:pointer;font-size:.9rem}
+  /* FLASH = bande HAUTE, pleine, fond or 100% opaque, ~1/3 d'écran — jamais par-dessus un texte (elle le recouvre en plein). PC + mobile. */
+  .nv-bubble{position:fixed;left:0;right:0;top:0;z-index:2147483000;min-height:32vh;
+    display:flex;align-items:center;justify-content:center;text-align:center;padding:30px 22px 34px;
+    background:linear-gradient(180deg,#f3dd8f 0%,#dcb84f 52%,#c79f39 100%);color:#100a00;
+    box-shadow:0 22px 46px rgba(0,0,0,.5);
+    font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(1.35rem,4.8vw,2.15rem);line-height:1.32;font-weight:600;
+    transform:translateY(-102%);transition:transform .55s cubic-bezier(.2,.8,.2,1);pointer-events:auto}
+  .nv-bubble.show{transform:translateY(0)}
+  .nv-bubble .in{max-width:820px;margin:0 auto}
+  .nv-bubble b{color:#7a1500;font-style:normal;font-weight:800}
+  .nv-bubble .x{position:absolute;top:16px;right:18px;width:38px;height:38px;border-radius:50%;
+    display:grid;place-items:center;background:rgba(0,0,0,.16);color:#100a00;cursor:pointer;font-size:1.1rem;font-weight:700}
   #nv-sav-btn{position:fixed;right:18px;bottom:84px;z-index:61;border:none;cursor:pointer;
     background:linear-gradient(100deg,${OR},#fff6df,${ICE},${OR});background-size:220% 100%;animation:nvsw 6s linear infinite;
     color:${NOIR};font-family:'Lora',serif;font-weight:600;border-radius:999px;padding:12px 18px;box-shadow:0 8px 26px rgba(0,0,0,.45)}
@@ -166,8 +170,9 @@
   var pi=Math.floor(Math.random()*promos.length);
   function bubble(){
     if(document.hidden) return schedule();
+    var _old=document.querySelector('.nv-bubble'); if(_old){ _old.remove(); } // une seule bulle à la fois (plus de texte sur texte)
     var b=document.createElement('div'); b.className='nv-bubble';
-    b.innerHTML='<span class="x">✕</span>'+promos[pi%promos.length]; pi++;
+    b.innerHTML='<span class="x">✕</span><div class="in">'+promos[pi%promos.length]+'</div>'; pi++;
     document.body.appendChild(b);
     requestAnimationFrame(function(){ b.classList.add('show'); });
     var kill=function(){ b.classList.remove('show'); setTimeout(function(){b.remove();},650); };
@@ -189,7 +194,7 @@
   btn.onclick=function(){ var open=panel.style.display==='flex'; panel.style.display=open?'none':'flex'; if(!open) document.getElementById('nv-q').focus(); };
   /* accueil : la VRAIE voix de Bruno (mp3 statique, clone ElevenLabs) */
   var helloBtn=panel.querySelector('#nv-hello');
-  if(helloBtn){ helloBtn.onclick=function(){ try{ var a=new Audio('/media/voix-accueil.mp3'); a.play(); helloBtn.textContent='🔊 réécouter Bruno'; }catch(e){} }; }
+  if(helloBtn){ helloBtn.onclick=function(){ try{ nvStop(); nvAudio=new Audio('/media/voix-accueil.mp3'); nvAudio.play(); helloBtn.textContent='🔊 réécouter Bruno'; }catch(e){} }; }
 
   var NV_SAV='https://hhrlgyvtqluxpywjiwkd.supabase.co/functions/v1/assistant';
   // LE SAVOIR LOCAL (Bible condensée, 5 langues) : réponses instantanées sans réseau
@@ -200,6 +205,8 @@
   /* e-mail connu (lecture tolérante) : sert à reconnaître le fondateur → accès direct au cerveau central */
   function nvEmail(){ var ks=['nv-email','nvemail','email','nv_user_email']; var i,v; for(i=0;i<ks.length;i++){ try{ v=localStorage.getItem(ks[i]); }catch(e){ v=null; } if(v&&v.trim()&&v.indexOf('@')>-1) return v.trim().slice(0,160); } return ''; }
   function nvSetPrenom(v){ v=(v||'').trim().slice(0,40); if(v){ try{ localStorage.setItem('nv-prenom',v); }catch(e){} } }
+  /* je salue par le prénom dès que je le connais (tutoiement, 1re personne) */
+  try{ var _p=nvPrenom(); if(_p){ var _bd=document.getElementById('nv-bd'); if(_bd){ _bd.innerHTML='<div class="b n">Bonjour '+_p.replace(/[<>&]/g,'')+' 👋 Ravi de te revoir — dis-moi, je t\'écoute.<br><span class="lt" id="nv-hello">🔊 écouter Bruno</span></div>'; var _h=_bd.querySelector('#nv-hello'); if(_h) _h.onclick=function(){ try{ nvStop(); nvAudio=new Audio('/media/voix-accueil.mp3'); nvAudio.play(); _h.textContent='🔊 réécouter Bruno'; }catch(e){} }; } } }catch(e){}
   /* capture progressive : tout champ « prénom » de la page alimente le prénom connu */
   try{
     var ins=document.querySelectorAll('input');
@@ -213,9 +220,9 @@
     });
   }catch(e){}
   var NV_VOIX='https://hhrlgyvtqluxpywjiwkd.supabase.co/functions/v1/voix';
-  var nvAudio=null;
+  var nvAudio=null, nvSpeakSeq=0;
   function nvClean(t){ return String(t).replace(/[*_#>`]|🌊|👋|😊|🚀/g,'').trim(); }
-  function nvStop(){ try{ if(nvAudio){ nvAudio.pause(); nvAudio=null; } }catch(e){} try{ if('speechSynthesis'in window) speechSynthesis.cancel(); }catch(e){} }
+  function nvStop(){ nvSpeakSeq++; try{ if(nvAudio){ nvAudio.pause(); nvAudio=null; } }catch(e){} try{ if('speechSynthesis'in window) speechSynthesis.cancel(); }catch(e){} }
   // voix navigateur AMÉLIORÉE : meilleure voix DANS LA LANGUE DU SITE + débit doux
   function nvLangCode(){
     var l='fr';
@@ -242,15 +249,16 @@
   }
   // NAVLYS parle : 1) voix ElevenLabs émotionnelle (brique /voix) ; 2) sinon navigateur
   function nvSpeak(text){
-    var t=nvClean(text); if(!t) return; nvStop();
+    var t=nvClean(text); if(!t) return; nvStop(); var seq=++nvSpeakSeq; // une seule voix à la fois
     try{
       fetch(NV_VOIX,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({text:t})})
         .then(function(r){ return r.json(); })
         .then(function(d){
-          if(d&&d.ok&&d.audio){ nvAudio=new Audio(d.audio); var p=nvAudio.play(); if(p&&p['catch']) p['catch'](function(){ nvBrowserSpeak(t); }); }
-          else { nvBrowserSpeak(t); }
+          if(seq!==nvSpeakSeq) return; // un nouveau nvSpeak a démarré entre-temps → on abandonne (plus de "plusieurs Bruno")
+          if(d&&d.ok&&d.audio){ nvStop(); nvAudio=new Audio(d.audio); var p=nvAudio.play(); if(p&&p['catch']) p['catch'](function(){ if(seq===nvSpeakSeq) nvBrowserSpeak(t); }); }
+          else if(seq===nvSpeakSeq){ nvBrowserSpeak(t); }
         })
-        .catch(function(){ nvBrowserSpeak(t); });
+        .catch(function(){ if(seq===nvSpeakSeq) nvBrowserSpeak(t); });
     }catch(e){ nvBrowserSpeak(t); }
   }
   function listen(text, el){ nvSpeak(text); el.textContent='🔊 réécouter'; }
@@ -615,8 +623,8 @@
   var ytB=shareM.querySelector('#nv-youtube'); if(ytB) ytB.onclick=function(){ (navigator.clipboard?navigator.clipboard.writeText(url):0); toast('Lien copié — colle-le dans ta description / Short YouTube ▶️'); setTimeout(function(){window.open('https://www.youtube.com','_blank');},400); };
 
   // actions menu
-  gearM.querySelector('#nv-account').onclick=function(){ toast('Espace Identité & Compte — en ligne très bientôt 👤'); };
-  gearM.querySelector('#nv-pay').onclick=function(){ toast('Abonnement & Paiement sécurisé — en ligne très bientôt 💳'); };
+  gearM.querySelector('#nv-account').onclick=function(){ closeAll(); location.href='/profil'; };
+  gearM.querySelector('#nv-pay').onclick=function(){ closeAll(); location.href='/adhesion'; };
   gearM.querySelector('#nv-settings').onclick=function(){ toast('Réglages personnels — en chemin 🎛️'); };
   gearM.querySelector('#nv-help').onclick=function(){ closeAll(); var b=document.getElementById('nv-sav-btn'); if(b) b.click(); };
   Array.prototype.forEach.call(gearM.querySelectorAll('.nv-lang'),function(el){
@@ -753,9 +761,11 @@
     var peek=document.createElement('div'); peek.id='nv-peek'; document.body.appendChild(peek); // petit repère vivant quand caché
     var t;
     function anyMenuOpen(){ return !!document.querySelector('.nv-menu.open'); }
-    function arm(){ clearTimeout(t); t=setTimeout(hide,4500); }
-    function show(){ document.body.classList.remove('nv-chrome-hidden'); arm(); }
-    function hide(){ if(anyMenuOpen()) return arm(); document.body.classList.add('nv-chrome-hidden'); }
+    /* Onglets PERMANENTS en haut (demande Bruno 2026-07-07) : la barre ne se
+       replie plus toute seule — bande écran de cinéma toujours présente, comme en bas. */
+    function arm(){ clearTimeout(t); }
+    function show(){ document.body.classList.remove('nv-chrome-hidden'); }
+    function hide(){ /* jamais masquer : onglets permanents */ return; }
     document.addEventListener('mousemove',function(e){ if(e.clientY<56) show(); });
     [top,count,hz,peek].forEach(function(el){ if(el){ el.addEventListener('mouseenter',show); el.addEventListener('mouseleave',arm); } });
     var lastY=window.scrollY||0;
@@ -845,7 +855,7 @@
       +'#nv-botbar a:hover,#nv-botbar a.on{color:#a8e3ff}'
       +'#nv-botbar a.on .i{filter:none;text-shadow:0 0 12px rgba(125,211,252,.6)}'
       +'body{padding-bottom:74px!important}'
-      +'#nv-sav-btn{bottom:72px!important}#nv-sav{bottom:128px!important}.nv-bubble{bottom:132px!important}';
+      +'#nv-sav-btn{bottom:72px!important}#nv-sav{bottom:128px!important}';
     var s=d.createElement('style'); s.textContent=css; head.appendChild(s);
     var nav=d.createElement('nav'); nav.id='nv-botbar';
     nav.innerHTML=items.map(function(it){ var on=(it[0]===path)?' class="on"':''; return '<a href="'+it[0]+'"'+on+'><span class="i">'+it[1]+'</span>'+it[2]+'</a>'; }).join('');
@@ -902,4 +912,151 @@
   for(i=0;i<scripts.length;i++){ if((scripts[i].src||'').indexOf('navlys-i18n.js')!==-1) return; }
   var s=d.createElement('script'); s.src='/navlys-i18n.js'; s.defer=true;
   (d.head||d.getElementsByTagName('head')[0]||d.body).appendChild(s);
+})();
+
+/* ====================================================================
+   NAVLYS — BANDE CINÉMA (sous l'onglet du haut) : petit écran vidéo en
+   DIRECT + défilé de données & offres promo. Permanent, ice/or, discret.
+   Remplace l'ancien bandeau compte-à-rebours (#nv-count) par un ruban vivant.
+   v1 · 2026-07-07 — demande Bruno : « écran de cinéma en haut, vidéo + défilé ».
+   ==================================================================== */
+(function(){
+  var d=document;
+  function ready(fn){ if(d.getElementById('nv-top')) fn(); else setTimeout(function(){ready(fn);},150); }
+  ready(function(){
+    if(d.getElementById('nv-cine')) return;
+    var ICE='#7DD3FC', OR='#e9d3a0';
+    var slogans=[
+      'Bienvenue à bord — l\'IA humaine et lumineuse 🌊',
+      'Ton histoire vaut de l\'or — écris-la, transmets-la 📖',
+      'L\'IA est le vent, c\'est toi qui tiens la barre ⚓',
+      'En euros et en confiance — le cap serein 🧭'
+    ];
+    var DAY=Math.floor(Date.now()/864e5);
+    var slg=slogans[((DAY%slogans.length)+slogans.length)%slogans.length];
+    var items=[
+      '✨ <b>NAVLYS</b> · l\'univers Lovelace',
+      slg,
+      '🎁 <b>Accès Fondateur</b> — teste en toute liberté',
+      '⚖️ NAVLEX · 3 questions offertes',
+      '📈 <a href="/finance" style="color:'+ICE+';text-decoration:none">NAVFIN · le défilé bourse ›</a>',
+      '📖 Next Gen · ta vie mise en scène',
+      '🌍 5 langues · navlys.com',
+      '🎙️ Tout à la voix, depuis ton mobile'
+    ];
+    var css=''
+      +'#nv-count{display:none!important}'
+      +'#nv-cine{position:fixed;top:var(--nv-top-h,52px);left:0;right:0;z-index:119;height:46px;display:flex;align-items:stretch;overflow:hidden;'
+      +'background:linear-gradient(90deg,rgba(4,7,15,.94),rgba(9,14,24,.82));border-bottom:1px solid rgba(233,211,160,.28);'
+      +'box-shadow:0 6px 20px rgba(0,0,0,.35)}'
+      +'#nv-cine .scr{flex:0 0 auto;width:64px;position:relative;overflow:hidden;border-right:1px solid rgba(125,211,252,.2);background:#04060d}'
+      +'#nv-cine .scr video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.9}'
+      +'#nv-cine .scr .live{position:absolute;top:4px;left:5px;z-index:2;font:700 8px/1 \'Cinzel\',serif;letter-spacing:.1em;color:#fff;'
+      +'background:rgba(200,30,30,.85);border-radius:3px;padding:2px 4px}'
+      +'#nv-cine .scr .gem{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:20px;'
+      +'background:radial-gradient(circle at 50% 40%,rgba(125,211,252,.35),transparent 70%);animation:nvCineGem 3.2s ease-in-out infinite}'
+      +'@keyframes nvCineGem{0%,100%{opacity:.7;transform:scale(.9)}50%{opacity:1;transform:scale(1.08)}}'
+      +'#nv-cine .view{flex:1;overflow:hidden;position:relative;'
+      +'-webkit-mask-image:linear-gradient(90deg,transparent,#000 20px,#000 calc(100% - 20px),transparent);'
+      +'mask-image:linear-gradient(90deg,transparent,#000 20px,#000 calc(100% - 20px),transparent)}'
+      +'#nv-cine .track{position:absolute;top:0;left:0;height:100%;display:flex;align-items:center;gap:34px;white-space:nowrap;padding-left:34px;'
+      +'font-family:\'Cormorant Garamond\',\'Lora\',serif;font-size:1rem;color:#dbe9f6;will-change:transform;animation:nvCine 42s linear infinite}'
+      +'#nv-cine:hover .track{animation-play-state:paused}'
+      +'#nv-cine .track b{color:'+OR+';font-weight:700}'
+      +'#nv-cine .track span.it{display:inline-flex;align-items:center;gap:8px}'
+      +'#nv-cine .track span.it:before{content:"◆";color:'+ICE+';font-size:.6rem;opacity:.6}'
+      +'@keyframes nvCine{from{transform:translateX(0)}to{transform:translateX(-50%)}}'
+      +'@media (prefers-reduced-motion:reduce){#nv-cine .track{animation:none;padding-left:12px}}'
+      +'@media(max-width:560px){#nv-cine{height:44px}#nv-cine .scr{width:52px}#nv-cine .track{font-size:.92rem}}'
+      +'body{padding-top:calc(var(--nv-top-h,52px) + 48px)!important}';
+    var st=d.createElement('style'); st.textContent=css; d.head.appendChild(st);
+
+    var bar=d.createElement('div'); bar.id='nv-cine';
+    var itHTML=items.map(function(t){ return '<span class="it">'+t+'</span>'; }).join('');
+    bar.innerHTML='<div class="scr"><span class="live">● LIVE</span><span class="gem">💠</span></div>'
+      +'<div class="view"><div class="track">'+itHTML+itHTML+'</div></div>';
+    d.body.appendChild(bar);
+
+    /* petit écran : vidéo en DIRECT si disponible, sinon le gem animé reste */
+    try{
+      var v=d.createElement('video'); v.muted=true; v.loop=true; v.autoplay=true; v.playsInline=true; v.setAttribute('playsinline','');
+      v.src='/media/fond.mp4';
+      v.onerror=function(){ try{ v.remove(); }catch(e){} };
+      v.onloadeddata=function(){ try{ v.playbackRate=0.7; var g=bar.querySelector('.gem'); if(g) g.style.display='none'; }catch(e){} };
+      bar.querySelector('.scr').appendChild(v);
+    }catch(e){}
+  });
+})();
+
+/* ====================================================================
+   NAVLYS — VIDÉO INCRUSTÉE dans chaque encadré (.card / .box). Demande
+   Bruno (2026-07-07). Une couche vidéo douce en boucle derrière le contenu,
+   incrustée aux coins arrondis. Perf : max 4 vidéos actives à la fois
+   (le reste reçoit un dégradé vivant), lazy via IntersectionObserver,
+   repli gracieux si /media/fond.mp4 absent. v1
+   ==================================================================== */
+(function(){
+  var d=document;
+  var reduce=false; try{ reduce=matchMedia('(prefers-reduced-motion: reduce)').matches; }catch(e){}
+  function boot(){
+    var frames=d.querySelectorAll('.card,.box');
+    if(!frames.length) return;
+    var css=''
+      +'.nv-vframe{position:relative;isolation:isolate}'
+      +'.nv-vframe>.nv-vbg{position:absolute;inset:0;z-index:-1;overflow:hidden;border-radius:inherit;pointer-events:none}'
+      +'.nv-vframe>.nv-vbg video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.16;filter:saturate(1.05)}'
+      +'.nv-vframe>.nv-vbg .nv-vfallback{position:absolute;inset:0;opacity:.55;'
+      +'background:linear-gradient(120deg,rgba(125,211,252,.10),transparent 55%),radial-gradient(120% 90% at 82% 8%,rgba(233,211,160,.10),transparent 60%)'
+      +(reduce?'':';animation:nvVshift 15s ease-in-out infinite alternate')+'}'
+      +'@keyframes nvVshift{to{filter:hue-rotate(-10deg) brightness(1.08)}}';
+    var s=d.createElement('style'); s.textContent=css; d.head.appendChild(s);
+    var live=0, MAX=4;
+    function skin(card){
+      if(card.querySelector(':scope>.nv-vbg')) return null;
+      card.classList.add('nv-vframe');
+      var wrap=d.createElement('div'); wrap.className='nv-vbg'; wrap.setAttribute('aria-hidden','true');
+      var fb=d.createElement('div'); fb.className='nv-vfallback'; wrap.appendChild(fb);
+      card.insertBefore(wrap, card.firstChild);
+      return wrap;
+    }
+    function mount(card){
+      var wrap=skin(card); if(!wrap) return;
+      if(reduce || live>=MAX) return; /* au-delà du plafond : le dégradé vivant suffit */
+      try{
+        var v=d.createElement('video'); v.muted=true; v.loop=true; v.playsInline=true; v.setAttribute('playsinline','');
+        v.preload='none'; v.src='/media/fond.mp4';
+        v.onerror=function(){ try{ v.remove(); }catch(e){} };
+        v.onloadeddata=function(){ try{ v.playbackRate=0.6; live++; }catch(e){} };
+        wrap.insertBefore(v, wrap.firstChild);
+        if(v.play){ var p=v.play(); if(p&&p['catch']) p['catch'](function(){}); }
+      }catch(e){}
+    }
+    if(!('IntersectionObserver' in window)){
+      for(var i=0;i<frames.length;i++) skin(frames[i]);
+      return;
+    }
+    var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ mount(e.target); io.unobserve(e.target); } }); },{rootMargin:'140px'});
+    for(var j=0;j<frames.length;j++) io.observe(frames[j]);
+  }
+  if(d.readyState==='loading') d.addEventListener('DOMContentLoaded',boot); else boot();
+})();
+
+/* ====================================================================
+   NAVLYS — LA RESPIRATION : le site & les applications « respirent ».
+   Une lueur glacier qui gonfle et se retire lentement (le cerveau vivant),
+   derrière le contenu, sur CHAQUE page. Demande Bruno (2026-07-07).
+   Se fige sous prefers-reduced-motion. v1
+   ==================================================================== */
+(function(){
+  var d=document;
+  var reduce=false; try{ reduce=matchMedia('(prefers-reduced-motion: reduce)').matches; }catch(e){}
+  if(d.getElementById('nv-breath')) return;
+  var css=''
+    +'#nv-breath{position:fixed;inset:0;z-index:-3;pointer-events:none;'
+    +'background:radial-gradient(58% 42% at 50% 34%,rgba(125,211,252,.10),transparent 70%);mix-blend-mode:screen'
+    +(reduce?';opacity:.7}':';animation:nvBreath 7.5s ease-in-out infinite}')
+    +'@keyframes nvBreath{0%,100%{opacity:.5;transform:scale(1)}50%{opacity:1;transform:scale(1.06)}}';
+  var s=d.createElement('style'); s.textContent=css; d.head.appendChild(s);
+  var el=d.createElement('div'); el.id='nv-breath'; el.setAttribute('aria-hidden','true');
+  (d.body||d.documentElement).appendChild(el);
 })();
