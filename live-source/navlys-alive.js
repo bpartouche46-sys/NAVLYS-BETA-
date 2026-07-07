@@ -25,17 +25,18 @@ window.NAVLYS_setVideo = function(v, rate, srcs){
   #nv-video{position:fixed;inset:0;z-index:-3;width:100%;height:100%;object-fit:cover;opacity:.82;filter:saturate(1.06)}
   #nv-veil{position:fixed;inset:0;z-index:-2;pointer-events:none;background:radial-gradient(1400px 1000px at 50% 26%,transparent,rgba(5,6,10,.16) 80%,rgba(5,6,10,.42))}
   /* FLASH = bande HAUTE, pleine, fond or 100% opaque, ~1/3 d'écran — jamais par-dessus un texte (elle le recouvre en plein). PC + mobile. */
+  /* bande FINE (moitié moins haute) : flash discret, animé, en haut */
   .nv-bubble{position:fixed;left:0;right:0;top:0;z-index:2147483000;
-    display:flex;align-items:center;justify-content:center;text-align:center;padding:13px 46px 15px;
+    display:flex;align-items:center;justify-content:center;text-align:center;padding:6px 40px 7px;
     background:linear-gradient(180deg,#f3dd8f 0%,#dcb84f 60%,#c79f39 100%);color:#100a00;
-    box-shadow:0 12px 30px rgba(0,0,0,.45);cursor:pointer;
-    font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(1.02rem,3.3vw,1.5rem);line-height:1.28;font-weight:600;
+    box-shadow:0 6px 16px rgba(0,0,0,.38);cursor:pointer;
+    font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(.88rem,2.4vw,1.12rem);line-height:1.22;font-weight:600;
     transform:translateY(-102%);transition:transform .5s cubic-bezier(.2,.8,.2,1);pointer-events:auto}
   .nv-bubble.show{transform:translateY(0)}
   .nv-bubble .in{max-width:820px;margin:0 auto}
   .nv-bubble b{color:#7a1500;font-style:normal;font-weight:800}
-  .nv-bubble .x{position:absolute;top:16px;right:18px;width:38px;height:38px;border-radius:50%;
-    display:grid;place-items:center;background:rgba(0,0,0,.16);color:#100a00;cursor:pointer;font-size:1.1rem;font-weight:700}
+  .nv-bubble .x{position:absolute;top:6px;right:12px;width:24px;height:24px;border-radius:50%;
+    display:grid;place-items:center;background:rgba(0,0,0,.16);color:#100a00;cursor:pointer;font-size:.9rem;font-weight:700}
   #nv-sav-btn{position:fixed;right:18px;bottom:84px;z-index:61;border:none;cursor:pointer;
     background:linear-gradient(100deg,${OR},#fff6df,${ICE},${OR});background-size:220% 100%;animation:nvsw 6s linear infinite;
     color:${NOIR};font-family:'Lora',serif;font-weight:600;border-radius:999px;padding:12px 18px;box-shadow:0 8px 26px rgba(0,0,0,.45)}
@@ -193,11 +194,12 @@ window.NAVLYS_setVideo = function(v, rate, srcs){
     var kill=function(){ b.classList.remove('show'); setTimeout(function(){b.remove();},650); };
     var x=b.querySelector('.x'); x.onclick=function(ev){ ev.stopPropagation(); kill(); };
     b.querySelector('.in').onclick=function(){ location.href='/adhesion'; }; // la bande → inscription
-    setTimeout(kill, 5000);
+    setTimeout(kill, 6000);
     schedule();
   }
-  function schedule(){ setTimeout(bubble, 9000+Math.random()*7000); }
-  setTimeout(bubble, 3500);
+  /* BEAUCOUP moins souvent (demande Bruno) : un flash toutes les ~2 à 3,5 min */
+  function schedule(){ setTimeout(bubble, 120000+Math.random()*90000); }
+  setTimeout(bubble, 8000);
 
   /* ---------- SAV vocal ---------- */
   var btn=document.createElement('button'); btn.id='nv-sav-btn'; btn.textContent='💬 Aide';
