@@ -987,3 +987,76 @@
     }catch(e){}
   });
 })();
+
+/* ====================================================================
+   NAVLYS — VIDÉO INCRUSTÉE dans chaque encadré (.card / .box). Demande
+   Bruno (2026-07-07). Une couche vidéo douce en boucle derrière le contenu,
+   incrustée aux coins arrondis. Perf : max 4 vidéos actives à la fois
+   (le reste reçoit un dégradé vivant), lazy via IntersectionObserver,
+   repli gracieux si /media/fond.mp4 absent. v1
+   ==================================================================== */
+(function(){
+  var d=document;
+  var reduce=false; try{ reduce=matchMedia('(prefers-reduced-motion: reduce)').matches; }catch(e){}
+  function boot(){
+    var frames=d.querySelectorAll('.card,.box');
+    if(!frames.length) return;
+    var css=''
+      +'.nv-vframe{position:relative;isolation:isolate}'
+      +'.nv-vframe>.nv-vbg{position:absolute;inset:0;z-index:-1;overflow:hidden;border-radius:inherit;pointer-events:none}'
+      +'.nv-vframe>.nv-vbg video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.16;filter:saturate(1.05)}'
+      +'.nv-vframe>.nv-vbg .nv-vfallback{position:absolute;inset:0;opacity:.55;'
+      +'background:linear-gradient(120deg,rgba(125,211,252,.10),transparent 55%),radial-gradient(120% 90% at 82% 8%,rgba(233,211,160,.10),transparent 60%)'
+      +(reduce?'':';animation:nvVshift 15s ease-in-out infinite alternate')+'}'
+      +'@keyframes nvVshift{to{filter:hue-rotate(-10deg) brightness(1.08)}}';
+    var s=d.createElement('style'); s.textContent=css; d.head.appendChild(s);
+    var live=0, MAX=4;
+    function skin(card){
+      if(card.querySelector(':scope>.nv-vbg')) return null;
+      card.classList.add('nv-vframe');
+      var wrap=d.createElement('div'); wrap.className='nv-vbg'; wrap.setAttribute('aria-hidden','true');
+      var fb=d.createElement('div'); fb.className='nv-vfallback'; wrap.appendChild(fb);
+      card.insertBefore(wrap, card.firstChild);
+      return wrap;
+    }
+    function mount(card){
+      var wrap=skin(card); if(!wrap) return;
+      if(reduce || live>=MAX) return; /* au-delà du plafond : le dégradé vivant suffit */
+      try{
+        var v=d.createElement('video'); v.muted=true; v.loop=true; v.playsInline=true; v.setAttribute('playsinline','');
+        v.preload='none'; v.src='/media/fond.mp4';
+        v.onerror=function(){ try{ v.remove(); }catch(e){} };
+        v.onloadeddata=function(){ try{ v.playbackRate=0.6; live++; }catch(e){} };
+        wrap.insertBefore(v, wrap.firstChild);
+        if(v.play){ var p=v.play(); if(p&&p['catch']) p['catch'](function(){}); }
+      }catch(e){}
+    }
+    if(!('IntersectionObserver' in window)){
+      for(var i=0;i<frames.length;i++) skin(frames[i]);
+      return;
+    }
+    var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ mount(e.target); io.unobserve(e.target); } }); },{rootMargin:'140px'});
+    for(var j=0;j<frames.length;j++) io.observe(frames[j]);
+  }
+  if(d.readyState==='loading') d.addEventListener('DOMContentLoaded',boot); else boot();
+})();
+
+/* ====================================================================
+   NAVLYS — LA RESPIRATION : le site & les applications « respirent ».
+   Une lueur glacier qui gonfle et se retire lentement (le cerveau vivant),
+   derrière le contenu, sur CHAQUE page. Demande Bruno (2026-07-07).
+   Se fige sous prefers-reduced-motion. v1
+   ==================================================================== */
+(function(){
+  var d=document;
+  var reduce=false; try{ reduce=matchMedia('(prefers-reduced-motion: reduce)').matches; }catch(e){}
+  if(d.getElementById('nv-breath')) return;
+  var css=''
+    +'#nv-breath{position:fixed;inset:0;z-index:-3;pointer-events:none;'
+    +'background:radial-gradient(58% 42% at 50% 34%,rgba(125,211,252,.10),transparent 70%);mix-blend-mode:screen'
+    +(reduce?';opacity:.7}':';animation:nvBreath 7.5s ease-in-out infinite}')
+    +'@keyframes nvBreath{0%,100%{opacity:.5;transform:scale(1)}50%{opacity:1;transform:scale(1.06)}}';
+  var s=d.createElement('style'); s.textContent=css; d.head.appendChild(s);
+  var el=d.createElement('div'); el.id='nv-breath'; el.setAttribute('aria-hidden','true');
+  (d.body||d.documentElement).appendChild(el);
+})();
