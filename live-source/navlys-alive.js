@@ -251,7 +251,50 @@ window.NAVLYS_setVideo = function(v, rate, srcs){
   var NV_VOIX='https://hhrlgyvtqluxpywjiwkd.supabase.co/functions/v1/voix';
   var nvAudio=null, nvSpeakSeq=0;
   function nvClean(t){ return String(t).replace(/[*_#>`]|🌊|👋|😊|🚀/g,'').trim(); }
-  function nvStop(){ nvSpeakSeq++; try{ if(nvAudio){ nvAudio.pause(); nvAudio=null; } }catch(e){} try{ if('speechSynthesis'in window) speechSynthesis.cancel(); }catch(e){} }
+  /* ---------- KARAOKÉ (demande Bruno 2026-07-07) : UNE ligne fine, les mots
+     apparaissent au rythme exact de la voix — fini le gros encadré de texte. */
+  var karEl=null, karTimer=null;
+  function nvKarEl(){
+    if(karEl) return karEl;
+    var s=document.createElement('style'); s.textContent=
+      '#nv-karaoke{position:fixed;left:10px;right:10px;bottom:150px;z-index:63;pointer-events:none;'+
+      'text-align:center;white-space:nowrap;overflow:hidden;font-family:\'Cormorant Garamond\',Georgia,serif;'+
+      'font-size:clamp(1.05rem,3.4vw,1.45rem);font-weight:600;color:#fff;'+
+      'text-shadow:0 0 10px rgba(125,211,252,.8),0 2px 6px rgba(0,0,0,.9);'+
+      'opacity:0;transition:opacity .35s}'+
+      '#nv-karaoke.on{opacity:1}'+
+      '#nv-karaoke .done{color:'+OR+'}';
+    document.head.appendChild(s);
+    karEl=document.createElement('div'); karEl.id='nv-karaoke'; karEl.setAttribute('aria-live','off');
+    document.body.appendChild(karEl); return karEl;
+  }
+  function nvKarStop(){ clearInterval(karTimer); karTimer=null; if(karEl){ karEl.classList.remove('on'); } }
+  function nvKarWords(words, upto){ /* fenêtre glissante : on voit la fin de la phrase en cours */
+    var el=nvKarEl(); var shown=words.slice(Math.max(0,upto-9), upto).join(' ');
+    el.innerHTML='<span class="done">'+shown.replace(/[<>&]/g,'')+'</span>';
+    el.classList.add('on');
+  }
+  function nvKarAudio(text, audio){ /* mots répartis sur la durée réelle du son */
+    var words=nvClean(text).split(/\s+/).filter(Boolean); if(!words.length) return;
+    nvKarStop();
+    karTimer=setInterval(function(){
+      try{
+        if(!audio || audio.ended || audio.paused && audio.currentTime===0){ return; }
+        var d=audio.duration; if(!d || !isFinite(d)) return;
+        var k=Math.max(1, Math.min(words.length, Math.ceil(words.length*(audio.currentTime/d))));
+        nvKarWords(words, k);
+        if(audio.ended || audio.currentTime>=d-0.05){ nvKarStop(); setTimeout(function(){ if(karEl) karEl.classList.remove('on'); },1400); }
+      }catch(e){}
+    }, 120);
+    audio.addEventListener('ended', function(){ nvKarStop(); setTimeout(function(){ if(karEl) karEl.classList.remove('on'); },1400); });
+  }
+  function nvKarUtter(text, u){ /* voix navigateur : synchro au MOT près (onboundary) */
+    var t=nvClean(text); var words=t.split(/\s+/).filter(Boolean); if(!words.length) return;
+    nvKarStop();
+    u.onboundary=function(ev){ try{ var k=t.slice(0, ev.charIndex).split(/\s+/).filter(Boolean).length+1; nvKarWords(words, Math.min(k, words.length)); }catch(e){} };
+    u.onend=function(){ setTimeout(function(){ if(karEl) karEl.classList.remove('on'); },1400); };
+  }
+  function nvStop(){ nvSpeakSeq++; nvKarStop(); if(karEl) karEl.classList.remove('on'); try{ if(nvAudio){ nvAudio.pause(); nvAudio=null; } }catch(e){} try{ if('speechSynthesis'in window) speechSynthesis.cancel(); }catch(e){} }
   // voix navigateur AMÉLIORÉE : meilleure voix DANS LA LANGUE DU SITE + débit doux
   function nvLangCode(){
     var l='fr';
@@ -267,6 +310,7 @@ window.NAVLYS_setVideo = function(v, rate, srcs){
     try{
       var code=nvLangCode(), base=code.slice(0,2);
       var u=new SpeechSynthesisUtterance(text); u.lang=code; u.rate=0.98; u.pitch=1.0;
+      nvKarUtter(text, u); /* karaoké synchronisé au mot près */
       var vs=(speechSynthesis.getVoices&&speechSynthesis.getVoices())||[];
       var pref=['google','natural','neural','wavenet','amelie','amélie','thomas','virginie','audrey'];
       var pick=null,i,j;
@@ -286,7 +330,7 @@ window.NAVLYS_setVideo = function(v, rate, srcs){
         .then(function(r){ return r.json(); })
         .then(function(d){
           if(seq!==nvSpeakSeq) return; // un nouveau nvSpeak a démarré entre-temps → on abandonne (plus de "plusieurs Bruno")
-          if(d&&d.ok&&d.audio){ nvStop(); nvAudio=new Audio(d.audio); var p=nvAudio.play(); if(p&&p['catch']) p['catch'](function(){ if(seq===nvSpeakSeq) nvBrowserSpeak(t); }); }
+          if(d&&d.ok&&d.audio){ nvStop(); nvAudio=new Audio(d.audio); nvKarAudio(t, nvAudio); var p=nvAudio.play(); if(p&&p['catch']) p['catch'](function(){ if(seq===nvSpeakSeq) nvBrowserSpeak(t); }); }
           else if(seq===nvSpeakSeq){ try{ sessionStorage.setItem('nv_voix_ko','1'); }catch(e){} nvBrowserSpeak(t); }
         })
         .catch(function(){ if(seq===nvSpeakSeq) nvBrowserSpeak(t); });
