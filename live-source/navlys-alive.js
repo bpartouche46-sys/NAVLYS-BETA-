@@ -235,6 +235,17 @@ window.NAVLYS_setVideo = function(v, rate, srcs){
       }
     });
   }catch(e){}
+  /* Message d'INDULGENCE au démarrage (Aide/SAV + 💡 Améliorer) — dans la langue de la personne */
+  var NV_INDULG={
+    fr:'🌱 Sois indulgent au démarrage : chaque application grandit à chaque seconde, grâce à toi et à ta participation. Ton retour fait tout avancer — surtout les langues et les traductions. Merci d\'être là.',
+    en:'🌱 Please be kind at launch: every app grows every second, thanks to you and your participation. Your feedback moves everything forward — especially languages and translations. Thank you for being here.',
+    ru:'🌱 Будь снисходителен на старте: каждое приложение растёт каждую секунду — благодаря тебе и твоему участию. Твой отклик двигает всё вперёд, особенно языки и переводы. Спасибо, что ты здесь.',
+    he:'🌱 היה סלחני בהתחלה: כל אפליקציה גדלה בכל שנייה, בזכותך ובהשתתפותך. המשוב שלך מקדם הכול — במיוחד שפות ותרגומים. תודה שאתה כאן.',
+    ar:'🌱 كن متسامحًا في البداية: كل تطبيق ينمو كل ثانية، بفضلك وبمشاركتك. ملاحظاتك تدفع كل شيء إلى الأمام — خاصةً اللغات والترجمات. شكرًا لوجودك.'
+  };
+  function nvUiLang(){ var l='fr'; try{ l=(window.NAVLYS_I18N&&window.NAVLYS_I18N.lang&&window.NAVLYS_I18N.lang())||localStorage.getItem('nv-lang')||navigator.language||'fr'; }catch(e){} l=String(l||'fr').slice(0,2); return NV_INDULG[l]?l:'fr'; }
+  function nvIndulgTxt(){ return NV_INDULG[nvUiLang()]; }
+  try{ var _bd2=document.getElementById('nv-bd'); if(_bd2){ var _di=document.createElement('div'); _di.className='b n nv-indulg'; _di.textContent=nvIndulgTxt(); _bd2.appendChild(_di); document.addEventListener('nv-lang',function(){ _di.textContent=nvIndulgTxt(); }); } }catch(e){}
   var NV_VOIX='https://hhrlgyvtqluxpywjiwkd.supabase.co/functions/v1/voix';
   var nvAudio=null, nvSpeakSeq=0;
   function nvClean(t){ return String(t).replace(/[*_#>`]|🌊|👋|😊|🚀/g,'').trim(); }
@@ -452,6 +463,7 @@ window.NAVLYS_setVideo = function(v, rate, srcs){
   var fb=document.createElement('div'); fb.id='nv-fb';
   fb.innerHTML='<div class="hd">💡 Ton avis compte<small><span>Application</span> : '+fbApp+' — <span>dis-nous tout, on lit, on applique, on répond.</span></small></div>'+
     '<div class="bd">'+
+      '<div class="nvfb-indulg" style="font-size:.82rem;color:#bfe0f5;padding:0 2px 8px;line-height:1.5;border-bottom:1px solid rgba(125,211,252,.14);margin-bottom:8px"></div>'+
       '<div class="row" id="nv-fb-t">'+
         '<div class="opt" data-v="critique">🐞 Critique</div>'+
         '<div class="opt" data-v="remarque">💬 Remarque</div>'+
@@ -466,6 +478,7 @@ window.NAVLYS_setVideo = function(v, rate, srcs){
       '<div class="ok" id="nv-fb-ok"></div>'+
     '</div>';
   document.body.appendChild(fb);
+  try{ var _fbi=fb.querySelector('.nvfb-indulg'); if(_fbi){ _fbi.textContent=nvIndulgTxt(); document.addEventListener('nv-lang',function(){ _fbi.textContent=nvIndulgTxt(); }); } }catch(e){}
   fbBtn.onclick=function(){ var open=fb.style.display==='flex'; fb.style.display=open?'none':'flex'; if(!open){ var m=document.getElementById('nv-fb-msg'); if(m) m.focus(); } };
   function fbPick(rowId){
     var row=document.getElementById(rowId);
