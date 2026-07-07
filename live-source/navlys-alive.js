@@ -250,13 +250,15 @@
   // NAVLYS parle : 1) voix ElevenLabs émotionnelle (brique /voix) ; 2) sinon navigateur
   function nvSpeak(text){
     var t=nvClean(text); if(!t) return; nvStop(); var seq=++nvSpeakSeq; // une seule voix à la fois
+    var ko=false; try{ ko=sessionStorage.getItem('nv_voix_ko')==='1'; }catch(e){}
+    if(ko){ nvBrowserSpeak(t); return; } /* clé voix morte constatée : repli immédiat, zéro aller-retour */
     try{
       fetch(NV_VOIX,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({text:t})})
         .then(function(r){ return r.json(); })
         .then(function(d){
           if(seq!==nvSpeakSeq) return; // un nouveau nvSpeak a démarré entre-temps → on abandonne (plus de "plusieurs Bruno")
           if(d&&d.ok&&d.audio){ nvStop(); nvAudio=new Audio(d.audio); var p=nvAudio.play(); if(p&&p['catch']) p['catch'](function(){ if(seq===nvSpeakSeq) nvBrowserSpeak(t); }); }
-          else if(seq===nvSpeakSeq){ nvBrowserSpeak(t); }
+          else if(seq===nvSpeakSeq){ try{ sessionStorage.setItem('nv_voix_ko','1'); }catch(e){} nvBrowserSpeak(t); }
         })
         .catch(function(){ if(seq===nvSpeakSeq) nvBrowserSpeak(t); });
     }catch(e){ nvBrowserSpeak(t); }
