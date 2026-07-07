@@ -928,24 +928,20 @@
   ready(function(){
     if(d.getElementById('nv-cine')) return;
     var ICE='#7DD3FC', OR='#e9d3a0';
-    var slogans=[
-      'Bienvenue à bord — l\'IA humaine et lumineuse 🌊',
-      'Ton histoire vaut de l\'or — écris-la, transmets-la 📖',
-      'L\'IA est le vent, c\'est toi qui tiens la barre ⚓',
-      'En euros et en confiance — le cap serein 🧭'
+    function L(){ var l='fr'; try{ l=(window.NAVLYS_I18N&&window.NAVLYS_I18N.lang&&window.NAVLYS_I18N.lang())||localStorage.getItem('nv-lang')||'fr'; }catch(e){} return (['en','ru','he','ar'].indexOf(l)>-1)?l:'fr'; }
+    var A=function(fr,en,ru,he,ar){ return {fr:fr,en:en,ru:ru,he:he,ar:ar}; };
+    var LNK='<a href="/finance" style="color:'+ICE+';text-decoration:none">';
+    var ITEMS=[
+      A('✨ <b>NAVLYS</b> · l\'univers Lovelace','✨ <b>NAVLYS</b> · the Lovelace universe','✨ <b>NAVLYS</b> · вселенная Lovelace','✨ <b>NAVLYS</b> · יקום Lovelace','✨ <b>NAVLYS</b> · عالم Lovelace'),
+      A('⚓ L\'IA est le vent, c\'est toi qui tiens la barre','⚓ AI is the wind, you hold the helm','⚓ ИИ — это ветер, штурвал в твоих руках','⚓ הבינה היא הרוח, אתה מחזיק בהגה','⚓ الذكاء هو الريح، وأنت تمسك الدفّة'),
+      A('🎁 <b>Accès Fondateur</b> — teste en toute liberté','🎁 <b>Founder Access</b> — try freely','🎁 <b>Доступ Основателя</b> — пробуй свободно','🎁 <b>גישת מייסד</b> — התנסה בחופשיות','🎁 <b>وصول المؤسس</b> — جرّب بحرية'),
+      A('⚖️ NAVLEX · 3 questions offertes','⚖️ NAVLEX · 3 free questions','⚖️ NAVLEX · 3 вопроса бесплатно','⚖️ NAVLEX · 3 שאלות חינם','⚖️ NAVLEX · ٣ أسئلة مجانية'),
+      A('📈 '+LNK+'NAVFIN · le défilé bourse ›</a>','📈 '+LNK+'NAVFIN · the market ticker ›</a>','📈 '+LNK+'NAVFIN · бегущая строка биржи ›</a>','📈 '+LNK+'NAVFIN · מדד הבורסה ›</a>','📈 '+LNK+'NAVFIN · شريط البورصة ›</a>'),
+      A('📖 Next Gen · ta vie mise en scène','📖 Next Gen · your life, staged','📖 Next Gen · твоя жизнь как в кино','📖 Next Gen · החיים שלך על המסך','📖 Next Gen · حياتك على الشاشة'),
+      A('🌍 5 langues · navlys.com','🌍 5 languages · navlys.com','🌍 5 языков · navlys.com','🌍 5 שפות · navlys.com','🌍 5 لغات · navlys.com'),
+      A('🎙️ Tout à la voix, depuis ton mobile','🎙️ All by voice, from your phone','🎙️ Всё голосом, с телефона','🎙️ הכול בקול, מהנייד','🎙️ كل شيء بالصوت، من هاتفك')
     ];
-    var DAY=Math.floor(Date.now()/864e5);
-    var slg=slogans[((DAY%slogans.length)+slogans.length)%slogans.length];
-    var items=[
-      '✨ <b>NAVLYS</b> · l\'univers Lovelace',
-      slg,
-      '🎁 <b>Accès Fondateur</b> — teste en toute liberté',
-      '⚖️ NAVLEX · 3 questions offertes',
-      '📈 <a href="/finance" style="color:'+ICE+';text-decoration:none">NAVFIN · le défilé bourse ›</a>',
-      '📖 Next Gen · ta vie mise en scène',
-      '🌍 5 langues · navlys.com',
-      '🎙️ Tout à la voix, depuis ton mobile'
-    ];
+    function trackHTML(){ var lg=L(); var h=ITEMS.map(function(o){ return '<span class="it">'+(o[lg]||o.fr)+'</span>'; }).join(''); return h+h; }
     var css=''
       +'#nv-count{display:none!important}'
       +'#nv-cine{position:fixed;top:var(--nv-top-h,52px);left:0;right:0;z-index:119;height:46px;display:flex;align-items:stretch;overflow:hidden;'
@@ -974,10 +970,11 @@
     var st=d.createElement('style'); st.textContent=css; d.head.appendChild(st);
 
     var bar=d.createElement('div'); bar.id='nv-cine';
-    var itHTML=items.map(function(t){ return '<span class="it">'+t+'</span>'; }).join('');
     bar.innerHTML='<div class="scr"><span class="live">● LIVE</span><span class="gem">💠</span></div>'
-      +'<div class="view"><div class="track">'+itHTML+itHTML+'</div></div>';
+      +'<div class="view"><div class="track">'+trackHTML()+'</div></div>';
     d.body.appendChild(bar);
+    /* re-rendu dans la bonne langue à chaque bascule (événement nv-lang) */
+    document.addEventListener('nv-lang',function(){ var tr=bar.querySelector('.track'); if(tr) tr.innerHTML=trackHTML(); });
 
     /* petit écran : vidéo en DIRECT si disponible, sinon le gem animé reste */
     try{

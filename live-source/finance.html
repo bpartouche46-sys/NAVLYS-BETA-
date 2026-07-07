@@ -275,6 +275,11 @@ document.getElementById('ownway').onclick=()=>{ const m=document.getElementById(
   function paint(){ var h=data.map(cell).join(''); track.innerHTML=h+h; } /* x2 = boucle continue */
   for(var b=0;b<data.length;b++){ data[b].bp=data[b].p; data[b].bc=data[b].c; } /* valeurs de base */
   paint();
+  /* étiquette « suivi, pas un conseil » traduite (5 langues) + re-rendu à la bascule */
+  var tag=document.querySelector('#ticker .ticker-tag span');
+  var TAG={fr:'· suivi, pas un conseil',en:'· tracked, not advice',ru:'· наблюдение, не совет',he:'· מעקב, לא ייעוץ',ar:'· متابعة، وليست نصيحة'};
+  function paintTag(){ if(!tag)return; var l='fr'; try{ l=(window.NAVLYS_I18N&&window.NAVLYS_I18N.lang&&window.NAVLYS_I18N.lang())||localStorage.getItem('nv-lang')||'fr'; }catch(e){} tag.textContent=TAG[l]||TAG.fr; }
+  paintTag(); document.addEventListener('nv-lang',paintTag);
   /* micro-fluctuation « vivante » BORNÉE autour des valeurs de base (illustratif,
      pas un flux temps réel) — oscille, ne dérive jamais (±0,4 % / ±0,35 pt) */
   setInterval(function(){
