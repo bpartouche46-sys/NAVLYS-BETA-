@@ -89,12 +89,38 @@ input[type=number]{width:100%;background:rgba(5,6,10,.5);border:1px solid rgba(1
   .navBreathe{animation:none!important}
   .card:hover,.scn:hover,.brief .item:hover,.btn:hover,.kpi span:hover,.plan .choose button:hover{transform:none!important}
 }
+/* ── DÉFILÉ BOURSE NAVLYS (bande cinéma, cours suivis — illustration, pas un conseil) ── */
+.ticker{display:flex;align-items:stretch;margin:16px 0 6px;border:1px solid rgba(125,211,252,.22);border-radius:12px;overflow:hidden;
+  background:linear-gradient(90deg,rgba(5,8,16,.92),rgba(10,14,24,.72));box-shadow:0 0 26px rgba(125,211,252,.10)}
+.ticker-tag{flex:0 0 auto;display:flex;align-items:center;gap:6px;padding:0 12px;font-family:'Cormorant Garamond',serif;font-size:.82rem;
+  color:#05060a;background:linear-gradient(100deg,var(--or),#fff6df);font-weight:700;white-space:nowrap}
+.ticker-tag span{color:#5a4a1c;font-style:italic;font-weight:500;font-size:.72rem}
+.ticker-view{flex:1;overflow:hidden;position:relative;height:40px;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 22px,#000 calc(100% - 22px),transparent);
+  mask-image:linear-gradient(90deg,transparent,#000 22px,#000 calc(100% - 22px),transparent)}
+.ticker-track{position:absolute;top:0;left:0;height:100%;display:flex;align-items:center;gap:26px;white-space:nowrap;padding-left:26px;will-change:transform;animation:tkScroll 48s linear infinite}
+.ticker:hover .ticker-track{animation-play-state:paused}
+.ticker .tk{display:inline-flex;align-items:baseline;gap:7px;font-family:'Lora',serif;font-size:.94rem}
+.ticker .tk .sym{color:#cfe0f2;font-weight:600}
+.ticker .tk .px{color:#fff}
+.ticker .tk .ch{font-size:.82rem;font-weight:600}
+.ticker .tk .ch.up{color:var(--vert)}
+.ticker .tk .ch.dn{color:#ff6a5e}
+@keyframes tkScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){.ticker-track{animation:none;padding-left:12px}}
+@media(max-width:560px){.ticker-tag span{display:none}.ticker-view{height:38px}}
 </style>
 </head>
 <body>
 <div class="bg"></div>
 <div class="wrap">
   <header><span class="led"></span><span class="brand">NAVLYS</span><span style="color:var(--mut);font-family:'Fraunces';font-style:italic">&middot; Finance</span><a class="home" href="/" style="margin-left:auto">&lsaquo; Accueil</a></header>
+
+  <div class="ticker" id="ticker" aria-label="Cours suivis — illustration pédagogique, données différées, pas un conseil">
+    <div class="ticker-tag">&#128200; NAVLYS BOURSE <span>&middot; suivi, pas un conseil</span></div>
+    <div class="ticker-view"><div class="ticker-track" id="tkTrack"></div></div>
+  </div>
+
   <h1>Ton cockpit du jour,<br>en euros et en bon sens.</h1>
   <p class="sub">Le brief du matin, ta stratégie en 1 clic, et un simulateur qui te montre &mdash; chiffré en euros &mdash; comment la sérénité fait grandir ton argent. NAVLYS prépare ; toi, tu gardes la barre.</p>
   <span class="pill navBreathe">GRATUIT &middot; 0 &euro; &middot; pure éducation &amp; veille</span>
@@ -232,6 +258,29 @@ document.getElementById('plan').onclick=()=>{
 };
 document.getElementById('follow').onclick=()=>{ const m=document.getElementById('planMsg'); m.style.color='var(--vert)'; m.innerHTML='⚓ Tu gardes le cap. C est <b>ton</b> choix, et c est toi qui executes.'; };
 document.getElementById('ownway').onclick=()=>{ const m=document.getElementById('planMsg'); m.style.color='var(--ice)'; m.textContent='Tu traces ta route. Le cap n est qu une boussole, jamais une obligation.'; };
+
+/* ── Défilé bourse : cours SUIVIS (illustration pédagogique, données différées, jamais un conseil) ── */
+(function(){
+  var track=document.getElementById('tkTrack'); if(!track) return;
+  var data=[
+    {s:'CAC 40',p:8210.45,c:0.42},{s:'S&P 500',p:5640.10,c:0.31},{s:'NASDAQ',p:18520.70,c:0.58},
+    {s:'NVDA',p:128.60,c:1.24},{s:'AAPL',p:224.30,c:-0.36},{s:'AMZN',p:201.15,c:0.72},
+    {s:'GOOGL',p:178.90,c:-0.18},{s:'CRWD',p:385.40,c:0.94},{s:'PANW',p:372.10,c:0.22},
+    {s:'BTC €',p:61250,c:-0.85},{s:'ETH €',p:3380,c:1.12},{s:'OR $',p:2385,c:0.14}
+  ];
+  function fmt(n){ return n>=1000 ? n.toLocaleString('fr-FR',{maximumFractionDigits:n>=10000?0:2}) : n.toFixed(2); }
+  function cell(d){ var up=d.c>=0;
+    return '<span class="tk"><span class="sym">'+d.s+'</span><span class="px">'+fmt(d.p)+'</span>'+
+      '<span class="ch '+(up?'up':'dn')+'">'+(up?'▲':'▼')+' '+Math.abs(d.c).toFixed(2)+'%</span></span>'; }
+  function paint(){ var h=data.map(cell).join(''); track.innerHTML=h+h; } /* x2 = boucle continue */
+  paint();
+  /* micro-fluctuation « vivante » sans flux temps réel (illustratif, doux) */
+  setInterval(function(){
+    for(var i=0;i<data.length;i++){ var d=data[i]; var w=Math.sin((Date.now()/9000)+i*1.7);
+      d.p=Math.max(0.01, d.p + d.p*0.0006*w); d.c=+(d.c + 0.03*w).toFixed(2); }
+    paint();
+  }, 4000);
+})();
 </script>
 <script src="/navlys-alive.js" defer></script>
 </body>

@@ -761,9 +761,11 @@
     var peek=document.createElement('div'); peek.id='nv-peek'; document.body.appendChild(peek); // petit repère vivant quand caché
     var t;
     function anyMenuOpen(){ return !!document.querySelector('.nv-menu.open'); }
-    function arm(){ clearTimeout(t); t=setTimeout(hide,4500); }
-    function show(){ document.body.classList.remove('nv-chrome-hidden'); arm(); }
-    function hide(){ if(anyMenuOpen()) return arm(); document.body.classList.add('nv-chrome-hidden'); }
+    /* Onglets PERMANENTS en haut (demande Bruno 2026-07-07) : la barre ne se
+       replie plus toute seule — bande écran de cinéma toujours présente, comme en bas. */
+    function arm(){ clearTimeout(t); }
+    function show(){ document.body.classList.remove('nv-chrome-hidden'); }
+    function hide(){ /* jamais masquer : onglets permanents */ return; }
     document.addEventListener('mousemove',function(e){ if(e.clientY<56) show(); });
     [top,count,hz,peek].forEach(function(el){ if(el){ el.addEventListener('mouseenter',show); el.addEventListener('mouseleave',arm); } });
     var lastY=window.scrollY||0;
@@ -910,4 +912,78 @@
   for(i=0;i<scripts.length;i++){ if((scripts[i].src||'').indexOf('navlys-i18n.js')!==-1) return; }
   var s=d.createElement('script'); s.src='/navlys-i18n.js'; s.defer=true;
   (d.head||d.getElementsByTagName('head')[0]||d.body).appendChild(s);
+})();
+
+/* ====================================================================
+   NAVLYS — BANDE CINÉMA (sous l'onglet du haut) : petit écran vidéo en
+   DIRECT + défilé de données & offres promo. Permanent, ice/or, discret.
+   Remplace l'ancien bandeau compte-à-rebours (#nv-count) par un ruban vivant.
+   v1 · 2026-07-07 — demande Bruno : « écran de cinéma en haut, vidéo + défilé ».
+   ==================================================================== */
+(function(){
+  var d=document;
+  function ready(fn){ if(d.getElementById('nv-top')) fn(); else setTimeout(function(){ready(fn);},150); }
+  ready(function(){
+    if(d.getElementById('nv-cine')) return;
+    var ICE='#7DD3FC', OR='#e9d3a0';
+    var slogans=[
+      'Bienvenue à bord — l\'IA humaine et lumineuse 🌊',
+      'Ton histoire vaut de l\'or — écris-la, transmets-la 📖',
+      'L\'IA est le vent, c\'est toi qui tiens la barre ⚓',
+      'En euros et en confiance — le cap serein 🧭'
+    ];
+    var DAY=Math.floor(Date.now()/864e5);
+    var slg=slogans[((DAY%slogans.length)+slogans.length)%slogans.length];
+    var items=[
+      '✨ <b>NAVLYS</b> · l\'univers Lovelace',
+      slg,
+      '🎁 <b>Accès Fondateur</b> — teste en toute liberté',
+      '⚖️ NAVLEX · 3 questions offertes',
+      '📈 <a href="/finance" style="color:'+ICE+';text-decoration:none">NAVFIN · le défilé bourse ›</a>',
+      '📖 Next Gen · ta vie mise en scène',
+      '🌍 5 langues · navlys.com',
+      '🎙️ Tout à la voix, depuis ton mobile'
+    ];
+    var css=''
+      +'#nv-count{display:none!important}'
+      +'#nv-cine{position:fixed;top:var(--nv-top-h,52px);left:0;right:0;z-index:119;height:46px;display:flex;align-items:stretch;overflow:hidden;'
+      +'background:linear-gradient(90deg,rgba(4,7,15,.94),rgba(9,14,24,.82));border-bottom:1px solid rgba(233,211,160,.28);'
+      +'box-shadow:0 6px 20px rgba(0,0,0,.35)}'
+      +'#nv-cine .scr{flex:0 0 auto;width:64px;position:relative;overflow:hidden;border-right:1px solid rgba(125,211,252,.2);background:#04060d}'
+      +'#nv-cine .scr video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.9}'
+      +'#nv-cine .scr .live{position:absolute;top:4px;left:5px;z-index:2;font:700 8px/1 \'Cinzel\',serif;letter-spacing:.1em;color:#fff;'
+      +'background:rgba(200,30,30,.85);border-radius:3px;padding:2px 4px}'
+      +'#nv-cine .scr .gem{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:20px;'
+      +'background:radial-gradient(circle at 50% 40%,rgba(125,211,252,.35),transparent 70%);animation:nvCineGem 3.2s ease-in-out infinite}'
+      +'@keyframes nvCineGem{0%,100%{opacity:.7;transform:scale(.9)}50%{opacity:1;transform:scale(1.08)}}'
+      +'#nv-cine .view{flex:1;overflow:hidden;position:relative;'
+      +'-webkit-mask-image:linear-gradient(90deg,transparent,#000 20px,#000 calc(100% - 20px),transparent);'
+      +'mask-image:linear-gradient(90deg,transparent,#000 20px,#000 calc(100% - 20px),transparent)}'
+      +'#nv-cine .track{position:absolute;top:0;left:0;height:100%;display:flex;align-items:center;gap:34px;white-space:nowrap;padding-left:34px;'
+      +'font-family:\'Cormorant Garamond\',\'Lora\',serif;font-size:1rem;color:#dbe9f6;will-change:transform;animation:nvCine 42s linear infinite}'
+      +'#nv-cine:hover .track{animation-play-state:paused}'
+      +'#nv-cine .track b{color:'+OR+';font-weight:700}'
+      +'#nv-cine .track span.it{display:inline-flex;align-items:center;gap:8px}'
+      +'#nv-cine .track span.it:before{content:"◆";color:'+ICE+';font-size:.6rem;opacity:.6}'
+      +'@keyframes nvCine{from{transform:translateX(0)}to{transform:translateX(-50%)}}'
+      +'@media (prefers-reduced-motion:reduce){#nv-cine .track{animation:none;padding-left:12px}}'
+      +'@media(max-width:560px){#nv-cine{height:44px}#nv-cine .scr{width:52px}#nv-cine .track{font-size:.92rem}}'
+      +'body{padding-top:calc(var(--nv-top-h,52px) + 48px)!important}';
+    var st=d.createElement('style'); st.textContent=css; d.head.appendChild(st);
+
+    var bar=d.createElement('div'); bar.id='nv-cine';
+    var itHTML=items.map(function(t){ return '<span class="it">'+t+'</span>'; }).join('');
+    bar.innerHTML='<div class="scr"><span class="live">● LIVE</span><span class="gem">💠</span></div>'
+      +'<div class="view"><div class="track">'+itHTML+itHTML+'</div></div>';
+    d.body.appendChild(bar);
+
+    /* petit écran : vidéo en DIRECT si disponible, sinon le gem animé reste */
+    try{
+      var v=d.createElement('video'); v.muted=true; v.loop=true; v.autoplay=true; v.playsInline=true; v.setAttribute('playsinline','');
+      v.src='/media/fond.mp4';
+      v.onerror=function(){ try{ v.remove(); }catch(e){} };
+      v.onloadeddata=function(){ try{ v.playbackRate=0.7; var g=bar.querySelector('.gem'); if(g) g.style.display='none'; }catch(e){} };
+      bar.querySelector('.scr').appendChild(v);
+    }catch(e){}
+  });
 })();
