@@ -496,7 +496,7 @@ window.NAVLYS_setVideo = function(v, rate, srcs){
     window.NAVLYS_WAKE={ attend:function(){ return attendMot; }, defini:function(m){ var mm=nvNorm(m).split(' ').slice(0,3).join(' '); setMot(mm); attendMot=false; eveille=false; poser('n', MOT_OK[L()].replace('%s', mm)); } };
 
     /* ---- Sur les PAGES APPLICATIONS : l'Aide s'ouvre par défaut, micro en avant ---- */
-    var APP_PAGES=['/finance','/next-gen','/next-gen-atelier','/next-gen-beta','/ecris-ta-vie','/navlex','/mer','/assistance','/idee','/profil','/cockpit','/club','/radio','/cinema','/io','/copilote'];
+    var APP_PAGES=['/finance','/next-gen','/next-gen-atelier','/next-gen-beta','/ecris-ta-vie','/navlex','/mer','/assistance','/idee','/profil','/cockpit','/club','/radio','/cinema','/io','/copilote','/ambassadeur'];
     var pth=location.pathname.replace(/\.html$/,'').replace(/\/$/,'')||'/';
     if(APP_PAGES.indexOf(pth)>-1){
       setTimeout(function(){
@@ -566,6 +566,7 @@ window.NAVLYS_setVideo = function(v, rate, srcs){
   var pages=[
     {n:'Accueil',h:'/'},
     {n:'Adhésion',h:'/adhesion'},
+    {n:'Ambassadeur',h:'/ambassadeur'},
     {n:'Ton idée',h:'/idee'},
     {n:'Finance',h:'/finance'},
     {n:'Next Gen',h:'/next-gen'},
