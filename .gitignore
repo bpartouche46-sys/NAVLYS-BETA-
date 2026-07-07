@@ -12,3 +12,18 @@ navlys_core/*.db
 # skills installés localement (restaurés via: npx -y skills experimental_install)
 .agents/
 .claude/skills/
+
+# clés de signature app (JAMAIS dans Git — identité d'éditeur, à sauvegarder hors-ligne)
+*.keystore
+*.jks
+*.p12
+*.p8
+*.mobileprovision
+*.cer
+*.certSigningRequest
+# paquets d'app générés
+*.aab
+*.apk
+*.ipa
+android.keystore
+signing-key-info.txt
