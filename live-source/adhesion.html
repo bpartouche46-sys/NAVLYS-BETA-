@@ -81,8 +81,9 @@ h2::after{content:"";flex:1;height:1px;background:var(--line)}
   </div>
   <input id="a-web" type="text" style="display:none" tabindex="-1" autocomplete="off">
 
-  <h2>2 · Ta cotisation <span style="letter-spacing:0;text-transform:none;font-family:'Atkinson Hyperlegible',sans-serif;font-size:.75rem;color:var(--mut)">(HT · engagement à l'année — carte débitée par mois, ou l'année en une fois avec −5 % en plus)</span></h2>
+  <h2>2 · Ta cotisation <span style="letter-spacing:0;text-transform:none;font-family:'Atkinson Hyperlegible',sans-serif;font-size:.75rem;color:var(--mut)">(HT · engagement 1 an — payé en <b>12 fois sans frais</b> par carte, ou l'année en une fois avec −5 %)</span></h2>
   <div class="formules" id="a-formules"></div>
+  <p class="note" style="border-left:3px solid var(--or);padding-left:12px">🔒 <b>Simple et sans risque :</b> tu règles toujours le <b>mois à venir</b> (jamais le mois en cours), à ta date de signature. Renouvellement annuel automatique. En cas d'impayé, l'accès est <b>suspendu à l'instant, sans aucun surcoût</b> — tu ne paies jamais pour un mois non utilisé. C'est NAVLYS qui gère le contrat et le paiement, de bout en bout.</p>
   <p class="note">Ton abonnement t'ouvre l'univers NAVLYS — dedans, <b>c'est toi qui commandes</b>.
   À <b>zéro euro</b>, tu testes tout gratuitement.</p>
   <p class="note npunch">📸 Des milliers de photos, tes documents scannés (vérifie tes dates, bâtis le CV de ta vie et de tes métiers), et la vidéo en bonus. Tout t'appartient.</p>
@@ -122,7 +123,9 @@ h2::after{content:"";flex:1;height:1px;background:var(--line)}
      tout inclus, espace extensible à la voix. À vie réglé une fois. */
   var FORMULES=[
     {code:'essai',   nom:'Découverte',     montant:0,    quota:99, inclu:'Découverte gratuite : tout l\'univers à l\'essai, à la voix, sur ton téléphone. 100 photos · 20 documents scannés · 1 vidéo · 1 Go.', badge:'0 €'},
-    {code:'univers', nom:'Univers NAVLYS', montant:19.99, quota:99, inclu:'Le bouquet INFINI d\'applications, dès l\'entrée — toutes les apps, à la voix, à un prix qui défie le monde. Espace généreux — 5 000 photos · 1 500 documents · 12 vidéos · 15 Go — extensible à la voix : dis « augmente mon espace ».', badge:'populaire'},
+    {code:'univers', nom:'Univers NAVLYS', montant:19.99, quota:99, inclu:'Le bouquet INFINI d\'applications, dès l\'entrée — toutes les apps, à la voix, à un prix qui défie le monde. Espace généreux — 5 000 photos · 1 500 documents · 12 vidéos · 15 Go — extensible à la voix : dis « augmente mon espace ». Engagement 1 an, payé en 12 fois sans frais.', badge:'populaire'},
+    {code:'pro',     nom:'NAVLYS Pro',      montant:29.99, quota:99, inclu:'Toutes les applications + espace XXL — 15 000 photos · 5 000 documents · 40 vidéos · 60 Go — et génération photo/vidéo prioritaire. Engagement 1 an, payé en 12 fois sans frais.', badge:'plus de puissance'},
+    {code:'signature',nom:'NAVLYS Signature',montant:49.99, quota:99, inclu:'Toutes les applications + espace MAXI, priorité absolue, accès anticipé aux nouveautés et concierge dédié. Engagement 1 an, payé en 12 fois sans frais.', badge:'le plus complet'},
     {code:'integral',nom:'Accès Fondateur', montant:299, quota:99, avie:true, inclu:'Toutes les applications, sans mensualité, tant que NAVLYS existe. Espace généreux (comme Univers), extensible à la voix en option. Un seul règlement.', badge:'sans mensualité'}
   ];
   var CADEAUX=[
