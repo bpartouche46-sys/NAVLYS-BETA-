@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>NAVLYS Next Gen — Tes modèles, mis en vie</title>
+<meta name="description" content="NAVLYS Next Gen : tes photos deviennent des scènes vivantes — zooms cinéma, fondus, animations, avatar parlant.">
+<meta name="robots" content="noindex">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Lora:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--noir:#05060a;--ice:#7DD3FC;--or:#e9d3a0;--perle:#eef0f6;--mut:#9fb3c8}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Lora',serif;color:var(--perle);background:var(--noir);line-height:1.6}
+.bg{position:fixed;inset:0;z-index:-1;background:radial-gradient(820px 560px at 86% -8%,rgba(233,211,160,.11),transparent 60%),radial-gradient(760px 560px at 5% 6%,rgba(125,211,252,.12),transparent 60%),var(--noir)}
+.wrap{max-width:1000px;margin:0 auto;padding:0 18px 60px}
+header{display:flex;align-items:center;gap:11px;padding:24px 0}
+.brand{font-family:'Cormorant Garamond';letter-spacing:4px;color:#fff;font-size:1.2rem}
+a.home{margin-left:auto;color:var(--mut);text-decoration:none;font-style:italic}
+h1{font-family:'Cormorant Garamond';color:#fff;font-size:clamp(1.8rem,5vw,2.6rem);margin:6px 0}
+.sub{color:var(--mut);max-width:680px}
+/* ── SCÈNE CINÉMA : diaporama Ken Burns (zoom lent + fondu) ── */
+.scene{position:relative;margin-top:22px;border-radius:20px;overflow:hidden;aspect-ratio:16/9;
+  border:1px solid rgba(233,211,160,.3);box-shadow:0 20px 60px rgba(0,0,0,.5),0 0 40px rgba(125,211,252,.10);background:#04060d}
+.scene img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 2.2s ease}
+.scene img.on{opacity:1;animation:kb 9s ease-in-out forwards}
+@keyframes kb{from{transform:scale(1.04) translate(0,0)}to{transform:scale(1.16) translate(-1.6%,1.2%)}}
+.scene .veil{position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(4,6,13,.72));pointer-events:none}
+.scene .cap{position:absolute;left:18px;bottom:14px;font-family:'Cormorant Garamond';color:#fff;font-size:1.15rem;text-shadow:0 2px 10px rgba(0,0,0,.8)}
+.scene .cap i{display:block;color:var(--or);font-size:.85rem;font-family:'Lora',serif}
+h2{font-family:'Cormorant Garamond';color:var(--or);font-size:1.5rem;margin:34px 0 4px}
+.note{color:var(--mut);font-size:.92rem}
+/* ── GRILLE DES MODÈLES ── */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;margin-top:18px}
+.m{position:relative;border-radius:14px;overflow:hidden;border:1px solid rgba(125,211,252,.2);aspect-ratio:3/4;background:#04060d;cursor:pointer}
+.m img{width:100%;height:100%;object-fit:cover;transition:transform 6s ease, filter .5s ease}
+.m:hover img{transform:scale(1.12);filter:saturate(1.15) brightness(1.06)}
+.m .tag{position:absolute;left:10px;bottom:9px;font-family:'Cormorant Garamond';color:#fff;font-size:1rem;text-shadow:0 2px 8px rgba(0,0,0,.85)}
+.m .fx{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;gap:5px;padding:16px;text-align:center;
+  background:rgba(4,6,13,.82);opacity:0;transition:opacity .35s;font-size:.82rem;color:#dbe9f6}
+.m:hover .fx,.m.open .fx{opacity:1}
+.m .fx b{color:var(--or);font-family:'Cormorant Garamond';font-size:1rem}
+.cta{display:inline-block;margin-top:26px;color:#05060a;background:linear-gradient(100deg,var(--or),#fff6df,var(--ice),var(--or));background-size:220% 100%;
+  animation:sw 6s linear infinite;text-decoration:none;border-radius:999px;padding:12px 22px;font-weight:600}
+@keyframes sw{0%{background-position:210% 0}100%{background-position:-60% 0}}
+.disc{margin-top:30px;font-size:.8rem;color:#8fa6c8;font-style:italic;border-top:1px solid rgba(255,255,255,.08);padding-top:16px}
+@media (prefers-reduced-motion:reduce){.scene img.on{animation:none}.m:hover img{transform:none}}
+</style>
+</head>
+<body>
+<div class="bg"></div>
+<div class="wrap">
+  <header><span class="brand">NAVLYS</span><span style="color:var(--mut);font-style:italic">· Next Gen — modèles</span><a class="home" href="/next-gen">‹ Next Gen</a></header>
+  <h1>Tes photos, mises en vie 🎞️</h1>
+  <p class="sub">Voici ce que Next Gen fait d'une simple photo : la <b>scène cinéma</b> (zoom lent + fondu enchaîné, comme un documentaire), puis chaque <b>modèle</b> avec ses possibilités. Touche un modèle pour voir ce qu'on peut créer. Verdict avec <b>💡 Améliorer</b> (cite le n°).</p>
+
+  <div class="scene" id="scene"><div class="veil"></div><div class="cap" id="scap">Modèle 1<i>zoom cinéma lent · fondu enchaîné</i></div></div>
+
+  <h2>Les 13 modèles</h2>
+  <p class="note">Chaque photo peut devenir : scène animée (zoom/fondu) · <b>avatar parlant</b> (ta voix, tes lèvres) · portrait sublimé · vidéo souvenir.</p>
+  <div class="grid" id="grid"></div>
+
+  <a class="cta" href="/labo-video">🎬 Voir les avatars parlants (labo vidéo) ›</a>
+
+  <p class="disc">Photos personnelles de Bruno, utilisées avec son accord pour la démonstration Next Gen. Ta création reste toujours à toi.</p>
+</div>
+<script>
+(function(){
+  var N=13, base='/media/nextgen/modele-';
+  /* scène cinéma : diaporama Ken Burns */
+  var scene=document.getElementById('scene'), cap=document.getElementById('scap'), cur=null, i=0;
+  function show(k){
+    var im=document.createElement('img'); im.src=base+(k+1)+'.jpg'; im.alt='Modèle '+(k+1);
+    im.onload=function(){
+      scene.insertBefore(im, scene.firstChild);
+      requestAnimationFrame(function(){ im.classList.add('on'); });
+      cap.innerHTML='Modèle '+(k+1)+'<i>zoom cinéma lent · fondu enchaîné</i>';
+      if(cur){ var old=cur; setTimeout(function(){ old.remove(); }, 2600); old.classList.remove('on'); }
+      cur=im;
+    };
+    im.onerror=function(){ im.remove(); };
+  }
+  show(0);
+  setInterval(function(){ i=(i+1)%N; show(i); }, 8000);
+  /* grille des modèles */
+  var FX='<b>Possibilités</b>scène animée (zoom/fondu)<br>avatar parlant 🎬<br>portrait sublimé ✨<br>vidéo souvenir 🎞️';
+  var g=document.getElementById('grid');
+  for(var k=1;k<=N;k++){
+    var d=document.createElement('div'); d.className='m';
+    d.innerHTML='<img loading="lazy" src="'+base+k+'.jpg" alt="Modèle '+k+'"><span class="tag">Modèle '+k+'</span><div class="fx">'+FX+'</div>';
+    d.onclick=function(){ this.classList.toggle('open'); };
+    g.appendChild(d);
+  }
+})();
+</script>
+<script src="/navlys-alive.js" defer></script>
+</body>
+</html>
