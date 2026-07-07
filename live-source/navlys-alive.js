@@ -1030,9 +1030,11 @@ window.NAVLYS_setVideo = function(v, rate, srcs){
       +'.nv-vframe>.nv-vbg{position:absolute;inset:0;z-index:-1;overflow:hidden;border-radius:inherit;pointer-events:none}'
       +'.nv-vframe>.nv-vbg video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.16;filter:saturate(1.05)}'
       +'.nv-vframe>.nv-vbg .nv-vfallback{position:absolute;inset:0;opacity:.55;'
-      +'background:linear-gradient(120deg,rgba(125,211,252,.10),transparent 55%),radial-gradient(120% 90% at 82% 8%,rgba(233,211,160,.10),transparent 60%)'
+      +'background:linear-gradient(180deg,rgba(255,255,255,.05),transparent 26%),linear-gradient(120deg,rgba(125,211,252,.10),transparent 55%),radial-gradient(120% 90% at 82% 8%,rgba(233,211,160,.10),transparent 60%)'
       +(reduce?'':';animation:nvVshift 15s ease-in-out infinite alternate')+'}'
-      +'@keyframes nvVshift{to{filter:hue-rotate(-10deg) brightness(1.08)}}';
+      +'@keyframes nvVshift{to{filter:hue-rotate(-10deg) brightness(1.08)}}'
+      /* finition PREMIUM (« du high ») : éclat haut de gamme sur les icônes (additif, sans toucher la mise en page) */
+      +'.nv-vframe svg,.nv-vframe .emoji,.nv-vframe .i,.nv-vframe .led,.nv-vframe .gem{filter:drop-shadow(0 0 5px rgba(125,211,252,.32)) drop-shadow(0 0 10px rgba(233,211,160,.18))}';
     var s=d.createElement('style'); s.textContent=css; d.head.appendChild(s);
     var live=0, MAX=4;
     function skin(card){
