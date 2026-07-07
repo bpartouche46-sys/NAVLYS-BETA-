@@ -2935,6 +2935,9 @@
     applyDir();
     if(RTL_LANGS[LANG]){ loadRtlDict(LANG, translateAll); }
     else translateAll();
+    /* signal pour le texte injecté par JS (bande cinéma, ticker…) qui n'est pas
+       dans le DICT : il se re-rend dans la bonne langue. Non-cassant. */
+    try{ document.dispatchEvent(new CustomEvent('nv-lang',{detail:LANG})); }catch(e){}
   }
 
   window.NAVLYS_I18N={
