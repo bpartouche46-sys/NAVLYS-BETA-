@@ -35,7 +35,7 @@ input[type=number]{width:100%;background:rgba(5,6,10,.5);border:1px solid rgba(1
 .scn.serein{background:linear-gradient(160deg,rgba(125,211,252,.10),rgba(123,226,154,.10));border-color:rgba(125,211,252,.3)}
 .scn h3{font-family:'Cormorant Garamond';font-size:1.35rem;color:#fff;margin-bottom:2px}
 .scn .tagline{font-family:'Fraunces';font-style:italic;font-size:.85rem;color:var(--mut);margin-bottom:14px}
-.big{font-family:'Cormorant Garamond';font-size:2.1rem;font-weight:700;line-height:1.1}
+.big{font-family:'Cormorant Garamond';font-size:1.6rem;font-weight:700;line-height:1.18}
 .big.win{color:var(--vert)}.big.loss{color:#ff6a5e}.big.calm{color:var(--ice)}
 .note{font-size:.86rem;color:var(--mut);margin-top:8px}
 .legende{font-size:.8rem;color:#8fa6c8;font-style:italic;margin-top:6px}
@@ -184,7 +184,7 @@ input[type=number]{width:100%;background:rgba(5,6,10,.5);border:1px solid rgba(1
       <div class="scn jackpot"><h3>&#127920; L'approche coup de poker</h3><div class="tagline">Tout miser pour gagner gros, vite.</div><div>Si ça passe :</div><div class="big win" id="jpWin">&mdash;</div><div>Le plus souvent, il en reste :</div><div class="big loss" id="jpLoss">&mdash;</div><div class="note" id="jpNote"></div></div>
       <div class="scn serein"><h3>&#129518; L'approche 90/10 sereine</h3><div class="tagline">90 % au calme, 10 % pour apprendre.</div><div>Ce que ça construit, tranquillement :</div><div class="big calm" id="srVal">&mdash;</div><div class="kpi"><span id="srMise">Tu as mis : &mdash;</span><span id="srEcart">Écart de protection</span></div><div class="note" id="srNote"></div></div>
     </div>
-    <p class="legende">Illustration pédagogique hypothétique &mdash; ce ne sont pas des prévisions ni des rendements promis.</p>
+    <p class="legende">Tous les montants ci-dessus sont des <b>fourchettes honnêtes</b> (hypothèse basse → hypothèse haute), jamais des chiffres garantis. Seul « Tu as mis » est un chiffre exact : c'est ta mise. Illustration pédagogique &mdash; ni prévision, ni rendement promis.</p>
   </div>
 
   <div class="lesson reveal"><p>La vraie leçon : <b>le vrai gain arrive quand tu rassembles tes forces et gardes le cap.</b> La discipline d'un bon père de famille bat le coup de poker sur la durée, parce qu'elle <b>protège ce que tu construis</b>.</p></div>
@@ -195,23 +195,32 @@ input[type=number]{width:100%;background:rgba(5,6,10,.5);border:1px solid rgba(1
 <script>
 const eur = n => Math.round(n).toLocaleString('fr-FR') + ' €';
 const cap=document.getElementById('cap'), an=document.getElementById('an'), mois=document.getElementById('mois');
+/* RÈGLE GRAVÉE (Bruno 2026-07-07) : chiffre RÉEL vérifié = chiffre exact ;
+   HYPOTHÈSE = TOUJOURS une fourchette honnête basse → haute, jamais un chiffre
+   sec qui ressemble à une garantie. Ici tout est hypothèse SAUF « Tu as mis ». */
+function fourchette(lo,hi){ return eur(lo)+' à '+eur(hi); }
 function calc(){
   const C=+cap.value, Y=+an.value, M=+mois.value;
   document.getElementById('capV').textContent=eur(C);
   document.getElementById('anV').textContent=Y+' ans';
   document.getElementById('moisV').textContent=eur(M);
-  const totalVerse=C+M*12*Y;
-  const r=0.03/12, n=Y*12;
-  let serein=C*Math.pow(1+r,n); if(M>0) serein+=M*((Math.pow(1+r,n)-1)/r);
-  document.getElementById('srVal').textContent=eur(serein);
+  const totalVerse=C+M*12*Y; // RÉEL : ta mise, arithmétique exacte
+  const n=Y*12;
+  function fv(taux){ const r=taux/12; let s=C*Math.pow(1+r,n); if(M>0) s+=M*((Math.pow(1+r,n)-1)/r); return s; }
+  const sLo=fv(0.015), sHi=fv(0.045); // hypothèses basse 1,5 %/an · haute 4,5 %/an
+  document.getElementById('srVal').textContent=fourchette(sLo,sHi);
   document.getElementById('srMise').textContent='Tu as mis : '+eur(totalVerse);
-  document.getElementById('srNote').textContent='Soit '+eur(serein-totalVerse)+' construits sans jamais tout risquer.';
-  const jpWin=totalVerse*2.4, jpLoss=totalVerse*0.35;
-  document.getElementById('jpWin').textContent=eur(jpWin);
-  document.getElementById('jpLoss').textContent=eur(jpLoss);
-  document.getElementById('jpNote').textContent='Tu remets en jeu '+eur(totalVerse-jpLoss)+'.';
-  document.getElementById('srEcart').textContent='A l abri : +'+eur(serein-jpLoss);
+  document.getElementById('srNote').textContent='Soit entre '+eur(Math.max(0,sLo-totalVerse))+' et '+eur(Math.max(0,sHi-totalVerse))+' construits sans jamais tout risquer — fourchette honnête (hypothèses 1,5 % à 4,5 %/an), pas une promesse.';
+  const jpWinLo=totalVerse*1.8, jpWinHi=totalVerse*3.0;   // hypothèses
+  const jpLossLo=totalVerse*0.25, jpLossHi=totalVerse*0.45;
+  document.getElementById('jpWin').textContent=fourchette(jpWinLo,jpWinHi);
+  document.getElementById('jpLoss').textContent=fourchette(jpLossLo,jpLossHi);
+  document.getElementById('jpNote').textContent='Tu remets en jeu entre '+eur(totalVerse-jpLossHi)+' et '+eur(totalVerse-jpLossLo)+' — fourchette honnête, pas une prédiction.';
+  document.getElementById('srEcart').textContent='À l\'abri : de +'+eur(Math.max(0,sLo-jpLossHi))+' à +'+eur(Math.max(0,sHi-jpLossLo));
+  drawSim(sLo,sHi,totalVerse);
 }
+/* la courbe suit la fourchette (zone basse→haute) */
+function drawSim(sLo,sHi,mise){ /* léger : rien à dessiner si pas de canvas dédié */ }
 [cap,an,mois].forEach(el=>el.addEventListener('input',calc)); calc();
 /* révélations au scroll — vanilla, sûr (échoue en montrant tout) */
 (function(){
