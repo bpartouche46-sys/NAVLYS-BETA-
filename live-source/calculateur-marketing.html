@@ -57,12 +57,12 @@
       <div class="row"><input type="number" id="budget" value="20" min="0" step="1"><span class="unit">€ / jour</span></div>
       <label>Coût par clic (CPC)</label>
       <div class="row"><input type="number" id="cpc" value="0.40" min="0.01" step="0.01"><span class="unit">€ / clic</span></div>
-      <label>Taux de conversion (visiteur → client)</label>
+      <label>Taux de conversion (visiteur → membre)</label>
       <div class="row"><input type="number" id="cvr" value="2" min="0" step="0.1"><span class="unit">%</span></div>
-      <label>Revenu encaissé par client (panier / LTV)</label>
+      <label>Revenu encaissé par membre (panier / LTV)</label>
       <div class="row"><input type="number" id="rpc" value="9.99" min="0" step="0.5"><span class="unit">€</span></div>
-      <label>Charges réelles par client (Stripe, TVA, IA… tout compris)</label>
-      <div class="row"><input type="number" id="charges" value="2.50" min="0" step="0.1"><span class="unit">€ / client</span></div>
+      <label>Charges réelles par membre (Stripe, TVA, IA… tout compris)</label>
+      <div class="row"><input type="number" id="charges" value="2.50" min="0" step="0.1"><span class="unit">€ / membre</span></div>
       <label>% du <b>net</b> réinvesti en pub chaque jour <span style="color:var(--gold)">(ta règle)</span></label>
       <div class="row"><input type="number" id="reinv" value="10" min="0" max="100" step="1"><span class="unit">%</span></div>
       <label>Horizon de projection</label>
@@ -73,8 +73,8 @@
     <div class="card">
       <h2>② Ta rentabilité (jour 1)</h2>
       <div class="kpis">
-        <div class="kpi"><div class="n" id="k_clients">–</div><div class="l">clients / jour</div></div>
-        <div class="kpi"><div class="n" id="k_cac">–</div><div class="l">CAC (coût/client)</div></div>
+        <div class="kpi"><div class="n" id="k_clients">–</div><div class="l">membres / jour</div></div>
+        <div class="kpi"><div class="n" id="k_cac">–</div><div class="l">CAC (coût/membre)</div></div>
         <div class="kpi"><div class="n" id="k_roas">–</div><div class="l">ROAS</div></div>
         <div class="kpi"><div class="n" id="k_profit">–</div><div class="l">profit / jour</div></div>
       </div>
@@ -115,14 +115,14 @@ function compute(){
 
   // Jour 1
   const clics = cpc>0 ? B/cpc : 0;
-  const clients = clics*cvr;
-  const cac = clients>0 ? B/clients : 0;
-  const revenu = clients*rpc;
-  const margeBrute = revenu*marge;          // ce que rapporte vraiment le client (hors pub)
+  const membres = clics*cvr;
+  const cac = membres>0 ? B/membres : 0;
+  const revenu = membres*rpc;
+  const margeBrute = revenu*marge;          // ce que rapporte vraiment le membre (hors pub)
   const profit = margeBrute - B;            // profit net après pub
   const roas = B>0 ? revenu/B : 0;
 
-  $('k_clients').textContent=num(clients,1);
+  $('k_clients').textContent=num(membres,1);
   $('k_cac').textContent=eur(cac);
   $('k_roas').textContent='×'+num(roas,2);
   $('k_profit').textContent=eur(profit);
@@ -152,9 +152,9 @@ function compute(){
     }
     budget = budget + (pr>0 ? pr*reinv : 0);
   }
-  $('proj').innerHTML = (cpc<=0||clients<=0)
+  $('proj').innerHTML = (cpc<=0||membres<=0)
     ? '<p style="color:var(--mut)">Renseigne un CPC et un taux de conversion pour voir la projection.</p>'
-    : `<table><thead><tr><th>Étape</th><th>Budget pub/j</th><th>Clients/j</th><th>Profit/j</th><th>Profit cumulé</th></tr></thead><tbody>${rows}</tbody></table>
+    : `<table><thead><tr><th>Étape</th><th>Budget pub/j</th><th>Membres/j</th><th>Profit/j</th><th>Profit cumulé</th></tr></thead><tbody>${rows}</tbody></table>
        <p style="color:var(--mut);font-size:.8rem;margin-top:10px">Hypothèse : CPC et conversion stables (optimiste). Re-mesure tes vrais chiffres et réajuste.</p>`;
 }
 ids.forEach(i=>$(i).addEventListener('input',compute));

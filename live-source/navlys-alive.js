@@ -8,14 +8,18 @@
   #nv-living{position:fixed;inset:0;z-index:-4;width:100%;height:100%;display:block}
   #nv-video{position:fixed;inset:0;z-index:-3;width:100%;height:100%;object-fit:cover;opacity:.82;filter:saturate(1.06)}
   #nv-veil{position:fixed;inset:0;z-index:-2;pointer-events:none;background:radial-gradient(1400px 1000px at 50% 26%,transparent,rgba(5,6,10,.16) 80%,rgba(5,6,10,.42))}
-  .nv-bubble{position:fixed;right:16px;bottom:80px;z-index:55;max-width:min(360px,calc(100vw - 32px));pointer-events:auto;
-    background:linear-gradient(150deg,rgba(125,211,252,.16),rgba(10,12,20,.92));
-    border:1px solid rgba(125,211,252,.4);border-radius:16px;padding:12px 15px;color:#eef0f6;
-    font-family:'Lora',serif;font-size:.92rem;box-shadow:0 10px 34px rgba(0,0,0,.5);
-    opacity:0;transform:translateY(14px) scale(.96);transition:opacity .6s,transform .6s}
-  .nv-bubble.show{opacity:1;transform:translateY(0) scale(1)}
-  .nv-bubble b{color:${OR};font-style:normal}
-  .nv-bubble .x{position:absolute;top:6px;right:9px;color:#9fb3c8;cursor:pointer;font-size:.9rem}
+  /* FLASH = bande HAUTE, pleine, fond or 100% opaque, ~1/3 d'écran — jamais par-dessus un texte (elle le recouvre en plein). PC + mobile. */
+  .nv-bubble{position:fixed;left:0;right:0;top:0;z-index:2147483000;min-height:32vh;
+    display:flex;align-items:center;justify-content:center;text-align:center;padding:30px 22px 34px;
+    background:linear-gradient(180deg,#f3dd8f 0%,#dcb84f 52%,#c79f39 100%);color:#100a00;
+    box-shadow:0 22px 46px rgba(0,0,0,.5);
+    font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(1.35rem,4.8vw,2.15rem);line-height:1.32;font-weight:600;
+    transform:translateY(-102%);transition:transform .55s cubic-bezier(.2,.8,.2,1);pointer-events:auto}
+  .nv-bubble.show{transform:translateY(0)}
+  .nv-bubble .in{max-width:820px;margin:0 auto}
+  .nv-bubble b{color:#7a1500;font-style:normal;font-weight:800}
+  .nv-bubble .x{position:absolute;top:16px;right:18px;width:38px;height:38px;border-radius:50%;
+    display:grid;place-items:center;background:rgba(0,0,0,.16);color:#100a00;cursor:pointer;font-size:1.1rem;font-weight:700}
   #nv-sav-btn{position:fixed;right:18px;bottom:84px;z-index:61;border:none;cursor:pointer;
     background:linear-gradient(100deg,${OR},#fff6df,${ICE},${OR});background-size:220% 100%;animation:nvsw 6s linear infinite;
     color:${NOIR};font-family:'Lora',serif;font-weight:600;border-radius:999px;padding:12px 18px;box-shadow:0 8px 26px rgba(0,0,0,.45)}
@@ -168,7 +172,7 @@
     if(document.hidden) return schedule();
     var _old=document.querySelector('.nv-bubble'); if(_old){ _old.remove(); } // une seule bulle à la fois (plus de texte sur texte)
     var b=document.createElement('div'); b.className='nv-bubble';
-    b.innerHTML='<span class="x">✕</span>'+promos[pi%promos.length]; pi++;
+    b.innerHTML='<span class="x">✕</span><div class="in">'+promos[pi%promos.length]+'</div>'; pi++;
     document.body.appendChild(b);
     requestAnimationFrame(function(){ b.classList.add('show'); });
     var kill=function(){ b.classList.remove('show'); setTimeout(function(){b.remove();},650); };
@@ -849,7 +853,7 @@
       +'#nv-botbar a:hover,#nv-botbar a.on{color:#a8e3ff}'
       +'#nv-botbar a.on .i{filter:none;text-shadow:0 0 12px rgba(125,211,252,.6)}'
       +'body{padding-bottom:74px!important}'
-      +'#nv-sav-btn{bottom:72px!important}#nv-sav{bottom:128px!important}.nv-bubble{bottom:132px!important}';
+      +'#nv-sav-btn{bottom:72px!important}#nv-sav{bottom:128px!important}';
     var s=d.createElement('style'); s.textContent=css; head.appendChild(s);
     var nav=d.createElement('nav'); nav.id='nv-botbar';
     nav.innerHTML=items.map(function(it){ var on=(it[0]===path)?' class="on"':''; return '<a href="'+it[0]+'"'+on+'><span class="i">'+it[1]+'</span>'+it[2]+'</a>'; }).join('');

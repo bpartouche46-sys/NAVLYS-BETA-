@@ -27,7 +27,7 @@ body{background:radial-gradient(60% 50% at 50% 0%,#0d1a2c 0%,#05070d 60%);color:
 .chat{flex:1;width:100%;max-width:760px;margin:0 auto;padding:14px 16px 8px;display:flex;flex-direction:column;gap:12px;overflow-y:auto}
 .bubble{max-width:84%;padding:12px 15px;border-radius:16px;line-height:1.5;white-space:pre-wrap;word-break:break-word}
 .bubble.navlys{align-self:flex-start;background:rgba(125,211,252,.08);border:1px solid var(--line);border-bottom-left-radius:5px}
-.bubble.client{align-self:flex-end;background:linear-gradient(135deg,#1d5675,#2b86b0);color:#fff;border-bottom-right-radius:5px}
+.bubble.membre{align-self:flex-end;background:linear-gradient(135deg,#1d5675,#2b86b0);color:#fff;border-bottom-right-radius:5px}
 .bubble .who{font-family:'Cinzel',serif;font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;opacity:.7;margin-bottom:5px}
 .typing{align-self:flex-start;color:var(--brume);font-style:italic;font-size:15px;padding:4px 6px}
 .dots span{animation:b 1.2s infinite}.dots span:nth-child(2){animation-delay:.2s}.dots span:nth-child(3){animation-delay:.4s}
@@ -101,7 +101,7 @@ btn.addEventListener('click',send);
 
 function send(){
   var text=(input.value||'').trim(); if(!text) return;
-  add('client',text); input.value=''; input.style.height='auto'; btn.disabled=true;
+  add('membre',text); input.value=''; input.style.height='auto'; btn.disabled=true;
   var t=typing();
   fetch(ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
     session:session, text:text,
