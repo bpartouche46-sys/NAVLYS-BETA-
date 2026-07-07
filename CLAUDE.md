@@ -339,6 +339,41 @@ But : Bruno parle à **un seul endroit** (bot Telegram), plus jamais Claude Code
   mémoire longue en base (`navlys_memoire`, `core_reglement`, `core_knowledge`) ;
   règles gravées au lieu de questions répétées (`navlys_regle`).
 
+## 🛰️ Cockpit relié au travail EN DIRECT (STANDING — gravé le 2026-07-07)
+
+> Ordre de Bruno : **« Le cockpit doit être réactif et relié à ton travail en
+> cours. Je le vois toujours à zéro. »**
+
+- Le cockpit (`/cockpit`) s'actualise **toutes les 5 s** et lit `missions`
+  groupées par `statut`. La colonne **« En cours »** = missions `statut='en_cours'`.
+- **Chaque chantier que je mène (Claude/CORE) DOIT être inscrit en base** pour
+  s'afficher — sinon le cockpit reste à zéro (les agents finissent trop vite → `fait`).
+- Deux RPC gravés (migration `navlys_chantiers_cockpit_live`) :
+  - **`navlys_chantier_ouvrir(titre, [consigne], [departement])`** → crée une mission
+    `en_cours` (`assigned_agent='Claude'`), renvoie l'`id`, journalise `▶`.
+  - **`navlys_chantier_fermer(id, [resultat])`** → passe la mission en `fait`,
+    journalise `✔`.
+- **Réflexe** : au début d'un vrai chantier → `navlys_chantier_ouvrir(...)` ;
+  une fois livré et testé → `navlys_chantier_fermer(id, resultat)`. Le cockpit
+  montre alors le cycle **en_cours → fait** en direct, sans que Bruno demande.
+
+## 🔄 Redémarrer sur une base propre (STANDING — gravé le 2026-07-07)
+
+> Question de Bruno : **« Quel prompt donner à la nouvelle conversation et quelles
+> archiver pour repartir propre ? »**
+
+- **Archiver** : tous les vieux fils (celui-ci compris). Rien n'est perdu — la
+  continuité tient à **CLAUDE.md + les commits Git + la mémoire en base**
+  (`navlys_memoire`, `core_reglement`, `core_knowledge`), jamais à l'historique du chat.
+- **Prompt de démarrage type** (à coller dans le nouveau chat) : « Reprends NAVLYS
+  depuis CLAUDE.md + la Bible + l'état Git. On travaille LIVE. Doctrine : OUI par
+  défaut, autonome > dépendance, jamais de blocage, tutoiement + prénom, membre
+  (jamais client), cotisation (jamais tarif/prix), zéro terme négatif, charte ice
+  blue + or (interdit violet/mauve). Commence par une analyse santé complète
+  (pg_net, file missions/agents, incidents, retours 💡), inscris tes chantiers via
+  `navlys_chantier_ouvrir`, puis avance sans me demander. Argent (Bible §6) :
+  signalement d'UNE ligne avant tout vrai débit. »
+
 ## 💡 Conseil d'usage (sessions)
 
 Repartir d'un **nouveau chat par tâche / par jour** plutôt qu'un fil géant :
