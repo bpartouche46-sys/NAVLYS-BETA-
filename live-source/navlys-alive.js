@@ -5,8 +5,11 @@
    Essaie chaque fichier dans l'ordre ; si aucun n'existe → événement 'nv-novideo'
    (le décor vivant / le repli reste). Dépose les fichiers dans /media/. */
 window.NAVLYS_BGV = window.NAVLYS_BGV || ['/media/voile.mp4','/media/fond.mp4','/media/presentation-1.mp4','/media/presentation-2.mp4','/media/presentation-3.mp4'];
-window.NAVLYS_setVideo = function(v, rate){
-  var list=(window.NAVLYS_BGV||[]).slice(), i=0, done=false;
+/* petit écran LIVE (bande casino) : la vraie vidéo NAVLYS déjà en Storage (visage/voile) —
+   la « voile » /media/ prend le dessus dès qu'elle existe */
+window.NAVLYS_LIVEV = window.NAVLYS_LIVEV || ['/media/voile.mp4','https://hhrlgyvtqluxpywjiwkd.supabase.co/storage/v1/object/public/avatar/bruno-avatar-accueil.mp4'];
+window.NAVLYS_setVideo = function(v, rate, srcs){
+  var list=(srcs||window.NAVLYS_BGV||[]).slice(), i=0, done=false;
   function tryNext(){ if(i>=list.length){ try{ v.dispatchEvent(new Event('nv-novideo')); }catch(e){} return; } v.src=list[i++]; }
   v.addEventListener('error', function(){ if(!done) tryNext(); });
   v.addEventListener('loadeddata', function(){ done=true; try{ v.playbackRate=rate||0.6; }catch(e){} });
@@ -1003,7 +1006,7 @@ window.NAVLYS_setVideo = function(v, rate){
       var v=d.createElement('video'); v.muted=true; v.loop=true; v.autoplay=true; v.playsInline=true; v.setAttribute('playsinline','');
       v.addEventListener('nv-novideo', function(){ try{ v.remove(); }catch(e){} });
       v.addEventListener('loadeddata', function(){ try{ var g=bar.querySelector('.gem'); if(g) g.style.display='none'; }catch(e){} });
-      window.NAVLYS_setVideo(v, 0.6);
+      window.NAVLYS_setVideo(v, 0.6, window.NAVLYS_LIVEV);
       bar.querySelector('.scr').appendChild(v);
     }catch(e){}
   });
