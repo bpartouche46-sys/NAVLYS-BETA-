@@ -25,12 +25,12 @@ window.NAVLYS_setVideo = function(v, rate, srcs){
   #nv-video{position:fixed;inset:0;z-index:-3;width:100%;height:100%;object-fit:cover;opacity:.82;filter:saturate(1.06)}
   #nv-veil{position:fixed;inset:0;z-index:-2;pointer-events:none;background:radial-gradient(1400px 1000px at 50% 26%,transparent,rgba(5,6,10,.16) 80%,rgba(5,6,10,.42))}
   /* FLASH = bande HAUTE, pleine, fond or 100% opaque, ~1/3 d'écran — jamais par-dessus un texte (elle le recouvre en plein). PC + mobile. */
-  .nv-bubble{position:fixed;left:0;right:0;top:0;z-index:2147483000;min-height:32vh;
-    display:flex;align-items:center;justify-content:center;text-align:center;padding:30px 22px 34px;
-    background:linear-gradient(180deg,#f3dd8f 0%,#dcb84f 52%,#c79f39 100%);color:#100a00;
-    box-shadow:0 22px 46px rgba(0,0,0,.5);
-    font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(1.35rem,4.8vw,2.15rem);line-height:1.32;font-weight:600;
-    transform:translateY(-102%);transition:transform .55s cubic-bezier(.2,.8,.2,1);pointer-events:auto}
+  .nv-bubble{position:fixed;left:0;right:0;top:0;z-index:2147483000;
+    display:flex;align-items:center;justify-content:center;text-align:center;padding:13px 46px 15px;
+    background:linear-gradient(180deg,#f3dd8f 0%,#dcb84f 60%,#c79f39 100%);color:#100a00;
+    box-shadow:0 12px 30px rgba(0,0,0,.45);cursor:pointer;
+    font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(1.02rem,3.3vw,1.5rem);line-height:1.28;font-weight:600;
+    transform:translateY(-102%);transition:transform .5s cubic-bezier(.2,.8,.2,1);pointer-events:auto}
   .nv-bubble.show{transform:translateY(0)}
   .nv-bubble .in{max-width:820px;margin:0 auto}
   .nv-bubble b{color:#7a1500;font-style:normal;font-weight:800}
@@ -191,7 +191,8 @@ window.NAVLYS_setVideo = function(v, rate, srcs){
     document.body.appendChild(b);
     requestAnimationFrame(function(){ b.classList.add('show'); });
     var kill=function(){ b.classList.remove('show'); setTimeout(function(){b.remove();},650); };
-    b.querySelector('.x').onclick=kill;
+    var x=b.querySelector('.x'); x.onclick=function(ev){ ev.stopPropagation(); kill(); };
+    b.querySelector('.in').onclick=function(){ location.href='/adhesion'; }; // la bande → inscription
     setTimeout(kill, 5000);
     schedule();
   }
@@ -959,8 +960,11 @@ window.NAVLYS_setVideo = function(v, rate, srcs){
       +'#nv-count{display:none!important}'
       /* bandeau JEU/CASINO : plus petit (34px), sous l'onglet du haut, ne gêne ni le scroll ni la barre */
       +'#nv-cine{position:fixed;top:var(--nv-top-h,52px);left:0;right:0;z-index:119;height:34px;display:flex;align-items:stretch;overflow:hidden;'
-      +'background:linear-gradient(90deg,rgba(4,7,15,.96),rgba(9,14,24,.86));'
-      +'box-shadow:0 4px 16px rgba(0,0,0,.4),0 0 14px rgba(233,211,160,.12);animation:nvCineGlow 2.4s ease-in-out infinite}'
+      /* fond MOUVEMENT DE MER : une onde glacier qui glisse lentement, sous le texte */
+      +'background:linear-gradient(100deg,transparent 0,rgba(125,211,252,.14) 18%,transparent 40%,rgba(125,211,252,.10) 64%,transparent 86%),linear-gradient(90deg,rgba(4,7,15,.96),rgba(9,14,24,.9)),#060a14;'
+      +'background-size:220% 100%,100% 100%,100% 100%;'
+      +'box-shadow:0 4px 16px rgba(0,0,0,.4),0 0 14px rgba(233,211,160,.12);animation:nvCineGlow 2.4s ease-in-out infinite,nvSea 9s linear infinite}'
+      +'@keyframes nvSea{to{background-position:220% 0,0 0,0 0}}'
       +'@keyframes nvCineGlow{0%,100%{box-shadow:0 4px 16px rgba(0,0,0,.4),0 0 12px rgba(233,211,160,.10)}50%{box-shadow:0 4px 16px rgba(0,0,0,.4),0 0 22px rgba(125,211,252,.30)}}'
       /* guirlande d\'ampoules qui défilent, haut ET bas (or + ice) */
       +'#nv-cine:before,#nv-cine:after{content:"";position:absolute;left:0;right:0;height:3px;z-index:3;pointer-events:none;'
@@ -984,8 +988,6 @@ window.NAVLYS_setVideo = function(v, rate, srcs){
       +'#nv-cine:hover .track{animation-play-state:paused}'
       +'#nv-cine .track b{color:'+OR+';font-weight:700;text-shadow:0 0 8px rgba(233,211,160,.6)}'
       +'#nv-cine .track span.it{display:inline-flex;align-items:center;gap:7px}'
-      +'#nv-cine .track span.it:before{content:"✦";color:'+ICE+';font-size:.66rem;animation:nvTwinkle 1.6s ease-in-out infinite}'
-      +'@keyframes nvTwinkle{0%,100%{opacity:.35;transform:scale(.8)}50%{opacity:1;transform:scale(1.2)}}'
       +'@keyframes nvCine{from{transform:translateX(0)}to{transform:translateX(-50%)}}'
       +'@media (prefers-reduced-motion:reduce){#nv-cine,#nv-cine:before,#nv-cine:after,#nv-cine .track,#nv-cine .scr .live{animation:none!important}#nv-cine .track{padding-left:12px}}'
       +'@media(max-width:560px){#nv-cine{height:32px}#nv-cine .scr{width:40px}#nv-cine .track{font-size:.86rem}}'
