@@ -273,11 +273,14 @@ document.getElementById('ownway').onclick=()=>{ const m=document.getElementById(
     return '<span class="tk"><span class="sym">'+d.s+'</span><span class="px">'+fmt(d.p)+'</span>'+
       '<span class="ch '+(up?'up':'dn')+'">'+(up?'▲':'▼')+' '+Math.abs(d.c).toFixed(2)+'%</span></span>'; }
   function paint(){ var h=data.map(cell).join(''); track.innerHTML=h+h; } /* x2 = boucle continue */
+  for(var b=0;b<data.length;b++){ data[b].bp=data[b].p; data[b].bc=data[b].c; } /* valeurs de base */
   paint();
-  /* micro-fluctuation « vivante » sans flux temps réel (illustratif, doux) */
+  /* micro-fluctuation « vivante » BORNÉE autour des valeurs de base (illustratif,
+     pas un flux temps réel) — oscille, ne dérive jamais (±0,4 % / ±0,35 pt) */
   setInterval(function(){
-    for(var i=0;i<data.length;i++){ var d=data[i]; var w=Math.sin((Date.now()/9000)+i*1.7);
-      d.p=Math.max(0.01, d.p + d.p*0.0006*w); d.c=+(d.c + 0.03*w).toFixed(2); }
+    var t=Date.now()/9000;
+    for(var i=0;i<data.length;i++){ var d=data[i]; var w=Math.sin(t+i*1.7);
+      d.p=+(d.bp*(1+0.004*w)).toFixed(2); d.c=+(d.bc+0.35*w).toFixed(2); }
     paint();
   }, 4000);
 })();

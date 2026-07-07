@@ -1025,13 +1025,14 @@
       var wrap=skin(card); if(!wrap) return;
       if(reduce || live>=MAX) return; /* au-delà du plafond : le dégradé vivant suffit */
       try{
+        live++; /* compté À LA CRÉATION (sinon plafond inefficace en scroll rapide) */
         var v=d.createElement('video'); v.muted=true; v.loop=true; v.playsInline=true; v.setAttribute('playsinline','');
         v.preload='none'; v.src='/media/fond.mp4';
-        v.onerror=function(){ try{ v.remove(); }catch(e){} };
-        v.onloadeddata=function(){ try{ v.playbackRate=0.6; live++; }catch(e){} };
+        v.onerror=function(){ live--; try{ v.remove(); }catch(e){} }; /* libère la place */
+        v.onloadeddata=function(){ try{ v.playbackRate=0.6; }catch(e){} };
         wrap.insertBefore(v, wrap.firstChild);
         if(v.play){ var p=v.play(); if(p&&p['catch']) p['catch'](function(){}); }
-      }catch(e){}
+      }catch(e){ live--; }
     }
     if(!('IntersectionObserver' in window)){
       for(var i=0;i<frames.length;i++) skin(frames[i]);
@@ -1055,9 +1056,9 @@
   if(d.getElementById('nv-breath')) return;
   var css=''
     +'#nv-breath{position:fixed;inset:0;z-index:-3;pointer-events:none;'
-    +'background:radial-gradient(58% 42% at 50% 34%,rgba(125,211,252,.10),transparent 70%);mix-blend-mode:screen'
+    +'background:radial-gradient(58% 42% at 50% 34%,rgba(125,211,252,.12),transparent 70%);mix-blend-mode:screen'
     +(reduce?';opacity:.7}':';animation:nvBreath 7.5s ease-in-out infinite}')
-    +'@keyframes nvBreath{0%,100%{opacity:.5;transform:scale(1)}50%{opacity:1;transform:scale(1.06)}}';
+    +'@keyframes nvBreath{0%,100%{opacity:.4}50%{opacity:1}}'; /* opacité seule : respire sans déborder */
   var s=d.createElement('style'); s.textContent=css; d.head.appendChild(s);
   var el=d.createElement('div'); el.id='nv-breath'; el.setAttribute('aria-hidden','true');
   (d.body||d.documentElement).appendChild(el);
