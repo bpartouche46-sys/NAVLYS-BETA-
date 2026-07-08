@@ -1,8 +1,8 @@
 // NAVLYS — Routeur média multi-prestataires (photo/vidéo/effets).
 // Prend TOUJOURS le meilleur GRATUIT légitime dispo, bascule seul, compte les
 // quotas du jour, et protège du payant (réservé admin + signalement Bible §6).
-// v5 : adaptateur Gemini (AI Studio, image) + option {provider} pour cibler
-// un prestataire précis (tests) + noms de secrets tolérants à la casse.
+// v6 : les clés peuvent aussi vivre dans core_config (clé=nom du secret) —
+// plan B quand le tableau de bord des secrets fait des siennes (règle n°4).
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 const U = Deno.env.get("SUPABASE_URL")!;
 const K = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
@@ -25,6 +25,14 @@ function env(names:string[]){
     const hit = Object.keys(ENV_ALL).find((k)=>k.toLowerCase()===n.toLowerCase());
     if(hit && ENV_ALL[hit] && ENV_ALL[hit].trim()) return ENV_ALL[hit].trim();
   }
+  return "";
+}
+// Plan B : clé posée dans core_config (service_role uniquement, jamais exposée).
+async function cleEnBase(names:string[]):Promise<string>{
+  try{
+    const rows = await g("core_config", "select=key,value&key=in.("+ (names||[]).map((n)=>'"'+n+'"').join(",") +")");
+    for(const n of (names||[])){ const row=(rows||[]).find((r:any)=>r.key===n); if(row&&row.value&&String(row.value).trim()) return String(row.value).trim(); }
+  }catch(_){ /* rien */ }
   return "";
 }
 function J(d:unknown,s=200){ return new Response(JSON.stringify(d),{status:s,headers:{"Content-Type":"application/json",...CORS}}); }
@@ -82,7 +90,11 @@ Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response(null,{status:204,headers:CORS});
   if (req.method === "GET") {
     const provs = await g("core_media_providers","select=code,nom,types,needs_key,secret_names,free_daily,paid,priority,enabled&order=priority.asc");
-    const ready = (provs||[]).map((p:any)=>({ code:p.code, nom:p.nom, gratuit:!p.paid, adapteur:!!ADAPTERS[p.code], clef_presente: p.needs_key? !!env(p.secret_names): true, types:p.types, free_daily:p.free_daily }));
+    const ready = [];
+    for (const p of (provs||[])) {
+      const cle = p.needs_key ? (!!env(p.secret_names) || !!(await cleEnBase(p.secret_names))) : true;
+      ready.push({ code:p.code, nom:p.nom, gratuit:!p.paid, adapteur:!!ADAPTERS[p.code], clef_presente:cle, types:p.types, free_daily:p.free_daily });
+    }
     return J({ ok:true, service:"navlys-media-router", info:"POST {type:'image', prompt, size?, token?, provider?}", providers:ready });
   }
   if (req.method !== "POST") return J({ error:"method" }, 405);
@@ -100,7 +112,7 @@ Deno.serve(async (req) => {
   for(const c of (cands||[])){
     if(cible && c.code!==cible){ continue; }
     const adap=ADAPTERS[c.code]; if(!adap){ tried.push(c.code+":pas_d_adapteur"); continue; }
-    const key = c.needs_key ? env(c.secret_names) : "ok";
+    const key = c.needs_key ? (env(c.secret_names) || await cleEnBase(c.secret_names)) : "ok";
     if(c.needs_key && !key){ tried.push(c.code+":clef_absente"); continue; }
     if(c.restant<=0){ tried.push(c.code+":quota_epuise"); continue; }
     if(c.paid && !admin){ tried.push(c.code+":payant_admin_requis"); continue; }
