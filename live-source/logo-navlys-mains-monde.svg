@@ -1,5 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" role="img" aria-label="NAVLYS — les mains qui forment la Terre">
-  <!-- NAVLYS · logo « les mains sont la mappemonde » · v1
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" role="img" aria-label="NAVLYS — les mains qui forment la Terre, en yin-yang">
+  <!-- NAVLYS · logo « les mains sont la mappemonde » · v2 yin-yang
+       Deux mains nouées = deux lobes (bleu glace / sable-or), chaque œil est
+       une mini-mappemonde ; grille de mappemonde dedans ET autour.
        Charte : ice blue + or champagne, fond espace sombre. Interdit violet. -->
   <defs>
     <radialGradient id="espace" cx="50%" cy="42%" r="75%">
@@ -13,15 +15,20 @@
       <stop offset="72%" stop-color="#1f6fb0"/>
       <stop offset="100%" stop-color="#0a3560"/>
     </radialGradient>
-    <linearGradient id="sable1" x1="0" y1="0" x2="1" y2="1">
+    <radialGradient id="sableFond" cx="62%" cy="70%" r="85%">
+      <stop offset="0%" stop-color="#f4e0ad"/>
+      <stop offset="45%" stop-color="#dcae62"/>
+      <stop offset="100%" stop-color="#a5762d"/>
+    </radialGradient>
+    <linearGradient id="mainSable" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0%" stop-color="#f2dca8"/>
-      <stop offset="55%" stop-color="#dcae62"/>
-      <stop offset="100%" stop-color="#b98436"/>
+      <stop offset="55%" stop-color="#d9a95c"/>
+      <stop offset="100%" stop-color="#b07f36"/>
     </linearGradient>
-    <linearGradient id="sable2" x1="1" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#e8c98a"/>
-      <stop offset="55%" stop-color="#c99a4b"/>
-      <stop offset="100%" stop-color="#9c6d28"/>
+    <linearGradient id="mainBleue" x1="1" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#8fd0f5"/>
+      <stop offset="55%" stop-color="#3f92cc"/>
+      <stop offset="100%" stop-color="#155086"/>
     </linearGradient>
     <linearGradient id="orTexte" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0%" stop-color="#f4e2b0"/>
@@ -52,50 +59,28 @@
     <circle cx="655" cy="95" r="1.3" opacity=".6"/>
   </g>
 
-  <!-- Halo + anneau or autour de la Terre -->
-  <circle cx="512" cy="478" r="352" fill="none" stroke="#8fd0f5" stroke-opacity=".18" stroke-width="26"/>
+  <!-- La mappemonde AUTOUR : méridiens fantômes qui débordent dans l'espace -->
+  <g fill="none" stroke="#8fd0f5" stroke-opacity=".14" stroke-width="2">
+    <circle cx="512" cy="478" r="384"/>
+    <circle cx="512" cy="478" r="418" stroke-dasharray="4 14"/>
+    <ellipse cx="512" cy="478" rx="384" ry="132"/>
+    <ellipse cx="512" cy="478" rx="132" ry="384"/>
+  </g>
+  <circle cx="512" cy="478" r="352" fill="none" stroke="#8fd0f5" stroke-opacity=".18" stroke-width="22"/>
   <circle cx="512" cy="478" r="336" fill="none" stroke="url(#orTexte)" stroke-width="4" opacity=".95"/>
 
-  <!-- La Terre : océans + grille -->
-  <circle cx="512" cy="478" r="318" fill="url(#ocean)"/>
-  <g clip-path="url(#globe)" stroke="#dff2ff" stroke-opacity=".28" fill="none" stroke-width="2">
-    <ellipse cx="512" cy="478" rx="318" ry="318"/>
-    <ellipse cx="512" cy="478" rx="238" ry="318"/>
-    <ellipse cx="512" cy="478" rx="150" ry="318"/>
-    <ellipse cx="512" cy="478" rx="56"  ry="318"/>
-    <line x1="194" y1="478" x2="830" y2="478"/>
-    <path d="M204 348 Q512 300 820 348"/>
-    <path d="M204 608 Q512 656 820 608"/>
-    <path d="M262 240 Q512 196 762 240"/>
-    <path d="M262 716 Q512 760 762 716"/>
-  </g>
-
-  <!-- Les continents = deux mains nouées (clip dans le globe).
-       Une main = UNE silhouette continue (paume + 4 doigts), dessinée
-       horizontale (doigts vers +x) puis posée par transform. -->
+  <!-- Le globe en YIN-YANG (axe incliné comme les mains de la photo) -->
   <g clip-path="url(#globe)">
-    <!-- Main basse-gauche : paume en bas à gauche, doigts vers le haut-droit -->
-    <g transform="translate(295,655) rotate(-24)">
-      <path fill="url(#sable1)" stroke="#7a5420" stroke-opacity=".25" stroke-width="3" d="
-        M 40,-95
-        C 120,-118 170,-108 205,-92
-        C 262,-102 342,-98 402,-86 Q 430,-80 430,-58 Q 430,-38 398,-40
-        C 342,-46 268,-40 212,-30 Q 198,-26 210,-14
-        C 268,-24 352,-22 410,-12 Q 438,-6 436,16 Q 434,36 402,32
-        C 348,26 268,30 214,40 Q 200,44 212,56
-        C 266,46 346,52 402,62 Q 430,68 428,88 Q 424,108 394,102
-        C 342,94 264,98 212,108 Q 200,112 208,124
-        C 258,116 322,124 368,134 Q 394,140 390,160 Q 386,178 358,172
-        C 314,164 254,166 206,176
-        C 152,192 92,182 52,152 C 12,122 -8,60 -2,0 C 2,-50 16,-80 40,-95 Z"/>
-      <!-- Pouce de la main basse, remonte au centre comme sur la photo -->
-      <path fill="url(#sable1)" stroke="#7a5420" stroke-opacity=".25" stroke-width="3"
-        d="M 150,-80 Q 200,-190 292,-224 Q 322,-232 330,-206 Q 336,-184 306,-158 Q 250,-108 226,-48 Q 214,-22 184,-34 Q 152,-48 150,-80 Z"/>
+    <g transform="rotate(-24 512 478)">
+      <!-- lobe bleu (gauche) -->
+      <circle cx="512" cy="478" r="320" fill="url(#ocean)"/>
+      <!-- lobe sable (droite) : moitié + S -->
+      <path d="M 512,158 A 320,320 0 0 1 512,798 A 160,160 0 0 1 512,478 A 160,160 0 0 0 512,158 Z" fill="url(#sableFond)"/>
     </g>
-    <!-- Main haute-droite : même silhouette, retournée, doigts vers le bas-gauche,
-         décalée pour que les doigts s'intercalent entre ceux de l'autre main -->
-    <g transform="translate(742,318) rotate(156)">
-      <path fill="url(#sable2)" stroke="#6e4a1c" stroke-opacity=".3" stroke-width="3" d="
+
+    <!-- Les deux mains nouées, à cheval sur la frontière (l'entrelacement = le S vivant) -->
+    <g transform="translate(295,655) rotate(-24)" opacity=".96">
+      <path fill="url(#mainSable)" stroke="#7a5420" stroke-opacity=".25" stroke-width="3" d="
         M 40,-95
         C 120,-118 170,-108 205,-92
         C 262,-102 342,-98 402,-86 Q 430,-80 430,-58 Q 430,-38 398,-40
@@ -108,6 +93,50 @@
         C 314,164 254,166 206,176
         C 152,192 92,182 52,152 C 12,122 -8,60 -2,0 C 2,-50 16,-80 40,-95 Z"/>
     </g>
+    <g transform="translate(742,318) rotate(156)" opacity=".96">
+      <path fill="url(#mainBleue)" stroke="#0c3a63" stroke-opacity=".35" stroke-width="3" d="
+        M 40,-95
+        C 120,-118 170,-108 205,-92
+        C 262,-102 342,-98 402,-86 Q 430,-80 430,-58 Q 430,-38 398,-40
+        C 342,-46 268,-40 212,-30 Q 198,-26 210,-14
+        C 268,-24 352,-22 410,-12 Q 438,-6 436,16 Q 434,36 402,32
+        C 348,26 268,30 214,40 Q 200,44 212,56
+        C 266,46 346,52 402,62 Q 430,68 428,88 Q 424,108 394,102
+        C 342,94 264,98 212,108 Q 200,112 208,124
+        C 258,116 322,124 368,134 Q 394,140 390,160 Q 386,178 358,172
+        C 314,164 254,166 206,176
+        C 152,192 92,182 52,152 C 12,122 -8,60 -2,0 C 2,-50 16,-80 40,-95 Z"/>
+    </g>
+
+    <!-- Les deux « yeux » du yin-yang = deux mini-mappemondes -->
+    <g transform="rotate(-24 512 478)">
+      <g transform="translate(512,318)">
+        <circle r="56" fill="url(#sableFond)"/>
+        <g fill="none" stroke="#5c3f14" stroke-opacity=".5" stroke-width="1.6">
+          <circle r="56"/><ellipse rx="56" ry="22"/><ellipse rx="22" ry="56"/><line x1="-56" y1="0" x2="56" y2="0"/>
+        </g>
+      </g>
+      <g transform="translate(512,638)">
+        <circle r="56" fill="url(#ocean)"/>
+        <g fill="none" stroke="#dff2ff" stroke-opacity=".55" stroke-width="1.6">
+          <circle r="56"/><ellipse rx="56" ry="22"/><ellipse rx="22" ry="56"/><line x1="-56" y1="0" x2="56" y2="0"/>
+        </g>
+      </g>
+    </g>
+
+    <!-- La mappemonde DEDANS : grille sur tout le globe -->
+    <g stroke="#eef8ff" stroke-opacity=".22" fill="none" stroke-width="2">
+      <ellipse cx="512" cy="478" rx="318" ry="318"/>
+      <ellipse cx="512" cy="478" rx="238" ry="318"/>
+      <ellipse cx="512" cy="478" rx="150" ry="318"/>
+      <ellipse cx="512" cy="478" rx="56"  ry="318"/>
+      <line x1="194" y1="478" x2="830" y2="478"/>
+      <path d="M204 348 Q512 300 820 348"/>
+      <path d="M204 608 Q512 656 820 608"/>
+      <path d="M262 240 Q512 196 762 240"/>
+      <path d="M262 716 Q512 760 762 716"/>
+    </g>
+
     <!-- Modelé du volume -->
     <circle cx="512" cy="478" r="318" fill="url(#ombreSphere)"/>
   </g>
