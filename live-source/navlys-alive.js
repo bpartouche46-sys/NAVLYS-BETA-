@@ -435,57 +435,39 @@ window.NAVLYS_setVideo = function(v, rate, srcs){
       if(running) return;
       try{
         rec=new SR(); rec.lang=nvLangCode(); rec.continuous=true; rec.interimResults=true; rec.maxAlternatives=1;
-        rec.onstart=function(){ running=true; micBtn.classList.add('on'); };
+        rec.onstart=function(){ running=true; micBtn.classList.add('on'); dictBase=(q&&q.value)?(q.value.replace(/\s+$/,'')+' '):''; };
         rec.onresult=onResult;
         rec.onerror=function(ev){ if(ev&&ev.error==='not-allowed'){ veutTourner=false; setOn(false); micBtn.classList.remove('on'); poser('n', L()==='fr'?'Je n\'ai pas accès au micro — autorise-le puis retouche 🎙️.':'I can\'t reach the mic — allow it, then tap 🎙️ again.'); } };
         /* FIX bip (2026-07-07) : chaque redémarrage du micro joue le bip système
            Android → on ne relance QUE si la personne est en conversation active
            (éveillée, page visible, activité < 2 min). Sinon : micro COUPÉ net. */
         rec.onend=function(){ running=false;
-          var actif = veutTourner && eveille && document.visibilityState==='visible' && (Date.now()-lastHeard < 120000);
-          if(actif){ setTimeout(function(){ try{ demarrer(); }catch(e){} }, 350); }
-          else { veutTourner=false; eveille=false; setOn(false); micBtn.classList.remove('on'); }
+          /* On relance UNIQUEMENT si l'utilisateur veut toujours (bouton ON) et page
+             visible. Sinon micro coupé net → plus jamais de relance surprise (bips). */
+          if(veutTourner && document.visibilityState==='visible'){ setTimeout(function(){ try{ demarrer(); }catch(e){} }, 300); }
+          else { micBtn.classList.remove('on'); }
         };
         rec.start();
       }catch(e){ running=false; }
     }
     function stopper(){ veutTourner=false; try{ if(rec) rec.stop(); }catch(e){} micBtn.classList.remove('on'); }
 
-    var q=document.getElementById('nv-q');
+    var q=document.getElementById('nv-q'), dictBase='';
+    /* DICTÉE SIMPLE (2026-07-08, demande Bruno) : le micro écrit dans la case,
+       PAS d'envoi automatique, PAS de mot d'éveil. On relit, on corrige, on touche →. */
     function onResult(ev){
       lastHeard=Date.now();
-      var txt=''; for(var i=ev.resultIndex;i<ev.results.length;i++){ txt+=ev.results[i][0].transcript; }
-      var fin=ev.results[ev.results.length-1].isFinal;
-      var norm=nvNorm(txt);
-
-      if(attendMot){ /* réglage du mot d'éveil */
-        if(fin && norm){ var m=norm.split(' ').slice(0,3).join(' '); setMot(m); attendMot=false; eveille=false; poser('n', MOT_OK[L()].replace('%s', m)); }
-        return;
-      }
-      if(!eveille){ /* on dort : on cherche le mot d'éveil */
-        var mot=nvNorm(getMot()||'navlys');
-        if(norm.indexOf(mot)>-1){
-          eveille=true; poser('n', EVEIL_MSG[L()]);
-          var reste=norm.slice(norm.indexOf(mot)+mot.length).trim();
-          if(fin && reste.length>1){ q.value=reste; send(); }
-        }
-        return;
-      }
-      /* réveillé : on capte l'ordre */
-      q.value=txt;
-      if(fin){
-        var stop=false, s; for(s=0;s<MOTS_STOP.length;s++){ if(norm.indexOf(nvNorm(MOTS_STOP[s]))>-1){ stop=true; break; } }
-        if(stop){ eveille=false; q.value=''; poser('n', DORT_MSG[L()]); return; }
-        if(norm.length>1){ send(); }
-      }
+      var txt=''; for(var i=0;i<ev.results.length;i++){ txt+=ev.results[i][0].transcript; }
+      if(q) q.value = dictBase + txt;
     }
 
+    var MIC_ON={fr:'🎙️ Je t\'écoute — parle, ça s\'écrit tout seul. Touche → pour envoyer, ou re-touche le micro pour couper.',en:'🎙️ Listening — speak, it types itself. Tap → to send, or tap the mic again to stop.',ru:'🎙️ Слушаю — говори, всё печатается само. Нажми → чтобы отправить, или снова микрофон, чтобы выключить.',he:'🎙️ מקשיב — דבר, זה נכתב לבד. הקש → לשליחה, או שוב על המיקרופון כדי לעצור.',ar:'🎙️ أستمع — تكلّم، يُكتب تلقائيًا. المس → للإرسال، أو المس الميكروفون للإيقاف.'};
+    var MIC_OFF={fr:'🎙️ Micro coupé.',en:'🎙️ Mic off.',ru:'🎙️ Микрофон выключен.',he:'🎙️ מיקרופון כבוי.',ar:'🎙️ الميكروفون متوقف.'};
+    /* Un simple interrupteur : appui = j'écoute, appui = stop. Rien d'autre. */
     micBtn.onclick=function(){
-      if(veutTourner){ veutTourner=false; eveille=false; setOn(false); stopper(); poser('n', DORT_MSG[L()]); return; }
-      /* FIX bip : le micro ne se branche QUE sur ce geste, et on écoute DIRECT
-         (plus de mode veille qui redémarre en boucle = plus de bips). */
-      setOn(true); veutTourner=true; eveille=true; attendMot=false; lastHeard=Date.now();
-      poser('n', EVEIL_MSG[L()]);
+      if(veutTourner){ veutTourner=false; setOn(false); stopper(); poser('n', MIC_OFF[L()]||MIC_OFF.fr); return; }
+      setOn(true); veutTourner=true; lastHeard=Date.now();
+      poser('n', MIC_ON[L()]||MIC_ON.fr);
       demarrer();
     };
     /* plus JAMAIS de relance auto du micro au chargement (source des bips) —
@@ -502,7 +484,7 @@ window.NAVLYS_setVideo = function(v, rate, srcs){
       setTimeout(function(){
         if(panel.style.display!=='flex'){ panel.style.display='flex'; }
         micBtn.classList.add('on'); setTimeout(function(){ if(!running) micBtn.classList.remove('on'); },1600);
-        if(!estOn()){ var l=L(); poser('n', {fr:'Astuce : touche le micro 🎙️ une fois, choisis ton mot secret, puis parle-moi sans rien toucher.',en:'Tip: tap the mic 🎙️ once, choose your secret word, then talk to me hands-free.',ru:'Совет: коснись микрофона 🎙️ один раз, выбери секретное слово и говори без рук.',he:'טיפ: גע במיקרופון 🎙️ פעם אחת, בחר מילת סוד, ואז דבר איתי בלי ידיים.',ar:'نصيحة: المس الميكروفون 🎙️ مرة واحدة، اختر كلمتك السرية، ثم كلّمني بدون لمس.'}[l]); }
+        if(!estOn()){ var l=L(); poser('n', {fr:'Astuce : touche le micro 🎙️ pour me parler — ça s\'écrit tout seul. Re-touche pour couper.',en:'Tip: tap the mic 🎙️ to talk — it types itself. Tap again to stop.',ru:'Совет: коснись микрофона 🎙️, чтобы говорить — всё печатается само. Снова — чтобы выключить.',he:'טיפ: גע במיקרופון 🎙️ כדי לדבר — זה נכתב לבד. שוב כדי לעצור.',ar:'نصيحة: المس الميكروفون 🎙️ لتتكلّم — يُكتب تلقائيًا. المس مجددًا للإيقاف.'}[l]); }
       }, 900);
     }
   })();
