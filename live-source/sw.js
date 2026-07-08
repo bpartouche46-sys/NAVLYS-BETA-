@@ -11,13 +11,15 @@
  * Bump de VERSION à chaque changement = purge immédiate des vieux caches.
  */
 
-const VERSION = 'navlys-v1.7.5';
+const VERSION = 'navlys-v1.7.8';
 const SHELL_CACHE = `${VERSION}-shell`;
 const IMG_CACHE = `${VERSION}-img`;
 
 const SHELL_FILES = [
   '/',
   '/adhesion',
+  '/ambassadeur',
+  '/booster',
   '/profil',
   '/idee',
   '/cinema',
@@ -25,10 +27,13 @@ const SHELL_FILES = [
   '/next-gen',
   '/assistance',
   '/navlys-alive.js',
+  '/manifest.webmanifest',
   '/media/navlys_coin_animated.svg',
   '/media/navlys_favicon.svg',
-  '/media/icon-192.svg',
-  '/media/icon-512.svg',
+  '/media/icon-192.png',
+  '/media/icon-512.png',
+  '/media/icon-maskable-512.png',
+  '/media/apple-touch-icon-180.png',
 ];
 
 // --- Installation : préchargement du shell (chaque fichier indépendamment) ---

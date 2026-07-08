@@ -338,6 +338,27 @@ peux pas obtenir.
 | Bianca | `@navbien` | NAVBIEN | prepare |
 | David | `@navdem` | NAVDEM | prepare |
 
+## 🧠 Agents autonomes : bible + mémoire propres (STANDING — gravé le 2026-07-08)
+
+> Ordre de Bruno : **« Chaque agent doit avoir sa propre bible et sa mémoire de son
+> travail, ses recherches, son apprentissage, ses tests sur le web. Tous autonomes à
+> terme, et non complaisants. »**
+
+- **`agent_bible`** (une par agent actif) : `mission`, `doctrine` (non-complaisance +
+  garde-fous), `focus_veille` (son terrain de recherche web), `charte_ton`. Semée pour
+  les 15 agents. Lecture : `agent_bible_lire(code)`.
+- **`agent_memoire`** (mémoire propre) : types `travail | recherche | apprentissage |
+  test_web | autocritique | doctrine`. Écriture : **`agent_note(code,type,sujet,contenu,
+  source)`** ; lecture : `agent_memoire_lire(code, limit)`.
+- **Veille web autonome** : edge **`agent_veille`** (`POST {code}` ou `?mode=rotative&n=3`)
+  → vraie recherche DuckDuckGo sur `focus_veille` → **2-3 apprentissages concrets + 1
+  autocritique** (« ce qui manque », sans complaisance) gravés dans sa mémoire.
+- **Cron `navlys_agent_veille`** (`40 7 * * *`) : 3 agents/jour, rotation par
+  moins-récemment-veillé → les 15 agents tournent tous les 5 jours. Autonome 24/7.
+- Trace repo : **`sql/agents_bible_memoire.sql`**. Doctrine en base : `navlys_memoire`,
+  `core_reglement` (règle n°54). Garde-fous NAVLYS inchangés (feu vert Bruno pour
+  argent/prod/secret).
+
 ## 🤖 MasterNav — le chef d'orchestre (point d'entrée unique)
 
 But : Bruno parle à **un seul endroit** (bot Telegram), plus jamais Claude Code.
@@ -387,14 +408,27 @@ But : Bruno parle à **un seul endroit** (bot Telegram), plus jamais Claude Code
 - **Archiver** : tous les vieux fils (celui-ci compris). Rien n'est perdu — la
   continuité tient à **CLAUDE.md + les commits Git + la mémoire en base**
   (`navlys_memoire`, `core_reglement`, `core_knowledge`), jamais à l'historique du chat.
-- **Prompt de démarrage type** (à coller dans le nouveau chat) : « Reprends NAVLYS
-  depuis CLAUDE.md + la Bible + l'état Git. On travaille LIVE. Doctrine : OUI par
-  défaut, autonome > dépendance, jamais de blocage, tutoiement + prénom, membre
-  (jamais client), cotisation (jamais tarif/prix), zéro terme négatif, charte ice
-  blue + or (interdit violet/mauve). Commence par une analyse santé complète
-  (pg_net, file missions/agents, incidents, retours 💡), inscris tes chantiers via
-  `navlys_chantier_ouvrir`, puis avance sans me demander. Argent (Bible §6) :
-  signalement d'UNE ligne avant tout vrai débit. »
+- **Prompt de démarrage type** (à coller dans le nouveau chat — maj 2026-07-08) :
+  « Reprends NAVLYS depuis CLAUDE.md + la Bible + l'état Git. On travaille LIVE.
+  **Doctrine :** OUI par défaut (exécute et rends compte, zéro question de
+  validation) ; autonome > dépendance ; jamais de blocage ; tutoiement + prénom ;
+  membre (jamais client), cotisation (jamais prix/tarif) ; charte ice blue + or
+  (interdit violet/mauve/fuchsia) ; preuve avant parole (pg_net/?diag avant
+  d'affirmer) ; un cas qui m'aurait fait redemander → `navlys_regle()` puis avance ;
+  action destructive irréversible → sauvegarde d'abord. Argent (Bible §6) :
+  signalement d'UNE ligne avant tout vrai débit. **Commence par l'analyse santé
+  complète** (pg_net : inscription, paiement, assistant, media, studio, whatsapp,
+  booster, ambassadeur ; file missions/agents ; incidents ; retours 💡 ; Security
+  Advisor), inscris tes chantiers via `navlys_chantier_ouvrir`, puis avance sans me
+  demander. **Branche :** `claude/orchestration-md-updates-rhu8ps` → PR #147 (si déjà
+  mergée, repars du `main` à jour). **En ligne (edge functions hors-Git) :** whatsapp
+  v32 (FAQ+mémoire+lien), booster v1, ambassadeur v1 ; sw v1.7.8. **En attente de
+  Bruno (relance-moi) :** 1) approuver le nom d'affichage WhatsApp Meta (#131037 →
+  « NAVLYS ») ; 2) activer Leaked password protection (Supabase) ; 3) compte Google
+  Play 25 $ + PWABuilder → me donner l'empreinte SHA-256 pour `assetlinks.json` ;
+  4) secrets média gratuits (GEMINI/HF/Cloudflare). **Fil rouge cap 1000→1M :** capter
+  le `?code=` à l'inscription (parrainage), clés i18n `/ambassadeur` + `/booster`,
+  vidéos/logo/mobile. Avance sans me demander. »
 
 ## 💡 Conseil d'usage (sessions)
 
