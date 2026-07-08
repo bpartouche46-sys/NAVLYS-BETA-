@@ -194,12 +194,13 @@ window.NAVLYS_setVideo = function(v, rate, srcs){
     var kill=function(){ b.classList.remove('show'); setTimeout(function(){b.remove();},650); };
     var x=b.querySelector('.x'); x.onclick=function(ev){ ev.stopPropagation(); kill(); };
     b.querySelector('.in').onclick=function(){ location.href='/adhesion'; }; // la bande → inscription
-    setTimeout(kill, 6000);
+    setTimeout(kill, 3000);
     schedule();
   }
-  /* BEAUCOUP moins souvent (demande Bruno) : un flash toutes les ~2 à 3,5 min */
-  function schedule(){ setTimeout(bubble, 120000+Math.random()*90000); }
-  setTimeout(bubble, 8000);
+  /* Un message toutes les ~minutes, visible 3 s (demande Bruno 2026-07-08) — et
+     PAS de flash au démarrage : on laisse le prospect découvrir seul d'abord. */
+  function schedule(){ setTimeout(bubble, 60000+Math.random()*12000); }
+  setTimeout(bubble, 60000);
 
   /* ---------- SAV vocal ---------- */
   var btn=document.createElement('button'); btn.id='nv-sav-btn'; btn.textContent='💬 Aide';
@@ -1010,12 +1011,10 @@ window.NAVLYS_setVideo = function(v, rate, srcs){
       +'box-shadow:0 4px 16px rgba(0,0,0,.4),0 0 14px rgba(233,211,160,.12);animation:nvCineGlow 2.4s ease-in-out infinite,nvSea 9s linear infinite}'
       +'@keyframes nvSea{to{background-position:220% 0,0 0,0 0}}'
       +'@keyframes nvCineGlow{0%,100%{box-shadow:0 4px 16px rgba(0,0,0,.4),0 0 12px rgba(233,211,160,.10)}50%{box-shadow:0 4px 16px rgba(0,0,0,.4),0 0 22px rgba(125,211,252,.30)}}'
-      /* guirlande d\'ampoules qui défilent, haut ET bas (or + ice) */
-      +'#nv-cine:before,#nv-cine:after{content:"";position:absolute;left:0;right:0;height:3px;z-index:3;pointer-events:none;'
-      +'background:repeating-linear-gradient(90deg,#ffe6a0 0 5px,rgba(125,211,252,.95) 5px 10px,transparent 10px 20px);background-size:40px 100%;'
-      +'filter:drop-shadow(0 0 3px rgba(255,220,140,.85));animation:nvBulbs .6s linear infinite}'
-      +'#nv-cine:before{top:0}#nv-cine:after{bottom:0;animation-direction:reverse}'
-      +'@keyframes nvBulbs{to{background-position:40px 0}}'
+      /* plus de pointillés (demande Bruno) : un fin liseré lumineux or→ice, haut & bas */
+      +'#nv-cine:before,#nv-cine:after{content:"";position:absolute;left:0;right:0;height:1px;z-index:3;pointer-events:none;'
+      +'background:linear-gradient(90deg,transparent,rgba(233,211,160,.55) 30%,rgba(125,211,252,.45) 70%,transparent)}'
+      +'#nv-cine:before{top:0}#nv-cine:after{bottom:0}'
       +'#nv-cine .scr{flex:0 0 auto;width:46px;position:relative;overflow:hidden;border-right:1px solid rgba(125,211,252,.2);background:#04060d}'
       +'#nv-cine .scr video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.9}'
       +'#nv-cine .scr .live{position:absolute;top:3px;left:4px;z-index:2;font:700 7px/1 \'Cinzel\',serif;letter-spacing:.08em;color:#fff;'
