@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>NAVLYS — Dis-le avec tes mots</title>
+<meta name="description" content="Dis ton envie en quelques mots. NAVLYS en fait une demande claire et riche, prête pour la bonne app. Simple, à la voix, pour tout le monde.">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Cormorant+Garamond:ital,wght@0,400;1,400&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="/media/navlys_favicon.svg">
+<style>
+:root{--noir:#03040a;--ice:#7DD3FC;--ice-clair:#a8e3ff;--or:#C9A961;--or-pale:#f3e4c4;--perle:#e7eef2;--mut:#9fb3c8;--line:rgba(125,211,252,.18);--ok:#34d399}
+*{margin:0;padding:0;box-sizing:border-box}
+html{background:var(--noir)}
+body{background:var(--noir);color:var(--perle);font-family:'Atkinson Hyperlegible',system-ui,sans-serif;-webkit-font-smoothing:antialiased;min-height:100vh}
+.wrap{max-width:720px;margin:0 auto;padding:34px 20px 96px}
+.k{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:var(--ice);text-align:center}
+h1{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:400;font-size:clamp(30px,7.5vw,48px);text-align:center;color:#eafaff;margin:8px 0 6px;line-height:1.1}
+.sub{text-align:center;color:var(--mut);font-size:1.02rem;margin:0 auto 24px;line-height:1.7;max-width:34em}
+.chips{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:18px}
+.chip{border:1px solid var(--line);background:rgba(5,7,14,.6);color:var(--mut);border-radius:999px;padding:9px 16px;font-family:inherit;font-size:.92rem;cursor:pointer;transition:.2s}
+.chip:hover{border-color:var(--ice);color:var(--perle)}
+.chip.on{border-color:var(--or);color:var(--or-pale);background:rgba(201,169,97,.08)}
+.box{border:1px solid var(--line);border-radius:18px;background:rgba(5,7,14,.6);padding:6px;margin-bottom:14px;display:flex;align-items:flex-end;gap:6px}
+textarea{flex:1;background:none;border:none;color:var(--perle);font-family:inherit;font-size:1.05rem;line-height:1.6;padding:14px;resize:none;min-height:88px;outline:none}
+textarea::placeholder{color:#5f7183}
+.mic{flex:none;width:46px;height:46px;border-radius:50%;border:1px solid var(--line);background:rgba(5,7,14,.6);color:var(--ice);cursor:pointer;display:flex;align-items:center;justify-content:center;margin:0 4px 6px 0;transition:.2s}
+.mic:hover{border-color:var(--ice)}
+.mic.on{border-color:var(--or);color:var(--or-pale);box-shadow:0 0 0 4px rgba(201,169,97,.12);animation:pulse 1.3s ease-in-out infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 4px rgba(201,169,97,.10)}50%{box-shadow:0 0 0 8px rgba(201,169,97,.02)}}
+.go{display:block;width:100%;border:1px solid rgba(201,169,97,.5);background:linear-gradient(180deg,rgba(201,169,97,.14),rgba(5,7,14,.5));color:var(--or-pale);border-radius:14px;padding:15px;font-family:'Cinzel',serif;font-size:13px;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;transition:.2s}
+.go:hover{border-color:var(--or);color:#fff}
+.go:disabled{opacity:.5;cursor:default}
+.msg{text-align:center;color:var(--mut);margin:14px 0;min-height:1.2em}
+.res{border:1px solid var(--line);border-radius:20px;background:radial-gradient(120% 120% at 50% 0%,rgba(125,211,252,.09),rgba(4,6,12,.92));padding:22px;margin-top:8px}
+.res .titre{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.5rem;color:var(--or-pale);text-align:center;margin-bottom:14px}
+.res .prompt{border:1px solid var(--line);border-radius:14px;background:rgba(5,7,14,.5);padding:16px;font-size:1.06rem;line-height:1.7;color:#eafaff}
+.res .actions{display:flex;gap:10px;justify-content:center;margin:14px 0 4px;flex-wrap:wrap}
+.btn{border:1px solid var(--line);cursor:pointer;font-family:'Cinzel',serif;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--ice-clair);background:none;border-radius:999px;padding:11px 22px;transition:.2s}
+.btn:hover{border-color:var(--ice);color:#fff}
+.btn.gold{color:var(--or-pale);border-color:rgba(201,169,97,.5)}
+.lab{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--mut);margin:18px 0 8px}
+.var{border-left:2px solid rgba(125,211,252,.3);padding:8px 0 8px 14px;margin:8px 0;color:var(--perle);font-size:.98rem;cursor:pointer;transition:.2s}
+.var:hover{border-left-color:var(--or);color:#eafaff}
+.astuce{margin-top:16px;padding:14px 16px;border-radius:12px;background:rgba(125,211,252,.06);color:var(--ice-clair);font-size:.96rem;line-height:1.6}
+.astuce b{color:var(--or-pale)}
+.hidden{display:none!important}
+.toast{position:fixed;left:50%;bottom:96px;transform:translateX(-50%) translateY(20px);background:rgba(5,10,18,.96);border:1px solid var(--line);color:var(--ice-clair);padding:11px 20px;border-radius:999px;font-size:.9rem;opacity:0;pointer-events:none;transition:.3s;z-index:60}
+.toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="k">NAVLYS · Dis-le avec tes mots</div>
+  <h1 id="titre">Ton envie, en clair</h1>
+  <p class="sub">Tu n'as pas besoin de « bien demander ». Dis ton envie en quelques mots — à la voix si tu veux — et NAVLYS en fait une demande claire et riche, prête pour la bonne app.</p>
+
+  <div class="chips" id="chips">
+    <button class="chip" data-d="next-gen">Le livre de ma vie</button>
+    <button class="chip" data-d="finance">Comprendre l'argent</button>
+    <button class="chip" data-d="navlex">Mes repères juridiques</button>
+    <button class="chip" data-d="idee">Mon idée</button>
+    <button class="chip" data-d="voix">L'aide à la voix</button>
+    <button class="chip on" data-d="general">En général</button>
+  </div>
+
+  <div class="box">
+    <textarea id="envie" placeholder="Ex : je veux raconter mon enfance à mes petits-enfants, mais je sais pas par où commencer…"></textarea>
+    <button class="mic" id="mic" title="Dicter à la voix" aria-label="Dicter à la voix">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="9" y="3" width="6" height="12" rx="3"/><path d="M6 11a6 6 0 0 0 12 0M12 17v4"/></svg>
+    </button>
+  </div>
+  <button class="go" id="go">✦ Transforme mon envie</button>
+
+  <div class="msg" id="msg"></div>
+
+  <div class="res hidden" id="res">
+    <div class="titre" id="rtitre"></div>
+    <div class="prompt" id="rprompt"></div>
+    <div class="actions">
+      <button class="btn gold" id="copier">Copier ma demande</button>
+      <button class="btn" id="refaire">Une autre version</button>
+    </div>
+    <div id="varwrap" class="hidden">
+      <div class="lab">Ou explore autrement</div>
+      <div id="variantes"></div>
+    </div>
+    <div class="astuce hidden" id="astuce"></div>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+(function(){
+  var API='https://hhrlgyvtqluxpywjiwkd.supabase.co/functions/v1/booster';
+  var $=function(id){return document.getElementById(id);};
+  var domaine='general', prenom='', lastPrompt='';
+  try{ prenom=(localStorage.getItem('nv-prenom')||'').trim(); }catch(e){}
+  if(prenom){ $('titre').textContent=prenom+', ton envie en clair'; }
+
+  function toast(t){ var e=$('toast'); e.textContent=t; e.classList.add('on'); setTimeout(function(){ e.classList.remove('on'); },1900); }
+
+  // chips domaine
+  Array.prototype.forEach.call($('chips').querySelectorAll('.chip'),function(c){
+    c.onclick=function(){
+      Array.prototype.forEach.call($('chips').querySelectorAll('.chip'),function(x){x.classList.remove('on');});
+      c.classList.add('on'); domaine=c.getAttribute('data-d');
+    };
+  });
+
+  // dictée voix (webkitSpeechRecognition), best-effort
+  var rec=null, ecoute=false;
+  var SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  if(!SR){ $('mic').style.display='none'; }
+  else {
+    $('mic').onclick=function(){
+      if(ecoute){ try{ rec.stop(); }catch(e){} return; }
+      try{
+        rec=new SR(); rec.lang='fr-FR'; rec.interimResults=true; rec.continuous=false;
+        var base=$('envie').value;
+        rec.onstart=function(){ ecoute=true; $('mic').classList.add('on'); };
+        rec.onresult=function(ev){ var t=''; for(var i=0;i<ev.results.length;i++){ t+=ev.results[i][0].transcript; } $('envie').value=(base?base+' ':'')+t; };
+        rec.onerror=function(){ toast('La voix n’a pas pris — écris, ça marche aussi 🌊'); };
+        rec.onend=function(){ ecoute=false; $('mic').classList.remove('on'); };
+        rec.start();
+      }catch(e){ toast('La voix n’est pas dispo ici — écris ton envie 🌊'); }
+    };
+  }
+
+  function afficher(d){
+    lastPrompt=d.prompt||'';
+    $('rtitre').textContent=d.titre||'Ta demande';
+    $('rprompt').textContent=d.prompt||'';
+    var vw=$('varwrap'), vc=$('variantes');
+    if(d.variantes && d.variantes.length){
+      vc.innerHTML='';
+      d.variantes.forEach(function(v){
+        var el=document.createElement('div'); el.className='var'; el.textContent=v;
+        el.onclick=function(){ $('rprompt').textContent=v; lastPrompt=v; toast('Version choisie — tu peux la copier'); window.scrollTo({top:$('res').offsetTop-20,behavior:'smooth'}); };
+        vc.appendChild(el);
+      });
+      vw.classList.remove('hidden');
+    } else vw.classList.add('hidden');
+    if(d.astuce){ $('astuce').innerHTML='<b>Astuce.</b> '+d.astuce.replace(/</g,'&lt;'); $('astuce').classList.remove('hidden'); }
+    else $('astuce').classList.add('hidden');
+    $('res').classList.remove('hidden');
+    window.scrollTo({top:$('res').offsetTop-20,behavior:'smooth'});
+  }
+
+  function transforme(){
+    var envie=($('envie').value||'').trim();
+    if(envie.length<3){ toast('Dis-moi ton envie en quelques mots 🌊'); return; }
+    $('go').disabled=true; $('msg').textContent='NAVLYS met tes mots au clair…';
+    fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({envie:envie,domaine:domaine,prenom:prenom})})
+      .then(function(r){return r.json();})
+      .then(function(d){ $('go').disabled=false; $('msg').textContent=''; if(!d||!d.ok){ toast((d&&d.erreur)||'Réessaie dans un instant'); return; } afficher(d); })
+      .catch(function(){ $('go').disabled=false; $('msg').textContent=''; toast('Réseau indisponible — réessaie 🌊'); });
+  }
+
+  $('go').onclick=transforme;
+  $('copier').onclick=function(){
+    var t=lastPrompt||''; if(!t){ return; }
+    if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(t).then(function(){ toast('Ta demande est copiée ✓'); },function(){ toast('Copie impossible'); }); }
+    else { try{ var ta=document.createElement('textarea'); ta.value=t; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta); toast('Ta demande est copiée ✓'); }catch(e){ toast('Copie impossible'); } }
+  };
+  $('refaire').onclick=transforme;
+})();
+</script>
+<script src="/navlys-alive.js" defer></script>
+</body>
+</html>
