@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>NAVLYS — Choisir la voix</title>
+<meta name="robots" content="noindex">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Cormorant+Garamond:ital,wght@0,400;1,400&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="/media/navlys_favicon.svg">
+<style>
+:root{--noir:#03040a;--ice:#7DD3FC;--ice-clair:#a8e3ff;--or:#C9A961;--or-pale:#f3e4c4;--perle:#e7eef2;--mut:#9fb3c8;--line:rgba(125,211,252,.18)}
+*{margin:0;padding:0;box-sizing:border-box}
+html{background:var(--noir)}
+body{background:var(--noir);color:var(--perle);font-family:'Atkinson Hyperlegible',system-ui,sans-serif;-webkit-font-smoothing:antialiased;min-height:100vh}
+.wrap{max-width:640px;margin:0 auto;padding:34px 20px 96px}
+.k{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:var(--ice);text-align:center}
+h1{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:400;font-size:clamp(30px,7.5vw,46px);text-align:center;color:#eafaff;margin:8px 0 6px}
+.sub{text-align:center;color:var(--mut);font-size:1rem;margin:0 auto 24px;line-height:1.7;max-width:34em}
+.sec{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--or-pale);margin:22px 2px 10px}
+.card{border:1px solid var(--line);border-radius:16px;background:rgba(5,7,14,.6);padding:16px 16px 14px;margin-bottom:12px}
+.card.reco{border-color:rgba(201,169,97,.4);background:radial-gradient(120% 120% at 50% 0%,rgba(201,169,97,.08),rgba(5,7,14,.7))}
+.nom{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.35rem;color:var(--or-pale)}
+.desc{color:var(--mut);font-size:.9rem;margin:2px 0 10px}
+audio{width:100%;height:40px;margin-top:4px;filter:saturate(.85)}
+.note{text-align:center;color:var(--mut);font-size:.9rem;margin-top:22px;line-height:1.7}
+.note b{color:var(--ice-clair)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="k">NAVLYS · Voix</div>
+  <h1>Choisis la voix de NAVLYS</h1>
+  <p class="sub">Écoute, compare, et dis-moi ton numéro ou le prénom. Je fige la voix officielle tout de suite.</p>
+
+  <div class="sec">Voix françaises natives (France, posées) — recommandé</div>
+
+  <div class="card reco">
+    <div class="nom">1 · Sunshine <span style="color:var(--mut);font-size:.9rem">— femme, douce</span></div>
+    <div class="desc">Français de France, calme et chaleureuse.</div>
+    <audio controls preload="none" src="https://hhrlgyvtqluxpywjiwkd.supabase.co/storage/v1/object/public/avatar/essai-fr-sunshine-femme.mp3"></audio>
+  </div>
+  <div class="card reco">
+    <div class="nom">2 · Cécile <span style="color:var(--mut);font-size:.9rem">— femme, posée</span></div>
+    <div class="desc">Français de France, posée et enveloppante.</div>
+    <audio controls preload="none" src="https://hhrlgyvtqluxpywjiwkd.supabase.co/storage/v1/object/public/avatar/essai-fr-cecile-femme.mp3"></audio>
+  </div>
+  <div class="card reco">
+    <div class="nom">3 · Enrick <span style="color:var(--mut);font-size:.9rem">— homme, narrateur</span></div>
+    <div class="desc">Français de France, narrateur calme.</div>
+    <audio controls preload="none" src="https://hhrlgyvtqluxpywjiwkd.supabase.co/storage/v1/object/public/avatar/essai-fr-enrick-homme.mp3"></audio>
+  </div>
+
+  <div class="sec">Ta voix actuelle — 3 réglages de ton</div>
+
+  <div class="card">
+    <div class="nom">4 · Posé</div>
+    <audio controls preload="none" src="https://hhrlgyvtqluxpywjiwkd.supabase.co/storage/v1/object/public/avatar/essai-1-pose.mp3"></audio>
+  </div>
+  <div class="card">
+    <div class="nom">5 · Très posé, calme</div>
+    <audio controls preload="none" src="https://hhrlgyvtqluxpywjiwkd.supabase.co/storage/v1/object/public/avatar/essai-2-tres-pose-calme.mp3"></audio>
+  </div>
+  <div class="card">
+    <div class="nom">6 · Posé, chaleureux</div>
+    <audio controls preload="none" src="https://hhrlgyvtqluxpywjiwkd.supabase.co/storage/v1/object/public/avatar/essai-3-pose-chaleureux.mp3"></audio>
+  </div>
+  <div class="card">
+    <div class="nom">7 · Actuel <span style="color:var(--mut);font-size:.9rem">— pour comparer</span></div>
+    <audio controls preload="none" src="https://hhrlgyvtqluxpywjiwkd.supabase.co/storage/v1/object/public/avatar/essai-4-actuel-pour-comparer.mp3"></audio>
+  </div>
+
+  <p class="note">Dis-moi juste <b>le numéro</b> (ou le prénom) que tu préfères — je pose cette voix comme voix officielle NAVLYS, partout, tout de suite.</p>
+</div>
+<script src="/navlys-alive.js" defer></script>
+</body>
+</html>
