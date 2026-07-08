@@ -539,16 +539,18 @@ window.NAVLYS_setVideo = function(v, rate, srcs){
    ==================================================================== */
 (function(){
   var ICE='#7DD3FC', OR='#e9d3a0', NOIR='#05060a';
-  // Menu HAUT = complémentaire du menu BAS (Accueil/Finance/Next Gen/Voix/Cockpit).
-  // On n'y répète JAMAIS une destination déjà présente en bas (le logo = Accueil).
+  // Menu HAUT = onglets icône + petit nom (façon barre du bas). En TÊTE : « Cadeaux »
+  // (→ /ambassadeur) pour mettre en avant l'affiliation = gagner de l'argent + cadeaux
+  // à ceux qui communiquent et le prouvent (demande Bruno 2026-07-08). On ne répète
+  // jamais une destination déjà dans la barre du bas (le logo = Accueil).
   var pages=[
-    {n:'Adhésion',h:'/adhesion'},
-    {n:'Ambassadeur',h:'/ambassadeur'},
-    {n:'Ton idée',h:'/idee'},
-    {n:'NAVLEX',h:'/navlex'},
-    {n:'Influenceurs',h:'/influenceurs'},
-    {n:'Tech',h:'/tech'},
-    {n:'Radio',h:'/radio'}
+    {n:'Cadeaux',h:'/ambassadeur',i:'🎁',gift:true},
+    {n:'Adhésion',h:'/adhesion',i:'✦'},
+    {n:'Ton idée',h:'/idee',i:'💡'},
+    {n:'NAVLEX',h:'/navlex',i:'⚖'},
+    {n:'Influenceurs',h:'/influenceurs',i:'★'},
+    {n:'Tech',h:'/tech',i:'◈'},
+    {n:'Radio',h:'/radio',i:'♪'}
   ];
   var path=(location.pathname||'/').replace(/index\.html$/,'').replace(/\.html$/,'').replace(/\/+$/,'')||'/';
 
@@ -572,12 +574,19 @@ window.NAVLYS_setVideo = function(v, rate, srcs){
   @keyframes nvsh{0%{background-position:0 0}100%{background-position:220% 0}}
   .nv-tabs{flex:1 1 auto;display:flex;align-items:center;gap:4px;overflow-x:auto;scrollbar-width:none;mask-image:linear-gradient(90deg,transparent,#000 18px,#000 calc(100% - 18px),transparent)}
   .nv-tabs::-webkit-scrollbar{display:none}
-  .nv-tab{flex:0 0 auto;text-decoration:none;color:#c4d2e4;font-family:'Lora',serif;font-size:.9rem;padding:7px 13px;border-radius:11px 11px 0 0;
+  .nv-tab{flex:0 0 auto;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;
+    text-decoration:none;color:#9fb3c8;padding:4px 10px 3px;border-radius:11px 11px 0 0;
     border:1px solid transparent;transition:.25s;white-space:nowrap}
+  .nv-tab .i{font-size:15px;line-height:1}
+  .nv-tab .l{font-family:'Cinzel','Cormorant Garamond',serif;font-size:8px;letter-spacing:.1em;text-transform:uppercase;line-height:1}
   .nv-tab:hover{color:#fff;background:rgba(125,211,252,.10)}
   .nv-tab.active{color:#fff;background:linear-gradient(180deg,rgba(125,211,252,.20),rgba(125,211,252,.04));
     border-color:rgba(125,211,252,.35);box-shadow:0 6px 18px rgba(125,211,252,.12)}
-  .nv-tab.active:before{content:"●";color:${ICE};font-size:.55rem;vertical-align:middle;margin-right:6px;animation:nvb 2s ease-in-out infinite}
+  .nv-tab.active .i{filter:drop-shadow(0 0 6px rgba(125,211,252,.5))}
+  .nv-tab.gift{color:${OR}}
+  .nv-tab.gift .l{color:${OR}}
+  .nv-tab.gift .i{filter:drop-shadow(0 0 7px rgba(233,211,160,.6))}
+  .nv-tab.gift{background:linear-gradient(180deg,rgba(233,211,160,.16),transparent);border-color:rgba(233,211,160,.35)}
   .nv-actions{flex:0 0 auto;display:flex;align-items:center;gap:6px}
   .nv-btn{cursor:pointer;border:1px solid rgba(125,211,252,.28);background:rgba(125,211,252,.07);color:#eaf2ff;
     font-family:'Lora',serif;font-size:.86rem;border-radius:11px;padding:7px 11px;display:flex;align-items:center;gap:6px;transition:.2s}
@@ -608,7 +617,8 @@ window.NAVLYS_setVideo = function(v, rate, srcs){
   var bar=document.createElement('div'); bar.id='nv-top';
   var tabs=pages.map(function(p){
     var act=(p.h==='/'? path==='/' : path===p.h || path.indexOf(p.h)===0);
-    return '<a class="nv-tab'+(act?' active':'')+'" href="'+p.h+'">'+p.n+'</a>';
+    return '<a class="nv-tab'+(act?' active':'')+(p.gift?' gift':'')+'" href="'+p.h+'">'+
+      '<span class="i">'+(p.i||'•')+'</span><span class="l">'+p.n+'</span></a>';
   }).join('');
   bar.innerHTML=
     '<a class="nv-brand" href="/" aria-label="NAVLYS — accueil"><img src="/media/icon-96.svg" alt="NAVLYS" style="height:34px;width:34px;display:block"></a>'+
