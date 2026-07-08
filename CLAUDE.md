@@ -202,6 +202,23 @@ install.sh              # installeur Hetzner en une ligne
   uniquement, **un compte légitime par prestataire**, **jamais** de farming / multi-comptes /
   contournement de limites. Autonome, oui ; abusif, jamais.
 
+## 📺 Veille YouTube influenceurs (STANDING — gravé le 2026-07-07)
+
+> Ordre de Bruno : **« Prends les liens donnés par les influenceurs que je suis. »**
+
+- **Brique `youtube`** (Edge Function, sans clé, 100 % gratuit) :
+  `POST {url}` = analyser une vidéo/Short + suivre sa chaîne · `GET ?mode=scan`
+  = scanner toutes les chaînes suivies · `POST {action:'liste'}` = chaînes + liens.
+- Tables : `core_youtube_chaines` / `core_youtube_videos` / `core_youtube_liens`
+  (liens avec source + contexte). Cron `navlys_youtube_veille` (15 */6 * * *).
+- **Leçon gravée (règle n°45)** : l'API player YouTube (`youtubei`) est verrouillée
+  anti-robot pour TOUTES les IP datacenter → on lit **oEmbed** (titre/auteur),
+  le **RSS de chaîne** (15 dernières vidéos AVEC description complète) et la
+  **page HTML** (`attributedDescription`). Les liens « en commentaire épinglé »
+  sont illisibles côté serveur → WebSearch pour retrouver la ressource citée.
+- Réflexe : Bruno envoie un lien YouTube → `POST {url}` sur la brique → la chaîne
+  devient suivie, la veille tourne seule ensuite. SQL : `sql/youtube_veille_influenceurs.sql`.
+
 ## 🗣️ Doctrine de communication (STANDING — gravée le 2026-07-02)
 
 > Règle de Bruno : **« On est à l'ère moderne, l'ère d'internet, du mobile. On
