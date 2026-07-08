@@ -42,7 +42,7 @@ advises starting with A for speed: A first, then B.
 
 ## 3. Concrete steps (in order)
 
-1. **Choose the accountant (רואה חשבון)** — he drives the whole process; a firm
+1. **Accountant chosen: YARON (רואה חשבון)** — he drives the whole process; a firm
    used to digital/high-tech clients in Ashkelon or online is enough.
 2. **Registration with the Registrar of Companies (רשם החברות)**, online on
    Gov.il: Articles of Association (תקנון), directors' declaration, ~830 ₪ fee —
