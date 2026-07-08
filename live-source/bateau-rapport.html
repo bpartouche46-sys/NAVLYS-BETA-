@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Ton rapport Test Bateaux — NAVLYS</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Cormorant+Garamond:ital,wght@0,400;1,400&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="/media/navlys_favicon.svg">
+<style>
+:root{--noir:#03040a;--ice:#7DD3FC;--ice-clair:#a8e3ff;--or:#C9A961;--or-pale:#f3e4c4;--perle:#e7eef2;--mut:#9fb3c8;--line:rgba(125,211,252,.18);--panel:rgba(6,8,16,.7);--ok:#34d399;--bad:#fca5a5}
+*{margin:0;padding:0;box-sizing:border-box}
+html{background:var(--noir)}
+body{background:var(--noir);color:var(--perle);font-family:'Atkinson Hyperlegible',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+.wrap{max-width:760px;margin:0 auto;padding:34px 16px 90px}
+.k{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:var(--ice);text-align:center}
+h1{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:400;font-size:clamp(30px,7.5vw,44px);text-align:center;color:#eafaff;margin:8px 0 6px}
+.sub{text-align:center;color:var(--mut);font-size:.98rem;margin:0 auto 20px;line-height:1.7;max-width:34em}
+.honnete{background:linear-gradient(135deg,rgba(201,169,97,.12),rgba(125,211,252,.08));border:1px solid rgba(201,169,97,.35);border-radius:14px;padding:12px 16px;text-align:center;color:var(--or-pale);font-size:.9rem;line-height:1.7;margin-bottom:22px}
+#etat{text-align:center;color:var(--mut);font-size:.95rem;line-height:1.7;margin:26px 0}
+.attente{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:24px;text-align:center}
+.attente b{color:var(--ice-clair);font-size:1.05rem}
+.attente p{color:var(--mut);font-size:.93rem;line-height:1.75;margin-top:10px}
+.galerie{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin:18px 0}
+.galerie a{display:block;border-radius:12px;overflow:hidden;border:1px solid var(--line)}
+.galerie img{width:100%;height:150px;object-fit:cover;display:block}
+#rapport{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:20px;line-height:1.8;font-size:1rem}
+#rapport h2{font-family:'Cinzel',serif;font-weight:600;font-size:14px;letter-spacing:.14em;text-transform:uppercase;color:var(--or);margin:22px 0 10px}
+#rapport h2:first-child{margin-top:0}
+#rapport p{margin-bottom:12px;color:var(--perle)}
+#rapport ul{margin:0 0 12px 20px}
+#rapport li{margin-bottom:7px}
+#rapport b{color:var(--ice-clair)}
+.badge{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:5px 12px;font-size:.8rem;color:var(--mut);margin:4px 3px}
+.badge.or{border-color:rgba(201,169,97,.5);color:var(--or-pale)}
+.badges{text-align:center;margin-bottom:16px}
+.garder{display:block;text-align:center;background:linear-gradient(135deg,rgba(125,211,252,.12),rgba(201,169,97,.10));border:1px solid var(--line);border-radius:16px;padding:16px;margin-top:24px;text-decoration:none;color:var(--perle)}
+.garder b{color:var(--or-pale)}
+.garder span{display:block;color:var(--mut);font-size:.88rem;margin-top:6px;line-height:1.6}
+.disc{text-align:center;color:var(--mut);font-size:.85rem;margin-top:32px;line-height:1.75;max-width:40em;margin-left:auto;margin-right:auto}
+.disc a{color:var(--ice)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="k">🚤 Test Bateaux · l'expertise NAVLYS</div>
+  <h1 id="titre">Ton rapport</h1>
+  <p class="sub" id="soustitre"></p>
+  <div class="honnete">⚓ Nous ne sommes pas experts maritimes et ce rapport ne remplace jamais une
+  expertise officielle — c'est un avis éducatif NAVLYS pour t'aider à y voir clair.</div>
+  <div class="badges" id="badges"></div>
+  <div id="etat">⏳ Lecture de ton dossier…</div>
+  <div class="galerie" id="galerie"></div>
+  <div id="rapport" style="display:none"></div>
+  <a class="garder" href="/adhesion" id="garder" style="display:none"><b>💛 Garde ton rapport pour toujours</b><span>Ce lien est temporaire (30 jours). En devenant membre NAVLYS, il devient permanent — et tu ouvres toutes les applications du club.</span></a>
+  <p class="disc">Un doute, une question sur ton rapport ? Le bouton 💡 du site nous les transmet directement.
+  <a href="/bateau-test">Faire tester un autre bateau</a>.</p>
+</div>
+
+<script>
+(function(){
+  var API='https://hhrlgyvtqluxpywjiwkd.supabase.co/functions/v1/bateau';
+  var $=function(id){ return document.getElementById(id); };
+  function E(s){ return String(s==null?'':s).replace(/[&<>]/g,function(c){ return c==='&'?'&amp;':c==='<'?'&lt;':'&gt;'; }); }
+  // rendu doux du rapport : ## titres, - listes, **gras**, paragraphes
+  function rendu(t){
+    var lignes=String(t||'').split(/\r?\n/), html='', enListe=false;
+    function fermeListe(){ if(enListe){ html+='</ul>'; enListe=false; } }
+    for(var i=0;i<lignes.length;i++){
+      var l=lignes[i].trim();
+      if(!l){ fermeListe(); continue; }
+      var g=E(l).replace(/\*\*([^*]+)\*\*/g,'<b>$1</b>');
+      if(/^#{1,3}\s+/.test(l)){ fermeListe(); html+='<h2>'+g.replace(/^#{1,3}\s+/,'')+'</h2>'; }
+      else if(/^[-•]\s+/.test(l)){ if(!enListe){ html+='<ul>'; enListe=true; } html+='<li>'+g.replace(/^[-•]\s+/,'')+'</li>'; }
+      else { fermeListe(); html+='<p>'+g+'</p>'; }
+    }
+    fermeListe();
+    return html;
+  }
+  var d=new URLSearchParams(location.search).get('d')||'';
+  if(!d){ $('etat').innerHTML='Ce lien est incomplet. Vérifie l’adresse reçue, ou <a href="/bateau-test" style="color:var(--ice)">dépose un dossier</a>.'; return; }
+  var minuteur=null;
+  function charge(){
+    fetch(API+'?d='+encodeURIComponent(d)).then(function(r){ return r.json(); }).then(function(x){
+      if(!x || !x.ok){
+        $('etat').innerHTML=E((x&&x.error)||'Dossier introuvable.')+(x&&x.expire?' <a href="/adhesion" style="color:var(--or-pale)">Devenir membre</a>.':'');
+        if(minuteur) clearInterval(minuteur);
+        return;
+      }
+      $('titre').textContent=x.prenom?('Le rapport de '+x.prenom):'Ton rapport';
+      $('soustitre').textContent=[x.bateau,x.annee,x.lieu].filter(Boolean).join(' · ');
+      var b='';
+      if(x.acces==='permanent') b+='<span class="badge or">💛 Membre · lien permanent</span>';
+      else if(x.expire_le) b+='<span class="badge">Lien temporaire · expire le '+new Date(x.expire_le).toLocaleDateString('fr-FR')+'</span>';
+      $('badges').innerHTML=b;
+      var g='';
+      (x.photos||[]).forEach(function(u,i){ g+='<a href="'+E(u)+'" target="_blank" rel="noopener"><img src="'+E(u)+'" alt="photo '+(i+1)+' du bateau" loading="lazy"></a>'; });
+      $('galerie').innerHTML=g;
+      if(x.statut==='publie' && x.rapport){
+        $('etat').style.display='none';
+        var r=$('rapport'); r.innerHTML=rendu(x.rapport); r.style.display='block';
+        $('garder').style.display=(x.acces==='permanent')?'none':'block';
+        if(minuteur) clearInterval(minuteur);
+      } else {
+        $('etat').innerHTML='<div class="attente"><b>✔ Ton dossier est chez nous'+(x.prenom?', '+E(x.prenom):'')+'</b><p>L’analyse est en route. Cette page se met à jour toute seule — reviens quand tu veux, ton lien reste le même.</p></div>';
+      }
+    }).catch(function(){ $('etat').textContent='Connexion difficile, réessaie dans un instant.'; });
+  }
+  charge();
+  minuteur=setInterval(charge,30000);
+})();
+</script>
+</body>
+</html>

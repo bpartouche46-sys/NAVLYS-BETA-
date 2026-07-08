@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Test Bateaux — l'expertise NAVLYS</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Cormorant+Garamond:ital,wght@0,400;1,400&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="/media/navlys_favicon.svg">
+<style>
+:root{--noir:#03040a;--ice:#7DD3FC;--ice-clair:#a8e3ff;--or:#C9A961;--or-pale:#f3e4c4;--perle:#e7eef2;--mut:#9fb3c8;--line:rgba(125,211,252,.18);--panel:rgba(6,8,16,.7);--ok:#34d399;--bad:#fca5a5}
+*{margin:0;padding:0;box-sizing:border-box}
+html{background:var(--noir);scroll-behavior:smooth}
+body{background:var(--noir);color:var(--perle);font-family:'Atkinson Hyperlegible',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+.wrap{max-width:720px;margin:0 auto;padding:34px 16px 90px}
+.k{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:var(--ice);text-align:center}
+h1{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:400;font-size:clamp(32px,8vw,48px);text-align:center;color:#eafaff;margin:8px 0 4px}
+.sub{text-align:center;color:var(--mut);font-size:1rem;max-width:34em;margin:0 auto 18px;line-height:1.75}
+.honnete{background:linear-gradient(135deg,rgba(201,169,97,.12),rgba(125,211,252,.08));border:1px solid rgba(201,169,97,.35);border-radius:14px;padding:14px 16px;text-align:center;color:var(--or-pale);font-size:.95rem;line-height:1.7;margin-bottom:26px}
+h2{font-family:'Cinzel',serif;font-weight:600;font-size:14px;letter-spacing:.16em;text-transform:uppercase;color:var(--or);display:flex;align-items:center;gap:12px;margin:34px 0 14px}
+h2::after{content:"";flex:1;height:1px;background:var(--line)}
+.etapes{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin-bottom:6px}
+.et{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px}
+.et .n{font-family:'Cinzel',serif;color:var(--or);font-size:13px;letter-spacing:.12em;margin-bottom:6px}
+.et p{color:var(--mut);font-size:.92rem;line-height:1.65}
+.et p b{color:var(--perle)}
+form{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px}
+.deux{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:520px){.deux{grid-template-columns:1fr}}
+label{display:block;font-size:.85rem;color:var(--mut);margin:12px 0 6px}
+input[type=text],input[type=email],input[type=tel],textarea{width:100%;background:rgba(3,4,10,.8);border:1px solid var(--line);border-radius:10px;color:var(--perle);padding:12px;font:inherit;font-size:1rem}
+textarea{min-height:150px;line-height:1.6}
+input:focus,textarea:focus{outline:none;border-color:var(--ice)}
+.photos{border:1px dashed rgba(125,211,252,.4);border-radius:12px;padding:14px;text-align:center;color:var(--mut);cursor:pointer;font-size:.95rem;line-height:1.6}
+.photos b{color:var(--ice-clair)}
+#apercu{display:grid;grid-template-columns:repeat(auto-fill,minmax(84px,1fr));gap:8px;margin-top:10px}
+#apercu img{width:100%;height:84px;object-fit:cover;border-radius:10px;border:1px solid var(--line)}
+button{font:inherit;cursor:pointer}
+.envoyer{width:100%;margin-top:18px;background:linear-gradient(135deg,#C9A961,#e3cd96);border:none;border-radius:12px;color:#141005;font-weight:700;font-size:1.08rem;padding:15px}
+.envoyer:disabled{opacity:.55;cursor:wait}
+#msg{min-height:22px;margin-top:10px;text-align:center;font-size:.95rem;color:var(--bad);line-height:1.6}
+#fini{display:none;background:var(--panel);border:1px solid rgba(52,211,153,.4);border-radius:16px;padding:20px;text-align:center}
+#fini b{color:var(--ok);font-size:1.05rem}
+#lienbox{display:block;background:rgba(3,4,10,.8);border:1px solid var(--line);border-radius:10px;padding:12px;margin:14px 0 8px;color:var(--ice-clair);word-break:break-all;text-decoration:none;font-size:.95rem}
+.copier{background:none;border:1px solid var(--line);color:var(--mut);border-radius:10px;padding:8px 14px;font-size:.88rem}
+.copier:hover{color:var(--ice);border-color:var(--ice)}
+#fini p{color:var(--mut);font-size:.92rem;line-height:1.7;margin-top:10px}
+#fini p a{color:var(--or-pale)}
+.disc{text-align:center;color:var(--mut);font-size:.85rem;margin-top:34px;line-height:1.75;max-width:40em;margin-left:auto;margin-right:auto}
+.hp{position:absolute;left:-5000px;opacity:0}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="k">🚤 Test Bateaux · l'expertise NAVLYS</div>
+  <h1>Fais tester ton bateau</h1>
+  <p class="sub">Envoie-nous ton dossier complet et tes photos.
+  On l'étudie, et tu reçois <b>ton rapport sur une page dédiée, en ligne</b> — comme chez les pros.</p>
+
+  <div class="honnete">⚓ <b>Parole d'honneur :</b> nous ne sommes pas experts maritimes et nous ne
+  remplaçons jamais un expert. Nous avons une <b>expertise</b> — un regard structuré, éducatif,
+  qui t'aide à voir clair avant de décider.</div>
+
+  <h2>Comment ça marche</h2>
+  <div class="etapes">
+    <div class="et"><div class="n">1 · TU ENVOIES</div><p>Le dossier complet de ton bateau + jusqu'à <b>6 photos</b>. Deux minutes, tout se passe ici.</p></div>
+    <div class="et"><div class="n">2 · ON ÉTUDIE</div><p>NAVLYS analyse : points forts, points de vigilance, questions à poser, check-list de visite.</p></div>
+    <div class="et"><div class="n">3 · TU REÇOIS TON LIEN</div><p>Une <b>page dédiée en ligne</b> avec ton rapport. Lien valable 30 jours — <b>permanent pour les membres</b>.</p></div>
+  </div>
+
+  <h2>Ton dossier</h2>
+  <form id="f">
+    <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off">
+    <div class="deux">
+      <div><label for="prenom">Ton prénom</label><input id="prenom" type="text" autocomplete="given-name" placeholder="Gérard"></div>
+      <div><label for="email">Ton e-mail *</label><input id="email" type="email" autocomplete="email" placeholder="toi@exemple.com" required></div>
+    </div>
+    <div class="deux">
+      <div><label for="bateau">Le bateau (marque · modèle)</label><input id="bateau" type="text" placeholder="Hobie Getaway, Bénéteau First 210…"></div>
+      <div><label for="annee">Année (si tu la connais)</label><input id="annee" type="text" inputmode="numeric" placeholder="2008"></div>
+    </div>
+    <div class="deux">
+      <div><label for="lieu">Où il se trouve</label><input id="lieu" type="text" placeholder="Césarée, Herzliya…"></div>
+      <div><label for="telephone">Téléphone (optionnel)</label><input id="telephone" type="tel" autocomplete="tel" placeholder="+972…"></div>
+    </div>
+    <label for="description">Le dossier complet * — raconte tout : état, historique, ce que dit le vendeur, ce que tu veux savoir</label>
+    <textarea id="description" placeholder="Ex : catamaran de 2008, resté 2 ans sous bâche, le vendeur dit que les voiles sont neuves, je veux savoir quoi vérifier avant d'acheter…"></textarea>
+    <label>Tes photos (jusqu'à 6 — coque, pont, gréement, moteur, détails qui t'inquiètent)</label>
+    <div class="photos" id="zone">📷 <b>Touche ici pour ajouter tes photos</b><br>elles sont réduites automatiquement, rien à préparer</div>
+    <input id="fichiers" type="file" accept="image/*" multiple style="display:none">
+    <div id="apercu"></div>
+    <button class="envoyer" id="go" type="submit">Envoyer mon dossier 🌊</button>
+    <p id="msg"></p>
+  </form>
+
+  <div id="fini">
+    <b>✔ Ton dossier est bien arrivé</b>
+    <a id="lienbox" href="#" target="_blank" rel="noopener"></a>
+    <button class="copier" id="copier" type="button">📋 Copier mon lien</button>
+    <p>Garde ce lien précieusement : ton rapport y sera publié. Il reste en ligne <b>30 jours</b> —
+    les <a href="/adhesion">membres NAVLYS</a> le gardent <b>en permanence</b>, avec toutes les autres applications du club.</p>
+  </div>
+
+  <p class="disc">NAVLYS · information générale et éducative, jamais de conseil financier personnalisé.
+  Nous ne sommes pas experts maritimes et ce service ne remplace jamais une expertise officielle.
+  Tes photos et ton dossier ne servent qu'à préparer ton rapport.</p>
+</div>
+
+<script>
+(function(){
+  var API='https://hhrlgyvtqluxpywjiwkd.supabase.co/functions/v1/bateau';
+  var $=function(id){ return document.getElementById(id); };
+  var photos=[]; // dataURLs déjà réduits
+
+  $('zone').addEventListener('click', function(){ $('fichiers').click(); });
+  $('fichiers').addEventListener('change', function(){
+    var fs=Array.prototype.slice.call(this.files||[]);
+    fs.forEach(function(f){
+      if(photos.length>=6 || !/^image\//.test(f.type)) return;
+      var img=new Image();
+      img.onload=function(){
+        var max=1280, r=Math.min(1, max/Math.max(img.width, img.height));
+        var c=document.createElement('canvas');
+        c.width=Math.round(img.width*r); c.height=Math.round(img.height*r);
+        c.getContext('2d').drawImage(img,0,0,c.width,c.height);
+        var d=c.toDataURL('image/jpeg',0.8);
+        URL.revokeObjectURL(img.src);
+        if(photos.length<6){ photos.push(d); apercu(); }
+      };
+      img.src=URL.createObjectURL(f);
+    });
+    this.value='';
+  });
+  function apercu(){
+    var h='';
+    for(var i=0;i<photos.length;i++) h+='<img src="'+photos[i]+'" alt="photo '+(i+1)+'">';
+    $('apercu').innerHTML=h;
+    $('zone').innerHTML='📷 <b>'+photos.length+'/6 photo(s) prête(s)</b><br>touche pour en ajouter';
+  }
+
+  $('f').addEventListener('submit', function(ev){
+    ev.preventDefault();
+    var msg=$('msg'); msg.textContent='';
+    var email=$('email').value.trim();
+    if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){ msg.textContent='Écris un e-mail valide pour recevoir ton lien.'; return; }
+    if($('description').value.trim().length<30){ msg.textContent='Raconte-nous ton bateau en quelques phrases — plus tu en dis, meilleur sera le rapport.'; return; }
+    var go=$('go'); go.disabled=true; go.textContent='Envoi en cours…';
+    fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
+      website:document.querySelector('.hp').value,
+      prenom:$('prenom').value, email:email, telephone:$('telephone').value,
+      bateau:$('bateau').value, annee:$('annee').value, lieu:$('lieu').value,
+      description:$('description').value, photos:photos
+    })}).then(function(r){ return r.json(); }).then(function(d){
+      if(!d || !d.ok){ msg.textContent=(d&&d.error)||'Réessaie dans un instant.'; go.disabled=false; go.textContent='Envoyer mon dossier 🌊'; return; }
+      $('f').style.display='none';
+      var lb=$('lienbox'); lb.textContent=d.lien; lb.href=d.lien;
+      $('fini').style.display='block';
+      window.scrollTo({top:$('fini').offsetTop-40,behavior:'smooth'});
+    }).catch(function(){ msg.textContent='Connexion difficile, réessaie.'; go.disabled=false; go.textContent='Envoyer mon dossier 🌊'; });
+  });
+
+  $('copier').addEventListener('click', function(){
+    var t=$('lienbox').textContent, self=this;
+    (navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(function(){ self.textContent='✔ Copié !'; }).catch(function(){ self.textContent=t; });
+  });
+})();
+</script>
+</body>
+</html>
