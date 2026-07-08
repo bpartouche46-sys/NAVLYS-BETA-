@@ -563,13 +563,12 @@ window.NAVLYS_setVideo = function(v, rate, srcs){
    ==================================================================== */
 (function(){
   var ICE='#7DD3FC', OR='#e9d3a0', NOIR='#05060a';
+  // Menu HAUT = complémentaire du menu BAS (Accueil/Finance/Next Gen/Voix/Cockpit).
+  // On n'y répète JAMAIS une destination déjà présente en bas (le logo = Accueil).
   var pages=[
-    {n:'Accueil',h:'/'},
     {n:'Adhésion',h:'/adhesion'},
     {n:'Ambassadeur',h:'/ambassadeur'},
     {n:'Ton idée',h:'/idee'},
-    {n:'Finance',h:'/finance'},
-    {n:'Next Gen',h:'/next-gen'},
     {n:'NAVLEX',h:'/navlex'},
     {n:'Influenceurs',h:'/influenceurs'},
     {n:'Tech',h:'/tech'},
