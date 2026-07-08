@@ -197,10 +197,10 @@ window.NAVLYS_setVideo = function(v, rate, srcs){
     setTimeout(kill, 3000);
     schedule();
   }
-  /* Un message toutes les ~minutes, visible 3 s (demande Bruno 2026-07-08) — et
+  /* Un message toutes les ~2 minutes, visible 3 s (demande Bruno 2026-07-08) — et
      PAS de flash au démarrage : on laisse le prospect découvrir seul d'abord. */
-  function schedule(){ setTimeout(bubble, 60000+Math.random()*12000); }
-  setTimeout(bubble, 60000);
+  function schedule(){ setTimeout(bubble, 120000+Math.random()*20000); }
+  setTimeout(bubble, 90000);
 
   /* ---------- SAV vocal ---------- */
   var btn=document.createElement('button'); btn.id='nv-sav-btn'; btn.textContent='💬 Aide';
@@ -903,7 +903,16 @@ window.NAVLYS_setVideo = function(v, rate, srcs){
   addMeta('theme-color','#03040a');
   addMeta('apple-mobile-web-app-capable','yes');
   addMeta('apple-mobile-web-app-title','NAVLYS');
-  if('serviceWorker' in navigator){ window.addEventListener('load',function(){ navigator.serviceWorker.register('/sw.js').catch(function(){}); }); }
+  if('serviceWorker' in navigator){
+    window.addEventListener('load',function(){ navigator.serviceWorker.register('/sw.js').catch(function(){}); });
+    /* Rafraîchissement AUTOMATIQUE quand une nouvelle version prend la main (fini le
+       cache figé — règle n°5) : dès que le nouveau service worker contrôle la page,
+       on recharge UNE seule fois. Plus jamais besoin de vider le cache à la main. */
+    var nvRefreshing=false;
+    navigator.serviceWorker.addEventListener('controllerchange',function(){
+      if(nvRefreshing) return; nvRefreshing=true; try{ window.location.reload(); }catch(e){}
+    });
+  }
 
   // Barre basse app (feutrée) — sauf si la page en a déjà une (ex. /cinema)
   if(!has('.botbar') && !has('#nv-botbar')){
