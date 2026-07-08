@@ -338,6 +338,27 @@ peux pas obtenir.
 | Bianca | `@navbien` | NAVBIEN | prepare |
 | David | `@navdem` | NAVDEM | prepare |
 
+## 🧠 Agents autonomes : bible + mémoire propres (STANDING — gravé le 2026-07-08)
+
+> Ordre de Bruno : **« Chaque agent doit avoir sa propre bible et sa mémoire de son
+> travail, ses recherches, son apprentissage, ses tests sur le web. Tous autonomes à
+> terme, et non complaisants. »**
+
+- **`agent_bible`** (une par agent actif) : `mission`, `doctrine` (non-complaisance +
+  garde-fous), `focus_veille` (son terrain de recherche web), `charte_ton`. Semée pour
+  les 15 agents. Lecture : `agent_bible_lire(code)`.
+- **`agent_memoire`** (mémoire propre) : types `travail | recherche | apprentissage |
+  test_web | autocritique | doctrine`. Écriture : **`agent_note(code,type,sujet,contenu,
+  source)`** ; lecture : `agent_memoire_lire(code, limit)`.
+- **Veille web autonome** : edge **`agent_veille`** (`POST {code}` ou `?mode=rotative&n=3`)
+  → vraie recherche DuckDuckGo sur `focus_veille` → **2-3 apprentissages concrets + 1
+  autocritique** (« ce qui manque », sans complaisance) gravés dans sa mémoire.
+- **Cron `navlys_agent_veille`** (`40 7 * * *`) : 3 agents/jour, rotation par
+  moins-récemment-veillé → les 15 agents tournent tous les 5 jours. Autonome 24/7.
+- Trace repo : **`sql/agents_bible_memoire.sql`**. Doctrine en base : `navlys_memoire`,
+  `core_reglement` (règle n°54). Garde-fous NAVLYS inchangés (feu vert Bruno pour
+  argent/prod/secret).
+
 ## 🤖 MasterNav — le chef d'orchestre (point d'entrée unique)
 
 But : Bruno parle à **un seul endroit** (bot Telegram), plus jamais Claude Code.
