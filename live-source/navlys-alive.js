@@ -477,16 +477,9 @@ window.NAVLYS_setVideo = function(v, rate, srcs){
        le mot et que la personne l'écrit, on l'enregistre (capté dans send). */
     window.NAVLYS_WAKE={ attend:function(){ return attendMot; }, defini:function(m){ var mm=nvNorm(m).split(' ').slice(0,3).join(' '); setMot(mm); attendMot=false; eveille=false; poser('n', MOT_OK[L()].replace('%s', mm)); } };
 
-    /* ---- Sur les PAGES APPLICATIONS : l'Aide s'ouvre par défaut, micro en avant ---- */
-    var APP_PAGES=['/finance','/next-gen','/next-gen-atelier','/next-gen-beta','/ecris-ta-vie','/navlex','/mer','/assistance','/idee','/profil','/cockpit','/club','/radio','/cinema','/io','/copilote','/ambassadeur'];
-    var pth=location.pathname.replace(/\.html$/,'').replace(/\/$/,'')||'/';
-    if(APP_PAGES.indexOf(pth)>-1){
-      setTimeout(function(){
-        if(panel.style.display!=='flex'){ panel.style.display='flex'; }
-        micBtn.classList.add('on'); setTimeout(function(){ if(!running) micBtn.classList.remove('on'); },1600);
-        if(!estOn()){ var l=L(); poser('n', {fr:'Astuce : touche le micro 🎙️ pour me parler — ça s\'écrit tout seul. Re-touche pour couper.',en:'Tip: tap the mic 🎙️ to talk — it types itself. Tap again to stop.',ru:'Совет: коснись микрофона 🎙️, чтобы говорить — всё печатается само. Снова — чтобы выключить.',he:'טיפ: גע במיקרופון 🎙️ כדי לדבר — זה נכתב לבד. שוב כדי לעצור.',ar:'نصيحة: المس الميكروفون 🎙️ لتتكلّم — يُكتب تلقائيًا. المس مجددًا للإيقاف.'}[l]); }
-      }, 900);
-    }
+    /* ---- PLUS d'ouverture automatique de l'Aide (demande Bruno 2026-07-08) :
+       on ne montre plus l'encadré tout seul. Seule la LIGNE KARAOKÉ suit la voix.
+       L'Aide reste disponible à la demande via le bouton « Aide » (bas-droite). ---- */
   })();
 
   /* ---------- RETOUR : bouton bas-gauche, toutes les applications ----------
