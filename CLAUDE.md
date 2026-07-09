@@ -648,6 +648,33 @@ But : Bruno parle à **un seul endroit** (bot Telegram), plus jamais Claude Code
   clés i18n `/ambassadeur` + `/booster`, vidéos/logo/mobile, zéro-erreur
   navlys.com. Avance sans me demander. »
 
+## 🌙 Nuit du 2026-07-08→09 — livré (à connaître pour la reprise)
+
+- **Agents autonomes** : chaque agent a SA bible (`agent_bible`) + SA mémoire
+  (`agent_memoire`) ; edge `agent_veille` (recherche web réelle → apprentissages +
+  autocritique) ; cron `navlys_agent_veille` (3/jour) ; edge `conseil` (chefs
+  contradictoires → solution irréfutable). Trace : `sql/agents_bible_memoire.sql`.
+- **Nouvel expert Communauté : Sofia (`NAVCOMU`, @navcomu)** — gère la communauté
+  NAVLYS à 100 % (accueil par prénom, engagement, ambassadeurs, rétention),
+  autonome, non complaisante.
+- **Voix v7 (edge `voix`, 3 profils)** : `site`=Enrick (défaut TOUS les sites) ·
+  `femme`=Sunshine · `bm`=clone Bruno + 10-15 % de chantant (aigu/grave) quand BM
+  raconte/adage/prospection influenceur. Appel `POST {text, profil}`. Comparateur :
+  page **`/choix-voix`**. Réglable par secrets `NAVLYS_VOICE_*`.
+- **Pages live ajoutées** : `/ambassadeur`, `/booster`, `/choix-voix`. Menu haut en
+  **onglets icône+nom** mené par « 🎁 Cadeaux » (affiliation). Micro simple on/off.
+  Aide **sans ouverture auto** (ligne karaoké seule). Bande cinéma **sans pointillés**.
+  Message toutes les 2 min (3 s). **Auto-refresh du site** à chaque version (fin du
+  cache figé — règle n°5). `.mcp.json` = **Context7** (docs API à jour). Warning
+  Supabase `vector` réglé (schéma `extensions`).
+- **À FAIRE (prioritaire) — KARAOKÉ ACCESSIBILITÉ (règle n°105)** : TOUT en karaoké
+  pour sourds/malentendants — une bulle révèle le texte **mot à mot** au fil de la
+  voix, coloration synchro **à la milliseconde**, et synchro avec la **bouche** si
+  vidéo (base existante : `nvKarAudio`/`nvKarUtter` dans `navlys-alive.js`).
+- **À FAIRE — funnel d'inscription** : email-gate pour ACCÉDER au site + inscription
+  complète (+ autorisations mobile/PC) pour UTILISER une app + inscription **1 clic
+  FB/Google/Insta** (providers OAuth à activer par Bruno dans Supabase).
+
 ## 💡 Conseil d'usage (sessions)
 
 Repartir d'un **nouveau chat par tâche / par jour** plutôt qu'un fil géant :
