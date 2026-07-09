@@ -419,6 +419,17 @@ install.sh              # installeur Hetzner en une ligne
    Jamais laisser la valeur par défaut de l'outil de déploiement : un oubli bascule
    `verify_jwt=true` et casse tous les crons en silence (401). Toujours vérifier
    après coup avec un appel réel (pg_net) que le statut est 200.
+10. **Toute fonction SQL `SECURITY DEFINER` qui écrit/publie → REVOKE EXECUTE FROM
+    public/anon/authenticated dès sa création** (gravé 2026-07-09, règle n°114,
+    trouvé par audit `get_advisors(security)`). `navlys_bateau_publier` était
+    appelable par n'importe quel visiteur anonyme via `/rest/v1/rpc` — contournement
+    possible de la validation Bruno (règle d'or n°2). Corrigé : seuls `service_role`/
+    `postgres` gardent `EXECUTE`. Réflexe : lancer `get_advisors(security)` +
+    `get_advisors(performance)` après chaque nouvelle fonction/migration, pas
+    seulement après un bug signalé. Au passage, `search_path` fixé sur
+    `navlys_bible_lister`/`navlys_recherche_maj`/`navlys_chercher`, RLS
+    `chapitres`/`souvenirs` corrigée (`(select auth.uid())` au lieu de `auth.uid()`
+    par ligne), index posés sur les clés étrangères sans couverture.
 
 **Doctrine de ton (rappel) :** tutoiement + prénom, cotisation (jamais tarif),
 statut simple citoyen, jamais complaisant (« rien n'est fini »).
