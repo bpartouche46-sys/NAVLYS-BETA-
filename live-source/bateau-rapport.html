@@ -34,6 +34,11 @@ h1{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:400;font
 .badge{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:5px 12px;font-size:.8rem;color:var(--mut);margin:4px 3px}
 .badge.or{border-color:rgba(201,169,97,.5);color:var(--or-pale)}
 .badges{text-align:center;margin-bottom:16px}
+.fondu{height:110px;margin-top:-110px;position:relative;background:linear-gradient(to bottom,transparent,var(--noir) 82%);pointer-events:none;border-radius:0 0 16px 16px}
+.verrou{display:block;text-align:center;background:linear-gradient(135deg,rgba(201,169,97,.16),rgba(125,211,252,.10));border:1px solid rgba(201,169,97,.45);border-radius:16px;padding:20px;margin-top:14px;text-decoration:none;color:var(--perle)}
+.verrou b{color:var(--or-pale);font-size:1.08rem}
+.verrou span{display:block;color:var(--mut);font-size:.92rem;margin-top:8px;line-height:1.7}
+.verrou .cta{display:inline-block;margin-top:12px;background:linear-gradient(135deg,#C9A961,#e3cd96);color:#141005;font-weight:700;border-radius:11px;padding:12px 22px}
 .garder{display:block;text-align:center;background:linear-gradient(135deg,rgba(125,211,252,.12),rgba(201,169,97,.10));border:1px solid var(--line);border-radius:16px;padding:16px;margin-top:24px;text-decoration:none;color:var(--perle)}
 .garder b{color:var(--or-pale)}
 .garder span{display:block;color:var(--mut);font-size:.88rem;margin-top:6px;line-height:1.6}
@@ -52,6 +57,8 @@ h1{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:400;font
   <div id="etat">⏳ Lecture de ton dossier…</div>
   <div class="galerie" id="galerie"></div>
   <div id="rapport" style="display:none"></div>
+  <div class="fondu" id="fondu" style="display:none"></div>
+  <a class="verrou" href="/adhesion" id="verrou" style="display:none"><b>🔒 Tu viens de lire le début de TON rapport</b><span id="verrou-txt">La suite est déjà écrite et t'attend en entier. Elle est offerte aux membres NAVLYS — avec toutes les applications du club, pour une simple cotisation.</span><span class="cta">💛 Devenir membre et tout lire</span></a>
   <a class="garder" href="/adhesion" id="garder" style="display:none"><b>💛 Garde ton rapport pour toujours</b><span>Ce lien est temporaire (30 jours). En devenant membre NAVLYS, il devient permanent — et tu ouvres toutes les applications du club.</span></a>
   <p class="disc">Un doute, une question sur ton rapport ? Le bouton 💡 du site nous les transmet directement.
   <a href="/bateau-test">Faire tester un autre bateau</a>.</p>
@@ -90,8 +97,9 @@ h1{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:400;font
       $('titre').textContent=x.prenom?('Le rapport de '+x.prenom):'Ton rapport';
       $('soustitre').textContent=[x.bateau,x.annee,x.lieu].filter(Boolean).join(' · ');
       var b='';
-      if(x.acces==='permanent') b+='<span class="badge or">💛 Membre · lien permanent</span>';
+      if(x.acces==='permanent') b+='<span class="badge or">💛 Membre · rapport complet · lien permanent</span>';
       else if(x.expire_le) b+='<span class="badge">Lien temporaire · expire le '+new Date(x.expire_le).toLocaleDateString('fr-FR')+'</span>';
+      if(x.verrouille) b+='<span class="badge or">🔎 Aperçu découverte</span>';
       $('badges').innerHTML=b;
       var g='';
       (x.photos||[]).forEach(function(u,i){ g+='<a href="'+E(u)+'" target="_blank" rel="noopener"><img src="'+E(u)+'" alt="photo '+(i+1)+' du bateau" loading="lazy"></a>'; });
@@ -99,7 +107,16 @@ h1{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:400;font
       if(x.statut==='publie' && x.rapport){
         $('etat').style.display='none';
         var r=$('rapport'); r.innerHTML=rendu(x.rapport); r.style.display='block';
-        $('garder').style.display=(x.acces==='permanent')?'none':'block';
+        if(x.verrouille){
+          $('fondu').style.display='block';
+          $('verrou').style.display='block';
+          if(x.lignes_total) $('verrou-txt').textContent='Tu as lu le début — le rapport complet fait '+x.lignes_total+' lignes et il est déjà écrit. Il est offert aux membres NAVLYS, avec toutes les applications du club, pour une simple cotisation.';
+          $('garder').style.display='none';
+        } else {
+          $('fondu').style.display='none';
+          $('verrou').style.display='none';
+          $('garder').style.display=(x.acces==='permanent')?'none':'block';
+        }
         if(minuteur) clearInterval(minuteur);
       } else {
         $('etat').innerHTML='<div class="attente"><b>✔ Ton dossier est chez nous'+(x.prenom?', '+E(x.prenom):'')+'</b><p>L’analyse est en route. Cette page se met à jour toute seule — reviens quand tu veux, ton lien reste le même.</p></div>';
