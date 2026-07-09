@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>NAVLYS — Le lancement</title>
+<meta name="description" content="NAVLYS, la seule limite est celle de ton imagination. La première IA qui orchestre les IA depuis ton téléphone — sans bureau, sans ordinateur.">
+<meta property="og:title" content="NAVLYS — La seule limite est celle de ton imagination">
+<meta property="og:description" content="La première IA qui orchestre les IA depuis un simple téléphone. Tu imagines, NAVLYS crée.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://navlys.com/media/navlys-bm-lancement.jpg">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="/media/navlys_favicon.svg">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#03040a">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="NAVLYS">
+<link rel="apple-touch-icon" href="/media/apple-touch-icon-180.png">
+<style>
+:root{
+  --noir:#03040a;--ice:#7DD3FC;--ice-clair:#a8e3ff;--ice-deep:#3a8db5;
+  --or:#C9A961;--or-pale:#f3e4c4;--bronze:#B87333;--perle:#e7eef2;--mut:#9fb3c8;
+  --line:rgba(125,211,252,.16);--blanc:#f7fbff;
+  --topbar:46px;--botbar:64px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;background:var(--noir)}
+body{background:var(--noir);color:var(--perle);font-family:'Atkinson Hyperlegible',system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden;min-height:100vh}
+body::after{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:radial-gradient(60% 45% at 50% 8%,rgba(125,211,252,.10),transparent 60%),radial-gradient(55% 40% at 80% 85%,rgba(201,169,97,.07),transparent 62%);
+  animation:hublot 14s ease-in-out infinite alternate}
+@keyframes hublot{from{opacity:.6}to{opacity:1}}
+
+/* BARRE HAUTE fine */
+.topbar{position:fixed;top:0;left:0;right:0;height:var(--topbar);z-index:50;
+  display:flex;align-items:center;gap:10px;padding:0 16px;
+  background:rgba(3,4,10,.66);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
+.topbar .logo{font-family:'Cinzel',serif;font-size:13px;letter-spacing:.34em;color:var(--or);text-transform:uppercase;text-decoration:none;font-weight:600}
+.topbar .ctx{margin-left:auto;font-family:'Cinzel',serif;font-size:9.5px;letter-spacing:.2em;color:var(--ice-clair);text-transform:uppercase;display:flex;align-items:center;gap:7px}
+.topbar .dot{width:7px;height:7px;border-radius:50%;background:var(--ice);box-shadow:0 0 10px var(--ice);animation:pulse 2.4s ease-in-out infinite alternate}
+@keyframes pulse{from{opacity:.45}to{opacity:1}}
+
+main{position:relative;z-index:2;padding:calc(var(--topbar) + 26px) 18px calc(var(--botbar) + 40px)}
+.wrap{max-width:760px;margin:0 auto}
+.k{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--ice);text-align:center}
+h1{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(30px,8vw,52px);text-align:center;color:#eafaff;line-height:1.08;margin:10px 0 6px}
+h1 em{font-style:italic;
+  background:linear-gradient(100deg,var(--or-pale),var(--or) 45%,#fff7e6 55%,var(--or) 70%,var(--bronze));
+  background-size:220% auto;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+  animation:shine 9s linear infinite}
+@keyframes shine{to{background-position:220% center}}
+.sub{text-align:center;color:var(--mut);font-size:1.05rem;line-height:1.7;max-width:34em;margin:0 auto 26px}
+
+/* CADRE BLANC — présentation du site + la vidéo de lancement */
+.frame{background:var(--blanc);border-radius:26px;padding:20px 20px 24px;
+  box-shadow:0 30px 90px rgba(125,211,252,.14),0 2px 0 rgba(255,255,255,.6) inset;
+  max-width:520px;margin:0 auto}
+.frame .site{display:flex;align-items:center;justify-content:center;gap:9px;margin-bottom:14px}
+.frame .site .url{font-family:'Cinzel',serif;font-size:13px;letter-spacing:.16em;color:#0b2233;text-transform:uppercase;font-weight:600}
+.frame .site .live{font-family:'Cinzel',serif;font-size:9px;letter-spacing:.14em;color:#0e7a3d;background:rgba(16,163,74,.12);border:1px solid rgba(16,163,74,.3);border-radius:20px;padding:3px 9px;text-transform:uppercase;display:inline-flex;align-items:center;gap:5px}
+.frame .site .live::before{content:"";width:6px;height:6px;border-radius:50%;background:#12b954;box-shadow:0 0 8px #12b954}
+/* le téléphone : la vidéo verticale de Bruno */
+.phone{position:relative;border-radius:20px;overflow:hidden;background:#000;aspect-ratio:602/1080;max-width:340px;margin:0 auto;
+  border:1px solid rgba(11,34,51,.12);box-shadow:0 14px 40px rgba(11,34,51,.18)}
+.phone video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.phone .sound{position:absolute;left:50%;bottom:16px;transform:translateX(-50%);z-index:4;
+  display:inline-flex;align-items:center;gap:8px;cursor:pointer;
+  background:rgba(3,4,10,.62);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.28);
+  color:#fff;font-family:'Cinzel',serif;font-size:10px;letter-spacing:.12em;text-transform:uppercase;
+  padding:9px 15px;border-radius:24px;transition:.25s}
+.phone .sound:hover{background:rgba(3,4,10,.8);border-color:var(--ice)}
+.phone .sound.off{opacity:1}
+.frame .cadre-legende{text-align:center;color:#4a6478;font-size:.86rem;margin-top:14px;line-height:1.55}
+.frame .cadre-legende b{color:#0b2233}
+
+/* CTA */
+.cta{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin:30px 0 6px}
+.btn{font-family:'Cinzel',serif;font-size:12px;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;
+  padding:14px 22px;border-radius:30px;transition:.25s;display:inline-flex;align-items:center;gap:8px}
+.btn.or{background:linear-gradient(120deg,var(--or),var(--or-pale));color:#1a1408;font-weight:700;box-shadow:0 10px 30px rgba(201,169,97,.28)}
+.btn.or:hover{transform:translateY(-2px);box-shadow:0 16px 40px rgba(201,169,97,.4)}
+.btn.ice{border:1px solid var(--line);color:var(--ice-clair);background:rgba(5,7,14,.5)}
+.btn.ice:hover{border-color:var(--ice);transform:translateY(-2px)}
+
+/* SECTION — les gens qui utilisent l'app (souhait → bulle → résultat) */
+.sec{padding:56px 0 0}
+.sec h2{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(26px,6vw,40px);text-align:center;line-height:1.12;margin-bottom:8px}
+.sec h2 em{color:var(--or);font-style:italic}
+.sec .lead{text-align:center;font-style:italic;color:var(--mut);max-width:36em;margin:0 auto 26px;font-size:1.02rem;line-height:1.7}
+.gens{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px}
+.gen{background:rgba(5,7,14,.6);border:1px solid var(--line);border-radius:18px;padding:18px 18px 16px;
+  opacity:0;transform:translateY(22px);transition:opacity .8s ease,transform .8s ease}
+.gen.in{opacity:1;transform:none}
+.gen .who{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ice-clair);margin-bottom:8px}
+/* la petite bulle karaoké qui se déroule */
+.gen .bulle{position:relative;background:rgba(125,211,252,.08);border:1px solid var(--line);border-radius:14px;border-bottom-left-radius:4px;
+  padding:11px 13px;color:#eafaff;font-style:italic;font-size:1.02rem;line-height:1.5;margin-bottom:12px}
+.gen .bulle::after{content:"";position:absolute;left:14px;bottom:-7px;width:12px;height:12px;background:rgba(125,211,252,.08);border-right:1px solid var(--line);border-bottom:1px solid var(--line);transform:rotate(45deg)}
+.gen .arrow{text-align:center;color:var(--or);font-size:16px;margin:-4px 0 8px}
+.gen .res{display:flex;align-items:center;gap:10px;background:rgba(201,169,97,.06);border:1px solid rgba(201,169,97,.22);border-radius:12px;padding:11px 13px}
+.gen .res .ic{font-size:22px;line-height:1}
+.gen .res .t{font-size:.98rem;color:var(--or-pale);line-height:1.35}
+.gen .res .t b{color:#fff7e6}
+
+/* CLÔTURE — la signature */
+.signature{text-align:center;padding:60px 10px 10px}
+.signature .big{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(26px,7vw,44px);color:#eafaff;line-height:1.2}
+.signature .big em{color:var(--or);font-style:italic}
+.foot{text-align:center;color:var(--mut);font-size:.86rem;font-style:italic;padding:34px 16px 0;line-height:1.6}
+
+/* BARRE BASSE */
+.botbar{position:fixed;bottom:0;left:0;right:0;height:var(--botbar);z-index:50;
+  display:flex;justify-content:space-around;align-items:center;
+  background:rgba(3,4,10,.82);backdrop-filter:blur(18px);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom)}
+.botbar a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--mut);font-family:'Cinzel',serif;font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;flex:1;transition:.25s}
+.botbar a .i{font-size:20px;line-height:1;filter:grayscale(.3)}
+.botbar a:hover,.botbar a.act{color:var(--ice-clair)}
+.botbar a.act .i{filter:none;text-shadow:0 0 12px rgba(125,211,252,.7)}
+#nv-sav-btn{bottom:80px!important}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a class="logo" href="/">NAVLYS</a>
+  <span class="ctx"><span class="dot"></span> Lancement</span>
+</div>
+
+<main>
+  <div class="wrap">
+
+    <div class="k">navlys.com · en direct</div>
+    <h1>La seule limite<br>est celle de <em>ton imagination</em></h1>
+    <p class="sub">La première IA qui orchestre d'autres IA depuis un simple téléphone — sans bureau, sans ordinateur. Tu imagines, NAVLYS crée.</p>
+
+    <!-- CADRE BLANC : présente le site + la vidéo de Bruno -->
+    <div class="frame">
+      <div class="site">
+        <span class="url">navlys.com</span>
+        <span class="live">en ligne</span>
+      </div>
+      <div class="phone">
+        <video id="bmvid" playsinline muted loop preload="metadata"
+               poster="/media/navlys-bm-lancement.jpg">
+          <source src="/media/navlys-bm-lancement.mp4" type="video/mp4">
+        </video>
+        <button class="sound off" id="sndBtn" type="button" aria-label="Activer le son">🔊 Écouter Bruno</button>
+      </div>
+      <p class="cadre-legende"><b>Bruno te parle.</b> Le fondateur de NAVLYS,<br>simplement, depuis son téléphone.</p>
+    </div>
+
+    <div class="cta">
+      <a class="btn or" href="/adhesion">✦ Rejoindre NAVLYS</a>
+      <a class="btn ice" href="/next-gen">Découvrir Next Gen</a>
+    </div>
+
+    <!-- LES GENS QUI UTILISENT L'APP : souhait → bulle → résultat -->
+    <section class="sec">
+      <h2>Ils <em>imaginent</em>. NAVLYS <em>fait</em>.</h2>
+      <p class="lead">Chacun dit ce qu'il veut, avec ses mots. Une petite bulle se déroule, l'IA se met au travail — et quelques minutes plus tard, le résultat est là, sur son écran.</p>
+      <div class="gens">
+
+        <div class="gen">
+          <div class="who">Sarah · créatrice</div>
+          <div class="bulle">« Je veux ma boutique en ligne pour vendre mes bijoux. »</div>
+          <div class="arrow">↓</div>
+          <div class="res"><span class="ic">🛍️</span><span class="t">Sa boutique <b>Shopify</b> en ligne, prête à vendre.</span></div>
+        </div>
+
+        <div class="gen">
+          <div class="who">Karim · musicien</div>
+          <div class="bulle">« Je veux partager mes morceaux et suivre mes écoutes. »</div>
+          <div class="arrow">↓</div>
+          <div class="res"><span class="ic">🎧</span><span class="t">Sa page <b>Spotify</b> reliée, ses statistiques réunies.</span></div>
+        </div>
+
+        <div class="gen">
+          <div class="who">Léa · maman</div>
+          <div class="bulle">« Je veux le livre de la vie de ma famille, avec les photos. »</div>
+          <div class="arrow">↓</div>
+          <div class="res"><span class="ic">📖</span><span class="t">Son <b>livre personnel</b>, écrit et gardé pour les siens.</span></div>
+        </div>
+
+        <div class="gen">
+          <div class="who">David · indépendant</div>
+          <div class="bulle">« Je veux une application sur mesure pour mes rendez-vous. »</div>
+          <div class="arrow">↓</div>
+          <div class="res"><span class="ic">📱</span><span class="t">Son <b>application</b> à lui, faite à sa mesure.</span></div>
+        </div>
+
+        <div class="gen">
+          <div class="who">Nadia · influenceuse</div>
+          <div class="bulle">« Je veux mon livre d'influenceuse et mes pages préférées réunies. »</div>
+          <div class="arrow">↓</div>
+          <div class="res"><span class="ic">✨</span><span class="t">Son <b>livre d'influenceuse</b> et son univers, rassemblés.</span></div>
+        </div>
+
+        <div class="gen">
+          <div class="who">Gérard · retraité</div>
+          <div class="bulle">« Je veux mon journal vidéo tranquille, à mon rythme. »</div>
+          <div class="arrow">↓</div>
+          <div class="res"><span class="ic">🎬</span><span class="t">Son <b>journal vidéo</b> paisible, rien qu'à lui.</span></div>
+        </div>
+
+      </div>
+    </section>
+
+    <div class="signature">
+      <div class="k">NAVLYS</div>
+      <p class="big">Avec ton téléphone.<br>Aucune compétence.<br><em>Juste ton imagination.</em></p>
+    </div>
+
+    <div class="foot">
+      NAVLYS Web Service (NWS) — espace d'information et de création générale.<br>
+      navlys.com · en direct, tous les jours.
+    </div>
+  </div>
+</main>
+
+<nav class="botbar">
+  <a href="/lancement" class="act"><span class="i">✦</span>Lancement</a>
+  <a href="/next-gen"><span class="i">📖</span>Next Gen</a>
+  <a href="/adhesion"><span class="i">✦</span>Rejoindre</a>
+  <a href="/assistance"><span class="i">🎙️</span>Voix</a>
+  <a href="/"><span class="i">≋</span>Accueil</a>
+</nav>
+
+<script src="/navlys-alive.js" defer></script>
+<script>
+/* Révélations au scroll */
+(function(){
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');}});},{threshold:.14});
+  document.querySelectorAll('.gen').forEach(function(el){io.observe(el);});
+})();
+
+/* La vidéo : muette en autoplay quand elle est visible, son au toucher */
+(function(){
+  var v=document.getElementById('bmvid'), btn=document.getElementById('sndBtn');
+  if(!v) return;
+  // autoplay muet dès que le cadre entre dans l'écran (économe en data)
+  var seen=new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if(e.isIntersecting){ v.play().catch(function(){}); } else { v.pause(); }
+    });
+  },{threshold:.35});
+  seen.observe(v);
+  if(btn){
+    btn.addEventListener('click',function(){
+      if(v.muted){
+        v.muted=false; v.currentTime=0; v.play().catch(function(){});
+        btn.textContent='🔈 Couper le son'; btn.classList.remove('off');
+      }else{
+        v.muted=true;
+        btn.textContent='🔊 Écouter Bruno'; btn.classList.add('off');
+      }
+    });
+  }
+})();
+
+/* NAVLYS installable (hors-ligne + écran d'accueil) */
+if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('/sw.js').catch(function(){});});}
+</script>
+</body>
+</html>
