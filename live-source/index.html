@@ -147,6 +147,17 @@ footer{padding:46px 20px 70px;text-align:center;border-top:1px solid rgba(184,11
       autoplay muted loop playsinline poster="/media/bm-face.jpg"></video>
     <span id="nv-bruno-note">🔊 touche pour la voix</span>
   </div>
+
+  <div id="nv-voix-demo">
+    <div class="titre">🎙️ Essaie toi-même, à la voix</div>
+    <div class="sous">Parle ou écris un ordre — regarde-le apparaître dans le bandeau 🔴 EN DIRECT en haut, en vrai.</div>
+    <form id="nv-vd-form" autocomplete="off">
+      <button type="button" id="nv-vd-mic" title="Parler">🎙️</button>
+      <input type="text" id="nv-vd-texte" maxlength="300" placeholder="Ex. : prépare-moi une leçon sur l'épargne…">
+      <button type="submit" id="nv-vd-envoyer">Envoyer</button>
+    </form>
+    <div id="nv-vd-statut"></div>
+  </div>
 </header>
 
 <div class="wrap">
@@ -247,6 +258,28 @@ footer{padding:46px 20px 70px;text-align:center;border-top:1px solid rgba(184,11
 #nv-bruno-note{position:absolute;left:50%;bottom:10px;z-index:3;transform:translateX(-50%);white-space:nowrap;
   background:rgba(5,6,10,.78);border:1px solid rgba(125,211,252,.3);color:#a8e3ff;border-radius:999px;
   padding:4px 12px;font-size:.78rem;pointer-events:none}
+
+/* Démo voix -> action live (demande Bruno 2026-07-09) */
+#nv-voix-demo{width:100%;max-width:520px;margin:22px auto 0;padding:16px 18px;position:relative;z-index:2;
+  border:1px solid rgba(125,211,252,.28);border-radius:18px;background:rgba(4,7,14,.6);
+  box-shadow:0 14px 40px rgba(0,0,0,.4)}
+#nv-voix-demo .titre{font-family:'Cinzel',serif;font-size:.9rem;letter-spacing:.06em;color:var(--or-pale,#f3e4c4);margin-bottom:4px}
+#nv-voix-demo .sous{font-size:.86rem;color:var(--perle-doux,#bcc9d1);margin-bottom:12px}
+#nv-vd-form{display:flex;gap:8px;flex-wrap:wrap}
+#nv-vd-mic{flex:0 0 auto;font-size:1.2rem;border:1px solid rgba(125,211,252,.35);background:rgba(125,211,252,.08);
+  color:#a8e3ff;border-radius:12px;padding:8px 12px;cursor:pointer;transition:.2s}
+#nv-vd-mic:hover{background:rgba(125,211,252,.18)}
+#nv-vd-mic.actif{background:rgba(233,90,90,.22);border-color:rgba(233,90,90,.5);animation:nvLive 1s steps(2) infinite}
+#nv-vd-texte{flex:1 1 180px;min-width:0;background:rgba(255,255,255,.04);border:1px solid rgba(125,211,252,.2);
+  border-radius:12px;padding:8px 12px;color:#eaf6ff;font-family:'Cormorant Garamond',Georgia,serif;font-size:1rem}
+#nv-vd-texte:focus{outline:none;border-color:rgba(125,211,252,.5)}
+#nv-vd-envoyer{flex:0 0 auto;border:1px solid rgba(233,211,160,.5);background:rgba(233,211,160,.12);
+  color:#f3e4c4;border-radius:12px;padding:8px 16px;font-family:'Cinzel',serif;font-size:.8rem;letter-spacing:.06em;
+  text-transform:uppercase;cursor:pointer;transition:.2s}
+#nv-vd-envoyer:hover{background:rgba(233,211,160,.22)}
+#nv-vd-envoyer:disabled,#nv-vd-mic:disabled{opacity:.5;cursor:not-allowed}
+#nv-vd-statut{margin-top:10px;font-size:.86rem;min-height:1.2em;color:#a8e3ff}
+#nv-vd-statut.erreur{color:#f0a8a8}
 </style>
 <script>
 /* Bruno te parle DANS TA LANGUE, en direct (voix clonée, gravé 2026-07-05).
@@ -283,6 +316,52 @@ footer{padding:46px 20px 70px;text-align:center;border-top:1px solid rgba(184,11
           else { /* secours : le son de la vidéo si présent */ try{ v.muted=false; }catch(e){} playing=true; if(n) n.textContent=OFF[l]; }
         })['catch'](function(){ try{ v.muted=false; }catch(e){} playing=true; if(n) n.textContent=OFF[l]; });
     }catch(e){ try{ v.muted=false; }catch(e2){} }
+  });
+})();
+</script>
+<script>
+/* Démo voix -> action live (demande Bruno 2026-07-09) : un visiteur parle ou
+   tape un ordre → vraie mission créée en base, visible dans le bandeau
+   🔴 EN DIRECT (brique vitrine) en moins de 30s. Accès public, sans compte,
+   validé par Bruno. Repli clavier systématique si la reconnaissance vocale
+   n'est pas supportée par le navigateur. */
+(function(){
+  'use strict';
+  var DEMO='https://hhrlgyvtqluxpywjiwkd.supabase.co/functions/v1/voix-demo';
+  var form=document.getElementById('nv-vd-form'), champ=document.getElementById('nv-vd-texte'),
+      mic=document.getElementById('nv-vd-mic'), envoyer=document.getElementById('nv-vd-envoyer'),
+      statut=document.getElementById('nv-vd-statut');
+  if(!form||!champ||!mic||!envoyer||!statut) return;
+
+  var Reco=window.SpeechRecognition||window.webkitSpeechRecognition;
+  var reco=null, ecoute=false;
+  if(Reco){
+    reco=new Reco(); reco.lang='fr-FR'; reco.continuous=false; reco.interimResults=false;
+    reco.onresult=function(e){ var t=e.results&&e.results[0]&&e.results[0][0]&&e.results[0][0].transcript; if(t) champ.value=t; };
+    reco.onerror=function(){ arreter(); statut.className='erreur'; statut.textContent='Micro indisponible — écris ton idée à la place.'; };
+    reco.onend=function(){ arreter(); };
+  } else {
+    mic.title='Micro non supporté par ce navigateur — écris ton idée';
+  }
+  function demarrer(){ if(!reco||ecoute) return; ecoute=true; mic.classList.add('actif'); statut.className=''; statut.textContent='… je t’écoute'; try{ reco.start(); }catch(e){ arreter(); } }
+  function arreter(){ ecoute=false; mic.classList.remove('actif'); }
+  mic.addEventListener('click',function(){ if(!reco){ champ.focus(); return; } if(ecoute){ try{ reco.stop(); }catch(e){} arreter(); } else demarrer(); });
+
+  var enCours=false;
+  form.addEventListener('submit',function(ev){
+    ev.preventDefault();
+    var texte=(champ.value||'').trim();
+    if(texte.length<3){ statut.className='erreur'; statut.textContent='Dis-en un peu plus (3 caractères minimum).'; return; }
+    if(enCours) return; enCours=true; envoyer.disabled=true; mic.disabled=true;
+    statut.className=''; statut.textContent='… envoi en cours';
+    fetch(DEMO,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({texte:texte})})
+      .then(function(r){return r.json();})
+      .then(function(d){
+        if(d&&d.ok){ statut.className=''; statut.textContent='✅ C’est parti — regarde le bandeau 🔴 EN DIRECT en haut, ta proposition apparaît sous 30 secondes.'; champ.value=''; }
+        else { statut.className='erreur'; statut.textContent='Hmm, réessaie avec une phrase un peu différente.'; }
+      })
+      .catch(function(){ statut.className='erreur'; statut.textContent='Connexion indisponible, réessaie dans un instant.'; })
+      .then(function(){ enCours=false; envoyer.disabled=false; mic.disabled=false; setTimeout(function(){ if(!enCours) statut.textContent=statut.textContent; },100); });
   });
 })();
 </script>
