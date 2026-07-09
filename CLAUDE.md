@@ -728,9 +728,24 @@ But : Bruno parle à **un seul endroit** (bot Telegram), plus jamais Claude Code
   pour sourds/malentendants — une bulle révèle le texte **mot à mot** au fil de la
   voix, coloration synchro **à la milliseconde**, et synchro avec la **bouche** si
   vidéo (base existante : `nvKarAudio`/`nvKarUtter` dans `navlys-alive.js`).
-- **À FAIRE — funnel d'inscription** : email-gate pour ACCÉDER au site + inscription
-  complète (+ autorisations mobile/PC) pour UTILISER une app + inscription **1 clic
-  FB/Google/Insta** (providers OAuth à activer par Bruno dans Supabase).
+- **Funnel d'inscription — livré côté code le 2026-07-09** : `/adhesion` a maintenant
+  un bloc « 0 · Valide ton accès » avant le formulaire — éventail OAuth (Google,
+  Apple, Microsoft, Facebook, Discord, via supabase-js `signInWithOAuth`) OU lien de
+  vérification e-mail (`signInWithOtp`, Supabase Auth). L'e-mail vérifié devient
+  **obligatoire** avant de pouvoir s'enregistrer (`window.NAVLYS_VERIFIE`) — base de
+  prospects propre, exportable en CSV depuis le Table Editor Supabase (table
+  `membres`), sans code supplémentaire.
+  - **Ce qui marche déjà, sans rien à faire** : le lien de vérification e-mail
+    (Supabase envoie l'e-mail par défaut, pas de clé à poser).
+  - **Ce qui dépend de Bruno** : activer chaque fournisseur OAuth dans Supabase
+    Dashboard → Authentication → Providers, ce qui suppose de créer une app
+    développeur chez Google Cloud Console / Apple Developer / Azure AD / Meta for
+    Developers / Discord Developer Portal et d'y coller Client ID + Secret. Tant
+    que ce n'est pas fait, les boutons OAuth affichent un message d'erreur propre
+    (pas un blocage silencieux) et redirigent vers le lien e-mail.
+  - **Vérification téléphone (SMS/OTP)** : pas encore implémentée — nécessite un
+    fournisseur SMS (Twilio, MessageBird, Vonage) à configurer dans Supabase Auth,
+    même famille de dépendance externe que les OAuth ci-dessus.
 
 ## 💡 Conseil d'usage (sessions)
 
