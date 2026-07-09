@@ -280,6 +280,16 @@ install.sh              # installeur Hetzner en une ligne
     navlys.io est un déploiement Vercel SÉPARÉ de navlys.com (plusieurs pages
     en 404 dessus) et que deux homonymes (navly.io, « Navily ») nous doublent
     en recherche — à trancher par Bruno.
+- **`GET ?mode=avis`** (cron `navlys_bible_avis`, quotidien 7h15 UTC, gravé
+  2026-07-09) : « tant que les autres IA nous jugeront trop léger et trop flou,
+  il faut ajuster — interroge-les chaque jour » (Bruno). Lit le contenu RÉEL et
+  LIVE de `/`, `/next-gen`, `/finance` sur navlys.com, demande un avis critique
+  et sévère à Claude (+ Llama/OpenRouter si `OPENROUTER_API_KEY` posée, pour un
+  vrai second avis indépendant), fait passer chaque avis par le pipeline
+  `ingerer()` habituel. Testé en direct le 09/07 avant mise en prod : 5 leçons
+  concrètes dès le premier passage (jargon interne à nettoyer, hiérarchie du
+  message absente, modèle économique opaque) — preuve que la routine capte de
+  vrais problèmes, pas du bruit.
 
 ## 📺 Veille YouTube influenceurs (STANDING — gravé le 2026-07-07)
 
