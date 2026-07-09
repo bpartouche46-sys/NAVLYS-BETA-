@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>NAVLYS — La Flotte : 15 navires, un nom, une mission</title>
+<meta name="description" content="La flotte NAVLYS nommée : le navire amiral et les 14 équipes, chacun son nom, sa mission, sa création — générée en direct, gratuite.">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Lora:wght@400;500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="/media/navlys_favicon.svg">
+<style>
+:root{--noir:#03040a;--ice:#7DD3FC;--ice-clair:#a8e3ff;--or:#e9d3a0;--or2:#C9A961;--perle:#e7eef2;--mut:#9fb3c8;--line:rgba(125,211,252,.16)}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{background:var(--noir)}
+body{color:var(--perle);font-family:'Lora',serif;line-height:1.6}
+.bg{position:fixed;inset:0;z-index:-1;background:
+  radial-gradient(820px 560px at 88% -6%,rgba(233,211,160,.10),transparent 60%),
+  radial-gradient(760px 560px at 4% 4%,rgba(125,211,252,.12),transparent 60%),var(--noir)}
+.top{position:sticky;top:0;z-index:5;display:flex;align-items:center;gap:10px;padding:14px 18px;
+  background:linear-gradient(180deg,rgba(3,4,10,.92),rgba(3,4,10,.55));backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+.top a.logo{font-family:'Cinzel',serif;font-size:13px;letter-spacing:.3em;color:var(--or);text-transform:uppercase;text-decoration:none}
+.top .tag{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.16em;color:var(--mut);text-transform:uppercase}
+.top a.nav{margin-left:auto;color:var(--mut);text-decoration:none;font-style:italic;font-size:.92rem}
+.top a.nav:hover{color:var(--ice-clair)}
+.wrap{max-width:1180px;margin:0 auto;padding:36px 18px 70px}
+.head{text-align:center;margin-bottom:38px}
+.head .k{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.4em;color:var(--ice);text-transform:uppercase}
+.head h1{font-family:'Cinzel',serif;font-weight:600;font-size:clamp(28px,6vw,46px);letter-spacing:.05em;margin:8px 0 10px;
+  background:linear-gradient(100deg,#f3e4c4,var(--or2) 45%,#fff7e6 55%,var(--or2) 70%,#B87333);background-size:220% auto;
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:sh 9s linear infinite}
+@keyframes sh{to{background-position:220% center}}
+.head p{color:var(--mut);max-width:640px;margin:0 auto;font-style:italic}
+.amiral{max-width:620px;margin:0 auto 34px !important;border-color:rgba(233,211,160,.4) !important;
+  background:linear-gradient(160deg,rgba(233,211,160,.12),rgba(10,12,20,.7)) !important}
+.amiral .cap b{font-size:1.4rem}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(272px,1fr));gap:16px}
+.c{background:linear-gradient(160deg,rgba(125,211,252,.08),rgba(10,12,20,.7));border:1px solid var(--line);border-radius:16px;overflow:hidden}
+.c .ph{position:relative;aspect-ratio:1/1;background:#04060d;display:flex;align-items:center;justify-content:center;color:var(--mut);font-style:italic;font-size:.85rem;text-align:center;padding:0 14px}
+.c img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .9s}
+.c img.on{opacity:1}
+.c .cap{padding:13px 15px}
+.c .cap .dept{font-family:'Cinzel',serif;font-size:9.5px;letter-spacing:.2em;color:var(--ice);text-transform:uppercase}
+.c .cap b{font-family:'Cormorant Garamond';color:var(--or);font-size:1.18rem;display:block;margin-top:3px}
+.c .cap i{display:block;color:var(--perle);opacity:.82;font-size:.88rem;margin-top:5px}
+.note{margin-top:30px;border-left:3px solid var(--or);padding-left:14px;color:var(--mut);font-size:.94rem;max-width:760px;margin-inline:auto}
+</style>
+</head>
+<body>
+<div class="bg"></div>
+<div class="top"><a class="logo" href="/">≋ NAVLYS</a><span class="tag">La Flotte</span><a class="nav" href="/equipage">‹ Voir la pyramide vivante</a></div>
+<div class="wrap">
+  <div class="head">
+    <div class="k">15 navires, un nom, une mission</div>
+    <h1>La Flotte NAVLYS</h1>
+    <p>Le navire amiral en tête, les 14 équipes à son bord — chacune son nom, sa mission, sa création. Générées en direct chez le prestataire gratuit (routeur média NAVLYS).</p>
+  </div>
+
+  <div class="amiral" id="amiral"></div>
+
+  <div class="grid" id="g"></div>
+
+  <p class="note">Créations générées en direct chez le prestataire gratuit (Pollinations, sans clé) — une image par navire, à la volée. Dès que d'autres clés gratuites sont posées (Gemini, Cloudflare, Hugging Face), la flotte compare plusieurs moteurs. Les vidéos de la flotte arriveront avec le moteur vidéo (HeyGen) une fois branché au routeur média — pour l'instant, chaque navire a son portrait.</p>
+</div>
+<script>
+(function(){
+  var P='https://image.pollinations.ai/prompt/';
+  var Q='?nologo=true&width=1024&height=1024&seed=';
+
+  var AMIRAL={n:'NAVLYS', dept:'Le navire amiral', t:'Un cap, une flotte, un seul horizon.',
+    p:'majestic golden flagship sailing ship leading a fleet at dawn, ice blue sea, champagne gold sails, cinematic wide shot, elegant, stars fading', s:100};
+
+  var FLOTTE=[
+    {n:'Le Sentinelle d\'Acier', dept:'NAVTECH · Tom', t:'La coque qui ne cède jamais — l\'infrastructure qui tient la mer par tous les temps.',
+     p:'steel-hulled sailboat glowing with circuit-like light patterns on its sail, ice blue energy lines, night sea, cinematic, engineering elegance', s:101},
+    {n:'Le Héraut', dept:'NAVCOM · Clara', t:'La voix qui porte NAVLYS au-delà de l\'horizon.',
+     p:'sailboat with a glowing lighthouse-like sail broadcasting light waves across dark sea, ice blue and gold, cinematic, elegant', s:102},
+    {n:'Le Cap Serein', dept:'NAVFI · Victor', t:'En confiance, le cap éducatif sur les marchés.',
+     p:'serene sailboat cockpit at dusk overlooking calm golden sea, glowing ice blue compass, cinematic elegance', s:103},
+    {n:'Le Mémoire d\'Or', dept:'NAVBIO · Léa', t:'Chaque vie, un trésor qu\'on ramène au port.',
+     p:'vintage sailboat carrying glowing golden photo albums and light particles rising above the deck, warm champagne glow, ice blue accents, cinematic', s:104},
+    {n:'L\'Ancre Fidèle', dept:'NAVME · Mina', t:'Ce qui a été appris ne se perd jamais.',
+     p:'sailboat with a luminous anchor made of light resting beneath calm ice blue water, gold accents, cinematic serenity', s:105},
+    {n:'Le Pinceau de Lumière', dept:'NAVGEN · Gabriel', t:'L\'image juste, née de l\'instant.',
+     p:'sailboat leaving a trail of glowing paintbrush light strokes across the night sea, ice blue and champagne gold, cinematic', s:106},
+    {n:'Le Gardien des Statuts', dept:'NAVLEX · Alex', t:'La règle qui protège, jamais qui bloque.',
+     p:'solid stone-hulled sailboat like a small fortress, glowing gold seal engraved on the sail, ice blue night sea, cinematic guardian mood', s:107},
+    {n:'Le Pont d\'Alliance', dept:'NAVPART · Paul', t:'Deux navires, un même courant.',
+     p:'two elegant sailboats connected by a glowing bridge of light over the sea, ice blue and gold, cinematic alliance, dusk', s:108},
+    {n:'La Vigie', dept:'NAVPTE · Sentinelle', t:'Elle ne dort jamais ; elle veille sur tous.',
+     p:'watchtower sailboat with a glowing beacon scanning the dark sea like an eye, ice blue light beam, cinematic vigilance, night', s:109},
+    {n:'L\'Étoile du Large', dept:'NAVLEAD · Lena', t:'Elle rassemble l\'équipage autour du même feu.',
+     p:'sailboat sailing toward a bright guiding star over the horizon, ice blue sea, champagne gold starlight, cinematic, warm', s:110},
+    {n:'Le Vent Porteur', dept:'NAVMKT · Marc', t:'Il pousse chaque voile dans le même sens.',
+     p:'sailboat with visible golden wind currents pushing its sails forward, ice blue sea at dusk, cinematic sense of momentum', s:111},
+    {n:'L\'Éclaireur', dept:'NAVLAB · Newton', t:'Toujours une encablure devant, pour ouvrir la route.',
+     p:'sailboat far ahead of a distant fleet, glowing trail of discovery light behind it, ice blue night sea, cinematic pioneer mood', s:112},
+    {n:'Le Havre', dept:'NAVBIEN · Bianca', t:'Le mouillage tranquille après la traversée.',
+     p:'sailboat resting in a calm glowing golden harbor cove, ice blue water, cinematic peaceful haven, soft light', s:113},
+    {n:'Le Compas', dept:'NAVDEM · David', t:'Il écoute la mer et corrige la route.',
+     p:'sailboat with a large glowing golden compass on its deck, ice blue sea reflecting stars, cinematic sense of guidance', s:114}
+  ];
+
+  function carte(c, estAmiral){
+    var d=document.createElement('div'); d.className=estAmiral?'c amiral':'c';
+    d.innerHTML='<div class="ph"><span>… le navire arrive</span><img alt=""></div>'+
+      '<div class="cap"><span class="dept">'+c.dept+'</span><b>'+c.n+'</b><i>'+c.t+'</i></div>';
+    var im=d.querySelector('img'); im._url=P+encodeURIComponent(c.p)+Q+c.s; im._msg=d.querySelector('.ph span');
+    return {el:d, img:im};
+  }
+
+  var amiralWrap=document.getElementById('amiral'), g=document.getElementById('g'), imgs=[];
+  var a=carte(AMIRAL,true); amiralWrap.appendChild(a.el); imgs.push(a.img);
+  FLOTTE.forEach(function(c){ var k=carte(c,false); g.appendChild(k.el); imgs.push(k.img); });
+
+  /* le gratuit refuse les rafales (429) → un navire à la fois, avec relance */
+  var i=0;
+  function next(){ if(i>=imgs.length) return; var im=imgs[i++], tries=0;
+    function go(){ tries++;
+      im.onload=function(){ im.classList.add('on'); setTimeout(next,1100); };
+      im.onerror=function(){
+        if(tries<3){ im._msg.textContent='… le moteur gratuit souffle, nouvel essai'; setTimeout(go, 9000); }
+        else { im._msg.textContent='indisponible pour le moment — recharge la page dans une minute 🌊'; setTimeout(next,800); }
+      };
+      im.src=im._url+(tries>1?('&r='+tries):'');
+    }
+    go();
+  }
+  next();
+})();
+</script>
+<script src="/navlys-alive.js" defer></script>
+</body>
+</html>
