@@ -1,14 +1,18 @@
 // NAVLYS — « bible » : la routine parfaite, sans interruption.
-// Ingère TOUT retour externe (audit d'agence, plainte, bug, incident, 💡 Améliorer),
-// en extrait les vrais enseignements via Claude, les grave en règles permanentes
-// (navlys_regle), et gonfle la mémoire du bon agent (agent_note) — pour que
-// NAVLYS n'ait plus jamais à réapprendre la même leçon deux fois.
-//   POST {source, texte}      → ingère un texte externe précis (audit, mail, retour…)
-//   GET  ?mode=boucle         → scanne SEUL les nouvelles sources internes non
-//                                digérées (core_feedback, core_incidents résolus)
-//                                et les ingère automatiquement. Cron toutes les heures.
-//   GET                       → diag readiness.
-// Tourne sur Supabase (indépendant de toute session Claude Code) : 24/7, sans Bruno.
+// Ne se contente pas de LIRE ce qu'on lui donne : elle TESTE le site et
+// CHERCHE sur le web toute seule, puis grave ce qu'elle trouve. Zéro dépendance
+// à Claude Code — tourne sur pg_cron + Edge Functions Supabase ; si cette
+// session (ou Claude tout entier) disparaît, la routine continue exactement pareil.
+//   POST {source, texte}   → ingère un texte externe précis (audit, mail, retour…)
+//   GET  ?mode=boucle      → scanne SEULE core_feedback/core_incidents jamais
+//                            digérés. Cron horaire (navlys_bible_boucle).
+//   GET  ?mode=verifier    → SE TESTE elle-même : pages clés, robots.txt,
+//                            sitemap.xml, codes HTTP. Cron (navlys_bible_verifier).
+//   GET  ?mode=recherche   → CHERCHE elle-même sur le web (DuckDuckGo, sans clé) :
+//                            navlys en tête des résultats ? homonymes ? plaintes
+//                            publiques ? Cron quotidien (navlys_bible_recherche).
+//   GET                    → diag readiness.
+// Chaque mode alimente le même pipeline ingerer() : règle gravée + mémoire agent.
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 
 const U = Deno.env.get("SUPABASE_URL")!;
@@ -106,6 +110,70 @@ async function ingerer(source: string, texte: string) {
   return n;
 }
 
+// ── SE TESTER SOI-MÊME ────────────────────────────────────────────────────
+// Aucune dépendance à Claude Code ici : de vraies requêtes HTTP, exécutées
+// par le serveur Supabase, en cron. C'est NAVLYS qui se vérifie, pas moi.
+const PAGES_CLES = ["/", "/adhesion", "/next-gen", "/finance", "/flotte", "/equipage"];
+async function verifierSite() {
+  const constats: string[] = [];
+  for (const dom of ["https://navlys.com", "https://navlys.io"]) {
+    for (const chemin of ["/robots.txt", "/sitemap.xml"]) {
+      try {
+        const r = await fetch(dom + chemin);
+        if (!r.ok) constats.push(`${dom}${chemin} → HTTP ${r.status} (devrait être 200)`);
+      } catch (e) { constats.push(`${dom}${chemin} → injoignable (${String(e).slice(0, 80)})`); }
+    }
+    for (const p of PAGES_CLES) {
+      try {
+        const r = await fetch(dom + p);
+        const corps = r.ok ? await r.text() : "";
+        if (!r.ok) constats.push(`${dom}${p} → HTTP ${r.status}`);
+        else if (corps.trim().length < 200) constats.push(`${dom}${p} → page quasi vide (${corps.length} car.)`);
+      } catch (e) { constats.push(`${dom}${p} → injoignable (${String(e).slice(0, 80)})`); }
+    }
+  }
+  if (!constats.length) { await journal("Auto-vérification site : tout est vert, rien à graver."); return { ok: true, constats: 0, lecons: 0 }; }
+  const n = await ingerer("auto-verification-site", "Résultats du test automatique des pages/fichiers clés de navlys.com et navlys.io :\n" + constats.join("\n"));
+  return { ok: true, constats: constats.length, lecons: n };
+}
+
+// ── CHERCHER SUR LE WEB SOI-MÊME ──────────────────────────────────────────
+// DuckDuckGo HTML, sans clé (même procédé que navlys_core/veille_resilience.py).
+async function rechercheWeb(requete: string): Promise<{ titre: string; url: string }[]> {
+  try {
+    const r = await fetch("https://html.duckduckgo.com/html/", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded", "User-Agent": "Mozilla/5.0 (NAVLYS-bible)" },
+      body: "q=" + encodeURIComponent(requete),
+    });
+    if (!r.ok) return [];
+    const html = await r.text();
+    const out: { titre: string; url: string }[] = [];
+    const re = /<a[^>]*class="result__a"[^>]*href="([^"]+)"[^>]*>([\s\S]*?)<\/a>/g;
+    let m: RegExpExecArray | null;
+    while ((m = re.exec(html)) && out.length < 8) {
+      let href = m[1].replace(/&amp;/g, "&");
+      const q = href.split("uddg=")[1];
+      if (q) href = decodeURIComponent(q.split("&")[0]);
+      out.push({ titre: m[2].replace(/<[^>]+>/g, "").trim(), url: href });
+    }
+    return out;
+  } catch { return []; }
+}
+async function verifierRecherche() {
+  const resultats = await rechercheWeb("navlys");
+  const nousMemes = resultats.filter((r) => /navlys\.(com|io)/i.test(r.url));
+  const homonymes = resultats.filter((r) => /navly[^s]|navlis|navlyss/i.test(r.url + r.titre) && !/navlys\.(com|io)/i.test(r.url));
+  const rangNous = resultats.findIndex((r) => /navlys\.(com|io)/i.test(r.url));
+  const constats: string[] = [];
+  if (rangNous === -1) constats.push("Aucune page navlys.com/navlys.io dans les 8 premiers résultats DuckDuckGo pour « navlys » — problème d'indexation/SEO potentiel.");
+  else if (rangNous > 2) constats.push(`navlys.com/io n'apparaît qu'en position ${rangNous + 1} sur « navlys » (pas dans le top 3).`);
+  if (homonymes.length) constats.push(`Homonyme(s)/concurrent(s) détecté(s) dans les résultats « navlys » : ${homonymes.map((h) => h.url).join(", ")}`);
+  if (!constats.length) { await journal(`Auto-recherche web « navlys » : rien d'anormal (rang ${rangNous + 1}, ${nousMemes.length}/${resultats.length} résultats à nous).`); return { ok: true, constats: 0, lecons: 0 }; }
+  const n = await ingerer("auto-veille-web", "Recherche DuckDuckGo réelle sur « navlys » :\n" + constats.join("\n") + `\n\nTop résultats : ${resultats.map((r) => r.titre + " — " + r.url).join(" | ")}`);
+  return { ok: true, constats: constats.length, lecons: n };
+}
+
 // La boucle : scanne SEULE les sources internes jamais digérées. Jamais d'arrêt.
 async function boucle() {
   let total = 0;
@@ -132,7 +200,10 @@ Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response(null, { status: 204, headers: CORS });
   const u = new URL(req.url);
   if (req.method === "GET") {
-    if (u.searchParams.get("mode") === "boucle") return J({ ok: true, ...(await boucle()) });
+    const mode = u.searchParams.get("mode");
+    if (mode === "boucle") return J({ ok: true, ...(await boucle()) });
+    if (mode === "verifier") return J(await verifierSite());
+    if (mode === "recherche") return J(await verifierRecherche());
     const recentes = await g("core_bible_bugs", "select=bug,regle,departement,cree_le&order=cree_le.desc&limit=10");
     return J({ ok: true, service: "navlys-bible-routine", aide: "POST {source,texte} = ingérer un retour externe · GET ?mode=boucle = auto-scan", dernieres_lecons: recentes });
   }

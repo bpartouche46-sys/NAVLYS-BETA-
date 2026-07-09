@@ -226,6 +226,21 @@ install.sh              # installeur Hetzner en une ligne
   consultant, plainte client) → `POST {source, texte}` sur la brique `bible` →
   la leçon est gravée et les agents progressent, une seule fois pour toutes les
   applications NAVLYS. Code source : `supabase/functions/bible/index.ts`.
+- **Elle se teste et cherche ELLE-MÊME (gravé 2026-07-09, précision de Bruno) :**
+  aucune de ces boucles ne dépend de Claude Code — de vraies requêtes HTTP
+  exécutées par pg_cron + l'Edge Function, qui continuent identiquement même
+  si cette conversation ou Claude tout entier disparaît.
+  - `GET ?mode=verifier` (cron `navlys_bible_verifier`, toutes les 6 h) :
+    teste elle-même robots.txt/sitemap.xml/pages clés sur navlys.com ET
+    navlys.io, grave les 404/pages vides trouvées.
+  - `GET ?mode=recherche` (cron `navlys_bible_recherche`, quotidien 8h35 UTC) :
+    cherche elle-même « navlys » sur DuckDuckGo (sans clé), détecte si on
+    n'est pas dans le top 3 et repère les homonymes/concurrents qui nous
+    doublent — grave une veille marque à NAVMKT.
+  - Preuve en base : `core_bible_bugs` a déjà capté en réel (09/07) que
+    navlys.io est un déploiement Vercel SÉPARÉ de navlys.com (plusieurs pages
+    en 404 dessus) et que deux homonymes (navly.io, « Navily ») nous doublent
+    en recherche — à trancher par Bruno.
 
 ## 📺 Veille YouTube influenceurs (STANDING — gravé le 2026-07-07)
 
