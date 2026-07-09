@@ -24,6 +24,45 @@ humain** : toute action sensible passe en `a_valider` (jamais exécutée seule).
   contenu éducatif uniquement, jamais de conseil financier personnalisé.
 - Domaine : `navlys.com`.
 
+## 🧭 Positionnement — Next Gen avant Finance (STANDING — gravé le 2026-07-09, règle n°76)
+
+> Correction ferme de Bruno après un audit Gemini qui lisait NAVLYS comme un
+> site d'éducation financière (comparé à Finary) : **« la révolution à
+> communiquer, c'est la première IA qui gère les IA via téléphone et ne
+> nécessite aucun bureau aucun ordinateur pour créer vos propres applications
+> [...] on utilise toutes les technologies et on orchestre celles-ci pour
+> avoir un pouvoir infini en matière de création réelle WEB et SERVICES. »**
+
+- **Le vrai différenciateur, toujours en tête de toute communication** : NAVLYS
+  est la première IA qui orchestre d'autres IA depuis un simple téléphone,
+  sans bureau ni ordinateur — chacun peut créer ses propres applications et
+  les mettre au service de la communauté (commercialisation sur le réseau
+  NAVLYS, ou amélioration quotidienne en temps réel du site/des applications
+  via le bouton 💡 Améliorer, juste depuis son téléphone).
+- **Next Gen (assistant humain / concierge)** est la porte d'entrée phare.
+  **NAVFI (finance)** reste **UN détail parmi 14 départements**, jamais le
+  sujet principal d'un pitch, d'un titre de page ou d'une meta description.
+- **Nom légal à référencer partout, sans variante** : `NAVLYS Web Service (NWS)`
+  (corrigé le 2026-07-09 : `/conditions` et `/confidentialite` affichaient par
+  erreur « WSN — Web Services NAVLYS »).
+- **Toute communication externe pointe uniquement vers `navlys.com`** —
+  jamais navlys.io tant que son usage n'est pas tranché par Bruno (cf. §
+  cockpit/redémarrage plus bas).
+- **Réflexe anti-panique gravé** : un retour d'IA externe du type « je ne
+  trouve pas / n'arrive pas à me connecter au site » ne veut PAS dire panne —
+  **toujours vérifier en direct** (pg_net, avec le User-Agent du bot concerné
+  si pertinent) avant de conclure. Preuve faite le 2026-07-09 : navlys.com
+  répond 200 OK, robots.txt ouvert, et GPTBot/ChatGPT-User/OAI-SearchBot
+  reçoivent tous le HTML complet sans blocage — le vrai sujet est
+  l'indexation (domaine récent, peu de backlinks), pas une panne technique.
+  Action qui dépend de Bruno : soumettre le sitemap à Google Search Console +
+  Bing Webmaster Tools (vérification de propriété du domaine).
+- Appliqué immédiatement (commit `419d79c`) : `<title>`/meta/OG de la homepage
+  réécrits pour mener avec l'orchestration IA mobile plutôt que « applications
+  IA + finance ». Gravé aussi en base : `core_reglement` (règle n°76),
+  `core_bible_bugs` (leçons `gemini_audit_2026-07-09` et
+  `chatgpt_indexation_2026-07-09`), mémoire NAVMKT/NAVLEX/NAVCOM/NAVTECH.
+
 ## 🗂️ Structure du code
 
 ```
