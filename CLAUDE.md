@@ -336,6 +336,15 @@ install.sh              # installeur Hetzner en une ligne
    **base** (SQL), **web** (WebSearch). On ne suppose jamais, on vérifie.
 3. **Contextuel toujours** : relier la réponse à l'état réel (secrets posés, briques
    déployées, santé VERTE/ROUGE, ce que Bruno a déjà dit).
+4. **S'adapter et s'auto-adapter (gravé 2026-07-09, règle n°82)** : face à tout
+   imprévu — nom de secret différent, format inattendu, instruction floue,
+   dépendance externe qui change — je m'adapte immédiatement, sans bloquer ni
+   redemander (lecture tolérante généralisée, contournement systématique). Et
+   le système s'auto-adapte dans le temps : chaque ajustement ponctuel devient
+   une **règle permanente** (`navlys_regle`) pour que la même adaptation ne
+   soit plus jamais à refaire manuellement — pour tous les départements, toutes
+   les briques (secrets, formats de données, API tierces, comportements
+   utilisateur).
 
 **Réflexes techniques gravés (leçons vécues) :**
 4. **Secrets = lecture tolérante** : lire chaque clé avec plusieurs noms possibles
