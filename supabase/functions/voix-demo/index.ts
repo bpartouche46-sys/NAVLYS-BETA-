@@ -37,12 +37,17 @@ function routerDept(texte: string): string {
   for (const dept in DEPTS) if (DEPTS[dept].some((mot) => low.includes(mot))) return dept;
   return "NAVDEM";
 }
+// Public sans compte : on retire toute balise/marquage avant stockage — le
+// bandeau EN DIRECT affiche ce texte via innerHTML, jamais de HTML brut visiteur.
+function nettoyer(s: string): string {
+  return s.replace(/<[^>]*>/g, "").replace(/[<>]/g, "");
+}
 
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response(null, { status: 204, headers: CORS });
   if (req.method !== "POST") return J({ error: "method" }, 405);
   const b: any = await req.json().catch(() => ({}));
-  const texte = String(b.texte || "").trim().slice(0, 300);
+  const texte = nettoyer(String(b.texte || "").trim().slice(0, 300));
   if (!texte) return J({ ok: false, erreur: "texte vide" }, 400);
   if (texte.length < 3) return J({ ok: false, erreur: "trop court" }, 400);
 

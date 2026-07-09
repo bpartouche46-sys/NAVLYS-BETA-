@@ -1074,11 +1074,14 @@ window.NAVLYS_setVideo = function(v, rate, srcs){
        « vitrine ») et on les glisse en tête du bandeau, préfixées EN DIRECT. */
     (function(){
       var VITRINE='https://hhrlgyvtqluxpywjiwkd.supabase.co/functions/v1/vitrine';
+      /* Le flux contient parfois du texte écrit par un visiteur (démo voix) :
+         jamais de HTML brut visiteur injecté — toujours échappé avant affichage. */
+      function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
       function maj(){
         fetch(VITRINE).then(function(r){return r.json();}).then(function(d){
           var feed=(d&&d.feed)||[]; if(!feed.length) return;
           var tr=bar.querySelector('.track'); if(!tr) return;
-          var live=feed.map(function(m){ return '<span class="it" style="color:#e9d3a0">🔴 <b>EN DIRECT</b> — '+m+'</span>'; }).join('');
+          var live=feed.map(function(m){ return '<span class="it" style="color:#e9d3a0">🔴 <b>EN DIRECT</b> — '+esc(m)+'</span>'; }).join('');
           tr.innerHTML=live+trackHTML();
         }).catch(function(){});
       }
