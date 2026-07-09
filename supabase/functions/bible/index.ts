@@ -11,6 +11,10 @@
 //   GET  ?mode=recherche   → CHERCHE elle-même sur le web (DuckDuckGo, sans clé) :
 //                            navlys en tête des résultats ? homonymes ? plaintes
 //                            publiques ? Cron quotidien (navlys_bible_recherche).
+//   GET  ?mode=avis        → DEMANDE elle-même un avis critique à d'autres IA
+//                            (Claude + Llama/OpenRouter si dispo) sur le contenu
+//                            RÉEL et LIVE des pages clés, comme le ferait Gemini/
+//                            ChatGPT en audit externe. Cron quotidien (navlys_bible_avis).
 //   GET                    → diag readiness.
 // Chaque mode alimente le même pipeline ingerer() : règle gravée + mémoire agent.
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
@@ -174,6 +178,78 @@ async function verifierRecherche() {
   return { ok: true, constats: constats.length, lecons: n };
 }
 
+// ── DEMANDER UN AVIS CRITIQUE À D'AUTRES IA, CHAQUE JOUR ─────────────────
+// Bruno (2026-07-09) : « tant que les autres IA nous jugeront trop léger et
+// trop flou sur notre communication, il faut ajuster... interroge-les chaque
+// jour et demande un test de notre site pour savoir leur opinion et la
+// modifier là où il faut. » On lit le contenu RÉEL et LIVE des pages (pas
+// une description qu'on invente), on demande un jugement sévère à deux
+// modèles distincts, et on fait passer leur avis par le même pipeline
+// ingerer() que les audits humains (Gemini, ChatGPT) → règle + mémoire agent.
+function htmlVersTexte(html: string): string {
+  return html
+    .replace(/<script[\s\S]*?<\/script>/gi, " ")
+    .replace(/<style[\s\S]*?<\/style>/gi, " ")
+    .replace(/<[^>]+>/g, " ")
+    .replace(/&nbsp;/g, " ").replace(/&amp;/g, "&").replace(/&eacute;/g, "é").replace(/&egrave;/g, "è").replace(/&agrave;/g, "à")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+async function contenuPage(chemin: string): Promise<string> {
+  try {
+    const r = await fetch("https://navlys.com" + chemin);
+    if (!r.ok) return "";
+    return htmlVersTexte(await r.text()).slice(0, 3000);
+  } catch { return ""; }
+}
+const SYSTEME_AVIS = `Tu es une IA externe indépendante (comme ChatGPT ou Gemini) qui découvre navlys.com pour la
+première fois, sans complaisance ni parti pris pour la marque. On te donne le texte visible réel de
+plusieurs pages du site. Donne un avis CRITIQUE et SÉVÈRE, en français : le positionnement est-il clair
+en 5 secondes ? Le site paraît-il trop centré sur la finance ou trop flou/générique ? Le message
+"première IA qui orchestre d'autres IA depuis un simple téléphone, sans bureau ni ordinateur" est-il
+perceptible ? Cite des phrases précises du site qui posent problème et propose des reformulations
+concrètes. Ne sois jamais complaisant, comme un vrai audit externe qui juge pour de vrai.`;
+async function avisClaude(contexte: string): Promise<string> {
+  if (!ANTH) return "";
+  try {
+    const r = await fetch("https://api.anthropic.com/v1/messages", {
+      method: "POST",
+      headers: { "x-api-key": ANTH, "anthropic-version": "2023-06-01", "Content-Type": "application/json" },
+      body: JSON.stringify({ model: "claude-haiku-4-5-20251001", max_tokens: 900, system: SYSTEME_AVIS, messages: [{ role: "user", content: contexte }] }),
+    });
+    const d: any = await r.json().catch(() => ({}));
+    return ((d.content || []).filter((c: any) => c.type === "text").map((c: any) => c.text).join("\n")).trim();
+  } catch { return ""; }
+}
+async function avisOpenRouter(contexte: string): Promise<string> {
+  const orKey = Deno.env.get("OPENROUTER_API_KEY") || Deno.env.get("OPENROUTER_KEY") || Deno.env.get("OPEN_ROUTER_API_KEY") || "";
+  if (!orKey) return "";
+  try {
+    const r = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+      method: "POST",
+      headers: { Authorization: `Bearer ${orKey}`, "Content-Type": "application/json", "HTTP-Referer": "https://navlys.com", "X-Title": "NAVLYS Bible" },
+      body: JSON.stringify({ model: "meta-llama/llama-3.3-70b-instruct:free", max_tokens: 900, messages: [{ role: "system", content: SYSTEME_AVIS }, { role: "user", content: contexte }] }),
+    });
+    const d: any = await r.json().catch(() => ({}));
+    return (d?.choices?.[0]?.message?.content || "").trim();
+  } catch { return ""; }
+}
+async function avisIA() {
+  const contenus: string[] = [];
+  for (const p of ["/", "/next-gen", "/finance"]) {
+    const t = await contenuPage(p);
+    if (t) contenus.push(`— PAGE ${p} —\n${t}`);
+  }
+  if (!contenus.length) { await journal("Avis IA quotidien : pages injoignables, rien testé."); return { ok: false, lecons: 0 }; }
+  const contexte = contenus.join("\n\n").slice(0, 9000);
+  const [claude, llama] = await Promise.all([avisClaude(contexte), avisOpenRouter(contexte)]);
+  if (!claude && !llama) { await journal("Avis IA quotidien : aucun modèle disponible (clé manquante)."); return { ok: false, lecons: 0 }; }
+  let n = 0;
+  if (claude) n += await ingerer("avis_ia_quotidien_claude", claude);
+  if (llama) n += await ingerer("avis_ia_quotidien_llama", llama);
+  return { ok: true, claude: !!claude, llama: !!llama, lecons: n };
+}
+
 // La boucle : scanne SEULE les sources internes jamais digérées. Jamais d'arrêt.
 async function boucle() {
   let total = 0;
@@ -204,8 +280,9 @@ Deno.serve(async (req) => {
     if (mode === "boucle") return J({ ok: true, ...(await boucle()) });
     if (mode === "verifier") return J(await verifierSite());
     if (mode === "recherche") return J(await verifierRecherche());
+    if (mode === "avis") return J(await avisIA());
     const recentes = await g("core_bible_bugs", "select=bug,regle,departement,cree_le&order=cree_le.desc&limit=10");
-    return J({ ok: true, service: "navlys-bible-routine", aide: "POST {source,texte} = ingérer un retour externe · GET ?mode=boucle = auto-scan", dernieres_lecons: recentes });
+    return J({ ok: true, service: "navlys-bible-routine", aide: "POST {source,texte} = ingérer un retour externe · GET ?mode=boucle|verifier|recherche|avis = auto-scan", dernieres_lecons: recentes });
   }
   if (req.method !== "POST") return J({ error: "method" }, 405);
   const b: any = await req.json().catch(() => ({}));
