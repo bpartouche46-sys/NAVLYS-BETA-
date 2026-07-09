@@ -64,3 +64,20 @@ begin
   return 'https://navlys.com/bateau-rapport?d=' || v_jeton;
 end;
 $$;
+
+-- ============================================================
+-- V2 PRO (2026-07-09) — copies repo des migrations appliquées :
+--   navlys_bateau_expertise_pro, navlys_bateau_savoir_seed,
+--   navlys_bateau_expertiser_v2_matching, navlys_bateau_expertiser_v3_numerique
+-- En base (source de vérité) :
+--   core_bateau_savoir  : défauts connus + contrôles par modèle (~40 seed,
+--                         enrichie CHAQUE JOUR par le cron navlys_bateau_savoir_veille 06:50 → NAVLAB)
+--   core_bateau_zones   : 16 zones (humidité, temp. eau, salinité, facteur osmose,
+--                         catastrophes naturelles datées)
+--   navlys_bateau_expertiser(annee, vie_eau, zone, eau, marque_modele) → jsonb
+--                       : score osmose /100 + niveau + facteurs, défauts du modèle
+--                         (reconnaissance tolérante variantes « A / B »), événements
+--                         de zone survenus du vivant du bateau
+--   core_bateau_dossiers.expertise : analyse stockée au dépôt, servie par GET
+-- Règle n°134 : toute connaissance bateau va dans core_bateau_savoir, jamais en dur.
+-- ============================================================
