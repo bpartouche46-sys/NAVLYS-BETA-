@@ -58,11 +58,12 @@ window.NAVLYS_setVideo = function(v, rate, srcs){
   #nv-sav .mic{border:1px solid rgba(125,211,252,.4);cursor:pointer;background:rgba(125,211,252,.12);color:#a8e3ff;border-radius:10px;padding:0 12px;font-size:1.05rem}
   #nv-sav .mic.on{background:rgba(233,211,160,.25);border-color:rgba(233,211,160,.7);animation:nvMicPulse 1.1s ease-in-out infinite}
   @keyframes nvMicPulse{0%,100%{box-shadow:0 0 0 0 rgba(233,211,160,.35)}50%{box-shadow:0 0 0 7px rgba(233,211,160,0)}}
-  /* ---------- bouton RETOUR (bas-gauche, toutes les apps) ---------- */
-  #nv-fb-btn{position:fixed;left:18px;bottom:84px;z-index:61;border:1px solid rgba(233,211,160,.5);cursor:pointer;
-    background:rgba(6,8,14,.82);color:${OR};font-family:'Lora',serif;font-weight:600;border-radius:999px;padding:12px 16px;
-    box-shadow:0 8px 26px rgba(0,0,0,.45)}
-  #nv-fb{position:fixed;left:18px;bottom:140px;z-index:62;width:min(360px,92vw);display:none;flex-direction:column;
+  /* ---------- RETOUR (💡) : plus de 2e bouton flottant — un choix DANS le
+     panneau Aide (un seul bouton à l'écran, demande Bruno 2026-07-08) ---------- */
+  #nv-fb-open{cursor:pointer;text-align:center;color:${OR};font-family:'Lora',serif;font-size:.85rem;
+    padding:8px 11px;border-top:1px solid rgba(233,211,160,.2);background:rgba(233,211,160,.06)}
+  #nv-fb-open:hover{background:rgba(233,211,160,.14)}
+  #nv-fb{position:fixed;right:18px;bottom:140px;z-index:62;width:min(360px,92vw);display:none;flex-direction:column;
     background:linear-gradient(160deg,rgba(28,26,18,.96),rgba(6,8,13,.97));border:1px solid rgba(233,211,160,.35);
     -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
     border-radius:18px;overflow:hidden;box-shadow:0 16px 50px rgba(0,0,0,.6)}
@@ -208,7 +209,8 @@ window.NAVLYS_setVideo = function(v, rate, srcs){
   var panel=document.createElement('div'); panel.id='nv-sav';
   panel.innerHTML='<div class="hd"><span class="dot"></span> NAVLYS · Aide &amp; SAV</div>'+
     '<div class="bd" id="nv-bd"><div class="b n">Bonjour 👋 Je suis là pour t\'aider sur NAVLYS — une question, une idée ? Écris-moi.<br><span class="lt" id="nv-hello">🔊 écouter Bruno</span></div></div>'+
-    '<div class="ft"><textarea id="nv-q" placeholder="Ta question…"></textarea><button class="mic" id="nv-mic" title="Parle — je t\'écoute">🎙️</button><button class="snd" id="nv-snd">→</button></div>';
+    '<div class="ft"><textarea id="nv-q" placeholder="Ta question…"></textarea><button class="mic" id="nv-mic" title="Parle — je t\'écoute">🎙️</button><button class="snd" id="nv-snd">→</button></div>'+
+    '<div id="nv-fb-open">💡 Améliorer</div>';
   document.body.appendChild(panel);
   btn.onclick=function(){ var open=panel.style.display==='flex'; panel.style.display=open?'none':'flex'; if(!open) document.getElementById('nv-q').focus(); };
   /* accueil : la VRAIE voix de Bruno (mp3 statique, clone ElevenLabs) */
@@ -483,15 +485,14 @@ window.NAVLYS_setVideo = function(v, rate, srcs){
        L'Aide reste disponible à la demande via le bouton « Aide » (bas-droite). ---- */
   })();
 
-  /* ---------- RETOUR : bouton bas-gauche, toutes les applications ----------
+  /* ---------- RETOUR : ouvert depuis « 💡 Améliorer » DANS le panneau Aide
+     (un seul bouton flottant à l'écran, demande Bruno 2026-07-08).
      Critiques / remarques / suggestions, pour soi ou pour la communauté.
      Part directement chez nous : core_feedback + journal + routage agent. */
   var NV_FB='https://hhrlgyvtqluxpywjiwkd.supabase.co/functions/v1/retour';
-  var fbBtn=document.createElement('button'); fbBtn.id='nv-fb-btn'; fbBtn.textContent='💡 Améliorer';
-  document.body.appendChild(fbBtn);
   var fbApp=(location.pathname==='/'||location.pathname==='')?'Accueil':location.pathname.replace(/^\//,'').replace(/\.html$/,'');
   var fb=document.createElement('div'); fb.id='nv-fb';
-  fb.innerHTML='<div class="hd">💡 Ton avis compte<small><span>Application</span> : '+fbApp+' — <span>dis-nous tout, on lit, on applique, on répond.</span></small></div>'+
+  fb.innerHTML='<div class="hd" style="position:relative">💡 Ton avis compte<span id="nv-fb-x" style="position:absolute;top:10px;right:12px;cursor:pointer;width:26px;height:26px;display:grid;place-items:center;border-radius:50%;background:rgba(125,211,252,.12);color:#a8e3ff;font-size:.85rem">✕</span><small><span>Application</span> : '+fbApp+' — <span>dis-nous tout, on lit, on applique, on répond.</span></small></div>'+
     '<div class="bd">'+
       '<div class="nvfb-indulg" style="font-size:.82rem;color:#bfe0f5;padding:0 2px 8px;line-height:1.5;border-bottom:1px solid rgba(125,211,252,.14);margin-bottom:8px"></div>'+
       '<div class="row" id="nv-fb-t">'+
@@ -509,7 +510,10 @@ window.NAVLYS_setVideo = function(v, rate, srcs){
     '</div>';
   document.body.appendChild(fb);
   try{ var _fbi=fb.querySelector('.nvfb-indulg'); if(_fbi){ _fbi.textContent=nvIndulgTxt(); document.addEventListener('nv-lang',function(){ _fbi.textContent=nvIndulgTxt(); }); } }catch(e){}
-  fbBtn.onclick=function(){ var open=fb.style.display==='flex'; fb.style.display=open?'none':'flex'; if(!open){ var m=document.getElementById('nv-fb-msg'); if(m) m.focus(); } };
+  var fbOpen=document.getElementById('nv-fb-open');
+  if(fbOpen){ fbOpen.onclick=function(){ panel.style.display='none'; fb.style.display='flex'; var m=document.getElementById('nv-fb-msg'); if(m) m.focus(); }; }
+  var fbX=document.getElementById('nv-fb-x');
+  if(fbX){ fbX.onclick=function(){ fb.style.display='none'; }; }
   function fbPick(rowId){
     var row=document.getElementById(rowId);
     Array.prototype.forEach.call(row.querySelectorAll('.opt'),function(o){
