@@ -28,6 +28,38 @@
   de la documentation pédagogique (exemples `VULNERABLE:`, clé AWS `AKIAIOSFODNN7EXAMPLE` factice
   officielle, patterns zero-width expliqués en texte).
 
+## 📣 Doctrine de communication « Manus » — montrer, pas raconter (STANDING — gravé le 2026-07-09, règle n°113)
+
+> Ordre de Bruno : **« intègre ton analyse Manus à notre doctrine et corrige tout en fonction
+> de tes conclusions. »** (suite à `docs/genese-manus-ai-enseignements.md` et
+> `docs/reverse-engineering-pubs-meta.md`)
+
+- **Montrer, ne pas raconter, sans budget pub.** Le moteur du lancement Manus (1M vues
+  organiques en 20h) et des publicités Meta qui durent 200+ jours : une démonstration courte
+  qui montre l'agent *faire* quelque chose de concret, pas un pitch. Pour NAVLYS : toute
+  vidéo/spot doit montrer un geste réel (une phrase dite → un résultat visible en quelques
+  minutes), jamais une liste de fonctionnalités.
+- **Un seul message d'ancrage, répété à l'identique partout.** Pas de variantes marketing
+  dispersées — la phrase de la règle n°76 (« la première IA qui orchestre d'autres IA depuis
+  un simple téléphone, sans bureau ni ordinateur ») reste l'unique ancrage de toute
+  communication externe.
+- **Un seul CTA principal par page/vidéo, jamais trois.** Correction directe de la leçon
+  Navly/Manus/pubs longue durée : plusieurs CTA similaires diluent la conversion.
+- **Jamais de rareté artificielle payante (codes d'invitation revendus, files d'attente
+  fermées).** C'est le point le plus structurant du lancement Manus — et le moins compatible
+  avec NAVLYS : contraire à la doctrine d'accessibilité (0€, cotisation jamais prix, statut
+  simple citoyen). Interdit, sans exception.
+- **Preuve sociale = résultat concret et vérifiable, jamais un chiffre vague.** Un témoignage
+  daté et nommé bat un chiffre d'utilisateurs non sourcé.
+- **Si des paliers payants arrivent un jour** : coût prévisible affiché *avant* exécution,
+  jamais de crédit perdu sur une tâche non livrée (contre-exemple direct de la controverse
+  Manus sur ses crédits).
+- **Laisser la presse/les créateurs relayer gratuitement plutôt qu'acheter de la visibilité**,
+  tant que le budget pub n'existe pas — chercher un narratif prêt-à-reprendre plutôt qu'une
+  campagne payée.
+- Sources complètes : `docs/genese-manus-ai-enseignements.md`,
+  `docs/reverse-engineering-pubs-meta.md`.
+
 ## 📚 Documents de référence (à lire en cas de doute)
 
 | Fichier | Rôle |

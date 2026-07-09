@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>NAVLYS — Labo spots (script de la vidéo 30 min)</title>
+<meta name="description" content="NAVLYS Labo spots : vignettes de la future vidéo, une friction du quotidien réglée en une phrase — à toi de juger, un réglage par jour.">
+<meta name="robots" content="noindex">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Lora:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--noir:#05060a;--ice:#7DD3FC;--or:#e9d3a0;--perle:#eef0f6;--mut:#9fb3c8}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Lora',serif;color:var(--perle);background:var(--noir);line-height:1.6}
+.bg{position:fixed;inset:0;z-index:-1;background:radial-gradient(820px 560px at 86% -8%,rgba(233,211,160,.11),transparent 60%),radial-gradient(760px 560px at 5% 6%,rgba(125,211,252,.12),transparent 60%),var(--noir)}
+.wrap{max-width:820px;margin:0 auto;padding:0 18px 60px}
+header{display:flex;align-items:center;gap:11px;padding:24px 0}
+.brand{font-family:'Cormorant Garamond';letter-spacing:4px;color:#fff;font-size:1.2rem}
+a.home{margin-left:auto;color:var(--mut);text-decoration:none;font-style:italic}
+h1{font-family:'Cormorant Garamond';color:#fff;font-size:clamp(1.8rem,5vw,2.6rem);margin:6px 0}
+.sub{color:var(--mut);max-width:640px}
+.v{background:linear-gradient(160deg,rgba(125,211,252,.08),rgba(10,12,20,.7));border:1px solid rgba(125,211,252,.2);border-radius:16px;padding:18px 20px;margin-top:18px}
+.v .num{font-family:'Cormorant Garamond';color:var(--or);font-size:1.05rem;margin-bottom:4px}
+.v .friction{font-style:italic;color:var(--ice);font-size:.92rem;margin-bottom:8px}
+.v .texte{font-family:'Cormorant Garamond';font-size:1.28rem;color:#fff;line-height:1.35;margin-bottom:12px}
+.v audio{width:100%;margin-top:6px}
+.v .src{margin-top:8px;font-size:.78rem;color:var(--mut)}
+.note{margin-top:26px;border-left:3px solid var(--or);padding-left:14px;color:var(--mut);font-size:.95rem}
+</style>
+</head>
+<body>
+<div class="bg"></div>
+<div class="wrap">
+  <header><span class="brand">NAVLYS</span><span style="color:var(--mut);font-style:italic">· Labo spots</span><a class="home" href="/">‹ Accueil</a></header>
+  <h1>Les vignettes du jour 🎬</h1>
+  <p class="sub">Chaque vignette part d'une vraie friction du quotidien, résolue par NAVLYS en une phrase. Ta voix (profil « bm ») dit le texte — écoute, et donne ton verdict avec <b>💡 Améliorer</b> (cite le n°). Un réglage testé par jour, comme demandé.</p>
+
+  <div class="v">
+    <div class="num">Vignette 1 — les clés qu'on oublie</div>
+    <div class="friction">Friction réelle : 34 % des gens citent perdre ses clés/portefeuille/téléphone comme une des pires frustrations quotidiennes (Talker Research, 2025).</div>
+    <div class="texte">« Chaque matin, tu cherches tes clés, ton portefeuille, ton téléphone. Dis une seule phrase à NAVLYS : rappelle-moi mes clés avant de sortir. Et c'est fait. En quelques minutes, ton application est prête, sur ton téléphone, gratuite. »</div>
+    <audio controls preload="none" src="https://hhrlgyvtqluxpywjiwkd.supabase.co/storage/v1/object/public/avatar/labo/vignette-1-cles.mp3"></audio>
+    <div class="src">Voix : profil « bm » (ta voix clonée) · généré aujourd'hui</div>
+  </div>
+
+  <p class="note">D'autres vignettes arrivent ici au fur et à mesure (retard/traffic, dépenses du mois, notes de réunion) — une par jour, comme tu l'as demandé. Chaque fichier déposé dans le Storage <code>avatar/labo/</code> apparaît automatiquement dès qu'on l'ajoute à cette page.</p>
+</div>
+<script src="/navlys-alive.js" defer></script>
+</body>
+</html>
