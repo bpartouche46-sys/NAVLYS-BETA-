@@ -16,6 +16,48 @@ export const config = { runtime: 'edge' };
 
 const MODEL = 'claude-haiku-4-5-20251001', MAX_TOKENS = 600;
 
+// ════════ INDÉPENDANCE DU CORE (gravé 2026-07-09) ════════
+// Le CORE doit continuer à répondre à Bruno même si api.anthropic.com tombe
+// (coupure Claude). callBrain() essaie Anthropic direct puis, si ça échoue,
+// bascule seul sur OpenRouter (modèle gratuit non-Anthropic en dernier
+// recours) — lecture tolérante de la clé (règle n°4), aucun redéploiement
+// nécessaire le jour où OPENROUTER_API_KEY est posée dans Vercel.
+function envAny(names) { for (const n of names) { const v = process.env[n]; if (v) return v; } return ''; }
+async function callBrain(system, user, { anthKey, maxTokens = MAX_TOKENS, model = MODEL } = {}) {
+  if (anthKey) {
+    try {
+      const r = await fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers: { 'x-api-key': anthKey, 'anthropic-version': '2023-06-01', 'Content-Type': 'application/json' },
+        body: JSON.stringify({ model, max_tokens: maxTokens, system, messages: [{ role: 'user', content: user }] }),
+      });
+      if (r.ok) {
+        const d = await r.json();
+        const t = (d.content || []).filter((c) => c.type === 'text').map((c) => c.text).join('\n').trim();
+        if (t) return t;
+      }
+    } catch { /* on tente le repli ci-dessous */ }
+  }
+  const orKey = envAny(['OPENROUTER_API_KEY', 'OPENROUTER_KEY', 'OPEN_ROUTER_API_KEY']);
+  if (orKey) {
+    for (const orModel of ['meta-llama/llama-3.3-70b-instruct:free', 'anthropic/claude-haiku-4.5']) {
+      try {
+        const r = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+          method: 'POST',
+          headers: { Authorization: `Bearer ${orKey}`, 'Content-Type': 'application/json', 'HTTP-Referer': 'https://navlys.com', 'X-Title': 'NAVLYS CORE' },
+          body: JSON.stringify({ model: orModel, max_tokens: maxTokens, messages: [{ role: 'system', content: system }, { role: 'user', content: user }] }),
+        });
+        if (r.ok) {
+          const d = await r.json();
+          const t = (d?.choices?.[0]?.message?.content || '').trim();
+          if (t) return t;
+        }
+      } catch { /* essai suivant */ }
+    }
+  }
+  return '';
+}
+
 // ════════ MODE SAV (public, inchangé) ════════
 const SYSTEM_SAV = [
   "Tu es l'Aide & SAV NAVLYS sur WhatsApp — chaleureux, simple, humain, images marines, jamais robotique. Réponses COURTES (WhatsApp).",
@@ -23,14 +65,9 @@ const SYSTEM_SAV = [
   "Tous les prix sont HT. INTERDIT : conseil financier personnalisé / promesse de rendement (renvoie à l'éducation), conseil juridique personnalisé (renvoie NAVLEX, info générale). Si sensible/inconnu : propose de laisser un message à l'équipe."
 ].join(' ');
 
-async function brainSav(text, key) {
-  const r = await fetch('https://api.anthropic.com/v1/messages', {
-    method: 'POST',
-    headers: { 'x-api-key': key, 'anthropic-version': '2023-06-01', 'Content-Type': 'application/json' },
-    body: JSON.stringify({ model: MODEL, max_tokens: MAX_TOKENS, system: SYSTEM_SAV, messages: [{ role: 'user', content: text }] }),
-  });
-  const d = await r.json().catch(() => ({}));
-  return ((d.content || []).filter((c) => c.type === 'text').map((c) => c.text).join('\n').trim()) || 'Je reviens vers toi très vite 🌊';
+async function brainSav(text, anthKey) {
+  const t = await callBrain(SYSTEM_SAV, text, { anthKey });
+  return t || 'Je reviens vers toi très vite 🌊';
 }
 
 async function sendWA(to, body, d360) {
@@ -162,12 +199,7 @@ async function pilote(base, key, anth, text) {
     }
     const SYS = "Tu es le Rapporteur de NAVLYS qui parle à Bruno sur WhatsApp. Point COURT (4-6 phrases), chaleureux, parlé, tutoiement. Statut simple citoyen : aucune promesse financière. Termine par UNE action concrète proposée.";
     const usr = `AGENTS: ${ags.map((a) => `${a.prenom || a.id}/${a.autonomie || '?'}`).join(', ')}\nCOMPTEURS: ${JSON.stringify(stats)}\nÀ VALIDER: ${aValider.join(' | ') || 'aucune'}\nFais le point.`;
-    const r = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST', headers: { 'x-api-key': anth, 'anthropic-version': '2023-06-01', 'Content-Type': 'application/json' },
-      body: JSON.stringify({ model: MODEL, max_tokens: MAX_TOKENS, system: SYS, messages: [{ role: 'user', content: usr }] }),
-    });
-    const d = await r.json().catch(() => ({}));
-    const t = (d.content || []).filter((c) => c.type === 'text').map((c) => c.text).join('\n').trim();
+    const t = await callBrain(SYS, usr, { anthKey: anth });
     return '📋 ' + (t || 'Tout est calme pour le moment. 🌊');
   }
 
