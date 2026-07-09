@@ -55,9 +55,17 @@ INJECTION = [
 ]
 
 # --- Patterns : code dangereux --------------------------------------------------
+# Note sur exec()/eval() : regex.exec(str) (JS) est une méthode sûre à ne pas
+# confondre avec l'exécution de code/commande. Plutôt qu'une exclusion générale
+# par "." (qui masquerait aussi child_process.exec(), un vrai risque), on garde
+# un pattern isolé (sans point avant) pour exec()/eval() bruts (builtin Python,
+# ou eval() global JS), ET des patterns dédiés à haute confiance pour les appels
+# dangereux connus, même précédés d'un point.
 CODE_DANGEREUX = [
     ("eval() dynamique", re.compile(r"\beval\s*\(")),
-    ("exec() dynamique", re.compile(r"\bexec\s*\(")),
+    ("exec() dynamique (isolé — builtin Python ou fonction globale)", re.compile(r"(?<!\.)\bexec\s*\(")),
+    ("child_process.exec/spawn — exécution shell Node.js", re.compile(r"\bchild_process\.(exec|execSync|spawn|spawnSync|fork)\s*\(")),
+    ("os.system() / os.popen() — exécution shell Python", re.compile(r"\bos\.(system|popen)\s*\(")),
     ("shell=True", re.compile(r"shell\s*=\s*True")),
     ("Reverse shell (netcat)", re.compile(r"\bnc\s+-e\b|\bnetcat\b.{0,20}-e\b")),
     ("Hook git modifié", re.compile(r"\.git/hooks/(pre|post)-\w+")),
