@@ -457,6 +457,65 @@ But : Bruno parle à **un seul endroit** (bot Telegram), plus jamais Claude Code
   une fois livré et testé → `navlys_chantier_fermer(id, resultat)`. Le cockpit
   montre alors le cycle **en_cours → fait** en direct, sans que Bruno demande.
 
+## 🛡️ Indépendance du CORE — survie à une coupure Claude/Anthropic (STANDING — gravé le 2026-07-09)
+
+> Ordre de Bruno : **« comment donner son indépendance et sa vie à mon core
+> maintenant pour que je dialogue avec lui et qu'il gère tous les IA autres et
+> orchestre vraiment avec moi sans risque en cas de coupure net de claude par
+> exemple... l'IA NAVLYS doit être indépendante... grave cette base et ne t'arrête
+> maintenant que lorsque cet objectif final sera atteint, en parallèle du travail
+> navlys.com avec nos agents actuels. »**
+
+- **Canal de dialogue direct déjà vivant et indépendant** : le pilote WhatsApp
+  (`api/whatsapp-webhook.js`, Vercel, 360dialog) est LE canal où Bruno parle
+  directement au CORE — il ne dépend ni de Claude Code, ni d'une session ouverte.
+  MasterNav/Telegram (`navlys_core/masternav.py`) existe aussi mais dépend d'un
+  worker Hetzner à lancer manuellement → **pas garanti toujours-actif**, WhatsApp
+  reste la référence.
+- **Le vrai point de rupture identifié** : toutes les briques (edge functions
+  Supabase + le webhook WhatsApp) n'appelaient QUE `api.anthropic.com` en direct
+  — donc une coupure Anthropic coupait le dialogue même si Vercel/Supabase
+  tournaient parfaitement. **Corrigé dans `api/whatsapp-webhook.js`** (commit
+  `2f50322`) : `callBrain(system, user)` essaie Anthropic direct puis, si ça
+  échoue, bascule **seul** sur OpenRouter (`meta-llama/llama-3.3-70b-instruct:free`
+  puis `anthropic/claude-haiku-4.5` en repli), lecture tolérante de la clé
+  (`OPENROUTER_API_KEY | OPENROUTER_KEY | OPEN_ROUTER_API_KEY`, règle n°4) — zéro
+  redéploiement le jour où la clé est posée chez Vercel.
+- **Reste à propager** (même pattern `callBrain`) aux autres briques qui
+  appellent un LLM direct : `assistant` (SAV), `cockpit`, `bible.extraireLecons`,
+  et toute future brique. Chantier permanent NAVTECH, pas un one-shot — à
+  reprendre à chaque nouvelle brique créée.
+- **Ce qui dépend de Bruno (pas un code bug)** : poser `OPENROUTER_API_KEY`
+  (gratuit sur openrouter.ai) dans les variables d'environnement Vercel — sans
+  ça le code de repli est prêt mais n'a rien vers quoi basculer.
+- **Orchestration multi-IA** : le pattern OpenRouter permet déjà, à terme, de
+  faire trancher n'importe quel modèle (Llama, Mistral, GPT via repli) le jour
+  où Claude/Anthropic serait indisponible — c'est la brique technique de
+  l'indépendance. Le CORE (Supabase + pg_cron + Edge Functions) tourne déjà 24/7
+  sans Claude Code (bible, autotest, auto-amélioration, incidents) ; ce chantier
+  étend la même indépendance au canal de conversation lui-même.
+
+## 🎯 Zéro erreur sur tout navlys.com (STANDING — gravé le 2026-07-09)
+
+> Ordre de Bruno : **« tu ne t'arrêtes plus avant d'avoir atteint un zéro error
+> sur tout navlys.com — toutes les pages, rubriques, appels téléphone, mails,
+> liens, inscription, direct FB/Google/Apple etc... tout doit être zéro erreur. »**
+
+- Objectif permanent, pas un passage unique : chaque page du `sitemap.xml`,
+  chaque lien `tel:`/`mailto:`, chaque lien interne/externe, le flux
+  d'inscription complet, et les boutons de connexion directe Facebook/Google/Apple
+  doivent fonctionner sans erreur.
+- **Méthode** : étendre `verifierSite()` (brique `bible`) — qui ne teste
+  aujourd'hui que 6 pages clés + robots/sitemap — en un vrai crawler qui lit
+  TOUTES les URLs du sitemap, inspecte chaque page (liens morts, boutons,
+  formulaires) et grave chaque trouvaille dans `core_bible_bugs` → routine
+  continue via cron, pas un audit ponctuel qui s'oublie.
+- **Ce qui est corrigeable par code** (liens morts, 404, JS cassé) → corrigé et
+  poussé directement. **Ce qui dépend d'une action réelle de Bruno** (créer/valider
+  une vraie app OAuth Meta/Google/Apple avec les bons identifiants, vérifier un
+  numéro de téléphone en le composant réellement) → **signalé clairement**, jamais
+  simulé ni faussement déclaré « fait ».
+
 ## 🔄 Redémarrer sur une base propre (STANDING — gravé le 2026-07-07)
 
 > Question de Bruno : **« Quel prompt donner à la nouvelle conversation et quelles
@@ -465,27 +524,45 @@ But : Bruno parle à **un seul endroit** (bot Telegram), plus jamais Claude Code
 - **Archiver** : tous les vieux fils (celui-ci compris). Rien n'est perdu — la
   continuité tient à **CLAUDE.md + les commits Git + la mémoire en base**
   (`navlys_memoire`, `core_reglement`, `core_knowledge`), jamais à l'historique du chat.
-- **Prompt de démarrage type** (à coller dans le nouveau chat — maj 2026-07-08) :
-  « Reprends NAVLYS depuis CLAUDE.md + la Bible + l'état Git. On travaille LIVE.
-  **Doctrine :** OUI par défaut (exécute et rends compte, zéro question de
-  validation) ; autonome > dépendance ; jamais de blocage ; tutoiement + prénom ;
-  membre (jamais client), cotisation (jamais prix/tarif) ; charte ice blue + or
-  (interdit violet/mauve/fuchsia) ; preuve avant parole (pg_net/?diag avant
-  d'affirmer) ; un cas qui m'aurait fait redemander → `navlys_regle()` puis avance ;
-  action destructive irréversible → sauvegarde d'abord. Argent (Bible §6) :
-  signalement d'UNE ligne avant tout vrai débit. **Commence par l'analyse santé
-  complète** (pg_net : inscription, paiement, assistant, media, studio, whatsapp,
-  booster, ambassadeur ; file missions/agents ; incidents ; retours 💡 ; Security
-  Advisor), inscris tes chantiers via `navlys_chantier_ouvrir`, puis avance sans me
-  demander. **Branche :** `claude/orchestration-md-updates-rhu8ps` → PR #147 (si déjà
-  mergée, repars du `main` à jour). **En ligne (edge functions hors-Git) :** whatsapp
-  v32 (FAQ+mémoire+lien), booster v1, ambassadeur v1 ; sw v1.7.8. **En attente de
-  Bruno (relance-moi) :** 1) approuver le nom d'affichage WhatsApp Meta (#131037 →
-  « NAVLYS ») ; 2) activer Leaked password protection (Supabase) ; 3) compte Google
-  Play 25 $ + PWABuilder → me donner l'empreinte SHA-256 pour `assetlinks.json` ;
-  4) secrets média gratuits (GEMINI/HF/Cloudflare). **Fil rouge cap 1000→1M :** capter
-  le `?code=` à l'inscription (parrainage), clés i18n `/ambassadeur` + `/booster`,
-  vidéos/logo/mobile. Avance sans me demander. »
+- **Chaque matin, une seule phrase à coller dans le nouveau chat** — c'est CE
+  bloc, toujours tenu à jour ici (dernière mise à jour : 2026-07-09). Bruno n'a
+  rien à retenir : il ouvre un nouveau chat, colle le prompt ci-dessous, la
+  continuité reprend sans coupure — CLAUDE.md + Git + la base font foi, jamais
+  la mémoire du chat précédent.
+- **Prompt de démarrage type** (à coller dans le nouveau chat — maj 2026-07-09) :
+  « Reprends NAVLYS depuis CLAUDE.md + la Bible + l'état Git. On travaille LIVE,
+  push direct sur `main` (plus de PR). **Doctrine :** OUI par défaut (exécute et
+  rends compte, zéro question de validation) ; autonome > dépendance ; jamais de
+  blocage ; tutoiement + prénom ; membre (jamais client), cotisation (jamais
+  prix/tarif) ; charte ice blue + or (interdit violet/mauve/fuchsia) ; preuve
+  avant parole (pg_net/?diag avant d'affirmer) ; un cas qui m'aurait fait
+  redemander → `navlys_regle()` puis avance ; action destructive irréversible →
+  sauvegarde d'abord. Argent (Bible §6) : signalement d'UNE ligne avant tout vrai
+  débit. **Indépendance du CORE (§ dédiée plus bas)** : WhatsApp pilote reste le
+  canal de dialogue direct Bruno↔CORE indépendant de Claude Code ; le repli
+  OpenRouter (`callBrain`) est pour l'instant seulement dans
+  `api/whatsapp-webhook.js` — reste à le propager à `assistant`/`cockpit`/`bible`
+  et à poser `OPENROUTER_API_KEY` chez Vercel (à demander à Bruno, ce n'est pas
+  un débit). **Objectif permanent en fil rouge (gravé 2026-07-09, ne s'arrête
+  qu'à zéro erreur) :** auditer et corriger TOUT navlys.com — chaque page/rubrique,
+  liens tél/mail, inscription, connexion FB/Google/Apple — jusqu'à zéro erreur ;
+  ce qui dépend d'une action réelle de Bruno (comptes OAuth, vérif téléphone) est
+  signalé, pas simulé. **Commence par l'analyse santé complète** (pg_net :
+  inscription, paiement, assistant, media, studio, whatsapp, booster, ambassadeur ;
+  file missions/agents ; incidents ; retours 💡 ; Security Advisor), inscris tes
+  chantiers via `navlys_chantier_ouvrir`, puis avance sans me demander. **En ligne
+  (edge functions hors-Git) :** whatsapp v32 (FAQ+mémoire+lien) + résilience
+  OpenRouter (commit `2f50322`), bible (verifierSite/rechercheWeb/boucle),
+  booster v1, ambassadeur v1 ; sw v1.7.8. **En attente de Bruno (relance-moi) :**
+  1) poser `OPENROUTER_API_KEY` (gratuit sur openrouter.ai) chez Vercel pour
+  activer le repli anti-coupure ; 2) approuver le nom d'affichage WhatsApp Meta
+  (#131037 → « NAVLYS ») ; 3) activer Leaked password protection (Supabase) ;
+  4) compte Google Play 25 $ + PWABuilder → empreinte SHA-256 pour
+  `assetlinks.json` ; 5) secrets média gratuits (GEMINI/HF/Cloudflare) ;
+  6) trancher navlys.io (miroir complet de navlys.com ou usage distinct ?).
+  **Fil rouge cap 1000→1M :** capter le `?code=` à l'inscription (parrainage),
+  clés i18n `/ambassadeur` + `/booster`, vidéos/logo/mobile, zéro-erreur
+  navlys.com. Avance sans me demander. »
 
 ## 💡 Conseil d'usage (sessions)
 
