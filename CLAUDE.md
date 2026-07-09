@@ -202,6 +202,31 @@ install.sh              # installeur Hetzner en une ligne
   uniquement, **un compte légitime par prestataire**, **jamais** de farming / multi-comptes /
   contournement de limites. Autonome, oui ; abusif, jamais.
 
+## 📖 La Bible — routine d'apprentissage sans interruption (STANDING — gravé le 2026-07-09)
+
+> Ordre de Bruno : **« Je veux une routine qui tienne compte de tout ce qui est vu
+> par ChatGPT et externe à Claude, pour gérer et donner ordre à tous les agents,
+> gonfler leur compétences et mémoire et infaillibilité. Toujours apprendre et
+> faire une bible reprenant chaque bug pour créer la routine parfaite sans
+> interruption — en boucle, sur notre serveur externe, JS/Python. »**
+
+- **Edge function `bible`** (Supabase, tourne seule 24/7, indépendante de toute
+  session Claude Code) : `POST {source, texte}` = ingère n'importe quel retour
+  externe (audit d'agence, plainte, bug, log, alerte) ; Claude en extrait les
+  vrais enseignements, ignore le bruit et les analyses de sites tiers par erreur
+  (ex. confusion de marque). Chaque leçon devient : 1) une **règle permanente**
+  (`navlys_regle`), 2) une entrée dans **`core_bible_bugs`** (jamais réapprise),
+  3) une **note en mémoire** de l'agent du bon département (`agent_note` →
+  `agent_memoire`, type `apprentissage`) — gonfle sa compétence directement.
+- **`GET ?mode=boucle`** (cron `navlys_bible_boucle`, toutes les heures) : scanne
+  SEUL `core_feedback` (💡 Améliorer) et `core_incidents` résolus **jamais
+  digérés** (`bible_traite=false`) et les ingère automatiquement. Boucle fermée,
+  sans intervention de Bruno.
+- **Réflexe** : tout retour externe (audit d'agence, capture d'écran de
+  consultant, plainte client) → `POST {source, texte}` sur la brique `bible` →
+  la leçon est gravée et les agents progressent, une seule fois pour toutes les
+  applications NAVLYS. Code source : `supabase/functions/bible/index.ts`.
+
 ## 📺 Veille YouTube influenceurs (STANDING — gravé le 2026-07-07)
 
 > Ordre de Bruno : **« Prends les liens donnés par les influenceurs que je suis. »**
