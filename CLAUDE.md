@@ -357,6 +357,11 @@ install.sh              # installeur Hetzner en une ligne
 7. **Média/IA lent ou bloqué** (fal ai-avatar) → basculer sur un moteur rapide
    (HeyGen/VEED) + failover ; ne pas boucler en polling serré.
 8. **Voix** : si la clé directe ElevenLabs flappe → passer par **Zapier** (fiable).
+9. **Edge function appelée par pg_cron/tests sans en-tête Authorization → toujours
+   `verify_jwt=false` explicite au déploiement** (gravé 2026-07-09, règle n°98).
+   Jamais laisser la valeur par défaut de l'outil de déploiement : un oubli bascule
+   `verify_jwt=true` et casse tous les crons en silence (401). Toujours vérifier
+   après coup avec un appel réel (pg_net) que le statut est 200.
 
 **Doctrine de ton (rappel) :** tutoiement + prénom, cotisation (jamais tarif),
 statut simple citoyen, jamais complaisant (« rien n'est fini »).
@@ -388,6 +393,27 @@ suis **toujours en recherche et en amélioration sur tout**, par département. D
 sûr aligné doctrine : **autonome > dépendance externe** ; **OUI > attendre** ; on
 ne pose une question QUE pour un vrai débit d'argent ou un secret que moi seul ne
 peux pas obtenir.
+
+## 🧠 Cerveau CORE rangé — recherche instantanée (STANDING — gravé le 2026-07-09)
+
+> Ordre de Bruno : **« apprends à ranger, à organiser tout ton cerveau CORE, et à
+> chercher où il faut suivant des repères mots-clés [...] pour trouver à l'instant
+> les informations sur ton CORE local. »**
+
+- **`navlys_chercher(terme, limite)`** (RPC Postgres, exposée en REST via
+  `/rest/v1/rpc/navlys_chercher`) : un seul point d'entrée qui cherche EN MÊME
+  TEMPS dans `core_reglement` (règles), `core_bible_bugs` (leçons), `agent_memoire`
+  (mémoire par agent), `navlys_memoire` (mémoire centrale) et `core_knowledge`
+  (livrables) — plein texte français (tsvector + index GIN), classé par
+  pertinence. Avant de redemander quelque chose à Bruno ou de recommencer un
+  travail déjà fait, réflexe : `select * from navlys_chercher('mot-clé')`.
+- Colonnes `recherche` (tsvector) + triggers `navlys_recherche_maj()` sur les 5
+  tables — mise à jour automatique à chaque insertion, aucune maintenance requise.
+  Migration : `navlys_cerveau_recherche_instantanee_v2`.
+- Testé en direct (09/07) : `navlys_chercher('positionnement finance')` retrouve
+  en un appel la règle n°76, les leçons de bible liées, et la mémoire NAVMKT
+  concernée, classées par pertinence — preuve que le cerveau est bien rangé et
+  interrogeable à l'instant, pas seulement archivé.
 
 ## 🌍 Doctrine des langues & traductions (STANDING — gravée le 2026-07-02)
 
