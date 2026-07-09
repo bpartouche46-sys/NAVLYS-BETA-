@@ -1067,6 +1067,24 @@ window.NAVLYS_setVideo = function(v, rate, srcs){
     /* re-rendu dans la bonne langue à chaque bascule (événement nv-lang) */
     document.addEventListener('nv-lang',function(){ var tr=bar.querySelector('.track'); if(tr) tr.innerHTML=trackHTML(); });
 
+    /* --- PREUVE EN DIRECT : le vrai travail du CORE, pas une promesse -----
+       Demande Bruno (2026-07-09) : « montre-moi le changement online sur le
+       site en temps réel — c'est ça qu'il faut valoriser en première page. »
+       On va chercher les dernières actions réelles (brique publique
+       « vitrine ») et on les glisse en tête du bandeau, préfixées EN DIRECT. */
+    (function(){
+      var VITRINE='https://hhrlgyvtqluxpywjiwkd.supabase.co/functions/v1/vitrine';
+      function maj(){
+        fetch(VITRINE).then(function(r){return r.json();}).then(function(d){
+          var feed=(d&&d.feed)||[]; if(!feed.length) return;
+          var tr=bar.querySelector('.track'); if(!tr) return;
+          var live=feed.map(function(m){ return '<span class="it" style="color:#e9d3a0">🔴 <b>EN DIRECT</b> — '+m+'</span>'; }).join('');
+          tr.innerHTML=live+trackHTML();
+        }).catch(function(){});
+      }
+      maj(); setInterval(maj,30000);
+    })();
+
     /* petit écran : vidéo en DIRECT si disponible, sinon le gem animé reste */
     try{
       var v=d.createElement('video'); v.muted=true; v.loop=true; v.autoplay=true; v.playsInline=true; v.setAttribute('playsinline','');
