@@ -222,7 +222,7 @@ async function avisClaude(contexte: string): Promise<string> {
   } catch { return ""; }
 }
 async function avisOpenRouter(contexte: string): Promise<string> {
-  const orKey = Deno.env.get("OPENROUTER_API_KEY") || Deno.env.get("OPENROUTER_KEY") || Deno.env.get("OPEN_ROUTER_API_KEY") || "";
+  const orKey = Deno.env.get("OPENROUTER_API_KEY") || Deno.env.get("OPENROUTER_KEY") || Deno.env.get("OPEN_ROUTER_API_KEY") || Deno.env.get("OPEN_API_ROUTER") || Deno.env.get("OPEN_API_ROUTER_KEY") || "";
   if (!orKey) return "";
   try {
     const r = await fetch("https://openrouter.ai/api/v1/chat/completions", {

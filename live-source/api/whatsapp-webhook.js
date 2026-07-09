@@ -38,7 +38,7 @@ async function callBrain(system, user, { anthKey, maxTokens = MAX_TOKENS, model 
       }
     } catch { /* on tente le repli ci-dessous */ }
   }
-  const orKey = envAny(['OPENROUTER_API_KEY', 'OPENROUTER_KEY', 'OPEN_ROUTER_API_KEY']);
+  const orKey = envAny(['OPENROUTER_API_KEY', 'OPENROUTER_KEY', 'OPEN_ROUTER_API_KEY', 'OPEN_API_ROUTER', 'OPEN_API_ROUTER_KEY']);
   if (orKey) {
     for (const orModel of ['meta-llama/llama-3.3-70b-instruct:free', 'anthropic/claude-haiku-4.5']) {
       try {
