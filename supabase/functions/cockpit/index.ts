@@ -36,6 +36,13 @@ Deno.serve(async (req) => {
     return J({ agents, missions, journal, stats });
   }
   if (a === "valider") { await pa("missions","id=eq."+enc(body.id),{statut:"fait"}); await ins("journal",{type:"validation",message:"Bruno a valide #"+body.id+" (cockpit)"}); return J({ok:true}); }
+  if (a === "valider_tout") {
+    const att = await g("missions","select=id&statut=eq.a_valider&limit=500");
+    if (!att.length) return J({ ok:true, valides:0 });
+    await pa("missions","statut=eq.a_valider",{statut:"fait"});
+    await ins("journal",{type:"validation",message:"Bruno a TOUT valide en un clic : "+att.length+" mission(s) (cockpit)"});
+    return J({ ok:true, valides:att.length });
+  }
   if (a === "refuser") { await pa("missions","id=eq."+enc(body.id),{statut:"a_faire",erreur:String(body.motif||"").slice(0,500)}); await ins("journal",{type:"refus",message:"Bruno a refuse #"+body.id+" (cockpit)"}); return J({ok:true}); }
   if (a === "create") {
     const txt = String(body.texte||"").trim(); if(!txt) return J({error:"vide"},400);
