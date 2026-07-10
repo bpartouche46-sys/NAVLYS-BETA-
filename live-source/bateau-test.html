@@ -27,7 +27,8 @@ form{background:var(--panel);border:1px solid var(--line);border-radius:16px;pad
 .deux{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 @media(max-width:520px){.deux{grid-template-columns:1fr}}
 label{display:block;font-size:.85rem;color:var(--mut);margin:12px 0 6px}
-input[type=text],input[type=email],input[type=tel],textarea{width:100%;background:rgba(3,4,10,.8);border:1px solid var(--line);border-radius:10px;color:var(--perle);padding:12px;font:inherit;font-size:1rem}
+input[type=text],input[type=email],input[type=tel],select,textarea{width:100%;background:rgba(3,4,10,.8);border:1px solid var(--line);border-radius:10px;color:var(--perle);padding:12px;font:inherit;font-size:1rem}
+select{appearance:none;-webkit-appearance:none}
 textarea{min-height:150px;line-height:1.6}
 input:focus,textarea:focus{outline:none;border-color:var(--ice)}
 .photos{border:1px dashed rgba(125,211,252,.4);border-radius:12px;padding:14px;text-align:center;color:var(--mut);cursor:pointer;font-size:.95rem;line-height:1.6}
@@ -82,6 +83,20 @@ button{font:inherit;cursor:pointer}
       <div><label for="lieu">Où il se trouve</label><input id="lieu" type="text" placeholder="Césarée, Herzliya…"></div>
       <div><label for="telephone">Téléphone (optionnel)</label><input id="telephone" type="tel" autocomplete="tel" placeholder="+972…"></div>
     </div>
+    <div class="deux">
+      <div><label for="vie_eau">Sa vie, en gros</label><select id="vie_eau">
+        <option value="mixte">À flot l'été, à sec l'hiver</option>
+        <option value="flot">À flot toute l'année</option>
+        <option value="terre">Sur remorque / à terre</option>
+      </select></div>
+      <div><label for="eau">Dans quelle eau</label><select id="eau">
+        <option value="salee">Mer (eau salée)</option>
+        <option value="douce">Lac / rivière (eau douce)</option>
+        <option value="mixte">Les deux / estuaire</option>
+      </select></div>
+    </div>
+    <label for="zone">Sa zone de navigation durant sa vie (pour l'analyse osmose &amp; météo)</label>
+    <input id="zone" type="text" placeholder="Méditerranée, Bretagne, Caraïbes, lac Léman…">
     <label for="description">Le dossier complet * — raconte tout : état, historique, ce que dit le vendeur, ce que tu veux savoir</label>
     <textarea id="description" placeholder="Ex : catamaran de 2008, resté 2 ans sous bâche, le vendeur dit que les voiles sont neuves, je veux savoir quoi vérifier avant d'acheter…"></textarea>
     <label>Tes photos (jusqu'à 6 — coque, pont, gréement, moteur, détails qui t'inquiètent)</label>
@@ -150,6 +165,7 @@ button{font:inherit;cursor:pointer}
       website:document.querySelector('.hp').value,
       prenom:$('prenom').value, email:email, telephone:$('telephone').value,
       bateau:$('bateau').value, annee:$('annee').value, lieu:$('lieu').value,
+      vie_eau:$('vie_eau').value, eau:$('eau').value, zone:$('zone').value,
       description:$('description').value, photos:photos
     })}).then(function(r){ return r.json(); }).then(function(d){
       if(!d || !d.ok){ msg.textContent=(d&&d.error)||'Réessaie dans un instant.'; go.disabled=false; go.textContent='Envoyer mon dossier 🌊'; return; }

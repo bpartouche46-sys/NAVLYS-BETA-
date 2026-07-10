@@ -120,18 +120,110 @@ humain** : toute action sensible passe en `a_valider` (jamais exécutée seule).
   `core_bible_bugs` (leçons `gemini_audit_2026-07-09` et
   `chatgpt_indexation_2026-07-09`), mémoire NAVMKT/NAVLEX/NAVCOM/NAVTECH.
 
-## 🗂️ Structure du code
+## 🗂️ Structure du code (carte à jour — maj 2026-07-09)
+
+Le repo héberge **quatre briques indépendantes** qui composent NAVLYS. Aucune
+n'est un secret : tout vient de `process.env` / `.env` (jamais de clé dans Git).
 
 ```
-run.py                  # entrée : python run.py [--once]
+run.py                     # entrée du worker : python run.py [--once]
+install.sh                 # installeur Hetzner en une ligne
+requirements.txt           # dépendances Python (requests uniquement)
+.env.example               # gabarit des variables ; le vrai .env n'est JAMAIS committé
+.mcp.json                  # serveur MCP Context7 (docs API à jour)
+.claude/settings.json      # perms + hook PostToolUse -> tools/hook-verif.mjs
+vercel.json / netlify.toml # hébergement du site (live-source/), URLs propres, en-têtes sécurité
+
+# ── 1) WORKER PYTHON — l'orchestrateur des 14 agents (24/7 Hetzner ou test mobile) ──
 navlys_core/
-  config.py             # config + MODEL_MAP (IDs canoniques -> slugs OpenRouter)
-  supabase_client.py    # client PostgREST/RPC en service_role
-  llm.py                # appel OpenRouter + cache du prompt stable
-  worker.py             # boucle : claim mission -> agent -> livrable -> statut
-.env.example            # gabarit ; les vraies clés ne sont JAMAIS dans Git
-install.sh              # installeur Hetzner en une ligne
+  config.py                # Config (env) + MODEL_MAP (IDs canoniques -> slugs OpenRouter) + resolve_model()
+  supabase_client.py       # client PostgREST/RPC en service_role
+  llm.py                   # appel OpenRouter + cache du prompt stable
+  worker.py                # boucle : claim_next_mission -> contexte RAG -> LLM -> livrable -> statut
+                           #   REGLES_CORE (garde-fous) injectées dans CHAQUE agent
+  masternav.py             # chef d'orchestre / bot Telegram (voir MASTERNAV.md)
+  portable.py              # CORE embarquable hors-ligne (SQLite) : « cloud si dispo, sinon local »
+  veille_resilience.py     # veille quotidienne des dépendances (DuckDuckGo + forums)
+  skills_internes/
+    securite.py            # skill interne : scan statique (secrets, prompt-injection, code dangereux)
+                           #   python -m navlys_core.skills_internes.securite <chemin>
+
+# ── 2) API VERCEL — fonctions edge serveur (clés côté serveur uniquement) ──
+api/
+  cron-tick.js             # moteur AUTONOME (cron Vercel) : fait travailler les agents seuls
+                           #   garde-fous MAX_PER_TICK + DAILY_TOKEN_CAP ; modèle Haiku
+  cockpit.js               # accès LECTURE + PILOTAGE du CORE (protégé par COCKPIT_TOKEN)
+  whatsapp-webhook.js      # canal direct Bruno<->CORE (360dialog) ; callBrain() = repli OpenRouter
+  sav.js / navlex.js       # assistant SAV + info juridique (Anthropic, anti-abus par IP, CORS liste blanche)
+  voice.js                 # TTS ElevenLabs (VOICE_ID via env, jamais en clair)
+
+# ── 3) SUPABASE EDGE FUNCTIONS — le cerveau 24/7 (Deno/TS, tournent sans Claude Code) ──
+supabase/functions/        # 23 briques ; pilotées par pg_cron (voir sql/routines_cron.sql)
+  bible/                   # routine d'apprentissage : ingère retours externes -> règles/leçons/mémoire
+                           #   modes ?boucle ?verifier ?recherche ?avis (crawler + veille marque)
+  media/                   # routeur média multi-prestataires (gratuit d'abord, payant en dernier recours)
+  inscription/ paiement/   # funnel membre + paiement
+  assistant/ cockpit/      # SAV live + cockpit ; passerelle/ nextgen/ finance/ mer/ meteo/ navlock/
+  avatar/ voix/ voix-demo/ labo-audio/   # voix clonée + avatar + studio audio
+  youtube/                 # veille influenceurs (oEmbed + RSS + HTML, pas d'API player)
+  bateau/                  # Test Bateaux PRO (moteur osmose + base défauts par modèle)
+  panel/ veilleur/ retour/ vitrine/      # pilotage, veille, feedback, vitrine
+
+# ── 4) SITE LIVE — publié tel quel sur navlys.com (Vercel : outputDirectory=live-source) ──
+live-source/               # 55 pages HTML statiques (index, next-gen, finance, adhesion, cockpit, ...)
+  navlys-i18n.js           # moteur i18n v3 : FR/EN/RU (RU = RU_VALUES aligné 1:1 par index)
+  navlys-i18n-he.js        # hébreu (RTL, chargé à la demande)
+  navlys-i18n-ar.js        # arabe  (RTL, chargé à la demande)
+  navlys-alive.js          # calque « vivant » (lisibilité, karaoké voix nvKarAudio/nvKarUtter)
+  navlys-savoir.js         # base de savoir client
+  sw.js                    # service worker (network-first pour code/pages, bump de version obligatoire)
+  manifest.webmanifest     # PWA ; robots.txt / sitemap.xml ; .well-known/assetlinks.json (TWA)
+  app-config/              # gabarit Next.js/Tailwind + supabase-schema.sql (référence)
+  media/                   # images, icônes, voix-accueil.mp3, logos SVG
+
+# ── OUTILS & BASE DE DONNÉES ──
+tools/
+  check-i18n.mjs           # banc Playwright : chaque page x chaque langue (passe AVANT tout push)
+  faq-traductions.mjs      # génération des traductions FAQ
+  hook-verif.mjs           # hook PostToolUse : vérif automatique après Edit/Write
+sql/                       # 11 migrations : routines_cron, agents_bible_memoire, auto_amelioration_recursive,
+                           #   core_incidents_autocicatrisation, apprentissage_permanent, test_bateaux, ...
+deploy/                    # INSTALL_HETZNER, APP_STORES, TERMUX_MOBILE, OLLAMA_OFFLINE + services systemd
+docs/                      # statuts société, règlement, stratégie paiement, enseignements Manus/Meta, ...
+skills-lock.json           # skills vidéo (non committés) : restaurer via npx skills experimental_install
 ```
+
+**Où tourne quoi** : le *cerveau* (agents, routines, apprentissage) vit dans
+**Supabase Edge Functions + pg_cron** → autonome 24/7, indépendant de toute
+session Claude Code. Le *site* est servi par **Vercel** (`navlys.com`) depuis
+`live-source/`. Le *worker Python* (`navlys_core/`) est optionnel (Hetzner 24/7
+ou test mobile Termux). Détail : voir « 🖥️ Où tout tourne » plus bas.
+
+## 🛠️ Workflows de dev & conventions (pour tout agent IA qui reprend le repo)
+
+- **Test avant parole (réflexe n°1)** : jamais « fait / en ligne » sans preuve
+  réelle (`?diag`, `pg_net`, requête). Voir « ⚡ Réflexes anti-erreur ».
+- **Worker Python** : `pip install -r requirements.txt` → `python run.py --once`
+  (un cycle) ou `python run.py` (boucle). `node --check` pour valider tout JS.
+- **i18n obligatoire** : tout texte visible nouveau = une clé dans **les 5
+  langues** dans le même commit ; `node tools/check-i18n.mjs` DOIT passer avant
+  push (servir `live-source` en local d'abord). `<br>`/`<b>` → une clé par
+  fragment (règle n°34). Jamais d'édition manuelle des dictionnaires (n°33).
+- **Charte** : après tout changement de style, `grep -Ei 'violet|mauve|fuchsia'`
+  → zéro toléré (ice blue + or, fond sombre uniquement).
+- **Service worker** : à chaque changement de code/page, bumper la version de
+  `sw.js` (network-first ; cache-first figeait l'ancien code — leçon n°5).
+- **SQL** : lire le schéma avant toute requête ; après chaque nouvelle fonction/
+  migration → `get_advisors(security)` + `get_advisors(performance)` ; toute
+  fonction `SECURITY DEFINER` qui écrit → `REVOKE EXECUTE FROM public/anon/
+  authenticated` dès sa création (règle n°114).
+- **Edge functions** : déployer avec `verify_jwt=false` explicite si appelées par
+  pg_cron/tests sans en-tête Authorization (règle n°98), puis vérifier 200 réel.
+- **Secrets = lecture tolérante** : lire chaque clé sous plusieurs noms possibles
+  (règle n°4) plutôt que faire recommencer Bruno.
+- **Publication** : voir « 🛠️ Workflow — LIVE direct » (doctrine de Bruno).
+  ⚠️ Dans CETTE session Claude Code, développer sur la branche désignée et créer
+  une PR (contrainte de l'environnement), pas de push direct sur `main`.
 
 ## 🚦 Règles d'or (non négociables — voir Bible §6)
 
