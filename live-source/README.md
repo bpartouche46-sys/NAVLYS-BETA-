@@ -7,6 +7,7 @@ But : mettre le code live **sous Git** (objectif Phase 0) AVANT de relier
 Vercel ↔ GitHub, pour ne RIEN écraser (voix `navlys-alive.js` + toutes les pages).
 
 ⚠️ Aucun secret ici : pas de `.env`, pas de clé, pas de token (cf. `.gitignore`).
-Procédure complète : `docs/PROCEDURE-VERCEL-GITHUB.md`.
+Procédure de raccordement Vercel ↔ GitHub : voir `vercel.json` (racine) + le hook `.github/`
+et `ACTIVATION_NAVLYS.md` (section hébergement).
 
 Arborescence cible : `live-source/<projet>/...` (un sous-dossier par projet Vercel).

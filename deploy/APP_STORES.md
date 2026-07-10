@@ -77,7 +77,7 @@ politique de confidentialité (→ `navlys.com/confidentialite`), catégorie, de
 - **Nom** : NAVLYS
 - **Sous-titre** : Ton univers, à la voix.
 - **Description courte** : Humain + IA, tout au téléphone et à la voix. À essayer gratuitement.
-- **Catégories** : Finance / Style de vie / Productivité.
+- **Catégories** : Style de vie / Productivité / Finance (Next Gen d'abord, Finance en dernier — règle n°76).
 - **Confidentialité** : https://navlys.com/confidentialite · **Conditions** : https://navlys.com/conditions
 - **Support** : https://navlys.com/assistance
 

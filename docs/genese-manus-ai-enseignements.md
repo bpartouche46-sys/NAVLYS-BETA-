@@ -197,7 +197,7 @@ publiquement chiffré n'a été trouvé pour Manus lui-même.
 2. **Le financement massif (75 M$ Series B après seulement un mois de buzz).** NAVLYS n'a pas ce
    levier de capital-risque disponible à ce stade — le narratif de croissance de Manus (x5 de
    valorisation en 5 mois) a été alimenté par des investisseurs (Benchmark, Tencent, HSG) prêts à
-   miser des dizaines de millions sur un marché B2B agentique déjà chaud aux US/Chine. Ce nest
+   miser des dizaines de millions sur un marché B2B agentique déjà chaud aux US/Chine. Ce n'est
    pas une variable marketing reproductible à budget modeste — c'est un contexte de financement
    différent, à ne pas prendre comme objectif de comparaison à court terme.
 3. **La tarification par crédits opaque, qui a généré une vraie controverse (crédits perdus,
