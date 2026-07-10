@@ -644,7 +644,7 @@ window.NAVLYS_setVideo = function(v, rate, srcs){
 
   // ---- menu PARTAGE (1 clic, toutes les formes) ----
   var url=location.origin+(path==='/'?'/':path);
-  var msg='Découvre NAVLYS — l\'IA humaine et lumineuse, en 1 clic 🌊';
+  var msg='Rejoins-moi sur NAVLYS — la première IA qui orchestre les autres IA depuis ton téléphone, sans bureau ni ordinateur. Entre gratuitement (0 €) et gagne immédiatement une commission à vie sur les futurs abonnés NAVLYS que tu enrôleras dans l\'univers NAVLYS 🌊';
   var E=encodeURIComponent;
   var shareHTML=
     '<div class="lbl">Partager NAVLYS · 1 clic</div>'+
