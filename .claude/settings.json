@@ -20,8 +20,6 @@
       "mcp__Google_Drive",
       "mcp__Google_Calendar",
       "mcp__Google_Sheets",
-      "mcp__Stripe",
-      "mcp__PayPal",
       "mcp__Adobe_for_creativity",
       "mcp__Canva",
       "mcp__Figma",
@@ -39,6 +37,10 @@
       "mcp__Kiwi_com",
       "mcp__PDF_Viewer",
       "mcp__Dropbox"
+    ],
+    "ask": [
+      "mcp__Stripe",
+      "mcp__PayPal"
     ],
     "deny": [
       "Bash(rm -rf /)",

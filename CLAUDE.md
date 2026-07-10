@@ -760,6 +760,27 @@ But : Bruno parle à **un seul endroit** (bot Telegram), plus jamais Claude Code
   numéro de téléphone en le composant réellement) → **signalé clairement**, jamais
   simulé ni faussement déclaré « fait ».
 
+## 🚫 L'erreur est INTERDITE au lancement — porte de lancement (STANDING — gravé le 2026-07-10, règle n°156)
+
+> Ordre de Bruno : **« L'erreur est interdite au lancement. Grave-le. Zéro erreur
+> ou point à régler au jour du lancement. »**
+
+- **Au jour du lancement (mise en avant publique / diffusion en masse) : ZÉRO
+  erreur ET ZÉRO point à régler.** Aucun « on corrigera après » sur un élément
+  visible ou fonctionnel. C'est une **porte** : s'il reste UN seul point rouge ou
+  en attente, **on NE lance PAS — on règle d'abord.**
+- **Check-list bloquante, tout prouvé en direct (pg_net/?diag, jamais déclaré sans
+  test)** : (1) chaque page du sitemap répond 200, zéro lien mort, zéro JS cassé ;
+  (2) inscription complète de bout en bout (email vérifié + OAuth actifs OU repli
+  propre) ; (3) chaque `tel:`/`mailto:` fonctionne ; (4) paiement/cotisation testé,
+  tout vrai débit sous validation ; (5) assistant + `/valider` + WhatsApp répondent ;
+  (6) repli anti-coupure OpenRouter **ACTIF** (clé posée) ; (7) santé VERTE
+  (`navlys_sante`) + `core_bible_bugs` sans faille ouverte ; (8) i18n complet sur
+  toute page publique ; (9) charte respectée (zéro violet/mauve/fuchsia).
+- **Ce qui dépend d'une action réelle de Bruno** (OAuth, clé Vercel, vérif tél.) est
+  signalé comme **BLOQUANT**, jamais simulé ni faussement déclaré « fait ».
+- Gravé en base : `core_reglement` (règle n°156) via `navlys_regle()`.
+
 ## 🔄 Redémarrer sur une base propre (STANDING — gravé le 2026-07-07)
 
 > Question de Bruno : **« Quel prompt donner à la nouvelle conversation et quelles
