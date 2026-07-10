@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Carte vivante du système — NAVLYS</title>
+<meta name="description" content="La toile d'araignée de NAVLYS : le cœur, le serveur, les briques, les pages, les agents, les routines 24/7 et les services externes — tous les liens, en un coup d'œil.">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#050b16">
+<style>
+:root{--ice:#7DD3FC;--ice-b:#BAE6FD;--ice-d:#0EA5E9;--gold:#fcd34d;--bg:#050b16;--bg2:#081321;--card:#0c1626;--line:rgba(125,211,252,.18);--txt:#eaf2fb;--dim:#9fb6cc}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0;background:var(--bg);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
+a{color:var(--ice)}
+header{display:flex;align-items:center;gap:10px;padding:max(12px,env(safe-area-inset-top)) 16px 10px}
+.logo{font-family:"Cormorant Garamond",Georgia,serif;font-weight:700;font-size:24px;background:linear-gradient(180deg,var(--ice-b),var(--ice-d));-webkit-background-clip:text;background-clip:text;color:transparent}
+.sub{font-size:12.5px;color:var(--dim);margin-left:auto;text-align:right;line-height:1.3}
+.stage{position:relative;margin:0 10px;border:1px solid var(--line);border-radius:18px;overflow:hidden;background:radial-gradient(circle at 50% 42%,#0b1a2e,#050b16 70%)}
+canvas{display:block;width:100%;touch-action:none}
+.legend{position:absolute;left:12px;top:12px;display:flex;flex-wrap:wrap;gap:6px;max-width:70%}
+.chip{display:flex;align-items:center;gap:6px;font-size:11.5px;color:var(--dim);background:rgba(6,14,24,.72);border:1px solid var(--line);padding:5px 9px;border-radius:99px;cursor:pointer;user-select:none}
+.chip.off{opacity:.32}
+.dot{width:10px;height:10px;border-radius:50%}
+.tools{position:absolute;right:12px;top:12px;display:flex;flex-direction:column;gap:8px;align-items:flex-end}
+.tools input{width:150px;padding:9px 11px;border-radius:10px;border:1px solid var(--line);background:rgba(6,14,24,.82);color:#fff;font-size:13px}
+.btn{font:inherit;font-size:12.5px;background:rgba(6,14,24,.82);border:1px solid var(--line);color:var(--dim);padding:8px 11px;border-radius:10px;cursor:pointer}
+.panel{position:absolute;right:12px;bottom:12px;width:min(340px,86vw);background:rgba(8,19,33,.94);border:1px solid var(--line);border-radius:16px;padding:16px;display:none;backdrop-filter:blur(6px)}
+.panel.show{display:block}
+.panel h3{margin:0 0 4px;font-size:17px}
+.panel .k{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}
+.panel p{font-size:13.5px;color:var(--dim);line-height:1.55;margin:8px 0}
+.panel .links{font-size:13px;color:var(--txt);line-height:1.7}
+.panel .x{position:absolute;right:12px;top:10px;cursor:pointer;color:var(--dim);font-size:20px;border:none;background:none}
+.dossier{max-width:900px;margin:26px auto 60px;padding:0 18px}
+.dossier h2{font-size:20px;margin:26px 0 8px;color:var(--ice-b)}
+.dossier p{font-size:14.5px;line-height:1.7;color:#c8d8e8}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:14px 0}
+.tile{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px}
+.tile .t{font-weight:700;margin-bottom:4px}
+.tile .d{font-size:13px;color:var(--dim);line-height:1.5}
+.hint{font-size:12.5px;color:var(--dim);text-align:center;padding:6px 16px}
+.big{font-size:26px;font-weight:800;color:var(--gold)}
+</style>
+</head>
+<body>
+<header>
+  <span class="logo">NAVLYS</span>
+  <span class="sub">Carte vivante du système<br>toile d'araignée — état réel</span>
+</header>
+
+<div class="stage" id="stage">
+  <canvas id="cv"></canvas>
+  <div class="legend" id="legend"></div>
+  <div class="tools">
+    <input id="q" placeholder="Chercher une bulle…" autocomplete="off">
+    <button class="btn" onclick="relayout()">↻ Réorganiser</button>
+    <button class="btn" onclick="fit()">⤢ Recentrer</button>
+  </div>
+  <div class="panel" id="panel">
+    <button class="x" onclick="closePanel()">×</button>
+    <div class="k" id="pk"></div>
+    <h3 id="pt"></h3>
+    <p id="pd"></p>
+    <div class="links" id="pl"></div>
+  </div>
+</div>
+<p class="hint">Glisse une bulle pour l'écarter · touche/clic sur une bulle pour voir ce à quoi elle est reliée · touche une pastille de légende pour filtrer.</p>
+
+<div class="dossier">
+  <h2>Comment lire ta toile</h2>
+  <p>Au centre, <b>le cœur</b> : ta base Supabase (PostgreSQL). C'est <b>le corps et le cerveau</b> de NAVLYS — il contient tout (missions, membres, mémoire, règles, journal) et c'est lui qui fait tourner le système <b>tout seul, 24 h/24</b>, même si Claude ou ton téléphone sont éteints. Autour de lui, tout se relie de point en point comme des neurones.</p>
+
+  <div class="grid">
+    <div class="tile"><div class="t">🫀 Le cœur / cerveau</div><div class="d">Supabase Postgres (serveur à eu-west-3, Paris). Les tables + les routines pg_cron. C'est là que « vit » NAVLYS.</div></div>
+    <div class="tile"><div class="t">🖥️ Les serveurs</div><div class="d">Supabase héberge le cerveau et les briques ; Vercel héberge le visage (navlys.com) ; Hetzner (optionnel) porte le worker MasterNav/Telegram.</div></div>
+    <div class="tile"><div class="t">🧩 Les briques</div><div class="d">Les Edge Functions : chaque service (assistant, voix, paiement, bible, valider…) est une petite brique indépendante et isolée.</div></div>
+    <div class="tile"><div class="t">🪟 Le visage</div><div class="d">Les 56 pages de navlys.com. Chaque page appelle une ou plusieurs briques pour vivre (l'accueil parle à la voix, l'adhésion au paiement…).</div></div>
+    <div class="tile"><div class="t">🧠 Les 15 agents</div><div class="d">Les départements (NAVTECH, NAVFI, NAVMKT…). Ils lisent les missions, réfléchissent, écrivent leur mémoire et leurs livrables.</div></div>
+    <div class="tile"><div class="t">🔁 Les routines 24/7</div><div class="d">34 crons qui battent seuls : core-tick toutes les 5 min, santé, auto-validation, bible en boucle, veilles, auto-amélioration récursive.</div></div>
+    <div class="tile"><div class="t">🌍 Les services externes</div><div class="d">Les cerveaux et mains loués : Anthropic (+ OpenRouter en repli), WhatsApp/360dialog, ElevenLabs, providers média, PayPal/Stripe, Open-Meteo…</div></div>
+    <div class="tile"><div class="t">🛡️ L'indépendance</div><div class="d">Seule connexion autorisée = Bruno. Anthropic tombe → repli OpenRouter. Chaque dépendance instable → remplacée par une brique interne.</div></div>
+  </div>
+
+  <h2>Où va quoi — le trajet d'une action</h2>
+  <p>Tu parles sur ton téléphone → une <b>page</b> (visage) appelle une <b>brique</b> (Edge Function) → la brique réfléchit (souvent via un <b>service externe</b> LLM) → elle écrit dans le <b>cœur</b> (une table) → si c'est sensible, ça part en <b>« à valider »</b> et atterrit dans ton app <a href="/valider">/valider</a> pour que <b>toi</b> autorises. Rien de sensible ne s'exécute seul : c'est ta règle d'or, gravée dans le corps même du système.</p>
+
+  <h2>Où arrivent l'aide, les critiques, les demandes (à l'échelle)</h2>
+  <p>Trois entrées, toutes automatiques, qui tiennent des <b>milliers de personnes par jour</b> côté réception (PostgreSQL encaisse des millions de lignes) :</p>
+  <div class="grid">
+    <div class="tile"><div class="t">💡 Bouton Améliorer</div><div class="d">Toute critique / idée → table <b>core_feedback</b> → routée vers le bon agent + le cockpit, puis digérée par la bible.</div></div>
+    <div class="tile"><div class="t">🗣️ Assistant (SAV/voix)</div><div class="d">Aide en direct 24/7, web + WhatsApp → table <b>sav_messages</b>. Répond seul, escalade si besoin.</div></div>
+    <div class="tile"><div class="t">📖 Bible en boucle</div><div class="d">Chaque heure, elle avale les retours et incidents non traités et en grave une leçon permanente — une seule fois pour toutes les pages.</div></div>
+  </div>
+
+  <h2>Manques &amp; risques — honnête, rien de caché</h2>
+  <div class="grid">
+    <div class="tile"><div class="t">⚠️ Le goulot, c'est toi</div><div class="d">La réception scale ; ta <b>validation humaine</b> non. À 1000+/jour il faut une file priorisée + auto-réponse fiable, sinon l'attente s'accumule. Chantier n°1.</div></div>
+    <div class="tile"><div class="t">💶 Coût LLM à volume</div><div class="d">Chaque réponse = un appel payant. À grande échelle, prévoir un budget + cache + bascule sur modèles gratuits (déjà amorcé côté média).</div></div>
+    <div class="tile"><div class="t">🔌 Repli anti-coupure inactif</div><div class="d">OpenRouter est codé mais la clé n'est pas posée chez Vercel → le jour où Anthropic tombe, seul WhatsApp bascule. À activer (dépend de toi).</div></div>
+    <div class="tile"><div class="t">🔑 Connexions OAuth</div><div class="d">Email vérifié = OK (gratuit). Google/Apple/Meta et la vérif SMS ne sont pas encore branchés — à créer chez chaque fournisseur.</div></div>
+    <div class="tile"><div class="t">🌍 Langues</div><div class="d">Les pages récentes (valider, cette carte) sont en français seul. Clés 5 langues à ajouter avant ouverture large.</div></div>
+    <div class="tile"><div class="t">🔎 Visibilité</div><div class="d">Domaine récent, peu de backlinks : ce n'est pas une panne mais l'indexation Google/Bing reste à pousser.</div></div>
+  </div>
+
+  <p class="hint">Instantané généré à partir de l'état réel de la base (briques, pages, crons, services relevés en direct). NAVLYS Web Service (NWS).</p>
+</div>
+
+<script>
+// ===== DONNÉES RÉELLES (relevées en direct : pages->briques, briques->services, crons) =====
+var CATS = {
+  coeur:   {c:'#fcd34d', n:'Cœur (base)'},
+  serveur: {c:'#e8f4ff', n:'Serveur / hébergement'},
+  table:   {c:'#f0c674', n:'Tables clés'},
+  brique:  {c:'#7DD3FC', n:'Briques (functions)'},
+  page:    {c:'#38bdf8', n:'Pages (visage)'},
+  agent:   {c:'#22d3ee', n:'Agents (15)'},
+  routine: {c:'#0ea5e9', n:'Routines 24/7'},
+  service: {c:'#c7a35a', n:'Services externes'}
+};
+var N = [
+  // cœur + serveurs
+  {id:'core', cat:'coeur', label:'CŒUR — Supabase Postgres', desc:"Le corps et le cerveau de NAVLYS. Contient toutes les tables et fait tourner les 34 routines seul, 24/7."},
+  {id:'supabase', cat:'serveur', label:'Supabase (eu-west-3)', desc:"Le serveur du cerveau : héberge la base, les Edge Functions et pg_cron. Paris."},
+  {id:'vercel', cat:'serveur', label:'Vercel — navlys.com', desc:"Héberge le visage : les 56 pages du site, mises à jour à chaque push."},
+  {id:'hetzner', cat:'serveur', label:'Hetzner (optionnel)', desc:"Worker Python permanent + bot Telegram MasterNav. Facultatif : le cœur tourne sans lui."},
+  // tables clés
+  {id:'t_missions', cat:'table', label:'missions', desc:"La file de travail. Statuts : a_faire, en_cours, a_valider, fait. Le cockpit et /valider la lisent."},
+  {id:'t_membres', cat:'table', label:'membres', desc:"Les inscrits (funnel /adhesion). Base de prospects, exportable."},
+  {id:'t_journal', cat:'table', label:'journal', desc:"La trace de tout ce qui se passe (1700+ lignes). Traçabilité."},
+  {id:'t_config', cat:'table', label:'core_config', desc:"Les réglages du système (tokens, doctrines, drapeaux)."},
+  {id:'t_agentmem', cat:'table', label:'agent_memoire / bible', desc:"La mémoire propre de chaque agent + la bible des bugs (leçons gravées)."},
+  // briques (Edge Functions) — réelles
+  {id:'assistant', cat:'brique', label:'assistant (SAV/voix)', desc:"Le copilote qui répond aux membres (web + WhatsApp). Parle à Anthropic."},
+  {id:'cockpit', cat:'brique', label:'cockpit (API)', desc:"L'API du tableau de bord : missions, agents, validations, briefing."},
+  {id:'valider', cat:'brique', label:'valider', desc:"Le garde-fou humain : liste les actions a_valider et applique ta décision depuis /valider."},
+  {id:'whatsapp', cat:'brique', label:'whatsapp', desc:"Le canal direct Bruno↔CORE (360dialog). Repli OpenRouter si Anthropic tombe."},
+  {id:'bible', cat:'brique', label:'bible', desc:"Apprentissage sans interruption : ingère les retours, teste le site, cherche le web, grave les leçons."},
+  {id:'paiement', cat:'brique', label:'paiement', desc:"Cotisations : PayPal / Stripe / Paddle. Tout vrai débit reste sous validation."},
+  {id:'inscription', cat:'brique', label:'inscription', desc:"Enregistre un nouveau membre (Next Gen / adhesion)."},
+  {id:'compte', cat:'brique', label:'compte', desc:"Profil et espace membre (adhesion, profil)."},
+  {id:'media', cat:'brique', label:'media', desc:"Routeur média multi-prestataires : prend toujours le meilleur gratuit dispo."},
+  {id:'avatar', cat:'brique', label:'avatar', desc:"Voix clonée + visage (ElevenLabs / fal.ai)."},
+  {id:'voix', cat:'brique', label:'voix', desc:"3 profils de voix (site / femme / Bruno). ElevenLabs."},
+  {id:'bateau', cat:'brique', label:'bateau', desc:"Test Bateaux : rapport gratuit membre / aperçu-preuve non-membre."},
+  {id:'mer', cat:'brique', label:'mer', desc:"Données maritimes (Open-Meteo marine)."},
+  {id:'meteo', cat:'brique', label:'meteo', desc:"Météo (navjeu). Open-Meteo."},
+  {id:'nextgen', cat:'brique', label:'nextgen', desc:"Le livre de vie : atelier biographie. Anthropic."},
+  {id:'panel', cat:'brique', label:'panel', desc:"Les 5 lentilles qui se contredisent puis tranchent (méthode STORM)."},
+  {id:'veilleur', cat:'brique', label:'veilleur', desc:"Création du jour + santé du site. Anthropic."},
+  {id:'youtube', cat:'brique', label:'youtube', desc:"Veille des chaînes d'influenceurs suivies."},
+  {id:'passerelle', cat:'brique', label:'passerelle', desc:"NAVLYS.IO — candidatures entrepreneurs."},
+  {id:'navlock', cat:'brique', label:'navlock', desc:"Verrou / accès protégé."},
+  {id:'coretick', cat:'brique', label:'core-tick', desc:"Le battement de cœur : traite la file de missions toutes les 5 min."},
+  {id:'ambassadeur', cat:'brique', label:'ambassadeur', desc:"Moteur d'affiliation / parrainage."},
+  {id:'booster', cat:'brique', label:'booster', desc:"Coup de pouce croissance."},
+  {id:'club', cat:'brique', label:'club', desc:"Espace communauté."},
+  {id:'croissance', cat:'brique', label:'croissance', desc:"Suivi de croissance (snapshots)."},
+  {id:'idee', cat:'brique', label:'idee (💡)', desc:"Bouton Améliorer : capte les retours, les route vers les agents + bible."},
+  // pages (visage) — celles qui appellent réellement une brique
+  {id:'p_index', cat:'page', label:'/ (accueil)', desc:"Mène avec l'orchestration IA mobile. Appelle la voix."},
+  {id:'p_adhesion', cat:'page', label:'/adhesion', desc:"Le funnel d'inscription (OAuth + email vérifié). Compte + paiement."},
+  {id:'p_cockpit', cat:'page', label:'/cockpit', desc:"Ton tableau de bord en direct."},
+  {id:'p_valider', cat:'page', label:'/valider', desc:"Ton app mobile Valider & Autoriser."},
+  {id:'p_nextgen', cat:'page', label:'/next-gen', desc:"Le livre de vie."},
+  {id:'p_io', cat:'page', label:'/io', desc:"NAVLYS.IO — entrepreneurs."},
+  {id:'p_autres', cat:'page', label:'+ 50 autres pages', desc:"finance, club, mer, ambassadeur, booster, radio, tv, cinema, bibles… le reste du visage."},
+  // agents (cluster)
+  {id:'agents', cat:'agent', label:'15 agents (départements)', desc:"Tom/NAVTECH, Clara/NAVCOM, Victor/NAVFI, Marc/NAVMKT, Newton/NAVLAB, Sentinelle/NAVPTE, Sofia/NAVCOMU… Chacun a sa bible et sa mémoire."},
+  // routines
+  {id:'crons', cat:'routine', label:'34 routines pg_cron', desc:"Le système qui s'entretient seul : core-tick, santé, auto-validation, bible en boucle, veilles quotidiennes, cycle récursif d'auto-amélioration."},
+  // services externes
+  {id:'anthropic', cat:'service', label:'Anthropic (Claude)', desc:"Le cerveau LLM principal des briques."},
+  {id:'openrouter', cat:'service', label:'OpenRouter (repli)', desc:"Repli d'indépendance : si Anthropic tombe, le dialogue continue (Llama/Haiku)."},
+  {id:'dialog360', cat:'service', label:'360dialog (WhatsApp)', desc:"Le canal direct Bruno↔CORE, indépendant de Claude Code."},
+  {id:'elevenlabs', cat:'service', label:'ElevenLabs', desc:"La voix (clonée + profils)."},
+  {id:'fal', cat:'service', label:'fal.ai', desc:"Avatar vidéo (visage animé)."},
+  {id:'mediaprov', cat:'service', label:'Pollinations / Cloudflare / OpenAI / Gemini', desc:"Providers média : image/vidéo, gratuits d'abord."},
+  {id:'paypal', cat:'service', label:'PayPal / Stripe / Paddle', desc:"Encaissement des cotisations. Toujours sous validation (Bible §6)."},
+  {id:'openmeteo', cat:'service', label:'Open-Meteo', desc:"Météo marine et terrestre (gratuit, sans clé)."},
+  {id:'duck', cat:'service', label:'DuckDuckGo', desc:"Recherche web de la bible (sans clé)."},
+  {id:'ytsvc', cat:'service', label:'YouTube (oEmbed/RSS)', desc:"Veille des vidéos d'influenceurs."},
+  {id:'google', cat:'service', label:'Google (Drive/Gmail)', desc:"Trésor de fichiers + e-mails (via connecteurs)."}
+];
+var L = [
+  // hébergement
+  ['supabase','core','héberge'],['supabase','coretick','exécute'],['supabase','crons','exécute'],
+  ['vercel','p_index','héberge'],['vercel','p_adhesion','héberge'],['vercel','p_cockpit','héberge'],['vercel','p_valider','héberge'],['vercel','p_nextgen','héberge'],['vercel','p_io','héberge'],['vercel','p_autres','héberge'],
+  ['hetzner','core','parle à'],
+  // cœur -> tables
+  ['core','t_missions','contient'],['core','t_membres','contient'],['core','t_journal','contient'],['core','t_config','contient'],['core','t_agentmem','contient'],
+  // briques hébergées par supabase
+  ['supabase','assistant','exécute'],['supabase','cockpit','exécute'],['supabase','valider','exécute'],['supabase','whatsapp','exécute'],['supabase','bible','exécute'],['supabase','paiement','exécute'],['supabase','media','exécute'],['supabase','nextgen','exécute'],
+  // pages -> briques (réel)
+  ['p_index','voix','appelle'],['p_adhesion','compte','appelle'],['p_adhesion','paiement','appelle'],['p_cockpit','cockpit','appelle'],['p_cockpit','assistant','appelle'],['p_valider','valider','appelle'],['p_nextgen','inscription','appelle'],['p_io','passerelle','appelle'],
+  // briques -> tables
+  ['assistant','t_journal','écrit'],['cockpit','t_missions','lit/écrit'],['valider','t_missions','lit/écrit'],['inscription','t_membres','écrit'],['bible','t_agentmem','écrit'],['idee','t_missions','écrit'],['coretick','t_missions','traite'],
+  // briques -> services (réel)
+  ['assistant','anthropic','pense via'],['cockpit','anthropic','pense via'],['nextgen','anthropic','pense via'],['panel','anthropic','pense via'],['veilleur','anthropic','pense via'],
+  ['whatsapp','anthropic','pense via'],['whatsapp','openrouter','repli'],['whatsapp','dialog360','via'],
+  ['bible','anthropic','pense via'],['bible','openrouter','repli'],['bible','duck','cherche via'],
+  ['paiement','paypal','encaisse via'],
+  ['avatar','elevenlabs','voix via'],['avatar','fal','visage via'],['voix','elevenlabs','voix via'],
+  ['media','mediaprov','génère via'],
+  ['mer','openmeteo','données via'],['meteo','openmeteo','données via'],
+  ['youtube','ytsvc','veille via'],
+  ['core','google','trésor'],
+  // agents
+  ['agents','t_missions','travaillent'],['agents','t_agentmem','mémorisent'],['core','agents','orchestre'],
+  // routines -> briques/cœur
+  ['crons','coretick','déclenche'],['crons','bible','déclenche'],['crons','veilleur','déclenche'],['crons','bateau','déclenche'],['crons','youtube','déclenche'],['crons','media','déclenche'],['crons','core','entretient'],['crons','t_missions','enfile']
+];
+
+// ===== MOTEUR — force layout sur canvas =====
+var cv=document.getElementById('cv'), cx=cv.getContext('2d'), stage=document.getElementById('stage');
+var W=0,H=0,DPR=Math.max(1,Math.min(2,window.devicePixelRatio||1));
+var byId={}; N.forEach(function(n){byId[n.id]=n;});
+var adj={}; N.forEach(function(n){adj[n.id]=[];});
+L.forEach(function(e){ if(byId[e[0]]&&byId[e[1]]){adj[e[0]].push(e[1]);adj[e[1]].push(e[0]);} });
+var off={}; // catégories masquées
+var sel=null, hover=null, drag=null, focusId=null;
+
+function size(){
+  W=stage.clientWidth; H=Math.max(360,Math.min(620,Math.round(W*0.72)));
+  stage.style.height=H+'px';
+  cv.width=W*DPR; cv.height=H*DPR; cx.setTransform(DPR,0,0,DPR,0,0);
+}
+function seed(){
+  var i=0; N.forEach(function(n){
+    if(n.id==='core'){n.x=W/2;n.y=H/2;}
+    else{var a=i*2.399; var r=60+ (i%7)*26; n.x=W/2+Math.cos(a)*(r+40); n.y=H/2+Math.sin(a)*(r+30);}
+    n.vx=0;n.vy=0;i++;
+  });
+}
+function radius(n){return n.cat==='coeur'?26:(n.cat==='serveur'||n.id==='agents'||n.id==='crons'?15:(n.cat==='table'?9:11));}
+function vis(n){return !off[n.cat];}
+
+function step(){
+  var k=0.008;
+  for(var a=0;a<N.length;a++){var p=N[a]; if(!vis(p))continue;
+    for(var b=a+1;b<N.length;b++){var q=N[b]; if(!vis(q))continue;
+      var dx=p.x-q.x, dy=p.y-q.y, d2=dx*dx+dy*dy+0.01, d=Math.sqrt(d2);
+      var rep=1900/d2; var ux=dx/d, uy=dy/d;
+      p.vx+=ux*rep; p.vy+=uy*rep; q.vx-=ux*rep; q.vy-=uy*rep;
+    }
+    // gravité vers centre
+    p.vx+=(W/2-p.x)*0.0016; p.vy+=(H/2-p.y)*0.0016;
+  }
+  L.forEach(function(e){var p=byId[e[0]],q=byId[e[1]]; if(!p||!q||!vis(p)||!vis(q))return;
+    var dx=q.x-p.x, dy=q.y-p.y, d=Math.sqrt(dx*dx+dy*dy)+0.01;
+    var target=(e[0]==='core'||e[1]==='core')?90:(e[2]==='héberge'||e[2]==='exécute')?70:120;
+    var f=(d-target)*k; var ux=dx/d, uy=dy/d;
+    if(p!==drag){p.vx+=ux*f; p.vy+=uy*f;} if(q!==drag){q.vx-=ux*f; q.vy-=uy*f;}
+  });
+  N.forEach(function(n){ if(n===drag){return;} if(n.id==='core'){n.x+=(W/2-n.x)*0.1;n.y+=(H/2-n.y)*0.1;n.vx=n.vy=0;return;}
+    n.vx*=0.86; n.vy*=0.86; n.x+=n.vx; n.y+=n.vy;
+    var r=radius(n)+4; n.x=Math.max(r,Math.min(W-r,n.x)); n.y=Math.max(r,Math.min(H-r,n.y));
+  });
+}
+function draw(){
+  cx.clearRect(0,0,W,H);
+  // liens
+  L.forEach(function(e){var p=byId[e[0]],q=byId[e[1]]; if(!p||!q||!vis(p)||!vis(q))return;
+    var on=focusId&&(e[0]===focusId||e[1]===focusId);
+    cx.strokeStyle= on?'rgba(252,211,77,.55)':'rgba(125,211,252,.12)';
+    cx.lineWidth= on?1.6:0.8;
+    cx.beginPath(); cx.moveTo(p.x,p.y);
+    var mx=(p.x+q.x)/2, my=(p.y+q.y)/2-18; cx.quadraticCurveTo(mx,my,q.x,q.y); cx.stroke();
+  });
+  // nœuds
+  N.forEach(function(n){ if(!vis(n))return;
+    var r=radius(n), col=CATS[n.cat].c;
+    var dim= focusId && focusId!==n.id && adj[focusId].indexOf(n.id)<0;
+    cx.globalAlpha= dim?0.28:1;
+    var g=cx.createRadialGradient(n.x,n.y,1,n.x,n.y,r*2.2);
+    g.addColorStop(0,col); g.addColorStop(1,'rgba(5,11,22,0)');
+    cx.fillStyle=g; cx.beginPath(); cx.arc(n.x,n.y,r*2.1,0,6.29); cx.fill();
+    cx.fillStyle=col; cx.beginPath(); cx.arc(n.x,n.y,r,0,6.29); cx.fill();
+    if(n===sel||n===hover){cx.strokeStyle='#fff';cx.lineWidth=2;cx.stroke();}
+    // label
+    if(r>=11||n.cat==='serveur'||n.id==='agents'||n.id==='crons'||n===hover||n===sel||focusId===n.id){
+      cx.globalAlpha=dim?0.28:0.92; cx.fillStyle='#dbe9f7';
+      cx.font=(n.cat==='coeur'?'700 12px':'11px')+' -apple-system,Segoe UI,Roboto,sans-serif';
+      cx.textAlign='center';
+      var t=n.label.length>22?n.label.slice(0,21)+'…':n.label;
+      cx.fillText(t,n.x,n.y+r+12);
+    }
+    cx.globalAlpha=1;
+  });
+}
+var settle=0;
+function loop(){ if(settle>0){step();settle--;} draw(); requestAnimationFrame(loop); }
+function relayout(){ seed(); settle=260; }
+function fit(){ settle=120; }
+
+// ===== interactions =====
+function pos(ev){var r=cv.getBoundingClientRect();var t=ev.touches?ev.touches[0]:ev;return {x:t.clientX-r.left,y:t.clientY-r.top};}
+function pick(p){var best=null,bd=999;N.forEach(function(n){if(!vis(n))return;var d=Math.hypot(n.x-p.x,n.y-p.y);if(d<Math.max(14,radius(n)+7)&&d<bd){bd=d;best=n;}});return best;}
+function down(ev){var p=pos(ev);var n=pick(p);if(n){drag=n;sel=n;openPanel(n);}else{drag=null;}}
+function move(ev){var p=pos(ev);hover=pick(p);stage.style.cursor=hover?'pointer':'default';if(drag){drag.x=p.x;drag.y=p.y;drag.vx=drag.vy=0;settle=Math.max(settle,40);ev.preventDefault&&ev.preventDefault();}}
+function up(){drag=null;}
+cv.addEventListener('mousedown',down);window.addEventListener('mousemove',move);window.addEventListener('mouseup',up);
+cv.addEventListener('touchstart',function(e){down(e);},{passive:true});
+cv.addEventListener('touchmove',function(e){move(e);},{passive:false});
+cv.addEventListener('touchend',up);
+
+function openPanel(n){focusId=n.id;settle=Math.max(settle,30);
+  document.getElementById('pk').textContent=CATS[n.cat].n;
+  document.getElementById('pt').textContent=n.label;
+  document.getElementById('pd').textContent=n.desc;
+  var outs=[],ins=[];
+  L.forEach(function(e){if(e[0]===n.id&&byId[e[1]])outs.push(e[2]+' → '+byId[e[1]].label);if(e[1]===n.id&&byId[e[0]])ins.push(byId[e[0]].label+' '+e[2]+' →');});
+  var h='';
+  if(outs.length)h+='<div style="margin-top:6px"><b style="color:#7DD3FC">Se relie à :</b><br>'+outs.map(esc).join('<br>')+'</div>';
+  if(ins.length)h+='<div style="margin-top:8px"><b style="color:#c7a35a">Est appelé par :</b><br>'+ins.map(esc).join('<br>')+'</div>';
+  document.getElementById('pl').innerHTML=h;
+  document.getElementById('panel').className='panel show';
+}
+function closePanel(){focusId=null;sel=null;document.getElementById('panel').className='panel';}
+function esc(s){return String(s).replace(/[&<>]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;'}[c];});}
+
+// légende / filtres
+(function(){var lg=document.getElementById('legend');Object.keys(CATS).forEach(function(k){
+  var el=document.createElement('div');el.className='chip';el.id='chip-'+k;
+  el.innerHTML='<span class="dot" style="background:'+CATS[k].c+'"></span>'+CATS[k].n;
+  el.onclick=function(){off[k]=!off[k];el.className='chip'+(off[k]?' off':'');settle=Math.max(settle,80);};
+  lg.appendChild(el);
+});})();
+
+// recherche
+document.getElementById('q').addEventListener('input',function(e){
+  var v=(e.target.value||'').toLowerCase().trim();if(!v){focusId=null;return;}
+  var f=N.filter(function(n){return vis(n)&&n.label.toLowerCase().indexOf(v)>=0;})[0];
+  if(f){sel=f;openPanel(f);}
+});
+
+window.addEventListener('resize',function(){size();});
+size(); seed(); settle=320; loop();
+</script>
+</body>
+</html>
