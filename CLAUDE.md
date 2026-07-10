@@ -186,8 +186,9 @@ tools/
   check-i18n.mjs           # banc Playwright : chaque page x chaque langue (passe AVANT tout push)
   faq-traductions.mjs      # génération des traductions FAQ
   hook-verif.mjs           # hook PostToolUse : vérif automatique après Edit/Write
-sql/                       # 11 migrations : routines_cron, agents_bible_memoire, auto_amelioration_recursive,
-                           #   core_incidents_autocicatrisation, apprentissage_permanent, test_bateaux, ...
+sql/                       # migrations : routines_cron, agents_bible_memoire, auto_amelioration_recursive,
+                           #   core_incidents_autocicatrisation, apprentissage_permanent, test_bateaux,
+                           #   navlys_cerveau_recherche_instantanee (navlys_chercher), ...
 deploy/                    # INSTALL_HETZNER, APP_STORES, TERMUX_MOBILE, OLLAMA_OFFLINE + services systemd
 docs/                      # statuts société, règlement, stratégie paiement, enseignements Manus/Meta, ...
 skills-lock.json           # skills vidéo (non committés) : restaurer via npx skills experimental_install
@@ -569,7 +570,8 @@ peux pas obtenir.
   travail déjà fait, réflexe : `select * from navlys_chercher('mot-clé')`.
 - Colonnes `recherche` (tsvector) + triggers `navlys_recherche_maj()` sur les 5
   tables — mise à jour automatique à chaque insertion, aucune maintenance requise.
-  Migration : `navlys_cerveau_recherche_instantanee_v2`.
+  Migration : `navlys_cerveau_recherche_instantanee_v2` — versionnée dans le repo :
+  **`sql/navlys_cerveau_recherche_instantanee.sql`** (idempotente, reflète l'état réel en base).
 - Testé en direct (09/07) : `navlys_chercher('positionnement finance')` retrouve
   en un appel la règle n°76, les leçons de bible liées, et la mémoire NAVMKT
   concernée, classées par pertinence — preuve que le cerveau est bien rangé et
