@@ -7,6 +7,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Cormorant+Garamond:ital,wght@0,400;1,400&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
 <link rel="icon" type="image/svg+xml" href="/media/navlys_favicon.svg">
 <link rel="manifest" href="/manifest.webmanifest">
+<script src="https://unpkg.com/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
 <style>
 :root{--noir:#05060a;--ice:#7DD3FC;--ice-clair:#a8e3ff;--or:#e9d3a0;--or-fonce:#C9A961;--perle:#e7eef2;--mut:#9fb3c8;--line:rgba(125,211,252,.18);--ok:#34d399}
 *{margin:0;padding:0;box-sizing:border-box}
@@ -57,6 +58,21 @@ h2::after{content:"";flex:1;height:1px;background:var(--line)}
 .app .dispo.p{background:rgba(233,211,160,.12);color:var(--or);border:1px solid rgba(233,211,160,.35)}
 .note{color:var(--mut);font-size:.88rem;line-height:1.7;margin-top:10px}
 .note b{color:var(--or)}
+/* 0 · Valide ton accès — éventail OAuth + vérification e-mail obligatoire (gravé 2026-07-09) */
+.verif-gate{background:rgba(6,8,16,.72);border:1px solid var(--line);border-radius:16px;padding:18px 16px;margin-bottom:8px}
+.verif-gate.ok{border-color:rgba(52,211,153,.5);background:rgba(52,211,153,.06)}
+.oauth-fan{display:grid;gap:9px;margin-top:4px}
+.oauth-btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;background:#fff;color:#1a1a1a;border:1px solid rgba(0,0,0,.15);border-radius:12px;padding:13px;font-weight:700;font-size:.98rem;cursor:pointer;font-family:'Atkinson Hyperlegible',sans-serif}
+.oauth-btn:disabled{opacity:.5;cursor:wait}
+.oauth-btn .ico{font-size:1.15rem}
+.ou-divider{text-align:center;color:var(--mut);font-size:.85rem;margin:14px 0;position:relative}
+.ou-divider::before,.ou-divider::after{content:"";position:absolute;top:50%;width:40%;height:1px;background:var(--line)}
+.ou-divider::before{left:0}.ou-divider::after{right:0}
+.email-verif{display:flex;gap:8px;flex-wrap:wrap}
+.email-verif input{flex:1;min-width:200px;background:rgba(6,8,16,.7);border:1px solid var(--line);border-radius:12px;padding:12px 13px;color:var(--ice-clair);font-size:1rem}
+.email-verif button{flex:none;border:1px solid rgba(233,211,160,.5);background:rgba(233,211,160,.1);color:var(--or);border-radius:12px;padding:12px 16px;font-weight:700;cursor:pointer;font-family:'Atkinson Hyperlegible',sans-serif}
+.email-verif button:disabled{opacity:.5;cursor:wait}
+.verifie-badge{color:var(--ok);font-weight:700;font-size:.92rem;margin-top:8px}
 .cta{display:block;width:100%;margin-top:26px;border:none;cursor:pointer;background:linear-gradient(100deg,var(--or),#fff6df,var(--or));color:var(--noir);border-radius:14px;padding:17px;font-weight:700;font-size:1.1rem;font-family:'Atkinson Hyperlegible',sans-serif;box-shadow:0 12px 40px rgba(233,211,160,.18)}
 .cta:disabled{opacity:.55;cursor:wait}
 .etat{text-align:center;color:var(--or);font-size:.95rem;margin-top:12px;min-height:1.4em;line-height:1.6}
@@ -74,10 +90,28 @@ h2::after{content:"";flex:1;height:1px;background:var(--line)}
   <p class="sub">Un cerveau. Une personne. Tout un univers. Choisis ta cotisation, choisis tes applications —
   et teste <b>gratuitement</b> chaque application, installée directement sur ton mobile ou ton ordinateur.</p>
 
+  <div class="verif-gate" id="verif-gate">
+    <h2 style="margin-top:0">0 · Valide ton accès</h2>
+    <p class="note" style="margin-top:0">E-mail vérifié obligatoire — ça garde notre base propre et te permet de te retrouver à tout moment. Le plus rapide : connecte-toi en 2 clics.</p>
+    <div class="oauth-fan">
+      <button class="oauth-btn" id="oauth-google" data-provider="google"><span class="ico">🔵</span> Continuer avec Google</button>
+      <button class="oauth-btn" id="oauth-apple" data-provider="apple"><span class="ico"></span> Continuer avec Apple</button>
+      <button class="oauth-btn" id="oauth-azure" data-provider="azure"><span class="ico">🟦</span> Continuer avec Microsoft</button>
+      <button class="oauth-btn" id="oauth-facebook" data-provider="facebook"><span class="ico">🔷</span> Continuer avec Facebook</button>
+      <button class="oauth-btn" id="oauth-discord" data-provider="discord"><span class="ico">🎮</span> Continuer avec Discord</button>
+    </div>
+    <div class="ou-divider">ou vérifie ton e-mail</div>
+    <div class="email-verif">
+      <input id="v-email" type="email" autocomplete="email" placeholder="toi@exemple.com">
+      <button id="v-envoyer">Recevoir mon lien</button>
+    </div>
+    <p class="etat" id="v-etat" style="margin-top:8px"></p>
+  </div>
+
   <h2>1 · Toi</h2>
   <div class="champs">
     <div class="champ"><label>Ton prénom</label><input id="a-prenom" type="text" autocomplete="given-name" placeholder="Gérard"></div>
-    <div class="champ"><label>Ton e-mail</label><input id="a-email" type="email" autocomplete="email" placeholder="toi@exemple.com"></div>
+    <div class="champ"><label>Ton e-mail</label><input id="a-email" type="email" autocomplete="email" placeholder="toi@exemple.com" readonly></div>
   </div>
   <input id="a-web" type="text" style="display:none" tabindex="-1" autocomplete="off">
 
@@ -254,6 +288,7 @@ h2::after{content:"";flex:1;height:1px;background:var(--line)}
   }
 
   $('a-go').onclick=function(){
+    if(!window.NAVLYS_VERIFIE){ $('a-etat').textContent='Vérifie d\'abord ton e-mail (ou connecte-toi avec Google/Apple/Microsoft/Facebook) — obligatoire, juste au-dessus. ⬆️'; try{ $('verif-gate').scrollIntoView({behavior:'smooth',block:'center'}); }catch(e){} return; }
     var prenom=($('a-prenom').value||'').trim(), email=($('a-email').value||'').trim();
     if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){ $('a-etat').textContent='Écris ton e-mail pour créer ton accès.'; $('a-email').focus(); return; }
     var f=getF(fSel);
@@ -307,6 +342,67 @@ h2::after{content:"";flex:1;height:1px;background:var(--line)}
   window.addEventListener('beforeinstallprompt',function(e){ e.preventDefault(); defered=e; $('a-install').style.display='inline-block'; });
   $('a-install').onclick=function(){ if(defered){ defered.prompt(); defered=null; $('a-install').style.display='none'; } };
   if(new URLSearchParams(location.search).get('paye')==='annule'){ $('a-etat').textContent='Règlement annulé — ton accès reste prêt, tu peux réessayer quand tu veux.'; }
+
+  // 0 · Valide ton accès (gravé 2026-07-09) : OAuth en 2 clics OU e-mail vérifié
+  // obligatoire avant de pouvoir t'enregistrer — base de prospects propre, pas de
+  // faux e-mails. OAuth vérifie déjà l'adresse (le fournisseur s'en porte garant) ;
+  // le lien e-mail passe par Supabase Auth (auth.users), séparé de notre table
+  // membres — la vérification sert de porte, l'inscription elle-même reste sur
+  // /functions/v1/compte (formule "essai", 0 €, comme avant).
+  (function(){
+    window.NAVLYS_VERIFIE = false;
+    var SB_URL='https://hhrlgyvtqluxpywjiwkd.supabase.co';
+    var SB_ANON='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhocmxneXZ0cWx1eHB5d2ppd2tkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODExNzYxMzIsImV4cCI6MjA5Njc1MjEzMn0.tGq_XXd4nJY-aYk9DfWGFJ5DW4C_NJJKb67owmvoejo';
+    var sb=null;
+    try{ sb=window.supabase.createClient(SB_URL, SB_ANON); }catch(e){}
+    var gate=$('verif-gate'), vEmail=$('v-email'), vEnvoyer=$('v-envoyer'), vEtat=$('v-etat');
+    if(!sb){ if(vEtat) vEtat.textContent='Vérification indisponible pour le moment — réessaie dans un instant.'; return; }
+
+    function marquerVerifie(email, prenomAuto){
+      window.NAVLYS_VERIFIE = true;
+      if(email){ $('a-email').value=email; }
+      if(prenomAuto && !$('a-prenom').value) $('a-prenom').value=prenomAuto;
+      if(gate) gate.classList.add('ok');
+      if(vEtat) vEtat.innerHTML='<span class="verifie-badge">✓ E-mail vérifié — tu peux t\'enregistrer ci-dessous.</span>';
+      var fan=document.querySelector('.oauth-fan'); if(fan) fan.style.display='none';
+      var od=document.querySelector('.ou-divider'); if(od) od.style.display='none';
+      var ev=document.querySelector('.email-verif'); if(ev) ev.style.display='none';
+    }
+
+    // Retour d'OAuth ou de lien e-mail : Supabase parse déjà le hash de l'URL.
+    sb.auth.getSession().then(function(res){
+      var session=res&&res.data&&res.data.session;
+      if(!session||!session.user) return;
+      var u=session.user;
+      var prenomAuto=(u.user_metadata&&(u.user_metadata.given_name||u.user_metadata.full_name||u.user_metadata.name))||'';
+      if(prenomAuto) prenomAuto=String(prenomAuto).split(' ')[0];
+      marquerVerifie(u.email||'', prenomAuto);
+    })['catch'](function(){});
+
+    ['google','apple','azure','facebook','discord'].forEach(function(p){
+      var b=$('oauth-'+p); if(!b) return;
+      b.onclick=function(){
+        document.querySelectorAll('.oauth-btn').forEach(function(x){x.disabled=true;});
+        vEtat.textContent='… redirection vers '+p;
+        sb.auth.signInWithOAuth({ provider:p, options:{ redirectTo: location.origin+location.pathname } })
+          .then(function(r){ if(r&&r.error){ vEtat.textContent='Connexion '+p+' indisponible pour le moment — essaie un autre choix ou vérifie ton e-mail.'; document.querySelectorAll('.oauth-btn').forEach(function(x){x.disabled=false;}); } })
+          ['catch'](function(){ vEtat.textContent='Connexion indisponible — réessaie.'; document.querySelectorAll('.oauth-btn').forEach(function(x){x.disabled=false;}); });
+      };
+    });
+
+    if(vEnvoyer) vEnvoyer.onclick=function(){
+      var email=(vEmail.value||'').trim();
+      if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){ vEtat.textContent='Écris un e-mail valide.'; vEmail.focus(); return; }
+      vEnvoyer.disabled=true; vEtat.textContent='… envoi du lien de vérification';
+      sb.auth.signInWithOtp({ email:email, options:{ shouldCreateUser:true, emailRedirectTo: location.origin+location.pathname } })
+        .then(function(r){
+          vEnvoyer.disabled=false;
+          if(r&&r.error){ vEtat.textContent='Envoi impossible pour le moment — réessaie dans un instant.'; return; }
+          vEtat.textContent='📩 Lien envoyé à '+email+' — ouvre-le pour valider (même appareil ou un autre), cette page se met à jour toute seule.';
+        })
+        ['catch'](function(){ vEnvoyer.disabled=false; vEtat.textContent='Envoi impossible — réessaie.'; });
+    };
+  })();
 
   rendreF(); rendreA();
 })();

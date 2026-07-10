@@ -6,6 +6,10 @@
 //       repassait en français. Si le message ne porte aucun signal de langue,
 //       on hérite de la langue du dernier message de la conversation qui tranchait.
 // v31 : MODE CERVEAU CENTRAL pour le fondateur (e-mail reconnu → MasterNav).
+// v35 : RÉSILIENCE (indépendance CORE) — repli Claude → OpenRouter/Llama →
+//       NVIDIA NIM si Anthropic direct est indisponible (même pattern que
+//       whatsapp-webhook.js et bible/avisIA). Le SAV client ne doit jamais
+//       tomber sur le message générique si un autre modèle peut répondre.
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 const U = Deno.env.get("SUPABASE_URL") || "";
 const K = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") || Deno.env.get("SUPABASE_SERVICE_ROLE") || "";
@@ -104,9 +108,49 @@ async function etatInterne(): Promise<string> {
     + "— Journal (dernier) :\n" + ligne(jr,(j)=>"  • "+clean(j.type,10)+" : "+clean(j.message,80));
 }
 function dateJour(): string { try { return new Date().toISOString().slice(0,10); } catch(_e){ return "jour"; } }
+// ── RÉSILIENCE MULTI-MODÈLE (indépendance CORE) ──────────────────────────
+// Même pattern que api/whatsapp-webhook.js et supabase/functions/bible :
+// Claude direct d'abord, puis OpenRouter/Llama, puis NVIDIA NIM, dans cet
+// ordre — le SAV client ne doit jamais tomber sur le message générique si
+// un autre modèle peut répondre à sa place.
+async function appelAnthropic(sys:string, msgs:any[], model:string, maxTok:number): Promise<string> {
+  if (!ANTH) return "";
+  try {
+    const r = await fetch("https://api.anthropic.com/v1/messages",{method:"POST",headers:{"x-api-key":ANTH,"anthropic-version":"2023-06-01","Content-Type":"application/json"},body:JSON.stringify({model,max_tokens:maxTok,system:sys,messages:msgs})});
+    const d:any = await r.json().catch(()=>({}));
+    return ((d.content||[]).filter((c:any)=>c.type==="text").map((c:any)=>c.text).join("\n").trim());
+  } catch { return ""; }
+}
+async function appelOpenRouter(sys:string, msgs:any[], maxTok:number): Promise<string> {
+  const orKey = Deno.env.get("OPENROUTER_API_KEY") || Deno.env.get("OPENROUTER_KEY") || Deno.env.get("OPEN_ROUTER_API_KEY") || Deno.env.get("OPEN_API_ROUTER") || Deno.env.get("OPEN_API_ROUTER_KEY") || "";
+  if (!orKey) return "";
+  try {
+    const r = await fetch("https://openrouter.ai/api/v1/chat/completions",{method:"POST",headers:{Authorization:`Bearer ${orKey}`,"Content-Type":"application/json","HTTP-Referer":"https://navlys.com","X-Title":"NAVLYS Assistant"},body:JSON.stringify({model:"meta-llama/llama-3.3-70b-instruct:free",max_tokens:maxTok,messages:[{role:"system",content:sys},...msgs]})});
+    const d:any = await r.json().catch(()=>({}));
+    return (d?.choices?.[0]?.message?.content || "").trim();
+  } catch { return ""; }
+}
+async function appelNvidia(sys:string, msgs:any[], maxTok:number): Promise<string> {
+  const nvKey = Deno.env.get("NVIDIA_API_KEY") || Deno.env.get("NVAPI_KEY") || Deno.env.get("NVIDIA_NIM_KEY") || Deno.env.get("NGC_API_KEY") || Deno.env.get("NVIDIA_BUILD_API_KEY") || Deno.env.get("BUILD_NVIDIA_API_KEY") || "";
+  if (!nvKey) return "";
+  try {
+    const r = await fetch("https://integrate.api.nvidia.com/v1/chat/completions",{method:"POST",headers:{Authorization:`Bearer ${nvKey}`,"Content-Type":"application/json"},body:JSON.stringify({model:"meta/llama-3.3-70b-instruct",max_tokens:maxTok,temperature:0.4,messages:[{role:"system",content:sys},...msgs]})});
+    const d:any = await r.json().catch(()=>({}));
+    return (d?.choices?.[0]?.message?.content || "").trim();
+  } catch { return ""; }
+}
+async function callBrain(sys:string, msgs:any[], model:string, maxTok:number): Promise<string> {
+  const a = await appelAnthropic(sys, msgs, model, maxTok);
+  if (a) return a;
+  const o = await appelOpenRouter(sys, msgs, maxTok);
+  if (o) return o;
+  const n = await appelNvidia(sys, msgs, maxTok);
+  if (n) return n;
+  return "";
+}
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response(null,{status:204,headers:CORS});
-  if (req.method === "GET") return J({ ok:true, service:"navlys-assistant", version:34, langues:["fr","en","ru","he","ar"], faq_pretraduite:["en","ru","he"], liens_directs:true, verrou_langue:true, heritage_langue:true, cerveau_central:"e-mail fondateur → accès direct, conversation du jour" });
+  if (req.method === "GET") return J({ ok:true, service:"navlys-assistant", version:35, langues:["fr","en","ru","he","ar"], faq_pretraduite:["en","ru","he"], liens_directs:true, verrou_langue:true, heritage_langue:true, resilience_llm:["claude","openrouter_llama","nvidia_nim"], cerveau_central:"e-mail fondateur → accès direct, conversation du jour" });
   if (req.method !== "POST") return J({ error:"method" }, 405);
   const b:any = await req.json().catch(()=>({}));
   const text = clean(b.text,2000);
@@ -163,12 +207,8 @@ Deno.serve(async (req) => {
     ar: "تم الاستلام — سيعود إليك فريق NAVLYS قريبًا جدًا. 🌊",
   };
   let reply = FALLBACK[lang] || FALLBACK.fr;
-  if (ANTH) {
-    const r = await fetch("https://api.anthropic.com/v1/messages",{method:"POST",headers:{"x-api-key":ANTH,"anthropic-version":"2023-06-01","Content-Type":"application/json"},body:JSON.stringify({model,max_tokens:maxTok,system:sys,messages:msgs})});
-    const d:any = await r.json().catch(()=>({}));
-    const t = ((d.content||[]).filter((c:any)=>c.type==="text").map((c:any)=>c.text).join("\n").trim());
-    if (t) reply = t;
-  }
+  const t = await callBrain(sys, msgs, model, maxTok);
+  if (t) reply = t;
   ins("sav_messages", { session, canal:"web", role:"client", message:text, nom, contact });
   ins("sav_messages", { session, canal:"web", role:"navlys", message:reply });
   ins("journal", { type: owner?"masternav":"sav", message:(owner?"🧠 Bruno [":"SAV web [")+session.slice(0,12)+"] : "+text.slice(0,80) });

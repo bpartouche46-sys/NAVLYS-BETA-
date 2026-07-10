@@ -18,6 +18,18 @@ h1{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:400;font
 .sub{text-align:center;color:var(--mut);font-size:.98rem;margin:0 auto 20px;line-height:1.7;max-width:34em}
 .honnete{background:linear-gradient(135deg,rgba(201,169,97,.12),rgba(125,211,252,.08));border:1px solid rgba(201,169,97,.35);border-radius:14px;padding:12px 16px;text-align:center;color:var(--or-pale);font-size:.9rem;line-height:1.7;margin-bottom:22px}
 #etat{text-align:center;color:var(--mut);font-size:.95rem;line-height:1.7;margin:26px 0}
+#expertise{display:none;margin:18px 0}
+.xp{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px;margin-bottom:12px}
+.xp h3{font-family:'Cinzel',serif;font-weight:600;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--or);margin-bottom:10px}
+.jauge{height:12px;border-radius:99px;background:rgba(125,211,252,.12);overflow:hidden;margin:8px 0 6px}
+.jauge i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,#34d399,#fbbf24,#fca5a5)}
+.xp .niv{font-size:1.05rem;font-weight:700;color:var(--ice-clair)}
+.xp ul{list-style:none;margin-top:8px}
+.xp li{padding:6px 0 6px 22px;position:relative;font-size:.92rem;line-height:1.6;color:var(--perle);border-bottom:1px solid rgba(125,211,252,.07)}
+.xp li:last-child{border-bottom:none}
+.xp li::before{content:"◆";position:absolute;left:2px;top:8px;font-size:9px;color:var(--ice)}
+.xp .src{color:var(--mut);font-size:.8rem;margin-top:8px;line-height:1.6}
+.xp .mdl{color:var(--or-pale);font-weight:700;margin-top:10px;font-size:.95rem}
 .attente{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:24px;text-align:center}
 .attente b{color:var(--ice-clair);font-size:1.05rem}
 .attente p{color:var(--mut);font-size:.93rem;line-height:1.75;margin-top:10px}
@@ -34,6 +46,11 @@ h1{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:400;font
 .badge{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:5px 12px;font-size:.8rem;color:var(--mut);margin:4px 3px}
 .badge.or{border-color:rgba(201,169,97,.5);color:var(--or-pale)}
 .badges{text-align:center;margin-bottom:16px}
+.fondu{height:110px;margin-top:-110px;position:relative;background:linear-gradient(to bottom,transparent,var(--noir) 82%);pointer-events:none;border-radius:0 0 16px 16px}
+.verrou{display:block;text-align:center;background:linear-gradient(135deg,rgba(201,169,97,.16),rgba(125,211,252,.10));border:1px solid rgba(201,169,97,.45);border-radius:16px;padding:20px;margin-top:14px;text-decoration:none;color:var(--perle)}
+.verrou b{color:var(--or-pale);font-size:1.08rem}
+.verrou span{display:block;color:var(--mut);font-size:.92rem;margin-top:8px;line-height:1.7}
+.verrou .cta{display:inline-block;margin-top:12px;background:linear-gradient(135deg,#C9A961,#e3cd96);color:#141005;font-weight:700;border-radius:11px;padding:12px 22px}
 .garder{display:block;text-align:center;background:linear-gradient(135deg,rgba(125,211,252,.12),rgba(201,169,97,.10));border:1px solid var(--line);border-radius:16px;padding:16px;margin-top:24px;text-decoration:none;color:var(--perle)}
 .garder b{color:var(--or-pale)}
 .garder span{display:block;color:var(--mut);font-size:.88rem;margin-top:6px;line-height:1.6}
@@ -50,8 +67,11 @@ h1{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:400;font
   expertise officielle — c'est un avis éducatif NAVLYS pour t'aider à y voir clair.</div>
   <div class="badges" id="badges"></div>
   <div id="etat">⏳ Lecture de ton dossier…</div>
+  <div id="expertise"></div>
   <div class="galerie" id="galerie"></div>
   <div id="rapport" style="display:none"></div>
+  <div class="fondu" id="fondu" style="display:none"></div>
+  <a class="verrou" href="/adhesion" id="verrou" style="display:none"><b>🔒 Tu viens de lire le début de TON rapport</b><span id="verrou-txt">La suite est déjà écrite et t'attend en entier. Elle est offerte aux membres NAVLYS — avec toutes les applications du club, pour une simple cotisation.</span><span class="cta">💛 Devenir membre et tout lire</span></a>
   <a class="garder" href="/adhesion" id="garder" style="display:none"><b>💛 Garde ton rapport pour toujours</b><span>Ce lien est temporaire (30 jours). En devenant membre NAVLYS, il devient permanent — et tu ouvres toutes les applications du club.</span></a>
   <p class="disc">Un doute, une question sur ton rapport ? Le bouton 💡 du site nous les transmet directement.
   <a href="/bateau-test">Faire tester un autre bateau</a>.</p>
@@ -90,16 +110,51 @@ h1{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:400;font
       $('titre').textContent=x.prenom?('Le rapport de '+x.prenom):'Ton rapport';
       $('soustitre').textContent=[x.bateau,x.annee,x.lieu].filter(Boolean).join(' · ');
       var b='';
-      if(x.acces==='permanent') b+='<span class="badge or">💛 Membre · lien permanent</span>';
+      if(x.acces==='permanent') b+='<span class="badge or">💛 Membre · rapport complet · lien permanent</span>';
       else if(x.expire_le) b+='<span class="badge">Lien temporaire · expire le '+new Date(x.expire_le).toLocaleDateString('fr-FR')+'</span>';
+      if(x.verrouille) b+='<span class="badge or">🔎 Aperçu découverte</span>';
       $('badges').innerHTML=b;
       var g='';
       (x.photos||[]).forEach(function(u,i){ g+='<a href="'+E(u)+'" target="_blank" rel="noopener"><img src="'+E(u)+'" alt="photo '+(i+1)+' du bateau" loading="lazy"></a>'; });
       $('galerie').innerHTML=g;
+      // ---- Analyse pro immédiate (moteur NAVLYS) : osmose + défauts connus + zone ----
+      var xp=x.expertise, xh='';
+      if(xp && xp.osmose){
+        xh+='<div class="xp"><h3>🧪 Risque d’osmose estimé</h3>';
+        xh+='<span class="niv">'+E(xp.osmose.niveau).toUpperCase()+' · '+xp.osmose.score+'/100</span>';
+        xh+='<div class="jauge"><i style="width:'+xp.osmose.score+'%"></i></div><ul>';
+        (xp.osmose.facteurs||[]).forEach(function(f){ xh+='<li>'+E(f)+'</li>'; });
+        xh+='</ul><div class="src">'+E(xp.avertissement||'')+'</div></div>';
+        if(xp.savoir_modele && xp.savoir_modele.length){
+          xh+='<div class="xp"><h3>🔍 Défauts connus de ce modèle — notre base experte</h3>';
+          xp.savoir_modele.forEach(function(s){
+            xh+='<div class="mdl">'+E(s.marque)+' '+E(s.modele)+(s.annees?' · '+E(s.annees):'')+'</div><ul>';
+            (s.defauts||[]).forEach(function(df){ xh+='<li>'+E(df)+'</li>'; });
+            (s.controles||[]).forEach(function(c){ xh+='<li><b>À vérifier :</b> '+E(c)+'</li>'; });
+            xh+='</ul>';
+          });
+          xh+='</div>';
+        }
+        if(xp.evenements_zone && xp.evenements_zone.length){
+          xh+='<div class="xp"><h3>🌪️ Ce que sa zone a vécu de son vivant</h3><ul>';
+          xp.evenements_zone.forEach(function(ev){ xh+='<li><b>'+E(ev.annee)+' · '+E(ev.nom)+'</b> — '+E(ev.effet)+'. Demande si le bateau était là et s’il a été touché/indemnisé.</li>'; });
+          xh+='</ul></div>';
+        }
+      }
+      var xe=$('expertise'); if(xe){ xe.innerHTML=xh; xe.style.display=xh?'block':'none'; }
       if(x.statut==='publie' && x.rapport){
         $('etat').style.display='none';
         var r=$('rapport'); r.innerHTML=rendu(x.rapport); r.style.display='block';
-        $('garder').style.display=(x.acces==='permanent')?'none':'block';
+        if(x.verrouille){
+          $('fondu').style.display='block';
+          $('verrou').style.display='block';
+          if(x.lignes_total) $('verrou-txt').textContent='Tu as lu le début — le rapport complet fait '+x.lignes_total+' lignes et il est déjà écrit. Il est offert aux membres NAVLYS, avec toutes les applications du club, pour une simple cotisation.';
+          $('garder').style.display='none';
+        } else {
+          $('fondu').style.display='none';
+          $('verrou').style.display='none';
+          $('garder').style.display=(x.acces==='permanent')?'none':'block';
+        }
         if(minuteur) clearInterval(minuteur);
       } else {
         $('etat').innerHTML='<div class="attente"><b>✔ Ton dossier est chez nous'+(x.prenom?', '+E(x.prenom):'')+'</b><p>L’analyse est en route. Cette page se met à jour toute seule — reviens quand tu veux, ton lien reste le même.</p></div>';
