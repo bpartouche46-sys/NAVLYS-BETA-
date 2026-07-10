@@ -12,10 +12,13 @@
 //                            navlys en tête des résultats ? homonymes ? plaintes
 //                            publiques ? Cron quotidien (navlys_bible_recherche).
 //   GET  ?mode=avis        → DEMANDE elle-même un avis critique à d'autres IA
-//                            (Claude + Llama/OpenRouter si dispo) sur le contenu
-//                            RÉEL et LIVE des pages clés, comme le ferait Gemini/
-//                            ChatGPT en audit externe. Cron quotidien (navlys_bible_avis).
+//                            (Claude + Llama/OpenRouter + NVIDIA NIM si dispo) sur
+//                            le contenu RÉEL et LIVE des pages clés, comme le
+//                            ferait Gemini/ChatGPT en audit externe. Cron
+//                            quotidien (navlys_bible_avis).
 //   GET                    → diag readiness.
+// IMPORTANT : verify_jwt=false obligatoire (règle gravée) — appelée par pg_cron
+// SANS en-tête Authorization ; un déploiement avec verify_jwt=true casse tous les crons.
 // Chaque mode alimente le même pipeline ingerer() : règle gravée + mémoire agent.
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 
@@ -183,8 +186,8 @@ async function verifierRecherche() {
 // trop flou sur notre communication, il faut ajuster... interroge-les chaque
 // jour et demande un test de notre site pour savoir leur opinion et la
 // modifier là où il faut. » On lit le contenu RÉEL et LIVE des pages (pas
-// une description qu'on invente), on demande un jugement sévère à deux
-// modèles distincts, et on fait passer leur avis par le même pipeline
+// une description qu'on invente), on demande un jugement sévère à plusieurs
+// modèles indépendants, et on fait passer leur avis par le même pipeline
 // ingerer() que les audits humains (Gemini, ChatGPT) → règle + mémoire agent.
 function htmlVersTexte(html: string): string {
   return html
@@ -234,6 +237,38 @@ async function avisOpenRouter(contexte: string): Promise<string> {
     return (d?.choices?.[0]?.message?.content || "").trim();
   } catch { return ""; }
 }
+// NVIDIA NIM (build.nvidia.com, API compatible OpenAI) — 3ᵉ avis indépendant,
+// lecture tolérante du nom de clé (règle n°4 : jamais faire redemander Bruno).
+function clefNvidia(): string {
+  return Deno.env.get("NVIDIA_API_KEY") || Deno.env.get("NVAPI_KEY") || Deno.env.get("NVIDIA_NIM_KEY") || Deno.env.get("NGC_API_KEY") || Deno.env.get("NVIDIA_BUILD_API_KEY") || Deno.env.get("BUILD_NVIDIA_API_KEY") || "";
+}
+async function avisNvidia(contexte: string): Promise<string> {
+  const nvKey = clefNvidia();
+  if (!nvKey) return "";
+  try {
+    const r = await fetch("https://integrate.api.nvidia.com/v1/chat/completions", {
+      method: "POST",
+      headers: { Authorization: `Bearer ${nvKey}`, "Content-Type": "application/json" },
+      body: JSON.stringify({ model: "meta/llama-3.3-70b-instruct", max_tokens: 900, temperature: 0.4, messages: [{ role: "system", content: SYSTEME_AVIS }, { role: "user", content: contexte }] }),
+    });
+    const d: any = await r.json().catch(() => ({}));
+    return (d?.choices?.[0]?.message?.content || "").trim();
+  } catch { return ""; }
+}
+// Diagnostic sûr : ne révèle JAMAIS la clé, seulement présence + résultat réel de l'appel.
+async function diagNvidia() {
+  const nvKey = clefNvidia();
+  if (!nvKey) return { cle_trouvee: false, aide: "Aucune variable NVIDIA_API_KEY/NVAPI_KEY/NVIDIA_NIM_KEY/NGC_API_KEY/NVIDIA_BUILD_API_KEY/BUILD_NVIDIA_API_KEY trouvée dans les secrets Supabase de ce projet." };
+  try {
+    const r = await fetch("https://integrate.api.nvidia.com/v1/chat/completions", {
+      method: "POST",
+      headers: { Authorization: `Bearer ${nvKey}`, "Content-Type": "application/json" },
+      body: JSON.stringify({ model: "meta/llama-3.3-70b-instruct", max_tokens: 30, messages: [{ role: "user", content: "Réponds juste : ok" }] }),
+    });
+    const txt = await r.text();
+    return { cle_trouvee: true, status_http: r.status, reponse: txt.slice(0, 500) };
+  } catch (e) { return { cle_trouvee: true, erreur: String(e).slice(0, 300) }; }
+}
 async function avisIA() {
   const contenus: string[] = [];
   for (const p of ["/", "/next-gen", "/finance"]) {
@@ -242,12 +277,13 @@ async function avisIA() {
   }
   if (!contenus.length) { await journal("Avis IA quotidien : pages injoignables, rien testé."); return { ok: false, lecons: 0 }; }
   const contexte = contenus.join("\n\n").slice(0, 9000);
-  const [claude, llama] = await Promise.all([avisClaude(contexte), avisOpenRouter(contexte)]);
-  if (!claude && !llama) { await journal("Avis IA quotidien : aucun modèle disponible (clé manquante)."); return { ok: false, lecons: 0 }; }
+  const [claude, llama, nvidia] = await Promise.all([avisClaude(contexte), avisOpenRouter(contexte), avisNvidia(contexte)]);
+  if (!claude && !llama && !nvidia) { await journal("Avis IA quotidien : aucun modèle disponible (clé manquante)."); return { ok: false, lecons: 0 }; }
   let n = 0;
   if (claude) n += await ingerer("avis_ia_quotidien_claude", claude);
   if (llama) n += await ingerer("avis_ia_quotidien_llama", llama);
-  return { ok: true, claude: !!claude, llama: !!llama, lecons: n };
+  if (nvidia) n += await ingerer("avis_ia_quotidien_nvidia", nvidia);
+  return { ok: true, claude: !!claude, llama: !!llama, nvidia: !!nvidia, lecons: n };
 }
 
 // La boucle : scanne SEULE les sources internes jamais digérées. Jamais d'arrêt.
@@ -281,6 +317,7 @@ Deno.serve(async (req) => {
     if (mode === "verifier") return J(await verifierSite());
     if (mode === "recherche") return J(await verifierRecherche());
     if (mode === "avis") return J(await avisIA());
+    if (mode === "diag_nvidia") return J(await diagNvidia());
     const recentes = await g("core_bible_bugs", "select=bug,regle,departement,cree_le&order=cree_le.desc&limit=10");
     return J({ ok: true, service: "navlys-bible-routine", aide: "POST {source,texte} = ingérer un retour externe · GET ?mode=boucle|verifier|recherche|avis = auto-scan", dernieres_lecons: recentes });
   }
