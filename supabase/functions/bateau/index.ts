@@ -36,7 +36,37 @@ Deno.serve(async (req)=>{
   if(req.method==="OPTIONS") return new Response(null,{status:204,headers:CORS});
 
   if(req.method==="GET"){
-    const d=new URL(req.url).searchParams.get("d")||"";
+    const url=new URL(req.url);
+    const d=url.searchParams.get("d")||"";
+    // ---- mode=absorber (cron horaire) : ingère les BLOC_ABSORPTION_JSON des
+    // veilles NAVLAB « fait » dans core_bateau_savoir. Boucle 100 % autonome. ----
+    if(url.searchParams.get("mode")==="absorber"){
+      const mr=await fetch(U+"/rest/v1/missions?titre=like.Veille%20Test%20Bateaux*&statut=eq.fait&resultat=like.*BLOC_ABSORPTION_JSON*&select=id,resultat&limit=10",{headers:H});
+      const ms=mr.ok?await mr.json():[];
+      let inseres=0, deja=0, erreurs=0;
+      for(const m of ms){
+        if(String(m.resultat||"").includes("[ABSORBE-OK]")) continue;
+        const match=/BLOC_ABSORPTION_JSON:\s*(\[.*?\])\s*$/ms.exec(String(m.resultat||""));
+        let items:any[]=[];
+        try{ items=match?JSON.parse(match[1]):[]; }catch{ erreurs++; }
+        for(const it of (Array.isArray(items)?items.slice(0,10):[])){
+          const marque=clean(it.marque,80), modele=clean(it.modele,160);
+          if(!marque||!modele) continue;
+          const type=["voilier","catamaran","derive","moteur","pneumatique","autre"].includes(it.type)?it.type:"autre";
+          const ex=await fetch(U+"/rest/v1/core_bateau_savoir?select=id&limit=1&marque=ilike."+encodeURIComponent(marque)+"&modele=ilike."+encodeURIComponent(modele),{headers:H});
+          const exr=ex.ok?await ex.json():[];
+          if(exr.length){ deja++; continue; }
+          const ok=await ins("core_bateau_savoir",{ marque, modele, type, annees:clean(it.annees,40),
+            defauts:Array.isArray(it.defauts)?it.defauts.slice(0,8).map((x:unknown)=>clean(x,300)):[],
+            controles:Array.isArray(it.controles)?it.controles.slice(0,8).map((x:unknown)=>clean(x,300)):[],
+            source:"veille NAVLAB (mission #"+m.id+", absorption auto)" });
+          if(ok) inseres++;
+        }
+        await fetch(U+"/rest/v1/missions?id=eq."+m.id,{method:"PATCH",headers:{...H,"Content-Type":"application/json"},body:JSON.stringify({resultat:String(m.resultat||"")+"\n[ABSORBE-OK]"})});
+      }
+      if(inseres||erreurs) await ins("journal",{ type:"bateau_savoir", message:"Absorption auto Test Bateaux : +"+inseres+" modèle(s) dans core_bateau_savoir ("+deja+" déjà connus, "+erreurs+" bloc(s) illisible(s))." });
+      return J({ ok:true, mode:"absorber", inseres, deja, erreurs, missions:ms.length });
+    }
     if(!d) return J({ ok:true, service:"navlys-bateau" });
     const r=await fetch(U+"/rest/v1/core_bateau_dossiers?jeton=eq."+encodeURIComponent(d)+"&select=id,email,prenom,bateau,annee,lieu,statut,acces,expire_le,rapport,photos,created_at,expertise",{headers:H});
     const rows=r.ok?await r.json():[];
