@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Les Spots NAVLYS — un par jour, un lieu, une nouveauté</title>
+<meta name="description" content="Chaque jour, Bruno dans un lieu différent — un bateau, la Tour Eiffel, une voiture — prend son téléphone et montre en quelques secondes une vraie nouveauté NAVLYS. Montrer, pas raconter.">
+<meta name="theme-color" content="#050b16">
+<meta property="og:title" content="Les Spots NAVLYS — un par jour">
+<meta property="og:description" content="Un lieu, un geste, une vraie nouveauté. Chaque jour, juste avec la voix et le téléphone.">
+<meta property="og:type" content="website">
+<style>
+  :root{
+    --ground:#050b16;--panel:#0c1a2e;--panel-2:#0a1728;--line:rgba(125,211,252,.15);--line-s:rgba(125,211,252,.3);
+    --ice:#7DD3FC;--ice-b:#BAE6FD;--ice-d:#0EA5E9;--gold:#fcd34d;--gold-s:#d8bd84;
+    --perle:#eef5fc;--dim:#9fb6cc;--faint:#63788f;
+    --serif:Georgia,"Cormorant Garamond","Times New Roman",serif;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+    --mono:ui-monospace,"SF Mono",Menlo,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  @media (prefers-reduced-motion:reduce){*{animation:none!important}}
+  body{background:var(--ground);color:var(--perle);font-family:var(--sans);line-height:1.6;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:960px;margin:0 auto;padding:0 20px}
+  a{color:var(--ice)}
+
+  .hero{position:relative;min-height:56vh;display:flex;align-items:flex-end;overflow:hidden;border-bottom:1px solid var(--line)}
+  #sea{position:absolute;inset:0;z-index:0}
+  .hero .wrap{position:relative;z-index:1;padding-top:70px;padding-bottom:40px}
+  .brand{font-family:var(--serif);letter-spacing:.5em;text-transform:uppercase;font-size:13px;color:var(--ice);margin-bottom:18px}
+  h1{font-family:var(--serif);font-weight:400;font-size:clamp(32px,6.4vw,60px);line-height:1.08;text-wrap:balance;max-width:16ch}
+  h1 em{font-style:italic;color:var(--gold)}
+  .sub{color:var(--dim);font-size:clamp(16px,2.2vw,20px);margin-top:16px;max-width:52ch}
+
+  section{padding:clamp(48px,8vw,84px) 0}
+  .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.26em;text-transform:uppercase;color:var(--gold-s);display:flex;align-items:center;gap:12px;margin-bottom:18px}
+  .eyebrow::before{content:"";width:24px;height:1px;background:var(--gold-s);opacity:.7}
+  h2{font-family:var(--serif);font-weight:400;font-size:clamp(24px,4vw,38px);margin-bottom:14px;text-wrap:balance}
+  p.lead{color:var(--dim);font-size:17px;max-width:60ch}
+
+  .rules{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-top:32px}
+  .rule{background:linear-gradient(180deg,var(--panel),var(--panel-2));border:1px solid var(--line);border-radius:14px;padding:18px}
+  .rule .ic{font-size:20px}
+  .rule .t{font-family:var(--serif);font-size:18px;margin:8px 0 4px}
+  .rule .d{font-size:13.5px;color:var(--dim)}
+
+  .spot{border:1px solid var(--line-s);border-radius:20px;overflow:hidden;margin-top:12px;background:var(--panel-2)}
+  .spot .top{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;padding:20px 22px;border-bottom:1px solid var(--line);background:linear-gradient(180deg,rgba(252,211,77,.06),transparent)}
+  .spot .no{font-family:var(--mono);font-size:12px;letter-spacing:.16em;color:var(--gold);text-transform:uppercase}
+  .spot .ti{font-family:var(--serif);font-size:clamp(20px,3.2vw,28px)}
+  .spot .meta{margin-left:auto;font-size:12.5px;color:var(--faint);font-family:var(--mono)}
+  .frames{display:grid;grid-template-columns:repeat(2,1fr);gap:0}
+  @media(max-width:640px){.frames{grid-template-columns:1fr}}
+  .fr{padding:20px 22px;border-top:1px solid var(--line);border-right:1px solid var(--line)}
+  .fr:nth-child(2n){border-right:none}
+  .fr .k{font-family:var(--mono);font-size:11px;letter-spacing:.12em;color:var(--ice-d)}
+  .fr .plan{color:var(--dim);font-size:13.5px;margin:8px 0 10px;font-style:italic}
+  .fr .say{font-size:15.5px;color:var(--perle);line-height:1.5}
+  .fr .say::before{content:"“";color:var(--gold-s);font-family:var(--serif);font-size:22px;line-height:0;position:relative;top:6px;margin-right:2px}
+  .fr .scr{margin-top:10px;font-size:12.5px;color:var(--ice);font-family:var(--mono)}
+  .close{padding:18px 22px;border-top:1px solid var(--line);display:flex;flex-wrap:wrap;gap:14px;align-items:center}
+  .anchor{font-family:var(--serif);font-style:italic;color:var(--ice-b);font-size:16px}
+  .cta{margin-left:auto;background:linear-gradient(180deg,var(--ice),var(--ice-d));color:#04121f;text-decoration:none;font-weight:700;padding:11px 18px;border-radius:11px;font-size:14.5px}
+
+  .cal{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:10px;margin-top:28px}
+  .day{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px;text-align:center}
+  .day .e{font-size:22px}
+  .day .l{font-size:12px;color:var(--dim);margin-top:6px}
+
+  footer{border-top:1px solid var(--line);padding:34px 0 60px;color:var(--faint);font-size:13px}
+  .disc{font-size:12px;color:var(--faint);max-width:70ch;margin-top:10px;line-height:1.6}
+</style>
+</head>
+<body>
+
+  <header class="hero">
+    <canvas id="sea"></canvas>
+    <div class="wrap">
+      <div class="brand">NAVLYS</div>
+      <h1>Un lieu. Un geste. <em>Une nouveauté.</em></h1>
+      <p class="sub">Chaque jour, on me voit ailleurs — un bateau, la Tour Eiffel, une voiture, un restaurant. Je prends mon téléphone, je parle, et je te montre une vraie chose que NAVLYS sait déjà faire. Montrer, pas raconter.</p>
+    </div>
+  </header>
+
+  <section><div class="wrap">
+    <div class="eyebrow">Le principe</div>
+    <h2>Pas une pub. Une démonstration.</h2>
+    <p class="lead">Aucun décor de studio, aucun discours. Juste ma voix, mon visage, mon téléphone — et un résultat concret en quelques secondes. Un seul message à chaque fois, un seul geste, un seul lien.</p>
+    <div class="rules">
+      <div class="rule"><div class="ic">📍</div><div class="t">Un lieu par jour</div><div class="d">On me voit systématiquement dans un endroit différent.</div></div>
+      <div class="rule"><div class="ic">📱</div><div class="t">Un seul geste</div><div class="d">Le téléphone. Rien d'autre. À la voix.</div></div>
+      <div class="rule"><div class="ic">✨</div><div class="t">Une vraie nouveauté</div><div class="d">Une fonctionnalité déjà en ligne, montrée en direct.</div></div>
+      <div class="rule"><div class="ic">🎯</div><div class="t">Un seul message</div><div class="d">Toujours le même ancrage, un seul appel à agir.</div></div>
+    </div>
+  </div></section>
+
+  <section style="padding-top:0"><div class="wrap">
+    <div class="eyebrow">Aujourd'hui</div>
+    <article class="spot">
+      <div class="top">
+        <span class="no">Spot 01</span>
+        <span class="ti">« Je navigue, mon entreprise tourne »</span>
+        <span class="meta">~18 s · sur un bateau</span>
+      </div>
+      <div class="frames">
+        <div class="fr">
+          <div class="k">PLAN 1 · 0–4s</div>
+          <div class="plan">Gros plan, sourire, l'eau derrière, golden hour.</div>
+          <div class="say">Regarde. Je suis sur l'eau. Pas au bureau.</div>
+        </div>
+        <div class="fr">
+          <div class="k">PLAN 2 · 4–9s</div>
+          <div class="plan">Il approche le téléphone de sa bouche.</div>
+          <div class="say">Je prends mon tel, je parle à NAVLYS : montre-moi ce qui attend ma validation.</div>
+          <div class="scr">écran → l'app /valider s'ouvre, 2 actions</div>
+        </div>
+        <div class="fr">
+          <div class="k">PLAN 3 · 9–14s</div>
+          <div class="plan">Son doigt tape « Autoriser ✅ ».</div>
+          <div class="say">J'autorise d'un doigt. Rien de sensible ne part sans moi.</div>
+        </div>
+        <div class="fr">
+          <div class="k">PLAN 4 · 14–18s</div>
+          <div class="plan">Il repose le tel, regarde l'horizon.</div>
+          <div class="say">Mon entreprise tourne. Moi, je navigue.</div>
+          <div class="scr">texte → la première IA qui orchestre les autres IA</div>
+        </div>
+      </div>
+      <div class="close">
+        <span class="anchor">NAVLYS — la première IA qui orchestre les autres IA, depuis ton téléphone.</span>
+        <a class="cta" href="/adhesion">Rejoins-nous · 0€</a>
+      </div>
+    </article>
+  </div></section>
+
+  <section style="padding-top:0"><div class="wrap">
+    <div class="eyebrow">La série</div>
+    <h2>Demain, ailleurs. Après-demain, encore ailleurs.</h2>
+    <p class="lead">Le moteur du site propose chaque matin un nouveau lieu et une nouvelle fonctionnalité à montrer. Voici la rotation.</p>
+    <div class="cal">
+      <div class="day"><div class="e">⛵</div><div class="l">Un bateau</div></div>
+      <div class="day"><div class="e">🗼</div><div class="l">Tour Eiffel</div></div>
+      <div class="day"><div class="e">🚗</div><div class="l">En voiture</div></div>
+      <div class="day"><div class="e">🍽️</div><div class="l">Au restaurant</div></div>
+      <div class="day"><div class="e">🏖️</div><div class="l">Une plage</div></div>
+      <div class="day"><div class="e">🏙️</div><div class="l">Un rooftop</div></div>
+      <div class="day"><div class="e">☕</div><div class="l">Un café</div></div>
+      <div class="day"><div class="e">🏔️</div><div class="l">En montagne</div></div>
+    </div>
+  </div></section>
+
+  <footer><div class="wrap">
+    <div>NAVLYS Web Service (NWS) · <a href="/">navlys.com</a> · <a href="/adhesion">Rejoindre · 0€</a></div>
+    <p class="disc">Série de démonstrations. NAVLYS est un projet à vocation informative et éducative ; les contenus ne constituent pas un conseil personnalisé. © 2026 NAVLYS Web Service.</p>
+  </div></footer>
+
+<script>
+  // Mer au coucher du soleil — canvas génératif, sobre.
+  var c=document.getElementById('sea'),x=c.getContext('2d'),DPR=Math.min(2,window.devicePixelRatio||1);
+  var reduce=matchMedia&&matchMedia('(prefers-reduced-motion:reduce)').matches,W,H,t=0;
+  function size(){var r=c.parentNode.getBoundingClientRect();W=c.width=r.width*DPR;H=c.height=r.height*DPR;}
+  function frame(){
+    // ciel dégradé
+    var g=x.createLinearGradient(0,0,0,H);
+    g.addColorStop(0,'#081321');g.addColorStop(.55,'#0e2136');g.addColorStop(.62,'#243a4d');g.addColorStop(.72,'#3a4a52');g.addColorStop(1,'#050b16');
+    x.fillStyle=g;x.fillRect(0,0,W,H);
+    // soleil bas
+    var sy=H*0.62,sx=W*0.5;
+    var sg=x.createRadialGradient(sx,sy,2,sx,sy,H*0.4);
+    sg.addColorStop(0,'rgba(252,211,77,.55)');sg.addColorStop(.3,'rgba(252,211,77,.14)');sg.addColorStop(1,'rgba(252,211,77,0)');
+    x.fillStyle=sg;x.fillRect(0,0,W,H);
+    x.beginPath();x.arc(sx,sy,H*0.05,0,6.29);x.fillStyle='rgba(253,224,150,.85)';x.fill();
+    // reflets ondulants
+    for(var i=0;i<26;i++){var yy=sy+8*DPR+i*i*0.5*DPR;if(yy>H)break;
+      var w=(H*0.05)*(1+i*0.16),a=Math.max(0,0.28-i*0.01);
+      x.strokeStyle='rgba(253,224,150,'+a+')';x.lineWidth=DPR*(1.4-i*0.03);
+      x.beginPath();
+      for(var xx=sx-w;xx<=sx+w;xx+=6*DPR){var off=Math.sin((xx*0.02)+(t*0.02)+i)*2*DPR;x.lineTo(xx,yy+off);}
+      x.stroke();
+    }
+    t++;if(!reduce)requestAnimationFrame(frame);
+  }
+  size();frame();addEventListener('resize',function(){size();if(reduce)frame();});
+</script>
+</body>
+</html>
