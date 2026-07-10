@@ -8,6 +8,17 @@ import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 
 const DEFAULT_VOICE = Deno.env.get("NAVLYS_VOICE_ID") || "6hUoby5ZAVW4JqvIJeri"; // clone Bruno
 const MODEL = Deno.env.get("NAVLYS_VOICE_MODEL") || "eleven_multilingual_v2";
+// Réglages CONSISTANTS par défaut, ajustables EN LIVE par secrets (règle n°35) —
+// stability haute = voix stable/consistante d'une phrase à l'autre.
+const num = (k: string, d: number) => { const v = parseFloat(Deno.env.get(k) || ""); return isFinite(v) ? Math.max(0, Math.min(1, v)) : d; };
+function reglages() {
+  return {
+    stability: num("NAVLYS_VOICE_STABILITY", 0.55),
+    similarity_boost: num("NAVLYS_VOICE_SIMILARITY", 0.85),
+    style: num("NAVLYS_VOICE_STYLE", 0.25),
+    use_speaker_boost: (Deno.env.get("NAVLYS_VOICE_BOOST") || "1") !== "0",
+  };
+}
 const CORS = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Methods": "POST,GET,OPTIONS",
@@ -56,7 +67,7 @@ Deno.serve(async (req) => {
   if (req.method === "GET") {
     const cands = candidats().map((c) => c.nom);
     const ok = await cleValide();
-    return J({ ok: true, service: "navlys-voix", candidats: cands, cle_valide: ok ? ok.nom : null, voice: DEFAULT_VOICE });
+    return J({ ok: true, service: "navlys-voix", candidats: cands, cle_valide: ok ? ok.nom : null, voice: DEFAULT_VOICE, reglages: reglages() });
   }
   if (req.method !== "POST") return J({ error: "method" }, 405);
   const b: any = await req.json().catch(() => ({}));
@@ -68,8 +79,7 @@ Deno.serve(async (req) => {
   const r = await fetch("https://api.elevenlabs.io/v1/text-to-speech/" + voice, {
     method: "POST",
     headers: { "xi-api-key": cle.val, "Content-Type": "application/json", "Accept": "audio/mpeg" },
-    body: JSON.stringify({ text, model_id: MODEL,
-      voice_settings: { stability: 0.30, similarity_boost: 0.75, style: 0.65, use_speaker_boost: true } }),
+    body: JSON.stringify({ text, model_id: MODEL, voice_settings: reglages() }),
   });
   if (!r.ok) { CACHE = null; return J({ ok: false, error: "eleven_" + r.status, detail: (await r.text().catch(() => "")).slice(0, 200) }, 200); }
   const audio = await r.arrayBuffer();
