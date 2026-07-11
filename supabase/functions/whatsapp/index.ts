@@ -1,7 +1,7 @@
-// NAVLYS — Webhook WhatsApp (360dialog). v36 (2026-07-11).
+// NAVLYS — Webhook WhatsApp (360dialog). v37 (2026-07-11).
 // v34 : BIBLE FAQ PRÉ-TRADUITE (core_faq.traductions en/ru/he) + LIEN DIRECT par fiche.
 // v35 : HÉRITAGE DE LANGUE + VERROU DE LANGUE.
-// v36 : VOIX ENFIN COMPRISE —
+// v37 : clé ElevenLabs auto-découverte (réutilise la clé voix existante). VOIX ENFIN COMPRISE —
 //        (1) CORRECTIF CAPTURE : le téléchargement média 360dialog passe par le
 //            proxy waba-v2.360dialog.io (l'URL lookaside.fbsbx.com refuse la
 //            D360-API-KEY). C'était la cause de « je n'ai pas pu récupérer le fichier ».
@@ -111,7 +111,32 @@ async function d360Media(id){
 }
 async function saveToSpace(from, media, kind, ts){ await ensureBucket(); const ext=(media.mime.split("/")[1]||"bin").split(";")[0]; const path=`${onlyDigits(from)}/${kind}-${ts}.${ext}`; const up=await fetch(`${U}/storage/v1/object/${BUCKET}/${path}`,{method:"POST",headers:{Authorization:`Bearer ${K}`,apikey:K,"Content-Type":media.mime,"x-upsert":"true"},body:media.bytes}); if(!up.ok) throw new Error("storage "+up.status); return path; }
 
-// ---- TRANSCRIPTION VOCALE (STT) — gratuit d'abord : Groq → OpenAI → ElevenLabs ----
+// Découverte auto de la clé ElevenLabs dans l'env (même logique que la brique voix) :
+// tout nom contenant ELEVEN/XI/VOICE/VOIX, ou toute valeur sk_… , validée contre /v1/user.
+// Ainsi la transcription réutilise la clé ElevenLabs DÉJÀ posée, sans nouveau secret.
+function elevenCandidats(){
+  const env=Deno.env.toObject(); const out=[]; const vus=new Set();
+  if(ELEVEN){ out.push(ELEVEN); vus.add(ELEVEN); }
+  for(const nom of Object.keys(env)){
+    const val=(env[nom]||"").trim();
+    if(!val||val.length<20||vus.has(val)) continue;
+    const nomU=nom.toUpperCase();
+    const nomMatch=/ELEVEN|^XI_|_XI$|VOICE|VOIX/.test(nomU) && !/VOICE_ID|VOICE_MODEL/.test(nomU);
+    const valMatch=/^sk_[a-f0-9]{20,}$/i.test(val);
+    if(nomMatch||valMatch){ out.push(val); vus.add(val); }
+  }
+  return out;
+}
+let EV_CACHE=null;
+async function elevenKey(){
+  if(EV_CACHE!==null) return EV_CACHE||null;
+  for(const val of elevenCandidats()){
+    try{ const r=await fetch("https://api.elevenlabs.io/v1/user",{headers:{"xi-api-key":val}}); if(r.ok){ EV_CACHE=val; return val; } }catch(_e){}
+  }
+  EV_CACHE=""; return null;
+}
+
+// ---- TRANSCRIPTION VOCALE (STT) — gratuit d'abord : Groq → OpenAI → ElevenLabs (clé auto) ----
 async function transcribe(bytes, mime){
   const ext=(String(mime).split("/")[1]||"ogg").split(";")[0];
   const fname="audio."+ext;
@@ -130,10 +155,11 @@ async function transcribe(bytes, mime){
       if(r.ok){ const d=await r.json().catch(()=>({})); if(d&&d.text) return String(d.text).trim(); }
     }catch(_e){}
   }
-  if(ELEVEN){
+  const ev = await elevenKey();
+  if(ev){
     try{
       const fd=new FormData(); fd.append("file",blob,fname); fd.append("model_id","scribe_v1");
-      const r=await fetch("https://api.elevenlabs.io/v1/speech-to-text",{method:"POST",headers:{"xi-api-key":ELEVEN},body:fd});
+      const r=await fetch("https://api.elevenlabs.io/v1/speech-to-text",{method:"POST",headers:{"xi-api-key":ev},body:fd});
       if(r.ok){ const d=await r.json().catch(()=>({})); if(d&&(d.text||d.transcript)) return String(d.text||d.transcript).trim(); }
     }catch(_e){}
   }
@@ -234,10 +260,11 @@ Deno.serve(async (req) => {
         }catch(e){ webhook={error:String(e).slice(0,120)}; }
       }
       let send=null;
-      if(D360&&OWNERS[0]&&!u.searchParams.get("silencieux")){ const rr=await fetch("https://waba-v2.360dialog.io/messages",{method:"POST",headers:{"D360-API-KEY":D360,"Content-Type":"application/json"},body:JSON.stringify({messaging_product:"whatsapp",to:OWNERS[0],type:"text",text:{body:"NAVLYS diag ✅ v36 — voix comprise (capture 360dialog corrigée + transcription)"}})}); send={status:rr.status,body:(await rr.text().catch(()=>"")).slice(0,300)}; }
+      if(D360&&OWNERS[0]&&!u.searchParams.get("silencieux")){ const rr=await fetch("https://waba-v2.360dialog.io/messages",{method:"POST",headers:{"D360-API-KEY":D360,"Content-Type":"application/json"},body:JSON.stringify({messaging_product:"whatsapp",to:OWNERS[0],type:"text",text:{body:"NAVLYS diag ✅ v37 — voix comprise (capture 360dialog corrigée + transcription)"}})}); send={status:rr.status,body:(await rr.text().catch(()=>"")).slice(0,300)}; }
       let faqN=0; try{ faqN=(await sbFilter("core_faq","id,traductions","or=(actif.is.true,actif.is.null)",1000)).filter((r)=>r.traductions&&r.traductions.he).length; }catch(_e){}
-      const stt = { groq:!!GROQ, openai:!!OPENAI, eleven:!!ELEVEN, actif:!!(GROQ||OPENAI||ELEVEN) };
-      return new Response(JSON.stringify({version:36,d360:!!D360,owners:OWNERS,anth:!!ANTH,storage:!!(U&&K),stt,faq_traduites:faqN,self:SELF_URL,webhook,webhook_fix,send}),{status:200,headers:{"Content-Type":"application/json"}});
+      const evk = await elevenKey();
+      const stt = { groq:!!GROQ, openai:!!OPENAI, eleven:!!evk, actif:!!(GROQ||OPENAI||evk) };
+      return new Response(JSON.stringify({version:37,d360:!!D360,owners:OWNERS,anth:!!ANTH,storage:!!(U&&K),stt,faq_traduites:faqN,self:SELF_URL,webhook,webhook_fix,send}),{status:200,headers:{"Content-Type":"application/json"}});
     }
     const mode=u.searchParams.get("hub.mode"), token=u.searchParams.get("hub.verify_token"), challenge=u.searchParams.get("hub.challenge");
     if (mode==="subscribe" && token && token===VERIFY) return new Response(challenge||"",{status:200});
