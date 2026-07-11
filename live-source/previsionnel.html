@@ -116,9 +116,53 @@ ul.liste li b{color:var(--ice-clair)}
     <p><b>3. Le calcul (RAM/CPU)</b> — le plus petit poste grâce au statique. Les agents IA sont un coût à part (OpenRouter/Anthropic), proportionnel à l'usage et plafonnable comme on vient de le faire avec Gemini (250 ₪/mois).</p>
   </div>
 
-  <p class="disc">Prévisionnel NAVLYS du 10 juillet 2026 — ordres de grandeur d'ingénierie fondés sur nos mesures réelles
-  et les tarifs publics constatés (Hetzner, Cloudflare, Supabase). À re-mesurer à chaque palier réel :
-  les vrais chiffres des 1 000 premiers membres recalibreront tout le tableau. Ce document vit sur le cockpit.</p>
+  <h2>💰 Rentabilité NET-NET — cotisation de base 20 €/mois</h2>
+  <div class="carte">
+    <p>La vraie rentabilité par membre, en comptant <b>TOUT ce qui se paie</b> : l'infrastructure ci-dessus,
+    <b>les abonnements prestataires</b> qui montent aussi par palier (le cerveau des agents en premier — Anthropic/OpenRouter,
+    puis ElevenLabs pour la voix, 360dialog pour WhatsApp, Gemini pour les images, HeyGen pour la vidéo, Vercel, Supabase, domaines),
+    <b>les frais d'encaissement</b> (le poste que tout le monde oublie : ~3 % + 0,25 € par paiement), et une
+    <b>réserve de fonctionnement</b> (comptabilité, juridique, modération humaine d'appoint) qui apparaît dès 10 000 membres.
+    Chaque membre a son site web perso et ses apps — déjà compté dans l'infra (quota 100 Mo) et dans le coût agents
+    (le site est généré une fois puis statique : il ne consomme plus rien).</p>
+  </div>
+  <div class="scroll">
+    <table>
+      <tr><th>Membres</th><th>Recettes/mois</th><th>Infra</th><th>Prestataires (SaaS)</th><th>Agents IA (LLM)</th><th>Encaissement (~3 %)</th><th>Réserve fonct.</th><th>NET-NET/mois</th><th>Net par membre</th></tr>
+      <tr><td>1 000</td><td>20 000 €</td><td>50 €</td><td>≈ 270 €</td><td>≈ 300 €<br>(0,30 €/membre)</td><td>≈ 850 €</td><td>—</td><td>≈ 18 530 €</td><td><b>18,53 €</b> · 92,7 %</td></tr>
+      <tr><td>10 000</td><td>200 000 €</td><td>≈ 225 €</td><td>≈ 1 000 €</td><td>≈ 2 500 €<br>(0,25 €/membre)</td><td>≈ 8 500 €</td><td>≈ 500 €</td><td>≈ 187 300 €</td><td><b>18,73 €</b> · 93,6 %</td></tr>
+      <tr><td>100 000</td><td>2 000 000 €</td><td>≈ 1 400 €</td><td>≈ 4 000 €</td><td>≈ 18 000 €<br>(0,18 €/membre)</td><td>≈ 85 000 €</td><td>≈ 15 000 €</td><td>≈ 1 876 600 €</td><td><b>18,77 €</b> · 93,8 %</td></tr>
+      <tr class="m1"><td>1 000 000</td><td>20 000 000 €</td><td>≈ 10 000 €</td><td>≈ 15 000 €</td><td>≈ 120 000 €<br>(0,12 €/membre)</td><td>≈ 500 000 €<br>(taux négocié ~2,5 %)</td><td>≈ 100 000 €</td><td>≈ 19 255 000 €</td><td><b>19,26 €</b> · 96,3 %</td></tr>
+    </table>
+  </div>
+  <div class="carte">
+    <p><b>Le détail « Prestataires » par palier</b> — à 1 000 membres : Vercel Pro 20 € · Supabase Pro 25 € ·
+    ElevenLabs 20 € · HeyGen 50 € · 360dialog WhatsApp 60 € · Gemini 62 € (ton plafond 250 ₪) · domaines &amp; divers 30 €.
+    À chaque palier ces plans montent d'un cran (Supabase Team, ElevenLabs Pro→Business, WhatsApp au volume,
+    Gemini plafond relevé sur ta validation) — c'est intégré dans la colonne.</p>
+    <p><b>Le poste n°1 n'est ni l'infra ni l'IA : c'est l'encaissement.</b> À tous les paliers, les ~3 % du
+    prestataire de paiement pèsent plus que tout le reste réuni. Levier : négocier le taux au volume
+    (à 1 M on obtient ~2,2-2,5 %) et encourager le paiement annuel (12 encaissements → 1).</p>
+    <p><b>Le poste n°2 : le cerveau des agents.</b> Il BAISSE par membre avec l'échelle (0,30 € → 0,12 €) grâce aux
+    quotas par membre (comme ton plafond Gemini), au cache, et aux petits modèles pour le courant (Haiku) —
+    le site perso, lui, est généré une fois puis statique : coût récurrent nul.</p>
+  </div>
+  <div class="phare">
+    <b>Net-net : sur 20 € de cotisation, il reste entre 18,50 € et 19,25 € par membre et par mois. Marge : 93 à 96 %.</b>
+    <span>Point mort : ~20 membres couvrent tous les coûts fixes de départ. À 1 000 membres : ≈ 18 500 €/mois net.
+    À 1 million : ≈ 19,3 M€/mois net. L'économie du logiciel : les coûts montent en escalier, les recettes en ligne droite.</span>
+  </div>
+  <div class="carte">
+    <p><b>Honnêteté de capitaine (non négociable)</b> — ces chiffres sont <span class="o">avant impôts et TVA</span>
+    (à trancher avec le comptable selon le statut NWS) ; ils supposent des <b>quotas d'usage par membre</b> partout
+    (un membre sans limite peut coûter 10× la moyenne — les plafonds type Gemini 250 ₪ sont LA clé de la marge) ;
+    ils ne comptent <b>aucun budget publicitaire</b> (doctrine Manus : croissance organique) ; et le churn n'est pas
+    modélisé — c'est la valeur perçue (site + apps + agents + communauté) qui décide qu'on garde un membre, pas le tableau.</p>
+  </div>
+
+  <p class="disc">Prévisionnel &amp; rentabilité NAVLYS — 10-11 juillet 2026 — ordres de grandeur fondés sur nos mesures réelles
+  et les tarifs publics constatés (Hetzner, Cloudflare, Supabase, Stripe, ElevenLabs, 360dialog). À re-mesurer à chaque
+  palier réel : les vrais chiffres des 1 000 premiers membres recalibreront tout le tableau. Ce document vit sur le cockpit.</p>
 </div>
 </body>
 </html>
