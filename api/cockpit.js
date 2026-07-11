@@ -113,6 +113,21 @@ async function sbInsert(base, key, table, row) {
   if (!r.ok) throw new Error(`insert ${table} ${r.status}`);
   return r.json().catch(() => []);
 }
+// Compte exact via l'en-tete Content-Range (HEAD, ne charge pas les lignes).
+async function sbCount(base, key, table, filter) {
+  const q = `${base}/rest/v1/${table}?select=id${filter ? '&' + filter : ''}`;
+  const r = await fetch(q, { method: 'HEAD', headers: { ...sbHeaders(key), Prefer: 'count=exact' } });
+  const cr = r.headers.get('content-range') || '*/0';
+  return parseInt(cr.split('/')[1] || '0', 10) || 0;
+}
+// Upsert d'une cle de config (merge sur la contrainte unique key).
+async function sbUpsertConfig(base, key, cfgKey, cfgVal) {
+  await fetch(`${base}/rest/v1/core_config?on_conflict=key`, {
+    method: 'POST',
+    headers: { ...sbHeaders(key), Prefer: 'resolution=merge-duplicates,return=minimal' },
+    body: JSON.stringify({ key: cfgKey, value: cfgVal }),
+  });
+}
 
 // ── Anti-abus léger ──
 const hits = new Map();
@@ -161,6 +176,61 @@ export default async function handler(req) {
       const stats = {};
       for (const m of missions) stats[m.statut] = (stats[m.statut] || 0) + 1;
       return j({ agents, missions, journal, stats }, 200);
+    }
+
+    // Tableau de bord centralise : tout ce qu'il faut pour piloter, en 1 appel.
+    if (action === 'tableau') {
+      const [agents, missions, journal, incidents, bugs, feedback, cfg] = await Promise.all([
+        sbGet(base, key, 'agents', 'id,prenom,handle,role,autonomie,actif', 'id.asc', 200),
+        sbGet(base, key, 'missions',
+          'id,titre,statut,departement,priorite,resultat,consigne,assigned_agent,finished_at', 'id.desc', 300),
+        sbGet(base, key, 'journal', 'id,type,message,ts', 'ts.desc', 30),
+        sbGet(base, key, 'core_incidents', 'id,ts,categorie,severite,sujet,statut,agent',
+          'ts.desc', 40),
+        sbGet(base, key, 'core_bible_bugs', 'id,categorie,bug,departement,traite,cree_le', 'cree_le.desc', 40),
+        sbGet(base, key, 'core_feedback', 'id,page,type,message,prenom,statut,created_at',
+          'created_at.desc', 40),
+        sbGet(base, key, 'core_config', 'key,value', null, 200),
+      ]);
+      const [inscriptions, membres, snap] = await Promise.all([
+        sbCount(base, key, 'inscriptions'),
+        sbCount(base, key, 'membres'),
+        sbGet(base, key, 'core_croissance_snap', 'jour,source,entrees', 'jour.desc', 1),
+      ]);
+      const stats = {};
+      for (const m of missions) stats[m.statut] = (stats[m.statut] || 0) + 1;
+      const conf = {};
+      for (const c of cfg) conf[c.key] = c.value;
+      let attente = null;
+      try { attente = conf.chantiers_attente ? JSON.parse(conf.chantiers_attente) : null; } catch { attente = null; }
+      const openInc = incidents.filter((x) => x.statut !== 'resolu');
+      const openBugs = bugs.filter((b) => b.traite === false || b.traite == null);
+      const openFb = feedback.filter((f) => f.statut !== 'repondu');
+      return j({
+        agents, missions, journal, stats,
+        incidents: openInc, bugs: openBugs, feedback: openFb,
+        autotest: { score: conf.last_autotest_score || null, weak: conf.last_autotest_weak || null, niveau: conf.recursive_growth_level || null },
+        kpi: { inscriptions, membres, croissance: snap[0] || null },
+        attente, ts: new Date().toISOString(),
+      }, 200);
+    }
+
+    // Checklist « En attente de Bruno » persistee dans core_config (partagee multi-appareils).
+    if (action === 'attente_set') {
+      const items = Array.isArray(body.items) ? body.items : [];
+      await sbUpsertConfig(base, key, 'chantiers_attente', JSON.stringify(items));
+      return j({ ok: true, n: items.length }, 200);
+    }
+
+    if (action === 'valider_tout') {
+      const ra = await fetch(`${base}/rest/v1/missions?select=id&statut=eq.a_valider&limit=500`, { headers: sbHeaders(key) });
+      const attente = ra.ok ? await ra.json().catch(() => []) : [];
+      if (!attente.length) return j({ ok: true, valides: 0 }, 200);
+      await sbPatch(base, key, 'missions', 'statut=eq.a_valider', { statut: 'fait' });
+      await sbInsert(base, key, 'journal', {
+        type: 'validation', message: `Bruno a TOUT validé en un clic : ${attente.length} mission(s) (cockpit).`,
+      }).catch(() => {});
+      return j({ ok: true, valides: attente.length }, 200);
     }
 
     if (action === 'create') {

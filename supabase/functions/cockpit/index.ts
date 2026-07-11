@@ -1,6 +1,10 @@
 // NAVLYS Cockpit — API JSON servie par Supabase (independant de Vercel).
-// Le rendu HTML du cockpit est servi par Netlify (les Edge Functions Supabase
-// sandboxent le HTML : text/plain + CSP). Ici on ne sert que du JSON (CORS *).
+// Le rendu HTML du cockpit est servi par Netlify/Vercel (navlys.com/cockpit).
+// Ici on ne sert que du JSON (CORS *). Le verrou est le mot de passe cockpit_pass.
+//
+// v2 · 2026-07-11 · action `tableau` (dashboard centralise en 1 appel) + `attente_set`
+//   (checklist « En attente de Bruno » persistee dans core_config). Les actions
+//   existantes (state/valider/valider_tout/refuser/create/briefing) sont inchangees.
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 const U = Deno.env.get("SUPABASE_URL")!;
 const K = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
@@ -15,8 +19,11 @@ function h(){ return { apikey:K, Authorization:"Bearer "+K, "Content-Type":"appl
 async function g(t:string,q:string){ const r=await fetch(U+"/rest/v1/"+t+"?"+q,{headers:h()}); return r.ok? await r.json():[]; }
 async function pa(t:string,f:string,b:unknown){ await fetch(U+"/rest/v1/"+t+"?"+f,{method:"PATCH",headers:{...h(),Prefer:"return=representation"},body:JSON.stringify(b)}); }
 async function ins(t:string,b:unknown){ const r=await fetch(U+"/rest/v1/"+t,{method:"POST",headers:{...h(),Prefer:"return=representation"},body:JSON.stringify(b)}); return r.ok? await r.json():[]; }
+// Compte exact via l'en-tete Content-Range (evite de charger toutes les lignes).
+async function cnt(t:string,q=""){ const r=await fetch(U+"/rest/v1/"+t+"?select=id"+(q?"&"+q:""),{method:"HEAD",headers:{...h(),Prefer:"count=exact"}}); const cr=r.headers.get("content-range")||"*/0"; return parseInt(cr.split("/")[1]||"0",10)||0; }
 function J(d:unknown,s=200){ return new Response(JSON.stringify(d),{status:s,headers:{"Content-Type":"application/json",...CORS}}); }
 const enc=(x:unknown)=>encodeURIComponent(String(x));
+
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response(null,{status:204,headers:CORS});
   if (req.method === "GET") return J({ ok:true, service:"navlys-cockpit-api", info:"POST {action,token}. Le cockpit visuel est sur navlys.com/cockpit." });
@@ -26,6 +33,8 @@ Deno.serve(async (req) => {
   const pass = passRow[0] && passRow[0].value;
   if (!pass || body.token !== pass) return J({ error:"Mot de passe invalide" }, 401);
   const a = body.action || "state";
+
+  // ── Etat simple (retro-compatible : le cockpit v1 s'en sert encore) ──
   if (a === "state") {
     const [agents, missions, journal] = await Promise.all([
       g("agents","select=id,prenom,handle,role,autonomie,actif&order=id.asc"),
@@ -35,6 +44,46 @@ Deno.serve(async (req) => {
     const stats:any = {}; for (const m of missions) stats[m.statut]=(stats[m.statut]||0)+1;
     return J({ agents, missions, journal, stats });
   }
+
+  // ── Tableau de bord centralise : tout ce qu'il faut pour piloter, en 1 appel ──
+  if (a === "tableau") {
+    const [agents, missions, journal, incidents, bugs, feedback, cfg] = await Promise.all([
+      g("agents","select=id,prenom,handle,role,autonomie,actif&order=id.asc"),
+      g("missions","select=id,titre,statut,departement,resultat,consigne,priorite&order=id.desc&limit=300"),
+      g("journal","select=type,message,ts&order=ts.desc&limit=30"),
+      g("core_incidents","select=id,ts,categorie,severite,sujet,statut,agent&statut=neq.resolu&order=ts.desc&limit=40"),
+      g("core_bible_bugs","select=id,categorie,bug,departement,cree_le&traite=eq.false&order=cree_le.desc&limit=40"),
+      g("core_feedback","select=id,page,type,message,prenom,statut,created_at&statut=neq.repondu&order=created_at.desc&limit=40"),
+      g("core_config","select=key,value&key=in.(last_autotest_score,last_autotest_weak,chantiers_attente,recursive_growth_level)")
+    ]);
+    const [inscriptions, membres, snap] = await Promise.all([
+      cnt("inscriptions"), cnt("membres"),
+      g("core_croissance_snap","select=jour,source,entrees&order=jour.desc&limit=1")
+    ]);
+    const stats:any = {}; for (const m of missions) stats[m.statut]=(stats[m.statut]||0)+1;
+    const conf:any = {}; for (const c of cfg) conf[c.key]=c.value;
+    let attente:any = null;
+    try { attente = conf.chantiers_attente ? JSON.parse(conf.chantiers_attente) : null; } catch { attente = null; }
+    return J({
+      agents, missions, journal, incidents, bugs, feedback, stats,
+      autotest: { score: conf.last_autotest_score||null, weak: conf.last_autotest_weak||null, niveau: conf.recursive_growth_level||null },
+      kpi: { inscriptions, membres, croissance: (snap && snap[0]) || null },
+      attente,
+      ts: new Date().toISOString()
+    });
+  }
+
+  // ── Checklist « En attente de Bruno » : persistee dans core_config (partagee multi-appareils) ──
+  if (a === "attente_set") {
+    const items = Array.isArray(body.items) ? body.items : [];
+    await fetch(U+"/rest/v1/core_config?on_conflict=key",{
+      method:"POST",
+      headers:{...h(),Prefer:"resolution=merge-duplicates,return=minimal"},
+      body:JSON.stringify({ key:"chantiers_attente", value:JSON.stringify(items) })
+    });
+    return J({ ok:true, n:items.length });
+  }
+
   if (a === "valider") { await pa("missions","id=eq."+enc(body.id),{statut:"fait"}); await ins("journal",{type:"validation",message:"Bruno a valide #"+body.id+" (cockpit)"}); return J({ok:true}); }
   if (a === "valider_tout") {
     const att = await g("missions","select=id&statut=eq.a_valider&limit=500");
@@ -57,7 +106,7 @@ Deno.serve(async (req) => {
     const [agents, missions] = await Promise.all([g("agents","select=id,prenom"),g("missions","select=id,titre,statut,departement&order=id.desc&limit=200")]);
     const stats:any={}; for(const m of missions) stats[m.statut]=(stats[m.statut]||0)+1;
     const av = missions.filter((m:any)=>m.statut==="a_valider").map((m:any)=>"#"+m.id+" "+m.departement+" "+m.titre).slice(0,10);
-    if (!ANTH) return J({ text:"Etat NAVLYS : "+agents.length+" agents. A valider "+(stats.a_valider||0)+", a faire "+(stats.a_faire||0)+", en cours "+(stats.en_cours||0)+", fait "+(stats.fait||0)+". "+(av.length?"A valider : "+av.join(" ; "):"Rien n attend ta validation.") });
+    if (!ANTH) return J({ text:"Etat NAVLYS : "+agents.length+" agents. A valider "+(stats.a_valider||0)+", en file "+(stats.en_file||0)+", en cours "+(stats.en_cours||0)+", fait "+(stats.fait||0)+". "+(av.length?"A valider : "+av.join(" ; "):"Rien n attend ta validation.") });
     const r = await fetch("https://api.anthropic.com/v1/messages",{method:"POST",headers:{"x-api-key":ANTH,"anthropic-version":"2023-06-01","Content-Type":"application/json"},body:JSON.stringify({model:"claude-haiku-4-5-20251001",max_tokens:600,system:"Tu es le Rapporteur de NAVLYS. Point oral court et chaleureux a Bruno (5-7 phrases), tutoiement, statut simple citoyen.",messages:[{role:"user",content:"Compteurs: "+JSON.stringify(stats)+". A valider: "+(av.join(" | ")||"aucune")+". Fais le point."}]})});
     const d:any = await r.json().catch(()=>({}));
     const text = ((d.content||[]).filter((c:any)=>c.type==="text").map((c:any)=>c.text).join("\n").trim())||"Tout est calme.";
