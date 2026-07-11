@@ -1,4 +1,7 @@
-// NAVLYS — Guichet SAV. v34 (2026-07-07).
+// NAVLYS — Guichet SAV. v36 (2026-07-11).
+// v36 : COCKPIT = BRUNO. Le dialogue du cockpit (page admin protégée) passe
+//       cockpit_token ; vérifié contre core_config.cockpit_pass → mode cerveau
+//       central (fondateur), plus de réponse SAV « laisse-moi ton contact ».
 // v32 : FAQ PRÉ-TRADUITE par langue (core_faq.traductions en/ru/he, 88 fiches)
 //       + LIEN DIRECT par fiche (core_faq.lien) + cache FAQ par langue (10 min).
 // v33 : VERROU DE LANGUE (consigne finale absolue dans la langue cible).
@@ -150,14 +153,22 @@ async function callBrain(sys:string, msgs:any[], model:string, maxTok:number): P
 }
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response(null,{status:204,headers:CORS});
-  if (req.method === "GET") return J({ ok:true, service:"navlys-assistant", version:35, langues:["fr","en","ru","he","ar"], faq_pretraduite:["en","ru","he"], liens_directs:true, verrou_langue:true, heritage_langue:true, resilience_llm:["claude","openrouter_llama","nvidia_nim"], cerveau_central:"e-mail fondateur → accès direct, conversation du jour" });
+  if (req.method === "GET") return J({ ok:true, service:"navlys-assistant", version:36, langues:["fr","en","ru","he","ar"], faq_pretraduite:["en","ru","he"], liens_directs:true, verrou_langue:true, heritage_langue:true, resilience_llm:["claude","openrouter_llama","nvidia_nim"], cerveau_central:"e-mail fondateur OU token cockpit → accès direct, conversation du jour" });
   if (req.method !== "POST") return J({ error:"method" }, 405);
   const b:any = await req.json().catch(()=>({}));
   const text = clean(b.text,2000);
   const nom = clean(b.nom,120), contact = clean(b.contact,160);
   const email = clean(b.email,160);
-  const owner = estFondateur(email);
+  let owner = estFondateur(email);
   if (!text) return J({ error:"vide" }, 400);
+  // Accès depuis le cockpit (page admin protégée par mot de passe) = c'est Bruno,
+  // même sans e-mail. On vérifie le token cockpit contre core_config.cockpit_pass —
+  // jamais une simple chaîne de session (l'endpoint est public, ça fuirait l'interne).
+  if (!owner && b.cockpit_token) {
+    const passRow = await g("core_config", "select=value&key=eq.cockpit_pass&limit=1");
+    const pass = passRow[0] && passRow[0].value;
+    if (pass && String(b.cockpit_token) === String(pass)) owner = true;
+  }
   // session : le fondateur a une conversation RENOUVELÉE CHAQUE JOUR
   const session = owner ? ("bruno-"+dateJour()) : (clean(b.session,80) || "web");
   // SAVOIR LOCAL déjà affiché côté client -> journalisation seule
@@ -190,7 +201,7 @@ Deno.serve(async (req) => {
   if (owner) {
     const etat = await etatInterne();
     sys = SYSTEM_OWNER + "\n" + LANGREGLE + "\n\n" + etat
-      + "\n\nRappel : la personne est Bruno (fondateur), reconnu par son e-mail " + email + ". Conversation du jour " + dateJour() + ".";
+      + "\n\nRappel : la personne est Bruno (fondateur), reconnu par " + (email ? "son e-mail "+email : "son accès au cockpit admin (page protégée)") + ". Conversation du jour " + dateJour() + ".";
     model = MODEL_OWNER; maxTok = 900;
   } else {
     const kb = await faqKb(lang);
