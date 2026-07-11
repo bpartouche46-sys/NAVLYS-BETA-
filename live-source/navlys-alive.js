@@ -261,20 +261,33 @@ window.NAVLYS_setVideo = function(v, rate, srcs){
     if(karEl) return karEl;
     var s=document.createElement('style'); s.textContent=
       '#nv-karaoke{position:fixed;left:10px;right:10px;bottom:150px;z-index:63;pointer-events:none;'+
-      'text-align:center;white-space:nowrap;overflow:hidden;font-family:\'Cormorant Garamond\',Georgia,serif;'+
-      'font-size:clamp(1.05rem,3.4vw,1.45rem);font-weight:600;color:#fff;'+
-      'text-shadow:0 0 10px rgba(125,211,252,.8),0 2px 6px rgba(0,0,0,.9);'+
+      'text-align:center;font-family:\'Cormorant Garamond\',Georgia,serif;'+
+      'font-size:clamp(1.05rem,3.4vw,1.45rem);font-weight:600;line-height:1.42;'+
       'opacity:0;transition:opacity .35s}'+
       '#nv-karaoke.on{opacity:1}'+
-      '#nv-karaoke .done{color:'+OR+'}';
+      '#nv-karaoke span{transition:color .12s ease,text-shadow .12s ease}'+
+      /* mot déjà dit = or ; mot en cours = ice vif ; mots à venir = estompés */
+      '#nv-karaoke .done{color:'+OR+';text-shadow:0 2px 6px rgba(0,0,0,.9)}'+
+      '#nv-karaoke .now{color:#fff;text-shadow:0 0 12px rgba(125,211,252,.95),0 2px 6px rgba(0,0,0,.9)}'+
+      '#nv-karaoke .next{color:rgba(233,238,242,.5);text-shadow:0 2px 6px rgba(0,0,0,.85)}';
     document.head.appendChild(s);
     karEl=document.createElement('div'); karEl.id='nv-karaoke'; karEl.setAttribute('aria-live','off');
     document.body.appendChild(karEl); return karEl;
   }
   function nvKarStop(){ clearInterval(karTimer); karTimer=null; if(karEl){ karEl.classList.remove('on'); } }
-  function nvKarWords(words, upto){ /* fenêtre glissante : on voit la fin de la phrase en cours */
-    var el=nvKarEl(); var shown=words.slice(Math.max(0,upto-9), upto).join(' ');
-    el.innerHTML='<span class="done">'+shown.replace(/[<>&]/g,'')+'</span>';
+  function nvKarWords(words, upto){ /* karaoké VRAI mot à mot : trail or (dit),
+     mot en cours ice vif, mots à venir estompés — fenêtre glissante 2 lignes */
+    var el=nvKarEl();
+    var cur=Math.max(1, Math.min(words.length, upto));  // nb de mots révélés (1-based)
+    var start=Math.max(0, cur-8);                       // on garde la fin de la phrase
+    var end=Math.min(words.length, cur+4);              // + quelques mots à venir estompés
+    var html='';
+    for(var i=start;i<end;i++){
+      var w=words[i].replace(/[<>&]/g,'');
+      var cls=(i<cur-1)?'done':(i===cur-1?'now':'next');
+      html+='<span class="'+cls+'">'+w+'</span> ';
+    }
+    el.innerHTML=html;
     el.classList.add('on');
   }
   function nvKarAudio(text, audio){ /* mots répartis sur la durée réelle du son */
