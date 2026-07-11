@@ -6,7 +6,10 @@ import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 const U = Deno.env.get("SUPABASE_URL") || "";
 const K = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") || Deno.env.get("SUPABASE_SERVICE_ROLE") || "";
 const ANTH = Deno.env.get("ANTHROPIC_API_KEY") || "";
+// Repli anti-coupure (indépendance CORE) : OpenRouter si Anthropic tombe. Clé tolérante.
+const OR = Deno.env.get("OPENROUTER_API_KEY") || Deno.env.get("OPENROUTER_KEY") || Deno.env.get("OPEN_ROUTER_API_KEY") || "";
 const MODEL = Deno.env.get("NAVLYS_PANEL_MODEL") || "claude-haiku-4-5-20251001";
+const OR_MODELS = ["anthropic/claude-haiku-4.5", "meta-llama/llama-3.3-70b-instruct:free"];
 const CORS = { "Access-Control-Allow-Origin":"*", "Access-Control-Allow-Methods":"POST,GET,OPTIONS", "Access-Control-Allow-Headers":"content-type,authorization,apikey", "Access-Control-Max-Age":"86400" };
 const J = (d:unknown,s=200)=> new Response(JSON.stringify(d),{status:s,headers:{"Content-Type":"application/json",...CORS}});
 const clean=(x:unknown,n:number)=>String(x==null?"":x).replace(/\s+/g," ").trim().slice(0,n);
@@ -19,21 +22,41 @@ const LENSES = [
   { nom:"Académique", icone:"📖", sys:"Tu es L'ACADÉMIQUE. Rigueur, théorie, méthode, sources, définitions précises. Structure et nuance." },
 ];
 
-async function ask(sys:string, user:string, maxTok=380):Promise<string>{
+async function askAnthropic(sys:string, user:string, maxTok:number):Promise<string>{
   const r = await fetch("https://api.anthropic.com/v1/messages",{ method:"POST",
     headers:{ "x-api-key":ANTH, "anthropic-version":"2023-06-01", "Content-Type":"application/json" },
     body:JSON.stringify({ model:MODEL, max_tokens:maxTok, system:sys, messages:[{role:"user",content:user}] }) });
   const d:any = await r.json().catch(()=>({}));
   if(!r.ok) throw new Error("anthropic_"+r.status+" "+clean(JSON.stringify(d?.error||d),160));
-  return (d?.content?.[0]?.text || "").trim();
+  const t=(d?.content?.[0]?.text || "").trim();
+  if(!t) throw new Error("anthropic_empty");
+  return t;
+}
+async function askOpenRouter(sys:string, user:string, maxTok:number):Promise<string>{
+  for(const m of OR_MODELS){
+    try{
+      const r = await fetch("https://openrouter.ai/api/v1/chat/completions",{ method:"POST",
+        headers:{ "Authorization":"Bearer "+OR, "Content-Type":"application/json", "HTTP-Referer":"https://navlys.com", "X-Title":"NAVLYS" },
+        body:JSON.stringify({ model:m, max_tokens:maxTok, messages:[{role:"system",content:sys},{role:"user",content:user}] }) });
+      const d:any = await r.json().catch(()=>({}));
+      if(r.ok){ const t=(d?.choices?.[0]?.message?.content || "").trim(); if(t) return t; }
+    }catch(_){ /* modèle suivant */ }
+  }
+  throw new Error("openrouter_failed");
+}
+// callBrain : Anthropic direct d'abord, OpenRouter en repli seul (indépendance CORE)
+async function ask(sys:string, user:string, maxTok=380):Promise<string>{
+  if(ANTH){ try{ return await askAnthropic(sys,user,maxTok); }catch(_){ /* repli */ } }
+  if(OR) return await askOpenRouter(sys,user,maxTok);
+  throw new Error("no_llm");
 }
 function firstJson(s:string):any{ const m=s.match(/\{[\s\S]*\}/); if(!m) return null; try{ return JSON.parse(m[0]); }catch{ return null; } }
 
 Deno.serve(async (req)=>{
   if(req.method==="OPTIONS") return new Response(null,{status:204,headers:CORS});
-  if(req.method==="GET") return J({ ok:true, service:"navlys-panel", lentilles:LENSES.map(l=>l.nom), cle:!!ANTH });
+  if(req.method==="GET") return J({ ok:true, service:"navlys-panel", lentilles:LENSES.map(l=>l.nom), cle:!!ANTH, repli:!!OR });
   if(req.method!=="POST") return J({ error:"method" },405);
-  if(!ANTH) return J({ ok:false, error:"cle_absente", hint:"Poser ANTHROPIC_API_KEY dans les secrets Supabase." },200);
+  if(!ANTH && !OR) return J({ ok:false, error:"cle_absente", hint:"Poser ANTHROPIC_API_KEY (ou OPENROUTER_API_KEY) dans les secrets Supabase." },200);
   const b:any = await req.json().catch(()=>({}));
   const sujet = clean(b.sujet||b.question, 800);
   const contexte = clean(b.contexte, 1200);
