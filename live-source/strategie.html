@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="robots" content="noindex, nofollow" />
+<title>NAVLYS Next Gen — Le Stratège (100 % lucide)</title>
+<script>document.documentElement.className+=' nav-js';</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=JetBrains+Mono:wght@400;500;700&family=Lora&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --noir:#04060a; --ice:#7DD3FC; --ice-clair:#a8e3ff; --ice-deep:#3a8db5;
+    --or:#C9A961; --or-soft:#f3e4c4; --perle:#e7eef2; --mut:#9fb3c8; --line:#1b2740;
+    --rouge:#ef7b7b; --vert:#54d6a0;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;background:var(--noir)}
+  body{background:var(--noir);color:var(--perle);font-family:'Lora',serif;-webkit-font-smoothing:antialiased;min-height:100vh;position:relative;overflow-x:hidden}
+  body::before,body::after{content:"";position:fixed;left:0;right:0;height:42px;z-index:40;pointer-events:none;background:linear-gradient(180deg,#000,rgba(0,0,0,0))}
+  body::before{top:0}
+  body::after{bottom:0;transform:rotate(180deg)}
+  .stage{position:fixed;inset:0;z-index:-1;background:
+    radial-gradient(900px 620px at 82% -8%,rgba(125,211,252,.12),transparent 60%),
+    radial-gradient(820px 600px at 4% 8%,rgba(201,169,97,.09),transparent 62%),
+    radial-gradient(1100px 900px at 50% 122%,rgba(58,141,181,.16),transparent 64%),var(--noir)}
+  .wrap{max-width:760px;margin:0 auto;padding:74px 22px 90px;position:relative;z-index:1}
+  /* ── Hero ── */
+  .hero{text-align:center;padding:22px 0 8px}
+  .kicker{font-family:'Cinzel',serif;letter-spacing:.34em;text-transform:uppercase;font-size:.72rem;color:var(--ice)}
+  .kicker span{color:var(--or)}
+  h1{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:clamp(2.3rem,8vw,4rem);line-height:1.03;color:#fff;margin:12px 0 8px}
+  .sub{font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--mut);font-size:1.16rem;max-width:580px;margin:0 auto}
+  .by{margin-top:14px;color:var(--ice);font-size:.92rem}
+  .by span{color:var(--mut)}
+  .pacte{max-width:600px;margin:22px auto 0;padding:14px 16px;border:1px solid var(--line);border-radius:14px;background:rgba(13,20,34,.6);font-size:.94rem;color:var(--mut);line-height:1.55}
+  .pacte b{color:var(--or-soft)}
+  /* ── Progression ── */
+  .prog{margin:26px auto 10px;max-width:560px}
+  .prog .bar{height:6px;border-radius:999px;background:#0b1220;border:1px solid var(--line);overflow:hidden}
+  .prog .bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--ice-deep),var(--ice));transition:width .35s ease}
+  .prog .lbl{text-align:center;font-family:'JetBrains Mono',monospace;font-size:.74rem;letter-spacing:.1em;color:var(--mut);margin-top:8px}
+  /* ── Carte question ── */
+  .q{background:linear-gradient(180deg,rgba(13,20,34,.9),rgba(8,12,22,.9));border:1px solid var(--line);border-radius:16px;padding:22px 20px 18px;margin:12px 0;backdrop-filter:blur(3px)}
+  .q .step{font-family:'Cinzel',serif;letter-spacing:.24em;text-transform:uppercase;color:var(--ice);font-size:.7rem;margin-bottom:8px}
+  .q .theme{color:var(--or);font-size:.82rem;margin-bottom:6px}
+  .q .txt{font-family:'Cormorant Garamond',serif;font-weight:600;color:#fff;font-size:1.5rem;line-height:1.22;margin-bottom:6px}
+  .q .hint{color:var(--mut);font-size:.9rem;font-style:italic;margin-bottom:14px}
+  .field label{display:block;color:var(--mut);font-size:.82rem;margin:10px 0 5px}
+  input[type=text],input[type=number],textarea{width:100%;background:#070b14;border:1px solid var(--line);border-radius:11px;color:var(--perle);padding:12px 13px;font:1rem/1.5 'Lora',serif}
+  textarea{min-height:88px;resize:vertical}
+  input:focus,textarea:focus{outline:none;border-color:var(--ice)}
+  .unit{display:flex;align-items:center;gap:10px}
+  .unit input{max-width:180px}
+  .unit .u{color:var(--mut);font-size:.92rem}
+  /* ── Boutons ── */
+  .bar{display:flex;gap:10px;justify-content:space-between;flex-wrap:wrap;margin-top:20px}
+  button{font:inherit;cursor:pointer;border:1px solid var(--line);border-radius:999px;padding:12px 22px;color:var(--perle);background:rgba(13,20,34,.9);transition:.15s;font-family:'Cinzel',serif;letter-spacing:.08em;font-size:.82rem}
+  button:hover{transform:translateY(-1px);border-color:var(--ice)}
+  .btn-ice{background:linear-gradient(135deg,var(--ice-deep),var(--ice));color:#04101a;border:none;font-weight:600}
+  .btn-or{background:linear-gradient(100deg,var(--or),#fff6df);color:#05060a;border:none;font-weight:600}
+  .ghost{opacity:.75}
+  /* ── Rapport ── */
+  .report{display:none}
+  .report.show{display:block;animation:navRise .6s ease backwards}
+  .verdict{border:1px solid var(--line);border-radius:16px;padding:20px;margin:12px 0;background:rgba(8,12,22,.9)}
+  .verdict h2{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:1.7rem;color:#fff;margin-bottom:4px}
+  .verdict .sig{color:var(--ice);font-size:.86rem;margin-bottom:14px}
+  .cost{display:flex;gap:12px;flex-wrap:wrap;margin:8px 0 4px}
+  .cost .blk{flex:1 1 150px;min-width:150px;background:#0b1220;border:1px solid var(--line);border-radius:12px;padding:14px;text-align:center}
+  .cost .blk .n{font-family:'JetBrains Mono',monospace;font-size:1.6rem;font-weight:700;color:var(--or-soft);line-height:1.1}
+  .cost .blk .u{font-family:'Cinzel',serif;font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--mut);margin-top:6px}
+  .rlist{list-style:none;margin:10px 0}
+  .rlist li{padding:12px 14px;margin:8px 0;border-left:3px solid var(--rouge);background:rgba(239,123,123,.06);border-radius:0 10px 10px 0;font-size:1rem;line-height:1.5}
+  .rlist li.contradiction{border-left-color:var(--or);background:rgba(201,169,97,.07)}
+  .rlist li b{color:#fff}
+  .plan{list-style:none;counter-reset:p;margin:10px 0}
+  .plan li{counter-increment:p;padding:12px 14px 12px 46px;margin:8px 0;position:relative;border:1px solid var(--line);border-radius:11px;background:rgba(84,214,160,.05);font-size:1rem;line-height:1.5}
+  .plan li::before{content:counter(p);position:absolute;left:12px;top:12px;width:24px;height:24px;border-radius:50%;background:var(--vert);color:#04120c;font-family:'JetBrains Mono',monospace;font-weight:700;font-size:.85rem;display:flex;align-items:center;justify-content:center}
+  .sec-title{font-family:'Cinzel',serif;letter-spacing:.2em;text-transform:uppercase;color:var(--ice);font-size:.78rem;margin:22px 0 4px}
+  .note{text-align:center;color:var(--mut);font-size:.84rem;margin-top:14px;line-height:1.55}
+  .flag{text-align:center;letter-spacing:.28em;color:#7f95b6;font-size:.76rem;margin-top:30px;font-family:'Cinzel',serif}
+  .disc{margin-top:18px;padding:14px;border:1px solid var(--line);border-radius:11px;background:rgba(2,4,10,.5);color:var(--mut);font-size:.82rem;line-height:1.6;font-style:italic}
+  a.home{position:fixed;top:12px;left:16px;z-index:50;font-family:'Cinzel',serif;letter-spacing:.24em;font-size:.72rem;color:var(--or);text-decoration:none}
+  @keyframes navRise{from{opacity:0;transform:translateY(18px)}}
+  @media (prefers-reduced-motion:reduce){.report.show{animation:none!important}}
+</style>
+</head>
+<body>
+<div class="stage"></div>
+<a class="home" href="/next-gen">‹ NAVLYS</a>
+
+<div class="wrap">
+  <header class="hero">
+    <div class="kicker">NAVLYS · NEXT GEN · <span>Mode Stratège</span></div>
+    <h1>Le Stratège</h1>
+    <p class="sub">Zéro complaisance. Zéro émotion. Rien que les faits, tes chiffres, et le coût réel de ce que tu ne fais pas.</p>
+    <div class="by">🧠 analyse conduite par Newton <span>@navlab</span></div>
+    <div class="pacte">
+      Le pacte : je suis <b>dur avec les faits, jamais avec toi</b>. Je pose <b>une seule question à la fois</b>,
+      j'attends ta réponse, et je débusque chaque contradiction entre ce que tu <b>dis vouloir</b> et ce que tu
+      <b>fais vraiment</b>. À la fin : le coût d'opportunité chiffré de ton temps perdu, et 3 actions mesurables.
+      Tout reste <b>sur cet appareil</b> — aucune donnée n'est envoyée nulle part.
+    </div>
+  </header>
+
+  <!-- ── L'INTERROGATOIRE ── -->
+  <div id="quiz">
+    <div class="prog"><div class="bar"><i id="progBar"></i></div><div class="lbl" id="progLbl">—</div></div>
+    <div class="q" id="card"></div>
+    <div class="bar">
+      <button id="prev" class="ghost">‹ Précédent</button>
+      <button id="next" class="btn-ice">Suivant ›</button>
+    </div>
+  </div>
+
+  <!-- ── LE RAPPORT ── -->
+  <div class="report" id="report"></div>
+
+  <div class="flag">⚓ NAVLYS NEXT GEN · LE STRATÈGE 🎯</div>
+
+  <div class="disc" id="disc">
+    Ce miroir est un <b>outil éducatif d'organisation personnelle</b> proposé par NAVLYS Web Service (NWS).
+    Bruno Mark Partouche intervient en <b>simple citoyen</b> : aucune de ces analyses n'est un conseil financier,
+    médical ou patrimonial personnalisé. Les calculs (coût horaire, coût d'opportunité) sont de simples ordres de
+    grandeur à partir de tes propres chiffres, pour t'aider à décider par toi-même. Rien n'est envoyé sur un serveur.
+  </div>
+</div>
+
+<script>
+// ── NAVLYS · Le Stratège — interrogatoire guidé (une question à la fois) puis rapport factuel ──
+// 100 % local : réponses en localStorage, aucun appel réseau. Statut simple citoyen = éducatif.
+var KEY='navlys_strategie_v1';
+var data=(function(){try{return JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){return{}}})();
+
+// Chaque étape : id, thème (les 7 axes du prompt), question, type d'entrée.
+var STEPS=[
+  {id:'prenom', theme:'Identité', txt:'Ton prénom ?', hint:'Je te parlerai en face, par ton prénom.',
+    fields:[{k:'prenom',type:'text',ph:'Ton prénom'}]},
+  {id:'objectif', theme:'1 · Objectifs majeurs', txt:'Ton objectif n°1 des 12 prochains mois ?',
+    hint:'Une seule phrase, la plus chiffrée possible (montant, poids, date, chiffre d\'affaires…).',
+    fields:[{k:'objectif',type:'text',ph:'Ex. : passer de 1 800 à 3 000 € / mois avant décembre'},
+            {k:'cible',type:'number',label:'Sa valeur cible en euros (si applicable, sinon laisse vide)',u:'€'}]},
+  {id:'heuresObj', theme:'6 · Gestion du temps', txt:'Combien d\'heures PAR JOUR y consacres-tu vraiment ?',
+    hint:'Le temps réel, mains dans le cambouis — pas le temps où tu « y penses ».',
+    fields:[{k:'heuresObj',type:'number',label:'Heures / jour sur l\'objectif n°1',u:'h/jour'}]},
+  {id:'ecrans', theme:'6 · Gestion du temps', txt:'Combien d\'heures par jour sur des écrans qui ne servent RIEN à cet objectif ?',
+    hint:'Réseaux, scroll, vidéos, jeux — le temps qui s\'évapore. Sois honnête, personne ne lit.',
+    fields:[{k:'ecrans',type:'number',label:'Heures / jour d\'écran non-productif',u:'h/jour'}]},
+  {id:'sommeil', theme:'5 · Santé', txt:'Combien d\'heures dors-tu, en moyenne, par nuit ?',
+    hint:'Sous 7 h, ta lucidité et ta décision chutent. C\'est mesurable.',
+    fields:[{k:'sommeil',type:'number',label:'Heures de sommeil / nuit',u:'h'}]},
+  {id:'sport', theme:'5 · Santé', txt:'Combien de vraies séances de sport par semaine ?',
+    hint:'Une séance = tu transpires. Marcher jusqu\'à la voiture ne compte pas.',
+    fields:[{k:'sport',type:'number',label:'Séances de sport / semaine',u:'/sem'}]},
+  {id:'revenu', theme:'3 · Revenus & logique', txt:'Ton revenu net, par mois ?',
+    hint:'Uniquement pour calculer ton coût horaire réel — ce n\'est ni un jugement ni un conseil financier.',
+    fields:[{k:'revenu',type:'number',label:'Revenu net mensuel',u:'€/mois'}]},
+  {id:'heuresTrav', theme:'6 · Gestion du temps', txt:'Combien d\'heures travailles-tu par semaine pour gagner ce revenu ?',
+    hint:'Total honnête, tout compris.',
+    fields:[{k:'heuresTrav',type:'number',label:'Heures travaillées / semaine',u:'h/sem'}]},
+  {id:'gaspi', theme:'3 · Revenus & logique', txt:'Combien paies-tu chaque mois pour des choses que tu n\'utilises quasiment jamais ?',
+    hint:'Abonnements oubliés, services doublons, engagements zombies. Additionne-les.',
+    fields:[{k:'gaspi',type:'number',label:'Dépenses inutilisées / mois',u:'€/mois'}]},
+  {id:'relation', theme:'4 · Relations', txt:'Quelle relation te tire vers le bas — te vide ou te fait perdre du temps ?',
+    hint:'Nomme-la pour toi (prénom, rôle). Rien n\'est envoyé.',
+    fields:[{k:'relation',type:'text',ph:'Ex. : un « ami » qui appelle 1 h chaque soir'},
+            {k:'relationH',type:'number',label:'Temps qu\'elle te coûte / jour',u:'h/jour'}]},
+  {id:'excuse', theme:'7 · Excuses', txt:'Quelle est l\'excuse que tu te répètes le plus ?',
+    hint:'« Je n\'ai pas le temps », « je commencerai lundi », « ce n\'est pas le bon moment »…',
+    fields:[{k:'excuse',type:'text',ph:'Écris-la, mot pour mot'}]},
+  {id:'inutile', theme:'7 · Ce qui ne sert pas', txt:'Une action que tu fais chaque jour et qui ne sert PAS ton objectif n°1 ?',
+    hint:'Une habitude, une tâche, un rituel. Combien d\'heures elle te prend.',
+    fields:[{k:'inutile',type:'text',ph:'Ex. : refaire trois fois le même e-mail'},
+            {k:'inutileH',type:'number',label:'Temps qu\'elle te coûte / jour',u:'h/jour'}]}
+];
+
+var i=0;
+var card=document.getElementById('card');
+var progBar=document.getElementById('progBar');
+var progLbl=document.getElementById('progLbl');
+var quiz=document.getElementById('quiz');
+var report=document.getElementById('report');
+
+function render(){
+  var s=STEPS[i];
+  var html='<div class="step">Question '+(i+1)+' / '+STEPS.length+'</div>';
+  html+='<div class="theme">'+s.theme+'</div>';
+  html+='<div class="txt">'+s.txt+'</div>';
+  if(s.hint)html+='<div class="hint">'+s.hint+'</div>';
+  s.fields.forEach(function(f){
+    html+='<div class="field">';
+    if(f.label)html+='<label>'+f.label+'</label>';
+    var val=(data[f.k]!=null?String(data[f.k]).replace(/"/g,'&quot;'):'');
+    if(f.type==='text'){
+      html+='<input type="text" id="in_'+f.k+'" placeholder="'+(f.ph||'')+'" value="'+val+'">';
+    }else if(f.type==='number'){
+      html+='<div class="unit"><input type="number" inputmode="decimal" min="0" step="0.5" id="in_'+f.k+'" placeholder="0" value="'+val+'"><span class="u">'+(f.u||'')+'</span></div>';
+    }
+    html+='</div>';
+  });
+  card.innerHTML=html;
+  var w=Math.round((i)/STEPS.length*100);
+  progBar.style.width=w+'%';
+  progLbl.textContent=(i+1)+' / '+STEPS.length;
+  document.getElementById('prev').style.visibility=i===0?'hidden':'visible';
+  document.getElementById('next').textContent=i===STEPS.length-1?'📊 Voir le verdict':'Suivant ›';
+  var first=card.querySelector('input,textarea'); if(first)first.focus();
+}
+
+function save(){
+  var s=STEPS[i];
+  s.fields.forEach(function(f){
+    var el=document.getElementById('in_'+f.k); if(!el)return;
+    var v=el.value.trim();
+    if(f.type==='number')data[f.k]=(v===''?'':parseFloat(v.replace(',','.')));
+    else data[f.k]=v;
+  });
+  try{localStorage.setItem(KEY,JSON.stringify(data))}catch(e){}
+}
+
+document.getElementById('next').addEventListener('click',function(){
+  save();
+  if(i<STEPS.length-1){i++;render();window.scrollTo({top:0,behavior:'smooth'});}
+  else{buildReport();}
+});
+document.getElementById('prev').addEventListener('click',function(){
+  save(); if(i>0){i--;render();window.scrollTo({top:0,behavior:'smooth'});}
+});
+
+// ── Le rapport factuel ──
+function num(k){var v=parseFloat(data[k]);return isFinite(v)&&v>=0?v:0;}
+function fmt(n){return Math.round(n).toLocaleString('fr-FR');}
+function fmt1(n){return (Math.round(n*10)/10).toLocaleString('fr-FR');}
+
+function buildReport(){
+  var prenom=(data.prenom||'').trim()||'toi';
+  var revenu=num('revenu'), heuresTrav=num('heuresTrav');
+  var horaire=(heuresTrav>0)?(revenu*12)/(heuresTrav*52):0; // coût horaire réel
+  var ecrans=num('ecrans'), inutileH=num('inutileH'), relationH=num('relationH');
+  var perduJour=ecrans+inutileH+relationH;
+  var perduAn=perduJour*365;
+  var coutAn=perduAn*horaire;
+  var gaspiAn=num('gaspi')*12;
+  var heuresObj=num('heuresObj'), sommeil=num('sommeil'), sport=num('sport');
+
+  var inefficacites=[];
+  var contradictions=[];
+
+  // Contradictions objectif vs temps réel
+  if(data.objectif){
+    if(heuresObj===0){
+      contradictions.push('Tu déclares comme objectif n°1 : « <b>'+esc(data.objectif)+'</b> ». Temps réel que tu y consacres : <b>0 h/jour</b>. Ce n\'est pas un objectif, c\'est un souhait. Un objectif a des heures dans l\'agenda.');
+    }else if(ecrans>heuresObj){
+      contradictions.push('Tu donnes <b>'+fmt1(ecrans)+' h/jour</b> à des écrans qui ne servent à rien, contre <b>'+fmt1(heuresObj)+' h/jour</b> à ton objectif n°1. Tu investis <b>'+fmt1(ecrans/Math.max(heuresObj,0.1))+'×</b> plus dans ta distraction que dans ton avenir.');
+    }
+  }
+  // Santé
+  if(sommeil>0&&sommeil<7){
+    contradictions.push('Tu dors <b>'+fmt1(sommeil)+' h</b>. Sous 7 h, ta capacité de décision et ta concentration baissent — tu handicapes ton cerveau <b>avant même</b> de commencer la journée.');
+  }
+  if(sport===0){
+    inefficacites.push('<b>0 séance de sport / semaine.</b> L\'énergie et la clarté que tu cherches à coups de café se construisent d\'abord par le corps. C\'est le levier le moins cher et tu ne l\'utilises pas.');
+  }
+  // Temps perdu
+  if(ecrans>0){
+    inefficacites.push('<b>'+fmt1(ecrans)+' h/jour</b> d\'écran non-productif, soit <b>'+fmt(ecrans*365)+' h/an</b> — l\'équivalent de <b>'+fmt(ecrans*365/24)+' jours pleins</b> effacés chaque année.');
+  }
+  if(data.inutile&&inutileH>0){
+    inefficacites.push('« <b>'+esc(data.inutile)+'</b> » te coûte <b>'+fmt1(inutileH)+' h/jour</b>. Une tâche qui ne sert pas ton objectif n°1 devrait être supprimée, déléguée ou automatisée — pas répétée.');
+  }
+  if(data.relation&&relationH>0){
+    inefficacites.push('La relation que tu as nommée te prend <b>'+fmt1(relationH)+' h/jour</b>. Sur un an : <b>'+fmt(relationH*365)+' h</b>. Toute relation qui te vide sans rien te rendre est une dépense, pas un lien.');
+  }
+  // Argent dormant
+  if(gaspiAn>0){
+    inefficacites.push('<b>'+fmt(num('gaspi'))+' €/mois</b> partent dans des choses que tu n\'utilises pas, soit <b>'+fmt(gaspiAn)+' €/an</b> qui s\'évaporent sans décision consciente.');
+  }
+  // Excuse neutralisée
+  if(data.excuse){
+    contradictions.push('Ton excuse récurrente : « <b>'+esc(data.excuse)+'</b> ». Les chiffres au-dessus la contredisent : le temps existe, tu le dépenses simplement ailleurs. L\'excuse n\'est pas un manque de moyens, c\'est un choix de priorité que tu ne t\'avoues pas.');
+  }
+
+  // Plan d'action mesurable (3 leviers concrets, chiffrés sur les données saisies)
+  var plan=[];
+  if(ecrans>0){
+    var recup=Math.min(ecrans,ecrans*0.5);
+    plan.push('Cette semaine : coupe <b>'+fmt1(recup)+' h/jour</b> d\'écran non-productif (bloqueur d\'app + téléphone hors de la pièce). Réinvestis-les sur l\'objectif n°1. Gain : <b>'+fmt(recup*7)+' h</b> dès 7 jours'+(horaire>0?', soit ~<b>'+fmt(recup*365*horaire)+' €/an</b> à ton coût horaire.':'.'));
+  }
+  if(heuresObj===0&&data.objectif){
+    plan.push('Bloque <b>1 h/jour non négociable</b> sur « '+esc(data.objectif)+' », même heure chaque jour, dans l\'agenda, avant tout le reste. Mesure : 5 blocs cochés d\'ici dimanche.');
+  }
+  if(gaspiAn>0){
+    plan.push('Aujourd\'hui, 20 minutes : liste tes prélèvements, résilie ceux que tu n\'as pas utilisés ce mois-ci. Gain immédiat : <b>'+fmt(gaspiAn)+' €/an</b> récupérés.');
+  }
+  if(sport===0){
+    plan.push('Programme <b>2 séances de 30 min</b> cette semaine (marche rapide suffit). Objectif mesurable : 2 cases cochées d\'ici dimanche.');
+  }
+  if(sommeil>0&&sommeil<7){
+    plan.push('Avance ton coucher de <b>'+fmt1(7-sommeil)+' h</b> pendant 7 nuits. Mesure : heure de coucher notée chaque soir.');
+  }
+  while(plan.length<3){
+    plan.push('Choisis <b>une</b> inefficacité de la liste ci-dessus et supprime-la complètement pendant 7 jours. Une seule, à fond, mesurée.');
+  }
+  plan=plan.slice(0,4);
+
+  // ── Rendu ──
+  var html='<div class="verdict">';
+  html+='<h2>'+esc(prenom)+', voici le verdict — sans filtre.</h2>';
+  html+='<div class="sig">Rapport factuel · Le Stratège · @navlab</div>';
+  html+='<div class="cost">';
+  html+='<div class="blk"><div class="n">'+(horaire>0?fmt(horaire)+' €':'—')+'</div><div class="u">Ton heure vaut</div></div>';
+  html+='<div class="blk"><div class="n">'+fmt(perduAn)+' h</div><div class="u">Perdues / an</div></div>';
+  html+='<div class="blk"><div class="n">'+((coutAn+gaspiAn)>0?fmt(coutAn+gaspiAn)+' €':'—')+'</div><div class="u">Coût d\'opportunité / an</div></div>';
+  html+='</div>';
+  if((coutAn+gaspiAn)>0){
+    html+='<p class="note" style="margin-top:6px;color:var(--or-soft)">Autrement dit : ce que ton organisation actuelle te coûte, chaque année, en temps et en argent — sans que personne te le prenne. Tu le laisses partir.</p>';
+  }else{
+    html+='<p class="note" style="margin-top:6px">Renseigne ton revenu, tes heures travaillées et ton temps perdu pour chiffrer précisément ce que ça te coûte.</p>';
+  }
+  html+='</div>';
+
+  if(contradictions.length){
+    html+='<div class="sec-title">🎯 Tes contradictions</div><ul class="rlist">';
+    contradictions.forEach(function(c){html+='<li class="contradiction">'+c+'</li>';});
+    html+='</ul>';
+  }
+  if(inefficacites.length){
+    html+='<div class="sec-title">🩸 Où tu te sabotes</div><ul class="rlist">';
+    inefficacites.forEach(function(c){html+='<li>'+c+'</li>';});
+    html+='</ul>';
+  }
+  if(!contradictions.length&&!inefficacites.length){
+    html+='<div class="sec-title">Analyse</div><ul class="rlist"><li>Réponds franchement à chaque question, avec des chiffres réels. Tant que les champs sont vides, je ne peux rien débusquer — et tu le sais.</li></ul>';
+  }
+
+  html+='<div class="sec-title">✅ Ton plan — mesurable, cette semaine</div><ol class="plan">';
+  plan.forEach(function(p){html+='<li>'+p+'</li>';});
+  html+='</ol>';
+
+  html+='<div class="bar">';
+  html+='<button id="dl" class="btn-or">⬇️ Télécharger mon rapport</button>';
+  html+='<button id="restart" class="ghost">↺ Recommencer</button>';
+  html+='</div>';
+  html+='<p class="note">Rien n\'est jugé une fois pour toutes. Reviens dans un mois, refais le test, et regarde tes chiffres bouger. C\'est ça, le progrès mesurable.</p>';
+
+  report.innerHTML=html;
+  quiz.style.display='none';
+  report.classList.add('show');
+  window.scrollTo({top:0,behavior:'smooth'});
+
+  document.getElementById('restart').addEventListener('click',function(){
+    if(confirm('Repartir de zéro ? Tes réponses seront effacées de cet appareil.')){
+      try{localStorage.removeItem(KEY)}catch(e){}
+      location.reload();
+    }
+  });
+  document.getElementById('dl').addEventListener('click',function(){
+    downloadReport(prenom,horaire,perduAn,coutAn+gaspiAn,contradictions,inefficacites,plan);
+  });
+}
+
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function strip(s){return String(s).replace(/<[^>]*>/g,'').replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&amp;/g,'&').replace(/&quot;/g,'"');}
+
+function downloadReport(prenom,horaire,perduAn,coutAn,contradictions,inefficacites,plan){
+  var out='NAVLYS · LE STRATÈGE — RAPPORT FACTUEL\n';
+  out+='Pour : '+prenom+'\n';
+  out+='====================================================\n\n';
+  out+='TON HEURE VAUT : '+(horaire>0?fmt(horaire)+' €':'(non calculé)')+'\n';
+  out+='HEURES PERDUES / AN : '+fmt(perduAn)+' h\n';
+  out+='COÛT D\'OPPORTUNITÉ / AN : '+(coutAn>0?fmt(coutAn)+' €':'(non calculé)')+'\n\n';
+  if(contradictions.length){out+='TES CONTRADICTIONS\n';contradictions.forEach(function(c,k){out+='  '+(k+1)+'. '+strip(c)+'\n';});out+='\n';}
+  if(inefficacites.length){out+='OÙ TU TE SABOTES\n';inefficacites.forEach(function(c,k){out+='  '+(k+1)+'. '+strip(c)+'\n';});out+='\n';}
+  out+='TON PLAN — MESURABLE, CETTE SEMAINE\n';plan.forEach(function(p,k){out+='  '+(k+1)+'. '+strip(p)+'\n';});
+  out+='\n----------------------------------------------------\n';
+  out+='Outil éducatif d\'organisation personnelle — NAVLYS Web Service (NWS).\n';
+  out+='Bruno Mark Partouche intervient en simple citoyen : ceci n\'est pas un\n';
+  out+='conseil financier, médical ou patrimonial personnalisé. Ordres de grandeur\n';
+  out+='calculés à partir de tes propres chiffres. Rien n\'a été envoyé sur un serveur.\n';
+  var blob=new Blob([out],{type:'text/plain;charset=utf-8'});
+  var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='mon-rapport-strategie-navlys.txt';a.click();
+}
+
+// Entrée au clavier : Entrée = suivant (sauf dans un champ multi-ligne)
+document.addEventListener('keydown',function(e){
+  if(e.key==='Enter'&&report.classList.contains('show')===false&&e.target.tagName!=='TEXTAREA'){
+    e.preventDefault();document.getElementById('next').click();
+  }
+});
+
+render();
+</script>
+</body>
+</html>
