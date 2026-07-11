@@ -40,6 +40,19 @@ h2::after{content:"";flex:1;height:1px;background:var(--line)}
 .disc{text-align:center;color:var(--mut);font-size:.83rem;margin-top:32px;line-height:1.75}
 #p-vide{display:none;text-align:center;padding:40px 10px}
 #p-corps{display:none}
+.mini{color:var(--mut);font-size:.86rem;line-height:1.6;margin-bottom:12px}
+.dossier{display:flex;align-items:flex-start;gap:10px;background:rgba(6,8,16,.72);border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin-bottom:8px}
+.dossier .d-body{flex:1;min-width:0}
+.dossier b{font-size:.94rem;color:#eafaff;display:block;word-break:break-word}
+.dossier small{display:block;color:var(--mut);font-size:.8rem;word-break:break-word}
+.dossier a{color:var(--ice-clair);text-decoration:none}
+.dossier .d-x{flex:0 0 auto;border:1px solid rgba(233,90,90,.4);background:rgba(233,90,90,.1);color:#f0a8a8;border-radius:9px;padding:4px 9px;cursor:pointer;font-size:.85rem}
+.autor{align-items:center;justify-content:space-between}
+.autor .sw{flex:0 0 auto;width:42px;height:24px;border-radius:999px;background:rgba(125,211,252,.14);border:1px solid var(--line);position:relative;transition:.2s}
+.autor.on .sw{background:rgba(52,211,153,.28);border-color:var(--ok)}
+.autor .sw::after{content:"";position:absolute;top:2px;left:2px;width:18px;height:18px;border-radius:50%;background:#cfe6f5;transition:.2s}
+.autor.on .sw::after{left:20px;background:var(--ok)}
+#p-site{background:linear-gradient(160deg,rgba(2,8,20,.8),rgba(6,8,16,.9));border:1px solid rgba(125,211,252,.4)}
 </style>
 </head>
 <body>
@@ -61,6 +74,32 @@ h2::after{content:"";flex:1;height:1px;background:var(--line)}
     <h2>Mes applications</h2>
     <div class="apps" id="p-apps"></div>
     <p class="etat" id="p-etat-apps"></p>
+
+    <h2>Mon site NAVLYS</h2>
+    <div class="carte" id="p-site">
+      <div class="ligne"><span class="l">Ton espace</span><span class="v ok">créé — il vit ici</span></div>
+      <div class="ligne"><span class="l">Ton adresse</span><span class="v" id="p-site-url">navlys.com/moi</span></div>
+      <p class="mini" style="margin-top:10px">Dès ton inscription, ton espace est ouvert. Ajoute tes dossiers ci-dessous et dis à NAVLYS ce qu'il peut faire : ta page se construit toute seule, à la voix, depuis ton téléphone.</p>
+      <a class="btn or" id="p-site-open" href="/next-gen">Construire ma page →</a>
+    </div>
+
+    <h2>Mes dossiers &amp; fichiers</h2>
+    <div class="carte">
+      <p class="mini">Ajoute les dossiers, liens ou notes que NAVLYS doit connaître pour travailler pour toi. Tout reste privé, chez toi — jamais revendu, jamais public.</p>
+      <div id="p-dossiers"></div>
+      <div class="champ"><label>Nom du dossier / du fichier</label><input id="d-nom" type="text" maxlength="80" placeholder="Ex. : Mes contrats 2026"></div>
+      <div class="champ"><label>Lien (optionnel — Drive, Dropbox, une URL…)</label><input id="d-url" type="url" maxlength="400" placeholder="https://…"></div>
+      <div class="champ"><label>Note pour NAVLYS (optionnel)</label><input id="d-note" type="text" maxlength="160" placeholder="Ce que tu veux que j'en fasse"></div>
+      <button class="btn or" id="d-add">➕ Ajouter à mon espace</button>
+      <p class="etat" id="d-etat"></p>
+    </div>
+
+    <h2>Mes autorisations</h2>
+    <div class="carte">
+      <p class="mini">Tu décides ce que NAVLYS a le droit de faire pour toi. Tu peux changer d'avis à tout moment — et rien de sensible ne part sans ta validation.</p>
+      <div id="p-autor"></div>
+      <p class="etat" id="p-etat-autor"></p>
+    </div>
 
     <h2>Mes paramétrages</h2>
     <div class="champ"><label>Mon prénom (on se parle par le prénom)</label><input id="p-prenom" type="text" autocomplete="given-name"></div>
@@ -98,6 +137,48 @@ h2::after{content:"";flex:1;height:1px;background:var(--line)}
     {code:'mer',nom:'La Mer',url:'/mer'},{code:'cinema',nom:'Cinéma',url:'/cinema'},
     {code:'cockpit',nom:'Cockpit personnel',url:''},{code:'navjeu',nom:'NAVJEU',url:''}
   ];
+  /* Autorisations : ce que NAVLYS a le droit de faire pour le membre. Rien de
+     sensible activé par défaut (doctrine garde-fou humain — Bible §6). */
+  var AUTOR=[
+    {code:'site',nom:'Créer & publier ma page',desc:'NAVLYS construit mon mini-site',def:true},
+    {code:'fichiers',nom:'Gérer mes dossiers & fichiers',desc:'lire et organiser ce que j\'ajoute',def:true},
+    {code:'ecrire',nom:'M\'écrire (rappels, nouveautés)',desc:'par e-mail, jamais de spam',def:false},
+    {code:'agir',nom:'Agir en mon nom',desc:'préparer des actions — tu valides toujours avant',def:false}
+  ];
+  function esc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+  /* Fusionne toujours l'ensemble des params (voix + dossiers + autorisations)
+     pour ne jamais en écraser une partie lors d'un enregistrement. */
+  function paramsMerge(extra){ var p={}; if(M&&M.params) for(var k in M.params){ p[k]=M.params[k]; } if(extra) for(var j in extra){ p[j]=extra[j]; } return p; }
+  function slug(s){ return String(s||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'').slice(0,24); }
+  function renderDossiers(){
+    var box=$('p-dossiers'); if(!box) return;
+    var list=(M.params&&M.params.dossiers)||[];
+    if(!list.length){ box.innerHTML='<p class="mini" style="margin:0">Aucun dossier pour l\'instant — ajoute le premier ci-dessous.</p>'; return; }
+    var h=''; list.forEach(function(d,idx){
+      var lien=d.url?('<small><a href="'+esc(d.url)+'" target="_blank" rel="noopener">'+esc(d.url)+'</a></small>'):'';
+      var note=d.note?('<small>'+esc(d.note)+'</small>'):'';
+      h+='<div class="dossier"><div class="d-body"><b>'+esc(d.nom||'Dossier')+'</b>'+lien+note+'</div><button class="d-x" data-i="'+idx+'" title="Retirer">✕</button></div>';
+    });
+    box.innerHTML=h;
+    Array.prototype.forEach.call(box.querySelectorAll('.d-x'),function(b){
+      b.onclick=function(){ var i=+b.getAttribute('data-i'); var arr=((M.params&&M.params.dossiers)||[]).slice(); arr.splice(i,1);
+        post({action:'maj',token:token,params:paramsMerge({dossiers:arr})}).then(function(r){ if(r&&r.ok){ M=r.membre; renderDossiers(); $('d-etat').textContent='Retiré de ton espace.'; } }); };
+    });
+  }
+  function renderAutor(){
+    var box=$('p-autor'); if(!box) return;
+    var cur=(M.params&&M.params.autorisations)||{}; var h='';
+    AUTOR.forEach(function(a){ var on=(a.code in cur)?!!cur[a.code]:a.def;
+      h+='<div class="app autor'+(on?' on':'')+'" data-a="'+a.code+'"><span><b>'+esc(a.nom)+'</b><small>'+esc(a.desc)+'</small></span><span class="sw"></span></div>';
+    });
+    box.innerHTML=h;
+    Array.prototype.forEach.call(box.querySelectorAll('.autor'),function(el){
+      el.onclick=function(){ var c=el.getAttribute('data-a'); var cur=(M.params&&M.params.autorisations)||{}; var next={}; for(var k in cur) next[k]=cur[k];
+        var def=(AUTOR.filter(function(x){return x.code===c;})[0]||{}).def; var was=(c in cur)?!!cur[c]:def; next[c]=!was;
+        el.classList.toggle('on', next[c]);
+        post({action:'maj',token:token,params:paramsMerge({autorisations:next})}).then(function(r){ if(r&&r.ok){ M=r.membre; $('p-etat-autor').textContent='C\'est noté — tu gardes la main.'; } }); };
+    });
+  }
   var token=''; try{ token=localStorage.getItem('nv-token')||''; }catch(e){}
   var M=null, sel=[];
   function fmt(n){ return Number(n).toFixed(2).replace('.',','); }
@@ -132,6 +213,9 @@ h2::after{content:"";flex:1;height:1px;background:var(--line)}
         post({action:'maj',token:token,apps:sel}).then(function(d){ if(d&&d.ok){ M=d.membre; rendre(); $('p-etat-apps').textContent='C\'est noté — application ajoutée à ton univers.'; } });
       };
     });
+    var su=$('p-site-url'); if(su) su.textContent='navlys.com/'+(slug(M.prenom)||'moi');
+    renderDossiers();
+    renderAutor();
     $('p-prenom').value=M.prenom||'';
     $('p-lang').value=(M.lang||'fr').slice(0,2);
     $('p-voix').value=(M.params&&M.params.voix==='non')?'non':'oui';
@@ -149,9 +233,18 @@ h2::after{content:"";flex:1;height:1px;background:var(--line)}
       rendre();
     }).catch(function(){ $('p-vide').style.display='block'; });
   }
+  $('d-add').onclick=function(){
+    var nom=($('d-nom').value||'').trim(); if(nom.length<2){ $('d-etat').textContent='Donne un nom à ton dossier.'; return; }
+    var url=($('d-url').value||'').trim(), note=($('d-note').value||'').trim();
+    var arr=((M&&M.params&&M.params.dossiers)||[]).slice(); arr.push({nom:nom,url:url,note:note});
+    post({action:'maj',token:token,params:paramsMerge({dossiers:arr})}).then(function(r){
+      if(r&&r.ok){ M=r.membre; $('d-nom').value='';$('d-url').value='';$('d-note').value=''; renderDossiers(); $('d-etat').textContent='Ajouté à ton espace ✓'; }
+      else $('d-etat').textContent=(r&&r.error)||'Réessaie dans un instant.';
+    }).catch(function(){ $('d-etat').textContent='Connexion difficile — réessaie. 🌊'; });
+  };
   $('p-save').onclick=function(){
     var lng=$('p-lang').value;
-    post({action:'maj',token:token,prenom:$('p-prenom').value,lang:lng,params:{voix:$('p-voix').value}})
+    post({action:'maj',token:token,prenom:$('p-prenom').value,lang:lng,params:paramsMerge({voix:$('p-voix').value})})
     .then(function(d){ if(d&&d.ok){ M=d.membre; try{ localStorage.setItem('nv-prenom',M.prenom||''); if(M.email)localStorage.setItem('nv-email',M.email); localStorage.setItem('nv-lang',lng); }catch(e){} rendre(); $('p-etat').textContent='Enregistré — tes paramétrages sont à jour, partout.'; }
       else $('p-etat').textContent=(d&&d.error)||'Réessaie dans un instant.'; })
     .catch(function(){ $('p-etat').textContent='Connexion difficile — réessaie dans un instant. 🌊'; });

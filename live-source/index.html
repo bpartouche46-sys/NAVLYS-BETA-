@@ -43,6 +43,20 @@ body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;bac
 .prelude{text-align:center;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(18px,3.5vw,24px);color:rgba(168,227,255,0.92);text-shadow:0 0 14px rgba(125,211,252,0.5);padding:96px 20px 8px;position:relative;z-index:5;animation:fadeUp 2s ease .3s both}
 @keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 
+/* ── OUVERTURE CINÉMA « il y a bien longtemps… » (demande Bruno 2026-07-11) ──
+   Une seule phrase visible à la fois : elle apparaît, grandit, s'efface, et la
+   suivante revient plus grande encore. Font-size piloté par la variable --sz. */
+.saga{min-height:2.4em;display:flex;align-items:center;justify-content:center;text-align:center;
+  padding:18px 16px 6px;position:relative;z-index:6}
+.saga-line{font-family:'Cormorant Garamond',serif;font-style:italic;line-height:1.15;
+  color:rgba(168,227,255,.95);text-shadow:0 0 22px rgba(125,211,252,.55),0 0 3px rgba(125,211,252,.4);
+  font-size:var(--sz,26px);opacity:0;transform:translateY(14px) scale(.9);
+  transition:opacity .8s ease,transform .8s cubic-bezier(.2,.7,.2,1);will-change:opacity,transform;max-width:14em}
+.saga-line.show{opacity:1;transform:translateY(0) scale(1)}
+.saga-line.gold{color:var(--or-pale);text-shadow:0 0 26px rgba(201,169,97,.55),0 0 4px rgba(233,211,160,.5);font-style:normal;letter-spacing:.02em}
+@media(prefers-reduced-motion:reduce){.saga-line{transition:opacity .4s ease;transform:none}.saga-line.show{transform:none}}
+@media(max-width:768px){.saga{padding:14px 14px 4px}}
+
 .hero{padding:10px 20px 30px;text-align:center;position:relative;z-index:5}
 .hero .kicker{font-family:'Cinzel',serif;font-size:13px;letter-spacing:.42em;color:var(--ice);text-transform:uppercase;margin-bottom:14px}
 .hero .kicker span{color:var(--or)}
@@ -132,21 +146,35 @@ footer{padding:46px 20px 70px;text-align:center;border-top:1px solid rgba(184,11
 
 <header class="hero cine">
   <div class="kicker">NAVLYS <span>CORE</span> · le cerveau central</div>
-  <div class="prelude prelude-fixe">Il y a bien longtemps, l'IA n'existait pas… Mais ça, c'était avant.</div>
+
+  <!-- Ouverture cinéma : chaque phrase APPARAÎT puis S'EFFACE, de plus en plus grande
+       (demande Bruno 2026-07-11). Rendu par script, dans la langue du site. -->
+  <div class="saga" id="nv-saga" aria-label="Il y a bien longtemps, dans une lointaine galaxie… l'IA n'existait pas ! Mais ça… C'était avant…">
+    <span class="saga-line" id="nv-saga-line"></span>
+  </div>
+
   <div class="brandline">NAVLYS</div>
+
+  <!-- Vidéo héros REMONTÉE : ne démarre QUE si la synchro voix↔image est parfaite
+       (window.NAVLYS_HERO_SYNC). Sinon : poster + annonce + vidéo parfaite sur
+       YouTube (partenaire). Jamais de fausse synchro à l'écran. -->
+  <div id="nv-hero-video" data-mode="poster">
+    <img id="nv-hero-coin" src="/media/navlys_coin_animated.svg" alt="" aria-hidden="true">
+    <span id="nv-hero-plate">NAVLYS</span>
+    <div id="nv-hero-stage">
+      <img id="nv-hero-poster" src="/media/bm-face.jpg" alt="Bruno — NAVLYS" loading="eager">
+    </div>
+    <div id="nv-hero-say">NAVLYS CORE — la première IA rien qu'au téléphone et à la voix. La seule limite, c'est celle de ton imagination et de ton ambition. Maintenant.</div>
+    <a id="nv-hero-yt" href="#" target="_blank" rel="noopener" hidden>▶ La vidéo</a>
+    <span id="nv-bruno-note">🔊 touche : je te parle</span>
+  </div>
+
   <div class="annonces" id="nv-annonces">
     <h1 class="on">Un cerveau. Une personne.<br><em>Tout un univers.</em></h1>
     <h1 aria-hidden="true">L'IA est le vent,<br><em>c'est toi qui tiens la barre.</em></h1>
     <div class="brand-tagline">Ton IA · Ta vie · Ton rythme</div>
   </div>
   <a class="offer" href="/adhesion">🎁 Teste gratuitement — 0 €</a>
-  <div id="nv-hero-video">
-    <img id="nv-hero-coin" src="/media/navlys_coin_animated.svg" alt="" aria-hidden="true">
-    <span id="nv-hero-plate">NAVLYS</span>
-    <video id="nv-bruno" src="https://hhrlgyvtqluxpywjiwkd.supabase.co/storage/v1/object/public/avatar/bruno-avatar-accueil.mp4"
-      autoplay muted loop playsinline poster="/media/bm-face.jpg"></video>
-    <span id="nv-bruno-note">🔊 touche pour la voix</span>
-  </div>
 
   <div id="nv-voix-demo">
     <div class="titre">🎙️ Essaie toi-même, à la voix</div>
@@ -253,8 +281,19 @@ footer{padding:46px 20px 70px;text-align:center;border-top:1px solid rgba(184,11
 #nv-hero-plate{position:absolute;top:12px;left:50%;transform:translateX(-50%);z-index:1;
   font-family:'Cinzel','Lora',serif;letter-spacing:.42em;font-size:.82rem;color:rgba(233,211,160,.7);
   padding:3px 14px;border:1px solid rgba(233,211,160,.25);border-radius:8px;background:rgba(5,7,14,.5);pointer-events:none}
-#nv-hero-video video{position:relative;z-index:2;display:block;width:100%;border-radius:16px;
+#nv-hero-video video,#nv-hero-poster{position:relative;z-index:2;display:block;width:100%;border-radius:16px;
   border:1px solid rgba(233,211,160,.4);box-shadow:0 14px 44px rgba(0,0,0,.45), 0 0 30px rgba(125,211,252,.14)}
+#nv-hero-stage{position:relative;z-index:2}
+#nv-hero-poster{aspect-ratio:1/1;object-fit:cover;object-position:50% 30%}
+/* En mode poster (synchro non parfaite) : l'annonce est le message, pas une fausse bouche qui parle */
+#nv-hero-say{position:relative;z-index:2;margin:14px 4px 2px;font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:clamp(16px,4vw,19px);line-height:1.4;color:var(--perle);text-align:center}
+#nv-hero-say b{color:var(--or-pale);font-style:normal}
+#nv-hero-yt{position:relative;z-index:3;display:inline-block;margin:12px auto 2px;font-family:'Cinzel',serif;
+  font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#02040a;text-decoration:none;
+  background:linear-gradient(100deg,var(--or),#fff6df);border-radius:999px;padding:9px 18px;transition:.25s}
+#nv-hero-yt:hover{transform:translateY(-2px);box-shadow:0 10px 26px rgba(201,169,97,.3)}
+#nv-hero-video[data-mode="sync"] #nv-hero-say{display:none}
 #nv-bruno-note{position:absolute;left:50%;bottom:10px;z-index:3;transform:translateX(-50%);white-space:nowrap;
   background:rgba(5,6,10,.78);border:1px solid rgba(125,211,252,.3);color:#a8e3ff;border-radius:999px;
   padding:4px 12px;font-size:.78rem;pointer-events:none}
@@ -287,9 +326,10 @@ footer{padding:46px 20px 70px;text-align:center;border-top:1px solid rgba(184,11
    La vidéo tourne en visuel (muette) ; le son vient du clone live (brique /voix). */
 (function(){
   'use strict';
-  var w=document.getElementById('nv-hero-video'), v=document.getElementById('nv-bruno'), n=document.getElementById('nv-bruno-note');
-  if(!w||!v) return;
-  v.onerror=function(){ w.style.display='none'; };
+  var w=document.getElementById('nv-hero-video'), n=document.getElementById('nv-bruno-note');
+  var stage=document.getElementById('nv-hero-stage'), poster=document.getElementById('nv-hero-poster'),
+      say=document.getElementById('nv-hero-say'), yt=document.getElementById('nv-hero-yt');
+  if(!w) return;
   var VOIX='https://hhrlgyvtqluxpywjiwkd.supabase.co/functions/v1/voix';
   var SP={
     fr:"Bonjour, moi c'est Bruno. Bienvenue chez NAVLYS. Ici, l'intelligence artificielle est à ta portée, à la voix, pour t'aider, t'apprendre, et garder précieusement ton histoire. L'IA, c'est le vent. Toi, tu tiens la barre. Alors monte à bord, on avance ensemble.",
@@ -300,22 +340,56 @@ footer{padding:46px 20px 70px;text-align:center;border-top:1px solid rgba(184,11
   };
   var NOTE={fr:'🔊 touche : je te parle',en:'🔊 tap: I speak to you',ru:'🔊 коснись: я говорю',he:'🔊 גע: אני מדבר אליך',ar:'🔊 المس: أكلّمك'};
   var OFF={fr:'🔇 toucher pour couper',en:'🔇 tap to stop',ru:'🔇 коснись, чтобы выключить',he:'🔇 גע כדי לעצור',ar:'🔇 المس للإيقاف'};
+  /* Annonce (mode poster, tant que la synchro n'est pas parfaite) — 5 langues */
+  var SAY={
+    fr:"NAVLYS CORE — la première IA rien qu'au téléphone et à la voix. La seule limite, c'est celle de ton imagination et de ton ambition. Maintenant.",
+    en:"NAVLYS CORE — the first AI that lives on your phone and your voice alone. The only limit is your own imagination and ambition. Now.",
+    ru:"NAVLYS CORE — первый ИИ, живущий только в твоём телефоне и голосе. Единственный предел — твоё воображение и твои амбиции. Сейчас.",
+    he:"NAVLYS CORE — הבינה המלאכותית הראשונה שחיה רק בטלפון ובקול שלך. הגבול היחיד הוא הדמיון והשאיפה שלך. עכשיו.",
+    ar:"NAVLYS CORE — أول ذكاء اصطناعي يعيش في هاتفك وصوتك وحدهما. الحد الوحيد هو خيالك وطموحك. الآن."
+  };
+  var YTLBL={fr:'▶ La vidéo',en:'▶ The film',ru:'▶ Видео',he:'▶ הסרטון',ar:'▶ الفيديو'};
   function L(){ var l='fr'; try{ l=(window.NAVLYS_I18N&&window.NAVLYS_I18N.lang&&window.NAVLYS_I18N.lang())||localStorage.getItem('nv-lang')||'fr'; }catch(e){} return (['fr','en','ru','he','ar'].indexOf(l)>-1)?l:'fr'; }
-  if(n) n.textContent=NOTE[L()];
+
+  /* ── Garde-fou synchro (demande Bruno 2026-07-11) : la vidéo ne DÉMARRE que si
+     la synchro voix↔image est déclarée parfaite (window.NAVLYS_HERO_SYNC=true et
+     une source validée). Sinon on reste en poster + annonce, et — si un ID YouTube
+     est fourni — un bouton mène à la vidéo parfaite multilingue (partenaire). ── */
+  var SYNC = (window.NAVLYS_HERO_SYNC===true);
+  var SRC = window.NAVLYS_HERO_SRC || 'https://hhrlgyvtqluxpywjiwkd.supabase.co/storage/v1/object/public/avatar/bruno-avatar-accueil.mp4';
+  var YTID = window.NAVLYS_YT_ID || '';
+  var v=null;
+  if(SYNC && SRC && stage){
+    v=document.createElement('video'); v.id='nv-bruno'; v.src=SRC;
+    v.autoplay=true; v.muted=true; v.loop=true; v.playsInline=true; v.setAttribute('playsinline','');
+    v.setAttribute('poster','/media/bm-face.jpg');
+    v.onerror=function(){ try{ v.remove(); }catch(e){} v=null; w.setAttribute('data-mode','poster'); if(poster) poster.style.display='block'; if(say) say.style.display='block'; };
+    if(poster) poster.style.display='none';
+    stage.appendChild(v);
+    w.setAttribute('data-mode','sync');
+    if(say) say.style.display='none';
+  } else if(YTID && yt){
+    yt.href='https://www.youtube.com/watch?v='+YTID; yt.hidden=false;
+  }
+  function renderTexts(){ var l=L(); if(n) n.textContent=NOTE[l]; if(say) say.textContent=SAY[l]; if(yt&&!yt.hidden) yt.textContent=YTLBL[l]; }
+  renderTexts(); document.addEventListener('nv-lang',renderTexts);
+
   var a=null, playing=false;
-  function stop(){ try{ if(a){a.pause();a=null;} }catch(e){} playing=false; try{ v.pause(); }catch(e){} if(n) n.textContent=NOTE[L()]; }
-  w.addEventListener('click',function(){
+  function stop(){ try{ if(a){a.pause();a=null;} }catch(e){} playing=false; try{ if(v) v.pause(); }catch(e){} if(n) n.textContent=NOTE[L()]; }
+  w.addEventListener('click',function(ev){
+    var t=ev.target;
+    if(yt && (t===yt || (t.closest && t.closest('#nv-hero-yt')))) return; /* le bouton YouTube ne déclenche pas la voix */
     if(playing){ stop(); return; }
     var l=L();
-    if(n) n.textContent='… 🔊'; try{ v.currentTime=0; v.play().catch(function(){}); }catch(e){}
+    if(n) n.textContent='… 🔊'; try{ if(v){ v.currentTime=0; v.play().catch(function(){}); } }catch(e){}
     try{
       fetch(VOIX,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({text:SP[l]})})
         .then(function(r){return r.json();})
         .then(function(d){
           if(d&&d.ok&&d.audio){ a=new Audio(d.audio); playing=true; if(n) n.textContent=OFF[l]; a.onended=stop; var p=a.play(); if(p&&p['catch']) p['catch'](stop); }
-          else { /* secours : le son de la vidéo si présent */ try{ v.muted=false; }catch(e){} playing=true; if(n) n.textContent=OFF[l]; }
-        })['catch'](function(){ try{ v.muted=false; }catch(e){} playing=true; if(n) n.textContent=OFF[l]; });
-    }catch(e){ try{ v.muted=false; }catch(e2){} }
+          else { if(v){ try{ v.muted=false; }catch(e){} } playing=true; if(n) n.textContent=OFF[l]; }
+        })['catch'](function(){ if(v){ try{ v.muted=false; }catch(e){} } playing=true; if(n) n.textContent=OFF[l]; });
+    }catch(e){}
   });
 })();
 </script>
@@ -390,6 +464,51 @@ footer{padding:46px 20px 70px;text-align:center;border-top:1px solid rgba(184,11
     setTimeout(function(){ box.classList.remove('tous'); i=0; seul(); }, 5200);
   }
   seul();
+})();
+</script>
+<script>
+/* ── OUVERTURE CINÉMA « il y a bien longtemps… » (demande Bruno 2026-07-11) ──
+   Chaque phrase APPARAÎT, tient, puis S'EFFACE avant la suivante — de plus en
+   plus grande à chaque ligne. Rendu dans la langue du site (5 langues). */
+(function(){
+  'use strict';
+  var el=document.getElementById('nv-saga-line'); if(!el) return;
+  var PHRASES={
+    fr:["Il y a bien longtemps, dans une lointaine galaxie…","l'IA n'existait pas !","Mais ça…","C'était avant."],
+    en:["A long time ago, in a galaxy far, far away…","AI did not exist!","But that…","That was before."],
+    ru:["Давным-давно, в далёкой галактике…","ИИ не существовал!","Но это…","Это было раньше."],
+    he:["לפני זמן רב, בגלקסיה רחוקה…","הבינה המלאכותית לא הייתה קיימת!","אבל זה…","זה היה פעם."],
+    ar:["منذ زمن بعيد، في مجرة بعيدة…","لم يكن الذكاء الاصطناعي موجودًا!","لكن ذلك…","كان ذلك من قبل."]
+  };
+  /* Taille croissante ligne après ligne */
+  var SZ=['clamp(20px,5.4vw,30px)','clamp(26px,7vw,44px)','clamp(32px,9vw,58px)','clamp(40px,12vw,80px)'];
+  function L(){ var l='fr'; try{ l=(window.NAVLYS_I18N&&window.NAVLYS_I18N.lang&&window.NAVLYS_I18N.lang())||localStorage.getItem('nv-lang')||'fr'; }catch(e){} return PHRASES[l]?l:'fr'; }
+  var calme=false; try{ calme=matchMedia('(prefers-reduced-motion: reduce)').matches; }catch(e){}
+  var tmr=[]; function clr(){ tmr.forEach(clearTimeout); tmr=[]; }
+  function jouer(){
+    clr();
+    var arr=PHRASES[L()]; var i=0;
+    function ligne(){
+      el.classList.remove('show');
+      var last=(i===arr.length-1);
+      el.textContent=arr[i];
+      el.style.setProperty('--sz', SZ[i]||SZ[SZ.length-1]);
+      el.classList.toggle('gold', last);
+      // apparition
+      tmr.push(setTimeout(function(){ el.classList.add('show'); }, 60));
+      // disparition puis suivante (ou reprise après une pause sur la dernière)
+      var hold = last ? 2600 : 1500;
+      tmr.push(setTimeout(function(){ el.classList.remove('show'); }, hold));
+      tmr.push(setTimeout(function(){
+        i++;
+        if(i<arr.length) ligne();
+        else tmr.push(setTimeout(jouer, 2600)); // boucle douce
+      }, hold + (calme?350:750)));
+    }
+    ligne();
+  }
+  jouer();
+  document.addEventListener('nv-lang', jouer); // reprend dans la nouvelle langue
 })();
 </script>
 <script>
