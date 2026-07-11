@@ -11,11 +11,16 @@
 //   GET  ?mode=recherche   → CHERCHE elle-même sur le web (DuckDuckGo, sans clé) :
 //                            navlys en tête des résultats ? homonymes ? plaintes
 //                            publiques ? Cron quotidien (navlys_bible_recherche).
-//   GET  ?mode=avis        → DEMANDE elle-même un avis critique à d'autres IA
-//                            (Claude + Llama/OpenRouter + NVIDIA NIM si dispo) sur
-//                            le contenu RÉEL et LIVE des pages clés, comme le
-//                            ferait Gemini/ChatGPT en audit externe. Cron
+//   GET  ?mode=avis        → PANEL DE CONTRADICTION quotidien : plusieurs IA de
+//                            FAMILLES différentes (Claude + panel OpenRouter
+//                            Llama/Mistral/Qwen/DeepSeek/Gemma + NVIDIA/Mixtral)
+//                            classent et critiquent le contenu RÉEL et LIVE des
+//                            pages clés. Chaque conclusion BRUTE est rebasculée à
+//                            Bruno (core_avis_ia) ET au CORE (ingerer). « Jamais
+//                            toutes les billes dans le même panier. » Cron
 //                            quotidien (navlys_bible_avis).
+//   GET  ?mode=avis_bruno  → rebascule vers Bruno : les avis bruts pas encore lus
+//                            (un canal les tire et les marque vus).
 //   GET                    → diag readiness.
 // IMPORTANT : verify_jwt=false obligatoire (règle gravée) — appelée par pg_cron
 // SANS en-tête Authorization ; un déploiement avec verify_jwt=true casse tous les crons.
@@ -207,11 +212,23 @@ async function contenuPage(chemin: string): Promise<string> {
 }
 const SYSTEME_AVIS = `Tu es une IA externe indépendante (comme ChatGPT ou Gemini) qui découvre navlys.com pour la
 première fois, sans complaisance ni parti pris pour la marque. On te donne le texte visible réel de
-plusieurs pages du site. Donne un avis CRITIQUE et SÉVÈRE, en français : le positionnement est-il clair
-en 5 secondes ? Le site paraît-il trop centré sur la finance ou trop flou/générique ? Le message
-"première IA qui orchestre d'autres IA depuis un simple téléphone, sans bureau ni ordinateur" est-il
-perceptible ? Cite des phrases précises du site qui posent problème et propose des reformulations
-concrètes. Ne sois jamais complaisant, comme un vrai audit externe qui juge pour de vrai.`;
+plusieurs pages du site. Tu dois d'abord CLASSER le site, puis le CRITIQUER SÉVÈREMENT, en français.
+
+Réponds EXACTEMENT dans ce format :
+NOTE_GLOBALE: X/10
+CLASSIFICATION:
+- Positionnement clair en 5 s : X/10 — (une phrase)
+- Confiance / crédibilité : X/10 — (une phrase)
+- Design & mobile : X/10 — (une phrase)
+- Conversion (on comprend quoi faire) : X/10 — (une phrase)
+- Message "première IA qui orchestre d'autres IA depuis un simple téléphone, sans bureau ni ordinateur" perçu : X/10 — (une phrase)
+CRITIQUE:
+- (3 à 6 points durs, en citant des phrases précises du site qui posent problème)
+PROPOSITIONS:
+- (2 à 4 reformulations ou corrections concrètes, applicables tout de suite)
+
+Le site paraît-il trop centré sur la finance ou trop flou/générique ? Ne sois JAMAIS complaisant,
+comme un vrai audit externe qui juge pour de vrai. Sois précis, factuel, chiffré.`;
 async function avisClaude(contexte: string): Promise<string> {
   if (!ANTH) return "";
   try {
@@ -224,14 +241,29 @@ async function avisClaude(contexte: string): Promise<string> {
     return ((d.content || []).filter((c: any) => c.type === "text").map((c: any) => c.text).join("\n")).trim();
   } catch { return ""; }
 }
-async function avisOpenRouter(contexte: string): Promise<string> {
-  const orKey = Deno.env.get("OPENROUTER_API_KEY") || Deno.env.get("OPENROUTER_KEY") || Deno.env.get("OPEN_ROUTER_API_KEY") || Deno.env.get("OPEN_API_ROUTER") || Deno.env.get("OPEN_API_ROUTER_KEY") || "";
+function clefOpenRouter(): string {
+  return Deno.env.get("OPENROUTER_API_KEY") || Deno.env.get("OPENROUTER_KEY") || Deno.env.get("OPEN_ROUTER_API_KEY") || Deno.env.get("OPEN_API_ROUTER") || Deno.env.get("OPEN_API_ROUTER_KEY") || "";
+}
+// « Jamais toutes les billes dans le même panier » (règle Bruno, 2026-07-11) :
+// on interroge des FAMILLES de modèles réellement différentes, pas le même modèle
+// deux fois. Chaque appel échoue proprement en "" si le modèle/la clé manque —
+// il suffit que 2-3 répondent pour avoir une vraie contradiction. Ajouter/retirer
+// un modèle = une ligne, sans toucher au reste.
+const PANEL_OPENROUTER = [
+  { modele: "meta-llama/llama-3.3-70b-instruct:free", famille: "meta-llama" },
+  { modele: "mistralai/mistral-small-3.2-24b-instruct:free", famille: "mistral" },
+  { modele: "qwen/qwen-2.5-72b-instruct:free", famille: "qwen" },
+  { modele: "deepseek/deepseek-chat-v3-0324:free", famille: "deepseek" },
+  { modele: "google/gemma-3-27b-it:free", famille: "google" },
+];
+async function avisOpenRouterModele(contexte: string, modele: string): Promise<string> {
+  const orKey = clefOpenRouter();
   if (!orKey) return "";
   try {
     const r = await fetch("https://openrouter.ai/api/v1/chat/completions", {
       method: "POST",
       headers: { Authorization: `Bearer ${orKey}`, "Content-Type": "application/json", "HTTP-Referer": "https://navlys.com", "X-Title": "NAVLYS Bible" },
-      body: JSON.stringify({ model: "meta-llama/llama-3.3-70b-instruct:free", max_tokens: 900, messages: [{ role: "system", content: SYSTEME_AVIS }, { role: "user", content: contexte }] }),
+      body: JSON.stringify({ model: modele, max_tokens: 900, messages: [{ role: "system", content: SYSTEME_AVIS }, { role: "user", content: contexte }] }),
     });
     const d: any = await r.json().catch(() => ({}));
     return (d?.choices?.[0]?.message?.content || "").trim();
@@ -242,6 +274,8 @@ async function avisOpenRouter(contexte: string): Promise<string> {
 function clefNvidia(): string {
   return Deno.env.get("NVIDIA_API_KEY") || Deno.env.get("NVAPI_KEY") || Deno.env.get("NVIDIA_NIM_KEY") || Deno.env.get("NGC_API_KEY") || Deno.env.get("NVIDIA_BUILD_API_KEY") || Deno.env.get("BUILD_NVIDIA_API_KEY") || "";
 }
+// NVIDIA NIM sert un modèle d'une AUTRE famille (Mixtral) que le panel OpenRouter
+// et que Claude — pour que la contradiction soit réelle, pas trois fois le même avis.
 async function avisNvidia(contexte: string): Promise<string> {
   const nvKey = clefNvidia();
   if (!nvKey) return "";
@@ -249,7 +283,7 @@ async function avisNvidia(contexte: string): Promise<string> {
     const r = await fetch("https://integrate.api.nvidia.com/v1/chat/completions", {
       method: "POST",
       headers: { Authorization: `Bearer ${nvKey}`, "Content-Type": "application/json" },
-      body: JSON.stringify({ model: "meta/llama-3.3-70b-instruct", max_tokens: 900, temperature: 0.4, messages: [{ role: "system", content: SYSTEME_AVIS }, { role: "user", content: contexte }] }),
+      body: JSON.stringify({ model: "mistralai/mixtral-8x22b-instruct-v0.1", max_tokens: 900, temperature: 0.4, messages: [{ role: "system", content: SYSTEME_AVIS }, { role: "user", content: contexte }] }),
     });
     const d: any = await r.json().catch(() => ({}));
     return (d?.choices?.[0]?.message?.content || "").trim();
@@ -269,21 +303,66 @@ async function diagNvidia() {
     return { cle_trouvee: true, status_http: r.status, reponse: txt.slice(0, 500) };
   } catch (e) { return { cle_trouvee: true, erreur: String(e).slice(0, 300) }; }
 }
+// Extrait la NOTE_GLOBALE (/10) que chaque IA doit poser en tête de son avis.
+function extraireNote(avis: string): number | null {
+  const m = avis.match(/NOTE_GLOBALE\s*:?\s*(\d{1,2}(?:[.,]\d)?)\s*\/\s*10/i);
+  if (!m) return null;
+  const v = parseFloat(m[1].replace(",", "."));
+  return isFinite(v) && v >= 0 && v <= 10 ? v : null;
+}
+// Panel de contradiction quotidien (doctrine Bruno 2026-07-11) : plusieurs IA de
+// familles DIFFÉRENTES jugent le site en même temps. Chaque conclusion BRUTE est
+// (1) rebasculée telle quelle vers Bruno via core_avis_ia (durable, relisable),
+// (2) rebasculée au CORE via ingerer() (règle + mémoire agent, mise en pratique),
+// (3) résumée dans le journal. Aucune bille dans le même panier : Claude, un panel
+// OpenRouter multi-familles (Llama, Mistral, Qwen, DeepSeek, Gemma) et NVIDIA/Mixtral.
 async function avisIA() {
   const contenus: string[] = [];
-  for (const p of ["/", "/next-gen", "/finance"]) {
+  for (const p of ["/", "/next-gen", "/finance", "/adhesion"]) {
     const t = await contenuPage(p);
     if (t) contenus.push(`— PAGE ${p} —\n${t}`);
   }
   if (!contenus.length) { await journal("Avis IA quotidien : pages injoignables, rien testé."); return { ok: false, lecons: 0 }; }
   const contexte = contenus.join("\n\n").slice(0, 9000);
-  const [claude, llama, nvidia] = await Promise.all([avisClaude(contexte), avisOpenRouter(contexte), avisNvidia(contexte)]);
-  if (!claude && !llama && !nvidia) { await journal("Avis IA quotidien : aucun modèle disponible (clé manquante)."); return { ok: false, lecons: 0 }; }
-  let n = 0;
-  if (claude) n += await ingerer("avis_ia_quotidien_claude", claude);
-  if (llama) n += await ingerer("avis_ia_quotidien_llama", llama);
-  if (nvidia) n += await ingerer("avis_ia_quotidien_nvidia", nvidia);
-  return { ok: true, claude: !!claude, llama: !!llama, nvidia: !!nvidia, lecons: n };
+
+  // Un thunk par IA du panel — familles distinctes, exécutés en parallèle.
+  const membres: { fournisseur: string; modele: string; famille: string; run: () => Promise<string> }[] = [
+    { fournisseur: "anthropic", modele: "claude-haiku-4.5", famille: "anthropic", run: () => avisClaude(contexte) },
+    ...PANEL_OPENROUTER.map((m) => ({ fournisseur: "openrouter", modele: m.modele, famille: m.famille, run: () => avisOpenRouterModele(contexte, m.modele) })),
+    { fournisseur: "nvidia", modele: "mistralai/mixtral-8x22b-instruct-v0.1", famille: "mistral", run: () => avisNvidia(contexte) },
+  ];
+  const avis = await Promise.all(membres.map((m) => m.run()));
+
+  const rendus: { fournisseur: string; modele: string; famille: string; note: number | null }[] = [];
+  let lecons = 0;
+  for (let i = 0; i < membres.length; i++) {
+    const texte = (avis[i] || "").trim();
+    if (!texte) continue;
+    const m = membres[i];
+    const note = extraireNote(texte);
+    // (1) BRUT → Bruno : la conclusion intégrale, horodatée, jamais résumée.
+    await ins("core_avis_ia", { fournisseur: m.fournisseur, modele: m.modele, famille: m.famille, note, avis: texte.slice(0, 8000) });
+    // (2) → CORE : mise en pratique via le pipeline habituel (règle + mémoire agent).
+    lecons += await ingerer(`avis_ia_quotidien_${m.famille}`, texte);
+    rendus.push({ fournisseur: m.fournisseur, modele: m.modele, famille: m.famille, note });
+  }
+  if (!rendus.length) { await journal("Avis IA quotidien : aucun modèle disponible (clé manquante)."); return { ok: false, lecons: 0 }; }
+
+  // (3) → journal : digest chiffré, mis en contradiction (notes côte à côte).
+  const notes = rendus.map((r) => r.note).filter((n): n is number => n != null);
+  const moyenne = notes.length ? Math.round((notes.reduce((a, b) => a + b, 0) / notes.length) * 10) / 10 : null;
+  const detail = rendus.map((r) => `${r.famille}=${r.note != null ? r.note + "/10" : "?"}`).join(" · ");
+  await journal(`Avis IA panel : ${rendus.length} IA · notes ${detail}${moyenne != null ? ` · moyenne ${moyenne}/10` : ""} · ${lecons} leçon(s) gravée(s).`);
+  return { ok: true, ia_repondues: rendus.length, moyenne, notes: rendus, lecons };
+}
+
+// « Rebascule vers moi-même » : renvoie à Bruno les avis bruts pas encore lus
+// (un canal — cockpit/WhatsApp — les tire, les affiche, puis ils sont marqués vus).
+async function avisBrunoNonVus() {
+  const lignes = await g("core_avis_ia", "select=id,cree_le,fournisseur,modele,famille,note,avis&vu_par_bruno=eq.false&order=cree_le.desc&limit=20");
+  const ids = (lignes || []).map((l: any) => l.id);
+  if (ids.length) await patch("core_avis_ia", `id=in.(${ids.join(",")})`, { vu_par_bruno: true });
+  return { ok: true, nouveaux: lignes?.length || 0, avis: lignes || [] };
 }
 
 // La boucle : scanne SEULE les sources internes jamais digérées. Jamais d'arrêt.
@@ -317,9 +396,10 @@ Deno.serve(async (req) => {
     if (mode === "verifier") return J(await verifierSite());
     if (mode === "recherche") return J(await verifierRecherche());
     if (mode === "avis") return J(await avisIA());
+    if (mode === "avis_bruno") return J(await avisBrunoNonVus());
     if (mode === "diag_nvidia") return J(await diagNvidia());
     const recentes = await g("core_bible_bugs", "select=bug,regle,departement,cree_le&order=cree_le.desc&limit=10");
-    return J({ ok: true, service: "navlys-bible-routine", aide: "POST {source,texte} = ingérer un retour externe · GET ?mode=boucle|verifier|recherche|avis = auto-scan", dernieres_lecons: recentes });
+    return J({ ok: true, service: "navlys-bible-routine", aide: "POST {source,texte} = ingérer un retour externe · GET ?mode=boucle|verifier|recherche|avis|avis_bruno = auto-scan", dernieres_lecons: recentes });
   }
   if (req.method !== "POST") return J({ error: "method" }, 405);
   const b: any = await req.json().catch(() => ({}));
