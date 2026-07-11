@@ -21,5 +21,5 @@ window.NAVLYS_DICT_WA = {
   "Écouter →": "Schoûter →",
   "Voir →": "Vey →",
   "partenaires": "pårtneres",
-  "Notre": "Nosse"
+  "Ma": "Mi"
 };
