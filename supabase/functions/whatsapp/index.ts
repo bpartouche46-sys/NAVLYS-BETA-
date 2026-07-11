@@ -1,9 +1,13 @@
-// NAVLYS — Webhook WhatsApp (360dialog). v35 (2026-07-07).
+// NAVLYS — Webhook WhatsApp (360dialog). v36 (2026-07-11).
 // v34 : BIBLE FAQ PRÉ-TRADUITE (core_faq.traductions en/ru/he) + LIEN DIRECT par fiche.
-// v35 : HÉRITAGE DE LANGUE (« Ok » après un échange anglais reste en anglais —
-//        si le message ne tranche pas, on hérite du dernier message qui tranchait)
-//        + VERROU DE LANGUE (consigne finale absolue dans la langue cible).
-// Diag : vérifie ET répare le webhook 360dialog ; ?silencieux=1 = pas d'envoi test.
+// v35 : HÉRITAGE DE LANGUE + VERROU DE LANGUE.
+// v36 : VOIX ENFIN COMPRISE —
+//        (1) CORRECTIF CAPTURE : le téléchargement média 360dialog passe par le
+//            proxy waba-v2.360dialog.io (l'URL lookaside.fbsbx.com refuse la
+//            D360-API-KEY). C'était la cause de « je n'ai pas pu récupérer le fichier ».
+//        (2) TRANSCRIPTION : un vocal est transcrit (Groq → OpenAI → ElevenLabs,
+//            gratuit d'abord, lecture tolérante des clés) puis TRAITÉ COMME UN
+//            MESSAGE TEXTE → NAVLYS répond au CONTENU, plus juste « bien reçu ».
 // Bruno CONVERSE avec le cerveau central (pas de mission auto). Espace fichiers.
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 const MODEL = "claude-haiku-4-5-20251001", MODEL_OWNER="claude-sonnet-4-6", MAX_TOKENS = 700;
@@ -13,6 +17,10 @@ const K = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") || Deno.env.get("SUPABASE_SE
 const ANTH = Deno.env.get("ANTHROPIC_API_KEY") || "";
 const D360 = Deno.env.get("D360_API_KEY") || "";
 const VERIFY = Deno.env.get("WHATSAPP_VERIFY_TOKEN") || "";
+// Clés de transcription vocale (STT) — lecture tolérante, gratuit d'abord (règle n°4).
+const GROQ = Deno.env.get("GROQ_API_KEY") || Deno.env.get("GROQ_KEY") || "";
+const OPENAI = Deno.env.get("OPENAI_API_KEY") || Deno.env.get("OPENAI_KEY") || "";
+const ELEVEN = Deno.env.get("ELEVENLABS_API_KEY") || Deno.env.get("ELEVENLABS_KEY") || Deno.env.get("ELEVENLAB_KEY") || Deno.env.get("NAVLYS_VOICE_KEY") || "";
 const SELF_URL = U + "/functions/v1/whatsapp";
 const onlyDigits = (s)=>String(s||"").replace(/\D/g,"");
 const OWNERS = (Deno.env.get("BRUNO_WHATSAPP")||"").split(/[,;\s]+/).map(onlyDigits).filter(Boolean);
@@ -83,19 +91,65 @@ async function faqBloc(lang){
   return kb;
 }
 
-// ---- ESPACE FICHIERS ----
+// ---- ESPACE FICHIERS + TÉLÉCHARGEMENT MÉDIA 360dialog ----
 async function ensureBucket(){ await fetch(`${U}/storage/v1/bucket`,{method:"POST",headers:{Authorization:`Bearer ${K}`,apikey:K,"Content-Type":"application/json"},body:JSON.stringify({id:BUCKET,name:BUCKET,public:false})}).catch(()=>{}); }
-async function d360Media(id){ const r=await fetch(`https://waba-v2.360dialog.io/${id}`,{headers:{"D360-API-KEY":D360}}); const d=await r.json().catch(()=>({})); const url=d&&d.url?String(d.url):""; if(!url) return null; const rr=await fetch(url,{headers:{"D360-API-KEY":D360}}); if(!rr.ok) return null; return { bytes:new Uint8Array(await rr.arrayBuffer()), mime:d.mime_type||"application/octet-stream" }; }
+// CORRECTIF v36 : la 2e étape (téléchargement des octets) doit passer par le
+// proxy 360dialog. GET /{id} renvoie une url lookaside.fbsbx.com (CDN Meta) qui
+// REFUSE la D360-API-KEY → 401/403 → fichier jamais récupéré. On garde le chemin
+// + la query et on remplace l'origine par waba-v2.360dialog.io.
+async function d360Media(id){
+  const r=await fetch(`https://waba-v2.360dialog.io/${id}`,{headers:{"D360-API-KEY":D360}});
+  const d=await r.json().catch(()=>({}));
+  let url=d&&d.url?String(d.url):"";
+  if(!url) return null;
+  try{ const p=new URL(url); if(p.hostname!=="waba-v2.360dialog.io") url="https://waba-v2.360dialog.io"+p.pathname+p.search; }catch(_e){}
+  let rr=await fetch(url,{headers:{"D360-API-KEY":D360}});
+  // Repli : si le proxy refuse, on retente l'URL d'origine telle quelle.
+  if(!rr.ok && d.url && url!==String(d.url)) rr=await fetch(String(d.url),{headers:{"D360-API-KEY":D360}});
+  if(!rr.ok) return null;
+  return { bytes:new Uint8Array(await rr.arrayBuffer()), mime:d.mime_type||"application/octet-stream" };
+}
 async function saveToSpace(from, media, kind, ts){ await ensureBucket(); const ext=(media.mime.split("/")[1]||"bin").split(";")[0]; const path=`${onlyDigits(from)}/${kind}-${ts}.${ext}`; const up=await fetch(`${U}/storage/v1/object/${BUCKET}/${path}`,{method:"POST",headers:{Authorization:`Bearer ${K}`,apikey:K,"Content-Type":media.mime,"x-upsert":"true"},body:media.bytes}); if(!up.ok) throw new Error("storage "+up.status); return path; }
+
+// ---- TRANSCRIPTION VOCALE (STT) — gratuit d'abord : Groq → OpenAI → ElevenLabs ----
+async function transcribe(bytes, mime){
+  const ext=(String(mime).split("/")[1]||"ogg").split(";")[0];
+  const fname="audio."+ext;
+  const blob=new Blob([bytes],{type:mime||"audio/ogg"});
+  if(GROQ){
+    try{
+      const fd=new FormData(); fd.append("file",blob,fname); fd.append("model","whisper-large-v3");
+      const r=await fetch("https://api.groq.com/openai/v1/audio/transcriptions",{method:"POST",headers:{Authorization:"Bearer "+GROQ},body:fd});
+      if(r.ok){ const d=await r.json().catch(()=>({})); if(d&&d.text) return String(d.text).trim(); }
+    }catch(_e){}
+  }
+  if(OPENAI){
+    try{
+      const fd=new FormData(); fd.append("file",blob,fname); fd.append("model","whisper-1");
+      const r=await fetch("https://api.openai.com/v1/audio/transcriptions",{method:"POST",headers:{Authorization:"Bearer "+OPENAI},body:fd});
+      if(r.ok){ const d=await r.json().catch(()=>({})); if(d&&d.text) return String(d.text).trim(); }
+    }catch(_e){}
+  }
+  if(ELEVEN){
+    try{
+      const fd=new FormData(); fd.append("file",blob,fname); fd.append("model_id","scribe_v1");
+      const r=await fetch("https://api.elevenlabs.io/v1/speech-to-text",{method:"POST",headers:{"xi-api-key":ELEVEN},body:fd});
+      if(r.ok){ const d=await r.json().catch(()=>({})); if(d&&(d.text||d.transcript)) return String(d.text||d.transcript).trim(); }
+    }catch(_e){}
+  }
+  return "";
+}
+
 const RECU={fr:(k)=>`📁 J'ai bien reçu ton ${k} et rangé dans ton espace NAVLYS. Privé, à toi.`,en:(k)=>`📁 Got your ${k} — saved to your NAVLYS space. Private, yours.`,ru:(k)=>`📁 Получил твой ${k} — сохранил в твоём пространстве NAVLYS. Приватно.`,he:(k)=>`📁 קיבלתי את ה-${k} — שמרתי במרחב NAVLYS שלך. פרטי, שלך.`,ar:(k)=>`📁 وصلني ${k} — حفظته في مساحة NAVLYS الخاصة بك. خاص ولك.`};
 const KINDNAME={fr:{image:"photo",document:"document",audio:"vocal"},en:{image:"photo",document:"document",audio:"voice note"},ru:{image:"фото",document:"документ",audio:"голосовое"},he:{image:"תמונה",document:"מסמך",audio:"הקלטה"},ar:{image:"صورة",document:"مستند",audio:"رسالة صوتية"}};
+// Vocal reçu mais transcription indisponible (aucune clé STT) — message par langue.
+const VOCAL_NOSTT={fr:"🎙️ J'ai bien reçu ton vocal et je l'ai rangé. Je ne sais pas encore le transcrire (il me manque une clé de transcription) — écris-moi aussi en texte et je te réponds tout de suite 🌊",en:"🎙️ Got your voice note and saved it. I can't transcribe it yet — send me text too and I'll reply right away 🌊",ru:"🎙️ Получил голосовое и сохранил. Пока не могу расшифровать — напиши текстом, и я сразу отвечу 🌊",he:"🎙️ קיבלתי את ההקלטה ושמרתי. עדיין לא מצליח לתמלל — כתוב לי גם בטקסט ואשיב מיד 🌊",ar:"🎙️ وصلتني الرسالة الصوتية وحفظتها. لا أستطيع تفريغها بعد — أرسل لي نصًا وسأرد فورًا 🌊"};
 
 // ---- SAV PROSPECT : mémoire + FAQ pré-traduite + lien direct + héritage de langue ----
 const LIENFALLBACK={fr:`Je reviens vers toi tout de suite 🌊 En attendant, tout est ici : ${SITE}`,en:`I'm right with you 🌊 Meanwhile, everything is here: ${SITE}`,ru:`Я сейчас вернусь 🌊 А пока всё здесь: ${SITE}`,he:`אני כבר חוזר אליך 🌊 בינתיים הכול כאן: ${SITE}`,ar:`سأعود إليك حالاً 🌊 وفي هذه الأثناء كل شيء هنا: ${SITE}`};
 async function savChat(from, text){
   const sess="sav-"+onlyDigits(from)+"-"+dateJour();
   const hist=await sbFilter("sav_messages","role,message",`session=eq.${encodeURIComponent(sess)}`,16,"id.asc");
-  // langue : signal du message, sinon héritage du dernier message qui tranchait
   let lang = signalLang(text) || "";
   if(!lang){ for(let i=hist.length-1;i>=0&&!lang;i--){ const s=signalLang(String(hist[i].message||"")); if(s) lang=s; } }
   if(!lang) lang="fr";
@@ -156,11 +210,17 @@ async function pilote(from, text){
   return await ownerChat(from, text);
 }
 
+// Traite un message texte OU un transcript vocal : répond au CONTENU.
+async function repondreTexte(from, txt){
+  const isOwner = OWNERS.includes(onlyDigits(from));
+  if(isOwner && U && K) return await pilote(from, txt);
+  return await savChat(from, txt);
+}
+
 Deno.serve(async (req) => {
   const u = new URL(req.url);
   if (req.method === "GET") {
     if (u.searchParams.get("diag")) {
-      // 1) webhook 360dialog : lire, et RÉPARER s'il ne pointe pas vers nous
       let webhook=null, webhook_fix=null;
       if(D360){
         try{
@@ -173,11 +233,11 @@ Deno.serve(async (req) => {
           }
         }catch(e){ webhook={error:String(e).slice(0,120)}; }
       }
-      // 2) test d'envoi réel (sauf ?silencieux=1)
       let send=null;
-      if(D360&&OWNERS[0]&&!u.searchParams.get("silencieux")){ const rr=await fetch("https://waba-v2.360dialog.io/messages",{method:"POST",headers:{"D360-API-KEY":D360,"Content-Type":"application/json"},body:JSON.stringify({messaging_product:"whatsapp",to:OWNERS[0],type:"text",text:{body:"NAVLYS diag ✅ v35 — FAQ 4 langues + liens + héritage de langue"}})}); send={status:rr.status,body:(await rr.text().catch(()=>"")).slice(0,300)}; }
+      if(D360&&OWNERS[0]&&!u.searchParams.get("silencieux")){ const rr=await fetch("https://waba-v2.360dialog.io/messages",{method:"POST",headers:{"D360-API-KEY":D360,"Content-Type":"application/json"},body:JSON.stringify({messaging_product:"whatsapp",to:OWNERS[0],type:"text",text:{body:"NAVLYS diag ✅ v36 — voix comprise (capture 360dialog corrigée + transcription)"}})}); send={status:rr.status,body:(await rr.text().catch(()=>"")).slice(0,300)}; }
       let faqN=0; try{ faqN=(await sbFilter("core_faq","id,traductions","or=(actif.is.true,actif.is.null)",1000)).filter((r)=>r.traductions&&r.traductions.he).length; }catch(_e){}
-      return new Response(JSON.stringify({version:35,d360:!!D360,owners:OWNERS,anth:!!ANTH,storage:!!(U&&K),faq_traduites:faqN,self:SELF_URL,webhook,webhook_fix,send}),{status:200,headers:{"Content-Type":"application/json"}});
+      const stt = { groq:!!GROQ, openai:!!OPENAI, eleven:!!ELEVEN, actif:!!(GROQ||OPENAI||ELEVEN) };
+      return new Response(JSON.stringify({version:36,d360:!!D360,owners:OWNERS,anth:!!ANTH,storage:!!(U&&K),stt,faq_traduites:faqN,self:SELF_URL,webhook,webhook_fix,send}),{status:200,headers:{"Content-Type":"application/json"}});
     }
     const mode=u.searchParams.get("hub.mode"), token=u.searchParams.get("hub.verify_token"), challenge=u.searchParams.get("hub.challenge");
     if (mode==="subscribe" && token && token===VERIFY) return new Response(challenge||"",{status:200});
@@ -190,23 +250,37 @@ Deno.serve(async (req) => {
     const msg=value?.messages?.[0];
     if(msg && D360){
       const from=msg.from;
-      const isOwner = OWNERS.includes(onlyDigits(from));
       const ts = msg.timestamp || "0";
       const mediaKind = msg.type==="image"?"image":msg.type==="document"?"document":(msg.type==="audio"||msg.type==="voice")?"audio":"";
       if(mediaKind && U && K){
         const mid = msg[msg.type]?.id; const cap = msg[msg.type]?.caption || ""; const lang = detLang(cap||"");
         try{
           const media = mid ? await d360Media(mid) : null;
-          if(media){ const path = await saveToSpace(from, media, mediaKind, ts); await sbInsert("journal",{type:"espace",message:`📁 ${mediaKind} WhatsApp [${onlyDigits(from).slice(-4)}] -> ${path}`}); const kname=(KINDNAME[lang]||KINDNAME.fr)[mediaKind]||mediaKind; await sendWA(from,(RECU[lang]||RECU.fr)(kname)); }
+          if(media){
+            const path = await saveToSpace(from, media, mediaKind, ts);
+            await sbInsert("journal",{type:"espace",message:`📁 ${mediaKind} WhatsApp [${onlyDigits(from).slice(-4)}] -> ${path}`});
+            if(mediaKind==="audio"){
+              // VOIX : on transcrit et on RÉPOND au contenu (plus juste « bien reçu »).
+              const transcript = await transcribe(media.bytes, media.mime);
+              if(transcript){
+                await sbInsert("journal",{type:"voix",message:`🎙️ WhatsApp [${onlyDigits(from).slice(-4)}] transcrit : ${transcript.slice(0,120)}`});
+                const reply = await repondreTexte(from, transcript);
+                await sendWA(from, "🎙️ J'ai entendu : « "+transcript.slice(0,300)+" »\n\n"+reply);
+              } else {
+                await sendWA(from, VOCAL_NOSTT[lang]||VOCAL_NOSTT.fr);
+              }
+            } else {
+              const kname=(KINDNAME[lang]||KINDNAME.fr)[mediaKind]||mediaKind;
+              await sendWA(from,(RECU[lang]||RECU.fr)(kname));
+            }
+          }
           else await sendWA(from, "Je n'ai pas pu récupérer le fichier, réessaie 🌊");
         }catch(_e){ await sendWA(from, "Petit souci pour ranger ton fichier, réessaie 🌊"); }
         return new Response(JSON.stringify({received:true,media:mediaKind}),{status:200,headers:{"Content-Type":"application/json"}});
       }
       if(msg.type==="text"){
         const txt=msg.text?.body||"";
-        let reply;
-        if(isOwner && U && K) reply=await pilote(from, txt);
-        else reply=await savChat(from, txt);
+        const reply=await repondreTexte(from, txt);
         if(reply) await sendWA(from,reply);
       }
     }
