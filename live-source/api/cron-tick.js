@@ -76,18 +76,54 @@ async function webSearch(query, tavilyKey) {
   } catch (e) { return ''; }
 }
 
+// ════════ INDÉPENDANCE DU CORE (gravé 2026-07-09) ════════
+// Le moteur autonome doit continuer à faire travailler les agents même si
+// api.anthropic.com tombe (coupure Claude). think() essaie Anthropic direct
+// puis, si ça échoue, bascule seul sur OpenRouter (modèle gratuit non-Anthropic
+// en dernier recours) — lecture tolérante de la clé (règle n°4), aucun
+// redéploiement nécessaire le jour où OPENROUTER_API_KEY est posée dans Vercel.
+// Même pattern que whatsapp-webhook.js ; on renvoie toujours { text, tokens }
+// (les tokens alimentent le garde-fou DAILY_TOKEN_CAP, d'où qu'ils viennent).
+function envAny(names) { for (const n of names) { const v = process.env[n]; if (v) return v; } return ''; }
 async function think(anthKey, system, user) {
-  const r = await fetch('https://api.anthropic.com/v1/messages', {
-    method: 'POST',
-    headers: { 'x-api-key': anthKey, 'anthropic-version': '2023-06-01', 'Content-Type': 'application/json' },
-    body: JSON.stringify({ model: MODEL, max_tokens: MAX_TOKENS, system, messages: [{ role: 'user', content: user }] }),
-  });
-  const d = await r.json().catch(() => ({}));
-  if (!r.ok) throw new Error('llm ' + r.status);
-  const text = (d.content || []).filter((c) => c.type === 'text').map((c) => c.text).join('\n').trim();
-  const u = d.usage || {};
-  const tokens = (u.input_tokens || 0) + (u.output_tokens || 0);
-  return { text, tokens };
+  if (anthKey) {
+    try {
+      const r = await fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers: { 'x-api-key': anthKey, 'anthropic-version': '2023-06-01', 'Content-Type': 'application/json' },
+        body: JSON.stringify({ model: MODEL, max_tokens: MAX_TOKENS, system, messages: [{ role: 'user', content: user }] }),
+      });
+      if (r.ok) {
+        const d = await r.json().catch(() => ({}));
+        const text = (d.content || []).filter((c) => c.type === 'text').map((c) => c.text).join('\n').trim();
+        if (text) {
+          const u = d.usage || {};
+          return { text, tokens: (u.input_tokens || 0) + (u.output_tokens || 0) };
+        }
+      }
+    } catch { /* on tente le repli ci-dessous */ }
+  }
+  const orKey = envAny(['OPENROUTER_API_KEY', 'OPENROUTER_KEY', 'OPEN_ROUTER_API_KEY', 'OPEN_API_ROUTER', 'OPEN_API_ROUTER_KEY']);
+  if (orKey) {
+    for (const orModel of ['meta-llama/llama-3.3-70b-instruct:free', 'anthropic/claude-haiku-4.5']) {
+      try {
+        const r = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+          method: 'POST',
+          headers: { Authorization: `Bearer ${orKey}`, 'Content-Type': 'application/json', 'HTTP-Referer': 'https://navlys.com', 'X-Title': 'NAVLYS CORE' },
+          body: JSON.stringify({ model: orModel, max_tokens: MAX_TOKENS, messages: [{ role: 'system', content: system }, { role: 'user', content: user }] }),
+        });
+        if (r.ok) {
+          const d = await r.json().catch(() => ({}));
+          const text = (d?.choices?.[0]?.message?.content || '').trim();
+          if (text) {
+            const u = d.usage || {};
+            return { text, tokens: (u.total_tokens || (u.prompt_tokens || 0) + (u.completion_tokens || 0) || 0) };
+          }
+        }
+      } catch { /* essai suivant */ }
+    }
+  }
+  throw new Error('llm indisponible (Anthropic + OpenRouter)');
 }
 
 export default async function handler(req) {
@@ -105,7 +141,9 @@ export default async function handler(req) {
   const key = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_SERVICE_ROLE;
   const anthKey = process.env.ANTHROPIC_API_KEY;
   const tavilyKey = process.env.TAVILY_API_KEY;
-  if (!base || !key || !anthKey) return json({ error: 'server not configured (SUPABASE / ANTHROPIC)' }, 500);
+  // Résilient : un cerveau suffit (Anthropic OU OpenRouter) — think() bascule seul.
+  const hasBrain = anthKey || envAny(['OPENROUTER_API_KEY', 'OPENROUTER_KEY', 'OPEN_ROUTER_API_KEY', 'OPEN_API_ROUTER', 'OPEN_API_ROUTER_KEY']);
+  if (!base || !key || !hasBrain) return json({ error: 'server not configured (SUPABASE / ANTHROPIC ou OPENROUTER)' }, 500);
 
   // ── Garde-fou journalier (anti-emballement) ──
   const dayStart = nowIso().slice(0, 10) + 'T00:00:00Z';
