@@ -1,41 +1,343 @@
-<!DOCTYPE html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex"><title>NAVLYS Cockpit</title>
-<style>:root{--bg:#070b12;--panel:#0f1726;--p2:#131e30;--ice:#7fd4ff;--gold:#d8bd84;--txt:#e8f2fb;--mut:#8fa6bd;--line:#1d2c42;--ok:#54d6a0;--bad:#ef7b7b}*{box-sizing:border-box;margin:0;padding:0}body{background:#070b12;color:#e8f2fb;font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif}.wrap{max-width:1080px;margin:0 auto;padding:14px 14px 80px}.bar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:14px;background:#0f1726;border:1px solid #1d2c42;border-radius:14px;margin-bottom:14px}.sp{flex:1}button{font:inherit;cursor:pointer;border:1px solid #1d2c42;background:#131e30;color:#e8f2fb;border-radius:10px;padding:8px 12px}.gold{background:#241f12;border-color:#5a4d2c;color:#efe0bd}.sm{padding:5px 9px;font-size:13px}.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:14px}.st{background:#0f1726;border:1px solid #1d2c42;border-radius:12px;padding:10px;text-align:center}.st .n{font-size:1.5rem;font-weight:700}.st .l{font-size:.66rem;color:#8fa6bd;text-transform:uppercase}.st.v .n{color:#d8bd84}h2{font-size:.8rem;letter-spacing:1px;text-transform:uppercase;color:#bfe9ff;margin:18px 4px 10px}.agents{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}.ag{background:#0f1726;border:1px solid #1d2c42;border-radius:10px;padding:9px}.ag .nm{font-weight:600}.ag .rl{font-size:11px;color:#8fa6bd;margin-top:3px}.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}.col{background:#0f1726;border:1px solid #1d2c42;border-radius:12px;padding:10px;min-height:70px}.col h3{font-size:12px;text-transform:uppercase;color:#8fa6bd;margin-bottom:8px}.col.v h3{color:#d8bd84}.m{background:#131e30;border:1px solid #1d2c42;border-radius:10px;padding:9px;margin-bottom:8px}.m .t{font-size:13px;font-weight:600}.m .d{font-size:11px;color:#7fd4ff;margin:4px 0}.acts{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}.create textarea{width:100%;min-height:60px;background:#0a1322;border:1px solid #1d2c42;border-radius:10px;color:#e8f2fb;padding:10px;font:inherit}.jr{display:flex;gap:8px;padding:7px 4px;border-bottom:1px solid #121c2c;font-size:13px}.jr .ty{color:#8fa6bd;font-size:10px;text-transform:uppercase}#login{position:fixed;inset:0;background:rgba(4,8,14,.9);display:flex;align-items:center;justify-content:center;padding:18px}#login .c{background:#0f1726;border:1px solid #1d2c42;border-radius:16px;padding:24px;max-width:380px;width:100%;text-align:center}input[type=password]{width:100%;background:#0a1322;border:1px solid #1d2c42;border-radius:10px;color:#e8f2fb;padding:11px;margin:12px 0;font:inherit}#modal{position:fixed;inset:0;background:rgba(4,8,14,.85);display:none;align-items:center;justify-content:center;padding:18px}#modal .c{background:#0f1726;border:1px solid #1d2c42;border-radius:14px;padding:18px;max-width:620px;width:100%;max-height:84vh;overflow:auto}pre{white-space:pre-wrap;word-break:break-word;background:#0a1322;border:1px solid #1d2c42;border-radius:10px;padding:11px;font:12px/1.5 ui-monospace,monospace;color:#bfe9ff}.links{display:grid;grid-template-columns:repeat(auto-fill,minmax(128px,1fr));gap:8px}.links a{display:flex;align-items:center;gap:7px;background:#0f1726;border:1px solid #1d2c42;border-radius:10px;padding:10px 11px;text-decoration:none;color:#e8f2fb;font-size:13px;transition:.2s}.links a:hover{border-color:#7fd4ff;background:#131e30}.links a .e{font-size:16px}.links a.g{border-color:#5a4d2c;background:#241f12;color:#efe0bd}.hint{font-size:12.5px;color:#8fa6bd;line-height:1.5;margin:-4px 4px 12px}.hint b{color:#bfe9ff;font-weight:600}.gsec{margin:10px 0}.gsec .gt{color:#bfe9ff;font-weight:600;font-size:14px;margin-bottom:2px}.gsec .gb{font-size:13px;color:#cfe0ef;line-height:1.55}</style></head><body>
-<div id="login"><div class="c"><div style="font-size:30px;font-family:Cinzel,serif;letter-spacing:.2em;color:#d8bd84">NAVLYS</div><h3 style="margin-top:6px;color:#bfe9ff">Cockpit</h3><input id="pw" type="password" placeholder="Mot de passe"><button style="width:100%" onclick="login()">Entrer</button><p id="le" style="color:#ef7b7b;font-size:13px;min-height:18px;margin-top:8px"></p></div></div>
-<div class="wrap" id="app" style="display:none"><div class="bar"><b>NAVLYS · COCKPIT</b><span id="clock" style="font-size:12px;color:#7fd4ff;font-variant-numeric:tabular-nums">⏱ --:--:--</span><span id="cn" style="font-size:11px;color:#8fa6bd"></span><span class="sp"></span><button class="gold sm" onclick="guide()">❔ Comment ça marche</button><button class="gold sm" id="btnvt" onclick="vt()">✅ Tout valider</button><button class="gold sm" onclick="brief()">Rapport</button><button class="sm" onclick="load()">Rafraîchir</button><button class="sm" onclick="logout()">Quitter</button></div><div id="penta" style="text-align:center;margin-bottom:6px"></div><a href="/carte" target="_blank" style="display:block;text-align:center;text-decoration:none;background:#241f12;border:1px solid #5a4d2c;color:#efe0bd;border-radius:12px;padding:13px;margin-bottom:12px;font-weight:600">🕸️ Carte vivante du système — comprends où va quoi, toutes les connexions</a><div class="stats" id="stats"></div><div class="hint">Ces 5 chiffres = l'état de tout le travail NAVLYS, en direct. <b>À valider</b> = ce qui attend ton feu vert · <b>À faire</b> = pas encore commencé · <b>En cours</b> = les agents travaillent dessus maintenant · <b>Fait</b> = terminé · <b>Erreur</b> = à regarder. Rien n'est publié ni débité sans ton OK. Touche un chiffre pour aller aux missions.</div><h2>Accès direct · tout NAVLYS</h2><div class="hint">Un raccourci vers chaque partie de NAVLYS. Touche une tuile, elle s'ouvre dans un nouvel onglet. Les tuiles <b>dorées</b> sont celles du quotidien.</div><div class="links"><a class="g" href="/carte" target="_blank"><span class="e">🕸️</span>Carte système</a><a class="g" href="/valider" target="_blank"><span class="e">✅</span>Valider</a><a href="/" target="_blank"><span class="e">≋</span>Accueil</a><a href="/cinema" target="_blank"><span class="e">🎬</span>Cinéma</a><a href="/finance" target="_blank"><span class="e">📈</span>Finance</a><a class="g" href="/next-gen" target="_blank"><span class="e">📖</span>Next Gen</a><a class="g" href="/next-gen-atelier" target="_blank"><span class="e">🎞️</span>Atelier</a><a href="/navlex" target="_blank"><span class="e">⚖️</span>NAVLEX</a><a href="/assistance" target="_blank"><span class="e">🎙️</span>Assistance</a><a href="/equipage" target="_blank"><span class="e">⛵</span>Équipage</a><a class="g" href="/catamaran" target="_blank"><span class="e">⚓</span>Catamaran</a><a class="g" href="/bateau-test" target="_blank"><span class="e">🚤</span>Test Bateaux</a><a href="/bibles" target="_blank"><span class="e">📚</span>Bibles</a><a class="g" href="/croissance" target="_blank"><span class="e">🌱</span>Croissance</a><a class="g" href="/bible-marketing" target="_blank"><span class="e">📣</span>Bible Marketing</a><a href="/io" target="_blank"><span class="e">🚀</span>NAVLYS.IO</a><a href="/radio" target="_blank"><span class="e">📻</span>Radio</a><a href="/tech" target="_blank"><span class="e">✨</span>Journal</a><a href="/influenceurs" target="_blank"><span class="e">🌟</span>Influenceurs</a><a href="/partenaires" target="_blank"><span class="e">🤝</span>Partenaires</a></div><h2>Dialogue avec NAVLYS</h2><div class="hint">Parle-lui normalement — une question, un point sur le lancement, une idée. C'est toi le VIP n°1, il te répond (et te lit à voix haute).</div><div id="chat" style="background:#0f1726;border:1px solid #1d2c42;border-radius:12px;padding:10px;max-height:280px;overflow:auto;min-height:60px"></div><div style="display:flex;gap:8px;margin-top:8px"><textarea id="dq" placeholder="Parle à NAVLYS (VIP n°1)…" style="flex:1;min-height:46px;background:#0a1322;border:1px solid #1d2c42;border-radius:10px;color:#e8f2fb;padding:10px;font:inherit"></textarea><button class="gold" onclick="dsend()">Envoyer</button></div><h2>Les agents</h2><div class="hint">Tes experts, un par département. <b>auto</b> = il avance seul · <b>prepare</b> = il prépare, puis ça passe par toi.</div><div class="agents" id="agents"></div><h2>Missions</h2><div class="hint">Le travail rangé en 5 colonnes. La première, <b>À valider</b>, c'est ce qui attend ton feu vert : touche <b>Voir</b> pour lire ce que l'agent a préparé, puis <b>Valider</b> ou <b>Refuser</b>. Le bouton doré <b>✅ Tout valider</b> en haut approuve tout d'un coup. Rien n'est publié ni dépensé sans ce geste.</div><div class="cols" id="missions"></div><h2>Donner un ordre</h2><div class="hint">Écris une consigne avec <b>@</b> + le nom de l'agent. Ex : <b>@navfi prépare la leçon du jour</b>. Sans @, NAVLYS choisit le bon expert tout seul.</div><div class="create"><textarea id="ord" placeholder="Ex : @navfi prépare la leçon du jour"></textarea><div style="margin-top:8px"><button onclick="send()">Confier</button> <span id="ch" style="color:#8fa6bd;font-size:12px"></span></div></div><h2>Journal</h2><div class="hint">Le direct de tout ce qui se passe : chaque mission traitée, chaque validation, chaque alerte de santé. La mémoire vivante du système.</div><div id="journal" style="background:#0f1726;border:1px solid #1d2c42;border-radius:12px;padding:6px 8px;max-height:300px;overflow:auto"></div></div>
+<!DOCTYPE html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex"><title>NAVLYS · Pilotage</title>
+<style>
+:root{--bg:#070b12;--panel:#0f1726;--p2:#131e30;--p3:#0a1322;--ice:#7fd4ff;--ice2:#bfe9ff;--gold:#d8bd84;--gold2:#efe0bd;--txt:#e8f2fb;--mut:#8fa6bd;--line:#1d2c42;--ok:#54d6a0;--bad:#ef7b7b;--warn:#e8c06a}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--txt);font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif;line-height:1.45}
+.wrap{max-width:1180px;margin:0 auto;padding:12px 12px 90px}
+/* barre */
+.bar{display:flex;align-items:center;gap:9px;flex-wrap:wrap;padding:12px 14px;background:var(--panel);border:1px solid var(--line);border-radius:14px;margin-bottom:12px;position:sticky;top:6px;z-index:20;backdrop-filter:blur(4px)}
+.bar .brand{font-family:Cinzel,serif;letter-spacing:.18em;color:var(--gold);font-weight:700}
+.sp{flex:1}
+button{font:inherit;cursor:pointer;border:1px solid var(--line);background:var(--p2);color:var(--txt);border-radius:10px;padding:8px 12px;transition:.15s}
+button:hover{border-color:var(--ice)}
+button:disabled{opacity:.5;cursor:default}
+.gold{background:#241f12;border-color:#5a4d2c;color:var(--gold2)}
+.sm{padding:6px 10px;font-size:13px}
+.pill{font-size:12px;padding:4px 10px;border-radius:20px;border:1px solid var(--line);display:inline-flex;align-items:center;gap:6px;font-variant-numeric:tabular-nums}
+.dot{width:8px;height:8px;border-radius:50%;display:inline-block}
+.pulse{box-shadow:0 0 8px currentColor;animation:pl 2.4s infinite}
+@keyframes pl{0%,100%{opacity:1}50%{opacity:.35}}
+/* KPI */
+.kpis{display:grid;grid-template-columns:repeat(6,1fr);gap:9px;margin-bottom:14px}
+.kpi{background:var(--panel);border:1px solid var(--line);border-radius:13px;padding:12px 10px;text-align:center;position:relative}
+.kpi .n{font-size:1.7rem;font-weight:800;line-height:1;font-variant-numeric:tabular-nums}
+.kpi .l{font-size:.62rem;color:var(--mut);text-transform:uppercase;letter-spacing:.5px;margin-top:6px}
+.kpi.v{border-color:#5a4d2c}.kpi.v .n{color:var(--gold)}
+.kpi.g .n{color:var(--ok)}.kpi.r{border-color:#5a2c2c}.kpi.r .n{color:var(--bad)}
+/* sections */
+h2{font-size:.72rem;letter-spacing:1.4px;text-transform:uppercase;color:var(--ice2);margin:20px 4px 10px;display:flex;align-items:center;gap:8px}
+h2 .c{font-size:.66rem;color:var(--mut);background:var(--p2);border:1px solid var(--line);border-radius:20px;padding:1px 8px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px}
+/* dialogue CORE */
+.core{background:linear-gradient(180deg,#12203a 0%,var(--panel) 70%);border:1px solid #2a4a74;border-radius:16px;padding:16px}
+.core .hd{display:flex;align-items:center;gap:10px;margin-bottom:4px}
+.core .hd .t{font-size:1.05rem;font-weight:700;color:var(--ice2)}
+.core .sub{font-size:12.5px;color:var(--mut);margin-bottom:12px}
+#chat{max-height:300px;overflow:auto;padding:2px}
+.msg{margin:7px 0;padding:9px 12px;border-radius:12px;font-size:14.5px;white-space:pre-wrap;max-width:92%}
+.msg.u{background:var(--p2);border:1px solid var(--line);margin-left:auto}
+.msg.n{background:var(--p3);border:1px solid #24406a}
+.core .row{display:flex;gap:8px;margin-top:10px}
+.core textarea{flex:1;min-height:50px;background:var(--p3);border:1px solid var(--line);border-radius:11px;color:var(--txt);padding:11px;font:inherit;resize:vertical}
+/* colonnes generiques */
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:11px}
+.grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:11px}
+.blk{background:var(--panel);border:1px solid var(--line);border-radius:13px;padding:12px;min-height:60px}
+.blk h3{font-size:12px;text-transform:uppercase;letter-spacing:.6px;color:var(--mut);margin-bottom:9px;display:flex;align-items:center;gap:7px}
+.blk.warn{border-color:#5a4d2c}.blk.warn h3{color:var(--gold)}
+.blk.red{border-color:#5a2c2c}.blk.red h3{color:var(--bad)}
+.empty{color:var(--mut);font-size:12.5px;padding:6px 2px}
+/* item lignes */
+.it{background:var(--p2);border:1px solid var(--line);border-radius:10px;padding:9px 10px;margin-bottom:8px;font-size:13.5px}
+.it .top{display:flex;gap:8px;align-items:baseline}
+.it .tag{font-size:10px;text-transform:uppercase;letter-spacing:.5px;color:var(--ice);border:1px solid var(--line);border-radius:6px;padding:1px 6px;white-space:nowrap}
+.it .tag.r{color:var(--bad);border-color:#5a2c2c}
+.it .meta{color:var(--mut);font-size:11px;margin-top:4px}
+/* checklist attente */
+.chk{display:flex;gap:10px;align-items:flex-start;padding:9px 8px;border-bottom:1px solid #121c2c;font-size:13.5px}
+.chk:last-child{border-bottom:0}
+.chk input{margin-top:3px;width:17px;height:17px;accent-color:var(--gold);cursor:pointer;flex:0 0 auto}
+.chk .txt{flex:1}
+.chk.done .txt{color:var(--mut);text-decoration:line-through}
+.chk .b{font-size:9.5px;color:var(--bad);border:1px solid #5a2c2c;border-radius:5px;padding:0 5px;margin-left:6px;text-transform:uppercase;vertical-align:middle}
+/* agents */
+.agents{display:grid;grid-template-columns:repeat(auto-fill,minmax(132px,1fr));gap:8px}
+.ag{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:9px}
+.ag .nm{font-weight:600;font-size:14px}
+.ag .rl{font-size:10.5px;color:var(--mut);margin-top:3px}
+.ag .md{display:inline-block;font-size:9px;text-transform:uppercase;letter-spacing:.5px;border-radius:5px;padding:0 5px;margin-top:5px}
+.ag .md.auto{color:var(--ok);border:1px solid #2c5a45}.ag .md.prep{color:var(--ice);border:1px solid #24406a}
+/* kanban */
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px}
+.col{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:10px;min-height:64px}
+.col h3{font-size:11.5px;text-transform:uppercase;letter-spacing:.5px;color:var(--mut);margin-bottom:8px}
+.col.v h3{color:var(--gold)}
+.m{background:var(--p2);border:1px solid var(--line);border-radius:10px;padding:9px;margin-bottom:8px}
+.m .t{font-size:13px;font-weight:600}
+.m .d{font-size:11px;color:var(--ice);margin:4px 0}
+.acts{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
+/* ordre + journal */
+textarea.big{width:100%;min-height:58px;background:var(--p3);border:1px solid var(--line);border-radius:11px;color:var(--txt);padding:11px;font:inherit}
+.jr{display:flex;gap:9px;padding:7px 4px;border-bottom:1px solid #121c2c;font-size:13px}
+.jr .ty{color:var(--mut);font-size:9.5px;text-transform:uppercase;flex:0 0 74px}
+/* liens */
+.links{display:grid;grid-template-columns:repeat(auto-fill,minmax(122px,1fr));gap:8px}
+.links a{display:flex;align-items:center;gap:7px;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:9px 10px;text-decoration:none;color:var(--txt);font-size:12.5px;transition:.15s}
+.links a:hover{border-color:var(--ice);background:var(--p2)}
+.links a.g{border-color:#5a4d2c;background:#241f12;color:var(--gold2)}
+/* login + modal */
+#login{position:fixed;inset:0;background:rgba(4,8,14,.94);display:flex;align-items:center;justify-content:center;padding:18px;z-index:50}
+#login .c{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:26px;max-width:380px;width:100%;text-align:center}
+input[type=password]{width:100%;background:var(--p3);border:1px solid var(--line);border-radius:11px;color:var(--txt);padding:12px;margin:14px 0;font:inherit}
+#modal{position:fixed;inset:0;background:rgba(4,8,14,.85);display:none;align-items:center;justify-content:center;padding:18px;z-index:60}
+#modal .c{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px;max-width:640px;width:100%;max-height:86vh;overflow:auto}
+pre{white-space:pre-wrap;word-break:break-word;background:var(--p3);border:1px solid var(--line);border-radius:10px;padding:12px;font:13px/1.55 ui-monospace,monospace;color:var(--ice2)}
+@media(max-width:820px){.kpis{grid-template-columns:repeat(3,1fr)}.grid3{grid-template-columns:1fr}.grid2{grid-template-columns:1fr}}
+@media(max-width:520px){.kpis{grid-template-columns:repeat(2,1fr)}}
+.gsec{margin:10px 0}.gsec .gt{color:var(--ice2);font-weight:600;font-size:14px;margin-bottom:2px}.gsec .gb{font-size:13px;color:#cfe0ef;line-height:1.55}
+</style></head><body>
+
+<div id="login"><div class="c">
+  <div style="font-size:30px;font-family:Cinzel,serif;letter-spacing:.2em;color:var(--gold)">NAVLYS</div>
+  <h3 style="margin-top:6px;color:var(--ice2)">Pilotage · Cockpit</h3>
+  <p style="font-size:12.5px;color:var(--mut);margin-top:6px">Ton poste de commande. Tu pilotes toute l'entreprise d'ici.</p>
+  <input id="pw" type="password" placeholder="Mot de passe">
+  <button style="width:100%" onclick="login()">Entrer</button>
+  <p id="le" style="color:var(--bad);font-size:13px;min-height:18px;margin-top:8px"></p>
+</div></div>
+
+<div class="wrap" id="app" style="display:none">
+
+  <div class="bar">
+    <span class="brand">NAVLYS</span>
+    <span style="color:var(--mut);font-size:12px">· PILOTAGE</span>
+    <span class="pill" id="health"><span class="dot pulse" style="color:var(--ok);background:var(--ok)"></span><span id="healthtxt">santé…</span></span>
+    <span class="pill" id="clock" style="color:var(--ice)">⏱ --:--:--</span>
+    <span class="sp"></span>
+    <button class="gold sm" onclick="guide()">❔ Guide</button>
+    <button class="gold sm" onclick="brief()">🔊 Rapport</button>
+    <button class="gold sm" id="btnvt" onclick="vt()">✅ Tout valider</button>
+    <button class="sm" onclick="load()">↻</button>
+    <button class="sm" onclick="logout()">Quitter</button>
+  </div>
+
+  <!-- KPI -->
+  <div class="kpis" id="kpis"></div>
+
+  <!-- DIALOGUE CORE : la réponse à « où te parler via core navlys » -->
+  <div class="core">
+    <div class="hd"><span style="font-size:20px">🗣️</span><span class="t">Parle à NAVLYS</span>
+      <span class="sp"></span>
+      <label style="font-size:11.5px;color:var(--mut);display:flex;align-items:center;gap:5px;cursor:pointer"><input type="checkbox" id="voxon" checked style="accent-color:var(--gold)"> voix</label>
+    </div>
+    <div class="sub">Ton lien direct avec le CORE — pose une question, donne une direction, demande un point. Tu pilotes sans passer par Claude.</div>
+    <div id="chat"></div>
+    <div class="row">
+      <textarea id="dq" placeholder="Écris au CORE NAVLYS… (ex : où en est l'inscription ? relance le bot WhatsApp)"></textarea>
+      <button class="gold" onclick="dsend()">Envoyer</button>
+    </div>
+  </div>
+
+  <!-- TRAVAIL EN COURS -->
+  <h2>▶ Travail en cours <span class="c" id="wipc">0</span></h2>
+  <div class="card" id="wip"></div>
+
+  <!-- MANQUES & À RÉGLER -->
+  <h2>⚠️ Manques &amp; à régler — ce qui n'est pas encore réglé</h2>
+  <div class="grid3">
+    <div class="blk red"><h3>🔴 Incidents ouverts</h3><div id="incs"></div></div>
+    <div class="blk warn"><h3>💡 Retours &amp; bugs</h3><div id="rets"></div></div>
+    <div class="blk warn"><h3>⏳ En attente de toi (Bruno)</h3><div id="attente"></div>
+      <div style="font-size:11px;color:var(--mut);margin-top:8px;padding-top:8px;border-top:1px solid var(--line)">Coche ce que tu as fait — c'est enregistré pour tous tes appareils.</div>
+    </div>
+  </div>
+
+  <!-- À VALIDER -->
+  <h2>✅ À valider <span class="c" id="avc">0</span></h2>
+  <div class="card" id="aval"></div>
+
+  <!-- DONNER UN ORDRE -->
+  <h2>🎯 Donner un ordre à un agent</h2>
+  <div class="card">
+    <textarea class="big" id="ord" placeholder="Ex : @navfi prépare la leçon du jour — ou décris simplement, NAVLYS route vers le bon département"></textarea>
+    <div style="margin-top:9px;display:flex;align-items:center;gap:10px"><button class="gold" onclick="send()">Confier</button><span id="ch" style="color:var(--mut);font-size:12.5px"></span></div>
+  </div>
+
+  <!-- AGENTS -->
+  <h2>👥 Les agents <span class="c" id="agc">0</span></h2>
+  <div class="agents" id="agents"></div>
+
+  <!-- KANBAN COMPLET -->
+  <h2>🗂️ Toutes les missions</h2>
+  <div class="cols" id="missions"></div>
+
+  <!-- JOURNAL -->
+  <h2>📜 Journal en direct</h2>
+  <div class="card" style="max-height:300px;overflow:auto;padding:6px 10px" id="journal"></div>
+
+  <!-- ACCÈS DIRECT -->
+  <h2>🔗 Accès direct · tout NAVLYS</h2>
+  <div class="links">
+    <a class="g" href="/carte" target="_blank"><span>🕸️</span>Carte système</a>
+    <a class="g" href="/valider" target="_blank"><span>✅</span>Valider</a>
+    <a href="/" target="_blank"><span>≋</span>Accueil</a>
+    <a href="/adhesion" target="_blank"><span>🪪</span>Adhésion</a>
+    <a href="/finance" target="_blank"><span>📈</span>Finance</a>
+    <a class="g" href="/next-gen" target="_blank"><span>📖</span>Next Gen</a>
+    <a href="/navlex" target="_blank"><span>⚖️</span>NAVLEX</a>
+    <a href="/assistance" target="_blank"><span>🎙️</span>Assistance</a>
+    <a href="/equipage" target="_blank"><span>⛵</span>Équipage</a>
+    <a class="g" href="/bateau-test" target="_blank"><span>🚤</span>Test Bateaux</a>
+    <a href="/bibles" target="_blank"><span>📚</span>Bibles</a>
+    <a class="g" href="/croissance" target="_blank"><span>🌱</span>Croissance</a>
+    <a class="g" href="/ambassadeur" target="_blank"><span>🎁</span>Ambassadeur</a>
+    <a class="g" href="/booster" target="_blank"><span>🚀</span>Booster</a>
+    <a href="/io" target="_blank"><span>🚀</span>NAVLYS.IO</a>
+    <a href="/influenceurs" target="_blank"><span>🌟</span>Influenceurs</a>
+    <a href="/partenaires" target="_blank"><span>🤝</span>Partenaires</a>
+    <a href="/tech" target="_blank"><span>✨</span>Journal tech</a>
+  </div>
+</div>
+
 <div id="modal"><div class="c" id="mc"></div></div>
+
 <script>
 var ENDPOINT='https://hhrlgyvtqluxpywjiwkd.supabase.co/functions/v1/cockpit';
-var TK=localStorage.getItem('np_tk')||'';var S={agents:[],missions:[],journal:[],stats:{}};var T=null;
-function E(s){return String(s==null?'':s).replace(/[&<>]/g,function(c){return c=='&'?'&amp;':c=='<'?'&lt;':'&gt;'});}
+var ASSIST='https://hhrlgyvtqluxpywjiwkd.supabase.co/functions/v1/assistant';
+var DSESS='cockpit-bruno';
+var TK=localStorage.getItem('np_tk')||'';
+var S={agents:[],missions:[],journal:[],incidents:[],bugs:[],feedback:[],stats:{},autotest:{},kpi:{},attente:[]};
+var T=null;
+function E(s){return String(s==null?'':s).replace(/[&<>]/g,function(c){return c=='&'?'&amp;':c=='<'?'&lt;':'&gt;';});}
 function api(action,extra){extra=extra||{};var b={action:action,token:TK};for(var k in extra)b[k]=extra[k];return fetch(ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(b)}).then(function(r){if(r.status===401){logout();throw 0;}return r.json();});}
-function login(){TK=document.getElementById('pw').value.trim();document.getElementById('le').textContent='...';api('state').then(function(d){if(d.error){document.getElementById('le').textContent=d.error;return;}localStorage.setItem('np_tk',TK);document.getElementById('login').style.display='none';document.getElementById('app').style.display='block';S=d;render();start();setTimeout(maybeGuide,500);}).catch(function(){document.getElementById('le').textContent='Mot de passe incorrect.';});}
+
+/* ── auth ── */
+function login(){TK=(document.getElementById('pw').value||'').trim();document.getElementById('le').textContent='…';api('tableau').then(function(d){if(d.error){document.getElementById('le').textContent=d.error;return;}localStorage.setItem('np_tk',TK);document.getElementById('login').style.display='none';document.getElementById('app').style.display='block';S=norm(d);render();start();hello();setTimeout(maybeGuide,500);}).catch(function(){document.getElementById('le').textContent='Mot de passe incorrect.';});}
 function logout(){TK='';localStorage.removeItem('np_tk');if(T)clearInterval(T);document.getElementById('app').style.display='none';document.getElementById('login').style.display='flex';}
-function load(){api('state').then(function(d){if(!d.error){S=d;render();}});}
-function start(){if(T)clearInterval(T);T=setInterval(load,5000);}
-var ORD=['a_valider','a_faire','en_cours','fait','erreur'];var LB={a_valider:'A valider',a_faire:'A faire',en_cours:'En cours',fait:'Fait',erreur:'Erreur'};
+function norm(d){d=d||{};['agents','missions','journal','incidents','bugs','feedback','attente'].forEach(function(k){if(!Array.isArray(d[k]))d[k]=[];});d.stats=d.stats||{};d.autotest=d.autotest||{};d.kpi=d.kpi||{};return d;}
+function load(){api('tableau').then(function(d){if(!d.error){S=norm(d);render();}});}
+function start(){if(T)clearInterval(T);T=setInterval(load,7000);}
+
+/* ── horloge + santé ── */
 function two(n){return(n<10?'0':'')+n;}
-function tick(){var d=new Date();var el=document.getElementById('clock');if(el)el.innerHTML='<span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#54d6a0;box-shadow:0 0 8px #54d6a0;vertical-align:middle;margin-right:5px"></span>Temps réel certifié · '+two(d.getHours())+':'+two(d.getMinutes())+':'+two(d.getSeconds());}
+function tick(){var d=new Date();var el=document.getElementById('clock');if(el)el.textContent='⏱ '+two(d.getHours())+':'+two(d.getMinutes())+':'+two(d.getSeconds());}
 setInterval(tick,1000);tick();
-function renderPenta(){var cols={a_valider:'#d8bd84',a_faire:'#7fd4ff',en_cours:'#7fd4ff',fait:'#54d6a0',erreur:'#ef7b7b'};var cx=150,cy=145,r=100,pts=[],i,a;for(i=0;i<5;i++){a=(-90+i*72)*Math.PI/180;pts.push([cx+r*Math.cos(a),cy+r*Math.sin(a)]);}var poly=pts.map(function(p){return p[0].toFixed(1)+','+p[1].toFixed(1);}).join(' ');var s='<svg viewBox="0 0 300 280" width="100%" style="max-width:360px" role="img" aria-label="Vision pentagone NAVLYS">';s+='<polygon points="'+poly+'" fill="rgba(127,212,255,.05)" stroke="rgba(127,212,255,.35)" stroke-width="1.5"/>';for(i=0;i<5;i++){s+='<line x1="'+cx+'" y1="'+cy+'" x2="'+pts[i][0].toFixed(1)+'" y2="'+pts[i][1].toFixed(1)+'" stroke="rgba(127,212,255,.12)"/>';}s+='<circle cx="'+cx+'" cy="'+cy+'" r="24" fill="#0f1726" stroke="#d8bd84"/><text x="'+cx+'" y="'+(cy+4)+'" text-anchor="middle" fill="#d8bd84" font-size="10" font-family="Cinzel,serif" letter-spacing="1">NAVLYS</text>';for(i=0;i<5;i++){var k=ORD[i],v=(S.stats[k]||0),c=cols[k],x=pts[i][0],y=pts[i][1];s+='<circle cx="'+x.toFixed(1)+'" cy="'+y.toFixed(1)+'" r="20" fill="#131e30" stroke="'+c+'" stroke-width="1.5"><animate attributeName="r" values="19;21.5;19" dur="2.6s" repeatCount="indefinite"/></circle>';s+='<text x="'+x.toFixed(1)+'" y="'+(y+5).toFixed(1)+'" text-anchor="middle" fill="'+c+'" font-size="15" font-weight="700">'+v+'</text>';s+='<text x="'+x.toFixed(1)+'" y="'+(y+(y<cy-10?-27:33)).toFixed(1)+'" text-anchor="middle" fill="#8fa6bd" font-size="8.5">'+LB[k].toUpperCase()+'</text>';}s+='</svg>';var el=document.getElementById('penta');if(el)el.innerHTML=s;}
-function render(){var i,h='';for(i=0;i<ORD.length;i++){var k=ORD[i];h+="<div class='st"+(k=='a_valider'?' v':'')+"' style='cursor:pointer' title='Voir les missions' onclick=\"document.getElementById('missions').scrollIntoView({behavior:'smooth'})\"><div class='n'>"+(S.stats[k]||0)+"</div><div class='l'>"+LB[k]+"</div></div>";}document.getElementById('stats').innerHTML=h;renderPenta();var cn=document.getElementById('cn');if(cn)cn.textContent='synchro '+two(new Date().getHours())+':'+two(new Date().getMinutes())+':'+two(new Date().getSeconds());var a='';for(i=0;i<S.agents.length;i++){var ag=S.agents[i];a+="<div class='ag'><div class='nm'>"+E(ag.prenom||ag.id)+"</div><div class='rl'>"+E(ag.id)+(ag.autonomie=='auto'?' · auto':' · prepare')+"</div></div>";}document.getElementById('agents').innerHTML=a;var c='';for(i=0;i<ORD.length;i++){var st=ORD[i];var list=S.missions.filter(function(m){return m.statut==st;});var cards='';for(var n=0;n<list.length;n++){cards+=mc(list[n]);}c+="<div class='col"+(st=='a_valider'?' v':'')+"'><h3>"+LB[st]+" ("+list.length+")</h3>"+(cards||"<div style='color:#8fa6bd;font-size:12px'>-</div>")+"</div>";}document.getElementById('missions').innerHTML=c;var jh='';for(i=0;i<S.journal.length;i++){var e=S.journal[i];jh+="<div class='jr'><span class='ty'>"+E(e.type||'.')+"</span><span>"+E(e.message||'')+"</span></div>";}document.getElementById('journal').innerHTML=jh||"<div style='color:#8fa6bd;padding:8px'>-</div>";}
-function mc(m){var acts="<button class='sm' onclick='vo("+m.id+")'>Voir</button>";if(m.statut=='a_valider')acts+=" <button class='sm gold' onclick='va("+m.id+")'>Valider</button> <button class='sm' onclick='re("+m.id+")'>Refuser</button>";return "<div class='m'><div class='t'>"+E(m.titre||'')+"</div><div class='d'>"+E(m.departement||'')+" #"+m.id+"</div><div class='acts'>"+acts+"</div></div>";}
+
+/* ── statuts missions ── */
+var ORD=['a_valider','en_file','a_faire','en_cours','fait','erreur'];
+var LB={a_valider:'À valider',en_file:'En file',a_faire:'À faire',en_cours:'En cours',fait:'Fait',erreur:'Erreur'};
+
+function render(){
+  var st=S.stats||{};
+  /* santé */
+  var sc=parseFloat((S.autotest&&S.autotest.score)||0)||0;var inc=(S.incidents||[]).length;
+  var col=(inc>0)?'var(--bad)':(sc>=90?'var(--ok)':'var(--warn)');
+  var txt=(inc>0)?('santé — '+inc+' incident'+(inc>1?'s':'')):(sc>=90?'santé verte':'santé '+sc);
+  var hp=document.getElementById('health');hp.querySelector('.dot').style.color=col;hp.querySelector('.dot').style.background=col;document.getElementById('healthtxt').textContent=txt;
+
+  /* KPI */
+  var enCours=(st.en_cours||0)+(st.en_file||0);
+  var attRest=(S.attente||[]).filter(function(x){return !x.fait;}).length;
+  var membres=(S.kpi&&(S.kpi.membres||S.kpi.inscriptions))||0;
+  var K=[
+    {n:membres,l:'Membres / inscrits',c:''},
+    {n:enCours,l:'En cours',c:''},
+    {n:st.a_valider||0,l:'À valider',c:(st.a_valider>0?'v':'')},
+    {n:(sc?sc.toFixed(0):'—')+(sc?'':''),l:'Santé /100',c:(sc>=90?'g':(sc?'r':''))},
+    {n:inc,l:'Incidents ouverts',c:(inc>0?'r':'g')},
+    {n:attRest,l:'En attente de toi',c:(attRest>0?'v':'g')}
+  ];
+  document.getElementById('kpis').innerHTML=K.map(function(k){return "<div class='kpi "+k.c+"'><div class='n'>"+k.n+"</div><div class='l'>"+k.l+"</div></div>";}).join('');
+
+  /* travail en cours = en_cours + en_file */
+  var wip=S.missions.filter(function(m){return m.statut=='en_cours'||m.statut=='en_file';});
+  document.getElementById('wipc').textContent=wip.length;
+  document.getElementById('wip').innerHTML=wip.length?wip.map(function(m){return "<div class='it'><div class='top'><span class='tag'>"+E(m.statut=='en_cours'?'en cours':'en file')+"</span><b>"+E(m.titre||'')+"</b></div><div class='meta'>"+E(m.departement||'')+" · #"+m.id+" <button class='sm' style='margin-left:6px' onclick='vo("+m.id+")'>Voir</button></div></div>";}).join(''):"<div class='empty'>Aucune mission active pour l'instant.</div>";
+
+  /* incidents ouverts */
+  document.getElementById('incs').innerHTML=S.incidents.length?S.incidents.map(function(x){return "<div class='it'><div class='top'><span class='tag r'>"+E(x.categorie||'?')+"</span><b>"+E(x.sujet||'')+"</b></div><div class='meta'>"+E(x.agent||'')+" · "+E((x.statut||''))+" · #"+x.id+"</div></div>";}).join(''):"<div class='empty'>Aucun incident ouvert. 🟢</div>";
+
+  /* retours + bugs */
+  var r='';
+  S.feedback.forEach(function(f){r+="<div class='it'><div class='top'><span class='tag'>"+E(f.type||'retour')+"</span><b>"+E((f.message||'').slice(0,90))+"</b></div><div class='meta'>"+E(f.page||'')+(f.prenom?" · "+E(f.prenom):'')+"</div></div>";});
+  S.bugs.forEach(function(b){r+="<div class='it'><div class='top'><span class='tag'>bug</span><b>"+E((b.bug||'').slice(0,90))+"</b></div><div class='meta'>"+E(b.departement||b.categorie||'')+" · #"+b.id+"</div></div>";});
+  document.getElementById('rets').innerHTML=r||"<div class='empty'>Rien à traiter. 🟢</div>";
+
+  /* attente Bruno (checklist) */
+  document.getElementById('attente').innerHTML=S.attente.length?S.attente.map(function(a,i){return "<label class='chk"+(a.fait?' done':'')+"'><input type='checkbox' "+(a.fait?'checked':'')+" onchange='attToggle("+i+")'><span class='txt'>"+E(a.t||'')+(a.bloquant?"<span class='b'>bloquant lancement</span>":'')+"</span></label>";}).join(''):"<div class='empty'>Rien en attente. 🟢</div>";
+
+  /* à valider */
+  var av=S.missions.filter(function(m){return m.statut=='a_valider';});
+  document.getElementById('avc').textContent=av.length;
+  document.getElementById('aval').innerHTML=av.length?av.map(function(m){return "<div class='it'><div class='top'><span class='tag'>"+E(m.departement||'')+"</span><b>"+E(m.titre||'')+"</b></div><div class='acts'><button class='sm' onclick='vo("+m.id+")'>Voir</button> <button class='sm gold' onclick='va("+m.id+")'>Valider</button> <button class='sm' onclick='re("+m.id+")'>Refuser</button></div></div>";}).join(''):"<div class='empty'>Rien n'attend ta validation. 🟢</div>";
+
+  /* agents */
+  document.getElementById('agc').textContent=S.agents.length;
+  document.getElementById('agents').innerHTML=S.agents.map(function(a){var au=a.autonomie=='auto';return "<div class='ag'><div class='nm'>"+E(a.prenom||a.id)+"</div><div class='rl'>"+E(a.id)+"</div><span class='md "+(au?'auto':'prep')+"'>"+(au?'auto':'prépare')+"</span></div>";}).join('');
+
+  /* kanban complet */
+  var seen={},order=ORD.slice();S.missions.forEach(function(m){if(order.indexOf(m.statut)<0&&!seen[m.statut]){order.push(m.statut);seen[m.statut]=1;}});
+  var c='';order.forEach(function(stt){var list=S.missions.filter(function(m){return m.statut==stt;});if(!list.length&&['a_faire','erreur'].indexOf(stt)>=0)return;var cards=list.slice(0,40).map(mc).join('');c+="<div class='col"+(stt=='a_valider'?' v':'')+"'><h3>"+(LB[stt]||stt)+" ("+list.length+")</h3>"+(cards||"<div class='empty'>—</div>")+"</div>";});
+  document.getElementById('missions').innerHTML=c;
+
+  /* journal */
+  document.getElementById('journal').innerHTML=S.journal.length?S.journal.map(function(e){return "<div class='jr'><span class='ty'>"+E(e.type||'.')+"</span><span>"+E(e.message||'')+"</span></div>";}).join(''):"<div class='empty' style='padding:8px'>—</div>";
+}
+function mc(m){var a="<button class='sm' onclick='vo("+m.id+")'>Voir</button>";if(m.statut=='a_valider')a+=" <button class='sm gold' onclick='va("+m.id+")'>Valider</button> <button class='sm' onclick='re("+m.id+")'>Refuser</button>";return "<div class='m'><div class='t'>"+E(m.titre||'')+"</div><div class='d'>"+E(m.departement||'')+" #"+m.id+"</div><div class='acts'>"+a+"</div></div>";}
+
+/* ── missions ── */
 function find(id){for(var i=0;i<S.missions.length;i++)if(String(S.missions[i].id)==String(id))return S.missions[i];return null;}
-function vo(id){var m=find(id);if(!m)return;om("<h3>"+E(m.titre)+"</h3><pre>"+E(m.resultat||'(pas encore de livrable)')+"</pre><div style='margin-top:10px'>"+(m.statut=='a_valider'?"<button class='gold' onclick='va("+m.id+")'>Valider</button> <button onclick='re("+m.id+")'>Refuser</button> ":'')+"<button onclick='cm()'>Fermer</button></div>");}
+function vo(id){var m=find(id);if(!m)return;om("<h3 style='color:var(--ice2)'>"+E(m.titre)+"</h3><div style='color:var(--mut);font-size:12px;margin:4px 0 10px'>"+E(m.departement||'')+" · #"+m.id+" · "+E(LB[m.statut]||m.statut)+"</div>"+(m.consigne?"<div style='font-size:13px;margin-bottom:8px'><b>Consigne :</b> "+E(m.consigne)+"</div>":'')+"<pre>"+E(m.resultat||'(pas encore de livrable)')+"</pre><div style='margin-top:12px'>"+(m.statut=='a_valider'?"<button class='gold' onclick='va("+m.id+")'>Valider</button> <button onclick='re("+m.id+")'>Refuser</button> ":'')+"<button onclick='cm()'>Fermer</button></div>");}
 function va(id){api('valider',{id:id}).then(function(){cm();load();});}
-function vt(){var b=document.getElementById('btnvt');if(b){b.disabled=true;b.textContent='Validation…';}api('valider_tout').then(function(d){if(b){b.disabled=false;b.textContent='✅ Tout valider';}om("<h3>✅ Validation en un clic</h3><p style='margin:8px 0;font-size:14px'>"+((d&&d.valides)?d.valides+" mission(s) validée(s). Les agents continuent.":"Rien n'attendait ta validation — tout est déjà en route.")+"</p><div style='margin-top:10px'><button onclick='cm()'>Fermer</button></div>");load();}).catch(function(){if(b){b.disabled=false;b.textContent='✅ Tout valider';}});}
 function re(id){var motif=prompt('Motif du refus ?')||'';api('refuser',{id:id,motif:motif}).then(function(){cm();load();});}
-function send(){var t=document.getElementById('ord').value.trim();if(!t){document.getElementById('ch').textContent='Ecris une consigne.';return;}document.getElementById('ch').textContent='Envoi...';api('create',{texte:t}).then(function(d){document.getElementById('ord').value='';document.getElementById('ch').textContent='Confie a '+(d.departement||'agent');load();});}
-function brief(){api('briefing').then(function(d){om("<h3>Rapport</h3><pre style='font-family:inherit;font-size:14px'>"+E(d.text||'')+"</pre><div style='margin-top:10px'><button onclick='cm()'>Fermer</button></div>");if('speechSynthesis' in window){var u=new SpeechSynthesisUtterance(d.text||'');u.lang='fr-FR';speechSynthesis.cancel();speechSynthesis.speak(u);}});}
+function vt(){var b=document.getElementById('btnvt');if(b){b.disabled=true;b.textContent='…';}api('valider_tout').then(function(d){if(b){b.disabled=false;b.textContent='✅ Tout valider';}om("<h3 style='color:var(--gold)'>✅ Validation en un clic</h3><p style='margin:10px 0;font-size:14px'>"+((d&&d.valides)?d.valides+" mission(s) validée(s). Les agents continuent.":"Rien n'attendait ta validation — tout est déjà en route.")+"</p><button onclick='cm()'>Fermer</button>");load();}).catch(function(){if(b){b.disabled=false;b.textContent='✅ Tout valider';}});}
+function send(){var t=(document.getElementById('ord').value||'').trim();if(!t){document.getElementById('ch').textContent='Écris une consigne.';return;}document.getElementById('ch').textContent='Envoi…';api('create',{texte:t}).then(function(d){document.getElementById('ord').value='';document.getElementById('ch').textContent='Confié à '+(d.departement||'agent')+' ✓';load();});}
+
+/* ── checklist attente ── */
+function attToggle(i){if(!S.attente[i])return;S.attente[i].fait=!S.attente[i].fait;render();api('attente_set',{items:S.attente}).catch(function(){});}
+
+/* ── rapport vocal ── */
+function brief(){api('briefing').then(function(d){om("<h3 style='color:var(--gold)'>🔊 Rapport</h3><pre style='font-family:inherit;font-size:14.5px'>"+E(d.text||'')+"</pre><button style='margin-top:10px' onclick='cm()'>Fermer</button>");say(d.text||'');});}
+
+/* ── dialogue CORE ── */
+function dadd(role,txt){var c=document.getElementById('chat');var d=document.createElement('div');d.className='msg '+role;d.textContent=txt;c.appendChild(d);c.scrollTop=c.scrollHeight;return d;}
+function say(t){if(!document.getElementById('voxon').checked)return;if('speechSynthesis' in window){var u=new SpeechSynthesisUtterance(String(t).replace(/[*_#>`]/g,''));u.lang='fr-FR';speechSynthesis.cancel();speechSynthesis.speak(u);}}
+function dsend(){var q=document.getElementById('dq');var t=(q.value||'').trim();if(!t)return;dadd('u',t);q.value='';var p=dadd('n','…');fetch(ASSIST,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({session:DSESS,text:t})}).then(function(r){return r.json();}).then(function(d){var rep=(d&&d.reply)?d.reply:'…';p.textContent=rep;say(rep);}).catch(function(){p.textContent='Connexion difficile, réessaie.';});}
+function hello(){if(!document.getElementById('chat').children.length)dadd('n','Bonjour Bruno 👋 Je suis le CORE NAVLYS. Dis-moi ce que tu veux piloter — je te réponds ici, sans passer par Claude.');}
+
+/* ── modal ── */
 function om(html){document.getElementById('mc').innerHTML=html;document.getElementById('modal').style.display='flex';}
 function cm(){document.getElementById('modal').style.display='none';}
+
+/* ── guide « comment ça marche » ── */
 function gsec(t,b){return "<div class='gsec'><div class='gt'>"+t+"</div><div class='gb'>"+b+"</div></div>";}
-function guide(){var st=S.stats||{};var av=st.a_valider||0,en=st.en_cours||0,fa=st.fait||0,er=st.erreur||0;var avl=av>0?("Là, tout de suite, <b style='color:#d8bd84'>"+av+" chose"+(av>1?'s':'')+"</b> attend"+(av>1?'ent':'')+" ton feu vert. Descends jusqu'à <b>Missions</b>, colonne <b>À valider</b>."):"Là, tout de suite, <b style='color:#54d6a0'>rien</b> n'attend ton feu vert — tout est déjà en route.";var s="<h3 style='color:#d8bd84;font-family:Cinzel,serif;letter-spacing:.05em'>Ton cockpit, en clair</h3>";s+="<p style='font-size:14px;margin:8px 0 4px'>Salut Bruno 👋 Ici tu vois et tu pilotes <b>tout NAVLYS</b>, en direct. Voilà à quoi sert chaque chose — et ce qui t'attend.</p>";s+="<div style='background:#241f12;border:1px solid #5a4d2c;border-radius:10px;padding:11px;margin:10px 0;font-size:14px;color:#efe0bd'>"+avl+"</div>";s+=gsec('📊 Les 5 chiffres en haut',"L'état de tout le travail, en temps réel. <b>À valider</b> = attend ton OK · <b>À faire</b> = pas commencé · <b>En cours</b> = les agents travaillent dessus maintenant ("+en+") · <b>Fait</b> = terminé ("+fa+") · <b>Erreur</b> = à regarder ("+er+"). Touche un chiffre pour sauter aux missions.");s+=gsec('✅ « À valider » — le plus important',"C'est TON garde-fou. Aucun agent ne publie, n'envoie un mail ou ne dépense quoi que ce soit sans ton feu vert. Pour chaque carte : <b>Voir</b> (tu lis ce qui a été préparé) → <b>Valider</b> ou <b>Refuser</b>. Le bouton doré <b>✅ Tout valider</b> en haut approuve tout d'un coup.");s+=gsec('🔗 Accès direct',"Un raccourci vers chaque page de NAVLYS (Accueil, Finance, Next Gen, Bateaux, Bibles…). Les tuiles <b>dorées</b> sont celles du quotidien. Ça ouvre dans un nouvel onglet.");s+=gsec('💬 Dialogue avec NAVLYS',"Parle-lui normalement. Une question, un point sur le lancement, une idée — il te répond, et te lit à voix haute.");s+=gsec('👥 Les agents',"Tes experts, un par département. <b>auto</b> = il avance seul · <b>prepare</b> = il prépare puis ça passe par toi.");s+=gsec('🎯 Donner un ordre',"Écris une consigne avec <b>@</b> + le nom de l'agent. Ex : <b>@navfi prépare la leçon du jour</b>. Sans @, NAVLYS choisit le bon expert tout seul.");s+=gsec('📜 Journal',"Le direct de tout ce qui se passe : missions traitées, validations, alertes de santé. La mémoire vivante du système.");s+="<div style='background:#0a1322;border:1px solid #24406a;border-radius:10px;padding:11px;margin:12px 0;font-size:14px'><b style='color:#bfe9ff'>En 3 gestes, chaque jour :</b><br>1 · Regarde <b>À valider</b>.<br>2 · <b>Voir</b> → <b>Valider</b> ou <b>Refuser</b> (ou <b>✅ Tout valider</b>).<br>3 · <b>Rapport</b> en haut pour le résumé du jour, à voix haute.</div>";s+="<div style='margin-top:12px;text-align:center'><button class='gold' onclick='cm()'>J'ai compris</button></div>";om(s);}
+function guide(){
+  var st=S.stats||{};var av=st.a_valider||0;var att=(S.attente||[]).filter(function(x){return !x.fait;}).length;
+  var avl;
+  if(av>0||att>0){avl="Là, tout de suite : <b style='color:var(--gold)'>"+av+"</b> mission(s) attend(ent) ton feu vert (section <b>✅ À valider</b>)"+(att>0?", et <b style='color:var(--gold)'>"+att+"</b> point(s) t'attendent dans <b>⏳ En attente de toi</b>.":".");}
+  else{avl="Là, tout de suite : <b style='color:var(--ok)'>rien</b> n'attend ton feu vert — tout est en route. 🟢";}
+  var s="<h3 style='color:var(--gold);font-family:Cinzel,serif;letter-spacing:.05em'>Ton cockpit, en clair</h3>";
+  s+="<p style='font-size:14px;margin:8px 0 4px'>Salut Bruno 👋 Ici tu pilotes <b>toute l'entreprise NAVLYS</b>, en direct, sans passer par Claude. Voilà à quoi sert chaque partie — de haut en bas.</p>";
+  s+="<div style='background:#241f12;border:1px solid #5a4d2c;border-radius:10px;padding:11px;margin:10px 0;font-size:14px;color:var(--gold2)'>"+avl+"</div>";
+  s+=gsec('📊 Les 6 chiffres du haut',"L'état de l'entreprise en un coup d'œil : <b>Membres</b>, <b>En cours</b>, <b>À valider</b>, <b>Santé /100</b>, <b>Incidents ouverts</b>, <b>En attente de toi</b>. Le point de couleur dans la barre = la santé globale (vert = tout va bien).");
+  s+=gsec('🗣️ Parle à NAVLYS',"Ton lien direct avec le CORE. Pose une question, donne une direction (« relance le bot WhatsApp », « où en est l'inscription ? ») — il te répond ici et à voix haute. Décoche « voix » si tu préfères le silence.");
+  s+=gsec('▶ Travail en cours',"Ce que les agents font là, maintenant. Touche <b>Voir</b> pour lire le détail d'une mission.");
+  s+=gsec('⚠️ Manques &amp; à régler',"Le vrai « ce qui n'est pas fini » : <b>Incidents</b> (rouge), <b>Retours &amp; bugs</b> remontés, et surtout <b>⏳ En attente de toi</b> — la liste de ce qui dépend de TOI. Coche une case dès que c'est fait, c'est retenu sur tous tes appareils. Un badge <b>bloquant lancement</b> = à régler avant d'ouvrir au public.");
+  s+=gsec('✅ À valider',"TON garde-fou. Aucun agent ne publie, n'envoie un mail ou ne dépense sans ton feu vert. Pour chaque carte : <b>Voir</b> → <b>Valider</b> ou <b>Refuser</b>. Le bouton doré <b>✅ Tout valider</b> en haut approuve tout d'un coup.");
+  s+=gsec('🎯 Donner un ordre',"Écris une consigne avec <b>@</b> + le nom de l'agent (ex : <b>@navfi prépare la leçon du jour</b>). Sans @, NAVLYS route vers le bon département tout seul.");
+  s+=gsec('👥 Les agents',"Tes experts, un par département. <b>auto</b> = il avance seul · <b>prépare</b> = il prépare puis ça passe par toi.");
+  s+=gsec('🗂️ Toutes les missions',"Le kanban complet : à valider, en file, en cours, fait… la vue d'ensemble de tout le travail.");
+  s+=gsec('📜 Journal en direct',"Tout ce qui se passe, minute par minute : missions traitées, validations, alertes de santé.");
+  s+=gsec('🔗 Accès direct',"Un raccourci vers chaque page de NAVLYS. Les tuiles <b>dorées</b> sont celles du quotidien. Ça ouvre dans un nouvel onglet.");
+  s+="<div style='background:var(--p3);border:1px solid #24406a;border-radius:10px;padding:11px;margin:12px 0;font-size:14px'><b style='color:var(--ice2)'>En 3 gestes, chaque jour :</b><br>1 · Regarde <b>⏳ En attente de toi</b> et <b>✅ À valider</b>.<br>2 · <b>Voir</b> → <b>Valider</b>/<b>Refuser</b> (ou <b>✅ Tout valider</b>), coche ce qui est fait.<br>3 · <b>🔊 Rapport</b> en haut pour le résumé du jour, à voix haute.</div>";
+  s+="<div style='margin-top:12px;text-align:center'><button class='gold' onclick='cm()'>J'ai compris</button></div>";
+  om(s);
+}
 function maybeGuide(){if(!localStorage.getItem('np_guide_v1')){localStorage.setItem('np_guide_v1','1');guide();}}
 document.getElementById('modal').addEventListener('click',function(ev){if(ev.target.id=='modal')cm();});
 document.getElementById('pw').addEventListener('keydown',function(ev){if(ev.key=='Enter')login();});
-var ASSIST='https://hhrlgyvtqluxpywjiwkd.supabase.co/functions/v1/assistant',DSESS='cockpit-bruno';
-function dadd(role,txt){var c=document.getElementById('chat');var d=document.createElement('div');d.style.cssText='margin:6px 0;padding:8px 11px;border-radius:10px;font-size:14px;white-space:pre-wrap;'+(role=='u'?'background:#131e30;border:1px solid #1d2c42':'background:#0a1322;border:1px solid #24406a');d.textContent=txt;c.appendChild(d);c.scrollTop=c.scrollHeight;return d;}
-function dsend(){var q=document.getElementById('dq');var t=(q.value||'').trim();if(!t)return;dadd('u',t);q.value='';var p=dadd('n','…');fetch(ASSIST,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({session:DSESS,text:t})}).then(function(r){return r.json();}).then(function(d){var rep=(d&&d.reply)?d.reply:'…';p.textContent=rep;if('speechSynthesis' in window){var u=new SpeechSynthesisUtterance(rep.replace(/[*_#>`]/g,''));u.lang='fr-FR';speechSynthesis.cancel();speechSynthesis.speak(u);}}).catch(function(){p.textContent='Connexion difficile, réessaie.';});}
 document.addEventListener('keydown',function(e){if(e.target&&e.target.id=='dq'&&e.key=='Enter'&&!e.shiftKey){e.preventDefault();dsend();}});
-if(TK){api('state').then(function(d){if(!d.error){document.getElementById('login').style.display='none';document.getElementById('app').style.display='block';S=d;render();start();setTimeout(maybeGuide,500);dadd('n','Bonjour Bruno 👋 Je suis là. Dis-moi tout.');}});}
+
+/* ── auto-entrée si déjà connecté ── */
+if(TK){api('tableau').then(function(d){if(!d.error){document.getElementById('login').style.display='none';document.getElementById('app').style.display='block';S=norm(d);render();start();hello();setTimeout(maybeGuide,500);}});}
 </script></body></html>
