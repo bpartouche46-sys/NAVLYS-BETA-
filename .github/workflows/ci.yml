@@ -1,0 +1,50 @@
+# CI NAVLYS — porte de test rapide (sans dépendances npm) sur chaque PR vers main.
+# Sert de garde-fou AVANT le merge automatique : tant que ce job n'est pas vert,
+# auto-merge ne fusionne pas. Doctrine « test avant parole ».
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  verifier:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: node --check sur tout le JS de live-source
+        run: |
+          set -e
+          for f in live-source/*.js; do
+            echo "· $f"
+            node --check "$f"
+          done
+
+      - name: node --check sur les outils
+        run: |
+          set -e
+          for f in tools/*.mjs; do
+            echo "· $f"
+            node --check "$f"
+          done
+
+      - name: Test d'intégration du moteur i18n (15 langues, sans navigateur)
+        run: node tools/i18n-selftest.mjs
+
+      - name: Cohérence des dictionnaires i18n (régénération = aucune dérive)
+        run: |
+          set -e
+          node tools/make-dict.mjs --all
+          if ! git diff --quiet -- live-source/navlys-i18n-*.js; then
+            echo "❌ Un dico i18n n'est pas à jour vs sa source tools/i18n-src/*.json"
+            git --no-pager diff --stat -- live-source/navlys-i18n-*.js
+            exit 1
+          fi
+          echo "✓ dicos alignés sur leurs sources"

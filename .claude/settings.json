@@ -36,7 +36,10 @@
       "mcp__FMP",
       "mcp__Kiwi_com",
       "mcp__PDF_Viewer",
-      "mcp__Dropbox"
+      "mcp__Dropbox",
+      "mcp__Claude_Code_Remote",
+      "mcp__claude-code-remote",
+      "mcp__Slack"
     ],
     "ask": [
       "mcp__Stripe",
