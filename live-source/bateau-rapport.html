@@ -56,6 +56,31 @@ h1{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:400;font
 .garder span{display:block;color:var(--mut);font-size:.88rem;margin-top:6px;line-height:1.6}
 .disc{text-align:center;color:var(--mut);font-size:.85rem;margin-top:32px;line-height:1.75;max-width:40em;margin-left:auto;margin-right:auto}
 .disc a{color:var(--ice)}
+/* ── Âme & visite vidéo (ce qu'un robot ne donne pas) ── */
+#ame{margin:14px 0}
+.diff{background:linear-gradient(135deg,rgba(201,169,97,.16),rgba(125,211,252,.10));border:1px solid rgba(201,169,97,.45);border-radius:16px;padding:16px 18px;margin-bottom:14px}
+.diff b{display:block;color:var(--or-pale);font-size:1.02rem;margin-bottom:6px}
+.diff span{display:block;color:var(--perle);font-size:.95rem;line-height:1.7}
+.ame .acc{color:var(--ice-clair);font-size:1.05rem;font-style:italic;margin-bottom:10px}
+.src2{color:var(--mut);font-size:.85rem;margin:2px 0 12px}
+.visite{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}
+.vcard{background:rgba(6,8,16,.5);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.vid{display:block;width:100%;aspect-ratio:16/9;border:none;cursor:pointer;position:relative;
+  background:linear-gradient(135deg,rgba(125,211,252,.14),rgba(201,169,97,.10));color:var(--perle)}
+.vid .pl{position:absolute;inset:0;margin:auto;width:56px;height:56px;border-radius:50%;
+  background:rgba(3,4,10,.55);border:2px solid var(--ice-clair);display:flex;align-items:center;justify-content:center;font-size:22px;color:var(--ice-clair)}
+.vid .ang{position:absolute;left:10px;top:10px;background:rgba(3,4,10,.6);border:1px solid var(--line);border-radius:99px;padding:3px 10px;font-size:.72rem;color:var(--or-pale)}
+.ytframe{width:100%;aspect-ratio:16/9;border:none;display:block;background:#000}
+.vt{padding:10px 12px 2px;font-weight:700;color:var(--ice-clair);font-size:.95rem;line-height:1.4}
+.va{padding:0 12px;color:var(--mut);font-size:.8rem}
+.vn{padding:8px 12px 12px;color:var(--perle);font-size:.86rem;line-height:1.6}
+.ytlink{display:block;margin:0 12px 12px;text-align:center;border:1px solid var(--line);border-radius:9px;padding:8px;color:var(--ice-clair);text-decoration:none;font-size:.85rem;font-weight:700}
+.franc{background:rgba(201,169,97,.10);border:1px solid rgba(201,169,97,.35);border-radius:12px;padding:11px 14px;margin-bottom:12px;color:var(--or-pale);font-size:.88rem;line-height:1.65}
+.franc b{color:var(--ice-clair)}
+.chantier{border:2px dashed rgba(201,169,97,.55);border-radius:16px;padding:16px 18px;margin:14px 0;background:rgba(6,8,16,.5)}
+.chantier b{display:block;color:var(--or-pale);font-size:1.02rem;margin-bottom:6px}
+.chantier span{display:block;color:var(--perle);font-size:.92rem;line-height:1.7}
+.chantier b.warn{color:var(--ice-clair)}
 </style>
 </head>
 <body>
@@ -66,9 +91,11 @@ h1{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:400;font
   <div class="honnete">⚓ Nous ne sommes pas experts maritimes et ce rapport ne remplace jamais une
   expertise officielle — c'est un avis éducatif NAVLYS pour t'aider à y voir clair.</div>
   <div class="badges" id="badges"></div>
+  <div id="ame"></div>
   <div id="etat">⏳ Lecture de ton dossier…</div>
   <div id="expertise"></div>
   <div class="galerie" id="galerie"></div>
+  <div id="chantier"></div>
   <div id="rapport" style="display:none"></div>
   <div class="fondu" id="fondu" style="display:none"></div>
   <a class="verrou" href="/adhesion" id="verrou" style="display:none"><b>🔒 Tu viens de lire le début de TON rapport</b><span id="verrou-txt">La suite est déjà écrite et t'attend en entier. Elle est offerte aux membres NAVLYS — avec toutes les applications du club, pour une simple cotisation.</span><span class="cta">💛 Devenir membre et tout lire</span></a>
@@ -80,8 +107,61 @@ h1{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:400;font
 <script>
 (function(){
   var API='https://hhrlgyvtqluxpywjiwkd.supabase.co/functions/v1/bateau';
+  var SB='https://hhrlgyvtqluxpywjiwkd.supabase.co';
+  var SB_ANON='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhocmxneXZ0cWx1eHB5d2ppd2tkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODExNzYxMzIsImV4cCI6MjA5Njc1MjEzMn0.tGq_XXd4nJY-aYk9DfWGFJ5DW4C_NJJKb67owmvoejo';
   var $=function(id){ return document.getElementById(id); };
   function E(s){ return String(s==null?'':s).replace(/[&<>]/g,function(c){ return c==='&'?'&amp;':c==='<'?'&lt;':'&gt;'; }); }
+  // ── L'âme du bateau + visite guidée en vidéo (ce qu'aucun rapport-robot ne donne) ──
+  var ameCharge=false;
+  function ameHTML(a){
+    if(!a) return '';
+    var h='';
+    if(a.differenciateur) h+='<div class="diff"><b>🤖🚫 Ce qu’un robot ne te dira jamais</b><span>'+E(a.differenciateur)+'</span></div>';
+    h+='<div class="xp ame"><h3>⚓ L’âme de ton bateau</h3>';
+    if(a.accroche) h+='<p class="acc">'+E(a.accroche)+'</p>';
+    if(a.ame) h+='<p style="color:var(--perle);line-height:1.8">'+E(a.ame)+'</p>';
+    if(a.philosophie&&a.philosophie.length){ h+='<div class="mdl">L’esprit de conception</div><ul>'; a.philosophie.forEach(function(p){ h+='<li>'+E(p)+'</li>'; }); h+='</ul>'; }
+    if(a.regarder&&a.regarder.length){ h+='<div class="mdl">Ce qu’on ressent en montant à bord</div><ul>'; a.regarder.forEach(function(p){ h+='<li>'+E(p)+'</li>'; }); h+='</ul>'; }
+    h+='</div>';
+    if(a.videos&&a.videos.length){
+      h+='<div class="xp"><h3>🎬 À quoi ressemble ce modèle (vidéos publiques)</h3>'
+        +'<div class="franc">⚠️ Honnêteté : ce ne sont <b>pas</b> des vidéos de TON bateau précis — c\'est impossible à filmer à distance. Ce sont des vidéos publiques du <b>même modèle</b> (ou du modèle successeur, le Super Maramu), pour te montrer concrètement l\'espace. La visite filmée de TON bateau, c\'est le bloc juste en dessous.</div>'
+        +'<p class="src2">Appuie sur une vidéo pour la lancer — rien ne se charge avant ton clic.</p><div class="visite">';
+      a.videos.forEach(function(v){
+        var id=String(v.yt||'').replace(/[^A-Za-z0-9_-]/g,'');
+        if(!id) return;
+        h+='<div class="vcard"><button class="vid" type="button" data-yt="'+id+'" aria-label="Lire la vidéo">'
+          +(v.angle?'<span class="ang">'+E(v.angle)+'</span>':'')+'<span class="pl">▶</span></button>'
+          +'<div class="vt">'+E(v.titre||'')+'</div>'
+          +(v.auteur?'<div class="va">par '+E(v.auteur)+'</div>':'')
+          +(v.note?'<div class="vn">'+E(v.note)+'</div>':'')
+          +'<a class="ytlink" href="https://www.youtube.com/watch?v='+id+'" target="_blank" rel="noopener">▶ Voir sur YouTube</a></div>';
+      });
+      h+='</div></div>';
+    }
+    return h;
+  }
+  function chargeAme(bateau){
+    if(ameCharge || !bateau) return; ameCharge=true;
+    fetch(SB+'/rest/v1/rpc/navlys_bateau_ame',{ method:'POST',
+      headers:{ 'Content-Type':'application/json', apikey:SB_ANON, Authorization:'Bearer '+SB_ANON },
+      body:JSON.stringify({ p_marque_modele:bateau }) })
+      .then(function(r){ return r.ok?r.json():null; })
+      .then(function(a){ if(a) $('ame').innerHTML=ameHTML(a); })
+      .catch(function(){ ameCharge=false; });
+  }
+  // clic-pour-charger : on n'injecte l'iframe YouTube (nocookie) qu'au toucher
+  document.addEventListener('click',function(e){
+    var b=e.target.closest?e.target.closest('.vid'):null;
+    if(!b) return;
+    var id=b.getAttribute('data-yt'); if(!id) return;
+    var fr=document.createElement('iframe');
+    fr.className='ytframe';
+    fr.src='https://www.youtube-nocookie.com/embed/'+id+'?autoplay=1&rel=0';
+    fr.setAttribute('allow','autoplay; encrypted-media; fullscreen; picture-in-picture');
+    fr.setAttribute('allowfullscreen','');
+    b.parentNode.replaceChild(fr,b);
+  });
   // rendu doux du rapport : ## titres, - listes, **gras**, paragraphes
   function rendu(t){
     var lignes=String(t||'').split(/\r?\n/), html='', enListe=false;
@@ -109,6 +189,7 @@ h1{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:400;font
       }
       $('titre').textContent=x.prenom?('Le rapport de '+x.prenom):'Ton rapport';
       $('soustitre').textContent=[x.bateau,x.annee,x.lieu].filter(Boolean).join(' · ');
+      chargeAme([x.bateau,x.annee].filter(Boolean).join(' ')); // âme + visite vidéo (une fois)
       var b='';
       if(x.acces==='permanent') b+='<span class="badge or">💛 Membre · rapport complet · lien permanent</span>';
       else if(x.expire_le) b+='<span class="badge">Lien temporaire · expire le '+new Date(x.expire_le).toLocaleDateString('fr-FR')+'</span>';
@@ -117,6 +198,17 @@ h1{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:400;font
       var g='';
       (x.photos||[]).forEach(function(u,i){ g+='<a href="'+E(u)+'" target="_blank" rel="noopener"><img src="'+E(u)+'" alt="photo '+(i+1)+' du bateau" loading="lazy"></a>'; });
       $('galerie').innerHTML=g;
+      // Visite RÉELLE de CE bateau : état honnête (photos fournies ou non)
+      var ph=(x.photos||[]).length, ch=$('chantier');
+      if(ch){
+        if(ph){
+          ch.innerHTML='<div class="chantier"><b class="warn">📸 Visite réelle de CE bateau — à compléter</b>'
+            +'<span>Tu as envoyé <b>'+ph+' photo(s)</b> de ton bateau (ci-dessus). La visite en <b>vidéo</b> de CE bateau précis n’est pas encore montée — envoie une courte vidéo et on la publie ici, à ton nom.</span></div>';
+        } else {
+          ch.innerHTML='<div class="chantier"><b>🚧 Visite réelle de CE bateau — en construction</b>'
+            +'<span>On n’a encore <b>aucune photo ni vidéo de TON bateau</b>. Les vidéos plus haut sont d’<b>autres</b> bateaux du même modèle, pas le tien. Pour une visite réelle de CE bateau, <a href="/bateau-test" style="color:var(--ice)">envoie tes photos/vidéos</a> — on la construit ici.</span></div>';
+        }
+      }
       // ---- Analyse pro immédiate (moteur NAVLYS) : osmose + défauts connus + zone ----
       var xp=x.expertise, xh='';
       if(xp && xp.osmose){

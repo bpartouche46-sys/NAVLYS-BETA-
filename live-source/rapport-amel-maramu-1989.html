@@ -49,7 +49,29 @@ li .lbl{color:var(--or-pale);font-weight:700}
 .foot{text-align:center;color:var(--mut);font-size:.82rem;margin-top:34px;line-height:1.8;max-width:42em;margin-left:auto;margin-right:auto}
 .foot b{color:var(--or-pale)}
 .logo{text-align:center;color:var(--ice);letter-spacing:.3em;font-size:.8rem;margin-top:8px}
+/* ── Âme & visite vidéo ── */
+.diff{background:linear-gradient(135deg,rgba(201,169,97,.16),rgba(125,211,252,.10));border:1px solid rgba(201,169,97,.45);border-radius:16px;padding:16px 18px;margin-bottom:16px}
+.diff b{display:block;color:var(--or-pale);font-size:1.05rem;margin-bottom:6px}
+.diff span{display:block;color:var(--perle);font-size:.96rem;line-height:1.75}
+.acc{color:var(--ice-clair);font-size:1.08rem;font-style:italic;margin-bottom:12px}
+.src2{color:var(--mut);font-size:.86rem;margin:2px 0 14px}
+.visite{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}
+.vcard{background:rgba(6,8,16,.5);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.vid{display:block;width:100%;aspect-ratio:16/9;border:none;cursor:pointer;position:relative;background:linear-gradient(135deg,rgba(125,211,252,.14),rgba(201,169,97,.10));color:var(--perle)}
+.vid .pl{position:absolute;inset:0;margin:auto;width:56px;height:56px;border-radius:50%;background:rgba(3,4,10,.55);border:2px solid var(--ice-clair);display:flex;align-items:center;justify-content:center;font-size:22px;color:var(--ice-clair)}
+.vid .ang{position:absolute;left:10px;top:10px;background:rgba(3,4,10,.6);border:1px solid var(--line);border-radius:99px;padding:3px 10px;font-size:.72rem;color:var(--or-pale)}
+.ytframe{width:100%;aspect-ratio:16/9;border:none;display:block;background:#000}
+.vt{padding:10px 12px 2px;font-weight:700;color:var(--ice-clair);font-size:.95rem;line-height:1.4}
+.va{padding:0 12px;color:var(--mut);font-size:.8rem}
+.vn{padding:8px 12px 12px;color:var(--perle);font-size:.86rem;line-height:1.6}
+.ytlink{display:block;margin:0 12px 12px;text-align:center;border:1px solid var(--line);border-radius:9px;padding:8px;color:var(--ice-clair);text-decoration:none;font-size:.85rem;font-weight:700}
+.franc{background:rgba(201,169,97,.10);border:1px solid rgba(201,169,97,.35);border-radius:12px;padding:12px 15px;margin-bottom:12px;color:var(--or-pale);font-size:.9rem;line-height:1.7}
+.franc b{color:var(--ice-clair)}
+.chantier{border:2px dashed rgba(201,169,97,.55);border-radius:16px;padding:18px 20px;margin-bottom:16px;background:rgba(6,8,16,.5)}
+.chantier b{display:block;color:var(--or-pale);font-size:1.05rem;margin-bottom:8px}
+.chantier span{display:block;color:var(--perle);font-size:.94rem;line-height:1.75}
 @media print{
+  .visite,.vid,.diff{-webkit-print-color-adjust:exact;print-color-adjust:exact}
   body{background:#fff;color:#111}
   html{background:#fff}
   .card,.honnete{background:#fff;border:1px solid #ccc}
@@ -74,6 +96,79 @@ li .lbl{color:var(--or-pale);font-weight:700}
 
   <div class="honnete">⚓ Nous ne sommes pas experts maritimes et ce rapport ne remplace jamais une
   expertise officielle — c'est un avis éducatif NAVLYS pour t'aider à y voir clair. Zéro conseil financier personnalisé.</div>
+
+  <!-- ── Ce qu'un robot ne te dira jamais ── -->
+  <div class="diff">
+    <b>🤖🚫 Ce qu'un robot ne te dira jamais</b>
+    <span>Un rapport-robot te récite des chiffres d'osmose que tout le monde recopie. Nous, on te raconte d'abord
+    <b style="color:var(--ice-clair)">qui</b> a fait ce bateau et <b style="color:var(--ice-clair)">pourquoi</b> il est comme ça —
+    puis on te montre le modèle en vidéo — franchement, sans faire passer un autre bateau pour le tien. Tu n'achètes
+    pas une coque : tu reprends le rêve d'un homme qui a construit pour la mer, à l'aveugle.</span>
+  </div>
+
+  <!-- ── L'âme du bateau (l'humain d'abord) ── -->
+  <div class="card ame">
+    <h2>⚓ L'âme de ton bateau</h2>
+    <p class="acc">Ton bateau a une histoire, pas seulement une coque. Voici l'homme et l'esprit derrière lui — et une vraie visite, comme si tu montais à bord.</p>
+    <p>Le Maramu n'est pas sorti d'un logiciel : il est né de la tête d'<b>Henri Amel</b> (de son vrai nom Henri Tonet, 1913),
+    un homme qui a construit ses voiliers à La Rochelle à partir de 1964. Et voici ce qui change tout : Henri Amel était devenu
+    <b>aveugle</b> pendant une grande partie de sa carrière. Il n'a jamais lâché son rêve — construire des bateaux robustes, sûrs,
+    faciles à mener seul ou en couple. Il a même co-conçu le Maramu <b>par radio</b>, à longue distance, pendant qu'il traversait
+    lui-même l'Atlantique vers Tahiti (1975-76). Ton millésime <b>1989</b> est l'un des tout derniers Maramu construits — la version
+    la plus aboutie, juste avant que le Super Maramu ne prenne la relève.</p>
+
+    <h3>L'esprit de conception</h3>
+    <ul>
+      <li>Conçu par un homme aveugle : tout se trouve « à la main », sans avoir à voir — balcon rigide tout autour, commandes regroupées dans le cockpit central.</li>
+      <li>La sécurité avant la vitesse : cockpit central abrité entre les deux mâts, on reste au sec et au centre du bateau par gros temps.</li>
+      <li>Pensé pour deux, pas pour un équipage : un couple doit pouvoir tout faire — d'où les enrouleurs de voiles et la « conduite par les chiffres ».</li>
+      <li>Un système de voyage complet, pas juste un voilier : cloisons étanches, peu de passe-coques, transmission Amel — tout sert à partir loin et longtemps.</li>
+    </ul>
+
+    <h3>Ce qu'on ressent en montant à bord</h3>
+    <ul>
+      <li>Assieds-toi dans le cockpit central et imagine une nuit de mer : tu es abrité, tout est à portée de main. C'est ça, l'idée d'Henri Amel.</li>
+      <li>Passe la main sur le balcon et les filières : sur un Amel, on se déplace en se tenant partout, comme un aveugle qui connaît sa maison.</li>
+      <li>Descends à l'intérieur : sens le volume, les rangements, la lumière des hublots. Un Maramu, c'est une maison de voyage.</li>
+      <li>Écoute le silence de la coque épaisse : ces bateaux sont lourds et rassurants — le confort de mouvement avant la performance.</li>
+    </ul>
+  </div>
+
+  <!-- ── À quoi ressemble ce modèle (vidéos publiques, PAS ton bateau) ── -->
+  <div class="card">
+    <h2>🎬 À quoi ressemble ce modèle (vidéos publiques)</h2>
+    <div class="franc">⚠️ Honnêteté : ce ne sont <b>pas</b> des vidéos de TON bateau de 1989 — impossible à filmer à distance. Ce sont des vidéos publiques d'<b>autres</b> Amel : une du <b>même modèle</b> (Maramu), deux du <b>modèle successeur</b> (Super Maramu, plus grand). Elles servent à voir concrètement l'espace et l'esprit Amel. La visite de TON bateau, c'est le bloc juste en dessous.</div>
+    <p class="src2">Appuie sur une vidéo pour la lancer — rien ne se charge avant ton clic (mode sans cookie). Sur mobile, tourne l'écran pour le plein écran.</p>
+    <div class="visite">
+      <div class="vcard">
+        <button class="vid" type="button" data-yt="mNqTNyWqhOU" aria-label="Lire la vidéo intérieure"><span class="ang">Même modèle · Maramu</span><span class="pl">▶</span></button>
+        <div class="vt">Intérieur d'un Amel Maramu (même modèle)</div>
+        <div class="va">par Yacht Ibis</div>
+        <div class="vn">Vidéo d'un <b>autre</b> Amel Maramu — pas ton bateau, mais le même modèle. Pour voir concrètement l'intérieur d'un Maramu.</div>
+        <a class="ytlink" href="https://www.youtube.com/watch?v=mNqTNyWqhOU" target="_blank" rel="noopener">▶ Voir sur YouTube</a>
+      </div>
+      <div class="vcard">
+        <button class="vid" type="button" data-yt="GUBK-MKCEVs" aria-label="Lire la vidéo pont et moteur"><span class="ang">Modèle successeur · Super Maramu</span><span class="pl">▶</span></button>
+        <div class="vt">Pont &amp; salle machine d'un Amel Super Maramu</div>
+        <div class="va">par EZIYACHT</div>
+        <div class="vn">Un Amel <b>Super Maramu</b> (le modèle plus grand qui a succédé au Maramu, même esprit Amel). Pour la fameuse salle machine — pas ton bateau.</div>
+        <a class="ytlink" href="https://www.youtube.com/watch?v=GUBK-MKCEVs" target="_blank" rel="noopener">▶ Voir sur YouTube</a>
+      </div>
+      <div class="vcard">
+        <button class="vid" type="button" data-yt="4m23OfoRqPU" aria-label="Lire la vidéo vie à bord"><span class="ang">Modèle successeur · Super Maramu</span><span class="pl">▶</span></button>
+        <div class="vt">La vie à bord d'un Amel Super Maramu</div>
+        <div class="va">par Mothership Adrift</div>
+        <div class="vn">La vie à bord d'un Amel <b>Super Maramu</b> (modèle successeur du tien). Pour l'ambiance et le quotidien — ni ton bateau, ni ton modèle exact.</div>
+        <a class="ytlink" href="https://www.youtube.com/watch?v=4m23OfoRqPU" target="_blank" rel="noopener">▶ Voir sur YouTube</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Visite RÉELLE de CE bateau : honnêtement, en construction ── -->
+  <div class="chantier">
+    <b>🚧 Visite réelle de TON bateau — en construction</b>
+    <span>Soyons clairs : on n'a encore <b style="color:var(--ice-clair)">aucune photo ni vidéo de TON Amel de 1989</b>. Les vidéos ci-dessus sont d'autres bateaux. Pour une vraie visite de CE bateau — le tien, avec ses défauts et ses atouts réels — envoie tes photos et une courte vidéo via <a href="/bateau-test" style="color:var(--ice)">le formulaire Test Bateaux</a>, et on la monte ici, à ton nom. Tant que ce n'est pas fait, cette section reste marquée « en construction » — pas de faux-semblant.</span>
+  </div>
 
   <!-- ── Expertise chiffrée : osmose ── -->
   <div class="card">
@@ -184,5 +279,21 @@ li .lbl{color:var(--or-pale);font-weight:700}
   <div class="logo">N A V L Y S</div>
 
 </div>
+<script>
+/* Visite vidéo : on n'injecte l'iframe YouTube (nocookie, sans pistage) qu'au clic.
+   Rien ne se connecte à l'extérieur tant que tu n'as pas appuyé. */
+document.addEventListener('click',function(e){
+  var b=e.target.closest?e.target.closest('.vid'):null;
+  if(!b) return;
+  var id=(b.getAttribute('data-yt')||'').replace(/[^A-Za-z0-9_-]/g,'');
+  if(!id) return;
+  var fr=document.createElement('iframe');
+  fr.className='ytframe';
+  fr.src='https://www.youtube-nocookie.com/embed/'+id+'?autoplay=1&rel=0';
+  fr.setAttribute('allow','autoplay; encrypted-media; fullscreen; picture-in-picture');
+  fr.setAttribute('allowfullscreen','');
+  b.parentNode.replaceChild(fr,b);
+});
+</script>
 </body>
 </html>
