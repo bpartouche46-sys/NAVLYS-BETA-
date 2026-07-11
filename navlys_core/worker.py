@@ -4,9 +4,10 @@ from datetime import datetime, timezone
 
 import requests
 
-from .config import Config, resolve_model
+from .config import Config, resolve_model, resolve_anthropic
 from .supabase_client import Supabase
 from . import llm
+from . import autopilote
 
 
 # Règles cadre injectées dans CHAQUE agent (garde-fous non négociables).
@@ -73,6 +74,7 @@ def process_mission(sb: Supabase, cfg: Config, agent: dict, mission: dict) -> st
     mid = mission["id"]
     dept = agent["id"]
     model = resolve_model(agent.get("modele"), cfg.default_model)
+    amodel = resolve_anthropic(agent.get("modele"), cfg.default_anthropic_model)
 
     run = sb.insert("agent_runs", {
         "agent_id": dept, "mission_id": mid, "statut": "running",
@@ -90,7 +92,10 @@ def process_mission(sb: Supabase, cfg: Config, agent: dict, mission: dict) -> st
             "Réalise la mission et rends un livrable prêt à valider."
         )
         output, tokens = llm.chat(
-            cfg.openrouter_key, model, REGLES_CORE, system_role, user, cfg.max_tokens)
+            REGLES_CORE, system_role, user,
+            model=model, anthropic_key=cfg.anthropic_key, anthropic_model=amodel,
+            openrouter_key=cfg.openrouter_key, provider=cfg.llm_provider,
+            max_tokens=cfg.max_tokens)
 
         auto = agent.get("autonomie") == "auto"
         new_statut = "fait" if auto else "a_valider"
@@ -146,10 +151,26 @@ def main(once: bool = False) -> None:
     cfg = Config()
     sb = Supabase(cfg.supabase_url, cfg.service_key)
     agents = sb.select("agents", "select=*&order=id")
+    brain = "Anthropic direct" if cfg.anthropic_key else "OpenRouter"
     print(f"NAVLYS CORE worker — {len(agents)} agents chargés. "
-          f"(poll={cfg.poll_seconds}s, once={once})")
+          f"(cerveau={brain}, autopilote={'on' if cfg.autopilot else 'off'}, "
+          f"poll={cfg.poll_seconds}s, once={once})")
+    # last_plan à 0 => l'autopilote planifie dès le 1er tour (le CORE prend
+    # la barre immédiatement au démarrage, sans attendre la voix de Bruno).
+    last_plan = 0.0
     while True:
         try:
+            # Le CORE se dirige seul : à intervalle, il génère lui-même la
+            # feuille de route des 14 départements (garde-fous : préparation
+            # uniquement — voir autopilote.py).
+            if cfg.autopilot and (time.monotonic() - last_plan) >= cfg.autopilot_hours * 3600:
+                try:
+                    autopilote.plan(sb, cfg, agents)
+                except Exception as e:
+                    print("Autopilote erreur:", e)
+                finally:
+                    last_plan = time.monotonic()
+
             n = run_cycle(sb, cfg, agents)
             if once:
                 if n == 0:

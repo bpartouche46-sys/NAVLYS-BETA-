@@ -39,7 +39,7 @@
 - 🔴 **À préciser** : autres produits/coffrets cadeau déclinés.
 
 ## 7. 🎧 SAV — FAQ & Voix
-- **Voix NAVLYS** ✅ — **clone pro de Bruno PRÊT** (ElevenLabs Voice ID `6hUoby5ZAVW4JqvIJeri`), câblé dans `api/voice.js`.
+- **Voix NAVLYS** ✅ — **clone pro de Bruno PRÊT** (ElevenLabs Voice ID en quarantaine hors Git, lu via la variable d'environnement `VOICE_ID` / `NAVLYS_VOICE_ID`), câblé dans `api/voice.js`.
 - 🔴 **FAQ SAV** — à écrire (questions/réponses types, ton NAVLYS, FR+EN).
 - 🔴 **SAV vocal** — assembler : FAQ + voix clone → assistant SAV qui répond.
 

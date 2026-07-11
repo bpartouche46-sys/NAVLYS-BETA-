@@ -386,7 +386,7 @@ publicités gagnantes chez les concurrents.
 
 ## 5. Ce qu'il resterait à faire (dépend d'un accès authentifié)
 
-- Un accès authentifié à Meta Ad Library (compte Facveook Business connecté)
+- Un accès authentifié à Meta Ad Library (compte Facebook Business connecté)
   permettrait de vérifier la durée exacte de diffusion des publicités des
   concurrents nommés (Storyworth, Remento, MyHeritage, Finary, Bankin,
   Revolut) — actuellement bloqué par un 403 en scraping non authentifié.

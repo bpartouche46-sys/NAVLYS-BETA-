@@ -300,7 +300,8 @@ h2::after{content:"";flex:1;height:1px;background:var(--line)}
     var go=$('a-go'); go.disabled=true; $('a-etat').textContent='… création de ton accès';
     fetch(COMPTE,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
       action:'inscrire', website:$('a-web').value, prenom:prenom, email:email, lang:lng,
-      formule:f.code, montant:f.montant, apps:apps, mode:mode })})
+      formule:f.code, montant:f.montant, apps:apps, mode:mode,
+      parrain:(function(){try{return localStorage.getItem('nv-parrain')||'';}catch(e){return '';}})() })})
     .then(function(r){return r.json();})
     .then(function(d){
       if(!d||!d.ok||!d.membre){ go.disabled=false; $('a-etat').textContent=(d&&d.error)||'Réessaie dans un instant.'; return; }
@@ -342,6 +343,11 @@ h2::after{content:"";flex:1;height:1px;background:var(--line)}
   window.addEventListener('beforeinstallprompt',function(e){ e.preventDefault(); defered=e; $('a-install').style.display='inline-block'; });
   $('a-install').onclick=function(){ if(defered){ defered.prompt(); defered=null; $('a-install').style.display='none'; } };
   if(new URLSearchParams(location.search).get('paye')==='annule'){ $('a-etat').textContent='Règlement annulé — ton accès reste prêt, tu peux réessayer quand tu veux.'; }
+
+  // Parrainage (affiliation ambassadeur) : mémorise le code du parrain dès l'arrivée.
+  // On lit UNIQUEMENT ?parrain= ou ?ref= — jamais ?code= (réservé au retour OAuth Supabase, collision).
+  (function(){ try{ var q=new URLSearchParams(location.search); var p=q.get('parrain')||q.get('ref');
+    if(p){ p=String(p).replace(/[^A-Za-z0-9._+-]/g,'').slice(0,40); if(p) localStorage.setItem('nv-parrain',p); } }catch(e){} })();
 
   // 0 · Valide ton accès (gravé 2026-07-09) : OAuth en 2 clics OU e-mail vérifié
   // obligatoire avant de pouvoir t'enregistrer — base de prospects propre, pas de
