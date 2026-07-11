@@ -23,6 +23,48 @@ function limited(ip){
 function cors(o){ const x = ALLOWED.includes(o) ? o : ALLOWED[0]; return {'Access-Control-Allow-Origin':x,'Access-Control-Allow-Methods':'POST, OPTIONS','Access-Control-Allow-Headers':'Content-Type'}; }
 function j(d,s,o){ return new Response(JSON.stringify(d),{status:s,headers:{...cors(o),'Content-Type':'application/json'}}); }
 
+// ════════ INDÉPENDANCE DU CORE (gravé 2026-07-09) ════════
+// NAVLEX doit continuer à répondre même si api.anthropic.com tombe (coupure
+// Claude). callBrain() essaie Anthropic direct puis, si ça échoue, bascule seul
+// sur OpenRouter (modèle gratuit non-Anthropic en dernier recours) — lecture
+// tolérante de la clé (règle n°4), aucun redéploiement nécessaire le jour où
+// OPENROUTER_API_KEY est posée dans Vercel. Même pattern que whatsapp-webhook.js.
+function envAny(names){ for(const n of names){ const v=process.env[n]; if(v) return v; } return ''; }
+async function callBrain(system, user, { anthKey, maxTokens=MAX_TOKENS, model=MODEL }={}){
+  if(anthKey){
+    try{
+      const r=await fetch('https://api.anthropic.com/v1/messages',{
+        method:'POST',
+        headers:{ 'x-api-key':anthKey, 'anthropic-version':'2023-06-01', 'Content-Type':'application/json' },
+        body:JSON.stringify({ model, max_tokens:maxTokens, system, messages:[{role:'user',content:user}] })
+      });
+      if(r.ok){
+        const d=await r.json();
+        const t=(d.content||[]).filter(c=>c.type==='text').map(c=>c.text).join('\n').trim();
+        if(t) return t;
+      }
+    }catch{ /* on tente le repli ci-dessous */ }
+  }
+  const orKey=envAny(['OPENROUTER_API_KEY','OPENROUTER_KEY','OPEN_ROUTER_API_KEY','OPEN_API_ROUTER','OPEN_API_ROUTER_KEY']);
+  if(orKey){
+    for(const orModel of ['meta-llama/llama-3.3-70b-instruct:free','anthropic/claude-haiku-4.5']){
+      try{
+        const r=await fetch('https://openrouter.ai/api/v1/chat/completions',{
+          method:'POST',
+          headers:{ Authorization:`Bearer ${orKey}`, 'Content-Type':'application/json', 'HTTP-Referer':'https://navlys.com', 'X-Title':'NAVLYS CORE' },
+          body:JSON.stringify({ model:orModel, max_tokens:maxTokens, messages:[{role:'system',content:system},{role:'user',content:user}] })
+        });
+        if(r.ok){
+          const d=await r.json();
+          const t=(d?.choices?.[0]?.message?.content||'').trim();
+          if(t) return t;
+        }
+      }catch{ /* essai suivant */ }
+    }
+  }
+  return '';
+}
+
 const SYSTEM = [
   "Tu es NAVLEX, l'assistant juridique pédagogique de NAVLYS.",
   "Tu expliques le droit en français SIMPLE, clair, sans jargon (style accessible à tous), avec des exemples concrets.",
@@ -39,7 +81,9 @@ export default async function handler(req){
   if(req.method!=='POST') return j({error:'POST only'},405,origin);
   if(!ALLOWED.includes(origin)) return j({error:'origin not allowed'},403,origin);
   const key = process.env.ANTHROPIC_API_KEY;
-  if(!key) return j({error:'server not configured (ANTHROPIC_API_KEY)'},500,origin);
+  // Résilient : on démarre dès qu'AU MOINS un cerveau est configuré (Anthropic OU OpenRouter).
+  const hasOr = !!envAny(['OPENROUTER_API_KEY','OPENROUTER_KEY','OPEN_ROUTER_API_KEY','OPEN_API_ROUTER','OPEN_API_ROUTER_KEY']);
+  if(!key && !hasOr) return j({error:'server not configured (ANTHROPIC_API_KEY)'},500,origin);
   const ip = req.headers.get('x-forwarded-for') || 'anon';
   if(limited(ip)) return j({error:'Trop de questions d\'un coup — réessaie dans une minute.'},429,origin);
 
@@ -47,13 +91,7 @@ export default async function handler(req){
   const question = String(body.question||'').slice(0,MAX_Q).trim();
   if(!question) return j({error:'question vide'},400,origin);
 
-  const r = await fetch('https://api.anthropic.com/v1/messages',{
-    method:'POST',
-    headers:{ 'x-api-key':key, 'anthropic-version':'2023-06-01', 'Content-Type':'application/json' },
-    body: JSON.stringify({ model:MODEL, max_tokens:MAX_TOKENS, system:SYSTEM, messages:[{role:'user',content:question}] })
-  });
-  const data = await r.json().catch(()=>({}));
-  if(!r.ok) return j({error:'cerveau indisponible', detail:data && data.error},502,origin);
-  const answer = (data.content||[]).filter(c=>c.type==='text').map(c=>c.text).join('\n').trim();
-  return j({ answer: answer || 'Désolé, pas de réponse pour le moment.' },200,origin);
+  const answer = await callBrain(SYSTEM, question, { anthKey:key });
+  if(!answer) return j({error:'cerveau indisponible'},502,origin);
+  return j({ answer },200,origin);
 }
