@@ -64,6 +64,11 @@ li .lbl{color:var(--or-pale);font-weight:700}
 .vt{padding:10px 12px 2px;font-weight:700;color:var(--ice-clair);font-size:.95rem;line-height:1.4}
 .va{padding:0 12px;color:var(--mut);font-size:.8rem}
 .vn{padding:8px 12px 12px;color:var(--perle);font-size:.86rem;line-height:1.6}
+.franc{background:rgba(201,169,97,.10);border:1px solid rgba(201,169,97,.35);border-radius:12px;padding:12px 15px;margin-bottom:12px;color:var(--or-pale);font-size:.9rem;line-height:1.7}
+.franc b{color:var(--ice-clair)}
+.chantier{border:2px dashed rgba(201,169,97,.55);border-radius:16px;padding:18px 20px;margin-bottom:16px;background:rgba(6,8,16,.5)}
+.chantier b{display:block;color:var(--or-pale);font-size:1.05rem;margin-bottom:8px}
+.chantier span{display:block;color:var(--perle);font-size:.94rem;line-height:1.75}
 @media print{
   .visite,.vid,.diff{-webkit-print-color-adjust:exact;print-color-adjust:exact}
   body{background:#fff;color:#111}
@@ -96,8 +101,8 @@ li .lbl{color:var(--or-pale);font-weight:700}
     <b>🤖🚫 Ce qu'un robot ne te dira jamais</b>
     <span>Un rapport-robot te récite des chiffres d'osmose que tout le monde recopie. Nous, on te raconte d'abord
     <b style="color:var(--ice-clair)">qui</b> a fait ce bateau et <b style="color:var(--ice-clair)">pourquoi</b> il est comme ça —
-    puis on te fait monter à bord en vidéo. Tu n'achètes pas une coque : tu reprends le rêve d'un homme qui a construit
-    pour la mer, à l'aveugle.</span>
+    puis on te montre le modèle en vidéo — franchement, sans faire passer un autre bateau pour le tien. Tu n'achètes
+    pas une coque : tu reprends le rêve d'un homme qui a construit pour la mer, à l'aveugle.</span>
   </div>
 
   <!-- ── L'âme du bateau (l'humain d'abord) ── -->
@@ -128,30 +133,37 @@ li .lbl{color:var(--or-pale);font-weight:700}
     </ul>
   </div>
 
-  <!-- ── Visite guidée en vidéo (comme à bord) ── -->
+  <!-- ── À quoi ressemble ce modèle (vidéos publiques, PAS ton bateau) ── -->
   <div class="card">
-    <h2>🎬 Visite guidée — comme si tu montais à bord</h2>
+    <h2>🎬 À quoi ressemble ce modèle (vidéos publiques)</h2>
+    <div class="franc">⚠️ Honnêteté : ce ne sont <b>pas</b> des vidéos de TON bateau de 1989 — impossible à filmer à distance. Ce sont des vidéos publiques d'<b>autres</b> Amel : une du <b>même modèle</b> (Maramu), deux du <b>modèle successeur</b> (Super Maramu, plus grand). Elles servent à voir concrètement l'espace et l'esprit Amel. La visite de TON bateau, c'est le bloc juste en dessous.</div>
     <p class="src2">Appuie sur une vidéo pour la lancer — rien ne se charge avant ton clic (mode sans cookie). Sur mobile, tourne l'écran pour le plein écran.</p>
     <div class="visite">
       <div class="vcard">
-        <button class="vid" type="button" data-yt="mNqTNyWqhOU" aria-label="Lire la vidéo intérieure"><span class="ang">Intérieur · quasi ton modèle</span><span class="pl">▶</span></button>
-        <div class="vt">Visite intérieure complète d'un Amel Maramu 46</div>
+        <button class="vid" type="button" data-yt="mNqTNyWqhOU" aria-label="Lire la vidéo intérieure"><span class="ang">Même modèle · Maramu</span><span class="pl">▶</span></button>
+        <div class="vt">Intérieur d'un Amel Maramu (même modèle)</div>
         <div class="va">par Yacht Ibis</div>
-        <div class="vn">Un Maramu 46 de 1986, presque identique à ton 1989 : parcours le carré, les cabines, la table à cartes — tu vois exactement l'intérieur de ton bateau.</div>
+        <div class="vn">Vidéo d'un <b>autre</b> Amel Maramu — pas ton bateau, mais le même modèle. Pour voir concrètement l'intérieur d'un Maramu.</div>
       </div>
       <div class="vcard">
-        <button class="vid" type="button" data-yt="GUBK-MKCEVs" aria-label="Lire la vidéo pont et moteur"><span class="ang">Extérieur · pont &amp; systèmes</span><span class="pl">▶</span></button>
-        <div class="vt">Le pont et la salle machine d'un Amel</div>
+        <button class="vid" type="button" data-yt="GUBK-MKCEVs" aria-label="Lire la vidéo pont et moteur"><span class="ang">Modèle successeur · Super Maramu</span><span class="pl">▶</span></button>
+        <div class="vt">Pont &amp; salle machine d'un Amel Super Maramu</div>
         <div class="va">par EZIYACHT</div>
-        <div class="vn">Le pont, le cockpit central et surtout la fameuse salle machine Amel : regarde comme tout est accessible et pensé pour l'entretien à bord.</div>
+        <div class="vn">Un Amel <b>Super Maramu</b> (le modèle plus grand qui a succédé au Maramu, même esprit Amel). Pour la fameuse salle machine — pas ton bateau.</div>
       </div>
       <div class="vcard">
-        <button class="vid" type="button" data-yt="4m23OfoRqPU" aria-label="Lire la vidéo vie à bord"><span class="ang">La vie à bord (humain)</span><span class="pl">▶</span></button>
-        <div class="vt">La vraie vie à bord d'un Amel, en famille</div>
+        <button class="vid" type="button" data-yt="4m23OfoRqPU" aria-label="Lire la vidéo vie à bord"><span class="ang">Modèle successeur · Super Maramu</span><span class="pl">▶</span></button>
+        <div class="vt">La vie à bord d'un Amel Super Maramu</div>
         <div class="va">par Mothership Adrift</div>
-        <div class="vn">Pas une fiche technique : une famille qui vit à bord. Pour sentir ce que ça fait, au quotidien, d'habiter ce bateau.</div>
+        <div class="vn">La vie à bord d'un Amel <b>Super Maramu</b> (modèle successeur du tien). Pour l'ambiance et le quotidien — ni ton bateau, ni ton modèle exact.</div>
       </div>
     </div>
+  </div>
+
+  <!-- ── Visite RÉELLE de CE bateau : honnêtement, en construction ── -->
+  <div class="chantier">
+    <b>🚧 Visite réelle de TON bateau — en construction</b>
+    <span>Soyons clairs : on n'a encore <b style="color:var(--ice-clair)">aucune photo ni vidéo de TON Amel de 1989</b>. Les vidéos ci-dessus sont d'autres bateaux. Pour une vraie visite de CE bateau — le tien, avec ses défauts et ses atouts réels — envoie tes photos et une courte vidéo via <a href="/bateau-test" style="color:var(--ice)">le formulaire Test Bateaux</a>, et on la monte ici, à ton nom. Tant que ce n'est pas fait, cette section reste marquée « en construction » — pas de faux-semblant.</span>
   </div>
 
   <!-- ── Expertise chiffrée : osmose ── -->

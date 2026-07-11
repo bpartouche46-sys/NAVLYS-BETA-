@@ -71,10 +71,14 @@ select
     'Descends à l''intérieur : sens le volume, les rangements, la lumière des hublots. Un Maramu, c''est une maison de voyage, pas un bateau de course.',
     'Écoute le silence de la coque épaisse : ces bateaux sont lourds et rassurants — le confort de mouvement avant la performance.'
   ],
+  -- HONNÊTETÉ (2026-07-11) : v1 = un AUTRE Amel Maramu (même modèle) ; v2/v3 =
+  -- Amel Super Maramu (modèle successeur, plus grand). AUCUNE n'est le bateau réel
+  -- de l'utilisateur — vérifié par oEmbed (titre/auteur réels). La visite du bateau
+  -- PRÉCIS se fait avec ses propres photos/vidéos (bloc « en construction » côté page).
   '[
-    {"yt":"mNqTNyWqhOU","titre":"Visite intérieure complète d''un Amel Maramu 46","auteur":"Yacht Ibis","angle":"Intérieur · quasi ton modèle","note":"Un Maramu 46 de 1986, presque identique à ton 1989 : parcours le carré, les cabines, la table à cartes — tu vois exactement l''intérieur de ton bateau."},
-    {"yt":"GUBK-MKCEVs","titre":"Le pont et la salle machine d''un Amel","auteur":"EZIYACHT","angle":"Extérieur · pont & systèmes","note":"Le pont, le cockpit central et surtout la fameuse salle machine Amel : regarde comme tout est accessible et pensé pour l''entretien à bord."},
-    {"yt":"4m23OfoRqPU","titre":"La vraie vie à bord d''un Amel, en famille","auteur":"Mothership Adrift","angle":"La vie à bord (humain)","note":"Pas une fiche technique : une famille qui vit à bord. Pour sentir ce que ça fait, au quotidien, d''habiter ce bateau."}
+    {"yt":"mNqTNyWqhOU","titre":"Intérieur d''un Amel Maramu (même modèle)","auteur":"Yacht Ibis","angle":"Même modèle · Maramu","note":"Vidéo d''un AUTRE Amel Maramu — ce n''est pas ton bateau, mais le même modèle. Pour voir concrètement l''intérieur d''un Maramu."},
+    {"yt":"GUBK-MKCEVs","titre":"Pont & salle machine d''un Amel Super Maramu","auteur":"EZIYACHT","angle":"Modèle successeur · Super Maramu","note":"Un Amel Super Maramu (le modèle plus grand qui a succédé au Maramu, même esprit Amel). Pour la fameuse salle machine — pas ton bateau."},
+    {"yt":"4m23OfoRqPU","titre":"La vie à bord d''un Amel Super Maramu","auteur":"Mothership Adrift","angle":"Modèle successeur · Super Maramu","note":"La vie à bord d''un Amel Super Maramu (modèle successeur du tien). Pour l''ambiance et le quotidien — ni ton bateau, ni ton modèle exact."}
   ]'::jsonb,
   'Un rapport-robot te récite des chiffres d''osmose que tout le monde recopie. Nous, on te raconte d''abord QUI a fait ce bateau et POURQUOI il est comme ça — puis on te fait monter à bord en vidéo. Tu n''achètes pas une coque : tu reprends le rêve d''un homme qui a construit pour la mer, à l''aveugle.',
   'NAVLYS 2026-07-11 — histoire vérifiée (amel.fr, Wikipédia Chantiers Amel) ; 3 vidéos vérifiées oEmbed (Yacht Ibis, EZIYACHT, Mothership Adrift).'

@@ -74,6 +74,12 @@ h1{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:400;font
 .vt{padding:10px 12px 2px;font-weight:700;color:var(--ice-clair);font-size:.95rem;line-height:1.4}
 .va{padding:0 12px;color:var(--mut);font-size:.8rem}
 .vn{padding:8px 12px 12px;color:var(--perle);font-size:.86rem;line-height:1.6}
+.franc{background:rgba(201,169,97,.10);border:1px solid rgba(201,169,97,.35);border-radius:12px;padding:11px 14px;margin-bottom:12px;color:var(--or-pale);font-size:.88rem;line-height:1.65}
+.franc b{color:var(--ice-clair)}
+.chantier{border:2px dashed rgba(201,169,97,.55);border-radius:16px;padding:16px 18px;margin:14px 0;background:rgba(6,8,16,.5)}
+.chantier b{display:block;color:var(--or-pale);font-size:1.02rem;margin-bottom:6px}
+.chantier span{display:block;color:var(--perle);font-size:.92rem;line-height:1.7}
+.chantier b.warn{color:var(--ice-clair)}
 </style>
 </head>
 <body>
@@ -88,6 +94,7 @@ h1{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:400;font
   <div id="etat">⏳ Lecture de ton dossier…</div>
   <div id="expertise"></div>
   <div class="galerie" id="galerie"></div>
+  <div id="chantier"></div>
   <div id="rapport" style="display:none"></div>
   <div class="fondu" id="fondu" style="display:none"></div>
   <a class="verrou" href="/adhesion" id="verrou" style="display:none"><b>🔒 Tu viens de lire le début de TON rapport</b><span id="verrou-txt">La suite est déjà écrite et t'attend en entier. Elle est offerte aux membres NAVLYS — avec toutes les applications du club, pour une simple cotisation.</span><span class="cta">💛 Devenir membre et tout lire</span></a>
@@ -116,7 +123,8 @@ h1{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:400;font
     if(a.regarder&&a.regarder.length){ h+='<div class="mdl">Ce qu’on ressent en montant à bord</div><ul>'; a.regarder.forEach(function(p){ h+='<li>'+E(p)+'</li>'; }); h+='</ul>'; }
     h+='</div>';
     if(a.videos&&a.videos.length){
-      h+='<div class="xp"><h3>🎬 Visite guidée — comme si tu montais à bord</h3>'
+      h+='<div class="xp"><h3>🎬 À quoi ressemble ce modèle (vidéos publiques)</h3>'
+        +'<div class="franc">⚠️ Honnêteté : ce ne sont <b>pas</b> des vidéos de TON bateau précis — c\'est impossible à filmer à distance. Ce sont des vidéos publiques du <b>même modèle</b> (ou du modèle successeur, le Super Maramu), pour te montrer concrètement l\'espace. La visite filmée de TON bateau, c\'est le bloc juste en dessous.</div>'
         +'<p class="src2">Appuie sur une vidéo pour la lancer — rien ne se charge avant ton clic.</p><div class="visite">';
       a.videos.forEach(function(v){
         var id=String(v.yt||'').replace(/[^A-Za-z0-9_-]/g,'');
@@ -188,6 +196,17 @@ h1{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:400;font
       var g='';
       (x.photos||[]).forEach(function(u,i){ g+='<a href="'+E(u)+'" target="_blank" rel="noopener"><img src="'+E(u)+'" alt="photo '+(i+1)+' du bateau" loading="lazy"></a>'; });
       $('galerie').innerHTML=g;
+      // Visite RÉELLE de CE bateau : état honnête (photos fournies ou non)
+      var ph=(x.photos||[]).length, ch=$('chantier');
+      if(ch){
+        if(ph){
+          ch.innerHTML='<div class="chantier"><b class="warn">📸 Visite réelle de CE bateau — à compléter</b>'
+            +'<span>Tu as envoyé <b>'+ph+' photo(s)</b> de ton bateau (ci-dessus). La visite en <b>vidéo</b> de CE bateau précis n’est pas encore montée — envoie une courte vidéo et on la publie ici, à ton nom.</span></div>';
+        } else {
+          ch.innerHTML='<div class="chantier"><b>🚧 Visite réelle de CE bateau — en construction</b>'
+            +'<span>On n’a encore <b>aucune photo ni vidéo de TON bateau</b>. Les vidéos plus haut sont d’<b>autres</b> bateaux du même modèle, pas le tien. Pour une visite réelle de CE bateau, <a href="/bateau-test" style="color:var(--ice)">envoie tes photos/vidéos</a> — on la construit ici.</span></div>';
+        }
+      }
       // ---- Analyse pro immédiate (moteur NAVLYS) : osmose + défauts connus + zone ----
       var xp=x.expertise, xh='';
       if(xp && xp.osmose){
