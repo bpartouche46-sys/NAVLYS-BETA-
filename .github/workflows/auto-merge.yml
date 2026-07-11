@@ -16,14 +16,14 @@
 name: Auto-merge Claude PRs
 
 on:
+  # tentative immédiate à chaque évolution de la PR
   pull_request_target:
-    types: [opened, reopened, ready_for_review, synchronize, labeled]
-  check_suite:
-    types: [completed]
-  status: {}
+    types: [opened, reopened, ready_for_review, synchronize]
+  # poller fiable : rattrape le cas « Vercel/CI finit après l'ouverture » (≤ 15 min)
   schedule:
-    - cron: '*/15 * * * *' # filet de sécurité (Vercel peut finir après l'ouverture)
-  workflow_dispatch: {}
+    - cron: '*/15 * * * *'
+  # déclenchement manuel possible
+  workflow_dispatch:
 
 permissions:
   contents: write
