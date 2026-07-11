@@ -792,44 +792,68 @@ But : Bruno parle à **un seul endroit** (bot Telegram), plus jamais Claude Code
   continuité tient à **CLAUDE.md + les commits Git + la mémoire en base**
   (`navlys_memoire`, `core_reglement`, `core_knowledge`), jamais à l'historique du chat.
 - **Chaque matin, une seule phrase à coller dans le nouveau chat** — c'est CE
-  bloc, toujours tenu à jour ici (dernière mise à jour : 2026-07-09). Bruno n'a
+  bloc, toujours tenu à jour ici (dernière mise à jour : 2026-07-11). Bruno n'a
   rien à retenir : il ouvre un nouveau chat, colle le prompt ci-dessous, la
   continuité reprend sans coupure — CLAUDE.md + Git + la base font foi, jamais
   la mémoire du chat précédent.
-- **Prompt de démarrage type** (à coller dans le nouveau chat — maj 2026-07-09) :
-  « Reprends NAVLYS depuis CLAUDE.md + la Bible + l'état Git. On travaille LIVE,
-  push direct sur `main` (plus de PR). **Doctrine :** OUI par défaut (exécute et
-  rends compte, zéro question de validation) ; autonome > dépendance ; jamais de
-  blocage ; tutoiement + prénom ; membre (jamais client), cotisation (jamais
-  prix/tarif) ; charte ice blue + or (interdit violet/mauve/fuchsia) ; preuve
-  avant parole (pg_net/?diag avant d'affirmer) ; un cas qui m'aurait fait
-  redemander → `navlys_regle()` puis avance ; action destructive irréversible →
-  sauvegarde d'abord. Argent (Bible §6) : signalement d'UNE ligne avant tout vrai
-  débit. **Indépendance du CORE (§ dédiée plus bas)** : WhatsApp pilote reste le
-  canal de dialogue direct Bruno↔CORE indépendant de Claude Code ; le repli
-  OpenRouter (`callBrain`) est pour l'instant seulement dans
-  `api/whatsapp-webhook.js` — reste à le propager à `assistant`/`cockpit`/`bible`
-  et à poser `OPENROUTER_API_KEY` chez Vercel (à demander à Bruno, ce n'est pas
-  un débit). **Objectif permanent en fil rouge (gravé 2026-07-09, ne s'arrête
-  qu'à zéro erreur) :** auditer et corriger TOUT navlys.com — chaque page/rubrique,
-  liens tél/mail, inscription, connexion FB/Google/Apple — jusqu'à zéro erreur ;
-  ce qui dépend d'une action réelle de Bruno (comptes OAuth, vérif téléphone) est
+- **Prompt de démarrage type** (à coller dans le nouveau chat — maj 2026-07-11) :
+  « Reprends NAVLYS depuis CLAUDE.md + la Bible + l'état Git. On travaille LIVE
+  (site) mais CETTE session Claude Code passe par branche + PR (contrainte de
+  l'environnement, pas de push direct sur `main` ici). **Doctrine :** OUI par
+  défaut (exécute et rends compte, zéro question de validation) ; autonome >
+  dépendance ; jamais de blocage ; tutoiement + prénom ; membre (jamais client),
+  cotisation (jamais prix/tarif) ; charte ice blue + or (interdit
+  violet/mauve/fuchsia) ; preuve avant parole (pg_net/?diag avant d'affirmer) ;
+  un cas qui m'aurait fait redemander → `navlys_regle()` puis avance ; action
+  destructive irréversible → sauvegarde d'abord. Argent (Bible §6) : signalement
+  d'UNE ligne avant tout vrai débit.
+  **Indépendance du CORE — état réel au 2026-07-11 :** le repli multi-modèle
+  `callBrain` (Claude → OpenRouter/Llama → NVIDIA NIM) est maintenant déployé sur
+  les 4 canaux qui parlent en direct à un humain : `api/whatsapp-webhook.js`
+  (Vercel), et **`supabase/functions/whatsapp/index.ts`** (le vrai webhook
+  360dialog en prod, confirmé via `?diag=1` : `d360:true`, `anth:true`, webhook
+  bien auto-pointé), **`assistant`** (SAV site) et **`bible`** (avis IA
+  quotidien, + `?mode=diag_nvidia` pour tester la clé sans jamais l'exposer).
+  Restent en simple-point-de-défaillance (Claude direct only, pas encore
+  propagé, moins critique que les 4 ci-dessus car pas de conversation humaine
+  temps réel) : `cockpit`, `veilleur`, `nextgen`, `panel`.
+  **Clé NVIDIA (`nvapi-...`, générée sur build.nvidia.com par Bruno) : toujours
+  introuvable** au 2026-07-11 sous aucun des 6 noms testés
+  (`NVIDIA_API_KEY`/`NVAPI_KEY`/`NVIDIA_NIM_KEY`/`NGC_API_KEY`/
+  `NVIDIA_BUILD_API_KEY`/`BUILD_NVIDIA_API_KEY`) — vérifié via `diag_nvidia`
+  (`cle_trouvee:false`). Bruno a confirmé l'avoir "mise dans Supabase" mais elle
+  n'apparaît ni dans les secrets Edge Functions ni dans le Vault — à reproposer
+  le chemin exact (Dashboard → Edge Functions → Secrets → Add new secret) la
+  prochaine fois qu'il en parle, sans redemander pourquoi ça ne marche pas.
+  OpenRouter (`llama`) reste lui aussi à `false` dans les tests `avisIA` — cause
+  non confirmée (clé jamais posée côté Supabase, ou nom différent) : NE PAS
+  redemander, juste re-tester si Bruno signale l'avoir posée.
+  **Sécurité corrigée 2026-07-09/10 (règle n°114) :** `navlys_bateau_publier`
+  (SECURITY DEFINER) était exécutable par `anon`/`authenticated` — n'importe qui
+  pouvait publier un faux rapport sur un dossier client. Revoke fait, plus
+  `search_path` fixé sur 3 fonctions, RLS `chapitres`/`souvenirs` optimisée,
+  index posés sur les FK sans couverture — `get_advisors(security)` et
+  `get_advisors(performance)` repassés propres. Réflexe : relancer les deux après
+  CHAQUE nouvelle fonction/migration.
+  **Objectif permanent en fil rouge (gravé 2026-07-09, ne s'arrête qu'à zéro
+  erreur) :** auditer et corriger TOUT navlys.com — chaque page/rubrique, liens
+  tél/mail, inscription, connexion FB/Google/Apple — jusqu'à zéro erreur ; ce qui
+  dépend d'une action réelle de Bruno (comptes OAuth, vérif téléphone) est
   signalé, pas simulé. **Commence par l'analyse santé complète** (pg_net :
-  inscription, paiement, assistant, media, studio, whatsapp, booster, ambassadeur ;
-  file missions/agents ; incidents ; retours 💡 ; Security Advisor), inscris tes
-  chantiers via `navlys_chantier_ouvrir`, puis avance sans me demander. **En ligne
-  (edge functions hors-Git) :** whatsapp v32 (FAQ+mémoire+lien) + résilience
-  OpenRouter (commit `2f50322`), bible (verifierSite/rechercheWeb/boucle),
-  booster v1, ambassadeur v1 ; sw v1.7.8. **En attente de Bruno (relance-moi) :**
-  1) poser `OPENROUTER_API_KEY` (gratuit sur openrouter.ai) chez Vercel pour
-  activer le repli anti-coupure ; 2) approuver le nom d'affichage WhatsApp Meta
-  (#131037 → « NAVLYS ») ; 3) activer Leaked password protection (Supabase) ;
-  4) compte Google Play 25 $ + PWABuilder → empreinte SHA-256 pour
-  `assetlinks.json` ; 5) secrets média gratuits (GEMINI/HF/Cloudflare) ;
-  6) trancher navlys.io (miroir complet de navlys.com ou usage distinct ?).
-  **Fil rouge cap 1000→1M :** capter le `?code=` à l'inscription (parrainage),
-  clés i18n `/ambassadeur` + `/booster`, vidéos/logo/mobile, zéro-erreur
-  navlys.com. Avance sans me demander. »
+  inscription, paiement, assistant, media, studio, whatsapp, booster,
+  ambassadeur ; file missions/agents ; incidents ; retours 💡 ; Security
+  Advisor), inscris tes chantiers via `navlys_chantier_ouvrir`, puis avance sans
+  me demander. **En attente de Bruno (relance-moi) :** 1) poser correctement
+  `NVIDIA_API_KEY` et `OPENROUTER_API_KEY` dans Supabase Edge Functions →
+  Secrets ; 2) approuver le nom d'affichage WhatsApp Meta (#131037 →
+  « NAVLYS ») ; 3) activer Leaked password protection (Supabase) ; 4) compte
+  Google Play 25 $ + PWABuilder → empreinte SHA-256 pour `assetlinks.json` ;
+  5) secrets média gratuits (GEMINI/HF/Cloudflare) ; 6) trancher navlys.io
+  (miroir complet de navlys.com ou usage distinct ?). **Fil rouge cap
+  1000→1M :** capter le `?code=` à l'inscription (parrainage), clés i18n
+  `/ambassadeur` + `/booster`, vidéos/logo/mobile, zéro-erreur navlys.com,
+  propager `callBrain` à `cockpit`/`veilleur`/`nextgen`/`panel`. Avance sans me
+  demander. »
 
 ## 🌙 Nuit du 2026-07-08→09 — livré (à connaître pour la reprise)
 
