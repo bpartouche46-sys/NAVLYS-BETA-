@@ -1,5 +1,5 @@
 /* NAVLYS_DICT_WA — généré par tools/make-dict.mjs (ne pas éditer à la main).
-   Couverture : 21/1337 clés (1.6 %). Le reste retombe sur le FR. */
+   Couverture : 21/1391 clés (1.5 %). Le reste retombe sur le FR. */
 window.NAVLYS_DICT_WA = {
   "Accueil": "Accueye",
   "Voix": "Vwès",
