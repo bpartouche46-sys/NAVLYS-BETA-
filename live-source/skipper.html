@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>SKIPPER — acheter &amp; vendre ton bateau, avec l'expertise NAVLYS</title>
+<meta name="description" content="SKIPPER : la place de marché nautique NAVLYS. Achète et vends ton bateau en confiance — chaque annonce peut porter une pré-expertise Test Bateaux (osmose, défauts connus, check-list). Depuis ton téléphone.">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Cormorant+Garamond:ital,wght@0,400;1,400&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="/media/navlys_favicon.svg">
+<style>
+:root{--noir:#03040a;--ice:#7DD3FC;--ice-clair:#a8e3ff;--or:#C9A961;--or-pale:#f3e4c4;--perle:#e7eef2;--mut:#9fb3c8;--line:rgba(125,211,252,.18);--panel:rgba(6,8,16,.7);--ok:#34d399;--bad:#fca5a5}
+*{margin:0;padding:0;box-sizing:border-box}
+html{background:var(--noir);scroll-behavior:smooth}
+body{background:var(--noir);color:var(--perle);font-family:'Atkinson Hyperlegible',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1040px;margin:0 auto;padding:34px 16px 96px}
+.k{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:var(--ice);text-align:center}
+h1{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:400;font-size:clamp(34px,8vw,52px);text-align:center;color:#eafaff;margin:8px 0 4px}
+.sub{text-align:center;color:var(--mut);font-size:1rem;max-width:38em;margin:0 auto 18px;line-height:1.75}
+.honnete{background:linear-gradient(135deg,rgba(201,169,97,.12),rgba(125,211,252,.08));border:1px solid rgba(201,169,97,.35);border-radius:14px;padding:13px 16px;text-align:center;color:var(--or-pale);font-size:.94rem;line-height:1.7;margin-bottom:22px}
+.barre{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;align-items:center;margin:6px 0 22px}
+.barre select,.barre input{background:rgba(3,4,10,.8);border:1px solid var(--line);border-radius:10px;color:var(--perle);padding:11px 12px;font:inherit;font-size:.95rem}
+.barre .vendre{margin-left:auto;background:linear-gradient(135deg,#C9A961,#e3cd96);border:none;border-radius:11px;color:#141005;font-weight:700;padding:12px 20px;cursor:pointer}
+@media(max-width:640px){.barre .vendre{margin-left:0;width:100%}}
+h2{font-family:'Cinzel',serif;font-weight:600;font-size:14px;letter-spacing:.16em;text-transform:uppercase;color:var(--or);display:flex;align-items:center;gap:12px;margin:26px 0 14px}
+h2::after{content:"";flex:1;height:1px;background:var(--line)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
+.an{background:var(--panel);border:1px solid var(--line);border-radius:16px;overflow:hidden;display:flex;flex-direction:column}
+.an .ph{width:100%;height:170px;object-fit:cover;background:rgba(3,4,10,.6);display:block}
+.an .noph{width:100%;height:170px;display:flex;align-items:center;justify-content:center;color:var(--mut);font-size:2.4rem;background:linear-gradient(135deg,rgba(125,211,252,.08),rgba(3,4,10,.4))}
+.an .b{padding:14px 15px 16px}
+.an .titre{font-weight:700;color:var(--ice-clair);font-size:1.05rem;line-height:1.3}
+.an .meta{color:var(--mut);font-size:.86rem;margin-top:5px;line-height:1.6}
+.an .prix{font-family:'Cinzel',serif;color:var(--or-pale);font-size:1.15rem;margin-top:10px}
+.an .tags{margin-top:10px;display:flex;flex-wrap:wrap;gap:6px}
+.badge{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:4px 10px;font-size:.76rem;color:var(--mut)}
+.badge.or{border-color:rgba(201,169,97,.5);color:var(--or-pale)}
+.badge.exp{border-color:rgba(52,211,153,.5);color:#bff2da}
+.an .act{margin-top:12px;display:flex;gap:8px;flex-wrap:wrap}
+.an .act button,.an .act a{flex:1;text-align:center;text-decoration:none;font:inherit;font-size:.9rem;cursor:pointer;border-radius:10px;padding:10px;border:1px solid var(--line);background:none;color:var(--ice)}
+.an .act .prim{background:linear-gradient(135deg,rgba(125,211,252,.16),rgba(201,169,97,.10));border-color:rgba(201,169,97,.4);color:var(--or-pale);font-weight:700}
+.vide{text-align:center;color:var(--mut);padding:34px 10px;line-height:1.8}
+/* Formulaire (dépôt / contact) en tiroir modal */
+.modal{position:fixed;inset:0;z-index:80;background:rgba(2,4,10,.72);backdrop-filter:blur(6px);display:none;align-items:flex-start;justify-content:center;overflow:auto;padding:24px 14px}
+.modal.on{display:flex}
+.sheet{background:#070a12;border:1px solid var(--line);border-radius:18px;max-width:640px;width:100%;padding:20px 18px 24px;margin:auto}
+.sheet h3{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.7rem;color:#eafaff;margin-bottom:4px}
+.sheet .note{color:var(--mut);font-size:.9rem;line-height:1.65;margin-bottom:14px}
+.deux{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:520px){.deux{grid-template-columns:1fr}}
+label{display:block;font-size:.83rem;color:var(--mut);margin:11px 0 5px}
+input,select,textarea{width:100%;background:rgba(3,4,10,.8);border:1px solid var(--line);border-radius:10px;color:var(--perle);padding:11px;font:inherit;font-size:1rem}
+select{appearance:none;-webkit-appearance:none}
+textarea{min-height:110px;line-height:1.6}
+input:focus,textarea:focus,select:focus{outline:none;border-color:var(--ice)}
+.photos{border:1px dashed rgba(125,211,252,.4);border-radius:12px;padding:13px;text-align:center;color:var(--mut);cursor:pointer;font-size:.92rem;margin-top:6px}
+.photos b{color:var(--ice-clair)}
+#apercu{display:grid;grid-template-columns:repeat(auto-fill,minmax(76px,1fr));gap:7px;margin-top:9px}
+#apercu img{width:100%;height:76px;object-fit:cover;border-radius:9px;border:1px solid var(--line)}
+.envoyer{width:100%;margin-top:16px;background:linear-gradient(135deg,#C9A961,#e3cd96);border:none;border-radius:12px;color:#141005;font-weight:700;font-size:1.05rem;padding:14px;cursor:pointer}
+.envoyer:disabled{opacity:.55;cursor:wait}
+.fermer{float:right;background:none;border:none;color:var(--mut);font-size:1.5rem;cursor:pointer;line-height:1}
+.msg{min-height:20px;margin-top:9px;text-align:center;font-size:.92rem;color:var(--bad);line-height:1.6}
+.msg.ok{color:var(--ok)}
+.astuce{background:linear-gradient(135deg,rgba(125,211,252,.10),rgba(201,169,97,.08));border:1px solid var(--line);border-radius:12px;padding:12px 14px;color:var(--mut);font-size:.9rem;line-height:1.7;margin:8px 0 14px}
+.astuce a{color:var(--ice-clair)}
+.hp{position:absolute;left:-5000px;opacity:0}
+.disc{text-align:center;color:var(--mut);font-size:.85rem;margin-top:34px;line-height:1.75;max-width:44em;margin-left:auto;margin-right:auto}
+.disc a{color:var(--ice)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="k">⚓ SKIPPER · la place de marché nautique NAVLYS</div>
+  <h1>Achète &amp; vends ton bateau</h1>
+  <p class="sub">Des annonces claires, une <b>mise en relation sécurisée</b>, et — c'est unique — la possibilité d'attacher une <b>pré-expertise Test Bateaux</b> (osmose, défauts connus, check-list) à chaque bateau. Depuis ton téléphone.</p>
+
+  <div class="honnete">⚓ <b>Confiance d'abord :</b> ton contact n'est jamais affiché en clair — les acheteurs t'écrivent via la messagerie NAVLYS. Chaque annonce est vérifiée avant publication. On n'est pas experts maritimes : l'expertise NAVLYS est un avis éducatif, jamais à la place d'un expert.</div>
+
+  <div class="barre">
+    <select id="f-type"><option value="">Tous les types</option><option value="voilier">Voilier</option><option value="catamaran">Catamaran</option><option value="moteur">Bateau à moteur</option><option value="semi-rigide">Semi-rigide</option><option value="peniche">Péniche</option><option value="autre">Autre</option></select>
+    <input id="f-zone" type="text" placeholder="Zone (Méditerranée, Bretagne…)" style="min-width:190px">
+    <input id="f-prix" type="text" inputmode="numeric" placeholder="Prix max €" style="width:130px">
+    <button class="vendre" id="ouvrir-vendre">＋ Vendre mon bateau</button>
+  </div>
+
+  <h2 id="titre-liste">Les annonces</h2>
+  <div class="grid" id="grid"></div>
+  <div class="vide" id="vide" style="display:none"></div>
+</div>
+
+<!-- Modal DÉPÔT -->
+<div class="modal" id="m-vendre">
+  <div class="sheet">
+    <button class="fermer" data-close>×</button>
+    <h3>Vendre ton bateau</h3>
+    <p class="note">Remplis ce que tu sais — même partiel, on complète ensemble. NAVLYS vérifie puis publie ton annonce.</p>
+    <div class="astuce">💡 Tu veux rassurer les acheteurs ? Fais d'abord tester ton bateau : <a href="/bateau-test">dépose un dossier Test Bateaux</a>, et on attache le rapport (osmose + défauts modèle) à ton annonce.</div>
+    <form id="f-vendre">
+      <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off">
+      <div class="deux">
+        <div><label>Ton prénom</label><input id="v-prenom" type="text" placeholder="Gérard"></div>
+        <div><label>Ton e-mail *</label><input id="v-email" type="email" placeholder="toi@exemple.com" required></div>
+      </div>
+      <div class="deux">
+        <div><label>Téléphone (jamais affiché)</label><input id="v-tel" type="tel" placeholder="+972…"></div>
+        <div><label>Tu es</label><select id="v-vtype"><option value="particulier">Un particulier</option><option value="pro">Un professionnel</option></select></div>
+      </div>
+      <div class="deux">
+        <div><label>Type</label><select id="v-type"><option value="voilier">Voilier</option><option value="catamaran">Catamaran</option><option value="moteur">Bateau à moteur</option><option value="semi-rigide">Semi-rigide</option><option value="peniche">Péniche</option><option value="autre">Autre</option></select></div>
+        <div><label>Année</label><input id="v-annee" type="text" inputmode="numeric" placeholder="1989"></div>
+      </div>
+      <div class="deux">
+        <div><label>Marque</label><input id="v-marque" type="text" placeholder="Amel, Bénéteau…"></div>
+        <div><label>Modèle</label><input id="v-modele" type="text" placeholder="Maramu 46…"></div>
+      </div>
+      <div class="deux">
+        <div><label>Longueur (m)</label><input id="v-long" type="text" inputmode="decimal" placeholder="13.4"></div>
+        <div><label>Prix (€)</label><input id="v-prix" type="text" inputmode="numeric" placeholder="89000"></div>
+      </div>
+      <div class="deux">
+        <div><label>Motorisation</label><input id="v-moteur" type="text" placeholder="Volvo 60 CV, 1200 h…"></div>
+        <div><label>TVA payée ?</label><select id="v-tva"><option value="">Je ne sais pas</option><option value="oui">Oui</option><option value="non">Non</option></select></div>
+      </div>
+      <div class="deux">
+        <div><label>Port / localisation</label><input id="v-port" type="text" placeholder="Herzliya…"></div>
+        <div><label>Zone de navigation</label><input id="v-zone" type="text" placeholder="Méditerranée Est…"></div>
+      </div>
+      <label>Description — état, historique, équipements, ce que tu veux dire</label>
+      <textarea id="v-desc" placeholder="Ketch bien suivi, gréement refait en 2021, voiles récentes…"></textarea>
+      <label>Photos (jusqu'à 8 — coque, pont, moteur, intérieur)</label>
+      <div class="photos" id="v-zonephotos">📷 <b>Touche ici pour ajouter tes photos</b><br>réduites automatiquement</div>
+      <input id="v-fichiers" type="file" accept="image/*" multiple style="display:none">
+      <div id="apercu"></div>
+      <button class="envoyer" id="v-go" type="submit">Publier mon annonce 🌊</button>
+      <p class="msg" id="v-msg"></p>
+    </form>
+  </div>
+</div>
+
+<!-- Modal CONTACT -->
+<div class="modal" id="m-contact">
+  <div class="sheet">
+    <button class="fermer" data-close>×</button>
+    <h3 id="c-titre">Contacter le vendeur</h3>
+    <p class="note">Ton message part à NAVLYS, qui te met en relation avec le vendeur. Ton contact reste protégé.</p>
+    <form id="f-contact">
+      <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off">
+      <div class="deux">
+        <div><label>Ton prénom</label><input id="c-prenom" type="text" placeholder="Gérard"></div>
+        <div><label>Ton e-mail *</label><input id="c-email" type="email" placeholder="toi@exemple.com" required></div>
+      </div>
+      <label>Ton message</label>
+      <textarea id="c-contenu" placeholder="Bonjour, ce bateau m'intéresse — est-il toujours disponible ? Peut-on convenir d'une visite ?"></textarea>
+      <button class="envoyer" id="c-go" type="submit">Envoyer au vendeur 🌊</button>
+      <p class="msg" id="c-msg"></p>
+    </form>
+  </div>
+</div>
+
+<div class="wrap" style="padding-top:0">
+  <p class="disc">SKIPPER · NAVLYS Web Service (NWS) — mise en relation d'acheteurs et de vendeurs. Information générale et éducative, jamais de conseil financier personnalisé. Nous ne sommes pas experts maritimes et ce service ne remplace jamais une expertise officielle. Aucun débit sans ta validation. <a href="/bateau-test">Faire tester un bateau</a>.</p>
+</div>
+
+<script>
+(function(){
+  var API='https://hhrlgyvtqluxpywjiwkd.supabase.co/functions/v1/skipper';
+  var $=function(id){ return document.getElementById(id); };
+  function E(s){ return String(s==null?'':s).replace(/[&<>"]/g,function(c){ return c==='&'?'&amp;':c==='<'?'&lt;':c==='>'?'&gt;':'&quot;'; }); }
+  function euro(n){ if(n==null||n==='') return ''; try{ return Number(n).toLocaleString('fr-FR')+' €'; }catch(e){ return n+' €'; } }
+  var photos=[]; // dataURLs dépôt
+
+  // ---- Chargement des annonces ----
+  function charge(){
+    var qs='?liste';
+    var t=$('f-type').value; if(t) qs+='&type='+encodeURIComponent(t);
+    var z=$('f-zone').value.trim(); if(z) qs+='&zone='+encodeURIComponent(z);
+    var p=$('f-prix').value.replace(/\D/g,''); if(p) qs+='&max_prix='+p;
+    $('grid').innerHTML=''; $('vide').style.display='none';
+    fetch(API+qs).then(function(r){ return r.json(); }).then(function(d){
+      var arr=(d&&d.annonces)||[];
+      if(!arr.length){ $('vide').style.display='block'; $('vide').innerHTML='Aucune annonce pour l\'instant.<br>Sois le premier : <b>＋ Vendre mon bateau</b> 🌊'; return; }
+      $('grid').innerHTML=arr.map(carte).join('');
+      Array.prototype.forEach.call(document.querySelectorAll('[data-contact]'),function(btn){
+        btn.addEventListener('click',function(){ ouvrirContact(btn.getAttribute('data-contact'), btn.getAttribute('data-titre')); });
+      });
+    }).catch(function(){ $('vide').style.display='block'; $('vide').textContent='Connexion difficile, réessaie dans un instant.'; });
+  }
+  function carte(a){
+    var titre=[a.marque,a.modele].filter(Boolean).join(' ')||'Bateau';
+    var ph=(a.photos&&a.photos[0])?'<img class="ph" src="'+E(a.photos[0])+'" alt="'+E(titre)+'" loading="lazy">':'<div class="noph">⛵</div>';
+    var meta=[a.annee,a.longueur_m?a.longueur_m+' m':'',a.port||a.zone].filter(Boolean).join(' · ');
+    var tags='';
+    if(a.vendeur_type==='pro') tags+='<span class="badge">Pro</span>';
+    if(a.tva_payee===true) tags+='<span class="badge or">TVA payée</span>';
+    if(a.bateau_dossier_id) tags+='<span class="badge exp">🔎 Expertise Test Bateaux</span>';
+    return '<div class="an">'+ph+'<div class="b">'
+      +'<div class="titre">'+E(titre)+'</div>'
+      +'<div class="meta">'+E(meta)+'</div>'
+      +'<div class="prix">'+E(euro(a.prix_eur))+'</div>'
+      +(tags?'<div class="tags">'+tags+'</div>':'')
+      +'<div class="act">'
+      +(a.rapport_jeton?'<a href="/bateau-rapport?d='+E(a.rapport_jeton)+'" target="_blank" rel="noopener">Voir l\'expertise</a>':'')
+      +'<button class="prim" data-contact="'+E(a.jeton)+'" data-titre="'+E(titre)+'">Contacter</button>'
+      +'</div></div></div>';
+  }
+
+  // ---- Modales ----
+  function ouvre(id){ $(id).classList.add('on'); }
+  function ferme(id){ $(id).classList.remove('on'); }
+  Array.prototype.forEach.call(document.querySelectorAll('[data-close]'),function(b){ b.addEventListener('click',function(){ b.closest('.modal').classList.remove('on'); }); });
+  Array.prototype.forEach.call(document.querySelectorAll('.modal'),function(m){ m.addEventListener('click',function(ev){ if(ev.target===m) m.classList.remove('on'); }); });
+  $('ouvrir-vendre').addEventListener('click',function(){ ouvre('m-vendre'); });
+
+  var contactJeton='';
+  function ouvrirContact(jeton,titre){ contactJeton=jeton; $('c-titre').textContent='Contacter — '+titre; $('c-msg').textContent=''; $('c-msg').className='msg'; ouvre('m-contact'); }
+
+  // ---- Filtres ----
+  $('f-type').addEventListener('change',charge);
+  var deb; function debCharge(){ clearTimeout(deb); deb=setTimeout(charge,350); }
+  $('f-zone').addEventListener('input',debCharge);
+  $('f-prix').addEventListener('input',debCharge);
+
+  // ---- Photos (dépôt) ----
+  $('v-zonephotos').addEventListener('click',function(){ $('v-fichiers').click(); });
+  $('v-fichiers').addEventListener('change',function(){
+    Array.prototype.slice.call(this.files||[]).forEach(function(f){
+      if(photos.length>=8 || !/^image\//.test(f.type)) return;
+      var img=new Image();
+      img.onload=function(){
+        var max=1280,r=Math.min(1,max/Math.max(img.width,img.height));
+        var c=document.createElement('canvas'); c.width=Math.round(img.width*r); c.height=Math.round(img.height*r);
+        c.getContext('2d').drawImage(img,0,0,c.width,c.height);
+        URL.revokeObjectURL(img.src);
+        if(photos.length<8){ photos.push(c.toDataURL('image/jpeg',0.8)); apercu(); }
+      };
+      img.src=URL.createObjectURL(f);
+    });
+    this.value='';
+  });
+  function apercu(){
+    $('apercu').innerHTML=photos.map(function(p,i){ return '<img src="'+p+'" alt="photo '+(i+1)+'">'; }).join('');
+    $('v-zonephotos').innerHTML='📷 <b>'+photos.length+'/8 photo(s) prête(s)</b><br>touche pour en ajouter';
+  }
+
+  // ---- Dépôt annonce ----
+  $('f-vendre').addEventListener('submit',function(ev){
+    ev.preventDefault();
+    var msg=$('v-msg'); msg.className='msg'; msg.textContent='';
+    var email=$('v-email').value.trim();
+    if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){ msg.textContent='Écris un e-mail valide pour recevoir les réponses.'; return; }
+    if(!$('v-marque').value.trim() && !$('v-modele').value.trim()){ msg.textContent='Dis-nous au moins la marque ou le modèle.'; return; }
+    var go=$('v-go'); go.disabled=true; go.textContent='Envoi en cours…';
+    fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
+      action:'deposer', website:document.querySelector('#f-vendre .hp').value,
+      prenom:$('v-prenom').value, email:email, telephone:$('v-tel').value, vendeur_type:$('v-vtype').value,
+      type_bateau:$('v-type').value, marque:$('v-marque').value, modele:$('v-modele').value, annee:$('v-annee').value,
+      longueur_m:$('v-long').value, prix_eur:$('v-prix').value, motorisation:$('v-moteur').value,
+      tva_payee:$('v-tva').value, port:$('v-port').value, zone:$('v-zone').value, description:$('v-desc').value,
+      photos:photos
+    })}).then(function(r){ return r.json(); }).then(function(d){
+      go.disabled=false; go.textContent='Publier mon annonce 🌊';
+      if(!d||!d.ok){ msg.textContent=(d&&d.error)||'Réessaie dans un instant.'; return; }
+      msg.className='msg ok'; msg.textContent=d.merci||'Ton annonce est bien arrivée. 🌊';
+      $('f-vendre').reset(); photos=[]; apercu();
+    }).catch(function(){ go.disabled=false; go.textContent='Publier mon annonce 🌊'; msg.textContent='Connexion difficile, réessaie.'; });
+  });
+
+  // ---- Contact vendeur ----
+  $('f-contact').addEventListener('submit',function(ev){
+    ev.preventDefault();
+    var msg=$('c-msg'); msg.className='msg'; msg.textContent='';
+    var email=$('c-email').value.trim();
+    if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){ msg.textContent='Écris un e-mail valide pour la réponse.'; return; }
+    if($('c-contenu').value.trim().length<5){ msg.textContent='Écris ton message au vendeur.'; return; }
+    var go=$('c-go'); go.disabled=true; go.textContent='Envoi…';
+    fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
+      action:'message', website:document.querySelector('#f-contact .hp').value,
+      annonce:contactJeton, prenom:$('c-prenom').value, email:email, contenu:$('c-contenu').value
+    })}).then(function(r){ return r.json(); }).then(function(d){
+      go.disabled=false; go.textContent='Envoyer au vendeur 🌊';
+      if(!d||!d.ok){ msg.textContent=(d&&d.error)||'Réessaie dans un instant.'; return; }
+      msg.className='msg ok'; msg.textContent=d.merci||'Ton message est parti. 🌊';
+      $('f-contact').reset();
+    }).catch(function(){ go.disabled=false; go.textContent='Envoyer au vendeur 🌊'; msg.textContent='Connexion difficile, réessaie.'; });
+  });
+
+  charge();
+})();
+</script>
+</body>
+</html>
