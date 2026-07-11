@@ -30,3 +30,21 @@ create index if not exists idx_core_avis_ia_jour     on public.core_avis_ia (jou
 -- Verrouillage : RLS active, aucune policy publique → anon/authenticated = zéro accès.
 alter table public.core_avis_ia enable row level security;
 revoke all on public.core_avis_ia from anon, authenticated;
+
+-- Rebascule ACTIVE vers Bruno : après l'avis quotidien du panel (cron
+-- navlys_bible_avis à 7h15 UTC), pousser les avis bruts non lus sur sa WhatsApp
+-- via la brique whatsapp ?mode=push_avis (qui les marque « vus » au passage).
+-- Nécessite les secrets D360_API_KEY + BRUNO_WHATSAPP ; sinon renvoie envoye:false
+-- proprement, sans marquer vus (retentés au prochain passage).
+do $do$
+begin
+  if exists (select 1 from cron.job where jobname = 'navlys_avis_push_bruno') then
+    perform cron.unschedule('navlys_avis_push_bruno');
+  end if;
+end
+$do$;
+select cron.schedule('navlys_avis_push_bruno', '30 8 * * *',
+  $cmd$ select net.http_get(url:='https://hhrlgyvtqluxpywjiwkd.supabase.co/functions/v1/whatsapp?mode=push_avis'); $cmd$);
+
+insert into public.journal (type, message)
+values ('bible', 'Panel de contradiction multi-IA installé : familles distinctes, avis bruts dans core_avis_ia, rebascule active WhatsApp (cron navlys_avis_push_bruno 08:30 UTC).');

@@ -254,7 +254,9 @@ const PANEL_OPENROUTER = [
   { modele: "mistralai/mistral-small-3.2-24b-instruct:free", famille: "mistral" },
   { modele: "qwen/qwen-2.5-72b-instruct:free", famille: "qwen" },
   { modele: "deepseek/deepseek-chat-v3-0324:free", famille: "deepseek" },
-  { modele: "google/gemma-3-27b-it:free", famille: "google" },
+  { modele: "google/gemma-3-27b-it:free", famille: "google-gemma" },
+  { modele: "google/gemini-2.0-flash-exp:free", famille: "google-gemini" },
+  { modele: "cohere/command-r-08-2024", famille: "cohere" },
 ];
 async function avisOpenRouterModele(contexte: string, modele: string): Promise<string> {
   const orKey = clefOpenRouter();
