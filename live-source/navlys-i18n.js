@@ -127,11 +127,11 @@
     "La bande-son de l'Équipage : musique et flux en direct pour travailler, apprendre, respirer.": "The Crew's soundtrack: live music and streams to work, learn, breathe.",
     "Écouter →": "Listen →",
     "brokers · banques · outils": "brokers · banks · tools",
-    "Nos partenaires testés (brokers, crypto, néo-banques, outils), en toute transparence sur l'affiliation.": "Our tested partners (brokers, crypto, neo-banks, tools), fully transparent about affiliation.",
+    "Mes partenaires testés (brokers, crypto, néo-banques, outils), en toute transparence sur l'affiliation.": "My tested partners (brokers, crypto, neo-banks, tools), fully transparent about affiliation.",
     "Voir →": "See →",
 
     /* section partenaires */
-    "Nos": "Our",
+    "Mes": "My",
     "partenaires": "partners",
     "Brokers, banques et outils — tous testés, liens d'affiliation transparents, sans surcoût pour toi.": "Brokers, banks and tools — all tested, transparent affiliate links, at no extra cost to you.",
     "Pour investir en actions et ETF, du néo-broker européen au PEA français.": "To invest in stocks and ETFs, from the European neo-broker to the French PEA.",
@@ -149,9 +149,9 @@
     "Rejoindre l'aventure →": "Join the adventure →",
 
     /* section mission */
-    "Notre": "Our",
+    "Ma": "My",
     "mission": "mission",
-    "Mettre l'IA à la portée de tous, en un clic et à la voix — pour égaliser l'accès au savoir, au bien-être et à la transmission. L'humain reste la pièce centrale. NAVLYS, c'est aussi 100 % dématérialisé, dans le respect de la Méditerranée qui nous porte.": "Bringing AI within everyone's reach, in one click and by voice — to level access to knowledge, well-being and legacy. The human stays at the heart of it. NAVLYS is also 100% paperless, honoring the Mediterranean that carries us.",
+    "Mettre l'IA à la portée de tous, en un clic et à la voix — pour égaliser l'accès au savoir, au bien-être et à la transmission. L'humain reste la pièce centrale. NAVLYS, c'est aussi 100 % dématérialisé, dans le respect de la Méditerranée qui me porte.": "Bringing AI within everyone's reach, in one click and by voice — to level access to knowledge, well-being and legacy. The human stays at the heart of it. NAVLYS is also 100% paperless, honoring the Mediterranean that carries me.",
 
     /* pied de page */
     "· le site référence": "· the reference site",
@@ -1501,9 +1501,9 @@
 "Саундтрек Экипажа: музыка и прямые эфиры, чтобы работать, учиться, дышать.",
 "Слушать →",
 "брокеры · банки · инструменты",
-"Наши проверенные партнёры (брокеры, крипто, необанки, инструменты), с полной прозрачностью по партнёрским ссылкам.",
+"Мои проверенные партнёры (брокеры, крипто, необанки, инструменты), с полной прозрачностью по партнёрским ссылкам.",
 "Смотреть →",
-"Наши",
+"Мои",
 "партнёры",
 "Брокеры, банки и инструменты — все проверены, прозрачные партнёрские ссылки, без доплаты для тебя.",
 "Чтобы инвестировать в акции и ETF, от европейского необрокера до французского PEA.",
@@ -1517,9 +1517,9 @@
 "Экипаж",
 "Закрытое сообщество, чтобы учиться вместе, в твоём ритме. Ты никогда не один у штурвала.",
 "Присоединиться к приключению →",
-"Наша",
+"Моя",
 "миссия",
-"Сделать ИИ доступным каждому, в один клик и голосом — чтобы уравнять доступ к знаниям, благополучию и передаче наследия. Человек остаётся в центре. NAVLYS ещё и на 100 % без бумаги, с уважением к Средиземному морю, которое нас несёт.",
+"Сделать ИИ доступным каждому, в один клик и голосом — чтобы уравнять доступ к знаниям, благополучию и передаче наследия. Человек остаётся в центре. NAVLYS ещё и на 100 % без бумаги, с уважением к Средиземному морю, которое меня несёт.",
 "· эталонный сайт",
 "Приложения · Партнёры · Сообщество · Журнал",
 "NAVLYS — это проект ",
