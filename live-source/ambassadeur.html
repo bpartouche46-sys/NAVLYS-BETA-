@@ -155,7 +155,7 @@ h1{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:400;font
 
   function render(d){
     if(!d||!d.ok){ $('msg').textContent=(d&&d.error)?d.error:'Espace indisponible — réessaie dans un instant.'; return; }
-    code=d.code||''; lien=SITE+'/adhesion?code='+encodeURIComponent(code);
+    code=d.code||''; lien=SITE+'/adhesion?parrain='+encodeURIComponent(code);
     $('code').textContent=code||'—';
     $('lien').textContent=lien;
     var p=d.palier||{nom:'Graine',min:0,suivant:null,seuil_suivant:null};
