@@ -93,7 +93,7 @@ function add(role,text){var d=document.createElement('div');d.className='bubble 
 function typing(){var d=document.createElement('div');d.className='typing';d.innerHTML='NAVLYS écrit <span class="dots"><span>.</span><span>.</span><span>.</span></span>';chat.appendChild(d);chat.scrollTop=chat.scrollHeight;return d;}
 function say(text){ if(!speakOn||!('speechSynthesis'in window))return; try{var clean=String(text).replace(/[*_#>`]|🌊|👋|🚀|😊|💰/g,'');var u=new SpeechSynthesisUtterance(clean);u.lang='fr-FR';u.rate=1.03;speechSynthesis.cancel();speechSynthesis.speak(u);}catch(e){} }
 
-add('navlys','Bonjour 🌊 Je suis l’assistant NAVLYS. Tu peux me parler ou m’écrire — une question sur nos applications, ton compte, ou autre chose ?');
+add('navlys','Bonjour 🌊 Je suis l’assistant NAVLYS. Tu peux me parler ou m’écrire — une question sur mes applications, ton compte, ou autre chose ?');
 
 input.addEventListener('input',function(){input.style.height='auto';input.style.height=Math.min(input.scrollHeight,130)+'px';});
 input.addEventListener('keydown',function(e){if(e.key=='Enter'&&!e.shiftKey){e.preventDefault();send();}});
