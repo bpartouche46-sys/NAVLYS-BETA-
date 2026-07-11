@@ -8,7 +8,10 @@
    - toujours réversible vers le FR (source), et bascule directe EN<->RU
    - met document.documentElement.lang à jour
    API : window.NAVLYS_I18N = { set(l), toggle(), lang(), refresh() }
-   v2 · 2026-07-02 · ajout du RUSSE (ru) · <script src="/navlys-i18n.js" defer></script>
+   v4 · 2026-07-11 · registre N langues enfichables (fr/en/ru intégrés ;
+     es/pt/it/de/nl/wa/zh/hi/bn/he/ar/ur chargés à la demande) · RTL auto
+     (he/ar/ur) · repli FR pour toute clé absente (couverture progressive).
+   <script src="/navlys-i18n.js" defer></script>
    ==================================================================== */
 (function(){
   'use strict';
@@ -2775,22 +2778,45 @@
      Chargés depuis des fichiers séparés pour rester légers au premier octet :
      navlys-i18n-he.js et navlys-i18n-ar.js définissent window.NAVLYS_DICT_HE /
      window.NAVLYS_DICT_AR, chargés À LA DEMANDE au premier passage en he/ar. */
-  var DICT_HE = null;
-  var DICT_AR = null;
-  var RTL_LANGS = { he:1, ar:1 };
-  function loadRtlDict(l, done){
-    var have = (l==='he' && DICT_HE) || (l==='ar' && DICT_AR);
-    if(have){ if(done) done(); return; }
-    var g = (l==='he') ? window.NAVLYS_DICT_HE : window.NAVLYS_DICT_AR;
-    if(g){ if(l==='he') DICT_HE=g; else DICT_AR=g; if(done) done(); return; }
+  /* ---------- Registre des langues (v4 · N langues enfichables) -------------
+     EN et RU sont intégrés (inline, plus haut). Toute autre langue est « lazy »
+     et chargée à la demande depuis /navlys-i18n-<code>.js, qui expose
+     window.NAVLYS_DICT_<CODE> (objet {cléFR: traduction}). Ajouter une langue =
+     1 entrée ici + 1 fichier dico (généré par tools/make-dict.mjs) + 1 puce
+     dans le menu (navlys-alive.js). Repli FR automatique pour toute clé absente
+     → couverture progressive, jamais de trou visible. */
+  var LANG_META = {
+    fr:{ native:'Français',   short:'FR'  },
+    en:{ native:'English',    short:'EN'  },
+    ru:{ native:'Русский',    short:'RU'  },
+    he:{ native:'עברית',      short:'עב',   rtl:1, lazy:1 },
+    ar:{ native:'العربية',    short:'ع',    rtl:1, lazy:1 },
+    es:{ native:'Español',    short:'ES',   lazy:1 },
+    pt:{ native:'Português',  short:'PT',   lazy:1 },
+    it:{ native:'Italiano',   short:'IT',   lazy:1 },
+    de:{ native:'Deutsch',    short:'DE',   lazy:1 },
+    nl:{ native:'Nederlands', short:'NL',   lazy:1 },
+    wa:{ native:'Walon',      short:'WA',   lazy:1 },
+    zh:{ native:'中文',        short:'中',   lazy:1 },
+    hi:{ native:'हिन्दी',       short:'हि',   lazy:1 },
+    bn:{ native:'বাংলা',       short:'বাং',  lazy:1 },
+    ur:{ native:'اردو',        short:'اردو', rtl:1, lazy:1 }
+  };
+  var RTL_LANGS = {};
+  (function(){ for(var c in LANG_META){ if(LANG_META[c].rtl) RTL_LANGS[c]=1; } })();
+
+  /* cache des dicos « lazy » déjà chargés : code -> objet {cléFR: trad} */
+  var LAZY = {};
+  function isLazy(l){ return !!(LANG_META[l] && LANG_META[l].lazy); }
+  function globalDictName(l){ return 'NAVLYS_DICT_'+l.toUpperCase(); }
+  function loadDict(l, done){
+    if(LAZY[l]){ if(done) done(); return; }
+    var g = window[globalDictName(l)];
+    if(g){ LAZY[l]=g; if(done) done(); return; }
     var s=document.createElement('script');
     s.src='/navlys-i18n-'+l+'.js';
-    s.onload=function(){
-      if(l==='he') DICT_HE=window.NAVLYS_DICT_HE||{};
-      else DICT_AR=window.NAVLYS_DICT_AR||{};
-      if(done) done();
-    };
-    s.onerror=function(){ if(l==='he') DICT_HE={}; else DICT_AR={}; if(done) done(); };
+    s.onload=function(){ LAZY[l]=window[globalDictName(l)]||{}; if(done) done(); };
+    s.onerror=function(){ LAZY[l]={}; if(done) done(); };
     (document.head||document.documentElement).appendChild(s);
   }
 
@@ -2801,11 +2827,10 @@
 
   /* dictionnaire actif selon la langue cible (null en FR = source) */
   function dictFor(lang){
-    if(lang==='ru') return DICT_RU;
+    if(lang==='fr') return null; /* FR : source, pas de traduction */
     if(lang==='en') return DICT;
-    if(lang==='he') return DICT_HE||{};
-    if(lang==='ar') return DICT_AR||{};
-    return null;
+    if(lang==='ru') return DICT_RU;
+    return LAZY[lang]||{}; /* langues lazy : dico chargé (ou {} le temps du chargement) */
   }
 
   /* renvoie la traduction de `raw` vers LANG (espaces de bord préservés) ou null.
@@ -2922,8 +2947,8 @@
   }
 
   /* ---------- API publique ---------- */
-  var LANGS=['fr','en','ru','he','ar'];
-  function normLang(l){ return (l==='en'||l==='ru'||l==='he'||l==='ar')?l:'fr'; }
+  var LANGS=['fr','en','ru','es','pt','it','de','nl','wa','zh','hi','bn','he','ar','ur'];
+  function normLang(l){ return LANG_META[l]?l:'fr'; }
   function applyDir(){
     if(!document.documentElement) return;
     document.documentElement.lang=LANG;
@@ -2933,7 +2958,7 @@
     LANG=normLang(l);
     try{ localStorage.setItem('nv-lang',LANG); }catch(e){}
     applyDir();
-    if(RTL_LANGS[LANG]){ loadRtlDict(LANG, translateAll); }
+    if(LANG!=='fr' && isLazy(LANG)){ loadDict(LANG, translateAll); }
     else translateAll();
     /* signal pour le texte injecté par JS (bande cinéma, ticker…) qui n'est pas
        dans le DICT : il se re-rend dans la bonne langue. Non-cassant. */
@@ -2942,11 +2967,14 @@
 
   window.NAVLYS_I18N={
     set:setLang,
-    toggle:function(){ /* cycle fr -> en -> ru -> fr */
+    toggle:function(){ /* cycle fr -> en -> ru -> ... -> fr */
       var i=LANGS.indexOf(LANG); if(i<0) i=0;
       setLang(LANGS[(i+1)%LANGS.length]);
     },
     lang:function(){ return LANG; },
+    langs:function(){ return LANGS.slice(); },          /* ordre d'affichage */
+    meta:function(l){ return l?LANG_META[l]:LANG_META; },/* registre (native, short, rtl…) */
+    isRtl:function(l){ return !!RTL_LANGS[l||LANG]; },
     refresh:translateAll
   };
 
@@ -2958,17 +2986,15 @@
       /* langue par défaut = celle de l'utilisateur (téléphone / navigateur) */
       var nav='fr';
       try{ nav=String(navigator.language||navigator.userLanguage||'fr').toLowerCase(); }catch(e){}
-      if(nav.indexOf('en')===0) saved='en';
-      else if(nav.indexOf('ru')===0) saved='ru';
-      else if(nav.indexOf('he')===0||nav.indexOf('iw')===0) saved='he';
-      else if(nav.indexOf('ar')===0) saved='ar';
-      else saved='fr';
+      var two=nav.slice(0,2);
+      if(two==='iw') two='he'; /* ancien code ISO de l'hébreu */
+      saved = LANG_META[two] ? two : 'fr';
     }
     LANG=normLang(saved);
     applyDir();
     startObserver();
     if(LANG!=='fr'){
-      if(RTL_LANGS[LANG]) loadRtlDict(LANG, translateAll);
+      if(isLazy(LANG)) loadDict(LANG, translateAll);
       else translateAll();
     }
   }

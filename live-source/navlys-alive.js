@@ -605,8 +605,8 @@ window.NAVLYS_setVideo = function(v, rate, srcs){
   .nv-menu a:hover,.nv-menu button:hover{background:rgba(125,211,252,.12);color:#fff}
   .nv-menu .sep{height:1px;background:rgba(125,211,252,.16);margin:5px 2px}
   .nv-menu .lbl{font-size:.72rem;letter-spacing:1.5px;color:#8aa3bf;padding:6px 12px 2px;text-transform:uppercase}
-  .nv-langs{display:flex;gap:6px;padding:4px 8px 8px}
-  .nv-lang{flex:1;text-align:center;cursor:pointer;border:1px solid rgba(125,211,252,.25);border-radius:9px;padding:7px 0;color:#cfe0f2;font-family:'Lora',serif;font-size:.85rem}
+  .nv-langs{display:flex;flex-wrap:wrap;gap:6px;padding:4px 8px 8px;max-height:44vh;overflow:auto}
+  .nv-lang{flex:1 1 26%;min-width:58px;text-align:center;cursor:pointer;border:1px solid rgba(125,211,252,.25);border-radius:9px;padding:7px 4px;color:#cfe0f2;font-family:'Lora',serif;font-size:.82rem;white-space:nowrap}
   .nv-lang.on{background:rgba(125,211,252,.18);color:#fff;border-color:rgba(125,211,252,.5)}
   .nv-lang.soon{opacity:.6}
   #nv-toast{position:fixed;left:50%;top:calc(var(--nv-top-h) + 14px);transform:translateX(-50%) translateY(-8px);z-index:130;
@@ -663,7 +663,29 @@ window.NAVLYS_setVideo = function(v, rate, srcs){
   var shareM=mkMenu('nv-shareM',shareHTML,true);
 
   // ---- menu RÉGLAGES / COMPTE / PAIEMENT / LANGUE ----
-  var curLang='fr'; try{ curLang=(window.localStorage&&localStorage.getItem('nv-lang'))||'fr'; }catch(e){} if(['en','ru','he','ar'].indexOf(curLang)<0) curLang='fr';
+  var curLang='fr'; try{ curLang=(window.localStorage&&localStorage.getItem('nv-lang'))||'fr'; }catch(e){}
+  // Registre des langues : source unique = navlys-i18n.js (window.NAVLYS_I18N).
+  // Repli local si l'i18n n'est pas encore prêt (scripts defer, ordre non garanti).
+  var LANGCHIPS=(function(){
+    try{
+      if(window.NAVLYS_I18N&&window.NAVLYS_I18N.langs){
+        return window.NAVLYS_I18N.langs().map(function(c){
+          var m=(window.NAVLYS_I18N.meta&&window.NAVLYS_I18N.meta(c))||{};
+          return {c:c,n:m.native||c};
+        });
+      }
+    }catch(e){}
+    return [{c:'fr',n:'Français'},{c:'en',n:'English'},{c:'ru',n:'Русский'},
+      {c:'es',n:'Español'},{c:'pt',n:'Português'},{c:'it',n:'Italiano'},
+      {c:'de',n:'Deutsch'},{c:'nl',n:'Nederlands'},{c:'wa',n:'Walon'},
+      {c:'zh',n:'中文'},{c:'hi',n:'हिन्दी'},{c:'bn',n:'বাংলা'},
+      {c:'he',n:'עברית'},{c:'ar',n:'العربية'},{c:'ur',n:'اردو'}];
+  })();
+  if(!LANGCHIPS.some(function(x){return x.c===curLang;})) curLang='fr';
+  function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+  var langChipsHTML=LANGCHIPS.map(function(x){
+    return '<div class="nv-lang'+(curLang===x.c?' on':'')+'" data-l="'+esc(x.c)+'" data-n="'+esc(x.n)+'">'+esc(x.n)+'</div>';
+  }).join('');
   var gearHTML=
     '<div class="lbl">Mon espace</div>'+
     '<button id="nv-account">👤 <span>Identité &amp; Compte</span></button>'+
@@ -671,13 +693,7 @@ window.NAVLYS_setVideo = function(v, rate, srcs){
     '<button id="nv-settings">🎛️ <span>Réglages</span></button>'+
     '<div class="sep"></div>'+
     '<div class="lbl">Langue</div>'+
-    '<div class="nv-langs">'+
-      '<div class="nv-lang'+(curLang==='fr'?' on':'')+'" data-l="fr">FR</div>'+
-      '<div class="nv-lang'+(curLang==='en'?' on':'')+'" data-l="en">EN</div>'+
-      '<div class="nv-lang'+(curLang==='ru'?' on':'')+'" data-l="ru">RU</div>'+
-      '<div class="nv-lang'+(curLang==='he'?' on':'')+'" data-l="he">עב</div>'+
-      '<div class="nv-lang'+(curLang==='ar'?' on':'')+'" data-l="ar">ع</div>'+
-    '</div>'+
+    '<div class="nv-langs">'+langChipsHTML+'</div>'+
     '<div class="sep"></div>'+
     '<button id="nv-help">💬 <span>Aide &amp; SAV</span></button>';
   var gearM=mkMenu('nv-gearM',gearHTML,true);
@@ -705,15 +721,14 @@ window.NAVLYS_setVideo = function(v, rate, srcs){
   Array.prototype.forEach.call(gearM.querySelectorAll('.nv-lang'),function(el){
     el.onclick=function(){
       var l=el.getAttribute('data-l');
-      // toute langue encore en préparation : simple toast, pas de bascule
-      if(el.classList.contains('soon')){ toast((l||'').toUpperCase()+' — version en préparation 🌍'); return; }
-      // FR / EN / RU : bascule i18n réelle
+      // bascule i18n réelle (toutes les langues du registre sont actives ;
+      // couverture partielle = repli FR automatique, jamais de trou visible)
       if(window.NAVLYS_I18N){ window.NAVLYS_I18N.set(l); }
-      // marque l'onglet actif (sans toucher aux langues « soon »)
+      // marque l'onglet actif
       Array.prototype.forEach.call(gearM.querySelectorAll('.nv-lang'),function(x){
-        if(!x.classList.contains('soon')){ if(x===el) x.classList.add('on'); else x.classList.remove('on'); }
+        if(x===el) x.classList.add('on'); else x.classList.remove('on');
       });
-      toast(l==='ru'?'Русский — готово ✓ 🌍':(l==='en'?'English — done ✓ 🌍':(l==='he'?'עברית — מוכן ✓ 🌍':(l==='ar'?'العربية — جاهز ✓ 🌍':'Français — activé ✓ 🌊'))));
+      toast((el.getAttribute('data-n')||l)+' ✓ 🌍');
     };
   });
 })();
