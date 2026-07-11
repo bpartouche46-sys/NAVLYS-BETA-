@@ -302,7 +302,7 @@ function brief(){api('briefing').then(function(d){om("<h3 style='color:var(--gol
 /* ── dialogue CORE ── */
 function dadd(role,txt){var c=document.getElementById('chat');var d=document.createElement('div');d.className='msg '+role;d.textContent=txt;c.appendChild(d);c.scrollTop=c.scrollHeight;return d;}
 function say(t){if(!document.getElementById('voxon').checked)return;if('speechSynthesis' in window){var u=new SpeechSynthesisUtterance(String(t).replace(/[*_#>`]/g,''));u.lang='fr-FR';speechSynthesis.cancel();speechSynthesis.speak(u);}}
-function dsend(){var q=document.getElementById('dq');var t=(q.value||'').trim();if(!t)return;dadd('u',t);q.value='';var p=dadd('n','…');fetch(ASSIST,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({session:DSESS,text:t})}).then(function(r){return r.json();}).then(function(d){var rep=(d&&d.reply)?d.reply:'…';p.textContent=rep;say(rep);}).catch(function(){p.textContent='Connexion difficile, réessaie.';});}
+function dsend(){var q=document.getElementById('dq');var t=(q.value||'').trim();if(!t)return;dadd('u',t);q.value='';var p=dadd('n','…');fetch(ASSIST,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({session:DSESS,text:t,cockpit_token:TK})}).then(function(r){return r.json();}).then(function(d){var rep=(d&&d.reply)?d.reply:'…';p.textContent=rep;say(rep);}).catch(function(){p.textContent='Connexion difficile, réessaie.';});}
 function hello(){if(!document.getElementById('chat').children.length)dadd('n','Bonjour Bruno 👋 Je suis le CORE NAVLYS. Dis-moi ce que tu veux piloter — je te réponds ici, sans passer par Claude.');}
 
 /* ── modal ── */
