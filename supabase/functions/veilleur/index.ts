@@ -10,6 +10,8 @@
 const SB_URL = Deno.env.get("SUPABASE_URL") ?? "";
 const SB_SERVICE = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? "";
 const ANTHROPIC = Deno.env.get("ANTHROPIC_API_KEY") ?? "";
+// Repli anti-coupure (indépendance CORE) : OpenRouter si Anthropic tombe. Clé tolérante.
+const OR = Deno.env.get("OPENROUTER_API_KEY") ?? Deno.env.get("OPENROUTER_KEY") ?? Deno.env.get("OPEN_ROUTER_API_KEY") ?? "";
 const BASE = "https://navlys.com";
 const FN = `${SB_URL}/functions/v1`;
 
@@ -73,8 +75,24 @@ async function creationJour() {
         }),
       });
       const j = await r.json();
-      promo = j?.content?.[0]?.text?.trim() ?? "";
+      if (r.ok) promo = j?.content?.[0]?.text?.trim() ?? "";
     } catch (e) { promo = ""; }
+  }
+  // Repli OpenRouter si Anthropic n'a rien produit (indépendance CORE)
+  if (!promo && OR) {
+    const prompt = "Écris la « promo du jour » NAVLYS Next Gen en 2 phrases courtes, ton marin, chaleureux, "
+      + "plaisir & sérénité, statut simple citoyen (aucune promesse de rendement). « Ta vie, comme un film. » Pas de hashtags.";
+    for (const m of ["anthropic/claude-haiku-4.5", "meta-llama/llama-3.3-70b-instruct:free"]) {
+      try {
+        const r = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+          method: "POST",
+          headers: { "Authorization": "Bearer " + OR, "Content-Type": "application/json", "HTTP-Referer": "https://navlys.com", "X-Title": "NAVLYS" },
+          body: JSON.stringify({ model: m, max_tokens: 220, messages: [{ role: "user", content: prompt }] }),
+        });
+        const d = await r.json().catch(() => ({}));
+        if (r.ok) { const t = (d?.choices?.[0]?.message?.content || "").trim(); if (t) { promo = t; break; } }
+      } catch (_) { /* modèle suivant */ }
+    }
   }
   if (promo) await journal("creation_jour", promo);
 
