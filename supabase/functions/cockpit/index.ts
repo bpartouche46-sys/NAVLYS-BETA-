@@ -9,6 +9,22 @@ import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 const U = Deno.env.get("SUPABASE_URL")!;
 const K = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
 const ANTH = Deno.env.get("ANTHROPIC_API_KEY") || "";
+// Repli anti-coupure (indépendance CORE) : OpenRouter si Anthropic tombe. Clé tolérante.
+const OR = Deno.env.get("OPENROUTER_API_KEY") || Deno.env.get("OPENROUTER_KEY") || Deno.env.get("OPEN_ROUTER_API_KEY") || "";
+// callBrain : Anthropic direct d'abord, OpenRouter en repli seul. Renvoie "" si rien n'aboutit.
+async function callBrain(system: string, user: string, maxTok: number): Promise<string> {
+  if (ANTH) { try {
+    const r = await fetch("https://api.anthropic.com/v1/messages", { method: "POST", headers: { "x-api-key": ANTH, "anthropic-version": "2023-06-01", "Content-Type": "application/json" }, body: JSON.stringify({ model: "claude-haiku-4-5-20251001", max_tokens: maxTok, system, messages: [{ role: "user", content: user }] }) });
+    const d: any = await r.json().catch(() => ({}));
+    if (r.ok) { const t = ((d.content || []).filter((c: any) => c.type === "text").map((c: any) => c.text).join("\n").trim()); if (t) return t; }
+  } catch (_) { /* repli */ } }
+  if (OR) { for (const m of ["anthropic/claude-haiku-4.5", "meta-llama/llama-3.3-70b-instruct:free"]) { try {
+    const r = await fetch("https://openrouter.ai/api/v1/chat/completions", { method: "POST", headers: { "Authorization": "Bearer " + OR, "Content-Type": "application/json", "HTTP-Referer": "https://navlys.com", "X-Title": "NAVLYS" }, body: JSON.stringify({ model: m, max_tokens: maxTok, messages: [{ role: "system", content: system }, { role: "user", content: user }] }) });
+    const d: any = await r.json().catch(() => ({}));
+    if (r.ok) { const t = (d?.choices?.[0]?.message?.content || "").trim(); if (t) return t; }
+  } catch (_) { /* modèle suivant */ } } }
+  return "";
+}
 const CORS = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Methods": "POST,GET,OPTIONS",
@@ -106,10 +122,8 @@ Deno.serve(async (req) => {
     const [agents, missions] = await Promise.all([g("agents","select=id,prenom"),g("missions","select=id,titre,statut,departement&order=id.desc&limit=200")]);
     const stats:any={}; for(const m of missions) stats[m.statut]=(stats[m.statut]||0)+1;
     const av = missions.filter((m:any)=>m.statut==="a_valider").map((m:any)=>"#"+m.id+" "+m.departement+" "+m.titre).slice(0,10);
-    if (!ANTH) return J({ text:"Etat NAVLYS : "+agents.length+" agents. A valider "+(stats.a_valider||0)+", en file "+(stats.en_file||0)+", en cours "+(stats.en_cours||0)+", fait "+(stats.fait||0)+". "+(av.length?"A valider : "+av.join(" ; "):"Rien n attend ta validation.") });
-    const r = await fetch("https://api.anthropic.com/v1/messages",{method:"POST",headers:{"x-api-key":ANTH,"anthropic-version":"2023-06-01","Content-Type":"application/json"},body:JSON.stringify({model:"claude-haiku-4-5-20251001",max_tokens:600,system:"Tu es le Rapporteur de NAVLYS. Point oral court et chaleureux a Bruno (5-7 phrases), tutoiement, statut simple citoyen.",messages:[{role:"user",content:"Compteurs: "+JSON.stringify(stats)+". A valider: "+(av.join(" | ")||"aucune")+". Fais le point."}]})});
-    const d:any = await r.json().catch(()=>({}));
-    const text = ((d.content||[]).filter((c:any)=>c.type==="text").map((c:any)=>c.text).join("\n").trim())||"Tout est calme.";
+    if (!ANTH && !OR) return J({ text:"Etat NAVLYS : "+agents.length+" agents. A valider "+(stats.a_valider||0)+", en file "+(stats.en_file||0)+", en cours "+(stats.en_cours||0)+", fait "+(stats.fait||0)+". "+(av.length?"A valider : "+av.join(" ; "):"Rien n attend ta validation.") });
+    const text = (await callBrain("Tu es le Rapporteur de NAVLYS. Point oral court et chaleureux a Bruno (5-7 phrases), tutoiement, statut simple citoyen.","Compteurs: "+JSON.stringify(stats)+". A valider: "+(av.join(" | ")||"aucune")+". Fais le point.",600))||"Tout est calme.";
     return J({ text });
   }
   return J({ error:"action inconnue" }, 400);
