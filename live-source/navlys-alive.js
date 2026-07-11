@@ -946,7 +946,7 @@ window.NAVLYS_setVideo = function(v, rate, srcs){
   // Barre basse app (feutrée) — sauf si la page en a déjà une (ex. /cinema)
   if(!has('.botbar') && !has('#nv-botbar')){
     var path=(location.pathname||'/').replace(/index\.html$/,'').replace(/\.html$/,'').replace(/\/+$/,'')||'/';
-    var items=[['/','≋','Accueil'],['/finance','📈','Finance'],['/next-gen','📖','Next Gen'],['/assistance','🎙️','Voix'],['/cockpit','⛬','Cockpit']];
+    var items=[['/','≋','Accueil'],['/finance','📈','Finance'],['/next-gen','📖','Next Gen'],['/bateau-test','🚤','Bateaux'],['/assistance','🎙️','Voix'],['/cockpit','⛬','Cockpit']];
     var css='#nv-botbar{position:fixed;bottom:0;left:0;right:0;height:60px;z-index:59;display:flex;justify-content:space-around;align-items:center;'
       +'background:rgba(4,6,12,.80);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid rgba(125,211,252,.14);padding-bottom:env(safe-area-inset-bottom)}'
       +"#nv-botbar a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:#8fa2b3;font-family:'Cinzel','Cormorant Garamond',serif;font-size:8.5px;letter-spacing:.12em;text-transform:uppercase;flex:1;transition:.25s}"
