@@ -2971,6 +2971,11 @@
       if(RTL_LANGS[LANG]) loadRtlDict(LANG, translateAll);
       else translateAll();
     }
+    /* Signale la langue détectée aux textes injectés par JS (bande cinéma,
+       ouverture « il y a bien longtemps… », annonce héros…) qui ne sont pas dans
+       le DICT — sinon ils restaient en français pour un visiteur auto-détecté
+       non-FR (corrigé 2026-07-11). Émis aussi pour 'fr' : sans effet, cohérent. */
+    try{ document.dispatchEvent(new CustomEvent('nv-lang',{detail:LANG})); }catch(e){}
   }
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init);
   else init();
