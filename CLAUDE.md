@@ -814,9 +814,13 @@ But : Bruno parle à **un seul endroit** (bot Telegram), plus jamais Claude Code
   360dialog en prod, confirmé via `?diag=1` : `d360:true`, `anth:true`, webhook
   bien auto-pointé), **`assistant`** (SAV site) et **`bible`** (avis IA
   quotidien, + `?mode=diag_nvidia` pour tester la clé sans jamais l'exposer).
-  Restent en simple-point-de-défaillance (Claude direct only, pas encore
-  propagé, moins critique que les 4 ci-dessus car pas de conversation humaine
-  temps réel) : `cockpit`, `veilleur`, `nextgen`, `panel`.
+  **Propagation TERMINÉE (2026-07-11) :** `cockpit` (v42), `nextgen` (v22),
+  `panel` (v9), `veilleur` (v20) ont désormais le repli `callBrain`
+  (Anthropic direct → OpenRouter) — déployées `verify_jwt=false` et vérifiées
+  en live (pg_net : 200, `repli:true`, `cle:true` donc ANTHROPIC_API_KEY EST
+  bien posée). Plus AUCUNE brique LLM en simple-point-de-défaillance. Reste
+  inerte tant qu'`OPENROUTER_API_KEY` n'est pas posée (repli:false partout),
+  mais le code est prêt — zéro redéploiement le jour où Bruno pose la clé.
   **Clé NVIDIA (`nvapi-...`, générée sur build.nvidia.com par Bruno) : toujours
   introuvable** au 2026-07-11 sous aucun des 6 noms testés
   (`NVIDIA_API_KEY`/`NVAPI_KEY`/`NVIDIA_NIM_KEY`/`NGC_API_KEY`/
@@ -850,10 +854,35 @@ But : Bruno parle à **un seul endroit** (bot Telegram), plus jamais Claude Code
   Google Play 25 $ + PWABuilder → empreinte SHA-256 pour `assetlinks.json` ;
   5) secrets média gratuits (GEMINI/HF/Cloudflare) ; 6) trancher navlys.io
   (miroir complet de navlys.com ou usage distinct ?). **Fil rouge cap
-  1000→1M :** capter le `?code=` à l'inscription (parrainage), clés i18n
-  `/ambassadeur` + `/booster`, vidéos/logo/mobile, zéro-erreur navlys.com,
-  propager `callBrain` à `cockpit`/`veilleur`/`nextgen`/`panel`. Avance sans me
+  1000→1M :** ~~capter le `?code=` à l'inscription~~ ✅ FAIT (parrainage déjà
+  câblé : `/ambassadeur` génère `?parrain=CODE`, `/adhesion` le lit — vérifié) ;
+  ~~propager `callBrain`~~ ✅ FAIT (4 briques déployées) ; RESTE : **clés i18n
+  `/ambassadeur` + `/booster` + `/lancement`** (à faire AVEC le script i18n +
+  banc `tools/check-i18n.mjs`, JAMAIS à la main — règle n°33/34), vidéos/logo/
+  mobile, zéro-erreur navlys.com (audit source fait le 2026-07-11 : charte OK,
+  liens internes OK, JS OK, sitemap OK ; seul défaut trouvé = e-mails
+  non-cliquables sur `next-gen-beta`, corrigé en `mailto:`). Avance sans me
   demander. »
+
+## 🌙 Session 2026-07-11 — livré (LIVE sur main via PR mergées)
+
+- **Page `/lancement`** (option 1 retenue par Bruno) : cadre blanc « keynote »
+  propre + **voix de Bruno nettoyée** (`media/navlys-bm-voix.mp3`, loudnorm
+  −16 LUFS, extraite d'une vidéo selfie améliorée par ffmpeg) + bouton
+  « Écouter Bruno » + égaliseur ; la vidéo d'origine reste derrière un toggle
+  « Voir la vidéo ». Montage « ils imaginent, NAVLYS fait » (souhait→bulle→
+  résultat) + signature « la seule limite est celle de ton imagination ».
+- **Karaoké VRAI mot à mot (règle n°105)** : `nvKarWords` colore désormais le
+  trail des mots dits en or, le mot en cours en ice vif, les mots à venir
+  estompés — synchro `onboundary` (TTS) + durée réelle (audio), bulle 2 lignes.
+- **callBrain propagé** aux 4 dernières briques (voir bloc « Indépendance »).
+- **Zéro-erreur** : audit complet de `live-source` ; e-mails `next-gen-beta`
+  rendus cliquables (`mailto:`). Funnel `/adhesion` vérifié (OAuth google/apple/
+  azure/facebook/discord + OTP e-mail + gate `NAVLYS_VERIFIE`, repli propre).
+- **Doc `docs/CLE_ANTHROPIC_ET_AUTOPILOTE.md`** + CORE Python : clé Anthropic
+  directe payante (lecture tolérante) + repli OpenRouter dans `navlys_core/llm.py`
+  ; **autopilote** (`navlys_core/autopilote.py`) — le worker se dirige seul
+  (feuille de route auto, garde-fous préparation-only). `python run.py --plan`.
 
 ## 🌙 Nuit du 2026-07-08→09 — livré (à connaître pour la reprise)
 
