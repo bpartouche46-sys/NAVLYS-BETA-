@@ -499,24 +499,30 @@ grep -Ei 'violet|mauve|fuchsia' <fichiers>
   est la règle, pas l'exception.
 - **Panel de contradiction quotidien.** La brique `bible ?mode=avis` interroge
   chaque jour **plusieurs IA indépendantes de familles distinctes** (Claude +
-  panel OpenRouter Llama/Mistral/Qwen/DeepSeek/Gemma + NVIDIA/Mixtral) sur le
-  contenu **réel et live** des pages clés (`/`, `/next-gen`, `/finance`,
-  `/adhesion`). Chaque IA doit **classer** le site (`NOTE_GLOBALE /10` + axes :
-  positionnement, confiance, design/mobile, conversion, message perçu) puis le
-  **critiquer sans complaisance** avec citations et reformulations concrètes.
+  panel OpenRouter Llama/Mistral/Qwen/DeepSeek/Gemma/**Gemini**/**Cohere** +
+  NVIDIA/Mixtral — 8 familles, jamais le même modèle deux fois) sur le contenu
+  **réel et live** des pages clés (`/`, `/next-gen`, `/finance`, `/adhesion`).
+  Chaque IA doit **classer** le site (`NOTE_GLOBALE /10` + axes : positionnement,
+  confiance, design/mobile, conversion, message perçu) puis le **critiquer sans
+  complaisance** avec citations et reformulations concrètes.
 - **Rebascule des conclusions BRUTES — vers Bruno ET vers le CORE.** Chaque avis
   intégral (jamais résumé) est écrit tel quel dans **`core_avis_ia`** (table
   privée, `service_role` only — les critiques ne fuitent jamais vers un visiteur),
-  horodaté, avec sa note. Un canal (cockpit/WhatsApp) tire les avis non lus via
-  **`?mode=avis_bruno`** (marqués vus au passage). En parallèle, le même avis passe
-  par **`ingerer()`** → règle permanente + mémoire de l'agent concerné → mise en
-  application sérieuse, pas seulement archivage. Digest chiffré des notes côte à
-  côte dans le `journal`.
+  horodaté, avec sa note. Deux voies vers Bruno : **pull** (`bible ?mode=avis_bruno`)
+  et **push actif** — cron `navlys_avis_push_bruno` (08:30 UTC) appelle
+  `whatsapp ?mode=push_avis`, qui envoie un digest chiffré (notes côte à côte +
+  extrait de critique par IA) sur sa **WhatsApp** puis marque les avis « vus ».
+  En parallèle, le même avis passe par **`ingerer()`** → règle permanente +
+  mémoire de l'agent concerné → mise en application sérieuse, pas seulement
+  archivage. Digest chiffré aussi dans le `journal`.
 - **Ce qui dépend de Bruno** : appliquer la migration `sql/bible_avis_panel_multi_ia.sql`
-  (table `core_avis_ia`) et redéployer la brique `bible` (`verify_jwt=false`,
-  règle n°98) ; poser `OPENROUTER_API_KEY` (+ `NVIDIA_API_KEY`) pour débloquer tout
-  le panel — sans clé, chaque modèle échoue proprement en `""` et le panel tourne
-  quand même avec ceux qui répondent. Code : `supabase/functions/bible/index.ts`.
+  (table `core_avis_ia` + cron push) et redéployer les briques `bible` et
+  `whatsapp` (`verify_jwt=false`, règle n°98) ; poser `OPENROUTER_API_KEY`
+  (+ `NVIDIA_API_KEY`) pour débloquer tout le panel, et `D360_API_KEY` +
+  `BRUNO_WHATSAPP` pour la rebascule WhatsApp (déjà posés pour le webhook). Sans
+  clé, chaque modèle échoue proprement en `""` et le push renvoie `envoye:false`
+  sans rien perdre. Code : `supabase/functions/bible/index.ts`,
+  `supabase/functions/whatsapp/index.ts`.
 
 ## 📺 Veille YouTube influenceurs (STANDING — gravé le 2026-07-07)
 
