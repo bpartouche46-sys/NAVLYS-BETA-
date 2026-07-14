@@ -719,6 +719,27 @@ But : Bruno parle à **un seul endroit** (bot Telegram), plus jamais Claude Code
   (animations.dev, easing.dev, emilkowal.ski, shadcn/improve). Zéro connexion
   externe autre que Bruno.
 
+## 🔄 Plugins autonomie Claude Code — prêts, à activer par Bruno (2026-07-14)
+
+> Suite au Short **« 5 Plugins to Make Claude Code Autonomous »** (Eric Tech).
+> Décision de Bruno : stack autonome de référence via GitHub, Ralph Loop actif.
+
+- **Doc complète : `docs/PLUGINS_AUTONOMES_CLAUDE_CODE.md`** (config prête à coller,
+  commandes `/plugin`, usage sûr de Ralph, verdict sécurité).
+- **Vérifiés règle n°111 (CLEAN, scan local du 2026-07-14)** : `superpowers`
+  (obra, épinglé SHA par Anthropic — hook `SessionStart` = injection de contexte,
+  zéro réseau) et `ralph-loop` (Anthropic officiel — hook `Stop` = relance du même
+  prompt, traitement de texte local, zéro réseau). Déjà en place : Context7
+  (`.mcp.json`), skills Superpowers (`skills-lock.json`), Playwright (local).
+- **Pourquoi non auto-activé** : activer des plugins dans `.claude/settings.json`
+  fait tourner leurs **hooks shell à chaque session sans validation par action** →
+  le garde-fou du harness (et la règle n°111) exige une **revue humaine explicite**,
+  refusée à dessein en session web non-interactive. La config est prête ; Bruno
+  l'active en une étape (Option A committée, ou Option B `/plugin ...`).
+- **Ralph = borner la boucle** (Bible §6, tokens) : jamais `/ralph-loop` nu ;
+  toujours `--max-iterations N` et/ou `--completion-promise 'PHRASE'`. Ralph commit
+  à chaque tour → sur la branche de dev désignée, jamais `main`.
+
 ## 🛰️ Cockpit relié au travail EN DIRECT (STANDING — gravé le 2026-07-07)
 
 > Ordre de Bruno : **« Le cockpit doit être réactif et relié à ton travail en
