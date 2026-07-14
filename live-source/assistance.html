@@ -45,6 +45,7 @@ body{background:radial-gradient(60% 50% at 50% 0%,#0d1a2c 0%,#05070d 60%);color:
 @keyframes rec{0%,100%{box-shadow:0 0 0 0 rgba(239,93,107,.5)}50%{box-shadow:0 0 0 12px rgba(239,93,107,0)}}
 button:disabled{opacity:.5;cursor:default}
 .note{max-width:760px;margin:8px auto 0;text-align:center;color:var(--brume);font-size:12.5px;line-height:1.5;font-style:italic}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}}
 </style>
 </head>
 <body>
