@@ -162,6 +162,36 @@ peux gagner de l'argent — surtout si tu fais partie des premiers.*
 
 ---
 
+## 3ter. PRÉVISIONNEL PROSPECT — « 700 partages en 1 jour » (demande Bruno 2026-07-15)
+
+**Scénario à montrer au prospect** : un ambassadeur partage NAVLYS à **700 personnes / réseaux /
+communautés en ~1 jour**, **légalement** (son propre réseau, groupes, réseaux sociaux — jamais de
+spam ni d'achat de listes). **Taux de transformation prudent : 1 sur 100 (1 %) → 7 membres payants.**
+
+**Gain net versé / mois / membre**, selon le panier du filleul (modèle 20 % marge nette, TVA déduite) :
+| Panier HT/mois | Marge nette | Commission 20 % TTC | Net versé /mois/membre |
+|----------------|-------------|---------------------|------------------------|
+| 9,99 € | 7,69 € | 1,54 € | **1,28 €** |
+| 29,99 € | 23,09 € | 4,62 € | **3,85 €** |
+| 100 € | 77,00 € | 15,40 € | **12,83 €** |
+
+**Résultat pour ce prospect (7 membres, RÉCURRENT chaque mois)** :
+| Panier moyen | 7 membres → /mois | sur 12 mois |
+|--------------|-------------------|-------------|
+| 9,99 € | **8,96 €/mois** | 107,52 € |
+| 29,99 € | **26,95 €/mois** | 323,40 € |
+| 100 € | **89,81 €/mois** | 1 077,72 € |
+
+**Les 3 leviers qui font « beaucoup »** (à expliquer au prospect) :
+1. **Récurrent** : ce n'est pas un one-shot — il touche chaque mois tant que le filleul reste.
+2. **Cumulatif** : s'il recommence (chaque semaine/mois), sa base de filleuls grossit et les revenus
+   s'empilent.
+3. **Premiers utilisateurs** : statut fondateur → il construit sa base tôt, avant tout le monde.
+
+> ⚠️ **Disclaimer obligatoire (NAVLEX)** : ceci est une **projection illustrative, NON garantie**.
+> Le résultat réel dépend de l'activité, du panier moyen, du taux de conversion et de la rétention.
+> Les taux de frais/charges (3 % / 20 %) sont des hypothèses à confirmer. Aucune promesse de gain.
+
 ## 3bis. DASHBOARD « WOW » DÈS LA 1ʳᵉ CONNEXION + AVATAR (demande Bruno 2026-07-15)
 
 **But** : dès qu'un **inconnu** se connecte, il voit **immédiatement un tableau de bord prêt**, avec
