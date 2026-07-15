@@ -1,0 +1,10 @@
+# Chaînes / créateurs à suivre par les espions NAVLYS
+# Une ligne = un channel_id YouTube (commence par UC...). Les lignes vides et les # sont ignorées.
+#
+# Comment trouver le channel_id d'une chaîne :
+#   - ouvrir la chaîne → menu ⋯ → « Partager » → « Copier l'ID de la chaîne »
+#   - ou : voir la source de la page, chercher "channelId":"UC..."
+#
+# Bruno : ajoute ici les créateurs dont tu veux capter les techniques virales.
+# Exemples (à remplacer par les vrais) :
+# UC_x5XG1OV2P6uZZ5FSM9Ttw   # (exemple : Google Developers)
