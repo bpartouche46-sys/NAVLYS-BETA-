@@ -88,17 +88,24 @@ générateurs de hooks/scripts vidéo, Whisper (transcription), outils de veille
 **Message central (à faire comprendre au visiteur)** : *en faisant connaître NAVLYS chaque jour, tu
 peux gagner de l'argent — surtout si tu fais partie des premiers.*
 
-**Règle BM (à graver, à valider par Bruno + NAVLEX)** :
-- **20 %** de commission ambassadeur **sur tous les affiliés** — **qu'ils soient abonnés ou non** —
-  et **sur toutes les affiliations**.
+**Règle BM — DÉFINIE (2026-07-15, à valider par Bruno + NAVLEX + comptable)** :
+- **Taux = 29 % TTC** de commission ambassadeur.
+- **Base de calcul = le montant HT de la vente**, **pondéré (déduaction) des frais** de **gestion
+  ou de transfert** selon le **mode de paiement choisi** (CB/Stripe, PayPal, virement…).
+- Formule cible : `commission = 0,29 × montant_HT_vente − frais_paiement(mode)`.
+- **Sur tous les affiliés (abonnés ou non) et sur toutes les affiliations.**
 - **Avantage « premiers utilisateurs »** : statut d'ambassadeur fondateur pour les premiers inscrits.
+- **Échelle exigée : 100 000 → 1 000 000 membres** → l'architecture (tracking parrainage, calcul
+  commissions, dashboard) doit tenir à cette charge (Postgres/Supabase indexé, calcul en batch).
 
-**⚠️ Points à préciser par Bruno (définition exacte, sinon on ne peut pas coder juste)** :
-- 20 % **de quoi** ? (du CA de l'affilié ? de la commission d'affiliation reçue par NAVLYS ?)
-- **Récurrent** ou one-shot ? Sur combien de temps ?
-- « sur tous les affiliés abonnés ou pas » = comment un affilié **non-abonné** génère-t-il un flux à
-  partager ? (clics ? inscriptions ? achats partenaires ?)
-- Multi-niveaux (ambassadeur d'ambassadeur) ? → **⚠️ risque pyramidal / MLM = cadre légal lourd**.
+**⚠️ À sécuriser AVANT toute publication/paiement (signalé, non simulé)** :
+- **Fiscalité TTC/HT** : « 29 % TTC sur un montant HT » mélange TTC et HT → le calcul exact de la
+  TVA, qui émet la facture, et le statut de l'ambassadeur (particulier vs auto-entrepreneur qui doit
+  **déclarer ce revenu**) doivent être tranchés par un **comptable + NAVLEX**. Un taux de 29 % du CA
+  est élevé → viabilité économique à vérifier.
+- **Cadre affiliation/MLM** : « sur toutes les affiliations » ne doit **pas** basculer en schéma
+  pyramidal multi-niveaux (illégal). NAVLEX borne le modèle.
+- **Payouts = Bruno** (PayPal/Stripe non authentifiés dans la session Claude Code).
 
 **Garde-fous conformité (obligatoires avant publication)** :
 - Formulation **« peut te rapporter »**, jamais de gain garanti ni de chiffre promis.
@@ -114,6 +121,23 @@ peux gagner de l'argent — surtout si tu fais partie des premiers.*
 « fondateur ») + i18n 5 langues + banc `check-i18n.mjs`.
 
 ---
+
+## 3bis. DASHBOARD « WOW » DÈS LA 1ʳᵉ CONNEXION + AVATAR (demande Bruno 2026-07-15)
+
+**But** : dès qu'un **inconnu** se connecte, il voit **immédiatement un tableau de bord prêt**, avec
+des **bulles (widgets) vides mais visibles**, pour **comprendre nos capacités tout de suite** — pas
+un écran blanc. Le « vide » est un **squelette montrant le potentiel** (à remplir au fil de l'usage).
+
+- **Livrable** : `live-source/tableau-de-bord.html` — bulles capacités (les 14 départements /
+  Next Gen, Finance, NAVLEX, Espions viraux, Ambassadeur/gains, Bateaux, Voix…), état « à activer »,
+  chacune cliquable vers la vraie brique. Charte NAVLYS, mobile-first, i18n (via script, règle n°33).
+- **Avatar moderne depuis le visuel public** : à la connexion OAuth, récupérer la **photo de profil
+  publique** fournie par le fournisseur (Google/Facebook/Discord renvoient un `avatar_url`) → l'afficher
+  en **avatar stylé moderne** (cadre or/ice, halo). Option d'embellissement IA local (dernier recours).
+  - **⚠️ Garde-fou RGPD (obligatoire)** : on n'utilise l'image d'une personne **qu'avec son
+    consentement explicite** au moment de la connexion (case « Utiliser ma photo comme avatar »).
+    **Jamais** récupérer un visage sans accord. Fallback = avatar généré (initiales / pièce NAVLYS).
+- **Échelle** : le dashboard lit l'état membre depuis Supabase (indexé) → tient à 100k–1M membres.
 
 ## 4. CSV VILLES EUROPE (ciblage géo de la communication)
 
