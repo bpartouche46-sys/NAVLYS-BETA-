@@ -1,0 +1,47 @@
+ville,pays,population_estimee,ue,transcontinentale,note
+Amsterdam,Pays-Bas,920000,oui,non,capitale officielle (siege gouvernement a La Haye)
+Andorre-la-Vieille,Andorre,22000,non,non,
+Ankara,Turquie,5700000,non,oui,partie anatolienne (Asie)
+Athenes,Grece,660000,oui,non,ville propre; agglomeration ~3.1M
+Belgrade,Serbie,1400000,non,non,
+Berlin,Allemagne,3700000,oui,non,
+Berne,Suisse,135000,non,non,
+Bratislava,Slovaquie,440000,oui,non,
+Bruxelles,Belgique,1210000,oui,non,region Bruxelles-Capitale
+Bucarest,Roumanie,1800000,oui,non,
+Budapest,Hongrie,1700000,oui,non,
+Chisinau,Moldavie,530000,non,non,
+Copenhague,Danemark,650000,oui,non,
+Dublin,Irlande,590000,oui,non,
+Helsinki,Finlande,660000,oui,non,
+Kyiv,Ukraine,3000000,non,non,
+La Valette,Malte,6000,oui,non,ville propre tres petite; agglomeration ~410k
+Lisbonne,Portugal,550000,oui,non,
+Ljubljana,Slovenie,290000,oui,non,
+Londres,Royaume-Uni,9000000,non,non,Grand Londres
+Luxembourg,Luxembourg,130000,oui,non,
+Madrid,Espagne,3300000,oui,non,
+Minsk,Bielorussie,2000000,non,non,
+Monaco,Monaco,38000,non,non,cite-Etat
+Moscou,Russie,12600000,non,non,Russie europeenne
+Nicosie,Chypre,270000,oui,non,derniere capitale divisee d'Europe
+Oslo,Norvege,700000,non,non,
+Paris,France,2100000,oui,non,ville propre; agglomeration ~11M
+Podgorica,Montenegro,150000,non,non,
+Prague,Tchequie,1300000,oui,non,
+Pristina,Kosovo,220000,non,non,reconnaissance partielle
+Reykjavik,Islande,140000,non,non,
+Riga,Lettonie,610000,oui,non,
+Rome,Italie,2800000,oui,non,
+Saint-Marin,Saint-Marin,4000,non,non,cite de la ville de Saint-Marin
+Sarajevo,Bosnie-Herzegovine,420000,non,non,
+Skopje,Macedoine du Nord,540000,non,non,
+Sofia,Bulgarie,1300000,oui,non,
+Stockholm,Suede,980000,oui,non,
+Tallinn,Estonie,440000,oui,non,
+Tirana,Albanie,560000,non,non,
+Vaduz,Liechtenstein,5700,non,non,
+Varsovie,Pologne,1800000,oui,non,
+Vienne,Autriche,1930000,oui,non,
+Vilnius,Lituanie,580000,oui,non,
+Zagreb,Croatie,770000,oui,non,

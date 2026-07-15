@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>NAVLYS — Ton tableau de bord</title>
+<meta name="description" content="Ton tableau de bord NAVLYS : toutes tes capacités en un coup d'œil, dès la première connexion. IA mobile, mémoire, finance, communauté, gains ambassadeur.">
+<link rel="canonical" href="https://navlys.com/tableau-de-bord">
+<script>document.documentElement.className+=' nav-js';</script>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Cormorant+Garamond:ital@0;1&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="/media/navlys_favicon.svg">
+<style>
+:root{--noir:#02040a;--bronze:#B87333;--or:#C9A961;--or-pale:#f3e4c4;--ice:#7DD3FC;--ice-clair:#a8e3ff;--perle:#e7eef2;--perle-doux:#bcc9d1;--brume:#7c8b95;--vert:#3a8c5a}
+*{margin:0;padding:0;box-sizing:border-box}
+html{background:#02040a;scroll-behavior:smooth}
+body{background:transparent;color:var(--perle);font-family:'Cormorant Garamond',Georgia,serif;font-size:19px;line-height:1.55;min-height:100vh;overflow-x:hidden;-webkit-text-size-adjust:100%}
+body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(55% 45% at 12% 8%,rgba(125,211,252,.13),transparent 60%),radial-gradient(50% 40% at 88% 32%,rgba(184,115,51,.10),transparent 62%),radial-gradient(60% 50% at 50% 120%,rgba(125,211,252,.06),transparent 64%)}
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(2,4,10,.88);backdrop-filter:blur(18px);border-bottom:1px solid rgba(125,211,252,.18);padding:12px 18px;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.nav a.logo{font-family:'Cinzel',serif;font-size:14px;letter-spacing:.3em;color:var(--or);text-transform:uppercase;font-weight:600;text-decoration:none}
+.nav a.home{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--perle-doux);text-decoration:none}
+.nav a.home:hover{color:var(--ice)}
+.wrap{position:relative;z-index:2;max-width:1140px;margin:0 auto;padding:88px 18px 60px}
+/* ---- En-tête : avatar + accueil ---- */
+.hello{display:flex;align-items:center;gap:20px;flex-wrap:wrap;padding:22px;border:1px solid rgba(233,211,160,.28);border-radius:20px;background:radial-gradient(120% 120% at 0% 0%,rgba(125,211,252,.08),rgba(3,4,10,.6) 60%);margin-bottom:26px}
+.avatar{position:relative;width:92px;height:92px;flex:0 0 auto;border-radius:50%;padding:3px;background:conic-gradient(from 0deg,var(--or),var(--ice),var(--or));box-shadow:0 0 26px rgba(125,211,252,.35)}
+.avatar .in{width:100%;height:100%;border-radius:50%;background:#05070e;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.avatar img{width:100%;height:100%;object-fit:cover;border-radius:50%}
+.avatar .ini{font-family:'Cinzel',serif;font-size:30px;color:var(--or-pale);letter-spacing:.04em}
+.hi h1{font-family:'Cormorant Garamond',serif;font-weight:400;font-size:clamp(26px,5vw,40px);color:var(--perle);line-height:1.1}
+.hi h1 em{color:var(--or);font-style:italic}
+.hi p{color:var(--perle-doux);font-style:italic;margin-top:4px}
+.consent{margin-top:10px;font-size:14px;color:var(--brume);display:flex;align-items:center;gap:8px}
+.consent input{width:16px;height:16px;accent-color:var(--ice)}
+/* ---- Grille de bulles ---- */
+.titre-sec{font-family:'Cinzel',serif;font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:var(--ice);margin:24px 4px 12px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(260px,100%),1fr));gap:16px}
+.bulle{position:relative;display:block;text-decoration:none;color:var(--perle);padding:20px;border:1px solid rgba(125,211,252,.2);border-radius:16px;background:rgba(2,4,10,.6);transition:.3s;overflow:hidden}
+.bulle:hover{transform:translateY(-3px);border-color:rgba(125,211,252,.6);box-shadow:0 14px 34px rgba(125,211,252,.16)}
+.bulle .top{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.bulle .emoji{font-size:28px;line-height:1}
+.bulle .nom{font-family:'Cinzel',serif;font-size:15px;letter-spacing:.08em;color:var(--or);text-transform:uppercase}
+.bulle .desc{font-style:italic;color:var(--perle-doux);font-size:15px;min-height:44px}
+.chip{position:absolute;top:14px;right:14px;font-family:'Cinzel',serif;font-size:9px;letter-spacing:.14em;text-transform:uppercase;padding:3px 9px;border-radius:999px}
+.chip.a{color:#02040a;background:linear-gradient(100deg,var(--or),#fff6df)}
+.chip.b{color:var(--ice-clair);background:rgba(125,211,252,.14);border:1px solid rgba(125,211,252,.4)}
+/* squelette « bulle vide » : montre que la donnée arrivera */
+.skel{margin-top:12px;display:flex;flex-direction:column;gap:7px}
+.skel span{height:9px;border-radius:6px;background:linear-gradient(90deg,rgba(125,211,252,.06),rgba(125,211,252,.18),rgba(125,211,252,.06));background-size:200% 100%;animation:shine 1.8s linear infinite}
+.skel span:nth-child(1){width:90%}.skel span:nth-child(2){width:70%}.skel span:nth-child(3){width:50%}
+@keyframes shine{to{background-position:-200% 0}}
+/* bulle gains ambassadeur, mise en avant */
+.bulle.gain{border-color:rgba(233,211,160,.5);background:radial-gradient(120% 120% at 100% 0%,rgba(233,211,160,.1),rgba(2,4,10,.65) 60%)}
+.bulle.gain .nom{color:var(--or-pale)}
+.disclaimer{margin-top:34px;font-style:italic;color:var(--brume);font-size:13.5px;line-height:1.65;border:1px solid rgba(184,115,51,.18);border-radius:12px;background:rgba(2,4,10,.55);padding:16px}
+@media(max-width:600px){.wrap{padding:80px 14px 50px}.avatar{width:74px;height:74px}}
+</style>
+</head>
+<body>
+<nav class="nav">
+  <a class="logo" href="/">🌊 NAVLYS</a>
+  <a class="home" href="/">← Accueil</a>
+</nav>
+
+<div class="wrap">
+
+  <section class="hello">
+    <div class="avatar" id="avatar"><div class="in"><span class="ini" id="ini">✦</span></div></div>
+    <div class="hi">
+      <h1>Bienvenue à bord, <em id="prenom">navigateur</em>.</h1>
+      <p>Voici ton tableau de bord. Tout est déjà là — il n'attend que toi pour se remplir.</p>
+      <label class="consent"><input type="checkbox" id="okphoto"> Utiliser ma photo publique comme avatar moderne</label>
+    </div>
+  </section>
+
+  <div class="titre-sec">Tes capacités — prêtes à activer</div>
+  <div class="grid" id="grid"></div>
+
+  <div class="disclaimer" id="disc">
+    NAVLYS est un projet d'<b>éducation et de veille à vocation informative uniquement</b>. Les contenus ne constituent en aucun cas un conseil personnalisé. Les gains ambassadeur sont une <b>rémunération variable et non garantie</b>, qui dépend de ton activité — ce n'est pas un revenu passif garanti ni un placement. Ta photo n'est utilisée comme avatar qu'avec ton accord. Investir comporte un risque de perte en capital. Réservé aux 18 ans et +. © 2026 NAVLYS · navlys.com
+  </div>
+</div>
+
+<script>
+/* Tableau de bord NAVLYS — prêt dès la 1re connexion (bulles vides = potentiel visible).
+   Aucune donnée sensible en dur ; le prénom/avatar viennent de la session si dispo. */
+(function(){
+  'use strict';
+  // Les bulles capacités (chacune mène à la vraie brique).
+  var BULLES=[
+    {e:'📖',n:'Next Gen',d:'Écris ta vie, elle se garde et se transmet.',u:'/next-gen',s:'b'},
+    {e:'🧮',n:'Finance',d:'Ton brief du jour, en euros et bon sens.',u:'/finance',s:'b'},
+    {e:'⚖️',n:'NAVLEX',d:'Tes questions de droit, expliquées simplement.',u:'/navlex',s:'b'},
+    {e:'🎙️',n:'Ta voix',d:'Parle, NAVLYS agit. Ta voix, ta barre.',u:'/choix-voix',s:'b'},
+    {e:'🚤',n:'Bateaux',d:'Fais expertiser ton bateau avant d’acheter.',u:'/bateau-test',s:'b'},
+    {e:'🕵️',n:'Veille virale',d:'On capte ce qui marche, tu en profites.',u:'/tech',s:'b'},
+    {e:'🤝',n:'Communauté',d:'L’Équipage : tu n’es jamais seul à la barre.',u:'/equipage',s:'b'},
+    {e:'🎁',n:'Tes gains',d:'Fais-nous connaître chaque jour : ça peut te rapporter.',u:'/ambassadeur',s:'a',gain:true}
+  ];
+  var g=document.getElementById('grid');
+  BULLES.forEach(function(b){
+    var a=document.createElement('a');
+    a.className='bulle'+(b.gain?' gain':''); a.href=b.u;
+    a.innerHTML='<span class="chip '+b.s+'">'+(b.s==='a'?'Fondateur':'À activer')+'</span>'+
+      '<div class="top"><span class="emoji">'+b.e+'</span><span class="nom">'+b.n+'</span></div>'+
+      '<div class="desc">'+b.d+'</div>'+
+      '<div class="skel"><span></span><span></span><span></span></div>';
+    g.appendChild(a);
+  });
+
+  // Prénom (doctrine : tutoiement + prénom) depuis la session si connue.
+  try{
+    var p=localStorage.getItem('nv-prenom');
+    if(p){ document.getElementById('prenom').textContent=p;
+      document.getElementById('ini').textContent=p.trim().charAt(0).toUpperCase()||'✦'; }
+  }catch(e){}
+
+  // Avatar depuis le visuel public — UNIQUEMENT si l'utilisateur coche (consentement RGPD).
+  var ok=document.getElementById('okphoto'), av=document.getElementById('avatar');
+  function urlPhoto(){ try{ return window.NAVLYS_AVATAR||localStorage.getItem('nv-avatar')||''; }catch(e){ return ''; } }
+  function poseAvatar(){
+    var url=urlPhoto();
+    if(ok.checked && url){
+      av.querySelector('.in').innerHTML='<img alt="avatar" src="'+url.replace(/"/g,'')+'">';
+      try{ localStorage.setItem('nv-avatar-ok','1'); }catch(e){}
+    } else {
+      var ini=(document.getElementById('prenom').textContent||'✦').trim().charAt(0).toUpperCase();
+      av.querySelector('.in').innerHTML='<span class="ini">'+(ini||'✦')+'</span>';
+      try{ localStorage.removeItem('nv-avatar-ok'); }catch(e){}
+    }
+  }
+  try{ if(localStorage.getItem('nv-avatar-ok')==='1'){ ok.checked=true; } }catch(e){}
+  ok.addEventListener('change',poseAvatar);
+  poseAvatar();
+})();
+</script>
+<script src="/navlys-alive.js" defer></script>
+<script src="/navlys-i18n.js" defer></script>
+</body>
+</html>
