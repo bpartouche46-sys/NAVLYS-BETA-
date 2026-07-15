@@ -91,11 +91,13 @@ h1{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:400;font
     <input type="range" id="jour" min="0" max="20" step="1" value="1">
     <label>Panier moyen du filleul (€ HT/mois)</label>
     <div class="paniers" id="paniers">
-      <button data-p="9.99">9,99 €</button>
-      <button data-p="29.99" class="on">29,99 €</button>
+      <button data-p="19.99" class="on">19,99 €</button>
+      <button data-p="29.99">29,99 €</button>
       <button data-p="49.99">49,99 €</button>
-      <button data-p="99.99">99,99 €</button>
+      <button data-p="99">99 € Pro</button>
+      <button data-p="149">149 € Pro Max</button>
     </div>
+    <p class="lead" style="margin-top:10px;font-size:.84rem">Entrée <b>19,99 € HT/mois</b>. <b>Pro 99 €</b> / <b>Pro Max 149 €</b> : ton business tourne — front + back office + facturation unique — sans employé, sans ordinateur, juste ton téléphone.</p>
     <div class="res">
       <div class="c"><div class="n" id="rMembres">21</div><div class="l">membres / mois</div></div>
       <div class="c"><div class="n" id="rMois">— €</div><div class="l">net / mois récurrent</div></div>
@@ -265,7 +267,7 @@ h1{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:400;font
       paniers=document.getElementById('paniers'),
       rM=document.getElementById('rMembres'), rMo=document.getElementById('rMois'), rAn=document.getElementById('rAn');
   if(!jour||!paniers||!rM) return;
-  var panier=29.99, JO=21, FRAIS=0.03, CHARGES=0.20, TAUX=0.20, TVA=0.20;
+  var panier=19.99, JO=21, FRAIS=0.03, CHARGES=0.20, TAUX=0.20, TVA=0.20;
   function netMembre(p){ var marge=p-(p*FRAIS)-(p*CHARGES); return (marge*TAUX)/(1+TVA); }
   function eur(n){ return (Math.round(n*100)/100).toLocaleString('fr-FR',{minimumFractionDigits:2,maximumFractionDigits:2})+' €'; }
   function calc(){

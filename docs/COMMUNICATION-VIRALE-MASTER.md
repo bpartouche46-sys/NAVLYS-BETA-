@@ -168,19 +168,34 @@ peux gagner de l'argent — surtout si tu fais partie des premiers.*
 communautés en ~1 jour**, **légalement** (son propre réseau, groupes, réseaux sociaux — jamais de
 spam ni d'achat de listes). **Taux de transformation prudent : 1 sur 100 (1 %) → 7 membres payants.**
 
-**Gain net versé / mois / membre**, selon le panier du filleul (modèle 20 % marge nette, TVA déduite) :
-| Panier HT/mois | Marge nette | Commission 20 % TTC | Net versé /mois/membre |
-|----------------|-------------|---------------------|------------------------|
-| 9,99 € | 7,69 € | 1,54 € | **1,28 €** |
-| 29,99 € | 23,09 € | 4,62 € | **3,85 €** |
-| 100 € | 77,00 € | 15,40 € | **12,83 €** |
+**GRILLE TARIFAIRE NAVLYS (référence, Bruno 2026-07-15)** :
+| Palier | Prix HT/mois | Pour qui | Net ambassadeur /membre/mois |
+|--------|-------------|----------|------------------------------|
+| **Entrée** | **19,99 €** | tout le monde (base des prévisions) | **2,57 €** |
+| — | 29,99 € | *(en hausse après quelques semaines)* | 3,85 € |
+| — | 49,99 € | *(en hausse après quelques semaines)* | 6,42 € |
+| **Pro** | **99 €** | projet commercial réel, front+back office+facturation | **12,71 €** |
+| **Pro Max** | **149 €** | business complet géré depuis le téléphone | **19,12 €** |
 
-**Résultat pour ce prospect (7 membres, RÉCURRENT chaque mois)** :
-| Panier moyen | 7 membres → /mois | sur 12 mois |
-|--------------|-------------------|-------------|
-| 9,99 € | **8,96 €/mois** | 107,52 € |
-| 29,99 € | **26,95 €/mois** | 323,40 € |
-| 100 € | **89,81 €/mois** | 1 077,72 € |
+**Scénario A — « 700 partages en 1 jour, 1 % » → 7 membres (récurrent)** :
+| Palier | 7 membres → /mois | sur 12 mois |
+|--------|-------------------|-------------|
+| 19,99 € | **17,96 €/mois** | 215,49 € |
+| 99 € (Pro) | **88,94 €/mois** | 1 067,22 € |
+
+**Scénario B — « 1 membre/jour ouvré » → 21/mois (récurrent + CUMULATIF)** :
+| Palier | 21 membres → /mois | Cumul sur 12 mois (base qui grossit) |
+|--------|--------------------|--------------------------------------|
+| **19,99 € (entrée)** | **53,87 €/mois** | **4 202 €** |
+| 29,99 € | 80,82 €/mois | 6 304 € |
+| 49,99 € | 134,72 €/mois | 10 508 € |
+| **99 € (Pro)** | **266,81 €/mois** | **20 811 €** |
+| **149 € (Pro Max)** | **401,56 €/mois** | **31 321 €** |
+
+**🌊 Punchline vision (BM, angle Pro/Pro Max)** : *« Imagine : ton business tourne, il fait des
+milliers d'euros par jour ou par semaine — et tu n'as aucun employé, aucun ordinateur, aucune autre
+facture que ton téléphone et ton appli de paiement. C'est tout. »* (à formuler sans promesse de gain
+garantie — cadre « imagine / peut », validé NAVLEX.)
 
 **Les 3 leviers qui font « beaucoup »** (à expliquer au prospect) :
 1. **Récurrent** : ce n'est pas un one-shot — il touche chaque mois tant que le filleul reste.
