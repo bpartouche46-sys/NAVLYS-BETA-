@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>NAVLYS Next Gen — Ta vie, racontée. Gardée. Transmise.</title>
-<meta name="description" content="NAVLYS Next Gen — la biographie vivante. Écris ta vie : elle s'enrichit, se partage, se transmet. Pour les tiens, et ceux qui viendront. Lancement le 14 juillet 2026.">
+<meta name="description" content="NAVLYS Next Gen — la biographie vivante. Écris ta vie : elle s'enrichit, se partage, se transmet. Pour les tiens, et ceux qui viendront. Lancement le 1er août 2026.">
 <link rel="canonical" href="https://navlys.com/next-gen">
 <script>document.documentElement.className+=' nav-js';</script>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -111,7 +111,7 @@ footer{padding:56px 0 90px;border-top:1px solid rgba(184,115,51,.16);text-align:
   <div class="launch-card">
     <canvas class="card-anim" id="cardAnim"></canvas>
     <div class="badge navBreathe">Lancement</div>
-    <h2>Ouverture le <em>14 juillet 2026</em></h2>
+    <h2>Ouverture le <em>1er août 2026</em></h2>
     <div class="countdown" id="cd">
       <div class="cdblk"><div class="n" id="cd-d">—</div><div class="u">Jours</div></div>
       <div class="cdblk"><div class="n" id="cd-h">—</div><div class="u">Heures</div></div>
@@ -165,8 +165,8 @@ footer{padding:56px 0 90px;border-top:1px solid rgba(184,115,51,.16);text-align:
 
 <script>
 var ENDPOINT='https://hhrlgyvtqluxpywjiwkd.supabase.co/functions/v1/inscription';
-// Compte à rebours -> 14 juillet 2026 23:59:59 (Paris, UTC+2)
-var TARGET = Date.parse('2026-07-14T23:59:59+02:00');
+// Compte à rebours -> 1er août 2026 00:00 (Paris, UTC+2)
+var TARGET = Date.parse('2026-08-01T00:00:00+02:00');
 function pad(n,l){return String(n).padStart(l||2,'0');}
 function tick(){
   var diff=Math.max(0,TARGET-Date.now());
