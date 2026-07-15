@@ -99,8 +99,36 @@ peux gagner de l'argent — surtout si tu fais partie des premiers.*
 - **Versement mensuel.**
 - **Ajustement TVA** : le montant est calculé/réajusté sur une base **TTC dans le pays d'origine du
   client**, puis ramené en **net-net selon le taux de TVA du client**.
-- Formule cible : `commission = 0,20 × (prix_HT − frais_client − charges_NAVLYS)`, puis ajustement
-  TVA pays du client, payé mensuellement.
+- **Étapes de calcul (finales)** :
+  1. Prix **HT** de la vente.
+  2. **−** frais propres au client (paiement/transfert selon le mode).
+  3. **−** charges NAVLYS.
+  4. **=** Marge nette NAVLYS (HT).
+  5. **Commission = 20 % de la marge nette** → ce montant est exprimé en **TTC**.
+  6. **Déduire la TVA** (taux applicable) de ce montant TTC.
+  7. **=** Net réellement versé à l'ambassadeur (mensuel).
+- Formules :
+  - `marge = prix_HT − frais_client − charges_NAVLYS`
+  - `commission_TTC = 0,20 × marge`
+  - `net_verse = commission_TTC / (1 + taux_TVA)`  (TVA déduite = `commission_TTC − net_verse`)
+
+**Exemple concret** (prix HT 100 €, frais paiement 3 %, charges NAVLYS 20 %, TVA 20 %) :
+| Étape | Calcul | Montant |
+|-------|--------|---------|
+| Prix HT vente | — | 100,00 € |
+| − frais client (3 %) | 100 × 3 % | −3,00 € |
+| − charges NAVLYS (20 %) | 100 × 20 % | −20,00 € |
+| = Marge nette NAVLYS | 100 − 3 − 20 | **77,00 €** |
+| Commission 20 % (TTC) | 0,20 × 77 | **15,40 € TTC** |
+| − TVA déduite (20 %) | 15,40 − 15,40/1,20 | −2,57 € |
+| **= Net versé à l'ambassadeur** | 15,40 / 1,20 | **12,83 € / mois** |
+
+> ⚠️ Le **taux de TVA** et **quelle TVA s'applique** (pays client vs pays ambassadeur, entité
+> Israël) restent à confirmer par **comptable + NAVLEX** — l'exemple utilise 20 % à titre d'illustration.
+
+> 📣 **Angle « flash 20 % »** (marketing) : le chiffre 20 % est un hook fort et légitime, MAIS la
+> communication doit **toujours préciser « 20 % de notre marge nette »** (pas 20 % des ventes) pour
+> ne pas induire en erreur — sinon pratique commerciale trompeuse (interdit). NAVLEX valide le wording.
 - **Sur tous les affiliés (abonnés ou non) et sur toutes les affiliations.**
 - **Avantage « premiers utilisateurs »** : statut d'ambassadeur fondateur pour les premiers inscrits.
 - **Échelle exigée : 100 000 → 1 000 000 membres** → l'architecture (tracking parrainage, calcul
