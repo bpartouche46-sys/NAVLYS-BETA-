@@ -1,9 +1,20 @@
-# 🤖 AUTONOMIE DE CLAUDE — modèle opérationnel (décidé par Bruno, 2026-06-28)
+# 🤖 AUTONOMIE DE CLAUDE — modèle opérationnel (Bruno, 2026-06-28 · corrigé 2026-07-15)
 
-> **Décision Bruno (2026-06-28)** : on **abandonne le détour Hetzner** et on travaille
-> **nativement sur la vraie stack Vercel + Supabase**, à laquelle Claude a un **accès direct
-> vérifié**. Claude devient **autonome pour mettre à jour les sites**, depuis n'importe où
-> (mobile, nouveau PC, ou à l'oral), **avec ou sans Bruno en direct** — dans les limites ci-dessous.
+> ⚠️ **CORRECTION 2026-07-15 (ERR-008) — À LIRE EN PREMIER.** Ce document disait avant
+> « Hetzner abandonné / legacy ». **C'était FAUX.** Bruno a rétabli : **Hetzner = notre serveur
+> CENTRAL** (Hetzner Cloud, Nuremberg), qui fait tourner le **core central NAVLYS** + des **IA en
+> local**. Le cap est : **tout en applications cron locales indépendantes sur Hetzner**, **ouvertes
+> aux recherches web**. **Vercel + Supabase ne sont que des OUTILS** (vitrine publique + base de
+> données), **pas le cerveau**. La seule chose vraie de l'ancienne rédaction : **Claude n'a pas
+> d'accès SSH à Hetzner** — mais « pas d'accès pour Claude » ≠ « inutile ». Voir ERR-008.
+>
+> **Décision Bruno (2026-06-28, toujours valable)** : Claude est **autonome pour mettre à jour les
+> sites** (Vercel + Supabase, accès direct vérifié), depuis n'importe où, avec ou sans Bruno.
+>
+> **Décision Bruno (2026-07-15)** : mode **BOUCLE ACTIVE** jusqu'au site 100% en ligne. Autonomie
+> marketing = **« Publier auto, argent = toi »** → les agents **déploient et publient le contenu
+> public seuls** après contrôle conformité (gardien) ; **toute dépense** et le **GATE de lancement
+> final** restent **à Bruno**.
 >
 > Ce document est la **source de vérité** de « qui peut faire quoi ». Il **amende** `GOUVERNANCE.md`
 > §2 et §4. Les **règles gravées** (`GOUVERNANCE.md` §0) et la **règle financière** (§3) restent
@@ -15,9 +26,14 @@
 
 - L'objectif de Bruno : *« ne plus avoir à utiliser l'ancien PC ; tout faire depuis le nouveau
   ou le mobile ; que le site se mette à jour avec ou sans moi. »*
-- Constat vérifié le 2026-06-28 : **les sites vivent sur Vercel + Supabase**, et Claude y a un
-  **accès live** via MCP. Le « core Hetzner » est **legacy** (0 conteneur actif) → inutile de
-  transférer quoi que ce soit dessus. **Inaccessible en SSH à Claude de toute façon.**
+- Constat vérifié le 2026-06-28 : **les sites publics vivent sur Vercel + Supabase**, et Claude y a
+  un **accès live** via MCP → il peut les mettre à jour seul. **C'est le seul périmètre où Claude
+  agit directement.**
+- ⚠️ **Ce que ce constat NE dit PAS (correction ERR-008)** : il ne dit **pas** que Hetzner est
+  inutile. Hetzner reste le **serveur central** (core NAVLYS + IA locales). Simplement, **Claude n'y
+  a pas accès (pas de SSH)** → Claude ne peut pas y exécuter de code lui-même. Le core-cron Hetzner
+  se pilote donc **via GitHub** : Claude écrit le code/les scripts, **Hetzner les tire** (cron
+  `sync-core.sh`) et les exécute. Cap Bruno : **tout en cron local indépendant sur Hetzner**.
 
 ---
 
@@ -29,7 +45,7 @@
 | **Supabase** (`navlys-core`, eu-west-3) | ✅ direct (MCP) | Lire/écrire la base (`journal`, `dossiers`, `core_knowledge`, `missions`, `agents`, `inscriptions`…), migrations, edge functions. RLS actif. |
 | **GitHub** (`bpartouche46-sys/navlys-beta-`) | ✅ ce dépôt only | Code + mémoire. ⚠️ **NOVA-HUB non accessible** (hors scope). |
 | **Google Drive / Gmail / Stripe / PayPal** | ✅ (MCP) | Lecture Drive (canal d'import de fichiers), mails, paiements (lecture). |
-| **Hetzner (SSH)** | ❌ jamais | Hors d'atteinte + interdit aux agents. Abandonné (legacy). |
+| **Hetzner (SSH)** | ❌ jamais | **Serveur CENTRAL actif** (core NAVLYS + IA locales), mais **hors d'atteinte de Claude** (pas de SSH). Piloté **via GitHub** : Claude livre le code, Hetzner le tire (cron). PAS abandonné — cf. ERR-008. |
 | **Disque de l'ancien PC** | ❌ jamais | Les fichiers doivent **transiter** par GitHub ou Drive. |
 
 > 🔐 Tous ces accès MCP sont **révocables en 1 geste** par Bruno (déconnexion du connecteur) —

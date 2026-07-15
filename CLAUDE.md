@@ -69,13 +69,18 @@ jour : **`docs/CARTE-SITES.md`**. ⚠️ Aucun projet n'est relié à GitHub (co
   Source : `recup-docs/onedrive/_MASTER_NAVLYS_NOW.md` (« lancement gate passé le 31 mai 2026 ✓,
   phase BETA en cours »). Détail des dates et arbitrage : `docs/ETAT-DES-LIEUX.md` + `docs/RENFORCEMENT/01-strategie.md`.
 
-### Infrastructure / stack RÉELLE (corrigée 2026-06-25)
+### Infrastructure / stack RÉELLE (corrigée 2026-06-25 · Hetzner rétabli 2026-07-15)
 
-> ⚠️ **Le « core central Hetzner » semble PÉRIMÉ / legacy** : il **n'apparaît PAS** dans les
-> documents récents du « cerveau » récupéré (`recup-docs/onedrive/`, MAJ mai-juin 2026). Aucune
-> trace d'Hetzner dans la stack décrite par `_MASTER_NAVLYS_NOW.md`, `02_SITE_PRODUIT.md`,
-> `03_API_BACKEND_NEXTJS.md`. **À CONFIRMER PAR BRUNO** : Hetzner est-il abandonné ? (cf. aussi le
-> diagnostic 2026-06-22 : serveur sain mais **0 conteneur Docker actif**, quasi vide en exécution).
+> ✅ **CORRECTION 2026-07-15 (ERR-008)** : **Hetzner = notre SERVEUR CENTRAL** (Hetzner Cloud,
+> Nuremberg). Il fait tourner le **core central NAVLYS** + des **IA en local**. **NE PAS écrire
+> « abandonné/legacy »** (erreur passée). Cap gravé par Bruno : **tout en applications cron locales
+> indépendantes sur Hetzner**, **ouvertes aux recherches web** → **Vercel + Supabase = de simples
+> OUTILS** (vitrine + base), pas le cerveau. Localisation du core : **`/root/navlys/`** (~9 dossiers)
+> · secrets `/root/navlys/config/.env` · cockpit `/var/www/cockpit/` · mémoire clonée
+> `/root/navlys/memoire`. ⚠️ **Claude n'a AUCUN accès SSH à Hetzner** → il livre le code via GitHub,
+> Hetzner le tire (cron `scripts/sync-core.sh`). « Pas d'accès pour Claude » ≠ « inutile ». Le
+> diagnostic 22/06 (« 0 conteneur actif ») était une **photo à un instant t**, pas une preuve
+> d'abandon. Objectif tokens : **routeur multi-IA sur les quotas gratuits quotidiens** (1 compte/IA).
 
 | Brique | Réalité (sources `recup-docs/`) |
 |--------|---------------------------------|
@@ -132,7 +137,7 @@ Commande rapide : `/controle` (voir `.claude/commands/controle.md`).
 | Fichier | Rôle |
 |---------|------|
 | `docs/GOUVERNANCE.md` | **Principes fondamentaux** : zéro répétition · surveillance mutuelle · règle financière (Bruno seul décide) |
-| `docs/AUTONOMIE-CLAUDE.md` | **Modèle opérationnel (2026-06-28)** : Claude autonome sur Vercel+Supabase (déploie en prod seul après conformité) ; **argent + juridique = Bruno**. Hetzner abandonné. |
+| `docs/AUTONOMIE-CLAUDE.md` | **Modèle opérationnel (2026-06-28, corrigé 2026-07-15)** : Claude autonome sur Vercel+Supabase (déploie/publie seul après conformité) ; **argent + juridique + GATE = Bruno**. **Hetzner = serveur central actif** (core + IA locales, piloté via GitHub car pas de SSH — ERR-008). Mode boucle active depuis 2026-07-15. |
 | `docs/MIGRATION-ANCIEN-PC.md` | Guide migration ancien→nouveau PC + auto-sync (le volet Hetzner devient optionnel — voir AUTONOMIE-CLAUDE) |
 | `docs/ARCHITECTURE-AGENT-DIRECTEUR.md` | Architecture orchestrateur + sous-agents + feuille de route |
 | `docs/MEMOIRE-CENTRALE.md` | Consolider les conversations sur le core (puis les supprimer) |

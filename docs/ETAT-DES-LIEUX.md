@@ -2,6 +2,32 @@
 
 > Mis à jour à la fin de chaque session pour que la suivante reprenne sans tout relire.
 
+## Session 2026-07-15 — 🔁 MODE BOUCLE ACTIVE + correction Hetzner (ERR-008)
+
+- 🔍 **État LIVE vérifié** (fetch Vercel de navlys.com, dernière modif 12/07) : le site est **bien
+  plus avancé** que la mémoire ne le disait. **Plus de countdown** (mode produit lancé), **démo voix
+  LIVE** (avatar + clone vocal via edge functions Supabase `hhrlgyvtqluxpywjiwkd` : `/voix`,
+  `/voix-demo`), apps en home (Next Gen, Finance, Test Bateaux, NAVLEX, Journal, Radio, Partenaires),
+  charte `#7DD3FC` OK, disclaimer OK. Nouveaux projets Vercel apparus : `navlys-site`, `navlys-core`,
+  `api`, `123`. → **La mémoire était périmée d'~2 semaines.**
+- 🚩 **2 dérives possibles vs règles gravées à surveiller** : (1) **dépersonnalisation** — la home
+  affiche Bruno (avatar vidéo + « moi c'est Bruno » + voix) alors que la règle n°1 = Bruno invisible
+  sur NAVLYS ; (2) **slogan/positionnement** — devenu « Ton IA · Ta vie · Ton rythme » +
+  « la 1ʳᵉ IA qui orchestre tes IA » (≠ slogan figé « Ma méthode, ton argent, ton rythme »). À
+  arbitrer par Bruno (peut être un choix assumé).
+- 🔴→✅ **ERR-008 corrigée** : la mémoire déclarait « **Hetzner abandonné** » → **FAUX**. Bruno a
+  rétabli : **Hetzner = serveur CENTRAL** (Nuremberg) avec **core NAVLYS + IA locales**. Cap : **tout
+  en cron local indépendant sur Hetzner**, ouvert au web ; **Vercel + Supabase = simples outils**.
+  Corrigé dans `CLAUDE.md`, `AUTONOMIE-CLAUDE.md`, `JOURNAL-ERREURS.md`. Core = `/root/navlys/`.
+- ⚙️ **Décision Bruno 2026-07-15 — BOUCLE ACTIVE jusqu'au « site 100% en ligne »** : Claude ne
+  s'arrête plus, crée autant d'agents de contrôle + marketing que nécessaire. Autonomie =
+  **« Publier auto, argent = toi »** → agents **déploient/publient le contenu public seuls** après
+  gardien conformité ; **toute dépense** + **GATE de lancement final** = **Bruno**.
+- 🎯 **Objectif tokens** : routeur multi-IA sur les **quotas gratuits quotidiens** de toutes les IA
+  dispo (1 compte/IA, free tier légitime — pas de création de comptes en boucle).
+- 📋 **Programme (tasks)** : (1) corriger mémoire ✅ · (2) audit multi-agents → punch-list 100% ·
+  (3) corriger+déployer les écarts · (4) plan+scripts core-cron Hetzner multi-IA · (5) marketing.
+
 ## Session 2026-06-28 — finalisation lancement 1ᵉʳ juillet + sécurité dépôt
 
 - 🔴 **INCIDENT découvert** : le dépôt GitHub est **PUBLIC** et une session parallèle y avait déversé
