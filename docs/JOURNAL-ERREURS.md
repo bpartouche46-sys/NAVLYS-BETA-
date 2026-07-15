@@ -126,4 +126,12 @@ Copier ce modèle pour chaque nouvelle erreur :
   promesse »** s'il touche au public. Vérifier en source avant publication. Inscrit ici + rappelé en
   tête de `docs/RENFORCEMENT/04-calculs-finance.md`.
 
-<!-- Ajouter les prochaines erreurs ci-dessous : ERR-008, … -->
+### ERR-008 — Mémoire a déclaré « Hetzner abandonné » à tort (c'est le serveur CENTRAL)
+- **Date** : 2026-07-15
+- **Contexte** : Bruno relit la mémoire et bondit : *« Pourquoi je lis Hetzner abandonné ? Hetzner est notre serveur central qui travaille avec notre core central NAVLYS et même des IA en local. »*
+- **Symptôme** : plusieurs docs (`AUTONOMIE-CLAUDE.md`, `CLAUDE.md`, `ETAT-DES-LIEUX.md`) affirmaient « Hetzner = legacy / abandonné » — l'**inverse du cap de Bruno**. Risque : reconstruire toute l'archi à côté de la plaque et ignorer le core central.
+- **Cause** : sur-généralisation d'une décision **précise** du 2026-06-28. Bruno avait décidé que **Claude arrête de faire un DÉTOUR par Hetzner** (parce que Claude n'a **pas** d'accès SSH au serveur). La mémoire a transformé « Claude n'y a pas accès » en « Hetzner ne sert à rien / est abandonné ». Deux choses différentes. Le diagnostic du 22/06 (« 0 conteneur Docker actif ») a renforcé l'illusion, mais c'était une **photo à un instant t**, pas une preuve d'abandon.
+- **Correction appliquée** : rétabli partout — **Hetzner = serveur CENTRAL actif** (Hetzner Cloud, Nuremberg ; core dans `/root/navlys/` ~9 dossiers ; `.env` clés ; cockpit `/var/www/cockpit/`). Cap confirmé par Bruno (2026-07-15) : **tout en applications cron locales indépendantes sur Hetzner**, **ouvert aux recherches web**, avec **IA locales** ; **Vercel + Supabase = de simples outils** (vitrine + base), pas le cerveau. Objectif tokens : **router sur les quotas gratuits quotidiens de toutes les IA dispo** (1 compte/IA, free tier légitime).
+- **Garde-fou** : ne JAMAIS écrire « Hetzner abandonné/legacy ». Distinguer toujours **« Claude n'a pas accès à X »** de **« X est inutile »**. L'accès de Claude ≠ l'utilité d'un composant. Rappel permanent inscrit dans `CLAUDE.md` §1 + `docs/AUTONOMIE-CLAUDE.md` (réécrit).
+
+<!-- Ajouter les prochaines erreurs ci-dessous : ERR-009, … -->
