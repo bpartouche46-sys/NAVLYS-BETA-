@@ -88,21 +88,33 @@ générateurs de hooks/scripts vidéo, Whisper (transcription), outils de veille
 **Message central (à faire comprendre au visiteur)** : *en faisant connaître NAVLYS chaque jour, tu
 peux gagner de l'argent — surtout si tu fais partie des premiers.*
 
-**Règle BM — DÉFINIE (2026-07-15, à valider par Bruno + NAVLEX + comptable)** :
-- **Taux = 29 % TTC** de commission ambassadeur.
-- **Base de calcul = le montant HT de la vente**, **pondéré (déduaction) des frais** de **gestion
-  ou de transfert** selon le **mode de paiement choisi** (CB/Stripe, PayPal, virement…).
-- Formule cible : `commission = 0,29 × montant_HT_vente − frais_paiement(mode)`.
+**Règle BM — DÉFINIE (corrigée 2026-07-15, à valider par Bruno + NAVLEX + comptable)** :
+- **Taux = 20 %** (correction : pas 29 %).
+- **Base = la MARGE NETTE de NAVLYS**, PAS le prix de vente brut. Calcul en 4 temps :
+  1. Partir du **prix HT** de la vente.
+  2. Retirer **tous les frais propres au client** (frais de paiement / transfert selon le mode choisi).
+  3. Retirer les **charges NAVLYS** → on obtient le **HT net pour NAVLYS (entité Israël), net de
+     tous frais et charges** = la marge nette.
+  4. **Commission ambassadeur = 20 % de cette marge nette.**
+- **Versement mensuel.**
+- **Ajustement TVA** : le montant est calculé/réajusté sur une base **TTC dans le pays d'origine du
+  client**, puis ramené en **net-net selon le taux de TVA du client**.
+- Formule cible : `commission = 0,20 × (prix_HT − frais_client − charges_NAVLYS)`, puis ajustement
+  TVA pays du client, payé mensuellement.
 - **Sur tous les affiliés (abonnés ou non) et sur toutes les affiliations.**
 - **Avantage « premiers utilisateurs »** : statut d'ambassadeur fondateur pour les premiers inscrits.
 - **Échelle exigée : 100 000 → 1 000 000 membres** → l'architecture (tracking parrainage, calcul
-  commissions, dashboard) doit tenir à cette charge (Postgres/Supabase indexé, calcul en batch).
+  commissions mensuel en batch, dashboard) doit tenir à cette charge (Postgres/Supabase indexé).
+- ✅ **Modèle sain** : 20 % d'une **marge nette** (pas du CA brut) = économiquement viable et bien
+  moins risqué juridiquement qu'un pourcentage du chiffre d'affaires.
 
 **⚠️ À sécuriser AVANT toute publication/paiement (signalé, non simulé)** :
-- **Fiscalité TTC/HT** : « 29 % TTC sur un montant HT » mélange TTC et HT → le calcul exact de la
-  TVA, qui émet la facture, et le statut de l'ambassadeur (particulier vs auto-entrepreneur qui doit
-  **déclarer ce revenu**) doivent être tranchés par un **comptable + NAVLEX**. Un taux de 29 % du CA
-  est élevé → viabilité économique à vérifier.
+- **TVA transfrontalière** : entité **Israël** ↔ clients **UE** à taux de TVA variables → le calcul
+  « TTC pays d'origine puis net-net selon TVA client », qui émet la facture, et le **statut de
+  l'ambassadeur** (particulier vs auto-entrepreneur qui doit **déclarer ce revenu**) doivent être
+  tranchés par un **comptable + NAVLEX**. C'est le point le plus technique.
+- **Transparence de la marge** : « 20 % de la marge nette » suppose de **définir précisément les
+  charges NAVLYS** déduites, sinon la commission est incompréhensible/contestable pour l'ambassadeur.
 - **Cadre affiliation/MLM** : « sur toutes les affiliations » ne doit **pas** basculer en schéma
   pyramidal multi-niveaux (illégal). NAVLEX borne le modèle.
 - **Payouts = Bruno** (PayPal/Stripe non authentifiés dans la session Claude Code).
