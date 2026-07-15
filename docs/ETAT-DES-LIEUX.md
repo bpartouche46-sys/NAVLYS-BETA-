@@ -25,8 +25,34 @@
   gardien conformité ; **toute dépense** + **GATE de lancement final** = **Bruno**.
 - 🎯 **Objectif tokens** : routeur multi-IA sur les **quotas gratuits quotidiens** de toutes les IA
   dispo (1 compte/IA, free tier légitime — pas de création de comptes en boucle).
-- 📋 **Programme (tasks)** : (1) corriger mémoire ✅ · (2) audit multi-agents → punch-list 100% ·
-  (3) corriger+déployer les écarts · (4) plan+scripts core-cron Hetzner multi-IA · (5) marketing.
+- 📋 **Programme (tasks)** : (1) corriger mémoire ✅ · (2) audit multi-agents → punch-list 100% ✅ ·
+  (3) corriger+déployer les écarts · (4) plan+scripts core-cron Hetzner multi-IA · (5) marketing ·
+  (6) réconciliation PR → PR centralisation · (7) teaser 1er août.
+- ✅ **ARBITRAGE dépersonnalisation (Bruno 2026-07-15)** : **garder Bruno visible/audible** sur
+  NAVLYS **AVEC disclaimer « voix générée par IA » partout** (RGPD art. 9 + IA Act art. 50). Règle
+  gravée n°1 assouplie en conséquence (cf. `CLAUDE.md` §0). Rien retiré.
+- 🚨 **DIAGNOSTIC RÉSOLU — DEUX BRANCHES DIVERGENTES (la cause des « oublis »)** : le dépôt a deux
+  lignes qui ne se parlent pas. **`main`** = la **vraie ligne de dev** : elle porte le **code
+  applicatif** (`supabase/`, `api/cron-tick.js`, `skills-lock.json`), le **`live-source/` COMPLET**,
+  et les pages net-new (`skipper`, `voile`, `cours`, `profil`, `sw.js`). **La branche par défaut**
+  (`claude/memory-saturation-safeguards-kl4ysc`, sur laquelle je travaillais) = un **snapshot
+  mémoire/docs** qui n'a **rien de tout ça** → d'où l'illusion « tout est oublié » : le contenu est
+  sur `main`, pas sur le défaut. **9 PR de vrai travail** ciblent `main` sans être consolidés (202,
+  201, 198, 196, 181, 62, **46**, 44, 39) ; 2 à fermer (53, 42). ⚠️ **Le PLUS bloquant = PR #46** :
+  l'**app NAVLYS Next.js déployable** (onboarding, **gate de lancement**, auth Supabase, pages
+  légales `/legal/*`) — **intégrée NULLE PART**. Sans elle, pas de produit gated conforme = **blocage
+  absolu du lancement**.
+- 🧭 **PLAN DE CENTRALISATION** : créer `claude/centralisation-lancement` **depuis `main`** (pas le
+  défaut) → intégrer d'abord les fichiers net-new (zéro conflit), puis le gros bloc app #46 (revue
+  Bruno, import propre sans l'historique dirty), puis les modifs mono-fichier, puis consolider à la
+  main les fichiers partagés (`index.html`, `CLAUDE.md`, service worker : choisir UNE version),
+  **passe conformité obligatoire** (disclaimer `navlys-alive.js` sur chaque page net-new + caviardage
+  CAP2027), puis fermer les PR sources. **⚠️ Le travail mémoire/docs (ERR-008, Hetzner, arbitrages)
+  reste sur la branche défaut (PR #203) ; le travail CODE se fait depuis `main`.**
+- ✅ **Fait cette session** : ancres cassées `/#univers → /adhesion` (finance + next-gen). ⚠️ à
+  ré-appliquer sur `main` (source de vérité) lors de la centralisation.
+- ✅ **Fait cette session** : ancres cassées `/#univers → /adhesion` (finance + next-gen, source
+  vérifiée conforme à la prod). Escadron **réconciliation PR** en cours (11 PR).
 
 ## Session 2026-06-28 — finalisation lancement 1ᵉʳ juillet + sécurité dépôt
 

@@ -28,9 +28,13 @@ Si une de ces étapes est sautée, le travail est considéré comme **non valide
 > pédagogique** (publisher), **PAS CIF / PAS ORIAS / PAS IOBSP**, ni conseil, ni placement, ni
 > encaissement de fonds clients. Source : `recup-docs/onedrive/00_ORGANIGRAMME.md` (§ « Règles gravées »,
 > règle 1) + `recup-docs/onedrive/_MASTER_NAVLYS_NOW.md`. Détail : `docs/GOUVERNANCE.md` (8 règles gravées).
-> ⚠️ Point de vigilance ouvert (à arbitrer par Bruno) : certains **scripts vidéo/voix** incarnent Bruno
-> comme **narrateur/skipper** (« voix de Bruno ») → tolérable SI disclaimer « voix générée par IA » +
-> aucun positionnement de conseiller. Voir `docs/RENFORCEMENT/02-communication.md`.
+> ✅ **ARBITRAGE BRUNO 2026-07-15 (tranché) — INCARNATION ASSUMÉE** : Bruno a décidé de **garder
+> Bruno visible/audible** sur les sites NAVLYS (avatar + voix clonée + nom). **Condition obligatoire
+> pour rester conforme** : ajouter **partout** où la voix/l'avatar cloné apparaît le disclaimer
+> **« voix générée par IA »** (exigence RGPD art. 9 + IA Act art. 50), et **jamais** de positionnement
+> de conseiller (ni CIF/ORIAS, ni conseil perso). La règle n°1 « Bruno invisible » est donc
+> **assouplie** par ce choix explicite : l'incarnation est permise AVEC disclaimer IA. Voir
+> `docs/RENFORCEMENT/02-communication.md` + `docs/ETAT-DES-LIEUX.md` (session 2026-07-15).
 
 > 💰 **RÈGLE FINANCIÈRE ABSOLUE (rappel permanent)** : **Bruno est le SEUL décisionnaire
 > final** sur **tout investissement** et **toute validation de débit/paiement** sur **tous
