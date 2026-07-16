@@ -48,3 +48,8 @@ jobs:
             exit 1
           fi
           echo "✓ dicos alignés sur leurs sources"
+
+      - name: Conformité doctrinale (charte · dépersonnalisation · date de lancement)
+        # Porte « ratchet » : verte sur la dette connue (tools/conformite-baseline.json),
+        # BLOQUE toute NOUVELLE violation (géo interdite, #5fe0ff, NOVA, date ≠ 1er août 2026).
+        run: node tools/conformite-check.mjs
