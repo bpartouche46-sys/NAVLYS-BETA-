@@ -563,6 +563,7 @@ window.NAVLYS_setVideo = function(v, rate, srcs){
   var pages=[
     {n:'Cadeaux',h:'/ambassadeur',i:'🎁',gift:true},
     {n:'Adhésion',h:'/adhesion',i:'✦'},
+    {n:'Concierge',h:'/concierge',i:'📍'},
     {n:'Ton idée',h:'/idee',i:'💡'},
     {n:'NAVLEX',h:'/navlex',i:'⚖'},
     {n:'Influenceurs',h:'/influenceurs',i:'★'},
