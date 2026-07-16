@@ -1,0 +1,12 @@
+# NAVLYS CORE — cron de supervision (complément de systemd, pas remplacement)
+# Installer : crontab -e   puis coller les lignes ci-dessous.
+
+# 1) Filet de sécurité : si la sonde ne répond plus, relance le service (toutes les 5 min).
+*/5 * * * * curl -fsS http://127.0.0.1:8788/health >/dev/null 2>&1 || systemctl restart navlys-core
+
+# 2) Rapport quotidien dans le bus (le core écrit un résumé dans navlys_audit — Kimi le lit le matin).
+0 7 * * * cd /opt/navlys/core && set -a && . ./.env && set +a && /usr/bin/node -e "import('./dist/bridge/bus.js').then(async m=>{const b=m.createBus({url:process.env.SUPABASE_URL,key:process.env.SUPABASE_SERVICE_ROLE_KEY});const c=await b.taskCounts();await b.postAudit({type:'rapport_quotidien',message:'Rapport auto: '+JSON.stringify(c),data:c});})"
+
+# 3) Mise à jour du code (OPTIONNEL — décommenter quand tu veux le déploiement auto ;
+#    tant que c'est commenté, la prod ne bouge que sur TON action = règle d'or).
+#30 6 * * * cd /opt/navlys && git pull --ff-only && cd core && npm ci --omit=dev && npm run build && systemctl restart navlys-core
