@@ -814,15 +814,15 @@ window.NAVLYS_setVideo = function(v, rate, srcs){
     act.insertBefore(mu, act.firstChild);
   });
 
-  // --- compte à rebours réel jusqu'au 1er juillet 2026, 00:00 ---
+  // --- compte à rebours réel jusqu'au 1er août 2026, 00:00 ---
   var band=document.createElement('a'); band.id='nv-count'; band.href='/adhesion'; document.body.appendChild(band);
-  var TARGET=new Date(2026,6,1,0,0,0).getTime();
+  var TARGET=new Date(2026,7,1,0,0,0).getTime();
   function pad(n){ return (n<10?'0':'')+n; }
   function tick(){
     var diff=TARGET-Date.now();
     if(diff<=0){ band.innerHTML='✨ <b>NAVLYS est lancé</b> — entre dans l\'univers, accès anticipé <b>GRATUIT</b> &rsaquo;'; return; }
     var d=Math.floor(diff/864e5), h=Math.floor(diff%864e5/36e5), m=Math.floor(diff%36e5/6e4), s=Math.floor(diff%6e4/1e3);
-    band.innerHTML='✨ <span class="pin">Ouverture le 1er juillet</span> · accès anticipé <b>GRATUIT</b> — <b>'+d+'j '+pad(h)+'h '+pad(m)+'m '+pad(s)+'s</b> &rsaquo;';
+    band.innerHTML='✨ <span class="pin">Ouverture le 1er août</span> · accès anticipé <b>GRATUIT</b> — <b>'+d+'j '+pad(h)+'h '+pad(m)+'m '+pad(s)+'s</b> &rsaquo;';
   }
   tick(); setInterval(tick,1000);
 
