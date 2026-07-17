@@ -32,7 +32,7 @@ window.NAVLYS_DICT_PT = {
   "Connexion difficile, réessaie dans un instant. 🌊": "Ligação difícil, tenta de novo daqui a um instante. 🌊",
   "🔊 écouter": "🔊 ouvir",
   "🔊 réécouter": "🔊 ouvir de novo",
-  "Ouverture le 1er juillet": "Abertura a 1 de julho",
+  "Ouverture le 1er août": "Abertura a 1 de agosto",
   "· accès anticipé": "· acesso antecipado",
   "GRATUIT": "GRÁTIS",
   "NAVLYS est lancé": "O NAVLYS foi lançado",

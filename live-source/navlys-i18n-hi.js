@@ -32,7 +32,7 @@ window.NAVLYS_DICT_HI = {
   "Connexion difficile, réessaie dans un instant. 🌊": "कनेक्शन में दिक्कत है, थोड़ी देर में फिर कोशिश करो। 🌊",
   "🔊 écouter": "🔊 सुनो",
   "🔊 réécouter": "🔊 फिर से सुनो",
-  "Ouverture le 1er juillet": "1 जुलाई को शुरुआत",
+  "Ouverture le 1er août": "1 अगस्त को शुरुआत",
   "· accès anticipé": "· जल्दी पहुँच",
   "GRATUIT": "मुफ़्त",
   "NAVLYS est lancé": "NAVLYS लॉन्च हो गया",

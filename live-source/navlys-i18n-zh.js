@@ -32,7 +32,7 @@ window.NAVLYS_DICT_ZH = {
   "Connexion difficile, réessaie dans un instant. 🌊": "连接有点问题，请稍后再试。🌊",
   "🔊 écouter": "🔊 收听",
   "🔊 réécouter": "🔊 重新收听",
-  "Ouverture le 1er juillet": "7月1日开放",
+  "Ouverture le 1er août": "8月1日开放",
   "· accès anticipé": "· 抢先体验",
   "GRATUIT": "免费",
   "NAVLYS est lancé": "NAVLYS 已上线",
