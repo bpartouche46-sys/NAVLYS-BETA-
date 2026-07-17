@@ -1,7 +1,7 @@
 {
   "_comment": "Dette de conformité connue et acceptée (à résorber). Régénérer : node tools/conformite-check.mjs --update-baseline",
   "generated": "manuel",
-  "count": 45,
+  "count": 44,
   "keys": [
     "banque-mizrahi|live-source/navlys-i18n-ar.js|\"Société israélienne (fiscalité en Israël, banque Mizrahi à Ashkelon). NAVLYS encaisse via plusieurs prestataires pour ne jamais être bloqué et couvrir la France, l'Europe, le Royaume-Uni et la Suisse",
     "banque-mizrahi|live-source/navlys-i18n-he.js|\"Société israélienne (fiscalité en Israël, banque Mizrahi à Ashkelon). NAVLYS encaisse via plusieurs prestataires pour ne jamais être bloqué et couvrir la France, l'Europe, le Royaume-Uni et la Suisse",
@@ -46,7 +46,6 @@
     "geo-israel|live-source/navlys-i18n.js|\"Société israélienne (fiscalité en Israël, banque Mizrahi à Ashkelon). NAVLYS encaisse via plusieurs prestataires pour ne jamais être bloqué et couvrir la France, l'Europe, le Royaume-Uni et la Suisse",
     "geo-israel|live-source/navlys-i18n.js|\"— mais on décide toujours sur le chiffre prudent. Direction du vent = d'où il VIENT (la flèche montre où il va). Données Open-Meteo, heure locale d'Israël, rafraîchies à chaque ouverture. Prévision =",
     "geo-israel|live-source/navlys-i18n.js|\"⚓ La mer de Bruno · Césarée, Israël\": \"⚓ Bruno's sea · Caesarea, Israel\",",
-    "geo-israel|live-source/rapport-amel-maramu-1989.html|<p class=\"sub\">Ketch de voyage · millésime <b style=\"color:var(--ice-clair)\">1989</b> · Méditerranée Est (Israël)</p>",
-    "geo-jerusalem|live-source/mer.html|var LAT=32.5, LON=34.88, TZ='Asia%2FJerusalem';"
+    "geo-israel|live-source/rapport-amel-maramu-1989.html|<p class=\"sub\">Ketch de voyage · millésime <b style=\"color:var(--ice-clair)\">1989</b> · Méditerranée Est (Israël)</p>"
   ]
 }
