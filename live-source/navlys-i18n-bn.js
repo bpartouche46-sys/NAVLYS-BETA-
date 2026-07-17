@@ -32,7 +32,7 @@ window.NAVLYS_DICT_BN = {
   "Connexion difficile, réessaie dans un instant. 🌊": "সংযোগে সমস্যা হচ্ছে, একটু পরে আবার চেষ্টা করো। 🌊",
   "🔊 écouter": "🔊 শোনো",
   "🔊 réécouter": "🔊 আবার শোনো",
-  "Ouverture le 1er juillet": "১ জুলাই উদ্বোধন",
+  "Ouverture le 1er août": "১ আগস্ট উদ্বোধন",
   "· accès anticipé": "· আগেভাগে প্রবেশ",
   "GRATUIT": "বিনামূল্যে",
   "NAVLYS est lancé": "NAVLYS চালু হয়েছে",

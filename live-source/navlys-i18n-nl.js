@@ -32,7 +32,7 @@ window.NAVLYS_DICT_NL = {
   "Connexion difficile, réessaie dans un instant. 🌊": "Verbinding lastig, probeer het zo meteen opnieuw. 🌊",
   "🔊 écouter": "🔊 luisteren",
   "🔊 réécouter": "🔊 opnieuw luisteren",
-  "Ouverture le 1er juillet": "Opening op 1 juli",
+  "Ouverture le 1er août": "Opening op 1 augustus",
   "· accès anticipé": "· vroege toegang",
   "GRATUIT": "GRATIS",
   "NAVLYS est lancé": "NAVLYS is gelanceerd",
