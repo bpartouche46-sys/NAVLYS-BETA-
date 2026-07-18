@@ -1,31 +1,6 @@
 {
   "_comment": "Dette de conformité connue et acceptée (à résorber). Régénérer : node tools/conformite-check.mjs --update-baseline",
   "generated": "manuel",
-  "count": 24,
-  "keys": [
-    "banque-mizrahi|live-source/navlys-i18n-ar.js|\"Société israélienne (fiscalité en Israël, banque Mizrahi à Ashkelon). NAVLYS encaisse via plusieurs prestataires pour ne jamais être bloqué et couvrir la France, l'Europe, le Royaume-Uni et la Suisse",
-    "banque-mizrahi|live-source/navlys-i18n-he.js|\"Société israélienne (fiscalité en Israël, banque Mizrahi à Ashkelon). NAVLYS encaisse via plusieurs prestataires pour ne jamais être bloqué et couvrir la France, l'Europe, le Royaume-Uni et la Suisse",
-    "banque-mizrahi|live-source/navlys-i18n.js|\"Société israélienne (fiscalité en Israël, banque Mizrahi à Ashkelon). NAVLYS encaisse via plusieurs prestataires pour ne jamais être bloqué et couvrir la France, l'Europe, le Royaume-Uni et la Suisse",
-    "banque-mizrahi|live-source/navlys-i18n.js|\"Израильская компания (налогообложение в Израиле, банк Mizrahi в Ашкелоне). NAVLYS принимает платежи через нескольких провайдеров, чтобы никогда не быть заблокированным и охватить Францию, Европу, Вел",
-    "charte-cyan|live-source/next-gen-beta.html|--cyan:#5fe0ff; --ice:#7dd3fc; --champagne:#e9d3a0; --perle:#e7eef2;",
-    "charte-cyan|live-source/next-gen-beta.html|{f:'crypto',c:'#5fe0ff',t:\"Ethereum : montée d'intérêt autour des frais de réseau\",d:\"Comprendre ce qu'est un « frais de gas » et pourquoi il varie.\",x:'Crypto · exemple'},",
-    "charte-cyan|live-source/next-gen-beta.html|{f:'mer',c:'#5fe0ff',t:'Tilos, île 100 % énergie verte : leçon de transition',d:'Quand un petit territoire change de cap — métaphore pédagogique.',x:'Art de vivre · exemple'},",
-    "geo-ashkelon|live-source/navlys-i18n-ar.js|\"Société israélienne (fiscalité en Israël, banque Mizrahi à Ashkelon). NAVLYS encaisse via plusieurs prestataires pour ne jamais être bloqué et couvrir la France, l'Europe, le Royaume-Uni et la Suisse",
-    "geo-ashkelon|live-source/navlys-i18n-he.js|\"Société israélienne (fiscalité en Israël, banque Mizrahi à Ashkelon). NAVLYS encaisse via plusieurs prestataires pour ne jamais être bloqué et couvrir la France, l'Europe, le Royaume-Uni et la Suisse",
-    "geo-ashkelon|live-source/navlys-i18n.js|\"Société israélienne (fiscalité en Israël, banque Mizrahi à Ashkelon). NAVLYS encaisse via plusieurs prestataires pour ne jamais être bloqué et couvrir la France, l'Europe, le Royaume-Uni et la Suisse",
-    "geo-israel|live-source/catamaran.html|<li><b>3 · Trampolines &amp; laçages</b> — le soleil d'Israël cuit les coutures. Test du pouce 2×/an ; re-laçage en Dyneema.</li>",
-    "geo-israel|live-source/navlys-i18n-ar.js|\", porteur et capitaine de NAVLYS, basé en Israël. Homme d'univers et de transmission : il bâtit une maison d'applications où\": \"، صاحب NAVLYS وقبطانه، ومقره إسرائيل. رجل عوالم ونقلِ إرث: يبني بيتًا م",
-    "geo-israel|live-source/navlys-i18n-ar.js|\"Société israélienne (fiscalité en Israël, banque Mizrahi à Ashkelon). NAVLYS encaisse via plusieurs prestataires pour ne jamais être bloqué et couvrir la France, l'Europe, le Royaume-Uni et la Suisse",
-    "geo-israel|live-source/navlys-i18n-ar.js|\"— mais on décide toujours sur le chiffre prudent. Direction du vent = d'où il VIENT (la flèche montre où il va). Données Open-Meteo, heure locale d'Israël, rafraîchies à chaque ouverture. Prévision =",
-    "geo-israel|live-source/navlys-i18n-ar.js|\"⚓ La mer de Bruno · Césarée, Israël\": \"⚓ بحر Bruno · قيسارية، إسرائيل\",",
-    "geo-israel|live-source/navlys-i18n-he.js|\", porteur et capitaine de NAVLYS, basé en Israël. Homme d'univers et de transmission : il bâtit une maison d'applications où\": \", היזם והקפטן של NAVLYS, יושב בישראל. איש של יקומים ושל מורשת: הוא בונה",
-    "geo-israel|live-source/navlys-i18n-he.js|\"Société israélienne (fiscalité en Israël, banque Mizrahi à Ashkelon). NAVLYS encaisse via plusieurs prestataires pour ne jamais être bloqué et couvrir la France, l'Europe, le Royaume-Uni et la Suisse",
-    "geo-israel|live-source/navlys-i18n-he.js|\"— mais on décide toujours sur le chiffre prudent. Direction du vent = d'où il VIENT (la flèche montre où il va). Données Open-Meteo, heure locale d'Israël, rafraîchies à chaque ouverture. Prévision =",
-    "geo-israel|live-source/navlys-i18n-he.js|\"⚓ La mer de Bruno · Césarée, Israël\": \"⚓ הים של Bruno · קיסריה, ישראל\",",
-    "geo-israel|live-source/navlys-i18n.js|\", porteur et capitaine de NAVLYS, basé en Israël. Homme d'univers et de transmission : il bâtit une maison d'applications où\": \", founder and captain of NAVLYS, based in Israel. A man of universes an",
-    "geo-israel|live-source/navlys-i18n.js|\"Société israélienne (fiscalité en Israël, banque Mizrahi à Ashkelon). NAVLYS encaisse via plusieurs prestataires pour ne jamais être bloqué et couvrir la France, l'Europe, le Royaume-Uni et la Suisse",
-    "geo-israel|live-source/navlys-i18n.js|\"— mais on décide toujours sur le chiffre prudent. Direction du vent = d'où il VIENT (la flèche montre où il va). Données Open-Meteo, heure locale d'Israël, rafraîchies à chaque ouverture. Prévision =",
-    "geo-israel|live-source/navlys-i18n.js|\"⚓ La mer de Bruno · Césarée, Israël\": \"⚓ Bruno's sea · Caesarea, Israel\",",
-    "geo-israel|live-source/rapport-amel-maramu-1989.html|<p class=\"sub\">Ketch de voyage · millésime <b style=\"color:var(--ice-clair)\">1989</b> · Méditerranée Est (Israël)</p>"
-  ]
+  "count": 0,
+  "keys": []
 }
