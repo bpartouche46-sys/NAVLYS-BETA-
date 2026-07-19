@@ -226,6 +226,44 @@ ou test mobile Termux). Détail : voir « 🖥️ Où tout tourne » plus bas.
   ⚠️ Dans CETTE session Claude Code, développer sur la branche désignée et créer
   une PR (contrainte de l'environnement), pas de push direct sur `main`.
 
+## 🧰 Commandes de développement (référence rapide)
+
+> **Pas de framework de test** dans le repo. La « suite de tests » = `node --check`
+> + le banc i18n + le hook PostToolUse (`tools/hook-verif.mjs`, lancé
+> automatiquement après chaque Edit/Write sur `live-source/*.{js,html}` :
+> `node --check`, grep charte, vérif des `<script>` inline).
+
+```bash
+# Worker Python (navlys_core/) — dépendance unique : requests
+pip install -r requirements.txt
+python run.py --once          # un seul cycle
+python run.py                 # boucle 24/7
+
+# Valider un JS (aussi fait par le hook) — réflexe n°1 « preuve avant parole »
+node --check <fichier.js>
+# HTML : extraire le <script> inline puis le vérifier
+awk '/<script>/{f=1;next}/<\/script>/{f=0}f' page.html > /tmp/p.js && node --check /tmp/p.js
+
+# Banc i18n (Playwright) — DOIT passer avant tout push
+cd live-source && python3 -m http.server 8123 &   # servir le site en local
+npm i playwright                                  # une fois (Chromium déjà dans /opt/pw-browsers)
+node tools/check-i18n.mjs                          # tout
+PAGES=index LANGS=en,he DETAIL=1 node tools/check-i18n.mjs   # cibler + détail
+#   → langues TESTÉES par défaut = 14 : en,ru,es,pt,it,de,nl,wa,zh,hi,bn,he,ar,ur
+#   (le moteur navlys-i18n.js maintient 5 langues cœur à la main : FR/EN/RU + HE/AR)
+
+# Charte (zéro toléré, aussi fait par le hook)
+grep -Ei 'violet|mauve|fuchsia' <fichiers>
+```
+
+**Supabase (le cerveau, LIVE) — via les outils MCP `mcp__Supabase__*`, pas de CLI locale :**
+- SQL : `apply_migration` (DDL) · `execute_sql` (requêtes). Après toute nouvelle
+  fonction/migration → `get_advisors(security)` **et** `get_advisors(performance)`.
+- Edge Functions : `deploy_edge_function` avec **`verify_jwt=false` explicite** si
+  appelée par pg_cron ou une page publique sans en-tête Authorization (règle n°98).
+- **Preuve d'un endpoint en direct** (le navigateur sandbox ne joint PAS supabase.co) :
+  `select net.http_get(...)` / `net.http_post(...)` puis lire `net._http_response`.
+
 ## 🚦 Règles d'or (non négociables — voir Bible §6)
 
 1. **Aucun débit** sans validation de Bruno.
