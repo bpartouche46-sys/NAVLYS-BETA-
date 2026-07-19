@@ -32,6 +32,7 @@
   .talk .orb{ animation:pulse .55s ease-in-out infinite; }
   @keyframes pulse{ 0%,100%{ transform:scale(1) } 50%{ transform:scale(1.09) } }
   :root[dir="rtl"] .sub, :root[dir="rtl"] .reply{ direction:rtl; }
+  @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}}
 </style>
 </head>
 <body>

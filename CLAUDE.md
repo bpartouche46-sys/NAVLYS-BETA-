@@ -685,6 +685,61 @@ But : Bruno parle à **un seul endroit** (bot Telegram), plus jamais Claude Code
   mémoire longue en base (`navlys_memoire`, `core_reglement`, `core_knowledge`) ;
   règles gravées au lieu de questions répétées (`navlys_regle`).
 
+## 🎨 Skills design/animation Emil Kowalski (intégrés le 2026-07-14, vérifiés règle n°111)
+
+> Ordre de Bruno : **« intègre le skill suivant pour améliorer notre design »** —
+> repo `emilkowalski/skills` (Emil Kowalski, créateur de Sonner/Vaul/animations.dev).
+
+- **5 skills ajoutés à `skills-lock.json`** (source `emilkowalski/skills`,
+  restaurés comme les autres via `npx -y skills experimental_install`) :
+  - `emil-design-eng` — philosophie de finition UI, décisions d'animation, détails
+    invisibles qui font qu'un logiciel « feel great ».
+  - `apple-design` — principes Apple (motion fluide/physique, ressorts, gestes,
+    matériaux translucides, typographie) traduits pour le web (WWDC *Designing
+    Fluid Interfaces*).
+  - `improve-animations` — audit motion d'un codebase (lecture seule) + plans
+    d'amélioration priorisés (8 catégories).
+  - `review-animations` — revue stricte du code d'animation contre une barre de
+    craft élevée (`disable-model-invocation:true` → à appeler explicitement).
+  - `animation-vocabulary` — glossaire inversé : décrire un effet flou → son terme
+    exact, pour mieux prompter.
+- **Où l'appliquer chez nous** : polir `live-source/` (transitions, karaoké
+  `navlys-alive.js`, calque « vivant », menu onglets, bulles) dans la charte
+  **ice blue + or** (jamais violet/mauve/fuchsia) et l'accessibilité sourds
+  (règle n°105). `apple-design` + `emil-design-eng` = référence de goût ;
+  `review-animations`/`improve-animations` = garde-fou avant tout push d'UI.
+- **Sécurité (règle n°111 — CLEAN)** : repo cloné et scanné en local le 2026-07-14
+  (caractères invisibles/zero-width + bidi, patterns malveillants, URLs, connexions
+  externes). Verdict : **aucun code exécutable, aucune fonction de connexion
+  externe, aucun texte caché à l'œil humain** — ce sont des `.md` d'instructions
+  pures. Seules trouvailles : 4 espaces zero-width `U+200B` collés à des barrières
+  de bloc de code dans `improve-animations/PLAN-TEMPLATE.md` (artifice d'écriture
+  markdown, retirés par hygiène dans notre copie vendored) et « token » = toujours
+  « design tokens » (terminologie CSS). URLs = ressources pédagogiques
+  (animations.dev, easing.dev, emilkowal.ski, shadcn/improve). Zéro connexion
+  externe autre que Bruno.
+
+## 🔄 Plugins autonomie Claude Code — prêts, à activer par Bruno (2026-07-14)
+
+> Suite au Short **« 5 Plugins to Make Claude Code Autonomous »** (Eric Tech).
+> Décision de Bruno : stack autonome de référence via GitHub, Ralph Loop actif.
+
+- **Doc complète : `docs/PLUGINS_AUTONOMES_CLAUDE_CODE.md`** (config prête à coller,
+  commandes `/plugin`, usage sûr de Ralph, verdict sécurité).
+- **Vérifiés règle n°111 (CLEAN, scan local du 2026-07-14)** : `superpowers`
+  (obra, épinglé SHA par Anthropic — hook `SessionStart` = injection de contexte,
+  zéro réseau) et `ralph-loop` (Anthropic officiel — hook `Stop` = relance du même
+  prompt, traitement de texte local, zéro réseau). Déjà en place : Context7
+  (`.mcp.json`), skills Superpowers (`skills-lock.json`), Playwright (local).
+- **Pourquoi non auto-activé** : activer des plugins dans `.claude/settings.json`
+  fait tourner leurs **hooks shell à chaque session sans validation par action** →
+  le garde-fou du harness (et la règle n°111) exige une **revue humaine explicite**,
+  refusée à dessein en session web non-interactive. La config est prête ; Bruno
+  l'active en une étape (Option A committée, ou Option B `/plugin ...`).
+- **Ralph = borner la boucle** (Bible §6, tokens) : jamais `/ralph-loop` nu ;
+  toujours `--max-iterations N` et/ou `--completion-promise 'PHRASE'`. Ralph commit
+  à chaque tour → sur la branche de dev désignée, jamais `main`.
+
 ## 🛰️ Cockpit relié au travail EN DIRECT (STANDING — gravé le 2026-07-07)
 
 > Ordre de Bruno : **« Le cockpit doit être réactif et relié à ton travail en
