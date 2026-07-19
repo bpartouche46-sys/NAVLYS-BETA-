@@ -20,6 +20,11 @@
   to = "/plan-marketing.html"
   status = 200
 
+[[redirects]]
+  from = "/voile"
+  to = "/voile.html"
+  status = 200
+
 # Sécurité de base
 [[headers]]
   for = "/*"
