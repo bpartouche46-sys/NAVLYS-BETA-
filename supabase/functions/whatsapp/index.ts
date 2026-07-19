@@ -96,6 +96,30 @@ async function sbGet(table,select,order,limit){ const url=(o)=>`${U}/rest/v1/${t
 async function sbFilter(table,select,filter,limit,order){ const r=await fetch(`${U}/rest/v1/${table}?select=${encodeURIComponent(select)}&${filter}${order?`&order=${encodeURIComponent(order)}`:""}${limit?`&limit=${limit}`:""}`,{headers:h()}); return r.ok? await r.json().catch(()=>[]):[]; }
 async function sbPatch(table,filter,patch){ await fetch(`${U}/rest/v1/${table}?${filter}`,{method:"PATCH",headers:{...h(),Prefer:"return=representation"},body:JSON.stringify(patch)}); }
 async function sbInsert(table,row){ const r=await fetch(`${U}/rest/v1/${table}`,{method:"POST",headers:{...h(),Prefer:"return=representation"},body:JSON.stringify(row)}); return r.ok? await r.json().catch(()=>[]):[]; }
+// Panel de contradiction (règle « jamais toutes les billes dans le même panier ») :
+// extrait le cœur de la CRITIQUE d'un avis IA pour un digest WhatsApp court.
+function extraitCritique(avis){
+  const s=String(avis||"");
+  const m=s.match(/CRITIQUE\s*:?\s*([\s\S]*?)(?:PROPOSITIONS|$)/i);
+  const bloc=m?m[1]:s;
+  const lignes=bloc.split(/\n+/).map((l)=>l.trim()).filter((l)=>l.length>3).slice(0,2);
+  let t=lignes.join("\n"); if(t.length>320) t=t.slice(0,320)+"…";
+  return t||s.slice(0,200);
+}
+async function pushAvisBruno(){
+  const nonVus = await sbFilter("core_avis_ia","id,fournisseur,modele,famille,note,avis,cree_le","vu_par_bruno=eq.false",20,"cree_le.desc");
+  if(!nonVus.length) return {ok:true,envoye:false,raison:"aucun avis non lu"};
+  const notesTxt = nonVus.map((a)=>a.note!=null?`${a.famille} ${a.note}/10`:`${a.famille} ?`).join(" · ");
+  const dispo = nonVus.map((a)=>`▪️ ${a.famille}${a.note!=null?` (${a.note}/10)`:""}\n${extraitCritique(a.avis)}`).join("\n\n");
+  const notesNum = nonVus.map((a)=>a.note).filter((n)=>n!=null).map(Number);
+  const moy = notesNum.length? Math.round(notesNum.reduce((x,y)=>x+y,0)/notesNum.length*10)/10 : null;
+  const corps = `🧺 Panel de contradiction — ${nonVus.length} IA${moy!=null?` · moyenne ${moy}/10`:""}\n${notesTxt}\n\n${dispo}\n\n(avis complets dans le cockpit)`;
+  let envoye=false, err=null;
+  if(D360 && OWNERS[0]){ try{ await sendWA(OWNERS[0], corps); envoye=true; }catch(e){ err=String(e).slice(0,150); } }
+  else { return {ok:true,envoye:false,raison:"D360/BRUNO_WHATSAPP absent",ia:nonVus.length}; }
+  if(envoye){ await sbPatch("core_avis_ia", `id=in.(${nonVus.map((a)=>a.id).join(",")})`, {vu_par_bruno:true}); }
+  return {ok:true,envoye,ia:nonVus.length,moyenne:moy,err};
+}
 
 // ---- BIBLE FAQ (core_faq) : PRÉ-TRADUITE par langue + lien direct par fiche ----
 const LIENS = `LIENS À DONNER (propose le lien direct utile) : Accueil ${SITE} · Adhésion ${SITE}/adhesion · Next Gen ${SITE}/next-gen · Finance ${SITE}/finance · NAVLEX ${SITE}/navlex · Aide à la voix ${SITE}/assistance · Ambassadeur ${SITE}/ambassadeur`;
@@ -215,6 +239,12 @@ Deno.serve(async (req) => {
       if(D360&&OWNERS[0]&&!u.searchParams.get("silencieux")){ const rr=await fetch("https://waba-v2.360dialog.io/messages",{method:"POST",headers:{"D360-API-KEY":D360,"Content-Type":"application/json"},body:JSON.stringify({messaging_product:"whatsapp",to:OWNERS[0],type:"text",text:{body:"NAVLYS diag ✅ v36 — résilience Claude→OpenRouter→NVIDIA"}})}); send={status:rr.status,body:(await rr.text().catch(()=>"")).slice(0,300)}; }
       let faqN=0; try{ faqN=(await sbFilter("core_faq","id,traductions","or=(actif.is.true,actif.is.null)",1000)).filter((r)=>r.traductions&&r.traductions.he).length; }catch(_e){}
       return new Response(JSON.stringify({version:36,d360:!!D360,owners:OWNERS,anth:!!ANTH,resilience_llm:["claude","openrouter_llama","nvidia_nim"],storage:!!(U&&K),faq_traduites:faqN,self:SELF_URL,webhook,webhook_fix,send}),{status:200,headers:{"Content-Type":"application/json"}});
+    }
+    // Rebascule ACTIVE : pousse à Bruno les avis bruts non lus du panel multi-IA.
+    // Appelé par cron (navlys_avis_push_bruno) après l'avis quotidien.
+    if (u.searchParams.get("mode")==="push_avis") {
+      const r = await pushAvisBruno();
+      return new Response(JSON.stringify(r),{status:200,headers:{"Content-Type":"application/json"}});
     }
     const mode=u.searchParams.get("hub.mode"), token=u.searchParams.get("hub.verify_token"), challenge=u.searchParams.get("hub.challenge");
     if (mode==="subscribe" && token && token===VERIFY) return new Response(challenge||"",{status:200});

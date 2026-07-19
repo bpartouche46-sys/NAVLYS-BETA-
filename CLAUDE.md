@@ -479,6 +479,51 @@ grep -Ei 'violet|mauve|fuchsia' <fichiers>
   message absente, modèle économique opaque) — preuve que la routine capte de
   vrais problèmes, pas du bruit.
 
+## 🧺 Jamais toutes les billes dans le même panier — panel de contradiction multi-IA (STANDING — gravé le 2026-07-11)
+
+> Ordre de Bruno : **« Jamais toutes les billes dans le même panier, garde-le en
+> mémoire. On valide toujours par anticipation plusieurs solutions, et on met en
+> contradiction les IA traditionnelles ou spécialisées pour quotidiennement
+> analyser notre site, faire sa classification et sa critique. Ensuite rebasculer
+> les conclusions brutes de chaque IA à moi-même ET au CORE afin de mettre en
+> pratique et en application très au sérieux toutes les remarques et critiques de
+> chacun. »**
+
+- **Jamais de point unique de dépendance.** Modèle, prestataire, canal, solution :
+  toujours **plusieurs paniers**. On ne relie jamais la survie d'une fonction à un
+  seul fournisseur (déjà appliqué : repli `callBrain` Claude→OpenRouter→NVIDIA sur
+  les canaux humains ; ici, panel de modèles de **familles différentes**, jamais le
+  même modèle deux fois).
+- **Valider par anticipation plusieurs solutions.** Avant de trancher, préparer et
+  éprouver au moins deux options en parallèle plutôt qu'une seule — la redondance
+  est la règle, pas l'exception.
+- **Panel de contradiction quotidien.** La brique `bible ?mode=avis` interroge
+  chaque jour **plusieurs IA indépendantes de familles distinctes** (Claude +
+  panel OpenRouter Llama/Mistral/Qwen/DeepSeek/Gemma/**Gemini**/**Cohere** +
+  NVIDIA/Mixtral — 8 familles, jamais le même modèle deux fois) sur le contenu
+  **réel et live** des pages clés (`/`, `/next-gen`, `/finance`, `/adhesion`).
+  Chaque IA doit **classer** le site (`NOTE_GLOBALE /10` + axes : positionnement,
+  confiance, design/mobile, conversion, message perçu) puis le **critiquer sans
+  complaisance** avec citations et reformulations concrètes.
+- **Rebascule des conclusions BRUTES — vers Bruno ET vers le CORE.** Chaque avis
+  intégral (jamais résumé) est écrit tel quel dans **`core_avis_ia`** (table
+  privée, `service_role` only — les critiques ne fuitent jamais vers un visiteur),
+  horodaté, avec sa note. Deux voies vers Bruno : **pull** (`bible ?mode=avis_bruno`)
+  et **push actif** — cron `navlys_avis_push_bruno` (08:30 UTC) appelle
+  `whatsapp ?mode=push_avis`, qui envoie un digest chiffré (notes côte à côte +
+  extrait de critique par IA) sur sa **WhatsApp** puis marque les avis « vus ».
+  En parallèle, le même avis passe par **`ingerer()`** → règle permanente +
+  mémoire de l'agent concerné → mise en application sérieuse, pas seulement
+  archivage. Digest chiffré aussi dans le `journal`.
+- **Ce qui dépend de Bruno** : appliquer la migration `sql/bible_avis_panel_multi_ia.sql`
+  (table `core_avis_ia` + cron push) et redéployer les briques `bible` et
+  `whatsapp` (`verify_jwt=false`, règle n°98) ; poser `OPENROUTER_API_KEY`
+  (+ `NVIDIA_API_KEY`) pour débloquer tout le panel, et `D360_API_KEY` +
+  `BRUNO_WHATSAPP` pour la rebascule WhatsApp (déjà posés pour le webhook). Sans
+  clé, chaque modèle échoue proprement en `""` et le push renvoie `envoye:false`
+  sans rien perdre. Code : `supabase/functions/bible/index.ts`,
+  `supabase/functions/whatsapp/index.ts`.
+
 ## 📺 Veille YouTube influenceurs (STANDING — gravé le 2026-07-07)
 
 > Ordre de Bruno : **« Prends les liens donnés par les influenceurs que je suis. »**
