@@ -10,7 +10,7 @@
 
 | # | Amélioration | Impact | Effort | Statut |
 |---|---|---|---|---|
-| **1** | **Cookie `gate_unlock` 30 j + bypass `?k=CAP2027`** — Bruno ne retape plus le code (cf. `06_INFRA_VEILLE_PATCHES/GATE_PERSISTANT_ET_DISCRETION.md`) | 🔥🔥🔥 | 30 min | À faire |
+| **1** | **Cookie `gate_unlock` 30 j + bypass `?k=[CLÉ RETIRÉE — voir gestionnaire de secrets]`** — Bruno ne retape plus le code (cf. `06_INFRA_VEILLE_PATCHES/GATE_PERSISTANT_ET_DISCRETION.md`) | 🔥🔥🔥 | 30 min | À faire |
 | **2** | **Code preview privé `CAP-CAPITAINE-7K3M2A`** — Bruno voit l'évolution post-lancement sans déverrouiller le gate public | 🔥🔥🔥 | 15 min | À faire |
 | **3** | **Robots noindex + robots.txt dynamique** — public n'indexe plus le teaser | 🔥🔥 | 10 min | À faire |
 | **4** | **Compte à rebours plus dense** — j:h:m:s en JetBrains Mono lumineux, pulse à chaque seconde, lecture Asia/Jerusalem précise | 🔥🔥 | 45 min | À faire |
