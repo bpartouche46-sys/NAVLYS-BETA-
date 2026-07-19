@@ -1,0 +1,24 @@
+[Unit]
+# NAVLYS CORE — boucle de liaison Kimi ↔ Core (bridge)
+# Installé via core/deploy/install.sh — garde-fous actifs sur chaque tâche exécutée.
+Description=NAVLYS Core Bridge (Kimi<->Core loop)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=navlys
+Group=navlys
+WorkingDirectory=/opt/navlys/core
+EnvironmentFile=/opt/navlys/core/.env
+ExecStart=/usr/bin/node dist/bridge/runner.js
+Restart=always
+RestartSec=10
+# Hygiène : pas de privilèges en plus, logs en fichier + journald
+NoNewPrivileges=true
+PrivateTmp=true
+StandardOutput=append:/var/log/navlys/core-bridge.log
+StandardError=append:/var/log/navlys/core-bridge.log
+
+[Install]
+WantedBy=multi-user.target
