@@ -1,802 +1,174 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="utf-8">
-<meta name="google-site-verification" content="0iczx0mFvqL9XzkeQAN45irXlu472jjGx3AF3XJt-M8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>NAVLYS — l'IA la plus simple du monde, rien qu'à ta voix</title>
-<meta name="description" content="NAVLYS : pas une IA de plus. Toutes tes IA et tes applications réunies en une seule, pilotées à la voix. Un cerveau, une personne, tout un univers.">
-<meta name="theme-color" content="#04122b">
+<meta name="description" content="NAVLYS l IA accessible a tous rien qu au telephone et a la voix">
 <link rel="canonical" href="https://navlys.com/">
-<meta property="og:title" content="NAVLYS — l'IA la plus simple du monde, rien qu'à ta voix">
-<meta property="og:description" content="Un cerveau. Une personne. Tout un univers. À la voix.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://navlys.com/">
-<meta property="og:image" content="https://navlys.com/brand/navlys_medaillon_1024.png">
-<meta name="twitter:card" content="summary_large_image">
-<link rel="icon" href="/favicons/favicon.ico" sizes="any">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicons/navlys-coin-avers-bronze-32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicons/navlys-coin-avers-bronze-16.png">
-<link rel="apple-touch-icon" href="/favicons/navlys-coin-avers-bronze-180.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/css/style.css">
-
-<meta property="og:locale" content="fr_FR">
-<meta property="og:locale:alternate" content="en_US">
-<meta property="og:locale:alternate" content="es_ES">
-<meta property="og:locale:alternate" content="it_IT">
-<meta property="og:locale:alternate" content="zh_CN">
-<meta property="og:locale:alternate" content="hi_IN">
-<meta property="og:locale:alternate" content="he_IL">
-<meta property="og:locale:alternate" content="ar_AR">
-<meta property="og:site_name" content="NAVLYS">
-<link rel="alternate" hreflang="fr" href="https://navlys.com/">
-<link rel="alternate" hreflang="en" href="https://navlys.com/?lang=en">
-<link rel="alternate" hreflang="es" href="https://navlys.com/?lang=es">
-<link rel="alternate" hreflang="it" href="https://navlys.com/?lang=it">
-<link rel="alternate" hreflang="zh" href="https://navlys.com/?lang=zh">
-<link rel="alternate" hreflang="hi" href="https://navlys.com/?lang=hi">
-<link rel="alternate" hreflang="he" href="https://navlys.com/?lang=he">
-<link rel="alternate" hreflang="ar" href="https://navlys.com/?lang=ar">
-<link rel="alternate" hreflang="x-default" href="https://navlys.com/">
-<!-- ===== JSON-LD · GEO / AEO (Organization, WebSite, SoftwareApplication, FAQPage, BreadcrumbList) ===== -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "Organization",
-      "@id": "https://navlys.com/#organization",
-      "name": "NAVLYS",
-      "legalName": "NAVLYS WEB SERVICE LTD",
-      "url": "https://navlys.com/",
-      "logo": "https://navlys.com/brand/navlys_medaillon_1024.png",
-      "image": "https://navlys.com/brand/navlys_medaillon_1024.png",
-      "description": "NAVLYS n'est pas une IA de plus : une seule porte d'entrée, à la voix, qui réunit toutes tes IA et tes applications en une. Projet d'éducation et de veille, jamais de conseil réglementé.",
-      "email": "bruno@navlys.com",
-      "identifier": "517373668",
-      "founder": {
-        "@type": "Person",
-        "name": "Bruno Mark Partouche",
-        "url": "https://www.brunopartouche.com/"
-      },
-      "sameAs": ["https://www.brunopartouche.com/"],
-      "contactPoint": {
-        "@type": "ContactPoint",
-        "email": "bruno@navlys.com",
-        "contactType": "customer support",
-        "availableLanguage": ["fr", "en", "es", "it", "zh", "hi", "he", "ar"]
-      }
-    },
-    {
-      "@type": "WebSite",
-      "@id": "https://navlys.com/#website",
-      "url": "https://navlys.com/",
-      "name": "NAVLYS",
-      "inLanguage": ["fr", "en", "es", "it", "zh", "hi", "he", "ar"],
-      "publisher": { "@id": "https://navlys.com/#organization" },
-      "description": "Toutes tes IA et tes apps en une, à la voix. Un cerveau, une personne, tout un univers."
-    },
-    {
-      "@type": "SoftwareApplication",
-      "@id": "https://navlys.com/#core",
-      "name": "NAVLYS CORE",
-      "applicationCategory": "BusinessApplication",
-      "operatingSystem": "Web, iOS, Android",
-      "url": "https://navlys.com/",
-      "publisher": { "@id": "https://navlys.com/#organization" },
-      "description": "Le cerveau central de NAVLYS : tu lui parles, il comprend, agit et se souvient. Pilotage à la voix, sans coder ni installer d'application.",
-      "featureList": "Orchestration à la voix, mémoire, éducation et veille",
-      "offers": [
-        { "@type": "Offer", "name": "Mousse", "price": "0.99", "priceCurrency": "EUR" },
-        { "@type": "Offer", "name": "Matelot", "price": "9.99", "priceCurrency": "EUR" },
-        { "@type": "Offer", "name": "Équipage", "price": "29.99", "priceCurrency": "EUR" },
-        { "@type": "Offer", "name": "Capitaine", "price": "49.99", "priceCurrency": "EUR" }
-      ]
-    },
-    {
-      "@type": "SoftwareApplication",
-      "@id": "https://navlys.com/#genesis",
-      "name": "NAVLYS Genesis",
-      "applicationCategory": "LifestyleApplication",
-      "operatingSystem": "Web, iOS, Android",
-      "url": "https://navlys.com/",
-      "publisher": { "@id": "https://navlys.com/#organization" },
-      "description": "Récit de vie de bout en bout à la voix : naissance, vie, autobiographie, transmission et site mémoire. Propulsé par le moteur NAVGEN. Application en construction.",
-      "applicationSuite": "NAVLYS"
-    },
-    {
-      "@type": "SoftwareApplication",
-      "@id": "https://navlys.com/#navfin",
-      "name": "NAVFIN",
-      "applicationCategory": "EducationApplication",
-      "operatingSystem": "Web, iOS, Android",
-      "url": "https://navlys.com/",
-      "publisher": { "@id": "https://navlys.com/#organization" },
-      "description": "Éducation financière et veille de marché (crypto & finance) en angle pédagogique. Aucun conseil personnalisé ni promesse de rendement. Application en construction.",
-      "applicationSuite": "NAVLYS"
-    },
-    {
-      "@type": "SoftwareApplication",
-      "@id": "https://navlys.com/#navlex",
-      "name": "NAVLEX",
-      "applicationCategory": "EducationApplication",
-      "operatingSystem": "Web, iOS, Android",
-      "url": "https://navlys.com/",
-      "publisher": { "@id": "https://navlys.com/#organization" },
-      "description": "Décryptage et vulgarisation d'informations juridiques générales. Jamais de conseil juridique personnalisé. Application en construction.",
-      "applicationSuite": "NAVLYS"
-    },
-    {
-      "@type": "SoftwareApplication",
-      "@id": "https://navlys.com/#memoir",
-      "name": "NAVLYS Mémoire",
-      "applicationCategory": "LifestyleApplication",
-      "operatingSystem": "Web, iOS, Android",
-      "url": "https://navlys.com/",
-      "publisher": { "@id": "https://navlys.com/#organization" },
-      "description": "Capture et met en forme une histoire de vie racontée à la voix. Application en construction.",
-      "applicationSuite": "NAVLYS"
-    },
-    {
-      "@type": "SoftwareApplication",
-      "@id": "https://navlys.com/#memorial",
-      "name": "NAVLYS Memorial",
-      "applicationCategory": "LifestyleApplication",
-      "operatingSystem": "Web, iOS, Android",
-      "url": "https://navlys.com/",
-      "publisher": { "@id": "https://navlys.com/#organization" },
-      "description": "Site hommage et mémoire durable pour honorer un proche. Application en construction.",
-      "applicationSuite": "NAVLYS"
-    },
-    {
-      "@type": "SoftwareApplication",
-      "@id": "https://navlys.com/#cv",
-      "name": "NAVLYS CV",
-      "applicationCategory": "BusinessApplication",
-      "operatingSystem": "Web, iOS, Android",
-      "url": "https://navlys.com/",
-      "publisher": { "@id": "https://navlys.com/#organization" },
-      "description": "Crée son CV à la voix, sans mise en page manuelle. Application en construction.",
-      "applicationSuite": "NAVLYS"
-    },
-    {
-      "@type": "SoftwareApplication",
-      "@id": "https://navlys.com/#spark",
-      "name": "NAVLYS Spark",
-      "applicationCategory": "BusinessApplication",
-      "operatingSystem": "Web, iOS, Android",
-      "url": "https://navlys.com/",
-      "publisher": { "@id": "https://navlys.com/#organization" },
-      "description": "Fait naître un site ou une présence en ligne à la voix. Application en construction.",
-      "applicationSuite": "NAVLYS"
-    },
-    {
-      "@type": "SoftwareApplication",
-      "@id": "https://navlys.com/#clarity",
-      "name": "NAVLYS Clarity",
-      "applicationCategory": "ProductivityApplication",
-      "operatingSystem": "Web, iOS, Android",
-      "url": "https://navlys.com/",
-      "publisher": { "@id": "https://navlys.com/#organization" },
-      "description": "Met de l'ordre et de la clarté dans ses idées et ses tâches, à la voix. Application en construction.",
-      "applicationSuite": "NAVLYS"
-    },
-    {
-      "@type": "FAQPage",
-      "@id": "https://navlys.com/#faq",
-      "mainEntity": [
-        { "@type": "Question", "name": "C'est vraiment gratuit ?", "acceptedAnswer": { "@type": "Answer", "text": "Oui. Le palier Mousse est gratuit, sans carte bancaire. Tu passes à un palier payant seulement si tu veux plus." } },
-        { "@type": "Question", "name": "Je dois savoir coder ?", "acceptedAnswer": { "@type": "Answer", "text": "Non. Tu parles, NAVLYS fait." } },
-        { "@type": "Question", "name": "Et si j'arrête ?", "acceptedAnswer": { "@type": "Answer", "text": "Tu gardes ton site tel quel. Résiliation en quelques clics, rétractation 14 jours." } },
-        { "@type": "Question", "name": "L'affiliation rapporte de l'argent ?", "acceptedAnswer": { "@type": "Answer", "text": "Non. Des récompenses et des avantages. Jamais d'argent promis." } },
-        { "@type": "Question", "name": "NAVLYS, c'est quoi exactement ?", "acceptedAnswer": { "@type": "Answer", "text": "Pas une IA de plus : une seule porte d'entrée, à la voix, qui réunit toutes tes IA et tes applications en une. C'est un projet d'éducation et de veille, jamais de conseil réglementé." } },
-        { "@type": "Question", "name": "Quelle IA pour gérer mon business à la voix ?", "acceptedAnswer": { "@type": "Answer", "text": "NAVLYS. Tu réunis tes IA et tes apps en une seule, pilotée à la voix depuis ton téléphone, sans coder ni installer d'application. Le palier Mousse est gratuit, sans carte bancaire." } },
-        { "@type": "Question", "name": "Comment faire son CV, sa bio ou son site à la voix ?", "acceptedAnswer": { "@type": "Answer", "text": "Tu le dictes à NAVLYS. Les apps CV, Mémoire et Spark transforment ta voix en CV, en récit de vie ou en site. Ces apps sont en construction." } },
-        { "@type": "Question", "name": "NAVLYS donne-t-il des conseils financiers ?", "acceptedAnswer": { "@type": "Answer", "text": "Non. NAVFIN propose de l'éducation financière et de la veille en angle pédagogique. Aucun conseil personnalisé, aucune promesse de rendement." } }
-      ]
-    },
-    {
-      "@type": "BreadcrumbList",
-      "@id": "https://navlys.com/#breadcrumb",
-      "itemListElement": [
-        { "@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://navlys.com/" }
-      ]
-    }
-  ]
+<link rel="icon" type="image/png" href="/assets/coins/navlys-coin-core.png">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,400;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --noir:#03040a; --noir2:#070a14;
+  --or:#e9d3a0; --or-vif:#ffd77a; --bronze:#c9962f;
+  --ice:#7dd3fc; --perle:#f4ecdb; --brume:#9aa6b2;
 }
-</script>
-<script src="/js/main.js" defer></script>
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;background:var(--noir)}
+body{background:var(--noir);color:var(--perle);font-family:'Cormorant Garamond',Georgia,serif;overflow-x:hidden}
+h1,h2,h3,.cz{font-family:'Cinzel',serif}
+
+/* fond luxe casino vivant : velours noir + or qui respire + halo qui suit la souris */
+#lux{position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(40% 40% at var(--mx,50%) var(--my,30%),rgba(233,211,160,.16),transparent 60%),
+    radial-gradient(60% 50% at 15% 10%,rgba(201,150,47,.14),transparent 60%),
+    radial-gradient(60% 60% at 85% 90%,rgba(125,211,252,.08),transparent 60%),
+    linear-gradient(180deg,#03040a,#070a14 55%,#03040a);
+  transition:background-position .2s}
+#grain{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.5;mix-blend-mode:overlay;
+  background-image:repeating-linear-gradient(0deg,rgba(255,255,255,.03) 0 1px,transparent 1px 3px)}
+.shim{position:fixed;inset:-50% -50%;z-index:0;pointer-events:none;
+  background:linear-gradient(115deg,transparent 40%,rgba(255,215,122,.10) 50%,transparent 60%);
+  animation:sweep 7s linear infinite}
+@keyframes sweep{0%{transform:translateX(-30%)}100%{transform:translateX(30%)}}
+
+section{position:relative;z-index:3;min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:40px 22px;text-align:center}
+
+/* nav qui s anime au survol sans clic */
+nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;justify-content:center;gap:26px;
+  padding:16px;backdrop-filter:blur(12px);background:linear-gradient(180deg,rgba(3,4,10,.85),transparent)}
+nav .m{position:relative;font-family:'Cinzel',serif;font-size:12px;letter-spacing:.28em;text-transform:uppercase;
+  color:var(--or);text-decoration:none;padding:6px 2px;transition:.35s;cursor:pointer}
+nav .m::after{content:attr(data-sub);position:absolute;left:50%;top:130%;transform:translateX(-50%) translateY(6px);
+  white-space:nowrap;font-size:10px;letter-spacing:.14em;color:var(--ice);opacity:0;transition:.35s;pointer-events:none}
+nav .m:hover{color:var(--or-vif);text-shadow:0 0 18px rgba(255,215,122,.7)}
+nav .m:hover::after{opacity:1;transform:translateX(-50%) translateY(0)}
+@media(max-width:760px){nav{gap:14px}nav .m{font-size:10px;letter-spacing:.16em}nav .m::after{display:none}}
+
+/* HERO */
+.brand{font-weight:700;font-size:clamp(64px,17vw,190px);letter-spacing:.14em;line-height:1;
+  background:linear-gradient(100deg,var(--bronze),var(--or) 40%,#fff7e0 50%,var(--or) 60%,var(--bronze));
+  background-size:250% auto;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+  animation:flow 8s linear infinite;filter:drop-shadow(0 6px 40px rgba(201,150,47,.45))}
+@keyframes flow{to{background-position:250% center}}
+.tag{font-style:italic;font-size:clamp(20px,4.4vw,40px);color:var(--perle);margin-top:10px;opacity:.95}
+.tag b{color:var(--or-vif);font-style:normal;font-weight:500}
+.sub{font-family:'Cinzel',serif;font-size:clamp(11px,2.4vw,15px);letter-spacing:.4em;text-transform:uppercase;color:var(--ice);margin-top:18px}
+.enter{margin-top:34px;display:inline-block;font-family:'Cinzel',serif;font-size:14px;letter-spacing:.3em;text-transform:uppercase;
+  color:#0a0803;background:linear-gradient(100deg,var(--bronze),var(--or-vif),var(--or));background-size:200% auto;
+  padding:16px 40px;border-radius:100px;text-decoration:none;animation:breath 3.4s ease-in-out infinite,flow 6s linear infinite;
+  box-shadow:0 0 0 rgba(255,215,122,.5)}
+@keyframes breath{50%{box-shadow:0 0 42px rgba(255,215,122,.6);transform:translateY(-2px)}}
+.hint{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);font-family:'Cinzel',serif;font-size:10px;letter-spacing:.3em;color:var(--brume);text-transform:uppercase;animation:bob 2.2s ease-in-out infinite}
+@keyframes bob{50%{transform:translateX(-50%) translateY(6px);color:var(--or)}}
+
+/* CARROUSEL VIDEO */
+.rideau{font-family:'Cinzel',serif;letter-spacing:.34em;text-transform:uppercase;color:var(--or);font-size:clamp(13px,3vw,18px);margin-bottom:22px}
+.carrousel{position:relative;width:min(1000px,94vw);aspect-ratio:16/9;border-radius:20px;overflow:hidden;
+  border:1px solid rgba(233,211,160,.35);box-shadow:0 30px 90px rgba(0,0,0,.6),inset 0 0 60px rgba(125,211,252,.06)}
+.carrousel video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1.4s ease}
+.carrousel video.on{opacity:1}
+.carrousel .voile{position:absolute;inset:0;background:radial-gradient(120% 100% at 50% 100%,rgba(3,4,10,.7),transparent 60%);pointer-events:none}
+.carrousel .lg{position:absolute;left:22px;bottom:18px;z-index:2;font-family:'Cinzel',serif;letter-spacing:.2em;text-transform:uppercase;color:var(--perle);font-size:clamp(12px,2.4vw,17px);text-shadow:0 2px 20px #000}
+.dots{margin-top:16px;display:flex;gap:10px;justify-content:center}
+.dots i{width:26px;height:3px;border-radius:3px;background:rgba(233,211,160,.3);transition:.4s}
+.dots i.on{background:var(--or-vif);box-shadow:0 0 12px var(--or-vif)}
+
+/* UNIVERS medaillons animes au survol */
+.univers{display:flex;flex-wrap:wrap;gap:22px;justify-content:center;margin-top:40px;max-width:1000px}
+.med{width:132px;text-decoration:none;color:var(--perle);text-align:center;transition:.4s}
+.med img{width:104px;height:104px;object-fit:contain;filter:drop-shadow(0 8px 24px rgba(201,150,47,.4)) grayscale(.25);
+  transition:transform .5s,filter .5s;animation:spin 22s linear infinite paused}
+.med:hover img{transform:scale(1.14) rotate(8deg);filter:drop-shadow(0 12px 34px rgba(255,215,122,.7)) grayscale(0);animation-play-state:running}
+.med .n{display:block;margin-top:8px;font-family:'Cinzel',serif;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--or)}
+.med .b{font-size:9px;letter-spacing:.14em;color:var(--ice);text-transform:uppercase;opacity:.8}
+.med.soon .n{color:var(--brume)}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* OFFRE */
+.offre{font-size:clamp(30px,7vw,64px);font-family:'Cinzel',serif;font-weight:700;
+  background:linear-gradient(100deg,var(--or),#fff7e0,var(--or-vif));background-size:200%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:flow 6s linear infinite}
+.offre-sub{font-style:italic;font-size:clamp(18px,3.6vw,28px);color:var(--perle);margin-top:8px}
+.soon-tag{margin-top:18px;font-family:'Cinzel',serif;font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--ice);border:1px solid rgba(125,211,252,.4);border-radius:100px;padding:9px 20px}
+footer{position:relative;z-index:3;text-align:center;padding:30px 20px 50px;color:var(--brume);font-size:12px;font-style:italic}
+footer .cz{font-size:10px;letter-spacing:.2em;color:var(--bronze);text-transform:uppercase;margin-bottom:8px}
+</style>
 </head>
 <body>
-<div class="bg"></div>
-<div class="aur a1" aria-hidden="true"></div>
-<div class="aur a2" aria-hidden="true"></div>
-<div class="bub" id="bub" aria-hidden="true"></div>
-<div class="sea" aria-hidden="true">
-  <svg viewBox="0 0 1440 320" preserveAspectRatio="none">
-    <path class="wv3" fill="rgba(143,199,238,.10)" d="M0,160 C240,220 480,100 720,150 C960,200 1200,120 1440,160 L1440,320 L0,320 Z M1440,160 C1680,220 1920,100 2160,150 C2400,200 2640,120 2880,160 L2880,320 L1440,320 Z"></path>
-    <path class="wv2" fill="rgba(79,214,194,.10)" d="M0,190 C240,140 480,240 720,190 C960,140 1200,230 1440,190 L1440,320 L0,320 Z M1440,190 C1680,140 1920,240 2160,190 C2400,140 2640,230 2880,190 L2880,320 L1440,320 Z"></path>
-    <path class="wv" fill="rgba(230,194,100,.09)" d="M0,220 C240,260 480,180 720,220 C960,260 1200,190 1440,220 L1440,320 L0,320 Z M1440,220 C1680,260 1920,180 2160,220 C2400,260 2640,190 2880,220 L2880,320 L1440,320 Z"></path>
-  </svg>
-</div>
+<div id="lux"></div><div class="shim"></div><div id="grain"></div>
 
-<div class="wrap">
-  <header>
-    <span class="coin" aria-hidden="true"><video autoplay muted loop playsinline poster="/brand/preview_coin_spin.png"><source src="/brand/navlys_coin_spin.webm" type="video/webm"><source src="/brand/navlys_coin_spin.mp4" type="video/mp4"></video></span>
-    <span class="logo">NAVLYS</span>
-    <nav class="top">
-      <a href="#univers" data-i18n="nav_univers">L'univers</a>
-      <a href="#metiers" data-i18n="nav_metiers">Les métiers IA</a>
-      <a href="#membre" data-i18n="nav_membre">Espace membre</a>
-      <a href="#offres" data-i18n="nav_offres">Offres</a>
-      <button id="srOpen" class="sbtn" type="button" aria-label="Rechercher" title="Rechercher">🔍</button>
-      <div class="lang" id="lang" role="group" aria-label="Langue">
-        <button data-l="fr" class="on" type="button" aria-label="Français" aria-pressed="true">FR</button>
-        <button data-l="en" type="button" aria-label="English" aria-pressed="false">EN</button>
-        <button data-l="es" type="button" aria-label="Español" aria-pressed="false">ES</button>
-        <button data-l="it" type="button" aria-label="Italiano" aria-pressed="false">IT</button>
-        <button data-l="zh" type="button" aria-label="中文" aria-pressed="false">中文</button>
-        <button data-l="hi" type="button" aria-label="हिंदी" aria-pressed="false">हिं</button>
-        <button data-l="he" type="button" aria-label="עברית" aria-pressed="false">עב</button>
-        <button data-l="ar" type="button" aria-label="العربية" aria-pressed="false">عر</button>
-      </div>
-    </nav>
-  </header>
-
-  <div class="hero" style="padding:26px 0 26px">
-  <div class="vframe vhero" id="vfHero" role="region" aria-label="Vidéo d'accueil NAVLYS">
-    <video muted loop playsinline autoplay preload="auto" aria-hidden="true"
-      poster="/videos/scenarios/preview_flotille.png"
-      data-desktop="/videos/scenarios/flotille_slow.mp4" data-mobile="/videos/scenarios/flotille_slow_9x16.mp4"></video>
-    <div class="vfall" aria-hidden="true"></div>
-    <div class="vshade" aria-hidden="true"></div>
-    <span class="vwip wip" data-i18n="v_construction">vidéo : en construction</span>
-  <div class="hero-inner" style="text-align:center">
-    <div class="over" data-i18n="hero_over">Ta voix pilote tout.</div>
-    <h1 id="heroH1" data-i18n="hero_h1">Dis-le.<br>NAVLYS le fait.</h1>
-    <p class="sub" id="heroTxt" data-i18n="hero_sub">Pas une IA. Toutes tes IA et tes apps en une, à la voix.</p>
-    <p class="say" id="heroSay" data-i18n="hero_say">Éducation &amp; veille<br>Jamais de conseil réglementé</p>
-    <button class="hear" type="button" data-hear="heroH1,heroTxt,heroSay" aria-label="Écouter ce texte" title="Écouter">🔊</button>
-    <div class="cta">
-      <button class="btn p" type="button" id="openVoice">🎙️ <span data-i18n="hero_cta1">Teste maintenant — gratuit</span></button>
-      <a class="btn g" href="#univers" data-i18n="hero_cta2">Découvrir l'univers</a>
-      <button class="btn g shareBtn" type="button">↗ <span data-i18n="sh_btn">Partager</span></button>
-    </div>
-  </div><!--/hero-inner-->
-  </div><!--/vframe-->
-  </div>
-
-  <div class="band" data-i18n="band">Un cerveau. <b>Toutes tes apps.</b> À la voix, depuis ton téléphone.</div>
-  <div class="trust" id="trustBar" aria-label="Avantages clés">
-    <span>✓ <span data-i18n="trust_free">Gratuit</span></span>
-    <span>✓ <span data-i18n="trust_nocb">Sans carte bancaire</span></span>
-    <span>✓ <span data-i18n="trust_nopc">Sans ordinateur</span></span>
-  </div>
-
-  <!-- QUI / QUOI / COMMENT / AFFILIATION — très gros, une phrase par ligne, audible -->
-  <div class="qqc" id="unique">
-    <div class="qq">
-      <div class="t"><div class="lab" data-i18n="qqt1">Qui</div>
-      <p id="qq1" data-i18n="qq1">Ton pote IA<br>Tu parles, il bosse<br>Pas besoin de savoir coder<br>Ni même d'ordinateur</p></div>
-      <button class="hear" type="button" data-hear="qq1" aria-label="Écouter : qui est NAVLYS" title="Écouter">🔊</button>
-    </div>
-    <div class="qq">
-      <div class="t"><div class="lab" data-i18n="qqt2">Quoi</div>
-      <p id="qq2" data-i18n="qq2">Toutes tes apps, en une<br>Ton site perso, à ton nom</p></div>
-      <button class="hear" type="button" data-hear="qq2" aria-label="Écouter : ce que fait NAVLYS" title="Écouter">🔊</button>
-    </div>
-    <div class="qq">
-      <div class="t"><div class="lab" data-i18n="qqt3">Comment</div>
-      <p id="qq3" data-i18n="qq3">Tu parles<br>Il fait<br>En ligne, immédiatement</p></div>
-      <button class="hear" type="button" data-hear="qq3" aria-label="Écouter : comment ça marche" title="Écouter">🔊</button>
-    </div>
-    <div class="qq">
-      <div class="t"><div class="lab" data-i18n="qqt4">Affiliation</div>
-      <p id="qq4" data-i18n="qq4">Partage NAVLYS<br>Cumule des récompenses<br>Jamais de promesse de gains</p></div>
-      <button class="hear" type="button" data-hear="qq4" aria-label="Écouter : la politique d'affiliation" title="Écouter">🔊</button>
-    </div>
-  </div>
-
-  <!-- 3 ENCADRÉS VIDÉO — un message court, gros, audible par cadre -->
-  <section id="vues">
-    <div class="vues">
-      <div class="vframe vmsg" role="region" aria-label="Vidéo : l'univers s'ouvre">
-        <video muted loop playsinline autoplay preload="auto" aria-hidden="true" data-desktop="/videos/univers.mp4" data-mobile="/videos/univers_9x16.mp4"></video>
-        <div class="vfall" aria-hidden="true"></div><div class="vshade" aria-hidden="true"></div>
-        <span class="vwip wip" data-i18n="v_construction">vidéo : en construction</span>
-        <div class="vin">
-          <p class="big" id="vm1" data-i18n="vf1">Ton univers t'attend<br>Ouverture le 1er août 2026</p>
-          <div class="cta-row">
-            <a class="btn p" href="#teaser" data-i18n="vf1_cta">Voir le compte à rebours</a>
-            <button class="hear" type="button" data-hear="vm1" aria-label="Écouter ce message" title="Écouter">🔊</button>
-          </div>
-        </div>
-      </div>
-      <div class="vframe vmsg" role="region" aria-label="Vidéo : le marketing quotidien">
-        <video muted loop playsinline autoplay preload="auto" aria-hidden="true" data-desktop="/videos/marketing.mp4" data-mobile="/videos/marketing_9x16.mp4"></video>
-        <div class="vfall" aria-hidden="true" style="animation-delay:-5s"></div><div class="vshade" aria-hidden="true"></div>
-        <span class="vwip wip" data-i18n="v_construction">vidéo : en construction</span>
-        <div class="vin">
-          <p class="big" id="vm2" data-i18n="vf2">Ton marketing rame pour toi<br>Chaque matin, pendant que tu vis</p>
-          <div class="cta-row">
-            <a class="btn p" href="#marketing" data-i18n="vf2_cta">Découvrir</a>
-            <button class="hear" type="button" data-hear="vm2" aria-label="Écouter ce message" title="Écouter">🔊</button>
-          </div>
-        </div>
-      </div>
-      <div class="vframe vmsg" role="region" aria-label="Vidéo : ton cap">
-        <video muted loop playsinline autoplay preload="auto" aria-hidden="true" data-desktop="/videos/cap.mp4" data-mobile="/videos/cap_9x16.mp4"></video>
-        <div class="vfall" aria-hidden="true" style="animation-delay:-10s"></div><div class="vshade" aria-hidden="true"></div>
-        <span class="vwip wip" data-i18n="v_construction">vidéo : en construction</span>
-        <div class="vin">
-          <p class="big" id="vm3" data-i18n="vf3">Ton cap, ta voix<br>Port à port, ensemble</p>
-          <div class="cta-row">
-            <a class="btn p" href="#offres" data-i18n="vf3_cta">Rejoindre l'équipage</a>
-            <button class="hear" type="button" data-hear="vm3" aria-label="Écouter ce message" title="Écouter">🔊</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-<!--HERO-->
-  <section id="univers">
-    <div class="eyebrow" data-i18n="uni_eye">L'univers NAVLYS</div>
-    <h2 class="stitle" data-i18n="uni_title">Une seule porte d'entrée — ta voix</h2>
-    <p class="slead" data-i18n="uni_lead">Chaque application se lance en parlant à NAVLYS. Pas de menu, pas d'app à installer : tu demandes, il t'emmène. Ce qui n'est pas encore prêt est marqué « en construction ».</p>
-    <div class="grid">
-
-      <a class="app" href="#" data-app="core">
-        <div class="cvid"><video muted loop playsinline preload="none" poster="/videos/scenarios/preview_navigation.png" data-vsrc="/videos/scenarios/navigation.mp4" aria-hidden="true"></video><div class="cvshade"></div></div>
-        <div class="t"><h3 data-i18n="core_t">Le CORE</h3><span class="tag tg-live" data-i18n="tag_actif">Actif · essai gratuit</span></div>
-        <p data-i18n="app_core">Ton cerveau central. Tu lui parles, il comprend, il agit et se souvient. Le cœur de tout l'univers.</p>
-        <div class="go" data-i18n="app_core_go">🎙️ Essayer maintenant, gratuit →</div>
-      </a>
-
-      <a class="app" href="#" data-app="join">
-        <div class="cvid"><video muted loop playsinline preload="none" poster="/videos/scenarios/preview_horizon.png" data-vsrc="/videos/scenarios/horizon.mp4" aria-hidden="true"></video><div class="cvshade"></div></div>
-        <div class="t"><h3 data-i18n="soon_title">Et bientôt…</h3><span class="wip" data-i18n="wip_badge">En construction</span></div>
-        <p data-i18n="soon_desc">NAVLYS Genesis (naissance → vie → autobiographie → transmission → site tombale) · NAVFIN · NAVLEX · La Mer · Voile · Rencontre · AR — propulsés par le moteur NAVGEN.</p>
-        <div class="go" data-i18n="soon_cta">✉️ Préviens-moi au lancement →</div>
-      </a>
-
-      <a class="app" href="#" data-app="amb">
-        <div class="cvid"><video muted loop playsinline preload="none" data-vsrc="/videos/univers.mp4" aria-hidden="true"></video><div class="cvshade"></div></div>
-        <div class="t"><h3 data-i18n="amb_t">Ambassadeur</h3><span class="tag tg-live" data-i18n="tag_actif2">Actif · gratuit</span></div>
-        <p data-i18n="app_amb">Fais découvrir NAVLYS et sois récompensé chaque mois, tant que ton filleul reste à bord. Parrainage simple et généreux.</p>
-        <div class="go" data-i18n="app_amb_go">↗ Partager maintenant →</div>
-      </a>
-
-    </div>
-
-    <div class="eyebrow" style="margin-top:40px" data-i18n="apps_eye">Une pièce par app</div>
-    <div class="appwall" id="appwall">
-      <a class="coinapp" href="#" data-app="genesis" aria-label="NAVLYS Genesis">
-        <span class="coinflip"><span class="cf-in">
-          <img class="cf-face cf-front" src="/assets/coins/navlys-coin-genesis.png" alt="NAVLYS Genesis" loading="lazy" decoding="async" width="104" height="104">
-          <img class="cf-face cf-back" src="/assets/coins/navlys-coin-avers-bronze.png" alt="" aria-hidden="true" loading="lazy" decoding="async" width="104" height="104">
-        </span></span>
-        <b>Genesis</b><span class="wip soft" data-i18n="wip_badge">En construction</span>
-      </a>
-      <a class="coinapp" href="#" data-app="navfin" aria-label="NAVFIN">
-        <span class="coinflip"><span class="cf-in">
-          <img class="cf-face cf-front" src="/assets/coins/navlys-coin-navfin.png" alt="NAVFIN" loading="lazy" decoding="async" width="104" height="104">
-          <img class="cf-face cf-back" src="/assets/coins/navlys-coin-avers-bronze.png" alt="" aria-hidden="true" loading="lazy" decoding="async" width="104" height="104">
-        </span></span>
-        <b>NAVFIN</b><span class="wip soft" data-i18n="wip_badge">En construction</span>
-      </a>
-      <a class="coinapp" href="#" data-app="navlex" aria-label="NAVLEX">
-        <span class="coinflip"><span class="cf-in">
-          <img class="cf-face cf-front" src="/assets/coins/navlys-coin-navlex.png" alt="NAVLEX" loading="lazy" decoding="async" width="104" height="104">
-          <img class="cf-face cf-back" src="/assets/coins/navlys-coin-avers-bronze.png" alt="" aria-hidden="true" loading="lazy" decoding="async" width="104" height="104">
-        </span></span>
-        <b>NAVLEX</b><span class="wip soft" data-i18n="wip_badge">En construction</span>
-      </a>
-      <a class="coinapp" href="#" data-app="voice" aria-label="NAVLYS Voice">
-        <span class="coinflip"><span class="cf-in">
-          <img class="cf-face cf-front" src="/assets/coins/navlys-coin-voice.png" alt="NAVLYS Voice" loading="lazy" decoding="async" width="104" height="104">
-          <img class="cf-face cf-back" src="/assets/coins/navlys-coin-avers-bronze.png" alt="" aria-hidden="true" loading="lazy" decoding="async" width="104" height="104">
-        </span></span>
-        <b>Voice</b><span class="wip soft" data-i18n="wip_badge">En construction</span>
-      </a>
-      <a class="coinapp" href="#" data-app="radio" aria-label="NAVLYS Radio">
-        <span class="coinflip"><span class="cf-in">
-          <img class="cf-face cf-front" src="/assets/coins/navlys-coin-radio.png" alt="NAVLYS Radio" loading="lazy" decoding="async" width="104" height="104">
-          <img class="cf-face cf-back" src="/assets/coins/navlys-coin-avers-bronze.png" alt="" aria-hidden="true" loading="lazy" decoding="async" width="104" height="104">
-        </span></span>
-        <b>Radio</b><span class="wip soft" data-i18n="wip_badge">En construction</span>
-      </a>
-      <a class="coinapp" href="#" data-app="ar" aria-label="AR Glasses">
-        <span class="coinflip"><span class="cf-in">
-          <img class="cf-face cf-front" src="/assets/coins/navlys-coin-ar-glasses.png" alt="AR Glasses" loading="lazy" decoding="async" width="104" height="104">
-          <img class="cf-face cf-back" src="/assets/coins/navlys-coin-avers-bronze.png" alt="" aria-hidden="true" loading="lazy" decoding="async" width="104" height="104">
-        </span></span>
-        <b>AR Glasses</b><span class="wip soft" data-i18n="wip_badge">En construction</span>
-      </a>
-      <a class="coinapp" href="#ambassadeur" data-app="amb" aria-label="Ambassadeur">
-        <span class="coinflip"><span class="cf-in">
-          <img class="cf-face cf-front" src="/assets/coins/navlys-coin-ambassadeur.png" alt="Ambassadeur" loading="lazy" decoding="async" width="104" height="104">
-          <img class="cf-face cf-back" src="/assets/coins/navlys-coin-avers-bronze.png" alt="" aria-hidden="true" loading="lazy" decoding="async" width="104" height="104">
-        </span></span>
-        <b>Ambassadeur</b><span class="tag tg-live" data-i18n="tag_actif2">Actif · gratuit</span>
-      </a>
-      <a class="coinapp" href="#" data-app="lamer" aria-label="La Mer">
-        <span class="coinflip"><span class="cf-in">
-          <img class="cf-face cf-front" src="/assets/coins/navlys-coin-la-mer.png" alt="La Mer" loading="lazy" decoding="async" width="104" height="104">
-          <img class="cf-face cf-back" src="/assets/coins/navlys-coin-avers-bronze.png" alt="" aria-hidden="true" loading="lazy" decoding="async" width="104" height="104">
-        </span></span>
-        <b>La Mer</b><span class="wip soft" data-i18n="wip_badge">En construction</span>
-      </a>
-      <a class="coinapp" href="#" data-app="memoir" aria-label="NAVLYS Mémoire">
-        <span class="coinflip"><span class="cf-in">
-          <img class="cf-face cf-front" src="/assets/coins/navlys-coin-memoir.png" alt="NAVLYS Mémoire" loading="lazy" decoding="async" width="104" height="104">
-          <img class="cf-face cf-back" src="/assets/coins/navlys-coin-avers-bronze.png" alt="" aria-hidden="true" loading="lazy" decoding="async" width="104" height="104">
-        </span></span>
-        <b>Mémoire</b><span class="wip soft" data-i18n="wip_badge">En construction</span>
-      </a>
-      <a class="coinapp" href="#" data-app="memorial" aria-label="NAVLYS Memorial">
-        <span class="coinflip"><span class="cf-in">
-          <img class="cf-face cf-front" src="/assets/coins/navlys-coin-memorial.png" alt="NAVLYS Memorial" loading="lazy" decoding="async" width="104" height="104">
-          <img class="cf-face cf-back" src="/assets/coins/navlys-coin-avers-bronze.png" alt="" aria-hidden="true" loading="lazy" decoding="async" width="104" height="104">
-        </span></span>
-        <b>Memorial</b><span class="wip soft" data-i18n="wip_badge">En construction</span>
-      </a>
-      <a class="coinapp" href="#" data-app="cv" aria-label="NAVLYS CV">
-        <span class="coinflip"><span class="cf-in">
-          <img class="cf-face cf-front" src="/assets/coins/navlys-coin-cv.png" alt="NAVLYS CV" loading="lazy" decoding="async" width="104" height="104">
-          <img class="cf-face cf-back" src="/assets/coins/navlys-coin-avers-bronze.png" alt="" aria-hidden="true" loading="lazy" decoding="async" width="104" height="104">
-        </span></span>
-        <b>CV</b><span class="wip soft" data-i18n="wip_badge">En construction</span>
-      </a>
-      <a class="coinapp" href="#" data-app="spark" aria-label="NAVLYS Spark">
-        <span class="coinflip"><span class="cf-in">
-          <img class="cf-face cf-front" src="/assets/coins/navlys-coin-spark.png" alt="NAVLYS Spark" loading="lazy" decoding="async" width="104" height="104">
-          <img class="cf-face cf-back" src="/assets/coins/navlys-coin-avers-bronze.png" alt="" aria-hidden="true" loading="lazy" decoding="async" width="104" height="104">
-        </span></span>
-        <b>Spark</b><span class="wip soft" data-i18n="wip_badge">En construction</span>
-      </a>
-      <a class="coinapp" href="#" data-app="clarity" aria-label="NAVLYS Clarity">
-        <span class="coinflip"><span class="cf-in">
-          <img class="cf-face cf-front" src="/assets/coins/navlys-coin-clarity.png" alt="NAVLYS Clarity" loading="lazy" decoding="async" width="104" height="104">
-          <img class="cf-face cf-back" src="/assets/coins/navlys-coin-avers-bronze.png" alt="" aria-hidden="true" loading="lazy" decoding="async" width="104" height="104">
-        </span></span>
-        <b>Clarity</b><span class="wip soft" data-i18n="wip_badge">En construction</span>
-      </a>
-    </div>
-  </section>
-  <section id="metiers">
-    <div class="eyebrow" data-i18n="met_eye">Le CORE au travail</div>
-    <h2 class="stitle" data-i18n="met_title">Cinq métiers IA, un seul équipage</h2>
-    <p class="slead"><span data-i18n="met_lead">NAVLYS répartit chaque tâche entre cinq métiers internes qui se relaient pour construire ton univers.</span></p>
-    <div class="metiers" id="metiersList"></div>
-
-    <!-- CERVEAU EN DIRECT — données publiques read-only Supabase/CORE -->
-    <div class="clive" id="clive">
-      <div class="clive-h"><span class="cl-dot"></span><span data-i18n="cl_eye">Le cerveau NAVLYS, en direct</span> <span class="cl-tag" id="clTag" data-i18n="cl_ex">exemple</span></div>
-      <div class="clive-g">
-        <div class="cl-c"><b id="clDev">—</b><span data-i18n="cl_dev">Développement</span></div>
-        <div class="cl-c"><b id="clKnow">—</b><span data-i18n="cl_know">Connaissances</span></div>
-        <div class="cl-c"><b id="clMem">—</b><span data-i18n="cl_mem">Mémoire</span></div>
-        <div class="cl-c"><b id="clDeb">—</b><span data-i18n="cl_deb">Débats appris</span></div>
-      </div>
-    </div>
-  </section>
-  <section id="membre">
-    <div class="eyebrow" data-i18n="dash_eye">Espace membre</div>
-    <h2 class="stitle" data-i18n="dash_title">Ton dashboard perso, embarqué</h2>
-    <p class="slead"><span data-i18n="dash_lead">Chaque abonné a son tableau de bord. Aperçu de démonstration ci-dessous.</span> <span class="wip soft" data-i18n="dash_demo">démo · en construction</span></p>
-    <div class="dashwrap">
-      <div id="loginCard">
-        <div class="field"><label for="mUser" data-i18n="dash_user">Prénom de bord</label><input id="mUser" placeholder="Bruno" autocomplete="off"></div>
-        <div class="field"><label for="mPass" data-i18n="dash_pass">Code d'accès (démo)</label><input id="mPass" type="password" placeholder="n'importe quoi — c'est une démo" data-i18n-ph="dash_ph" autocomplete="off"></div>
-        <button class="btn p" id="loginBtn" type="button" style="width:100%"><span data-i18n="dash_login">Monter à bord</span></button>
-        <p class="mono" style="margin-top:12px" data-i18n="dash_note">Espace de démonstration : aucune donnée n'est envoyée ni stockée.</p>
-      </div>
-      <div id="dashCard" class="hidden">
-        <div class="dashbar"><span class="who"><span data-i18n="dash_hi">Bonjour</span>, <span id="mName">moussaillon</span> ⚓</span><button class="btn g" id="logoutBtn" type="button" style="margin-left:auto;padding:8px 16px" data-i18n="dash_out">Quitter</button></div>
-        <div class="stat3">
-          <div class="stat"><b>14</b><span data-i18n="dash_s1">Briefings lus</span></div>
-          <div class="stat"><b>3</b><span data-i18n="dash_s2">Ateliers à venir</span></div>
-          <div class="stat"><b>Abonné</b><span data-i18n="dash_s3">Ton palier</span></div>
-        </div>
-        <div class="feed">
-          <div class="it"><b>NAVFIN</b> — <span data-i18n="dash_f1">briefing du jour publié (exemple)</span></div>
-          <div class="it"><b>La Mer</b> — <span data-i18n="dash_f2">alerte météo : vent &gt; 25 nœuds jeudi (exemple)</span></div>
-          <div class="it"><b>Veille</b> — <span data-i18n="dash_f3">5 signaux filtrés ce matin (exemple)</span></div>
-          <div class="it"><b>Ton site perso</b> — <span data-i18n="dash_f4">en ligne sur navlys.tonnom.com (exemple)</span></div>
-        </div>
-        <div style="margin-top:16px;text-align:center">
-          <p style="color:var(--or);font-size:.95rem;margin-bottom:8px" data-i18n="dash_aff">🎁 Ton lien ambassadeur est prêt — chaque partage compte :</p>
-          <div id="dashAffLink" class="mono" style="margin:8px 0 14px;font-size:.72rem;word-break:break-all;color:var(--ice);min-height:1.3em"></div>
-          <button class="btn p shareBtn" type="button" style="width:100%;justify-content:center">↗ <span data-i18n="sh_btn4">Partager NAVLYS</span></button>
-        </div>
-      </div>
-    </div>
-  </section>
-  <section id="teaser">
-    <div class="teaser">
-      <div class="eyebrow" data-i18n="tz_eye">Grand large</div>
-      <h2 class="stitle" data-i18n="tz_title">L'univers s'ouvre le 1er août 2026</h2>
-      <p class="slead" data-i18n="tz_lead">On lève l'ancre. D'ici là, l'équipage construit — certaines apps portent le badge « en construction », c'est normal.</p>
-      <div class="cd" id="cd">
-        <div class="u"><b id="cdD">--</b><span data-i18n="tz_j">Jours</span></div>
-        <div class="u"><b id="cdH">--</b><span data-i18n="tz_h">Heures</span></div>
-        <div class="u"><b id="cdM">--</b><span data-i18n="tz_m">Minutes</span></div>
-        <div class="u"><b id="cdS">--</b><span data-i18n="tz_s">Secondes</span></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- MEGA POT · programme Ambassadeur (conformité affiliation : points-récompense, jamais d'€ ni de gains promis) -->
-  <section id="ambassadeur">
-    <div class="megapot">
-      <div class="mp-kicker" data-i18n="mp_kick">Ambassadeur · Récompenses &amp; avantages</div>
-      <div class="mp-title">MEGA POT</div>
-      <div class="mp-counter">
-        <span class="mp-num" id="mpPot">0</span>
-        <span class="mp-unit" data-i18n="mp_unit">points-récompense</span>
-      </div>
-      <div class="mono" data-i18n="mp_ex">Cagnotte de lancement — chiffre d'exemple</div>
-      <div class="mp-sub" id="mpSub" data-i18n="mp_sub">Tu partages NAVLYS. 20 % sur les ventes réelles que tu apportes. Jamais un revenu garanti.</div>
-      <div class="mp-open" data-i18n="mp_open">Accessible même sans investir 1 centime.</div>
-      <div class="mp-ctas">
-        <button class="btn p joinBtn" type="button" data-src="ambassadeur" data-i18n="mp_join">Devenir ambassadeur</button>
-        <a class="btn g" data-watxt="amb" href="/adhesion?text=NAVLYS%2C%20je%20veux%20devenir%20ambassadeur" target="_blank" rel="noopener">💬 <span data-i18n="wa_btn3">Écris-nous sur WhatsApp</span></a>
-        <button class="btn g" id="mpInfo" type="button" data-i18n="mp_how" aria-expanded="false" aria-controls="mpHow">Comment ça marche</button>
-        <button class="btn g shareBtn" type="button">↗ <span data-i18n="sh_btn3">Partager</span></button>
-        <button class="hear" type="button" data-hear="mpSub,mpNote" aria-label="Écouter : le programme ambassadeur" title="Écouter">🔊</button>
-      </div>
-      <div class="mp-how" id="mpHow" data-i18n="mp_how_txt">1. Tu rejoins le programme (gratuit). 2. Tu transmets la bonne parole via ton lien d'affiliation. 3. Tu cumules des points-récompense convertibles en avantages — chaque mois, tant que tes filleuls restent à bord. Programme d'affiliation — pas un placement, pas un revenu promis.</div>
-      <div class="mp-perks">
-        <span class="mp-perk" data-i18n="mp_p1">Ouvert aux clients &amp; non-clients</span>
-        <span class="mp-perk" data-i18n="mp_p2">Récompenses &amp; avantages</span>
-        <span class="mp-perk" data-i18n="mp_p3">Sans engagement financier</span>
-        <span class="mp-perk" data-i18n="mp_p4">Affiliation transparente</span>
-      </div>
-      <div class="mp-note" id="mpNote" data-i18n="mp_note">Commission sur les ventes réelles que tu apportes — non garantie<br>L'affiliation n'est pas un investissement, aucune promesse de gains ni de revenu<br>Les avantages dépendent de l'engagement de chacun<br>Compteur de démonstration</div>
-    </div>
-  </section>
-
-  <!-- VENTE N°1 : cron marketing quotidien du CORE -->
-  <section id="marketing">
-    <div class="mkt">
-      <div class="eyebrow" data-i18n="mk_kick">Offre n°1 · Ton marketing automatique chaque matin</div>
-      <h2 class="stitle" id="mkTitle" data-i18n="mk_title">Ton marketing quotidien,<br>en pilote automatique</h2>
-      <p class="slead" id="mkLead" data-i18n="mk_lead">Chaque matin, il travaille pour toi<br>Il surveille ton marché<br>Il écrit ton contenu<br>Il le publie<br>Toi ? Tu parles. Lui, il rame</p>
-      <div class="mk3">
-        <div class="mki">🌅<p data-i18n="mk1">Veille de ton marché chaque matin</p></div>
-        <div class="mki">✍️<p data-i18n="mk2">Contenu prêt, à ta voix près</p></div>
-        <div class="mki">🚀<p data-i18n="mk3">Publication quotidienne automatique</p></div>
-      </div>
-      <div class="mp-ctas">
-        <button class="btn p joinBtn" type="button" data-src="marketing" data-i18n="mk_cta">🎙️ Activer mon marketing</button>
-        <a class="btn g" data-watxt="mkt" href="/adhesion?text=NAVLYS%2C%20le%20marketing%20quotidien%20m%27int%C3%A9resse" target="_blank" rel="noopener">💬 <span data-i18n="wa_btn2">Écris-nous sur WhatsApp</span></a>
-        <button class="btn g shareBtn" type="button">↗ <span data-i18n="sh_btn2">Partager</span></button>
-        <button class="hear" type="button" data-hear="mkTitle,mkLead" aria-label="Écouter : le marketing quotidien" title="Écouter">🔊</button>
-      </div>
-      <p class="mono" style="margin-top:12px" data-i18n="mk_note">Tu t'inscris, on te prévient au lancement · contenu pour apprendre et rester informé.</p>
-    </div>
-  </section>
-
-  <section id="offres">
-    <div class="eyebrow" data-i18n="of_eye">Rejoindre l'équipage</div>
-    <h2 class="stitle" data-i18n="of_title">Quatre paliers, ton site &amp; ton dashboard inclus</h2>
-    <p class="slead" data-i18n="of_lead">Prix HT (TTC en petit sur la facture). Tant que tu es abonné, tu as accès à tout. Si tu arrêtes, tu conserves ton site tel quel — une trace durable de ton expérience.</p>
-    <p class="mono" style="text-align:center;margin:-16px auto 8px;max-width:640px;color:var(--or)" data-i18n="of_test">🎁 Gratuit en phase de test — encaissement désactivé, ouverture prochaine</p>
-    <p class="mono" style="text-align:center;margin:0 0 26px" data-i18n="of_legal">Droit de rétractation : 14 jours · Résiliation en quelques clics</p>
-    <div class="tiers">
-
-      <div class="tier">
-        <div class="nom" data-i18n="of_t0n">Mousse</div>
-        <div class="price">0,99 € <small data-i18n="of_ht">HT</small></div>
-        <ul>
-          <li data-i18n="of_t0a">Tu parles à NAVLYS — gratuit, sans CB</li>
-          <li data-i18n="of_t0b">Ton site perso + ton dashboard</li>
-          <li data-i18n="of_t0c">🌦️ Météo &amp; alertes offertes</li>
-          <li data-i18n="of_t0d">Journal &amp; veille publics</li>
-          <li data-i18n="of_t0e">Ton lien ambassadeur direct</li>
-        </ul>
-        <button class="btn g joinBtn" type="button" data-src="offre-gratuit" style="margin-top:16px;width:100%;justify-content:center" data-i18n="of_start0">Commencer</button>
-      </div>
-
-      <div class="tier">
-        <div class="nom" data-i18n="of_t1n">Matelot</div>
-        <div class="price">9,99 € <small data-i18n="of_mo">HT/mois</small></div>
-        <ul>
-          <li data-i18n="of_t1a">Tout Mousse</li>
-          <li data-i18n="of_t1b">Briefings quotidiens</li>
-          <li data-i18n="of_t1c">Site enrichi</li>
-          <li data-i18n="of_t1d">Archives complètes</li>
-        </ul>
-        <button class="btn g joinBtn" type="button" data-src="offre-matelot" style="margin-top:16px;width:100%;justify-content:center" data-i18n="of_start1">Choisir</button>
-      </div>
-
-      <div class="tier feat">
-        <span class="top" data-i18n="of_top">Le plus choisi</span>
-        <div class="nom" data-i18n="of_t2n">Équipage</div>
-        <div class="price">29,99 € <small data-i18n="of_mo2">HT/mois</small></div>
-        <ul>
-          <li data-i18n="of_t2a">Tout Matelot</li>
-          <li data-i18n="of_t2b">Toutes les apps, à la voix</li>
-          <li data-i18n="of_t2c">Dashboard avancé</li>
-          <li data-i18n="of_t2d">Communauté &amp; ateliers</li>
-        </ul>
-        <button class="btn p joinBtn" type="button" data-src="offre-equipage" style="margin-top:16px;width:100%;justify-content:center" data-i18n="of_start2">Rejoindre</button>
-      </div>
-
-      <div class="tier">
-        <div class="nom" data-i18n="of_t3n">Capitaine</div>
-        <div class="price">49,99 € <small data-i18n="of_mo3">HT/mois</small></div>
-        <ul>
-          <li data-i18n="of_t3a">Tout Équipage</li>
-          <li data-i18n="of_t3b">Ton domaine à toi</li>
-          <li data-i18n="of_t3c">Priorité voix &amp; support</li>
-          <li data-i18n="of_t3d">Cercle restreint</li>
-        </ul>
-        <button class="btn g joinBtn" type="button" data-src="offre-capitaine" style="margin-top:16px;width:100%;justify-content:center" data-i18n="of_start3">Demander l'accès</button>
-      </div>
-
-    </div>
-
-    <div style="text-align:center;margin-top:18px">
-      <a class="btn g" data-watxt="site" href="/adhesion?text=Bonjour%20NAVLYS%2C%20je%20viens%20du%20site" target="_blank" rel="noopener">💬 <span data-i18n="wa_btn">Écris-nous sur WhatsApp</span></a>
-    </div>
-
-    <div class="perso">
-      <div class="eyebrow" style="text-align:start" data-i18n="ps_eye">Ton site perso</div>
-      <h3 style="font-family:'Cinzel',serif;color:#fff;font-size:1.3rem;margin:8px 0 8px" data-i18n="ps_title">Un site à toi, dès le premier jour</h3>
-      <p style="color:var(--brume)"><span data-i18n="ps_body">Chaque membre reçoit son propre site et son dashboard perso — sur ton domaine ou en</span> <code data-i18n="ps_dom">navlys.tonnom.com</code>. <span data-i18n="ps_body2">Il reste le tien : si tu arrêtes l'abonnement, ton site demeure en ligne tel quel, une trace durable de ton expérience.</span></p>
-    </div>
-
-    <div class="disc" data-i18n="disc">NAVLYS est un outil pour apprendre et rester informé — pas un programme de rémunération, pas de conseil personnalisé (financier, juridique ou médical). L'affiliation donne des récompenses, jamais de l'argent promis. Tu restes seul responsable de tes décisions.</div>
-  </section>
-
-  <!-- TÉMOIGNAGES -->
-  <section id="temoignages">
-    <div class="eyebrow" data-i18n="te_eye">Témoignages</div>
-    <h2 class="stitle" data-i18n="te_title">Ils ont embarqué</h2>
-    <p class="slead" data-i18n="te_lead">Les premiers utilisateurs partagent leurs premières impressions — avant le grand lancement.</p>
-    <div class="tcards">
-      <div class="tcard">
-        <div class="stars" aria-label="5 étoiles">★★★★★</div>
-        <q data-i18n="te_q1">Je dicte mes idées le matin, NAVLYS me résume tout avant mon café. C'est exactement ce que je cherchais.</q>
-        <div class="tauth">
-          <div class="tavatar" aria-hidden="true">ML</div>
-          <div>
-            <div class="tname" data-i18n="te_n1">Marie L.</div>
-            <div class="trole" data-i18n="te_r1">Créatrice de contenu</div>
-          </div>
-        </div>
-      </div>
-      <div class="tcard">
-        <div class="stars" aria-label="5 étoiles">★★★★★</div>
-        <q data-i18n="te_q2">Mon site est en ligne sans que j'aie à toucher une ligne de code. Le plus dur, c'est de se souvenir d'y aller.</q>
-        <div class="tauth">
-          <div class="tavatar" aria-hidden="true">JD</div>
-          <div>
-            <div class="tname" data-i18n="te_n2">Julien D.</div>
-            <div class="trole" data-i18n="te_r2">Consultant indépendant</div>
-          </div>
-        </div>
-      </div>
-      <div class="tcard">
-        <div class="stars" aria-label="5 étoiles">★★★★★</div>
-        <q data-i18n="te_q3">J'utilise la météo marine et les briefings chaque week-end. Ça fait gagner un temps fou.</q>
-        <div class="tauth">
-          <div class="tavatar" aria-hidden="true">SA</div>
-          <div>
-            <div class="tname" data-i18n="te_n3">Sam A.</div>
-            <div class="trole" data-i18n="te_r3">Passionné de voile</div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="trust">
-      <span class="badge" data-i18n="te_b1">Sans engagement</span>
-      <span class="badge" data-i18n="te_b2">14 jours de rétractation</span>
-      <span class="badge" data-i18n="te_b3">Paiement sécurisé</span>
-      <span class="badge" data-i18n="te_b4">Hébergé en Europe</span>
-    </div>
-    <p class="tenote" data-i18n="te_note">Exemples de retours de la communauté — les avis sont fictifs et utilisés à titre illustratif.</p>
-  </section>
-
-  <!-- FAQ DIRECTE -->
-  <section id="faq">
-    <div class="eyebrow" data-i18n="fq_eye">FAQ directe</div>
-    <h2 class="stitle" data-i18n="fq_title">Questions ? Réponses.</h2>
-    <div class="faq">
-      <details><summary data-i18n="fq1q">C'est vraiment gratuit ?</summary><p data-i18n="fq1a">Oui. Le palier Mousse est gratuit, sans CB. Tu passes à un palier payant seulement si tu veux plus.</p></details>
-      <details><summary data-i18n="fq2q">Je dois savoir coder ?</summary><p data-i18n="fq2a">Non. Tu parles, NAVLYS fait.</p></details>
-      <details><summary data-i18n="fq3q">Et si j'arrête ?</summary><p data-i18n="fq3a">Tu gardes ton site tel quel. Résiliation en quelques clics, rétractation 14 jours.</p></details>
-      <details><summary data-i18n="fq4q">L'affiliation rapporte de l'argent ?</summary><p data-i18n="fq4a">Non. Des récompenses et des avantages. Jamais d'argent promis.</p></details>
-      <details><summary data-i18n="fq5q">NAVLYS, c'est quoi exactement ?</summary><p data-i18n="fq5a">Pas une IA de plus : une seule porte d'entrée, à la voix, qui réunit toutes tes IA et tes applications en une. Tu parles, NAVLYS agit. C'est un projet d'éducation et de veille — jamais de conseil réglementé.</p></details>
-      <details><summary data-i18n="fq6q">Quelle IA pour gérer mon business à la voix ?</summary><p data-i18n="fq6a">NAVLYS. Tu réunis tes IA et tes apps en une seule, pilotée à la voix depuis ton téléphone, sans coder ni installer d'application. Le palier Mousse est gratuit, sans carte bancaire.</p></details>
-      <details><summary data-i18n="fq7q">Comment faire son CV, sa bio ou son site à la voix ?</summary><p data-i18n="fq7a">Tu le dictes à NAVLYS. Les apps CV, Mémoire et Spark transforment ta voix en CV, en récit de vie ou en site — la mise en page se fait toute seule. Ces apps sont en construction.</p></details>
-      <details><summary data-i18n="fq8q">NAVLYS donne-t-il des conseils financiers ?</summary><p data-i18n="fq8a">Non. NAVFIN propose de l'éducation financière et de la veille en angle pédagogique. Aucun conseil personnalisé, aucune promesse de rendement.</p></details>
-    </div>
-  </section>
-
-  <footer>
-    <div class="fl">
-      <a href="https://www.brunopartouche.com/" target="_blank" rel="noopener"><span data-i18n="foot_fond">Fondateur :</span> Bruno Mark Partouche</a>
-      <a href="mailto:bruno@navlys.com" data-i18n="lg_contact">Contact</a>
-      <a href="/adhesion" target="_blank" rel="noopener">WhatsApp</a>
-      <a href="/index.html" data-i18n="lg_home">Accueil</a>
-      <a href="/mentions-legales.html" data-i18n="lg_ml">Mentions légales</a>
-      <a href="/cgv.html" data-i18n="lg_cgv">CGV</a>
-      <a href="/confidentialite.html" data-i18n="lg_conf">Confidentialité</a>
-    </div>
-    <div class="fl" style="margin-top:6px">
-      <span class="mono" style="color:var(--brume)" data-i18n="sect_lab">NAVLYS pour ton métier :</span>
-      <a href="/secteurs/restauration.html" data-i18n="sect_resto">Restauration</a>
-      <a href="/secteurs/immobilier.html" data-i18n="sect_immo">Immobilier</a>
-      <a href="/secteurs/artisan.html" data-i18n="sect_artisan">Artisans</a>
-    </div>
-    <div class="mono" style="margin-bottom:10px" data-i18n="lg_18">Réservé aux 18 ans et +</div>
-    <div data-i18n="foot1">NAVLYS — éducation &amp; veille pilotées par un CORE IA autonome · un art de vivre serein, port à port. Fondé par <a href="https://www.brunopartouche.com/" target="_blank" rel="noopener">Bruno Mark Partouche</a>.</div>
-    <div class="mono" style="margin-top:8px" data-i18n="foot2">Éditeur : NAVLYS WEB SERVICE LTD — N° 517373668 · © 2026 · site next-gen — on affine ensemble</div>
-  </footer>
-</div>
-<!--SOCIAL-->
-<!-- ONGLET RÉSEAUX SOCIAUX transparent -->
-<div class="social" aria-label="Réseaux sociaux">
-  <a href="/adhesion" target="_blank" rel="noopener" title="WhatsApp">
-    <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.5 15.2L2 22l4.9-1.5A10 10 0 1 0 12 2zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.2-.7-2.7-1.1-4.4-3.9-4.6-4.1-.1-.2-1-1.4-1-2.6s.6-1.8.9-2c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.4 0 .6l-.4.5-.3.3c-.1.2-.3.4-.1.7.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.5.1.7-.1l.9-1c.2-.2.4-.2.6-.1l1.8.9c.2.1.4.2.5.3.1.3.1.7-.1 1.2z"/></svg>
-  </a>
-  <a href="#" data-wip="Instagram" title="Instagram · en construction"><svg viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 1.2.1 1.8.3 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.1.4.3 1 .4 2.2.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c-.1 1.2-.3 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.1-1 .3-2.2.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2-.1-1.8-.3-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.1-.4-.3-1-.4-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.9c.1-1.2.3-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.1 1-.3 2.2-.4C8.4 2.2 8.8 2.2 12 2.2zm0 3.2A6.6 6.6 0 1 0 18.6 12 6.6 6.6 0 0 0 12 5.4zm0 10.9A4.3 4.3 0 1 1 16.3 12 4.3 4.3 0 0 1 12 16.3zm6.8-11.1a1.5 1.5 0 1 1-1.5-1.5 1.5 1.5 0 0 1 1.5 1.5z"/></svg></a>
-  <a href="#" data-wip="YouTube" title="YouTube · en construction"><svg viewBox="0 0 24 24"><path d="M23 12s0-3.2-.4-4.7a2.5 2.5 0 0 0-1.7-1.7C19.4 5.2 12 5.2 12 5.2s-7.4 0-8.9.4A2.5 2.5 0 0 0 1.4 7.3C1 8.8 1 12 1 12s0 3.2.4 4.7a2.5 2.5 0 0 0 1.7 1.7c1.5.4 8.9.4 8.9.4s7.4 0 8.9-.4a2.5 2.5 0 0 0 1.7-1.7C23 15.2 23 12 23 12zm-13.2 3.4V8.6L15.6 12z"/></svg></a>
-  <a href="#" data-wip="X" title="X · en construction"><svg viewBox="0 0 24 24"><path d="M18.9 2H22l-7.3 8.3L23.2 22h-6.8l-5.3-6.9L4.9 22H1.8l7.8-8.9L1 2h7l4.8 6.3zm-1.2 18h1.7L7.4 3.8H5.6z"/></svg></a>
-</div>
-
-<!-- BARRE DE MENUS BAS -->
-<nav class="bottom" aria-label="Menu">
-  <a href="#univers"><svg viewBox="0 0 24 24"><path d="M4 4h7v7H4zm9 0h7v7h-7zM4 13h7v7H4zm9 0h7v7h-7z"/></svg><span data-i18n="bn_uni">Univers</span></a>
-  <a href="#metiers"><svg viewBox="0 0 24 24"><path d="M12 2 2 7l10 5 10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg><span data-i18n="bn_met">Métiers</span></a>
-  <a href="#" id="bnVoice" role="button" aria-label="Ouvrir le micro NAVLYS"><span class="vbtn"><svg viewBox="0 0 24 24"><path d="M12 15a3 3 0 0 0 3-3V6a3 3 0 1 0-6 0v6a3 3 0 0 0 3 3zm5-3a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.9V21h2v-2.1A7 7 0 0 0 19 12z"/></svg></span><span data-i18n="bn_voix">Voix</span></a>
-  <a href="#membre"><svg viewBox="0 0 24 24"><path d="M12 12a5 5 0 1 0-5-5 5 5 0 0 0 5 5zm0 2c-5 0-9 2.5-9 5.5V22h18v-2.5c0-3-4-5.5-9-5.5z"/></svg><span data-i18n="bn_mem">Membre</span></a>
-  <a href="#offres"><svg viewBox="0 0 24 24"><path d="M21 11.5 12.5 3H4v8.5L12.5 20zM7 8a1.5 1.5 0 1 1 1.5-1.5A1.5 1.5 0 0 1 7 8z"/></svg><span data-i18n="bn_off">Offres</span></a>
+<nav>
+  <a class="m" href="#univers" data-sub="tes applications">univers</a>
+  <a class="m" href="#carrousel" data-sub="en mouvement">video</a>
+  <a class="m" href="#offre" data-sub="offre de lancement">offre</a>
+  <a class="m" href="/adhesion" data-sub="entrer gratuitement">entrer</a>
 </nav>
 
-<!-- WIDGET VOIX -->
-<div class="vov" id="voiceOverlay" aria-hidden="true">
-  <div class="vcard">
-    <button class="vclose" id="voiceClose" type="button" aria-label="Fermer">×</button>
-    <div class="vtitle"><span data-i18n="v_title">Parle à NAVLYS</span> <span class="wip soft" style="vertical-align:middle" data-i18n="v_wip">voix signature : en préparation</span></div>
-    <div class="vhint" id="vHint" data-i18n="v_hint">Touche le micro</div>
-    <div class="mic" id="mic" role="button" tabindex="0" aria-label="Micro">
-      <svg viewBox="0 0 24 24"><path d="M12 15a3 3 0 0 0 3-3V6a3 3 0 1 0-6 0v6a3 3 0 0 0 3 3zm5-3a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.92V21h2v-2.08A7 7 0 0 0 19 12h-2z"/></svg>
-    </div>
-    <div class="vtranscript" id="vTranscript"></div>
-    <div class="vreply" id="vReply"></div>
-    <a class="vwa" href="/adhesion" target="_blank" rel="noopener" data-i18n="v_wa">ou écris-nous sur WhatsApp →</a>
-  </div>
-</div>
-<!-- INSCRIPTION / PRÉVIENS-MOI AU LANCEMENT -->
-<div class="vov" id="joinOverlay" aria-hidden="true">
-  <div class="vcard" style="text-align:start">
-    <button class="vclose" id="joinClose" type="button" aria-label="Fermer">×</button>
-    <div class="vtitle" data-i18n="jo_title">Préviens-moi au lancement</div>
-    <p class="vhint" style="margin-bottom:14px" data-i18n="jo_sub">Laisse ton e-mail — on te recontacte au lancement, le 1er août 2026.</p>
-    <div class="field"><label for="joName" data-i18n="jo_name">Prénom (optionnel)</label><input id="joName" autocomplete="given-name"></div>
-    <div class="field"><label for="joEmail" data-i18n="jo_email">Ton e-mail</label><input id="joEmail" type="email" autocomplete="email" required></div>
-    <button class="btn p" id="joinSend" type="button" style="width:100%;justify-content:center;margin-top:8px" data-i18n="jo_btn">M'inscrire</button>
-    <p class="mono" style="margin-top:12px" data-i18n="jo_note">E-mail utilisé uniquement pour te prévenir. Suppression sur demande : bruno@navlys.com</p>
-    <p id="joMsg" style="margin-top:10px;color:var(--or);min-height:1.3em" aria-live="polite"></p>
-  </div>
-</div>
-<!-- RECHERCHE -->
-<div class="vov" id="srOverlay" aria-hidden="true">
-  <div class="vcard" style="text-align:start">
-    <button class="vclose" id="srClose" type="button" aria-label="Fermer">×</button>
-    <div class="vtitle" data-i18n="sr_title">Rechercher</div>
-    <div class="field" style="margin-top:14px"><input id="srInput" placeholder="Cherche une app, une offre…" data-i18n-ph="sr_ph" autocomplete="off" aria-label="Recherche"></div>
-    <div id="srRes" style="max-height:46vh;overflow:auto" aria-live="polite"></div>
-  </div>
-</div>
-<div class="kara" id="kara" aria-live="assertive"><p id="karaP"></p></div>
-<div class="toast" id="toast"></div>
+<!-- ECRAN 1 -->
+<section id="hero">
+  <div class="brand">NAVLYS</div>
+  <div class="tag">l ia la plus simple du monde</div>
+  <div class="tag"><b>parle et c est fait</b></div>
+  <div class="sub">rien qu au telephone et a la voix</div>
+  <a class="enter" href="/adhesion">entrer</a>
+  <div class="hint">bouge la souris — descends</div>
+</section>
 
+<!-- ECRAN 2 -->
+<section id="carrousel">
+  <div class="rideau">navlys en mouvement</div>
+  <div class="carrousel" id="car">
+    <video class="on" src="/videos/univers.mp4" muted autoplay loop playsinline poster="/assets/coins/navlys-coin-core.png"></video>
+    <video src="/videos/scenarios/horizon.mp4" muted loop playsinline></video>
+    <video src="/videos/scenarios/navigation.mp4" muted loop playsinline></video>
+    <div class="voile"></div>
+    <div class="lg">ton univers</div>
+  </div>
+  <div class="dots" id="dots"><i class="on"></i><i></i><i></i></div>
+
+  <div class="univers" id="univers">
+    <a class="med" href="/next-gen"><img src="/assets/coins/navlys-coin-genesis.png" alt=""><span class="n">genesis</span><span class="b">ta vie</span></a>
+    <a class="med" href="/finance"><img src="/assets/coins/navlys-coin-navfin.png" alt=""><span class="n">navfin</span><span class="b">apprendre</span></a>
+    <a class="med" href="/navlex"><img src="/assets/coins/navlys-coin-navlex.png" alt=""><span class="n">navlex</span><span class="b">le droit</span></a>
+    <a class="med soon" href="#offre"><img src="/assets/coins/navlys-coin-voice.png" alt=""><span class="n">voice</span><span class="b">bientot</span></a>
+    <a class="med soon" href="#offre"><img src="/assets/coins/navlys-coin-radio.png" alt=""><span class="n">radio</span><span class="b">bientot</span></a>
+    <a class="med" href="/mer"><img src="/assets/coins/navlys-coin-la-mer.png" alt=""><span class="n">la mer</span><span class="b">le large</span></a>
+  </div>
+</section>
+
+<!-- ECRAN 3 -->
+<section id="offre">
+  <div class="offre">un an offert</div>
+  <div class="offre-sub">un an acheté un an en plus</div>
+  <div class="soon-tag">ouverture bientot</div>
+  <a class="enter" href="/adhesion" style="margin-top:30px">rejoindre</a>
+</section>
+
+<footer>
+  <div class="cz">NAVLYS WEB SERVICE LTD · N° 517373668 · 18+</div>
+  navlys est un projet d education et de veille — jamais un conseil — chacun reste seul responsable de ses decisions
+</footer>
+
+<script>
+/* halo qui suit la souris (le velours s anime au mouvement) */
+addEventListener('mousemove',e=>{
+  const x=(e.clientX/innerWidth*100).toFixed(1), y=(e.clientY/innerHeight*100).toFixed(1);
+  document.getElementById('lux').style.setProperty('--mx',x+'%');
+  document.getElementById('lux').style.setProperty('--my',y+'%');
+});
+/* carrousel video auto : chaque video joue puis passe la main */
+(function(){
+  const vids=[...document.querySelectorAll('#car video')], dots=[...document.querySelectorAll('#dots i')];
+  let i=0;
+  function show(n){
+    vids.forEach((v,k)=>{v.classList.toggle('on',k===n);dots[k].classList.toggle('on',k===n);
+      if(k===n){try{v.currentTime=0;v.play().catch(()=>{});}catch(_){}}else{try{v.pause();}catch(_){}}});
+  }
+  setInterval(()=>{i=(i+1)%vids.length;show(i);},5200);
+  vids.forEach((v,k)=>v.addEventListener('mouseenter',()=>{i=k;show(k);}));
+})();
+</script>
 </body>
 </html>
