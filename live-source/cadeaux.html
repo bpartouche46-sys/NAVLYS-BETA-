@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>NAVLYS — cadeaux libres composés par toi</title>
+<meta name="description" content="Compose ton pack cadeau NAVLYS enregistre tes messages tout part dans Genesis">
+<meta name="robots" content="index,follow">
+<link rel="icon" type="image/png" href="/assets/coins/navlys-coin-genesis.png">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--noir:#03040a;--or:#e9d3a0;--or-vif:#ffd77a;--bronze:#c9962f;--ice:#7dd3fc;--perle:#f4ecdb;--brume:#9aa6b2;--acc:#e9d3a0}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;background:var(--noir)}
+body{background:var(--noir);color:var(--perle);font-family:'Cormorant Garamond',Georgia,serif;overflow-x:hidden}
+h1,h2,h3,.cz{font-family:'Cinzel',serif}
+#lux{position:fixed;inset:0;z-index:0;pointer-events:none;transition:background .8s;
+  background:radial-gradient(45% 45% at var(--mx,50%) var(--my,25%),color-mix(in srgb,var(--acc) 22%,transparent),transparent 60%),radial-gradient(60% 50% at 15% 10%,rgba(201,150,47,.12),transparent 60%),linear-gradient(180deg,#03040a,#070a14 55%,#03040a)}
+nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;justify-content:center;gap:26px;padding:15px;backdrop-filter:blur(12px);background:linear-gradient(180deg,rgba(3,4,10,.85),transparent)}
+nav a{font-family:'Cinzel',serif;font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:var(--or);text-decoration:none;transition:.3s}
+nav a:hover{color:var(--or-vif);text-shadow:0 0 16px rgba(255,215,122,.7)}
+.wrap{position:relative;z-index:3;max-width:1080px;margin:0 auto;padding:100px 20px 60px}
+.hero{text-align:center;margin-bottom:14px}
+.hero h1{font-size:clamp(34px,7vw,72px);font-weight:700;background:linear-gradient(100deg,var(--bronze),var(--or) 45%,#fff7e0 55%,var(--or) 70%);background-size:220%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:flow 8s linear infinite}
+@keyframes flow{to{background-position:220% center}}
+.hero p{font-style:italic;font-size:clamp(17px,3.4vw,26px);color:var(--perle);margin-top:6px}
+.step{font-family:'Cinzel',serif;letter-spacing:.3em;text-transform:uppercase;color:var(--ice);font-size:12px;margin:44px 0 14px;text-align:center}
+/* THEMES */
+.themes{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px}
+.theme{cursor:pointer;padding:20px 14px;border-radius:16px;text-align:center;border:1px solid rgba(233,211,160,.22);
+  background:rgba(6,9,18,.6);transition:.35s;position:relative;overflow:hidden}
+.theme:hover{transform:translateY(-4px);border-color:var(--acc);box-shadow:0 14px 40px color-mix(in srgb,var(--acc) 30%,transparent)}
+.theme.on{border-color:var(--or-vif);box-shadow:0 0 30px color-mix(in srgb,var(--acc) 45%,transparent);background:rgba(10,14,26,.85)}
+.theme .em{font-size:34px;display:block;transition:.4s}
+.theme:hover .em{transform:scale(1.2) rotate(-6deg)}
+.theme .t{font-family:'Cinzel',serif;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--or);margin-top:8px}
+.theme .g{display:block;font-size:10px;letter-spacing:.12em;color:var(--ice);text-transform:uppercase;margin-top:3px;opacity:.85}
+.theme .off{position:absolute;top:8px;right:8px;font-family:'Cinzel',serif;font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:#0a0803;background:linear-gradient(100deg,var(--or),#fff6df);border-radius:100px;padding:3px 8px;opacity:0;transition:.3s}
+.theme.coffret .off{opacity:1}
+/* COMPOSEUR */
+.compose{margin-top:14px;padding:22px;border-radius:18px;border:1px solid rgba(233,211,160,.25);background:rgba(6,9,18,.7);transition:.5s}
+.compose h3{font-size:20px;color:var(--or);letter-spacing:.08em}
+.compose .sel{font-style:italic;color:var(--perle);margin:2px 0 16px}
+.opts{display:flex;flex-wrap:wrap;gap:10px}
+.opt{cursor:pointer;user-select:none;font-family:'Cinzel',serif;font-size:11px;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--perle);border:1px solid rgba(125,211,252,.3);border-radius:100px;padding:9px 15px;transition:.25s}
+.opt:hover{border-color:var(--acc);color:var(--or-vif)}
+.opt.on{background:linear-gradient(100deg,var(--bronze),var(--or));color:#0a0803;border-color:transparent}
+/* VOIX */
+.voix{margin-top:18px;padding:18px;border-radius:16px;border:1px dashed rgba(125,211,252,.4);background:rgba(4,7,14,.5)}
+.voix .l{font-family:'Cinzel',serif;letter-spacing:.14em;text-transform:uppercase;color:var(--ice);font-size:12px;margin-bottom:6px}
+.voix .s{font-style:italic;color:var(--brume);font-size:15px;margin-bottom:12px}
+.recbtn{cursor:pointer;font-family:'Cinzel',serif;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:#0a0803;
+  background:linear-gradient(100deg,var(--or-vif),var(--or));border:none;border-radius:100px;padding:12px 22px;transition:.25s}
+.recbtn.rec{background:linear-gradient(100deg,#ff6b6b,#e83a3a);color:#fff;animation:pulse 1s steps(2) infinite}
+@keyframes pulse{50%{opacity:.6}}
+.clips{margin-top:12px;display:flex;flex-direction:column;gap:8px}
+.clip{display:flex;align-items:center;gap:10px;background:rgba(10,14,26,.7);border-radius:10px;padding:8px 12px}
+.clip audio{height:30px;flex:1}
+.note{font-size:13px;color:var(--brume);font-style:italic;margin-top:8px}
+.cta{margin-top:26px;text-align:center}
+.go{display:inline-block;font-family:'Cinzel',serif;font-size:14px;letter-spacing:.24em;text-transform:uppercase;color:#0a0803;
+  background:linear-gradient(100deg,var(--bronze),var(--or-vif),var(--or));background-size:200%;padding:15px 40px;border-radius:100px;text-decoration:none;animation:flow 6s linear infinite,breath 3.4s ease-in-out infinite}
+@keyframes breath{50%{box-shadow:0 0 40px color-mix(in srgb,var(--acc) 50%,transparent);transform:translateY(-2px)}}
+.soon{display:inline-block;margin-top:12px;font-family:'Cinzel',serif;font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--ice);border:1px solid rgba(125,211,252,.4);border-radius:100px;padding:8px 18px}
+footer{position:relative;z-index:3;text-align:center;padding:30px 20px 50px;color:var(--brume);font-size:12px;font-style:italic}
+footer .cz{font-size:10px;letter-spacing:.2em;color:var(--bronze);text-transform:uppercase;margin-bottom:8px}
+</style>
+</head>
+<body>
+<div id="lux"></div>
+<nav><a href="/">accueil</a><a href="/next-gen">genesis</a><a href="/adhesion">entrer</a></nav>
+
+<div class="wrap">
+  <div class="hero">
+    <h1>ton cadeau à toi</h1>
+    <p>tu composes tu enregistres NAVLYS le fait vivre</p>
+  </div>
+
+  <div class="step">1 — choisis l événement</div>
+  <div class="themes" id="themes">
+    <div class="theme coffret" data-acc="#f6c9d6" data-em="👵" data-t="grand mère" data-g="coffret famille" data-off="un an offert"></div>
+    <div class="theme coffret" data-acc="#cfe0ff" data-em="👴" data-t="grand père" data-g="coffret famille" data-off="un an offert"></div>
+    <div class="theme coffret" data-acc="#e9d3a0" data-em="👨‍👩‍👧" data-t="parents" data-g="coffret famille" data-off="un an offert"></div>
+    <div class="theme coffret" data-acc="#d8c7f0" data-em="🌳" data-t="grands parents" data-g="coffret famille" data-off="un an offert"></div>
+    <div class="theme" data-acc="#ffd9a0" data-em="💍" data-t="mariage" data-g="événement"></div>
+    <div class="theme" data-acc="#bfe8ff" data-em="👶" data-t="naissance" data-g="événement"></div>
+    <div class="theme" data-acc="#ffcf6b" data-em="🎉" data-t="evg evjf" data-g="événement"></div>
+    <div class="theme" data-acc="#c7d0da" data-em="🕊️" data-t="cérémonie" data-g="mémoire"></div>
+    <div class="theme" data-acc="#9be7c4" data-em="💼" data-t="cv emploi" data-g="un clic"></div>
+    <div class="theme" data-acc="#a8c0ff" data-em="🗓️" data-t="journée réunion" data-g="compiler"></div>
+    <div class="theme" data-acc="#7dd3fc" data-em="✨" data-t="libre" data-g="tout est possible"></div>
+  </div>
+
+  <div class="compose" id="compose" style="display:none">
+    <div class="step" style="margin-top:0">2 — compose ton pack</div>
+    <h3 id="cTitre">—</h3>
+    <div class="sel" id="cSel">choisis ce qui apparaîtra dans ton cadeau</div>
+    <div class="opts" id="opts"></div>
+
+    <div class="voix">
+      <div class="l">3 — enregistre tes messages</div>
+      <div class="s">toi et tes proches vous parlez NAVLYS garde tout précieusement</div>
+      <button class="recbtn" id="rec">🎙️ enregistrer</button>
+      <div class="clips" id="clips"></div>
+      <div class="note">tes enregistrements se rattachent à ton espace Genesis à l ouverture rien n est publié sans toi</div>
+    </div>
+
+    <div class="cta">
+      <a class="go" href="/adhesion" id="go">composer dans genesis</a>
+      <div class="soon" id="soonTag" style="display:none">un an offert sur ce coffret · ouverture bientôt</div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="cz">NAVLYS WEB SERVICE LTD · N° 517373668 · 18+</div>
+  navlys est un projet d education et de veille — tes contenus restent privés et t appartiennent
+</footer>
+
+<script>
+addEventListener('mousemove',e=>{const l=document.getElementById('lux');l.style.setProperty('--mx',(e.clientX/innerWidth*100)+'%');l.style.setProperty('--my',(e.clientY/innerHeight*100)+'%');});
+const themes=document.getElementById('themes');
+// contenus proposés par événement (menus spécifiques)
+const MENUS={
+ 'grand mère':['récit de vie','chapitres','photos','livre souvenir','messages des petits enfants','site mémoire'],
+ 'grand père':['récit de vie','chapitres','photos','livre souvenir','messages des petits enfants','site mémoire'],
+ 'parents':['récit de vie','timeline','photos','livre de famille','messages','vidéo souvenir'],
+ 'grands parents':['arbre de vie','récits croisés','photos','livre','messages','site mémoire'],
+ 'mariage':['histoire du couple','messages des invités','montage photos','livre d or','timeline du jour'],
+ 'naissance':['lettre à l enfant','journal des premiers jours','photos','messages de la famille','capsule à ouvrir plus tard'],
+ 'evg evjf':['souvenirs entre amis','messages surprises','montage délires','quiz','livre du marié'],
+ 'cérémonie':['hommage','récit de vie','messages des proches','site mémoire éternel','musique'],
+ 'cv emploi':['cv express','lettre de motivation','profil en un clic','pitch vidéo','synthèse compétences'],
+ 'journée réunion':['compte rendu','décisions','tâches','résumé vocal','timeline de la journée'],
+ 'libre':['brainstorm libre','récit','messages','photos','livre','site dédié']
+};
+function fill(cards){
+  themes.querySelectorAll('.theme').forEach(el=>{
+    el.style.setProperty('--acc',el.dataset.acc);
+    el.innerHTML=`<span class="em">${el.dataset.em}</span><span class="t">${el.dataset.t}</span><span class="g">${el.dataset.g}</span>`+(el.dataset.off?`<span class="off">${el.dataset.off}</span>`:'');
+  });
+}
+fill();
+let cur=null;
+themes.addEventListener('click',e=>{
+  const c=e.target.closest('.theme'); if(!c) return;
+  themes.querySelectorAll('.theme').forEach(t=>t.classList.remove('on')); c.classList.add('on'); cur=c;
+  document.documentElement.style.setProperty('--acc',c.dataset.acc);
+  const name=c.dataset.t;
+  document.getElementById('compose').style.display='block';
+  document.getElementById('cTitre').textContent=c.dataset.em+'  '+name;
+  const opts=document.getElementById('opts'); opts.innerHTML='';
+  (MENUS[name]||MENUS['libre']).forEach(o=>{const d=document.createElement('div');d.className='opt';d.textContent=o;d.onclick=()=>d.classList.toggle('on');opts.appendChild(d);});
+  document.getElementById('soonTag').style.display=c.classList.contains('coffret')?'inline-block':'none';
+  document.getElementById('compose').scrollIntoView({behavior:'smooth'});
+});
+/* enregistrement vocal local (rattaché à l espace à l ouverture) */
+let mediaRec=null,chunks=[];
+const recBtn=document.getElementById('rec'),clips=document.getElementById('clips');
+recBtn.onclick=async()=>{
+  if(mediaRec&&mediaRec.state==='recording'){mediaRec.stop();return;}
+  try{
+    const s=await navigator.mediaDevices.getUserMedia({audio:true});
+    mediaRec=new MediaRecorder(s);chunks=[];
+    mediaRec.ondataavailable=e=>chunks.push(e.data);
+    mediaRec.onstop=()=>{
+      const blob=new Blob(chunks,{type:'audio/webm'});const u=URL.createObjectURL(blob);
+      const row=document.createElement('div');row.className='clip';
+      row.innerHTML=`<span>🎧</span><audio controls src="${u}"></audio><span style="color:var(--brume);font-size:11px">gardé</span>`;
+      clips.appendChild(row);
+      recBtn.classList.remove('rec');recBtn.textContent='🎙️ enregistrer';
+      s.getTracks().forEach(t=>t.stop());
+    };
+    mediaRec.start();recBtn.classList.add('rec');recBtn.textContent='⏹ arrêter';
+  }catch(_){recBtn.textContent='micro indisponible — écris plutôt';}
+};
+</script>
+</body>
+</html>
