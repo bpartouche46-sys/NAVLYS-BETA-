@@ -184,5 +184,27 @@ addEventListener('mousemove',e=>{
   vids.forEach((v,k)=>v.addEventListener('mouseenter',()=>{i=k;show(k);}));
 })();
 </script>
+<!-- effets premium : Lenis smooth scroll + GSAP ScrollTrigger -->
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+(function(){
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  try{
+    var lenis=new Lenis({lerp:.09,smoothWheel:true});
+    function raf(t){lenis.raf(t);requestAnimationFrame(raf);}requestAnimationFrame(raf);
+    if(window.gsap&&window.ScrollTrigger){
+      gsap.registerPlugin(ScrollTrigger);
+      lenis.on('scroll',ScrollTrigger.update);
+      gsap.utils.toArray('.big,.suite,.rideau,.carrousel,#offre .offre,#offre .offre-sub,#offre .soon-tag').forEach(function(el){
+        gsap.from(el,{opacity:0,y:44,duration:1,ease:'power3.out',scrollTrigger:{trigger:el,start:'top 86%'}});
+      });
+      gsap.from('.med',{opacity:0,y:30,stagger:.07,duration:.7,ease:'power2.out',scrollTrigger:{trigger:'#univers',start:'top 82%'}});
+      gsap.to('.carrousel',{yPercent:-8,ease:'none',scrollTrigger:{trigger:'#carrousel',start:'top bottom',end:'bottom top',scrub:true}});
+    }
+  }catch(e){}
+})();
+</script>
 </body>
 </html>
