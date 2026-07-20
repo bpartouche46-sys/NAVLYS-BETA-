@@ -3,7 +3,7 @@
  * Lancer : node --experimental-strip-types core/test/bridge.test.mjs
  */
 import assert from "node:assert";
-import { isCoreTaskIssue, issueNeedsApproval, issuePriority, issueToNewTask } from "../src/bridge/githubTasks.ts";
+import { isCoreTaskIssue, issueNeedsApproval, issuePriority, issueToNewTask, isTestLiaisonIssue } from "../src/bridge/githubTasks.ts";
 import { rowToTask, newTaskRow, taskInstruction } from "../src/bridge/bus.ts";
 import { healthPayload } from "../src/http/health.ts";
 
@@ -78,6 +78,22 @@ t("healthPayload calcule l'uptime", () => {
   assert.equal(p.ok, true);
   assert.equal(p.uptime_s, 60);
   assert.equal(p.service, "navlys-core");
+});
+
+// --- Test liaison ---
+t("isTestLiaisonIssue détecte le marqueur 'test liaison' (insensible à la casse)", () => {
+  assert.equal(isTestLiaisonIssue({ number: 209, title: "[CORE-TASK] Test liaison Kimi → Core : accuser réception", labels: [] }), true);
+  assert.equal(isTestLiaisonIssue({ number: 209, title: "[CORE-TASK] TEST LIAISON kimi", labels: [] }), true);
+  assert.equal(isTestLiaisonIssue({ number: 1, title: "[CORE-TASK] Autre tâche", labels: [] }), false);
+});
+t("issueToNewTask type=test_liaison pour les issues de test liaison", () => {
+  const task = issueToNewTask({ number: 209, title: "[CORE-TASK] Test liaison Kimi → Core", body: "Instruction test", html_url: "u", labels: [] });
+  assert.equal(task.type, "test_liaison");
+  assert.equal(task.contenu.issue_number, 209);
+});
+t("issueToNewTask type=github_issue pour les autres issues [CORE-TASK]", () => {
+  const task = issueToNewTask({ number: 99, title: "[CORE-TASK] Mise à jour doc", body: "Faire X", html_url: "u", labels: [] });
+  assert.equal(task.type, "github_issue");
 });
 
 console.log(`\n${pass} OK / ${fail} échec(s)`);
