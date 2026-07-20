@@ -1,608 +1,802 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>NAVLYS — La première IA qui orchestre tes IA, depuis ton téléphone</title>
-<meta name="description" content="NAVLYS : crée et pilote tes propres applications sans bureau ni ordinateur, juste depuis ton téléphone — Next Gen (ton assistant humain), NAVLYS Finance, NAVLEX, Journal, Radio, partenaires et communauté Équipage. Éducation & veille, jamais un conseil. Gratuit, 0 €.">
-<meta property="og:title" content="NAVLYS — La première IA qui orchestre tes IA depuis ton téléphone">
-<meta property="og:description" content="Crée et pilote tes propres applications  sans bureau ni ordinateur, juste depuis ton téléphone. Next Gen, NAVLYS Finance, NAVLEX, Journal, Radio et communauté Équipage — un seul univers.">
+<meta charset="utf-8">
+<meta name="google-site-verification" content="0iczx0mFvqL9XzkeQAN45irXlu472jjGx3AF3XJt-M8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>NAVLYS — l'IA la plus simple du monde, rien qu'à ta voix</title>
+<meta name="description" content="NAVLYS : pas une IA de plus. Toutes tes IA et tes applications réunies en une seule, pilotées à la voix. Un cerveau, une personne, tout un univers.">
+<meta name="theme-color" content="#04122b">
+<link rel="canonical" href="https://navlys.com/">
+<meta property="og:title" content="NAVLYS — l'IA la plus simple du monde, rien qu'à ta voix">
+<meta property="og:description" content="Un cerveau. Une personne. Tout un univers. À la voix.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://navlys.com/">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="NAVLYS — La première IA qui orchestre tes IA, depuis ton téléphone">
-<meta name="twitter:description" content="Crée et pilote tes propres applications sans bureau ni ordinateur, juste depuis ton téléphone. Next Gen, NAVLYS Finance, NAVLEX, Journal, Radio et communauté Équipage.">
-<link rel="canonical" href="https://navlys.com/">
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Cormorant+Garamond:ital@0;1&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
-<link rel="icon" type="image/svg+xml" href="/media/navlys_favicon.svg">
-<link rel="manifest" href="/manifest.webmanifest">
-<meta name="theme-color" content="#03040a">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="NAVLYS">
-<link rel="apple-touch-icon" sizes="180x180" href="/media/apple-touch-icon-180.png">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="application-name" content="NAVLYS">
-<style>
-:root{--noir:#02040a;--bronze:#B87333;--bronze-clair:#D49B5B;--or:#C9A961;--or-pale:#f3e4c4;--ice:#7DD3FC;--ice-clair:#a8e3ff;--perle:#e7eef2;--perle-doux:#bcc9d1;--brume:#7c8b95;--vert:#3a8c5a}
-*{margin:0;padding:0;box-sizing:border-box}
-html{background:#02040a;scroll-behavior:smooth}
-body{background:transparent;color:var(--perle);font-family:'Cormorant Garamond',Georgia,serif;font-size:20px;line-height:1.55;min-height:100vh;-webkit-text-size-adjust:100%;overflow-x:hidden}
-body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(55% 45% at 12% 8%,rgba(125,211,252,0.13),transparent 60%),radial-gradient(50% 40% at 88% 32%,rgba(184,115,51,0.10),transparent 62%),radial-gradient(60% 50% at 50% 120%,rgba(125,211,252,0.06),transparent 64%);animation:respire 18s ease-in-out infinite alternate}
-@keyframes respire{from{opacity:.7}to{opacity:1}}
+<meta property="og:image" content="https://navlys.com/brand/navlys_medaillon_1024.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicons/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicons/navlys-coin-avers-bronze-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicons/navlys-coin-avers-bronze-16.png">
+<link rel="apple-touch-icon" href="/favicons/navlys-coin-avers-bronze-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/style.css">
 
-.fam-nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(2,4,10,0.88);backdrop-filter:blur(18px);border-bottom:1px solid rgba(125,211,252,0.18);padding:12px 18px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;animation:pulse 6s ease-in-out infinite alternate}
-@keyframes pulse{0%{box-shadow:0 0 14px rgba(125,211,252,0.10)}100%{box-shadow:0 0 28px rgba(125,211,252,0.32)}}
-.fam-logo{font-family:'Cinzel',serif;font-size:14px;letter-spacing:.32em;color:var(--or);text-transform:uppercase;font-weight:600;text-decoration:none;white-space:nowrap}
-.fam-links{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
-.fam-links a{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--perle-doux);text-decoration:none;transition:.25s}
-.fam-links a:hover{color:var(--ice)}
-.fam-icons{display:flex;gap:10px;align-items:center}
-.fam-icons a{font-size:20px;text-decoration:none;color:var(--ice-clair);padding:2px;transition:.3s}
-.fam-icons a:hover{transform:scale(1.15)}
-
-.prelude{text-align:center;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(18px,3.5vw,24px);color:rgba(168,227,255,0.92);text-shadow:0 0 14px rgba(125,211,252,0.5);padding:96px 20px 8px;position:relative;z-index:5;animation:fadeUp 2s ease .3s both}
-@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
-
-/* ── OUVERTURE CINÉMA « il y a bien longtemps… » (demande Bruno 2026-07-11) ──
-   Une seule phrase visible à la fois : elle apparaît, grandit, s'efface, et la
-   suivante revient plus grande encore. Font-size piloté par la variable --sz. */
-.saga{min-height:2.4em;display:flex;align-items:center;justify-content:center;text-align:center;
-  padding:18px 16px 6px;position:relative;z-index:6}
-.saga-line{font-family:'Cormorant Garamond',serif;font-style:italic;line-height:1.15;
-  color:rgba(168,227,255,.95);text-shadow:0 0 22px rgba(125,211,252,.55),0 0 3px rgba(125,211,252,.4);
-  font-size:var(--sz,26px);opacity:0;transform:translateY(14px) scale(.9);
-  transition:opacity .8s ease,transform .8s cubic-bezier(.2,.7,.2,1);will-change:opacity,transform;max-width:14em}
-.saga-line.show{opacity:1;transform:translateY(0) scale(1)}
-.saga-line.gold{color:var(--or-pale);text-shadow:0 0 26px rgba(201,169,97,.55),0 0 4px rgba(233,211,160,.5);font-style:normal;letter-spacing:.02em}
-@media(prefers-reduced-motion:reduce){.saga-line{transition:opacity .4s ease;transform:none}.saga-line.show{transform:none}}
-@media(max-width:768px){.saga{padding:14px 14px 4px}}
-
-.hero{padding:10px 20px 30px;text-align:center;position:relative;z-index:5}
-.hero .kicker{font-family:'Cinzel',serif;font-size:13px;letter-spacing:.42em;color:var(--ice);text-transform:uppercase;margin-bottom:14px}
-.hero .kicker span{color:var(--or)}
-.brandline{font-family:'Cinzel',serif;font-weight:600;font-size:clamp(54px,12vw,124px);letter-spacing:.13em;text-transform:uppercase;background:linear-gradient(100deg,var(--or-pale),var(--or) 45%,#fff7e6 55%,var(--or) 70%,var(--bronze));background-size:220% auto;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:shine 9s linear infinite;margin:10px 0 18px;line-height:1.05;filter:drop-shadow(0 0 18px rgba(184,115,51,0.35))}
-@keyframes shine{to{background-position:220% center}}
-.hero h1{font-family:'Cormorant Garamond',serif;font-weight:400;font-size:clamp(31px,6.5vw,52px);line-height:1.22;color:var(--perle);margin:0 auto 18px;max-width:920px}
-/* ---------- ENCADRÉ CINÉMA (demande Bruno 2026-07-05) : cadre fixe ~3/4 haut
-   d'écran ; les annonces se REMPLACENT en fondu au lieu de s'empiler. ---------- */
-.hero.cine{position:relative;min-height:72vh;margin:12px 12px 30px;padding:26px 14px;
-  border:1px solid rgba(233,211,160,.32);border-radius:22px;overflow:hidden;
-  display:flex;flex-direction:column;justify-content:center;align-items:center;
-  background:radial-gradient(120% 90% at 50% 0%,rgba(125,211,252,.07),rgba(3,4,10,0) 60%);
-  box-shadow:0 18px 60px rgba(0,0,0,.45), inset 0 0 46px rgba(125,211,252,.05)}
-.annonces{position:relative;width:100%;max-width:920px;min-height:6.4em;display:grid;place-items:center;margin:6px auto 10px}
-.annonces>*{grid-area:1/1;opacity:0;transition:opacity .85s ease;margin:0 auto;text-align:center;pointer-events:none}
-.annonces>.on{opacity:1;pointer-events:auto}
-.annonces .prelude{padding:0}
-.annonces h1{margin:0 auto}
-.annonces .brand-tagline{margin:0 auto}
-.hero .prelude-fixe{padding:4px 16px 12px;animation:fadeUp 1.6s ease .2s both}
-.annonces.tous{display:block}
-.annonces.tous>*{opacity:1;grid-area:auto;position:static;margin:10px auto;transition:opacity .85s ease}
-.hero h1 em{color:var(--or-pale);font-style:italic}
-.brand-tagline{font-family:'Cinzel',serif;font-size:clamp(13px,3vw,19px);letter-spacing:.3em;color:var(--ice-clair);text-transform:uppercase;font-weight:500;margin:18px auto 24px;padding:12px 20px;border-top:1px solid rgba(125,211,252,0.4);border-bottom:1px solid rgba(125,211,252,0.4);max-width:760px;animation:tag-breath 4s ease-in-out infinite alternate;line-height:1.4}
-@keyframes tag-breath{0%{text-shadow:0 0 12px rgba(125,211,252,0.4);border-color:rgba(125,211,252,0.3)}100%{text-shadow:0 0 30px rgba(125,211,252,0.85);border-color:rgba(168,227,255,0.8)}}
-.offer{display:inline-block;margin-top:6px;font-family:'Cinzel',serif;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:#02040a;background:linear-gradient(100deg,var(--or),#fff6df);border-radius:999px;padding:11px 22px;text-decoration:none;transition:.25s}
-.offer:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(201,169,97,.3)}
-
-.wrap{max-width:1200px;margin:0 auto;padding:0 20px;position:relative;z-index:5}
-section{padding:56px 0;border-top:1px solid rgba(125,211,252,0.1)}
-section h2{font-family:'Cormorant Garamond',serif;font-weight:400;font-size:clamp(34px,7vw,56px);line-height:1.05;color:var(--perle);text-align:center;margin-bottom:10px}
-section h2 em{color:var(--or);font-style:italic}
-section .punch{text-align:center;font-style:italic;color:var(--perle-doux);font-size:clamp(17px,3vw,21px);margin:0 auto 36px;max-width:680px}
-
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(280px,100%),1fr));gap:18px}
-.card{padding:24px;background:rgba(2,4,10,0.65);border:1px solid rgba(125,211,252,0.22);border-radius:14px;text-decoration:none;color:var(--perle);transition:.35s;position:relative;display:block;animation:cb 5s ease-in-out infinite alternate}
-@keyframes cb{0%{box-shadow:0 0 14px rgba(125,211,252,0.06)}100%{box-shadow:0 0 24px rgba(125,211,252,0.2)}}
-.card:hover{border-color:rgba(125,211,252,0.65);transform:translateY(-3px);box-shadow:0 14px 36px rgba(125,211,252,0.2)}
-.card .head{display:flex;align-items:center;gap:12px;margin-bottom:12px}
-.card .emoji{font-size:32px;line-height:1}
-.card .name{font-family:'Cinzel',serif;font-weight:600;font-size:17px;letter-spacing:.1em;color:var(--or);text-transform:uppercase}
-.card .role{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.22em;color:var(--ice);text-transform:uppercase;margin-top:3px}
-.card .desc{font-style:italic;color:var(--perle-doux);font-size:16px;line-height:1.5;margin-bottom:12px;min-height:46px}
-.card .cta{display:inline-flex;align-items:center;gap:5px;font-family:'Cinzel',serif;font-size:11px;letter-spacing:.18em;color:var(--bronze-clair);text-transform:uppercase;padding:7px 14px;border:1px solid rgba(184,115,51,0.35);border-radius:14px}
-.card:hover .cta{background:rgba(184,115,51,0.15);border-color:var(--bronze-clair)}
-.card .free{position:absolute;top:16px;right:16px;font-family:'Cinzel',serif;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:#02040a;background:linear-gradient(100deg,var(--or),#fff6df);border-radius:999px;padding:3px 10px}
-
-.center-cta{text-align:center;margin-top:30px}
-.btn-or{display:inline-block;font-family:'Cinzel',serif;font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:#02040a;background:linear-gradient(100deg,var(--or),#fff6df);border-radius:999px;padding:13px 26px;text-decoration:none;transition:.25s}
-.btn-or:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(201,169,97,.3)}
-
-footer{padding:46px 20px 70px;text-align:center;border-top:1px solid rgba(184,115,51,0.18);position:relative;z-index:5}
-.foot-fam{display:flex;gap:18px;justify-content:center;flex-wrap:wrap;margin-bottom:14px}
-.foot-fam a{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ice-clair);text-decoration:none}
-.foot-fam a:hover{color:var(--ice)}
-.foot-brand{font-size:20px;color:var(--perle)}
-.foot-brand span{color:var(--or)}
-.foot-meta{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.22em;color:var(--brume);margin:8px 0 16px;text-transform:uppercase}
-.disclaimer{font-style:italic;color:var(--brume);font-size:13.5px;line-height:1.65;max-width:800px;margin:0 auto;padding:18px;border:1px solid rgba(184,115,51,0.18);border-radius:12px;background:rgba(2,4,10,0.55)}
-
-@media(max-width:768px){
-  .fam-links{display:none}
-  .prelude{padding:86px 14px 6px}
-  .brandline{font-size:48px;letter-spacing:.1em}
-  section{padding:38px 0}
+<meta property="og:locale" content="fr_FR">
+<meta property="og:locale:alternate" content="en_US">
+<meta property="og:locale:alternate" content="es_ES">
+<meta property="og:locale:alternate" content="it_IT">
+<meta property="og:locale:alternate" content="zh_CN">
+<meta property="og:locale:alternate" content="hi_IN">
+<meta property="og:locale:alternate" content="he_IL">
+<meta property="og:locale:alternate" content="ar_AR">
+<meta property="og:site_name" content="NAVLYS">
+<link rel="alternate" hreflang="fr" href="https://navlys.com/">
+<link rel="alternate" hreflang="en" href="https://navlys.com/?lang=en">
+<link rel="alternate" hreflang="es" href="https://navlys.com/?lang=es">
+<link rel="alternate" hreflang="it" href="https://navlys.com/?lang=it">
+<link rel="alternate" hreflang="zh" href="https://navlys.com/?lang=zh">
+<link rel="alternate" hreflang="hi" href="https://navlys.com/?lang=hi">
+<link rel="alternate" hreflang="he" href="https://navlys.com/?lang=he">
+<link rel="alternate" hreflang="ar" href="https://navlys.com/?lang=ar">
+<link rel="alternate" hreflang="x-default" href="https://navlys.com/">
+<!-- ===== JSON-LD · GEO / AEO (Organization, WebSite, SoftwareApplication, FAQPage, BreadcrumbList) ===== -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://navlys.com/#organization",
+      "name": "NAVLYS",
+      "legalName": "NAVLYS WEB SERVICE LTD",
+      "url": "https://navlys.com/",
+      "logo": "https://navlys.com/brand/navlys_medaillon_1024.png",
+      "image": "https://navlys.com/brand/navlys_medaillon_1024.png",
+      "description": "NAVLYS n'est pas une IA de plus : une seule porte d'entrée, à la voix, qui réunit toutes tes IA et tes applications en une. Projet d'éducation et de veille, jamais de conseil réglementé.",
+      "email": "bruno@navlys.com",
+      "identifier": "517373668",
+      "founder": {
+        "@type": "Person",
+        "name": "Bruno Mark Partouche",
+        "url": "https://www.brunopartouche.com/"
+      },
+      "sameAs": ["https://www.brunopartouche.com/"],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "email": "bruno@navlys.com",
+        "contactType": "customer support",
+        "availableLanguage": ["fr", "en", "es", "it", "zh", "hi", "he", "ar"]
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://navlys.com/#website",
+      "url": "https://navlys.com/",
+      "name": "NAVLYS",
+      "inLanguage": ["fr", "en", "es", "it", "zh", "hi", "he", "ar"],
+      "publisher": { "@id": "https://navlys.com/#organization" },
+      "description": "Toutes tes IA et tes apps en une, à la voix. Un cerveau, une personne, tout un univers."
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://navlys.com/#core",
+      "name": "NAVLYS CORE",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Web, iOS, Android",
+      "url": "https://navlys.com/",
+      "publisher": { "@id": "https://navlys.com/#organization" },
+      "description": "Le cerveau central de NAVLYS : tu lui parles, il comprend, agit et se souvient. Pilotage à la voix, sans coder ni installer d'application.",
+      "featureList": "Orchestration à la voix, mémoire, éducation et veille",
+      "offers": [
+        { "@type": "Offer", "name": "Mousse", "price": "0.99", "priceCurrency": "EUR" },
+        { "@type": "Offer", "name": "Matelot", "price": "9.99", "priceCurrency": "EUR" },
+        { "@type": "Offer", "name": "Équipage", "price": "29.99", "priceCurrency": "EUR" },
+        { "@type": "Offer", "name": "Capitaine", "price": "49.99", "priceCurrency": "EUR" }
+      ]
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://navlys.com/#genesis",
+      "name": "NAVLYS Genesis",
+      "applicationCategory": "LifestyleApplication",
+      "operatingSystem": "Web, iOS, Android",
+      "url": "https://navlys.com/",
+      "publisher": { "@id": "https://navlys.com/#organization" },
+      "description": "Récit de vie de bout en bout à la voix : naissance, vie, autobiographie, transmission et site mémoire. Propulsé par le moteur NAVGEN. Application en construction.",
+      "applicationSuite": "NAVLYS"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://navlys.com/#navfin",
+      "name": "NAVFIN",
+      "applicationCategory": "EducationApplication",
+      "operatingSystem": "Web, iOS, Android",
+      "url": "https://navlys.com/",
+      "publisher": { "@id": "https://navlys.com/#organization" },
+      "description": "Éducation financière et veille de marché (crypto & finance) en angle pédagogique. Aucun conseil personnalisé ni promesse de rendement. Application en construction.",
+      "applicationSuite": "NAVLYS"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://navlys.com/#navlex",
+      "name": "NAVLEX",
+      "applicationCategory": "EducationApplication",
+      "operatingSystem": "Web, iOS, Android",
+      "url": "https://navlys.com/",
+      "publisher": { "@id": "https://navlys.com/#organization" },
+      "description": "Décryptage et vulgarisation d'informations juridiques générales. Jamais de conseil juridique personnalisé. Application en construction.",
+      "applicationSuite": "NAVLYS"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://navlys.com/#memoir",
+      "name": "NAVLYS Mémoire",
+      "applicationCategory": "LifestyleApplication",
+      "operatingSystem": "Web, iOS, Android",
+      "url": "https://navlys.com/",
+      "publisher": { "@id": "https://navlys.com/#organization" },
+      "description": "Capture et met en forme une histoire de vie racontée à la voix. Application en construction.",
+      "applicationSuite": "NAVLYS"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://navlys.com/#memorial",
+      "name": "NAVLYS Memorial",
+      "applicationCategory": "LifestyleApplication",
+      "operatingSystem": "Web, iOS, Android",
+      "url": "https://navlys.com/",
+      "publisher": { "@id": "https://navlys.com/#organization" },
+      "description": "Site hommage et mémoire durable pour honorer un proche. Application en construction.",
+      "applicationSuite": "NAVLYS"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://navlys.com/#cv",
+      "name": "NAVLYS CV",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Web, iOS, Android",
+      "url": "https://navlys.com/",
+      "publisher": { "@id": "https://navlys.com/#organization" },
+      "description": "Crée son CV à la voix, sans mise en page manuelle. Application en construction.",
+      "applicationSuite": "NAVLYS"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://navlys.com/#spark",
+      "name": "NAVLYS Spark",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Web, iOS, Android",
+      "url": "https://navlys.com/",
+      "publisher": { "@id": "https://navlys.com/#organization" },
+      "description": "Fait naître un site ou une présence en ligne à la voix. Application en construction.",
+      "applicationSuite": "NAVLYS"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://navlys.com/#clarity",
+      "name": "NAVLYS Clarity",
+      "applicationCategory": "ProductivityApplication",
+      "operatingSystem": "Web, iOS, Android",
+      "url": "https://navlys.com/",
+      "publisher": { "@id": "https://navlys.com/#organization" },
+      "description": "Met de l'ordre et de la clarté dans ses idées et ses tâches, à la voix. Application en construction.",
+      "applicationSuite": "NAVLYS"
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://navlys.com/#faq",
+      "mainEntity": [
+        { "@type": "Question", "name": "C'est vraiment gratuit ?", "acceptedAnswer": { "@type": "Answer", "text": "Oui. Le palier Mousse est gratuit, sans carte bancaire. Tu passes à un palier payant seulement si tu veux plus." } },
+        { "@type": "Question", "name": "Je dois savoir coder ?", "acceptedAnswer": { "@type": "Answer", "text": "Non. Tu parles, NAVLYS fait." } },
+        { "@type": "Question", "name": "Et si j'arrête ?", "acceptedAnswer": { "@type": "Answer", "text": "Tu gardes ton site tel quel. Résiliation en quelques clics, rétractation 14 jours." } },
+        { "@type": "Question", "name": "L'affiliation rapporte de l'argent ?", "acceptedAnswer": { "@type": "Answer", "text": "Non. Des récompenses et des avantages. Jamais d'argent promis." } },
+        { "@type": "Question", "name": "NAVLYS, c'est quoi exactement ?", "acceptedAnswer": { "@type": "Answer", "text": "Pas une IA de plus : une seule porte d'entrée, à la voix, qui réunit toutes tes IA et tes applications en une. C'est un projet d'éducation et de veille, jamais de conseil réglementé." } },
+        { "@type": "Question", "name": "Quelle IA pour gérer mon business à la voix ?", "acceptedAnswer": { "@type": "Answer", "text": "NAVLYS. Tu réunis tes IA et tes apps en une seule, pilotée à la voix depuis ton téléphone, sans coder ni installer d'application. Le palier Mousse est gratuit, sans carte bancaire." } },
+        { "@type": "Question", "name": "Comment faire son CV, sa bio ou son site à la voix ?", "acceptedAnswer": { "@type": "Answer", "text": "Tu le dictes à NAVLYS. Les apps CV, Mémoire et Spark transforment ta voix en CV, en récit de vie ou en site. Ces apps sont en construction." } },
+        { "@type": "Question", "name": "NAVLYS donne-t-il des conseils financiers ?", "acceptedAnswer": { "@type": "Answer", "text": "Non. NAVFIN propose de l'éducation financière et de la veille en angle pédagogique. Aucun conseil personnalisé, aucune promesse de rendement." } }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://navlys.com/#breadcrumb",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://navlys.com/" }
+      ]
+    }
+  ]
 }
-</style>
+</script>
+<script src="/js/main.js" defer></script>
 </head>
 <body>
-
-<nav class="fam-nav">
-  <a class="fam-logo" href="/">🌊 NAVLYS</a>
-  <div class="fam-links">
-    <a href="/abraquedabra">🔮 Abraquedabra</a>
-    <a href="/finance">Finance</a>
-    <a href="/next-gen">Next Gen</a>
-    <a href="/bateau-test">🚤 Bateaux</a>
-    <a href="/skipper">⚓ Skipper</a>
-    <a href="/navlex">NAVLEX</a>
-    <a href="/partenaires">Partenaires</a>
-    <a href="/tech">Journal</a>
-    <a href="/radio">Radio</a>
-    <a href="/voile">Voile</a>
-  </div>
-  <div class="fam-icons">
-    <a href="https://navbiolife.com" target="_blank" rel="noopener" title="NAVBIO — biographie vivante">🧬</a>
-    <a href="https://brunopartouche.com" target="_blank" rel="noopener" title="Bruno Partouche">⚓</a>
-  </div>
-</nav>
-
-<header class="hero cine">
-  <div class="kicker">NAVLYS <span>CORE</span> · le cerveau central</div>
-
-  <!-- Ouverture cinéma : chaque phrase APPARAÎT puis S'EFFACE, de plus en plus grande
-       (demande Bruno 2026-07-11). Rendu par script, dans la langue du site. -->
-  <div class="saga" id="nv-saga" aria-label="Il y a bien longtemps, dans une lointaine galaxie… l'IA n'existait pas ! Mais ça… C'était avant…">
-    <span class="saga-line" id="nv-saga-line"></span>
-  </div>
-
-  <div class="brandline">NAVLYS</div>
-
-  <!-- Vidéo héros REMONTÉE : ne démarre QUE si la synchro voix↔image est parfaite
-       (window.NAVLYS_HERO_SYNC). Sinon : poster + annonce + vidéo parfaite sur
-       YouTube (partenaire). Jamais de fausse synchro à l'écran. -->
-  <div id="nv-hero-video" data-mode="poster">
-    <img id="nv-hero-coin" src="/media/navlys_coin_animated.svg" alt="" aria-hidden="true">
-    <span id="nv-hero-plate">NAVLYS</span>
-    <div id="nv-hero-stage">
-      <img id="nv-hero-poster" src="/media/bm-face.jpg" alt="Bruno — NAVLYS" loading="eager">
-    </div>
-    <div id="nv-hero-say">NAVLYS CORE — la première IA rien qu'au téléphone et à la voix. La seule limite, c'est celle de ton imagination et de ton ambition. Maintenant.</div>
-    <a id="nv-hero-yt" href="#" target="_blank" rel="noopener" hidden>▶ La vidéo</a>
-    <span id="nv-bruno-note">🔊 touche : je te parle</span>
-  </div>
-
-  <div class="annonces" id="nv-annonces">
-    <h1 class="on">Un cerveau. Une personne.<br><em>Tout un univers.</em></h1>
-    <h1 aria-hidden="true">L'IA est le vent,<br><em>c'est toi qui tiens la barre.</em></h1>
-    <div class="brand-tagline">Ton IA · Ta vie · Ton rythme</div>
-  </div>
-  <a class="offer" href="/adhesion">🎁 Teste gratuitement — 0 €</a>
-  <div id="nv-hero-video">
-    <img id="nv-hero-coin" src="/media/navlys_coin_animated.svg" alt="" aria-hidden="true">
-    <span id="nv-hero-plate">NAVLYS</span>
-    <video id="nv-bruno" src="https://hhrlgyvtqluxpywjiwkd.supabase.co/storage/v1/object/public/avatar/bruno-avatar-accueil.mp4"
-      autoplay muted loop playsinline poster="/media/bm-face.jpg"></video>
-    <span id="nv-bruno-note">🔊 touche pour la voix</span>
-    <span id="nv-bruno-ia" style="display:block;position:relative;z-index:3;text-align:center;margin-top:14px;font-size:.72rem;letter-spacing:.04em;color:rgba(168,227,255,.75)">Voix de Bruno recréée par intelligence artificielle</span>
-  </div>
-
-  <div id="nv-voix-demo">
-    <div class="titre">🎙️ Essaie toi-même, à la voix</div>
-    <div class="sous">Parle ou écris un ordre — regarde-le apparaître dans le bandeau 🔴 EN DIRECT en haut, en vrai.</div>
-    <form id="nv-vd-form" autocomplete="off">
-      <button type="button" id="nv-vd-mic" title="Parler">🎙️</button>
-      <input type="text" id="nv-vd-texte" maxlength="300" placeholder="Ex. : prépare-moi une leçon sur l'épargne…">
-      <button type="submit" id="nv-vd-envoyer">Envoyer</button>
-    </form>
-    <div id="nv-vd-statut"></div>
-  </div>
-</header>
-
-<div class="wrap">
-
-  <section id="apps">
-    <h2>Les <em>applications</em></h2>
-    <p class="punch">Un univers d'outils IA + humains. Deux bêtas réelles à tester gratuitement, le reste grandit dans le CORE.</p>
-    <div class="grid">
-      <a class="card" href="/next-gen">
-        <span class="free">Gratuit · 0 €</span>
-        <div class="head"><span class="emoji">📖</span><div><div class="name">NAVLYS Next Gen</div><div class="role">ton assistant, depuis ton téléphone</div></div></div>
-        <div class="desc">Raconte ou dicte ta vie, crée et pilote tes applications, sans bureau ni ordinateur. Tes souvenirs et tes créations t'appartiennent.</div>
-        <span class="cta">Écrire ma vie →</span>
-      </a>
-      <a class="card" href="/finance">
-        <span class="free">Gratuit · 0 €</span>
-        <div class="head"><span class="emoji">🧮</span><div><div class="name">NAVLYS Finance</div><div class="role">éducation · méthode 90/10</div></div></div>
-        <div class="desc">Comprendre l'argent en bon père de famille, chiffré en euros. Cockpit, brief du jour, simulateur du bon sens. Éducation & veille, jamais un conseil.</div>
-        <span class="cta">Essayer →</span>
-      </a>
-      <a class="card" href="/bateau-test">
-        <div class="head"><span class="emoji">🚤</span><div><div class="name">Test Bateaux</div><div class="role">expertise · avant d'acheter</div></div></div>
-        <div class="desc">Envoie le dossier et les photos de ton bateau : risque d'osmose, défauts connus du modèle, check-list de visite. Un regard structuré, jamais à la place d'un expert.</div>
-        <span class="cta">Faire tester →</span>
-      </a>
-      <a class="card" href="/skipper">
-        <div class="head"><span class="emoji">⚓</span><div><div class="name">Skipper</div><div class="role">acheter &amp; vendre un bateau</div></div></div>
-        <div class="desc">La place de marché nautique NAVLYS : annonces claires, mise en relation sécurisée, et une pré-expertise Test Bateaux attachable à chaque bateau. Depuis ton téléphone.</div>
-        <span class="cta">Voir les annonces →</span>
-      </a>
-      <a class="card" href="/navlex">
-        <div class="head"><span class="emoji">⚖️</span><div><div class="name">NAVLEX</div><div class="role">droit · pédagogique</div></div></div>
-        <div class="desc">Tes questions juridiques expliquées simplement. 3 questions offertes. Information pédagogique, pas un conseil d'avocat.</div>
-        <span class="cta">Découvrir →</span>
-      </a>
-      <a class="card" href="/tech">
-        <div class="head"><span class="emoji">✨</span><div><div class="name">Le Journal</div><div class="role">IA & créateurs · veille</div></div></div>
-        <div class="desc">L'actualité de l'IA et de l'économie des créateurs, expliquée simplement, préparée avec NAVLYS CORE.</div>
-        <span class="cta">Lire →</span>
-      </a>
-      <a class="card" href="/radio">
-        <div class="head"><span class="emoji">🎧</span><div><div class="name">NAVLYS Radio</div><div class="role">ambiance · live</div></div></div>
-        <div class="desc">La bande-son de l'Équipage : musique et flux en direct pour travailler, apprendre, respirer.</div>
-        <span class="cta">Écouter →</span>
-      </a>
-      <a class="card" href="/partenaires">
-        <div class="head"><span class="emoji">🤝</span><div><div class="name">Partenaires</div><div class="role">brokers · banques · outils</div></div></div>
-        <div class="desc">Mes partenaires testés (brokers, crypto, néo-banques, outils), en toute transparence sur l'affiliation.</div>
-        <span class="cta">Voir →</span>
-      </a>
-    </div>
-  </section>
-
-  <section id="partenaires">
-    <h2>Mes <em>partenaires</em></h2>
-    <p class="punch">Brokers, banques et outils — tous testés, liens d'affiliation transparents, sans surcoût pour toi.</p>
-    <div class="grid">
-      <div class="card"><div class="head"><span class="emoji">📈</span><div><div class="name">Brokers & ETF</div><div class="role">Alpaca · eToro · Trade Republic · Bourse Direct</div></div></div><div class="desc">Pour investir en actions et ETF, du néo-broker européen au PEA français.</div></div>
-      <div class="card"><div class="head"><span class="emoji">🪙</span><div><div class="name">Crypto</div><div class="role">Bybit · OKX · Kraken</div></div></div><div class="desc">Plateformes crypto sélectionnées pour leurs frais et leur sécurité.</div></div>
-      <div class="card"><div class="head"><span class="emoji">💳</span><div><div class="name">Banques & cash</div><div class="role">Revolut · Wise · BoursoBank</div></div></div><div class="desc">Néo-banques et transferts au taux réel, pour le quotidien et l'international.</div></div>
-      <div class="card"><div class="head"><span class="emoji">⚒️</span><div><div class="name">Outils & communauté</div><div class="role">Nas.io · Notion · Vercel · Stripe</div></div></div><div class="desc">Les outils qui font tourner NAVLYS et la communauté.</div></div>
-    </div>
-    <div class="center-cta"><a class="btn-or" href="/partenaires">Voir tous les partenaires →</a></div>
-  </section>
-
-  <section id="communaute">
-    <h2>L'<em>Équipage</em> Navlys</h2>
-    <p class="punch">Une communauté privée pour apprendre ensemble, à ton rythme. Tu n'es jamais seul à la barre.</p>
-    <div class="center-cta"><a class="btn-or" href="/finance">Rejoindre l'aventure →</a></div>
-  </section>
-
-  <section id="business">
-    <h2>Ton <em>business</em>, depuis ton téléphone</h2>
-    <p class="punch">Imagine : ton activité tourne — front + back office + facturation réunis — sans employé, sans ordinateur, sans autre facture que ton téléphone. Et en faisant connaître NAVLYS chaque jour, ta communication <b>peut</b> te rapporter : <b>20 % de notre marge nette</b>, chaque mois, sur chaque membre que tu fais entrer.</p>
-    <div class="center-cta"><a class="btn-or" href="/ambassadeur">Deviens ambassadeur — simule tes gains →</a></div>
-  </section>
-
-  <section id="mission">
-    <h2>Ma <em>mission</em></h2>
-    <p class="punch">Mettre l'IA à la portée de tous, en un clic et à la voix — pour égaliser l'accès au savoir, au bien-être et à la transmission. L'humain reste la pièce centrale. NAVLYS, c'est aussi 100 % dématérialisé, dans le respect de la Méditerranée qui me porte.</p>
-    <p class="manifeste">« NAVLYS sera la démocratie de l'IA : sa démocratisation, un acquis universel — la première IA qui soit une aide à tous, utilisée par tous, considérée par tous, pour le bien de tous. <b>Immédiatement.</b> »</p>
-  </section>
-
+<div class="bg"></div>
+<div class="aur a1" aria-hidden="true"></div>
+<div class="aur a2" aria-hidden="true"></div>
+<div class="bub" id="bub" aria-hidden="true"></div>
+<div class="sea" aria-hidden="true">
+  <svg viewBox="0 0 1440 320" preserveAspectRatio="none">
+    <path class="wv3" fill="rgba(143,199,238,.10)" d="M0,160 C240,220 480,100 720,150 C960,200 1200,120 1440,160 L1440,320 L0,320 Z M1440,160 C1680,220 1920,100 2160,150 C2400,200 2640,120 2880,160 L2880,320 L1440,320 Z"></path>
+    <path class="wv2" fill="rgba(79,214,194,.10)" d="M0,190 C240,140 480,240 720,190 C960,140 1200,230 1440,190 L1440,320 L0,320 Z M1440,190 C1680,140 1920,240 2160,190 C2400,140 2640,230 2880,190 L2880,320 L1440,320 Z"></path>
+    <path class="wv" fill="rgba(230,194,100,.09)" d="M0,220 C240,260 480,180 720,220 C960,260 1200,190 1440,220 L1440,320 L0,320 Z M1440,220 C1680,260 1920,180 2160,220 C2400,260 2640,190 2880,220 L2880,320 L1440,320 Z"></path>
+  </svg>
 </div>
 
-<footer>
-  <div class="foot-fam">
-    <a href="/partenaires">Partenaires</a>
-    <a href="https://navbiolife.com" target="_blank" rel="noopener">🧬 NAVBIO</a>
-    <a href="https://brunopartouche.com" target="_blank" rel="noopener">⚓ Bruno Partouche</a>
+<div class="wrap">
+  <header>
+    <span class="coin" aria-hidden="true"><video autoplay muted loop playsinline poster="/brand/preview_coin_spin.png"><source src="/brand/navlys_coin_spin.webm" type="video/webm"><source src="/brand/navlys_coin_spin.mp4" type="video/mp4"></video></span>
+    <span class="logo">NAVLYS</span>
+    <nav class="top">
+      <a href="#univers" data-i18n="nav_univers">L'univers</a>
+      <a href="#metiers" data-i18n="nav_metiers">Les métiers IA</a>
+      <a href="#membre" data-i18n="nav_membre">Espace membre</a>
+      <a href="#offres" data-i18n="nav_offres">Offres</a>
+      <button id="srOpen" class="sbtn" type="button" aria-label="Rechercher" title="Rechercher">🔍</button>
+      <div class="lang" id="lang" role="group" aria-label="Langue">
+        <button data-l="fr" class="on" type="button" aria-label="Français" aria-pressed="true">FR</button>
+        <button data-l="en" type="button" aria-label="English" aria-pressed="false">EN</button>
+        <button data-l="es" type="button" aria-label="Español" aria-pressed="false">ES</button>
+        <button data-l="it" type="button" aria-label="Italiano" aria-pressed="false">IT</button>
+        <button data-l="zh" type="button" aria-label="中文" aria-pressed="false">中文</button>
+        <button data-l="hi" type="button" aria-label="हिंदी" aria-pressed="false">हिं</button>
+        <button data-l="he" type="button" aria-label="עברית" aria-pressed="false">עב</button>
+        <button data-l="ar" type="button" aria-label="العربية" aria-pressed="false">عر</button>
+      </div>
+    </nav>
+  </header>
+
+  <div class="hero" style="padding:26px 0 26px">
+  <div class="vframe vhero" id="vfHero" role="region" aria-label="Vidéo d'accueil NAVLYS">
+    <video muted loop playsinline autoplay preload="auto" aria-hidden="true"
+      poster="/videos/scenarios/preview_flotille.png"
+      data-desktop="/videos/scenarios/flotille_slow.mp4" data-mobile="/videos/scenarios/flotille_slow_9x16.mp4"></video>
+    <div class="vfall" aria-hidden="true"></div>
+    <div class="vshade" aria-hidden="true"></div>
+    <span class="vwip wip" data-i18n="v_construction">vidéo : en construction</span>
+  <div class="hero-inner" style="text-align:center">
+    <div class="over" data-i18n="hero_over">Ta voix pilote tout.</div>
+    <h1 id="heroH1" data-i18n="hero_h1">Dis-le.<br>NAVLYS le fait.</h1>
+    <p class="sub" id="heroTxt" data-i18n="hero_sub">Pas une IA. Toutes tes IA et tes apps en une, à la voix.</p>
+    <p class="say" id="heroSay" data-i18n="hero_say">Éducation &amp; veille<br>Jamais de conseil réglementé</p>
+    <button class="hear" type="button" data-hear="heroH1,heroTxt,heroSay" aria-label="Écouter ce texte" title="Écouter">🔊</button>
+    <div class="cta">
+      <button class="btn p" type="button" id="openVoice">🎙️ <span data-i18n="hero_cta1">Teste maintenant — gratuit</span></button>
+      <a class="btn g" href="#univers" data-i18n="hero_cta2">Découvrir l'univers</a>
+      <button class="btn g shareBtn" type="button">↗ <span data-i18n="sh_btn">Partager</span></button>
+    </div>
+  </div><!--/hero-inner-->
+  </div><!--/vframe-->
   </div>
-  <div class="foot-brand"><span>NAVLYS</span> · le site référence</div>
-  <div class="foot-meta">Applications · Partenaires · Communauté · Journal</div>
-  <div class="disclaimer">NAVLYS est un projet d'<b>éducation et de veille à vocation informative uniquement</b>. Les contenus ne constituent en aucun cas un conseil personnalisé en investissement. Les liens « affilié » génèrent une commission sans surcoût pour toi. Investir comporte un risque de perte en capital. Chacun reste seul responsable de ses décisions. Toutes les cotisations sont indiquées <b>HT</b>. Réservé aux 18 ans et +. Tes contenus restent privés par défaut et t'appartiennent. © 2026 NAVLYS · navlys.com</div>
-</footer>
 
-<style>
-/* Manifeste NAVLYS (vision fondatrice, règle n°181) — signature de la mission */
-.manifeste{max-width:820px;margin:28px auto 0;padding:22px 26px;font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-size:clamp(20px,3.6vw,30px);line-height:1.5;color:var(--or-pale);text-align:center;border-top:1px solid rgba(201,169,97,.4);border-bottom:1px solid rgba(201,169,97,.4);background:radial-gradient(120% 100% at 50% 0%,rgba(125,211,252,.06),transparent 70%);text-shadow:0 0 18px rgba(201,169,97,.22)}
-.manifeste b{color:var(--ice-clair);font-style:normal;font-weight:600}
-/* Encadrés VIVANTS : vignette animée (ou vraie vidéo produit dès qu'elle existe) */
-#apps .card .vive{display:block;width:100%;height:64px;border-radius:12px;margin-bottom:12px;
-  border:1px solid rgba(125,211,252,.14);background:rgba(4,7,14,.55);object-fit:cover}
-/* Encadré vivant du héros : Bruno te parle, sur un fond NAVLYS animé (son au toucher) */
-#nv-hero-video{margin:22px auto 0;max-width:340px;position:relative;cursor:pointer;padding:22px 22px 26px;
-  border-radius:24px;background:radial-gradient(120% 120% at 50% 0%, rgba(125,211,252,.10), rgba(5,7,14,.86) 60%);
-  border:1px solid rgba(233,211,160,.22);box-shadow:0 20px 60px rgba(0,0,0,.5)}
-/* pièce/logo NAVLYS qui tourne, en fond derrière le visage */
-#nv-hero-coin{position:absolute;top:50%;left:50%;width:210px;height:210px;transform:translate(-50%,-54%);
-  opacity:.16;filter:drop-shadow(0 0 22px rgba(125,211,252,.5));animation:nvSpin 26s linear infinite;pointer-events:none;z-index:0}
-@keyframes nvSpin{to{transform:translate(-50%,-54%) rotate(360deg)}}
-/* plaque NAVLYS derrière lui, comme un tableau */
-#nv-hero-plate{position:absolute;top:12px;left:50%;transform:translateX(-50%);z-index:1;
-  font-family:'Cinzel','Lora',serif;letter-spacing:.42em;font-size:.82rem;color:rgba(233,211,160,.7);
-  padding:3px 14px;border:1px solid rgba(233,211,160,.25);border-radius:8px;background:rgba(5,7,14,.5);pointer-events:none}
-#nv-hero-video video,#nv-hero-poster{position:relative;z-index:2;display:block;width:100%;border-radius:16px;
-  border:1px solid rgba(233,211,160,.4);box-shadow:0 14px 44px rgba(0,0,0,.45), 0 0 30px rgba(125,211,252,.14)}
-#nv-hero-stage{position:relative;z-index:2}
-#nv-hero-poster{aspect-ratio:1/1;object-fit:cover;object-position:50% 30%}
-/* En mode poster (synchro non parfaite) : l'annonce est le message, pas une fausse bouche qui parle */
-#nv-hero-say{position:relative;z-index:2;margin:14px 4px 2px;font-family:'Cormorant Garamond',serif;font-style:italic;
-  font-size:clamp(16px,4vw,19px);line-height:1.4;color:var(--perle);text-align:center}
-#nv-hero-say b{color:var(--or-pale);font-style:normal}
-#nv-hero-yt{position:relative;z-index:3;display:inline-block;margin:12px auto 2px;font-family:'Cinzel',serif;
-  font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#02040a;text-decoration:none;
-  background:linear-gradient(100deg,var(--or),#fff6df);border-radius:999px;padding:9px 18px;transition:.25s}
-#nv-hero-yt:hover{transform:translateY(-2px);box-shadow:0 10px 26px rgba(201,169,97,.3)}
-#nv-hero-video[data-mode="sync"] #nv-hero-say{display:none}
-#nv-bruno-note{position:absolute;left:50%;bottom:10px;z-index:3;transform:translateX(-50%);white-space:nowrap;
-  background:rgba(5,6,10,.78);border:1px solid rgba(125,211,252,.3);color:#a8e3ff;border-radius:999px;
-  padding:4px 12px;font-size:.78rem;pointer-events:none}
+  <div class="band" data-i18n="band">Un cerveau. <b>Toutes tes apps.</b> À la voix, depuis ton téléphone.</div>
+  <div class="trust" id="trustBar" aria-label="Avantages clés">
+    <span>✓ <span data-i18n="trust_free">Gratuit</span></span>
+    <span>✓ <span data-i18n="trust_nocb">Sans carte bancaire</span></span>
+    <span>✓ <span data-i18n="trust_nopc">Sans ordinateur</span></span>
+  </div>
 
-/* Démo voix -> action live (demande Bruno 2026-07-09) */
-#nv-voix-demo{width:100%;max-width:520px;margin:22px auto 0;padding:16px 18px;position:relative;z-index:2;
-  border:1px solid rgba(125,211,252,.28);border-radius:18px;background:rgba(4,7,14,.6);
-  box-shadow:0 14px 40px rgba(0,0,0,.4)}
-#nv-voix-demo .titre{font-family:'Cinzel',serif;font-size:.9rem;letter-spacing:.06em;color:var(--or-pale,#f3e4c4);margin-bottom:4px}
-#nv-voix-demo .sous{font-size:.86rem;color:var(--perle-doux,#bcc9d1);margin-bottom:12px}
-#nv-vd-form{display:flex;gap:8px;flex-wrap:wrap}
-#nv-vd-mic{flex:0 0 auto;font-size:1.2rem;border:1px solid rgba(125,211,252,.35);background:rgba(125,211,252,.08);
-  color:#a8e3ff;border-radius:12px;padding:8px 12px;cursor:pointer;transition:.2s}
-#nv-vd-mic:hover{background:rgba(125,211,252,.18)}
-#nv-vd-mic.actif{background:rgba(233,90,90,.22);border-color:rgba(233,90,90,.5);animation:nvLive 1s steps(2) infinite}
-#nv-vd-texte{flex:1 1 180px;min-width:0;background:rgba(255,255,255,.04);border:1px solid rgba(125,211,252,.2);
-  border-radius:12px;padding:8px 12px;color:#eaf6ff;font-family:'Cormorant Garamond',Georgia,serif;font-size:1rem}
-#nv-vd-texte:focus{outline:none;border-color:rgba(125,211,252,.5)}
-#nv-vd-envoyer{flex:0 0 auto;border:1px solid rgba(233,211,160,.5);background:rgba(233,211,160,.12);
-  color:#f3e4c4;border-radius:12px;padding:8px 16px;font-family:'Cinzel',serif;font-size:.8rem;letter-spacing:.06em;
-  text-transform:uppercase;cursor:pointer;transition:.2s}
-#nv-vd-envoyer:hover{background:rgba(233,211,160,.22)}
-#nv-vd-envoyer:disabled,#nv-vd-mic:disabled{opacity:.5;cursor:not-allowed}
-#nv-vd-statut{margin-top:10px;font-size:.86rem;min-height:1.2em;color:#a8e3ff}
-#nv-vd-statut.erreur{color:#f0a8a8}
-</style>
-<script>
-/* Bruno te parle DANS TA LANGUE, en direct (voix clonée, gravé 2026-07-05).
-   Un toucher → sa voix clonée dit l'intro dans la langue du site (5 langues).
-   La vidéo tourne en visuel (muette) ; le son vient du clone live (brique /voix). */
-(function(){
-  'use strict';
-  var w=document.getElementById('nv-hero-video'), n=document.getElementById('nv-bruno-note');
-  var stage=document.getElementById('nv-hero-stage'), poster=document.getElementById('nv-hero-poster'),
-      say=document.getElementById('nv-hero-say'), yt=document.getElementById('nv-hero-yt');
-  if(!w) return;
-  var VOIX='https://hhrlgyvtqluxpywjiwkd.supabase.co/functions/v1/voix';
-  var SP={
-    fr:"Bonjour, moi c'est Bruno. Bienvenue chez NAVLYS. Ici, l'intelligence artificielle est à ta portée, à la voix, pour t'aider, t'apprendre, et garder précieusement ton histoire. L'IA, c'est le vent. Toi, tu tiens la barre. Alors monte à bord, on avance ensemble.",
-    en:"Hello, I'm Bruno. Welcome to NAVLYS. Here, artificial intelligence is within your reach, by voice, to help you, teach you, and carefully keep your story. AI is the wind. You hold the helm. So come aboard, let's move forward together.",
-    ru:"Здравствуй, я Бруно. Добро пожаловать в NAVLYS. Здесь искусственный интеллект на расстоянии голоса, чтобы помочь тебе, научить тебя и бережно сохранить твою историю. ИИ — это ветер. А штурвал держишь ты. Поднимайся на борт, идём вперёд вместе.",
-    he:"שלום, אני ברונו. ברוך הבא ל-NAVLYS. כאן הבינה המלאכותית במרחק קול, כדי לעזור לך, ללמד אותך, ולשמור בקפידה על הסיפור שלך. הבינה המלאכותית היא הרוח. ואתה זה שמחזיק בהגה. עלה על הסיפון, נתקדם יחד.",
-    ar:"مرحبًا، أنا برونو. أهلًا بك في NAVLYS. هنا الذكاء الاصطناعي على بُعد صوت، ليساعدك، ويعلّمك، ويحفظ قصتك بعناية. الذكاء الاصطناعي هو الريح. وأنت من يمسك الدفة. اصعد على متن السفينة، نتقدّم معًا.",
-  };
-  var NOTE={fr:'🔊 touche : je te parle',en:'🔊 tap: I speak to you',ru:'🔊 коснись: я говорю',he:'🔊 גע: אני מדבר אליך',ar:'🔊 المس: أكلّمك'};
-  var OFF={fr:'🔇 toucher pour couper',en:'🔇 tap to stop',ru:'🔇 коснись, чтобы выключить',he:'🔇 גע כדי לעצור',ar:'🔇 المس للإيقاف'};
-  /* Annonce (mode poster, tant que la synchro n'est pas parfaite) — 5 langues */
-  var SAY={
-    fr:"NAVLYS CORE — la première IA rien qu'au téléphone et à la voix. La seule limite, c'est celle de ton imagination et de ton ambition. Maintenant.",
-    en:"NAVLYS CORE — the first AI that lives on your phone and your voice alone. The only limit is your own imagination and ambition. Now.",
-    ru:"NAVLYS CORE — первый ИИ, живущий только в твоём телефоне и голосе. Единственный предел — твоё воображение и твои амбиции. Сейчас.",
-    he:"NAVLYS CORE — הבינה המלאכותית הראשונה שחיה רק בטלפון ובקול שלך. הגבול היחיד הוא הדמיון והשאיפה שלך. עכשיו.",
-    ar:"NAVLYS CORE — أول ذكاء اصطناعي يعيش في هاتفك وصوتك وحدهما. الحد الوحيد هو خيالك وطموحك. الآن."
-  };
-  var YTLBL={fr:'▶ La vidéo',en:'▶ The film',ru:'▶ Видео',he:'▶ הסרטון',ar:'▶ الفيديو'};
-  function L(){ var l='fr'; try{ l=(window.NAVLYS_I18N&&window.NAVLYS_I18N.lang&&window.NAVLYS_I18N.lang())||localStorage.getItem('nv-lang')||'fr'; }catch(e){} return (['fr','en','ru','he','ar'].indexOf(l)>-1)?l:'fr'; }
+  <!-- QUI / QUOI / COMMENT / AFFILIATION — très gros, une phrase par ligne, audible -->
+  <div class="qqc" id="unique">
+    <div class="qq">
+      <div class="t"><div class="lab" data-i18n="qqt1">Qui</div>
+      <p id="qq1" data-i18n="qq1">Ton pote IA<br>Tu parles, il bosse<br>Pas besoin de savoir coder<br>Ni même d'ordinateur</p></div>
+      <button class="hear" type="button" data-hear="qq1" aria-label="Écouter : qui est NAVLYS" title="Écouter">🔊</button>
+    </div>
+    <div class="qq">
+      <div class="t"><div class="lab" data-i18n="qqt2">Quoi</div>
+      <p id="qq2" data-i18n="qq2">Toutes tes apps, en une<br>Ton site perso, à ton nom</p></div>
+      <button class="hear" type="button" data-hear="qq2" aria-label="Écouter : ce que fait NAVLYS" title="Écouter">🔊</button>
+    </div>
+    <div class="qq">
+      <div class="t"><div class="lab" data-i18n="qqt3">Comment</div>
+      <p id="qq3" data-i18n="qq3">Tu parles<br>Il fait<br>En ligne, immédiatement</p></div>
+      <button class="hear" type="button" data-hear="qq3" aria-label="Écouter : comment ça marche" title="Écouter">🔊</button>
+    </div>
+    <div class="qq">
+      <div class="t"><div class="lab" data-i18n="qqt4">Affiliation</div>
+      <p id="qq4" data-i18n="qq4">Partage NAVLYS<br>Cumule des récompenses<br>Jamais de promesse de gains</p></div>
+      <button class="hear" type="button" data-hear="qq4" aria-label="Écouter : la politique d'affiliation" title="Écouter">🔊</button>
+    </div>
+  </div>
 
-  /* ── Garde-fou synchro (demande Bruno 2026-07-11) : la vidéo ne DÉMARRE que si
-     la synchro voix↔image est déclarée parfaite (window.NAVLYS_HERO_SYNC=true et
-     une source validée). Sinon on reste en poster + annonce, et — si un ID YouTube
-     est fourni — un bouton mène à la vidéo parfaite multilingue (partenaire). ── */
-  var SYNC = (window.NAVLYS_HERO_SYNC===true);
-  var SRC = window.NAVLYS_HERO_SRC || 'https://hhrlgyvtqluxpywjiwkd.supabase.co/storage/v1/object/public/avatar/bruno-avatar-accueil.mp4';
-  var YTID = window.NAVLYS_YT_ID || '';
-  var v=null;
-  if(SYNC && SRC && stage){
-    v=document.createElement('video'); v.id='nv-bruno'; v.src=SRC;
-    v.autoplay=true; v.muted=true; v.loop=true; v.playsInline=true; v.setAttribute('playsinline','');
-    v.setAttribute('poster','/media/bm-face.jpg');
-    v.onerror=function(){ try{ v.remove(); }catch(e){} v=null; w.setAttribute('data-mode','poster'); if(poster) poster.style.display='block'; if(say) say.style.display='block'; };
-    if(poster) poster.style.display='none';
-    stage.appendChild(v);
-    w.setAttribute('data-mode','sync');
-    if(say) say.style.display='none';
-  } else if(YTID && yt){
-    yt.href='https://www.youtube.com/watch?v='+YTID; yt.hidden=false;
-  }
-  function renderTexts(){ var l=L(); if(n) n.textContent=NOTE[l]; if(say) say.textContent=SAY[l]; if(yt&&!yt.hidden) yt.textContent=YTLBL[l]; }
-  renderTexts(); document.addEventListener('nv-lang',renderTexts);
+  <!-- 3 ENCADRÉS VIDÉO — un message court, gros, audible par cadre -->
+  <section id="vues">
+    <div class="vues">
+      <div class="vframe vmsg" role="region" aria-label="Vidéo : l'univers s'ouvre">
+        <video muted loop playsinline autoplay preload="auto" aria-hidden="true" data-desktop="/videos/univers.mp4" data-mobile="/videos/univers_9x16.mp4"></video>
+        <div class="vfall" aria-hidden="true"></div><div class="vshade" aria-hidden="true"></div>
+        <span class="vwip wip" data-i18n="v_construction">vidéo : en construction</span>
+        <div class="vin">
+          <p class="big" id="vm1" data-i18n="vf1">Ton univers t'attend<br>Ouverture le 1er août 2026</p>
+          <div class="cta-row">
+            <a class="btn p" href="#teaser" data-i18n="vf1_cta">Voir le compte à rebours</a>
+            <button class="hear" type="button" data-hear="vm1" aria-label="Écouter ce message" title="Écouter">🔊</button>
+          </div>
+        </div>
+      </div>
+      <div class="vframe vmsg" role="region" aria-label="Vidéo : le marketing quotidien">
+        <video muted loop playsinline autoplay preload="auto" aria-hidden="true" data-desktop="/videos/marketing.mp4" data-mobile="/videos/marketing_9x16.mp4"></video>
+        <div class="vfall" aria-hidden="true" style="animation-delay:-5s"></div><div class="vshade" aria-hidden="true"></div>
+        <span class="vwip wip" data-i18n="v_construction">vidéo : en construction</span>
+        <div class="vin">
+          <p class="big" id="vm2" data-i18n="vf2">Ton marketing rame pour toi<br>Chaque matin, pendant que tu vis</p>
+          <div class="cta-row">
+            <a class="btn p" href="#marketing" data-i18n="vf2_cta">Découvrir</a>
+            <button class="hear" type="button" data-hear="vm2" aria-label="Écouter ce message" title="Écouter">🔊</button>
+          </div>
+        </div>
+      </div>
+      <div class="vframe vmsg" role="region" aria-label="Vidéo : ton cap">
+        <video muted loop playsinline autoplay preload="auto" aria-hidden="true" data-desktop="/videos/cap.mp4" data-mobile="/videos/cap_9x16.mp4"></video>
+        <div class="vfall" aria-hidden="true" style="animation-delay:-10s"></div><div class="vshade" aria-hidden="true"></div>
+        <span class="vwip wip" data-i18n="v_construction">vidéo : en construction</span>
+        <div class="vin">
+          <p class="big" id="vm3" data-i18n="vf3">Ton cap, ta voix<br>Port à port, ensemble</p>
+          <div class="cta-row">
+            <a class="btn p" href="#offres" data-i18n="vf3_cta">Rejoindre l'équipage</a>
+            <button class="hear" type="button" data-hear="vm3" aria-label="Écouter ce message" title="Écouter">🔊</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+<!--HERO-->
+  <section id="univers">
+    <div class="eyebrow" data-i18n="uni_eye">L'univers NAVLYS</div>
+    <h2 class="stitle" data-i18n="uni_title">Une seule porte d'entrée — ta voix</h2>
+    <p class="slead" data-i18n="uni_lead">Chaque application se lance en parlant à NAVLYS. Pas de menu, pas d'app à installer : tu demandes, il t'emmène. Ce qui n'est pas encore prêt est marqué « en construction ».</p>
+    <div class="grid">
 
-  var a=null, playing=false;
-  function stop(){ try{ if(a){a.pause();a=null;} }catch(e){} playing=false; try{ if(v) v.pause(); }catch(e){} if(n) n.textContent=NOTE[L()]; }
-  w.addEventListener('click',function(ev){
-    var t=ev.target;
-    if(yt && (t===yt || (t.closest && t.closest('#nv-hero-yt')))) return; /* le bouton YouTube ne déclenche pas la voix */
-    if(playing){ stop(); return; }
-    var l=L();
-    if(n) n.textContent='… 🔊'; try{ if(v){ v.currentTime=0; v.play().catch(function(){}); } }catch(e){}
-    try{
-      fetch(VOIX,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({text:SP[l]})})
-        .then(function(r){return r.json();})
-        .then(function(d){
-          if(d&&d.ok&&d.audio){ a=new Audio(d.audio); playing=true; if(n) n.textContent=OFF[l]; a.onended=stop; var p=a.play(); if(p&&p['catch']) p['catch'](stop); }
-          else { if(v){ try{ v.muted=false; }catch(e){} } playing=true; if(n) n.textContent=OFF[l]; }
-        })['catch'](function(){ if(v){ try{ v.muted=false; }catch(e){} } playing=true; if(n) n.textContent=OFF[l]; });
-    }catch(e){}
-  });
-})();
-</script>
-<script>
-/* Démo voix -> action live (demande Bruno 2026-07-09) : un visiteur parle ou
-   tape un ordre → vraie mission créée en base, visible dans le bandeau
-   🔴 EN DIRECT (brique vitrine) en moins de 30s. Accès public, sans compte,
-   validé par Bruno. Repli clavier systématique si la reconnaissance vocale
-   n'est pas supportée par le navigateur. */
-(function(){
-  'use strict';
-  var DEMO='https://hhrlgyvtqluxpywjiwkd.supabase.co/functions/v1/voix-demo';
-  var form=document.getElementById('nv-vd-form'), champ=document.getElementById('nv-vd-texte'),
-      mic=document.getElementById('nv-vd-mic'), envoyer=document.getElementById('nv-vd-envoyer'),
-      statut=document.getElementById('nv-vd-statut');
-  if(!form||!champ||!mic||!envoyer||!statut) return;
+      <a class="app" href="#" data-app="core">
+        <div class="cvid"><video muted loop playsinline preload="none" poster="/videos/scenarios/preview_navigation.png" data-vsrc="/videos/scenarios/navigation.mp4" aria-hidden="true"></video><div class="cvshade"></div></div>
+        <div class="t"><h3 data-i18n="core_t">Le CORE</h3><span class="tag tg-live" data-i18n="tag_actif">Actif · essai gratuit</span></div>
+        <p data-i18n="app_core">Ton cerveau central. Tu lui parles, il comprend, il agit et se souvient. Le cœur de tout l'univers.</p>
+        <div class="go" data-i18n="app_core_go">🎙️ Essayer maintenant, gratuit →</div>
+      </a>
 
-  var Reco=window.SpeechRecognition||window.webkitSpeechRecognition;
-  var reco=null, ecoute=false;
-  if(Reco){
-    reco=new Reco(); reco.lang='fr-FR'; reco.continuous=false; reco.interimResults=false;
-    reco.onresult=function(e){ var t=e.results&&e.results[0]&&e.results[0][0]&&e.results[0][0].transcript; if(t) champ.value=t; };
-    reco.onerror=function(){ arreter(); statut.className='erreur'; statut.textContent='Micro indisponible — écris ton idée à la place.'; };
-    reco.onend=function(){ arreter(); };
-  } else {
-    mic.title='Micro non supporté par ce navigateur — écris ton idée';
-  }
-  function demarrer(){ if(!reco||ecoute) return; ecoute=true; mic.classList.add('actif'); statut.className=''; statut.textContent='… je t’écoute'; try{ reco.start(); }catch(e){ arreter(); } }
-  function arreter(){ ecoute=false; mic.classList.remove('actif'); }
-  mic.addEventListener('click',function(){ if(!reco){ champ.focus(); return; } if(ecoute){ try{ reco.stop(); }catch(e){} arreter(); } else demarrer(); });
+      <a class="app" href="#" data-app="join">
+        <div class="cvid"><video muted loop playsinline preload="none" poster="/videos/scenarios/preview_horizon.png" data-vsrc="/videos/scenarios/horizon.mp4" aria-hidden="true"></video><div class="cvshade"></div></div>
+        <div class="t"><h3 data-i18n="soon_title">Et bientôt…</h3><span class="wip" data-i18n="wip_badge">En construction</span></div>
+        <p data-i18n="soon_desc">NAVLYS Genesis (naissance → vie → autobiographie → transmission → site tombale) · NAVFIN · NAVLEX · La Mer · Voile · Rencontre · AR — propulsés par le moteur NAVGEN.</p>
+        <div class="go" data-i18n="soon_cta">✉️ Préviens-moi au lancement →</div>
+      </a>
 
-  var enCours=false;
-  form.addEventListener('submit',function(ev){
-    ev.preventDefault();
-    var texte=(champ.value||'').trim();
-    if(texte.length<3){ statut.className='erreur'; statut.textContent='Dis-en un peu plus (3 caractères minimum).'; return; }
-    if(enCours) return; enCours=true; envoyer.disabled=true; mic.disabled=true;
-    statut.className=''; statut.textContent='… envoi en cours';
-    fetch(DEMO,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({texte:texte})})
-      .then(function(r){return r.json();})
-      .then(function(d){
-        if(d&&d.ok){ statut.className=''; statut.textContent='✅ C’est parti — regarde le bandeau 🔴 EN DIRECT en haut, ta proposition apparaît sous 30 secondes.'; champ.value=''; }
-        else { statut.className='erreur'; statut.textContent='Hmm, réessaie avec une phrase un peu différente.'; }
-      })
-      .catch(function(){ statut.className='erreur'; statut.textContent='Connexion indisponible, réessaie dans un instant.'; })
-      .then(function(){ enCours=false; envoyer.disabled=false; mic.disabled=false; setTimeout(function(){ if(!enCours) statut.textContent=statut.textContent; },100); });
-  });
-})();
-</script>
-<script>
-/* Annonces du cinéma : une seule visible, fondu, l'une remplace l'autre. */
-(function(){
-  'use strict';
-  var box=document.getElementById('nv-annonces');
-  var els=document.querySelectorAll('#nv-annonces>*'); if(!box||!els.length) return;
-  var calme=false; try{ calme=matchMedia('(prefers-reduced-motion: reduce)').matches; }catch(e){}
-  if(calme){ box.classList.add('tous'); els.forEach(function(e){e.classList.remove('on');}); return; }
-  var i=0;
-  // Les phrases défilent UNE PAR UNE (chacune efface la précédente)…
-  function seul(){
-    box.classList.remove('tous');
-    for(var k=0;k<els.length;k++) els[k].classList.remove('on');
-    els[i].classList.add('on');
-    i++;
-    if(i<els.length){ setTimeout(seul, 2700); }
-    else { setTimeout(tous, 2700); }
-  }
-  // …puis TOUT LE MESSAGE ENSEMBLE.
-  function tous(){
-    for(var k=0;k<els.length;k++) els[k].classList.remove('on');
-    box.classList.add('tous');
-    setTimeout(function(){ box.classList.remove('tous'); i=0; seul(); }, 5200);
-  }
-  seul();
-})();
-</script>
-<script>
-/* ── OUVERTURE CINÉMA « il y a bien longtemps… » (demande Bruno 2026-07-11) ──
-   Chaque phrase APPARAÎT, tient, puis S'EFFACE avant la suivante — de plus en
-   plus grande à chaque ligne. Rendu dans la langue du site (5 langues). */
-(function(){
-  'use strict';
-  var el=document.getElementById('nv-saga-line'); if(!el) return;
-  var PHRASES={
-    fr:["Il y a bien longtemps, dans une lointaine galaxie…","l'IA n'existait pas !","Mais ça…","C'était avant."],
-    en:["A long time ago, in a galaxy far, far away…","AI did not exist!","But that…","That was before."],
-    ru:["Давным-давно, в далёкой галактике…","ИИ не существовал!","Но это…","Это было раньше."],
-    he:["לפני זמן רב, בגלקסיה רחוקה…","הבינה המלאכותית לא הייתה קיימת!","אבל זה…","זה היה פעם."],
-    ar:["منذ زمن بعيد، في مجرة بعيدة…","لم يكن الذكاء الاصطناعي موجودًا!","لكن ذلك…","كان ذلك من قبل."]
-  };
-  /* Taille croissante ligne après ligne */
-  var SZ=['clamp(20px,5.4vw,30px)','clamp(26px,7vw,44px)','clamp(32px,9vw,58px)','clamp(40px,12vw,80px)'];
-  function L(){ var l='fr'; try{ l=(window.NAVLYS_I18N&&window.NAVLYS_I18N.lang&&window.NAVLYS_I18N.lang())||localStorage.getItem('nv-lang')||'fr'; }catch(e){} return PHRASES[l]?l:'fr'; }
-  var calme=false; try{ calme=matchMedia('(prefers-reduced-motion: reduce)').matches; }catch(e){}
-  var tmr=[]; function clr(){ tmr.forEach(clearTimeout); tmr=[]; }
-  function jouer(){
-    clr();
-    var arr=PHRASES[L()]; var i=0;
-    function ligne(){
-      el.classList.remove('show');
-      var last=(i===arr.length-1);
-      el.textContent=arr[i];
-      el.style.setProperty('--sz', SZ[i]||SZ[SZ.length-1]);
-      el.classList.toggle('gold', last);
-      // apparition
-      tmr.push(setTimeout(function(){ el.classList.add('show'); }, 60));
-      // disparition puis suivante (ou reprise après une pause sur la dernière)
-      var hold = last ? 2600 : 1500;
-      tmr.push(setTimeout(function(){ el.classList.remove('show'); }, hold));
-      tmr.push(setTimeout(function(){
-        i++;
-        if(i<arr.length) ligne();
-        else tmr.push(setTimeout(jouer, 2600)); // boucle douce
-      }, hold + (calme?350:750)));
-    }
-    ligne();
-  }
-  jouer();
-  document.addEventListener('nv-lang', jouer); // reprend dans la nouvelle langue
-})();
-</script>
-<script>
-/* ====================================================================
-   NAVLYS — Encadrés vivants (gravé 2026-07-05, demande de Bruno)
-   Chaque carte d'application reçoit une VIGNETTE VIVANTE :
-   1) si /media/demo-<app>.mp4 existe -> vraie vidéo du produit en utilisation
-      (muette, en boucle) — les vidéos du studio s'y logent toutes seules ;
-   2) sinon -> animation canvas maison (charte ice/or), douce et sobre.
-   Respecte prefers-reduced-motion (image fixe). Pause hors écran (batterie).
-==================================================================== */
-(function(){
-  'use strict';
-  var ICE='#7DD3FC', OR='#e9d3a0';
-  var calme=false; try{ calme=matchMedia('(prefers-reduced-motion: reduce)').matches; }catch(e){}
-  var TYPES={'/finance':'finance','/next-gen':'vie','/navlex':'lex','/tech':'journal','/radio':'radio','/partenaires':'liens'};
-  var DESSINS={
-    finance:function(c,t){ var w=c.width,h=c.height; c2.strokeStyle=ICE; c2.lineWidth=2; c2.beginPath();
-      for(var x=0;x<=w;x+=6){ var p=x/w, y=h-8-(h-22)*p - Math.sin(p*7+t/600)*5*(1-p*0.4); x?c2.lineTo(x,y):c2.moveTo(x,y); } c2.stroke();
-      c2.fillStyle=OR; c2.font='12px serif'; c2.fillText('€', w-16+Math.sin(t/500)*2, 16+Math.cos(t/700)*2); },
-    vie:function(c,t){ var w=c.width,h=c.height; c2.strokeStyle='rgba(233,211,160,.8)'; c2.lineWidth=1.6;
-      for(var l=0;l<4;l++){ var y=13+l*13, prog=Math.min(1,Math.max(0,(t/900-l*0.45)%4)); c2.beginPath(); c2.moveTo(14,y); c2.lineTo(14+(w-28)*Math.min(1,prog),y); c2.stroke(); }
-      c2.fillStyle=ICE; c2.fillRect(14+((t/18)%(w-30)),8,1.6,h-16); },
-    lex:function(c,t){ var w=c.width,h=c.height,cx=w/2,a=Math.sin(t/900)*0.12; c2.strokeStyle=ICE; c2.lineWidth=1.8;
-      c2.beginPath(); c2.moveTo(cx,10); c2.lineTo(cx,h-12); c2.stroke();
-      c2.beginPath(); c2.moveTo(cx-34,22+a*30); c2.lineTo(cx+34,22-a*30); c2.stroke();
-      c2.strokeStyle=OR; c2.beginPath(); c2.arc(cx-34,30+a*30,8,0,Math.PI); c2.stroke();
-      c2.beginPath(); c2.arc(cx+34,30-a*30,8,0,Math.PI); c2.stroke(); },
-    journal:function(c,t){ var w=c.width,h=c.height; c2.fillStyle='rgba(125,211,252,.85)';
-      for(var l=0;l<3;l++){ var y=14+l*16, len=(w*0.4)+Math.sin(t/700+l)*w*0.14; c2.fillRect(14,y,Math.max(30,len),2.4); }
-      c2.fillStyle=OR; var s=7+Math.sin(t/300)*2; c2.beginPath(); c2.arc(w-22,16,s/2,0,7); c2.fill(); },
-    radio:function(c,t){ var w=c.width,h=c.height; c2.fillStyle=ICE;
-      for(var b=0;b<16;b++){ var x=10+b*((w-20)/16), amp=(h-20)*(0.25+0.7*Math.abs(Math.sin(t/260+b*0.9))); c2.fillRect(x,(h-amp)/2,4,amp); } },
-    liens:function(c,t){ var w=c.width,h=c.height,y=h/2,p=Math.abs(Math.sin(t/1100))*8; c2.lineWidth=2;
-      c2.strokeStyle=ICE; c2.beginPath(); c2.arc(w/2-14+p,y,12,0,7); c2.stroke();
-      c2.strokeStyle=OR;  c2.beginPath(); c2.arc(w/2+14-p,y,12,0,7); c2.stroke(); }
-  };
-  var c2=null;
-  document.querySelectorAll('#apps .card').forEach(function(card){
-    var type=TYPES[(card.getAttribute('href')||'')]; if(!type) return;
-    // 1) la vraie vidéo du produit, si le studio l'a livrée
-    var v=document.createElement('video');
-    v.className='vive'; v.muted=true; v.loop=true; v.playsInline=true; v.autoplay=!calme; v.preload='metadata';
-    v.src='/media/demo-'+type+'.mp4';
-    v.addEventListener('canplay',function(){ if(!v.parentNode){ card.insertBefore(v,card.querySelector('.head')); if(!calme) v.play().catch(function(){}); } },{once:true});
-    // 2) sinon : vignette animée maison
-    v.addEventListener('error',function(){
-      var c=document.createElement('canvas'); c.className='vive';
-      card.insertBefore(c,card.querySelector('.head'));
-      c.width=c.clientWidth||300; c.height=64; c2=c.getContext('2d');
-      var visible=true, obs;
-      try{ obs=new IntersectionObserver(function(es){ visible=es[0].isIntersecting; }); obs.observe(c); }catch(e){}
-      function frame(t){ c.width=c.clientWidth||c.width; c2=c.getContext('2d'); c2.clearRect(0,0,c.width,c.height);
-        DESSINS[type](c, calme?1200:t); if(!calme && document.visibilityState==='visible') requestAnimationFrame(function(tt){ if(visible) frame(tt); else setTimeout(function(){requestAnimationFrame(frame);},600); });
-      }
-      requestAnimationFrame(frame);
-    },{once:true});
-  });
-})();
-</script>
-<script src="/navlys-alive.js" defer></script>
-<script src="/navlys-i18n.js" defer></script>
-<script>/* NAVLYS installable comme une appli mobile (hors-ligne + écran d'accueil) */
-if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('/sw.js').catch(function(){});});}</script>
+      <a class="app" href="#" data-app="amb">
+        <div class="cvid"><video muted loop playsinline preload="none" data-vsrc="/videos/univers.mp4" aria-hidden="true"></video><div class="cvshade"></div></div>
+        <div class="t"><h3 data-i18n="amb_t">Ambassadeur</h3><span class="tag tg-live" data-i18n="tag_actif2">Actif · gratuit</span></div>
+        <p data-i18n="app_amb">Fais découvrir NAVLYS et sois récompensé chaque mois, tant que ton filleul reste à bord. Parrainage simple et généreux.</p>
+        <div class="go" data-i18n="app_amb_go">↗ Partager maintenant →</div>
+      </a>
+
+    </div>
+
+    <div class="eyebrow" style="margin-top:40px" data-i18n="apps_eye">Une pièce par app</div>
+    <div class="appwall" id="appwall">
+      <a class="coinapp" href="#" data-app="genesis" aria-label="NAVLYS Genesis">
+        <span class="coinflip"><span class="cf-in">
+          <img class="cf-face cf-front" src="/assets/coins/navlys-coin-genesis.png" alt="NAVLYS Genesis" loading="lazy" decoding="async" width="104" height="104">
+          <img class="cf-face cf-back" src="/assets/coins/navlys-coin-avers-bronze.png" alt="" aria-hidden="true" loading="lazy" decoding="async" width="104" height="104">
+        </span></span>
+        <b>Genesis</b><span class="wip soft" data-i18n="wip_badge">En construction</span>
+      </a>
+      <a class="coinapp" href="#" data-app="navfin" aria-label="NAVFIN">
+        <span class="coinflip"><span class="cf-in">
+          <img class="cf-face cf-front" src="/assets/coins/navlys-coin-navfin.png" alt="NAVFIN" loading="lazy" decoding="async" width="104" height="104">
+          <img class="cf-face cf-back" src="/assets/coins/navlys-coin-avers-bronze.png" alt="" aria-hidden="true" loading="lazy" decoding="async" width="104" height="104">
+        </span></span>
+        <b>NAVFIN</b><span class="wip soft" data-i18n="wip_badge">En construction</span>
+      </a>
+      <a class="coinapp" href="#" data-app="navlex" aria-label="NAVLEX">
+        <span class="coinflip"><span class="cf-in">
+          <img class="cf-face cf-front" src="/assets/coins/navlys-coin-navlex.png" alt="NAVLEX" loading="lazy" decoding="async" width="104" height="104">
+          <img class="cf-face cf-back" src="/assets/coins/navlys-coin-avers-bronze.png" alt="" aria-hidden="true" loading="lazy" decoding="async" width="104" height="104">
+        </span></span>
+        <b>NAVLEX</b><span class="wip soft" data-i18n="wip_badge">En construction</span>
+      </a>
+      <a class="coinapp" href="#" data-app="voice" aria-label="NAVLYS Voice">
+        <span class="coinflip"><span class="cf-in">
+          <img class="cf-face cf-front" src="/assets/coins/navlys-coin-voice.png" alt="NAVLYS Voice" loading="lazy" decoding="async" width="104" height="104">
+          <img class="cf-face cf-back" src="/assets/coins/navlys-coin-avers-bronze.png" alt="" aria-hidden="true" loading="lazy" decoding="async" width="104" height="104">
+        </span></span>
+        <b>Voice</b><span class="wip soft" data-i18n="wip_badge">En construction</span>
+      </a>
+      <a class="coinapp" href="#" data-app="radio" aria-label="NAVLYS Radio">
+        <span class="coinflip"><span class="cf-in">
+          <img class="cf-face cf-front" src="/assets/coins/navlys-coin-radio.png" alt="NAVLYS Radio" loading="lazy" decoding="async" width="104" height="104">
+          <img class="cf-face cf-back" src="/assets/coins/navlys-coin-avers-bronze.png" alt="" aria-hidden="true" loading="lazy" decoding="async" width="104" height="104">
+        </span></span>
+        <b>Radio</b><span class="wip soft" data-i18n="wip_badge">En construction</span>
+      </a>
+      <a class="coinapp" href="#" data-app="ar" aria-label="AR Glasses">
+        <span class="coinflip"><span class="cf-in">
+          <img class="cf-face cf-front" src="/assets/coins/navlys-coin-ar-glasses.png" alt="AR Glasses" loading="lazy" decoding="async" width="104" height="104">
+          <img class="cf-face cf-back" src="/assets/coins/navlys-coin-avers-bronze.png" alt="" aria-hidden="true" loading="lazy" decoding="async" width="104" height="104">
+        </span></span>
+        <b>AR Glasses</b><span class="wip soft" data-i18n="wip_badge">En construction</span>
+      </a>
+      <a class="coinapp" href="#ambassadeur" data-app="amb" aria-label="Ambassadeur">
+        <span class="coinflip"><span class="cf-in">
+          <img class="cf-face cf-front" src="/assets/coins/navlys-coin-ambassadeur.png" alt="Ambassadeur" loading="lazy" decoding="async" width="104" height="104">
+          <img class="cf-face cf-back" src="/assets/coins/navlys-coin-avers-bronze.png" alt="" aria-hidden="true" loading="lazy" decoding="async" width="104" height="104">
+        </span></span>
+        <b>Ambassadeur</b><span class="tag tg-live" data-i18n="tag_actif2">Actif · gratuit</span>
+      </a>
+      <a class="coinapp" href="#" data-app="lamer" aria-label="La Mer">
+        <span class="coinflip"><span class="cf-in">
+          <img class="cf-face cf-front" src="/assets/coins/navlys-coin-la-mer.png" alt="La Mer" loading="lazy" decoding="async" width="104" height="104">
+          <img class="cf-face cf-back" src="/assets/coins/navlys-coin-avers-bronze.png" alt="" aria-hidden="true" loading="lazy" decoding="async" width="104" height="104">
+        </span></span>
+        <b>La Mer</b><span class="wip soft" data-i18n="wip_badge">En construction</span>
+      </a>
+      <a class="coinapp" href="#" data-app="memoir" aria-label="NAVLYS Mémoire">
+        <span class="coinflip"><span class="cf-in">
+          <img class="cf-face cf-front" src="/assets/coins/navlys-coin-memoir.png" alt="NAVLYS Mémoire" loading="lazy" decoding="async" width="104" height="104">
+          <img class="cf-face cf-back" src="/assets/coins/navlys-coin-avers-bronze.png" alt="" aria-hidden="true" loading="lazy" decoding="async" width="104" height="104">
+        </span></span>
+        <b>Mémoire</b><span class="wip soft" data-i18n="wip_badge">En construction</span>
+      </a>
+      <a class="coinapp" href="#" data-app="memorial" aria-label="NAVLYS Memorial">
+        <span class="coinflip"><span class="cf-in">
+          <img class="cf-face cf-front" src="/assets/coins/navlys-coin-memorial.png" alt="NAVLYS Memorial" loading="lazy" decoding="async" width="104" height="104">
+          <img class="cf-face cf-back" src="/assets/coins/navlys-coin-avers-bronze.png" alt="" aria-hidden="true" loading="lazy" decoding="async" width="104" height="104">
+        </span></span>
+        <b>Memorial</b><span class="wip soft" data-i18n="wip_badge">En construction</span>
+      </a>
+      <a class="coinapp" href="#" data-app="cv" aria-label="NAVLYS CV">
+        <span class="coinflip"><span class="cf-in">
+          <img class="cf-face cf-front" src="/assets/coins/navlys-coin-cv.png" alt="NAVLYS CV" loading="lazy" decoding="async" width="104" height="104">
+          <img class="cf-face cf-back" src="/assets/coins/navlys-coin-avers-bronze.png" alt="" aria-hidden="true" loading="lazy" decoding="async" width="104" height="104">
+        </span></span>
+        <b>CV</b><span class="wip soft" data-i18n="wip_badge">En construction</span>
+      </a>
+      <a class="coinapp" href="#" data-app="spark" aria-label="NAVLYS Spark">
+        <span class="coinflip"><span class="cf-in">
+          <img class="cf-face cf-front" src="/assets/coins/navlys-coin-spark.png" alt="NAVLYS Spark" loading="lazy" decoding="async" width="104" height="104">
+          <img class="cf-face cf-back" src="/assets/coins/navlys-coin-avers-bronze.png" alt="" aria-hidden="true" loading="lazy" decoding="async" width="104" height="104">
+        </span></span>
+        <b>Spark</b><span class="wip soft" data-i18n="wip_badge">En construction</span>
+      </a>
+      <a class="coinapp" href="#" data-app="clarity" aria-label="NAVLYS Clarity">
+        <span class="coinflip"><span class="cf-in">
+          <img class="cf-face cf-front" src="/assets/coins/navlys-coin-clarity.png" alt="NAVLYS Clarity" loading="lazy" decoding="async" width="104" height="104">
+          <img class="cf-face cf-back" src="/assets/coins/navlys-coin-avers-bronze.png" alt="" aria-hidden="true" loading="lazy" decoding="async" width="104" height="104">
+        </span></span>
+        <b>Clarity</b><span class="wip soft" data-i18n="wip_badge">En construction</span>
+      </a>
+    </div>
+  </section>
+  <section id="metiers">
+    <div class="eyebrow" data-i18n="met_eye">Le CORE au travail</div>
+    <h2 class="stitle" data-i18n="met_title">Cinq métiers IA, un seul équipage</h2>
+    <p class="slead"><span data-i18n="met_lead">NAVLYS répartit chaque tâche entre cinq métiers internes qui se relaient pour construire ton univers.</span></p>
+    <div class="metiers" id="metiersList"></div>
+
+    <!-- CERVEAU EN DIRECT — données publiques read-only Supabase/CORE -->
+    <div class="clive" id="clive">
+      <div class="clive-h"><span class="cl-dot"></span><span data-i18n="cl_eye">Le cerveau NAVLYS, en direct</span> <span class="cl-tag" id="clTag" data-i18n="cl_ex">exemple</span></div>
+      <div class="clive-g">
+        <div class="cl-c"><b id="clDev">—</b><span data-i18n="cl_dev">Développement</span></div>
+        <div class="cl-c"><b id="clKnow">—</b><span data-i18n="cl_know">Connaissances</span></div>
+        <div class="cl-c"><b id="clMem">—</b><span data-i18n="cl_mem">Mémoire</span></div>
+        <div class="cl-c"><b id="clDeb">—</b><span data-i18n="cl_deb">Débats appris</span></div>
+      </div>
+    </div>
+  </section>
+  <section id="membre">
+    <div class="eyebrow" data-i18n="dash_eye">Espace membre</div>
+    <h2 class="stitle" data-i18n="dash_title">Ton dashboard perso, embarqué</h2>
+    <p class="slead"><span data-i18n="dash_lead">Chaque abonné a son tableau de bord. Aperçu de démonstration ci-dessous.</span> <span class="wip soft" data-i18n="dash_demo">démo · en construction</span></p>
+    <div class="dashwrap">
+      <div id="loginCard">
+        <div class="field"><label for="mUser" data-i18n="dash_user">Prénom de bord</label><input id="mUser" placeholder="Bruno" autocomplete="off"></div>
+        <div class="field"><label for="mPass" data-i18n="dash_pass">Code d'accès (démo)</label><input id="mPass" type="password" placeholder="n'importe quoi — c'est une démo" data-i18n-ph="dash_ph" autocomplete="off"></div>
+        <button class="btn p" id="loginBtn" type="button" style="width:100%"><span data-i18n="dash_login">Monter à bord</span></button>
+        <p class="mono" style="margin-top:12px" data-i18n="dash_note">Espace de démonstration : aucune donnée n'est envoyée ni stockée.</p>
+      </div>
+      <div id="dashCard" class="hidden">
+        <div class="dashbar"><span class="who"><span data-i18n="dash_hi">Bonjour</span>, <span id="mName">moussaillon</span> ⚓</span><button class="btn g" id="logoutBtn" type="button" style="margin-left:auto;padding:8px 16px" data-i18n="dash_out">Quitter</button></div>
+        <div class="stat3">
+          <div class="stat"><b>14</b><span data-i18n="dash_s1">Briefings lus</span></div>
+          <div class="stat"><b>3</b><span data-i18n="dash_s2">Ateliers à venir</span></div>
+          <div class="stat"><b>Abonné</b><span data-i18n="dash_s3">Ton palier</span></div>
+        </div>
+        <div class="feed">
+          <div class="it"><b>NAVFIN</b> — <span data-i18n="dash_f1">briefing du jour publié (exemple)</span></div>
+          <div class="it"><b>La Mer</b> — <span data-i18n="dash_f2">alerte météo : vent &gt; 25 nœuds jeudi (exemple)</span></div>
+          <div class="it"><b>Veille</b> — <span data-i18n="dash_f3">5 signaux filtrés ce matin (exemple)</span></div>
+          <div class="it"><b>Ton site perso</b> — <span data-i18n="dash_f4">en ligne sur navlys.tonnom.com (exemple)</span></div>
+        </div>
+        <div style="margin-top:16px;text-align:center">
+          <p style="color:var(--or);font-size:.95rem;margin-bottom:8px" data-i18n="dash_aff">🎁 Ton lien ambassadeur est prêt — chaque partage compte :</p>
+          <div id="dashAffLink" class="mono" style="margin:8px 0 14px;font-size:.72rem;word-break:break-all;color:var(--ice);min-height:1.3em"></div>
+          <button class="btn p shareBtn" type="button" style="width:100%;justify-content:center">↗ <span data-i18n="sh_btn4">Partager NAVLYS</span></button>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="teaser">
+    <div class="teaser">
+      <div class="eyebrow" data-i18n="tz_eye">Grand large</div>
+      <h2 class="stitle" data-i18n="tz_title">L'univers s'ouvre le 1er août 2026</h2>
+      <p class="slead" data-i18n="tz_lead">On lève l'ancre. D'ici là, l'équipage construit — certaines apps portent le badge « en construction », c'est normal.</p>
+      <div class="cd" id="cd">
+        <div class="u"><b id="cdD">--</b><span data-i18n="tz_j">Jours</span></div>
+        <div class="u"><b id="cdH">--</b><span data-i18n="tz_h">Heures</span></div>
+        <div class="u"><b id="cdM">--</b><span data-i18n="tz_m">Minutes</span></div>
+        <div class="u"><b id="cdS">--</b><span data-i18n="tz_s">Secondes</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MEGA POT · programme Ambassadeur (conformité affiliation : points-récompense, jamais d'€ ni de gains promis) -->
+  <section id="ambassadeur">
+    <div class="megapot">
+      <div class="mp-kicker" data-i18n="mp_kick">Ambassadeur · Récompenses &amp; avantages</div>
+      <div class="mp-title">MEGA POT</div>
+      <div class="mp-counter">
+        <span class="mp-num" id="mpPot">0</span>
+        <span class="mp-unit" data-i18n="mp_unit">points-récompense</span>
+      </div>
+      <div class="mono" data-i18n="mp_ex">Cagnotte de lancement — chiffre d'exemple</div>
+      <div class="mp-sub" id="mpSub" data-i18n="mp_sub">Tu partages NAVLYS. 20 % sur les ventes réelles que tu apportes. Jamais un revenu garanti.</div>
+      <div class="mp-open" data-i18n="mp_open">Accessible même sans investir 1 centime.</div>
+      <div class="mp-ctas">
+        <button class="btn p joinBtn" type="button" data-src="ambassadeur" data-i18n="mp_join">Devenir ambassadeur</button>
+        <a class="btn g" data-watxt="amb" href="/adhesion?text=NAVLYS%2C%20je%20veux%20devenir%20ambassadeur" target="_blank" rel="noopener">💬 <span data-i18n="wa_btn3">Écris-nous sur WhatsApp</span></a>
+        <button class="btn g" id="mpInfo" type="button" data-i18n="mp_how" aria-expanded="false" aria-controls="mpHow">Comment ça marche</button>
+        <button class="btn g shareBtn" type="button">↗ <span data-i18n="sh_btn3">Partager</span></button>
+        <button class="hear" type="button" data-hear="mpSub,mpNote" aria-label="Écouter : le programme ambassadeur" title="Écouter">🔊</button>
+      </div>
+      <div class="mp-how" id="mpHow" data-i18n="mp_how_txt">1. Tu rejoins le programme (gratuit). 2. Tu transmets la bonne parole via ton lien d'affiliation. 3. Tu cumules des points-récompense convertibles en avantages — chaque mois, tant que tes filleuls restent à bord. Programme d'affiliation — pas un placement, pas un revenu promis.</div>
+      <div class="mp-perks">
+        <span class="mp-perk" data-i18n="mp_p1">Ouvert aux clients &amp; non-clients</span>
+        <span class="mp-perk" data-i18n="mp_p2">Récompenses &amp; avantages</span>
+        <span class="mp-perk" data-i18n="mp_p3">Sans engagement financier</span>
+        <span class="mp-perk" data-i18n="mp_p4">Affiliation transparente</span>
+      </div>
+      <div class="mp-note" id="mpNote" data-i18n="mp_note">Commission sur les ventes réelles que tu apportes — non garantie<br>L'affiliation n'est pas un investissement, aucune promesse de gains ni de revenu<br>Les avantages dépendent de l'engagement de chacun<br>Compteur de démonstration</div>
+    </div>
+  </section>
+
+  <!-- VENTE N°1 : cron marketing quotidien du CORE -->
+  <section id="marketing">
+    <div class="mkt">
+      <div class="eyebrow" data-i18n="mk_kick">Offre n°1 · Ton marketing automatique chaque matin</div>
+      <h2 class="stitle" id="mkTitle" data-i18n="mk_title">Ton marketing quotidien,<br>en pilote automatique</h2>
+      <p class="slead" id="mkLead" data-i18n="mk_lead">Chaque matin, il travaille pour toi<br>Il surveille ton marché<br>Il écrit ton contenu<br>Il le publie<br>Toi ? Tu parles. Lui, il rame</p>
+      <div class="mk3">
+        <div class="mki">🌅<p data-i18n="mk1">Veille de ton marché chaque matin</p></div>
+        <div class="mki">✍️<p data-i18n="mk2">Contenu prêt, à ta voix près</p></div>
+        <div class="mki">🚀<p data-i18n="mk3">Publication quotidienne automatique</p></div>
+      </div>
+      <div class="mp-ctas">
+        <button class="btn p joinBtn" type="button" data-src="marketing" data-i18n="mk_cta">🎙️ Activer mon marketing</button>
+        <a class="btn g" data-watxt="mkt" href="/adhesion?text=NAVLYS%2C%20le%20marketing%20quotidien%20m%27int%C3%A9resse" target="_blank" rel="noopener">💬 <span data-i18n="wa_btn2">Écris-nous sur WhatsApp</span></a>
+        <button class="btn g shareBtn" type="button">↗ <span data-i18n="sh_btn2">Partager</span></button>
+        <button class="hear" type="button" data-hear="mkTitle,mkLead" aria-label="Écouter : le marketing quotidien" title="Écouter">🔊</button>
+      </div>
+      <p class="mono" style="margin-top:12px" data-i18n="mk_note">Tu t'inscris, on te prévient au lancement · contenu pour apprendre et rester informé.</p>
+    </div>
+  </section>
+
+  <section id="offres">
+    <div class="eyebrow" data-i18n="of_eye">Rejoindre l'équipage</div>
+    <h2 class="stitle" data-i18n="of_title">Quatre paliers, ton site &amp; ton dashboard inclus</h2>
+    <p class="slead" data-i18n="of_lead">Prix HT (TTC en petit sur la facture). Tant que tu es abonné, tu as accès à tout. Si tu arrêtes, tu conserves ton site tel quel — une trace durable de ton expérience.</p>
+    <p class="mono" style="text-align:center;margin:-16px auto 8px;max-width:640px;color:var(--or)" data-i18n="of_test">🎁 Gratuit en phase de test — encaissement désactivé, ouverture prochaine</p>
+    <p class="mono" style="text-align:center;margin:0 0 26px" data-i18n="of_legal">Droit de rétractation : 14 jours · Résiliation en quelques clics</p>
+    <div class="tiers">
+
+      <div class="tier">
+        <div class="nom" data-i18n="of_t0n">Mousse</div>
+        <div class="price">0,99 € <small data-i18n="of_ht">HT</small></div>
+        <ul>
+          <li data-i18n="of_t0a">Tu parles à NAVLYS — gratuit, sans CB</li>
+          <li data-i18n="of_t0b">Ton site perso + ton dashboard</li>
+          <li data-i18n="of_t0c">🌦️ Météo &amp; alertes offertes</li>
+          <li data-i18n="of_t0d">Journal &amp; veille publics</li>
+          <li data-i18n="of_t0e">Ton lien ambassadeur direct</li>
+        </ul>
+        <button class="btn g joinBtn" type="button" data-src="offre-gratuit" style="margin-top:16px;width:100%;justify-content:center" data-i18n="of_start0">Commencer</button>
+      </div>
+
+      <div class="tier">
+        <div class="nom" data-i18n="of_t1n">Matelot</div>
+        <div class="price">9,99 € <small data-i18n="of_mo">HT/mois</small></div>
+        <ul>
+          <li data-i18n="of_t1a">Tout Mousse</li>
+          <li data-i18n="of_t1b">Briefings quotidiens</li>
+          <li data-i18n="of_t1c">Site enrichi</li>
+          <li data-i18n="of_t1d">Archives complètes</li>
+        </ul>
+        <button class="btn g joinBtn" type="button" data-src="offre-matelot" style="margin-top:16px;width:100%;justify-content:center" data-i18n="of_start1">Choisir</button>
+      </div>
+
+      <div class="tier feat">
+        <span class="top" data-i18n="of_top">Le plus choisi</span>
+        <div class="nom" data-i18n="of_t2n">Équipage</div>
+        <div class="price">29,99 € <small data-i18n="of_mo2">HT/mois</small></div>
+        <ul>
+          <li data-i18n="of_t2a">Tout Matelot</li>
+          <li data-i18n="of_t2b">Toutes les apps, à la voix</li>
+          <li data-i18n="of_t2c">Dashboard avancé</li>
+          <li data-i18n="of_t2d">Communauté &amp; ateliers</li>
+        </ul>
+        <button class="btn p joinBtn" type="button" data-src="offre-equipage" style="margin-top:16px;width:100%;justify-content:center" data-i18n="of_start2">Rejoindre</button>
+      </div>
+
+      <div class="tier">
+        <div class="nom" data-i18n="of_t3n">Capitaine</div>
+        <div class="price">49,99 € <small data-i18n="of_mo3">HT/mois</small></div>
+        <ul>
+          <li data-i18n="of_t3a">Tout Équipage</li>
+          <li data-i18n="of_t3b">Ton domaine à toi</li>
+          <li data-i18n="of_t3c">Priorité voix &amp; support</li>
+          <li data-i18n="of_t3d">Cercle restreint</li>
+        </ul>
+        <button class="btn g joinBtn" type="button" data-src="offre-capitaine" style="margin-top:16px;width:100%;justify-content:center" data-i18n="of_start3">Demander l'accès</button>
+      </div>
+
+    </div>
+
+    <div style="text-align:center;margin-top:18px">
+      <a class="btn g" data-watxt="site" href="/adhesion?text=Bonjour%20NAVLYS%2C%20je%20viens%20du%20site" target="_blank" rel="noopener">💬 <span data-i18n="wa_btn">Écris-nous sur WhatsApp</span></a>
+    </div>
+
+    <div class="perso">
+      <div class="eyebrow" style="text-align:start" data-i18n="ps_eye">Ton site perso</div>
+      <h3 style="font-family:'Cinzel',serif;color:#fff;font-size:1.3rem;margin:8px 0 8px" data-i18n="ps_title">Un site à toi, dès le premier jour</h3>
+      <p style="color:var(--brume)"><span data-i18n="ps_body">Chaque membre reçoit son propre site et son dashboard perso — sur ton domaine ou en</span> <code data-i18n="ps_dom">navlys.tonnom.com</code>. <span data-i18n="ps_body2">Il reste le tien : si tu arrêtes l'abonnement, ton site demeure en ligne tel quel, une trace durable de ton expérience.</span></p>
+    </div>
+
+    <div class="disc" data-i18n="disc">NAVLYS est un outil pour apprendre et rester informé — pas un programme de rémunération, pas de conseil personnalisé (financier, juridique ou médical). L'affiliation donne des récompenses, jamais de l'argent promis. Tu restes seul responsable de tes décisions.</div>
+  </section>
+
+  <!-- TÉMOIGNAGES -->
+  <section id="temoignages">
+    <div class="eyebrow" data-i18n="te_eye">Témoignages</div>
+    <h2 class="stitle" data-i18n="te_title">Ils ont embarqué</h2>
+    <p class="slead" data-i18n="te_lead">Les premiers utilisateurs partagent leurs premières impressions — avant le grand lancement.</p>
+    <div class="tcards">
+      <div class="tcard">
+        <div class="stars" aria-label="5 étoiles">★★★★★</div>
+        <q data-i18n="te_q1">Je dicte mes idées le matin, NAVLYS me résume tout avant mon café. C'est exactement ce que je cherchais.</q>
+        <div class="tauth">
+          <div class="tavatar" aria-hidden="true">ML</div>
+          <div>
+            <div class="tname" data-i18n="te_n1">Marie L.</div>
+            <div class="trole" data-i18n="te_r1">Créatrice de contenu</div>
+          </div>
+        </div>
+      </div>
+      <div class="tcard">
+        <div class="stars" aria-label="5 étoiles">★★★★★</div>
+        <q data-i18n="te_q2">Mon site est en ligne sans que j'aie à toucher une ligne de code. Le plus dur, c'est de se souvenir d'y aller.</q>
+        <div class="tauth">
+          <div class="tavatar" aria-hidden="true">JD</div>
+          <div>
+            <div class="tname" data-i18n="te_n2">Julien D.</div>
+            <div class="trole" data-i18n="te_r2">Consultant indépendant</div>
+          </div>
+        </div>
+      </div>
+      <div class="tcard">
+        <div class="stars" aria-label="5 étoiles">★★★★★</div>
+        <q data-i18n="te_q3">J'utilise la météo marine et les briefings chaque week-end. Ça fait gagner un temps fou.</q>
+        <div class="tauth">
+          <div class="tavatar" aria-hidden="true">SA</div>
+          <div>
+            <div class="tname" data-i18n="te_n3">Sam A.</div>
+            <div class="trole" data-i18n="te_r3">Passionné de voile</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="trust">
+      <span class="badge" data-i18n="te_b1">Sans engagement</span>
+      <span class="badge" data-i18n="te_b2">14 jours de rétractation</span>
+      <span class="badge" data-i18n="te_b3">Paiement sécurisé</span>
+      <span class="badge" data-i18n="te_b4">Hébergé en Europe</span>
+    </div>
+    <p class="tenote" data-i18n="te_note">Exemples de retours de la communauté — les avis sont fictifs et utilisés à titre illustratif.</p>
+  </section>
+
+  <!-- FAQ DIRECTE -->
+  <section id="faq">
+    <div class="eyebrow" data-i18n="fq_eye">FAQ directe</div>
+    <h2 class="stitle" data-i18n="fq_title">Questions ? Réponses.</h2>
+    <div class="faq">
+      <details><summary data-i18n="fq1q">C'est vraiment gratuit ?</summary><p data-i18n="fq1a">Oui. Le palier Mousse est gratuit, sans CB. Tu passes à un palier payant seulement si tu veux plus.</p></details>
+      <details><summary data-i18n="fq2q">Je dois savoir coder ?</summary><p data-i18n="fq2a">Non. Tu parles, NAVLYS fait.</p></details>
+      <details><summary data-i18n="fq3q">Et si j'arrête ?</summary><p data-i18n="fq3a">Tu gardes ton site tel quel. Résiliation en quelques clics, rétractation 14 jours.</p></details>
+      <details><summary data-i18n="fq4q">L'affiliation rapporte de l'argent ?</summary><p data-i18n="fq4a">Non. Des récompenses et des avantages. Jamais d'argent promis.</p></details>
+      <details><summary data-i18n="fq5q">NAVLYS, c'est quoi exactement ?</summary><p data-i18n="fq5a">Pas une IA de plus : une seule porte d'entrée, à la voix, qui réunit toutes tes IA et tes applications en une. Tu parles, NAVLYS agit. C'est un projet d'éducation et de veille — jamais de conseil réglementé.</p></details>
+      <details><summary data-i18n="fq6q">Quelle IA pour gérer mon business à la voix ?</summary><p data-i18n="fq6a">NAVLYS. Tu réunis tes IA et tes apps en une seule, pilotée à la voix depuis ton téléphone, sans coder ni installer d'application. Le palier Mousse est gratuit, sans carte bancaire.</p></details>
+      <details><summary data-i18n="fq7q">Comment faire son CV, sa bio ou son site à la voix ?</summary><p data-i18n="fq7a">Tu le dictes à NAVLYS. Les apps CV, Mémoire et Spark transforment ta voix en CV, en récit de vie ou en site — la mise en page se fait toute seule. Ces apps sont en construction.</p></details>
+      <details><summary data-i18n="fq8q">NAVLYS donne-t-il des conseils financiers ?</summary><p data-i18n="fq8a">Non. NAVFIN propose de l'éducation financière et de la veille en angle pédagogique. Aucun conseil personnalisé, aucune promesse de rendement.</p></details>
+    </div>
+  </section>
+
+  <footer>
+    <div class="fl">
+      <a href="https://www.brunopartouche.com/" target="_blank" rel="noopener"><span data-i18n="foot_fond">Fondateur :</span> Bruno Mark Partouche</a>
+      <a href="mailto:bruno@navlys.com" data-i18n="lg_contact">Contact</a>
+      <a href="/adhesion" target="_blank" rel="noopener">WhatsApp</a>
+      <a href="/index.html" data-i18n="lg_home">Accueil</a>
+      <a href="/mentions-legales.html" data-i18n="lg_ml">Mentions légales</a>
+      <a href="/cgv.html" data-i18n="lg_cgv">CGV</a>
+      <a href="/confidentialite.html" data-i18n="lg_conf">Confidentialité</a>
+    </div>
+    <div class="fl" style="margin-top:6px">
+      <span class="mono" style="color:var(--brume)" data-i18n="sect_lab">NAVLYS pour ton métier :</span>
+      <a href="/secteurs/restauration.html" data-i18n="sect_resto">Restauration</a>
+      <a href="/secteurs/immobilier.html" data-i18n="sect_immo">Immobilier</a>
+      <a href="/secteurs/artisan.html" data-i18n="sect_artisan">Artisans</a>
+    </div>
+    <div class="mono" style="margin-bottom:10px" data-i18n="lg_18">Réservé aux 18 ans et +</div>
+    <div data-i18n="foot1">NAVLYS — éducation &amp; veille pilotées par un CORE IA autonome · un art de vivre serein, port à port. Fondé par <a href="https://www.brunopartouche.com/" target="_blank" rel="noopener">Bruno Mark Partouche</a>.</div>
+    <div class="mono" style="margin-top:8px" data-i18n="foot2">Éditeur : NAVLYS WEB SERVICE LTD — N° 517373668 · © 2026 · site next-gen — on affine ensemble</div>
+  </footer>
+</div>
+<!--SOCIAL-->
+<!-- ONGLET RÉSEAUX SOCIAUX transparent -->
+<div class="social" aria-label="Réseaux sociaux">
+  <a href="/adhesion" target="_blank" rel="noopener" title="WhatsApp">
+    <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.5 15.2L2 22l4.9-1.5A10 10 0 1 0 12 2zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.2-.7-2.7-1.1-4.4-3.9-4.6-4.1-.1-.2-1-1.4-1-2.6s.6-1.8.9-2c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.4 0 .6l-.4.5-.3.3c-.1.2-.3.4-.1.7.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.5.1.7-.1l.9-1c.2-.2.4-.2.6-.1l1.8.9c.2.1.4.2.5.3.1.3.1.7-.1 1.2z"/></svg>
+  </a>
+  <a href="#" data-wip="Instagram" title="Instagram · en construction"><svg viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 1.2.1 1.8.3 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.1.4.3 1 .4 2.2.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c-.1 1.2-.3 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.1-1 .3-2.2.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2-.1-1.8-.3-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.1-.4-.3-1-.4-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.9c.1-1.2.3-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.1 1-.3 2.2-.4C8.4 2.2 8.8 2.2 12 2.2zm0 3.2A6.6 6.6 0 1 0 18.6 12 6.6 6.6 0 0 0 12 5.4zm0 10.9A4.3 4.3 0 1 1 16.3 12 4.3 4.3 0 0 1 12 16.3zm6.8-11.1a1.5 1.5 0 1 1-1.5-1.5 1.5 1.5 0 0 1 1.5 1.5z"/></svg></a>
+  <a href="#" data-wip="YouTube" title="YouTube · en construction"><svg viewBox="0 0 24 24"><path d="M23 12s0-3.2-.4-4.7a2.5 2.5 0 0 0-1.7-1.7C19.4 5.2 12 5.2 12 5.2s-7.4 0-8.9.4A2.5 2.5 0 0 0 1.4 7.3C1 8.8 1 12 1 12s0 3.2.4 4.7a2.5 2.5 0 0 0 1.7 1.7c1.5.4 8.9.4 8.9.4s7.4 0 8.9-.4a2.5 2.5 0 0 0 1.7-1.7C23 15.2 23 12 23 12zm-13.2 3.4V8.6L15.6 12z"/></svg></a>
+  <a href="#" data-wip="X" title="X · en construction"><svg viewBox="0 0 24 24"><path d="M18.9 2H22l-7.3 8.3L23.2 22h-6.8l-5.3-6.9L4.9 22H1.8l7.8-8.9L1 2h7l4.8 6.3zm-1.2 18h1.7L7.4 3.8H5.6z"/></svg></a>
+</div>
+
+<!-- BARRE DE MENUS BAS -->
+<nav class="bottom" aria-label="Menu">
+  <a href="#univers"><svg viewBox="0 0 24 24"><path d="M4 4h7v7H4zm9 0h7v7h-7zM4 13h7v7H4zm9 0h7v7h-7z"/></svg><span data-i18n="bn_uni">Univers</span></a>
+  <a href="#metiers"><svg viewBox="0 0 24 24"><path d="M12 2 2 7l10 5 10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg><span data-i18n="bn_met">Métiers</span></a>
+  <a href="#" id="bnVoice" role="button" aria-label="Ouvrir le micro NAVLYS"><span class="vbtn"><svg viewBox="0 0 24 24"><path d="M12 15a3 3 0 0 0 3-3V6a3 3 0 1 0-6 0v6a3 3 0 0 0 3 3zm5-3a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.9V21h2v-2.1A7 7 0 0 0 19 12z"/></svg></span><span data-i18n="bn_voix">Voix</span></a>
+  <a href="#membre"><svg viewBox="0 0 24 24"><path d="M12 12a5 5 0 1 0-5-5 5 5 0 0 0 5 5zm0 2c-5 0-9 2.5-9 5.5V22h18v-2.5c0-3-4-5.5-9-5.5z"/></svg><span data-i18n="bn_mem">Membre</span></a>
+  <a href="#offres"><svg viewBox="0 0 24 24"><path d="M21 11.5 12.5 3H4v8.5L12.5 20zM7 8a1.5 1.5 0 1 1 1.5-1.5A1.5 1.5 0 0 1 7 8z"/></svg><span data-i18n="bn_off">Offres</span></a>
+</nav>
+
+<!-- WIDGET VOIX -->
+<div class="vov" id="voiceOverlay" aria-hidden="true">
+  <div class="vcard">
+    <button class="vclose" id="voiceClose" type="button" aria-label="Fermer">×</button>
+    <div class="vtitle"><span data-i18n="v_title">Parle à NAVLYS</span> <span class="wip soft" style="vertical-align:middle" data-i18n="v_wip">voix signature : en préparation</span></div>
+    <div class="vhint" id="vHint" data-i18n="v_hint">Touche le micro</div>
+    <div class="mic" id="mic" role="button" tabindex="0" aria-label="Micro">
+      <svg viewBox="0 0 24 24"><path d="M12 15a3 3 0 0 0 3-3V6a3 3 0 1 0-6 0v6a3 3 0 0 0 3 3zm5-3a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.92V21h2v-2.08A7 7 0 0 0 19 12h-2z"/></svg>
+    </div>
+    <div class="vtranscript" id="vTranscript"></div>
+    <div class="vreply" id="vReply"></div>
+    <a class="vwa" href="/adhesion" target="_blank" rel="noopener" data-i18n="v_wa">ou écris-nous sur WhatsApp →</a>
+  </div>
+</div>
+<!-- INSCRIPTION / PRÉVIENS-MOI AU LANCEMENT -->
+<div class="vov" id="joinOverlay" aria-hidden="true">
+  <div class="vcard" style="text-align:start">
+    <button class="vclose" id="joinClose" type="button" aria-label="Fermer">×</button>
+    <div class="vtitle" data-i18n="jo_title">Préviens-moi au lancement</div>
+    <p class="vhint" style="margin-bottom:14px" data-i18n="jo_sub">Laisse ton e-mail — on te recontacte au lancement, le 1er août 2026.</p>
+    <div class="field"><label for="joName" data-i18n="jo_name">Prénom (optionnel)</label><input id="joName" autocomplete="given-name"></div>
+    <div class="field"><label for="joEmail" data-i18n="jo_email">Ton e-mail</label><input id="joEmail" type="email" autocomplete="email" required></div>
+    <button class="btn p" id="joinSend" type="button" style="width:100%;justify-content:center;margin-top:8px" data-i18n="jo_btn">M'inscrire</button>
+    <p class="mono" style="margin-top:12px" data-i18n="jo_note">E-mail utilisé uniquement pour te prévenir. Suppression sur demande : bruno@navlys.com</p>
+    <p id="joMsg" style="margin-top:10px;color:var(--or);min-height:1.3em" aria-live="polite"></p>
+  </div>
+</div>
+<!-- RECHERCHE -->
+<div class="vov" id="srOverlay" aria-hidden="true">
+  <div class="vcard" style="text-align:start">
+    <button class="vclose" id="srClose" type="button" aria-label="Fermer">×</button>
+    <div class="vtitle" data-i18n="sr_title">Rechercher</div>
+    <div class="field" style="margin-top:14px"><input id="srInput" placeholder="Cherche une app, une offre…" data-i18n-ph="sr_ph" autocomplete="off" aria-label="Recherche"></div>
+    <div id="srRes" style="max-height:46vh;overflow:auto" aria-live="polite"></div>
+  </div>
+</div>
+<div class="kara" id="kara" aria-live="assertive"><p id="karaP"></p></div>
+<div class="toast" id="toast"></div>
+
 </body>
 </html>
