@@ -76,7 +76,8 @@ nav .m:hover::after{opacity:1;transform:translateX(-50%) translateY(0)}
 .vidbg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;opacity:.85;filter:saturate(1.12) contrast(1.06) brightness(1.08)}
 .veil{position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(3,4,10,.5),rgba(3,4,10,.24) 42%,rgba(3,4,10,.72))}
 #scrolllogo{position:fixed;inset:0;z-index:2;display:grid;place-items:center;pointer-events:none;opacity:0;will-change:opacity}
-#scrolllogo img{width:min(46vw,360px);filter:drop-shadow(0 0 46px rgba(201,150,47,.65));animation:spin 34s linear infinite}
+#scrolllogo video{width:min(46vw,360px);border-radius:50%;filter:drop-shadow(0 0 48px rgba(201,150,47,.8))}
+.herocoin{width:104px;height:104px;border-radius:50%;object-fit:cover;display:block;margin:0 auto 8px;border:1px solid rgba(233,211,160,.55);box-shadow:0 0 34px rgba(201,150,47,.65)}
 #annonces-t{position:fixed;top:50px;left:0;right:0;z-index:40;overflow:hidden;white-space:nowrap;background:linear-gradient(90deg,rgba(3,4,10,.92),rgba(201,150,47,.16),rgba(3,4,10,.92));border-top:1px solid rgba(233,211,160,.18);border-bottom:1px solid rgba(233,211,160,.18);font-family:'Cinzel',serif;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--or)}
 #annonces-t span{display:inline-block;padding:7px 0 7px 100%;animation:tick 28s linear infinite}
 @keyframes tick{to{transform:translateX(-100%)}}
@@ -121,8 +122,10 @@ footer .cz{font-size:10px;letter-spacing:.2em;color:var(--bronze);text-transform
 </style>
 </head>
 <body>
+<script>/* purge tout ancien service worker + cache pour servir la page neuve */
+(function(){try{if('serviceWorker' in navigator){navigator.serviceWorker.getRegistrations().then(function(rs){rs.forEach(function(r){r.unregister();});});}if(window.caches&&caches.keys){caches.keys().then(function(ks){ks.forEach(function(k){caches.delete(k);});});}}catch(e){}})();</script>
 <div id="lux"></div><div class="shim"></div><div id="grain"></div>
-<div id="scrolllogo"><img src="/assets/coins/navlys-coin-avers-bronze.png" alt=""></div>
+<div id="scrolllogo"><video src="/brand/navlys_coin_spin.mp4" autoplay muted loop playsinline poster="/assets/coins/navlys-coin-avers-bronze.png"></video></div>
 <div id="annonces-t"><span>🎁 coffrets cadeaux · un an offert sur les coffrets famille · 💠 mega pot communautaire chiffre d exemple · 🎙️ pilote tout a la voix · ⚓ nouvelle generation genesis · 🌍 l ia pour tous des 0,99 · ✨ navlys a suivre &gt;&gt;&gt;</span></div>
 
 <nav>
@@ -134,7 +137,8 @@ footer .cz{font-size:10px;letter-spacing:.2em;color:var(--bronze);text-transform
 
 <!-- ECRAN 1 -->
 <section id="hero">
-  <video class="vidbg" src="/videos/univers.mp4" autoplay muted loop playsinline poster="/media/bm-face.jpg"></video><div class="veil"></div>
+  <video class="vidbg" src="/videos/scenarios/flotille.mp4" autoplay muted loop playsinline></video><div class="veil"></div>
+  <video class="herocoin" src="/brand/navlys_coin_spin.mp4" autoplay muted loop playsinline poster="/assets/coins/navlys-coin-avers-bronze.png"></video>
   <div class="brand">NAVLYS</div>
   <div class="big">IA ALL IN ONE</div>
   <div class="big">TELEPHONE &amp; VOIX</div>
