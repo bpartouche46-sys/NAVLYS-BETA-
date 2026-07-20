@@ -25,9 +25,8 @@ const BASELINE_PATH = 'tools/conformite-baseline.json';
 const SCAN_EXT = /\.(html?|js|css|json)$/i;
 // Fichiers générés par la machine (tampons de déploiement), jamais du contenu
 // affiché : on ne les scanne pas. version.json est réécrit à CHAQUE publication
-// (son `ts` opérationnel déclenchait un faux positif « date-lancement » sur la
-// règle n°156, sans rien afficher au public). Le garde-fou reste 100 % actif sur
-// toutes les vraies pages.
+// (son `ts` opérationnel déclenchait un faux positif « date-lancement »), sans
+// rien afficher au public. Le garde-fou reste 100 % actif sur toutes les vraies pages.
 const SCAN_SKIP = /^version\.json$/i;
 
 /* ------------------------------------------------------------------ règles */

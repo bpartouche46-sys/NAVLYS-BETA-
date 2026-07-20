@@ -11,7 +11,7 @@
  * Bump de VERSION à chaque changement = purge immédiate des vieux caches.
  */
 
-const VERSION = 'navlys-v2.0.2';
+const VERSION = 'navlys-v2.0.4';
 const SHELL_CACHE = `${VERSION}-shell`;
 const IMG_CACHE = `${VERSION}-img`;
 
@@ -28,7 +28,9 @@ const SHELL_FILES = [
   '/finance',
   '/next-gen',
   '/assistance',
+  '/creations',
   '/navlys-alive.js',
+  '/navlys-logos.js',
   '/manifest.webmanifest',
   '/media/navlys_coin_animated.svg',
   '/media/navlys_favicon.svg',
