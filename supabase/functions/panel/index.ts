@@ -7,7 +7,7 @@ const U = Deno.env.get("SUPABASE_URL") || "";
 const K = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") || Deno.env.get("SUPABASE_SERVICE_ROLE") || "";
 const ANTH = Deno.env.get("ANTHROPIC_API_KEY") || "";
 // Repli anti-coupure (indépendance CORE) : OpenRouter si Anthropic tombe. Clé tolérante.
-const OR = Deno.env.get("OPENROUTER_API_KEY") || Deno.env.get("OPENROUTER_KEY") || Deno.env.get("OPEN_ROUTER_API_KEY") || "";
+const OR = Deno.env.get("OPENROUTER_API_KEY") || Deno.env.get("OPENROUTER_KEY") || Deno.env.get("OPEN_ROUTER_API_KEY") || Deno.env.get("OPEN_API_ROUTER") || Deno.env.get("OPEN_API_ROUTER_KEY") || "";
 const MODEL = Deno.env.get("NAVLYS_PANEL_MODEL") || "claude-haiku-4-5-20251001";
 const OR_MODELS = ["anthropic/claude-haiku-4.5", "meta-llama/llama-3.3-70b-instruct:free"];
 const CORS = { "Access-Control-Allow-Origin":"*", "Access-Control-Allow-Methods":"POST,GET,OPTIONS", "Access-Control-Allow-Headers":"content-type,authorization,apikey", "Access-Control-Max-Age":"86400" };
