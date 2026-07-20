@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>NAVLYS — spot 13 s</title>
+<style>
+  :root{
+    --noir:#02040a; --glacier:#7dd3fc; --champ:#e9d3a0; --bronze:#d2a163; --perle:#eaf2fb;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{height:100%;background:#000;overflow:hidden;font-family:"Cormorant Garamond",Georgia,serif}
+  /* Cadre vertical 9:16, centré */
+  .stage{position:relative;width:min(100vw,56.25vh);height:min(177.78vw,100vh);margin:0 auto;
+    background:radial-gradient(120% 90% at 50% 18%,#0a1830 0%,#04060e 55%,#02040a 100%);
+    overflow:hidden;color:var(--perle)}
+  .scene{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    text-align:center;padding:0 8%;opacity:0}
+  .cap{position:absolute;left:0;right:0;bottom:11%;padding:0 9%;font-size:clamp(18px,4.4vh,30px);
+    line-height:1.32;color:var(--perle);text-shadow:0 2px 24px rgba(0,0,0,.6);opacity:0}
+  .cap b{color:var(--champ);font-weight:600}
+  /* ---- Scène 1 : monde touffu, froid ---- */
+  #s1{opacity:0;animation:show1 3.4s .1s both}
+  .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;width:86%;filter:grayscale(1) brightness(.7)}
+  .chip{font-family:ui-monospace,monospace;font-size:clamp(9px,1.5vh,12px);color:#8ea0b6;
+    border:1px solid #223047;border-radius:6px;padding:7px 4px;background:#0b1524;letter-spacing:.02em;
+    animation:flick 1.7s infinite steps(2)}
+  .chip:nth-child(3n){animation-delay:.4s}.chip:nth-child(2n){animation-delay:.9s}
+  @keyframes flick{0%,100%{opacity:.85}50%{opacity:.45}}
+  #cap1{animation:cap 3.2s .3s both}
+  /* ---- Scène 2 : tout se fond dans le médaillon ---- */
+  #s2{animation:show2 3.2s 3.4s both}
+  .coin{width:44%;aspect-ratio:1;border-radius:50%;
+    background:radial-gradient(circle at 38% 34%,#f4e2b8 0%,#d2a163 34%,#9c6b34 68%,#5c3d1c 100%);
+    box-shadow:0 0 0 3px #3a2a16, inset 0 6px 24px rgba(255,240,210,.5), inset 0 -12px 26px rgba(50,30,10,.6),
+      0 20px 60px rgba(210,161,99,.28);
+    display:flex;align-items:center;justify-content:center;position:relative;
+    animation:spinup 3.2s 3.4s both}
+  .coin span{font-family:"Cormorant Garamond",Georgia,serif;font-size:clamp(40px,11vh,84px);
+    font-weight:600;color:#3a2a16;text-shadow:0 1px 0 rgba(255,245,220,.5)}
+  .halo{position:absolute;inset:-14%;border-radius:50%;
+    background:radial-gradient(circle,rgba(125,211,252,.22),transparent 62%);animation:pulse 2.6s ease-in-out infinite}
+  #cap2{animation:cap 3s 3.7s both}
+  /* ---- Scène 3 : tu parles, il fait ---- */
+  #s3{animation:show3 3.5s 6.6s both}
+  .wave{display:flex;gap:6px;align-items:flex-end;height:12vh;margin-bottom:5vh}
+  .wave i{width:6px;background:linear-gradient(#7dd3fc,#e9d3a0);border-radius:4px;
+    animation:eq 1s ease-in-out infinite}
+  .wave i:nth-child(2){animation-delay:.15s}.wave i:nth-child(3){animation-delay:.3s}
+  .wave i:nth-child(4){animation-delay:.45s}.wave i:nth-child(5){animation-delay:.6s}
+  .wave i:nth-child(6){animation-delay:.3s}.wave i:nth-child(7){animation-delay:.1s}
+  .outs{display:flex;flex-direction:column;gap:10px}
+  .out{font-size:clamp(17px,3.4vh,26px);color:var(--perle);opacity:0}
+  .out b{color:var(--glacier);font-weight:600}
+  .out .k{color:var(--champ)}
+  #o1{animation:pop .5s 7.4s both}#o2{animation:pop .5s 7.9s both}
+  #o3{animation:pop .5s 8.4s both}#o4{animation:pop .5s 8.9s both}
+  #cap3{animation:cap 3.3s 6.9s both}
+  /* ---- Scène 4 : signature ---- */
+  #s4{animation:show4 3.2s 10s both}
+  .wm{font-size:clamp(46px,12vh,96px);letter-spacing:.14em;font-weight:600;color:var(--perle);
+    text-shadow:0 4px 40px rgba(125,211,252,.35)}
+  .dom{margin-top:1.5vh;font-size:clamp(20px,4.2vh,30px);color:var(--champ);letter-spacing:.06em}
+  .price{margin-top:3vh;font-size:clamp(15px,2.8vh,20px);color:#9fb2c9}
+  .price b{color:var(--perle)}
+  #cap4{animation:cap 3s 10.4s both}
+  /* keyframes scènes (fondu enchaîné avec blur) */
+  @keyframes show1{0%{opacity:0;filter:blur(8px)}8%{opacity:1;filter:blur(0)}80%{opacity:1;filter:blur(0)}100%{opacity:0;filter:blur(6px)}}
+  @keyframes show2{0%{opacity:0;filter:blur(8px)}12%{opacity:1;filter:blur(0)}82%{opacity:1}100%{opacity:0;filter:blur(6px)}}
+  @keyframes show3{0%{opacity:0;filter:blur(8px)}10%{opacity:1;filter:blur(0)}84%{opacity:1}100%{opacity:0;filter:blur(6px)}}
+  @keyframes show4{0%{opacity:0;filter:blur(10px);transform:scale(.98)}14%{opacity:1;filter:blur(0);transform:scale(1)}100%{opacity:1}}
+  @keyframes cap{0%{opacity:0;transform:translateY(10px)}14%{opacity:1;transform:none}84%{opacity:1}100%{opacity:0}}
+  @keyframes flick2{}
+  @keyframes spinup{0%{transform:rotateY(90deg) scale(.6);opacity:0}30%{transform:rotateY(0) scale(1);opacity:1}100%{opacity:1}}
+  @keyframes pulse{0%,100%{opacity:.5;transform:scale(.98)}50%{opacity:1;transform:scale(1.05)}}
+  @keyframes eq{0%,100%{height:14%}50%{height:100%}}
+  @keyframes pop{0%{opacity:0;transform:translateX(-14px)}100%{opacity:1;transform:none}}
+  .replay{position:absolute;top:14px;right:16px;z-index:9;font-family:system-ui;font-size:12px;
+    color:#9fb2c9;background:rgba(10,20,35,.6);border:1px solid #223047;border-radius:20px;padding:6px 12px;cursor:pointer}
+  .tag{position:absolute;top:14px;left:16px;z-index:9;font-family:system-ui;font-size:11px;color:#6d829a;letter-spacing:.08em}
+</style>
+</head>
+<body>
+<div class="stage" id="stage">
+  <div class="tag">NAVLYS · SPOT 13 s · 9:16</div>
+  <button class="replay" onclick="rerun()">↺ Rejouer</button>
+
+  <!-- Scène 1 -->
+  <section class="scene" id="s1">
+    <div class="grid">
+      <div class="chip">API keys</div><div class="chip">prompts</div><div class="chip">SDK</div><div class="chip">tokens</div>
+      <div class="chip">no-code</div><div class="chip">webhooks</div><div class="chip">config</div><div class="chip">plugins</div>
+      <div class="chip">modèles</div><div class="chip">endpoints</div><div class="chip">quotas</div><div class="chip">déploiement</div>
+      <div class="chip">RAG</div><div class="chip">agents</div><div class="chip">latence</div><div class="chip">facturation</div>
+    </div>
+  </section>
+  <div class="cap" id="cap1">L'IA mondiale : puissante… mais <b>touffue, technique, froide.</b></div>
+
+  <!-- Scène 2 -->
+  <section class="scene" id="s2">
+    <div class="coin"><div class="halo"></div><span>N</span></div>
+  </section>
+  <div class="cap" id="cap2"><b>NAVLYS.</b> Pas une IA — toutes tes IA et apps <b>en une.</b></div>
+
+  <!-- Scène 3 -->
+  <section class="scene" id="s3">
+    <div class="wave"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <div class="outs">
+      <div class="out" id="o1"><b>« Fais-moi mon CV »</b> <span class="k">→ prêt ✓</span></div>
+      <div class="out" id="o2"><b>« Range mes factures »</b> <span class="k">→ classé ✓</span></div>
+      <div class="out" id="o3"><b>« Raconte ma vie »</b> <span class="k">→ biographie ✓</span></div>
+      <div class="out" id="o4"><b>« Fais mon site »</b> <span class="k">→ en ligne ✓</span></div>
+    </div>
+  </section>
+  <div class="cap" id="cap3">Tu parles. Il fait. <b>Sans compétence, sans ordinateur.</b></div>
+
+  <!-- Scène 4 -->
+  <section class="scene" id="s4">
+    <div class="wm">NAVLYS</div>
+    <div class="dom">navlys.com</div>
+    <div class="price">Dès <b>0,99 €</b> · ouverture <b>1ᵉʳ août</b></div>
+  </section>
+  <div class="cap" id="cap4"><b>Dis-le. Il le fait.</b></div>
+</div>
+<script>
+  // relance propre de toute la timeline
+  function rerun(){
+    const st=document.getElementById('stage');
+    const cl=st.cloneNode(true);
+    st.parentNode.replaceChild(cl,st);
+    cl.querySelector('.replay').onclick=rerun;
+  }
+</script>
+</body>
+</html>
