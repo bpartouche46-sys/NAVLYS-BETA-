@@ -1079,7 +1079,7 @@ window.NAVLYS_setVideo = function(v, rate, srcs){
       +'-webkit-mask-image:linear-gradient(90deg,transparent,#000 18px,#000 calc(100% - 18px),transparent);'
       +'mask-image:linear-gradient(90deg,transparent,#000 18px,#000 calc(100% - 18px),transparent)}'
       +'#nv-cine .track{position:absolute;top:0;left:0;height:100%;display:flex;align-items:center;gap:30px;white-space:nowrap;padding-left:30px;'
-      +'font-family:\'Cormorant Garamond\',\'Lora\',serif;font-size:.92rem;color:#eaf6ff;text-shadow:0 0 8px rgba(125,211,252,.45);will-change:transform;animation:nvCine 30s linear infinite}'
+      +'font-family:\'Cormorant Garamond\',\'Lora\',serif;font-size:.92rem;color:#eaf6ff;text-shadow:0 0 8px rgba(125,211,252,.45);will-change:transform;animation:nvCine 60s linear infinite}'
       +'#nv-cine:hover .track{animation-play-state:paused}'
       +'#nv-cine .track b{color:'+OR+';font-weight:700;text-shadow:0 0 8px rgba(233,211,160,.6)}'
       +'#nv-cine .track span.it{display:inline-flex;align-items:center;gap:7px}'
