@@ -157,6 +157,26 @@ input:focus,textarea:focus,select:focus{outline:none;border-color:var(--ice)}
   </div>
 </div>
 
+<!-- Modal RÉSERVER (acompte séquestré) -->
+<div class="modal" id="m-reserve">
+  <div class="sheet">
+    <button class="fermer" data-close>×</button>
+    <h3 id="r-titre">Réserver ce bateau</h3>
+    <p class="note">Tu proposes un <b>acompte séquestré</b> : NAVLYS le sécurise et ne débloque rien tant que la vente n'est pas confirmée. <b>Aucun débit n'est déclenché maintenant</b> — NAVLYS valide chaque étape avec toi et le vendeur.</p>
+    <form id="f-reserve">
+      <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off">
+      <div class="deux">
+        <div><label>Ton prénom</label><input id="r-prenom" type="text" placeholder="Gérard"></div>
+        <div><label>Ton e-mail *</label><input id="r-email" type="email" placeholder="toi@exemple.com" required></div>
+      </div>
+      <label>Acompte séquestré proposé (€)</label>
+      <input id="r-montant" type="text" inputmode="numeric" placeholder="ex. 5000">
+      <button class="envoyer" id="r-go" type="submit">Demander la réservation 🛟</button>
+      <p class="msg" id="r-msg"></p>
+    </form>
+  </div>
+</div>
+
 <div class="wrap" style="padding-top:0">
   <p class="disc">SKIPPER · NAVLYS Web Service (NWS) — mise en relation d'acheteurs et de vendeurs. Information générale et éducative, jamais de conseil financier personnalisé. Nous ne sommes pas experts maritimes et ce service ne remplace jamais une expertise officielle. Aucun débit sans ta validation. <a href="/bateau-test">Faire tester un bateau</a>.</p>
 </div>
@@ -183,6 +203,9 @@ input:focus,textarea:focus,select:focus{outline:none;border-color:var(--ice)}
       Array.prototype.forEach.call(document.querySelectorAll('[data-contact]'),function(btn){
         btn.addEventListener('click',function(){ ouvrirContact(btn.getAttribute('data-contact'), btn.getAttribute('data-titre')); });
       });
+      Array.prototype.forEach.call(document.querySelectorAll('[data-reserve]'),function(btn){
+        btn.addEventListener('click',function(){ ouvrirReserve(btn.getAttribute('data-reserve'), btn.getAttribute('data-titre'), btn.getAttribute('data-prix')); });
+      });
     }).catch(function(){ $('vide').style.display='block'; $('vide').textContent='Connexion difficile, réessaie dans un instant.'; });
   }
   function carte(a){
@@ -201,6 +224,7 @@ input:focus,textarea:focus,select:focus{outline:none;border-color:var(--ice)}
       +'<div class="act">'
       +(a.rapport_jeton?'<a href="/bateau-rapport?d='+E(a.rapport_jeton)+'" target="_blank" rel="noopener">Voir l\'expertise</a>':'')
       +'<button class="prim" data-contact="'+E(a.jeton)+'" data-titre="'+E(titre)+'">Contacter</button>'
+      +'<button data-reserve="'+E(a.jeton)+'" data-titre="'+E(titre)+'" data-prix="'+E(a.prix_eur==null?'':a.prix_eur)+'">🛟 Réserver</button>'
       +'</div></div></div>';
   }
 
@@ -213,6 +237,8 @@ input:focus,textarea:focus,select:focus{outline:none;border-color:var(--ice)}
 
   var contactJeton='';
   function ouvrirContact(jeton,titre){ contactJeton=jeton; $('c-titre').textContent='Contacter — '+titre; $('c-msg').textContent=''; $('c-msg').className='msg'; ouvre('m-contact'); }
+  var reserveJeton='';
+  function ouvrirReserve(jeton,titre,prix){ reserveJeton=jeton; $('r-titre').textContent='Réserver — '+titre; $('r-msg').textContent=''; $('r-msg').className='msg'; if(prix){ $('r-montant').placeholder='ex. '+Math.round(Number(prix)*0.1)+' (10% du prix)'; } ouvre('m-reserve'); }
 
   // ---- Filtres ----
   $('f-type').addEventListener('change',charge);
@@ -282,6 +308,24 @@ input:focus,textarea:focus,select:focus{outline:none;border-color:var(--ice)}
       msg.className='msg ok'; msg.textContent=d.merci||'Ton message est parti. 🌊';
       $('f-contact').reset();
     }).catch(function(){ go.disabled=false; go.textContent='Envoyer au vendeur 🌊'; msg.textContent='Connexion difficile, réessaie.'; });
+  });
+
+  // ---- Réserver (acompte séquestré) ----
+  $('f-reserve').addEventListener('submit',function(ev){
+    ev.preventDefault();
+    var msg=$('r-msg'); msg.className='msg'; msg.textContent='';
+    var email=$('r-email').value.trim();
+    if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){ msg.textContent='Écris un e-mail valide.'; return; }
+    var go=$('r-go'); go.disabled=true; go.textContent='Envoi…';
+    fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
+      action:'reserver', website:document.querySelector('#f-reserve .hp').value,
+      annonce:reserveJeton, prenom:$('r-prenom').value, email:email, montant:$('r-montant').value
+    })}).then(function(r){ return r.json(); }).then(function(d){
+      go.disabled=false; go.textContent='Demander la réservation 🛟';
+      if(!d||!d.ok){ msg.textContent=(d&&d.error)||'Réessaie dans un instant.'; return; }
+      msg.className='msg ok'; msg.textContent=d.merci||'Ta demande est enregistrée. 🌊';
+      $('f-reserve').reset();
+    }).catch(function(){ go.disabled=false; go.textContent='Demander la réservation 🛟'; msg.textContent='Connexion difficile, réessaie.'; });
   });
 
   charge();

@@ -77,3 +77,31 @@ comment on table skipper_annonces is 'SKIPPER — annonces bateaux (acheteurs↔
 -- Bucket photos public
 insert into storage.buckets (id, name, public) values ('skipper','skipper', true)
 on conflict (id) do nothing;
+
+-- ============================================================
+-- SKIPPER v2 (migration skipper_v2_vendeur_transactions) — copie repo
+-- Tableau vendeur (accès par token) + séquestre/réservations.
+-- ============================================================
+alter table skipper_annonces add column if not exists vendeur_token text;
+update skipper_annonces set vendeur_token = encode(gen_random_bytes(12),'hex') where vendeur_token is null;
+create index if not exists skipper_annonces_vtoken_idx on skipper_annonces(vendeur_token);
+create index if not exists skipper_annonces_vemail_idx on skipper_annonces(lower(vendeur_email));
+
+-- Réservations / séquestre : a_valider par défaut (garde-fou Bruno, Bible §6).
+-- Aucun débit réel sans activation Stripe + validation.
+create table if not exists skipper_transactions (
+  id bigserial primary key,
+  annonce_id bigint not null references skipper_annonces(id) on delete cascade,
+  acheteur_prenom text not null default '',
+  acheteur_email text not null,
+  montant_acompte numeric,
+  devise text not null default 'EUR',
+  statut text not null default 'a_valider'
+    check (statut in ('a_valider','en_sequestre','liberee','remboursee','annulee','refusee')),
+  note text not null default '',
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+alter table skipper_transactions enable row level security;
+create index if not exists skipper_transactions_annonce_idx on skipper_transactions(annonce_id);
+create index if not exists skipper_transactions_statut_idx on skipper_transactions(statut);
