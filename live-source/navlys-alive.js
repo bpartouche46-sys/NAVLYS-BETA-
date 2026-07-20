@@ -647,6 +647,16 @@ window.NAVLYS_setVideo = function(v, rate, srcs){
     '</div>';
   document.body.appendChild(bar);
 
+  // Logo ANIMÉ par page (moteur navlys-logos.js) : remplace l'icône statique du
+  // brand par l'animation propre à la page courante. L'icône reste en repli si le
+  // script ne charge pas (dégradation propre, zéro risque sur le chrome existant).
+  (function(){ try{
+    var brand=bar.querySelector('.nv-brand');
+    function apply(){ if(window.NavlysLogo&&brand){ try{ window.NavlysLogo.brand(brand,34); }catch(e){} } }
+    if(window.NavlysLogo){ apply(); }
+    else{ var s=document.createElement('script'); s.src='/navlys-logos.js'; s.async=true; s.onload=apply; document.head.appendChild(s); }
+  }catch(e){} })();
+
   function mkMenu(id,html,anchorRight){
     var m=document.createElement('div'); m.className='nv-menu'; m.id=id; m.innerHTML=html;
     document.body.appendChild(m);
