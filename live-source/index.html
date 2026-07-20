@@ -62,8 +62,6 @@ nav .m:hover::after{opacity:1;transform:translateX(-50%) translateY(0)}
 @media(max-width:760px){nav{gap:14px}nav .m{font-size:10px;letter-spacing:.16em}nav .m::after{display:none}}
 
 /* HERO */
-.hero-logo{line-height:0;margin:0 auto 10px;display:flex;justify-content:center}
-.hero-logo svg{width:clamp(64px,13vw,116px);height:auto}
 .brand{font-weight:700;font-size:clamp(64px,17vw,190px);letter-spacing:.14em;line-height:1;
   background:linear-gradient(100deg,var(--bronze),var(--or) 40%,#fff7e0 50%,var(--or) 60%,var(--bronze));
   background-size:250% auto;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
@@ -118,19 +116,18 @@ footer .cz{font-size:10px;letter-spacing:.2em;color:var(--bronze);text-transform
 <nav>
   <a class="m" href="#univers" data-sub="tes applications">univers</a>
   <a class="m" href="#carrousel" data-sub="en mouvement">video</a>
-  <a class="m" href="#offre" data-sub="offre de lancement">offre</a>
+  <a class="m" href="/cadeaux" data-sub="compose ton pack">cadeaux</a>
   <a class="m" href="/adhesion" data-sub="entrer gratuitement">entrer</a>
 </nav>
 
 <!-- ECRAN 1 -->
 <section id="hero">
-  <div id="nvHeroLogo" class="hero-logo" aria-hidden="true"></div>
   <div class="brand">NAVLYS</div>
-  <div class="tag">l ia la plus simple du monde</div>
-  <div class="tag"><b>parle et c est fait</b></div>
-  <div class="sub">rien qu au telephone et a la voix</div>
+  <div class="big">IA ALL IN ONE</div>
+  <div class="big">TELEPHONE &amp; VOIX</div>
+  <div class="big gold">C EST TOUT</div>
+  <div class="suite">NAVLYS A SUIVRE &gt;&gt;&gt;</div>
   <a class="enter" href="/adhesion">entrer</a>
-  <div class="hint">bouge la souris — descends</div>
 </section>
 
 <!-- ECRAN 2 -->
@@ -157,10 +154,10 @@ footer .cz{font-size:10px;letter-spacing:.2em;color:var(--bronze);text-transform
 
 <!-- ECRAN 3 -->
 <section id="offre">
-  <div class="offre">un an offert</div>
-  <div class="offre-sub">un an acheté un an en plus</div>
-  <div class="soon-tag">ouverture bientot</div>
-  <a class="enter" href="/adhesion" style="margin-top:30px">rejoindre</a>
+  <div class="offre">coffrets cadeaux</div>
+  <div class="offre-sub">un an offert sur les coffrets famille</div>
+  <div class="soon-tag">compose le tien ouverture bientot</div>
+  <a class="enter" href="/cadeaux" style="margin-top:26px">composer mon cadeau</a>
 </section>
 
 <footer>
@@ -187,7 +184,5 @@ addEventListener('mousemove',e=>{
   vids.forEach((v,k)=>v.addEventListener('mouseenter',()=>{i=k;show(k);}));
 })();
 </script>
-<script src="/navlys-logos.js" defer></script>
-<script>window.addEventListener('DOMContentLoaded',function(){var t=0;(function r(){var el=document.getElementById('nvHeroLogo');if(window.NavlysLogo&&el){NavlysLogo.render('index',el,96);}else if(t++<50){setTimeout(r,120);}})();});</script>
 </body>
 </html>
