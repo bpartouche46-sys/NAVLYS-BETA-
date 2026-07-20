@@ -7,226 +7,158 @@
 <meta name="description" content="NAVLYS l IA accessible a tous rien qu au telephone et a la voix">
 <link rel="canonical" href="https://navlys.com/">
 <link rel="icon" type="image/png" href="/assets/coins/navlys-coin-core.png">
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,400;1,400;1,500&display=swap" rel="stylesheet">
 <meta property="og:title" content="NAVLYS — l'IA la plus simple du monde">
-<meta property="og:description" content="NAVLYS l IA accessible a tous rien qu au telephone et a la voix">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://navlys.com/">
+<meta property="og:description" content="l IA accessible a tous rien qu au telephone et a la voix">
+<meta property="og:type" content="website"><meta property="og:url" content="https://navlys.com/">
 <meta name="robots" content="index,follow,max-image-preview:large">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"Organization","name":"NAVLYS","alternateName":"NAVLYS WEB SERVICE LTD","url":"https://navlys.com","legalName":"NAVLYS WEB SERVICE LTD","identifier":"517373668","description":"NAVLYS est l'IA la plus simple et la plus accessible au monde : creer et piloter ses applications et sa vie numerique rien qu'au telephone et a la voix, sans ordinateur ni competences. Projet d'education et de veille.","slogan":"l'IA la plus simple du monde","knowsAbout":["intelligence artificielle accessible","assistant vocal","education financiere","autobiographie numerique Genesis","veille strategique"]}
+{"@context":"https://schema.org","@type":"Organization","name":"NAVLYS","legalName":"NAVLYS WEB SERVICE LTD","identifier":"517373668","url":"https://navlys.com","slogan":"l'IA la plus simple du monde","description":"NAVLYS est l'IA la plus simple et accessible au monde : creer et piloter ses applications et sa vie numerique rien qu'au telephone et a la voix. Projet d'education et de veille."}
 </script>
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebSite","name":"NAVLYS","url":"https://navlys.com","inLanguage":"fr","potentialAction":{"@type":"SearchAction","target":"https://navlys.com/?q={q}","query-input":"required name=q"}}
-</script>
-<script type="application/ld+json">
-{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Qu'est-ce que NAVLYS","acceptedAnswer":{"@type":"Answer","text":"NAVLYS est l'IA la plus simple du monde : tu parles, elle fait. Creer et piloter ses applications, sa vie numerique et ses projets rien qu'au telephone et a la voix, sans ordinateur ni competences."}},{"@type":"Question","name":"En quoi NAVLYS est unique","acceptedAnswer":{"@type":"Answer","text":"NAVLYS rend l'intelligence artificielle accessible a tous par le budget et par l'usage, avec l'utilisation la plus simple et la plus naturelle au monde, entierement a la voix."}}]}
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Qu'est-ce que NAVLYS","acceptedAnswer":{"@type":"Answer","text":"NAVLYS est l'IA la plus simple du monde : tu parles elle fait. Piloter ses applications et sa vie numerique rien qu'au telephone et a la voix sans competences."}}]}
 </script>
 <style>
-:root{
-  --noir:#03040a; --noir2:#070a14;
-  --or:#e9d3a0; --or-vif:#ffd77a; --bronze:#c9962f;
-  --ice:#7dd3fc; --perle:#f4ecdb; --brume:#9aa6b2;
-}
+:root{--noir:#04050c;--noir2:#080b16;--or:#e9d3a0;--or-vif:#ffd77a;--bronze:#c9962f;--ice:#7dd3fc;--perle:#f4ecdb;--brume:#9aa6b2}
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth;background:var(--noir)}
-body{background:var(--noir);color:var(--perle);font-family:'Cormorant Garamond',Georgia,serif;overflow-x:hidden}
+body{background:var(--noir);color:var(--perle);font-family:'Cormorant Garamond',Georgia,serif;overflow-x:hidden;font-size:18px;line-height:1.5}
 h1,h2,h3,.cz{font-family:'Cinzel',serif}
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background:radial-gradient(60% 50% at 50% 0%,rgba(201,150,47,.10),transparent 60%),radial-gradient(50% 40% at 85% 90%,rgba(125,211,252,.06),transparent 60%),linear-gradient(180deg,#04050c,#080b16 60%,#04050c)}
 
-/* fond luxe casino vivant : velours noir + or qui respire + halo qui suit la souris */
-#lux{position:fixed;inset:0;z-index:0;pointer-events:none;
-  background:
-    radial-gradient(40% 40% at var(--mx,50%) var(--my,30%),rgba(233,211,160,.16),transparent 60%),
-    radial-gradient(60% 50% at 15% 10%,rgba(201,150,47,.14),transparent 60%),
-    radial-gradient(60% 60% at 85% 90%,rgba(125,211,252,.08),transparent 60%),
-    linear-gradient(180deg,#03040a,#070a14 55%,#03040a);
-  transition:background-position .2s}
-#grain{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.5;mix-blend-mode:overlay;
-  background-image:repeating-linear-gradient(0deg,rgba(255,255,255,.03) 0 1px,transparent 1px 3px)}
-.shim{position:fixed;inset:-50% -50%;z-index:0;pointer-events:none;
-  background:linear-gradient(115deg,transparent 40%,rgba(255,215,122,.10) 50%,transparent 60%);
-  animation:sweep 7s linear infinite}
-@keyframes sweep{0%{transform:translateX(-30%)}100%{transform:translateX(30%)}}
+/* NAV compacte */
+nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;justify-content:center;gap:22px;padding:13px;
+  backdrop-filter:blur(12px);background:linear-gradient(180deg,rgba(4,5,12,.9),rgba(4,5,12,.2))}
+nav a{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--or);text-decoration:none;transition:.25s}
+nav a:hover{color:var(--or-vif);text-shadow:0 0 12px rgba(255,215,122,.6)}
 
-section{position:relative;z-index:3;min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:40px 22px;text-align:center}
+/* conteneur cadre */
+.wrap{max-width:1080px;margin:0 auto;padding:0 22px}
+section{padding:64px 0}
+.reveal{opacity:0;transform:translateY(28px)}
 
-/* nav qui s anime au survol sans clic */
-nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;justify-content:center;gap:26px;
-  padding:16px;backdrop-filter:blur(12px);background:linear-gradient(180deg,rgba(3,4,10,.85),transparent)}
-nav .m{position:relative;font-family:'Cinzel',serif;font-size:12px;letter-spacing:.28em;text-transform:uppercase;
-  color:var(--or);text-decoration:none;padding:6px 2px;transition:.35s;cursor:pointer}
-nav .m::after{content:attr(data-sub);position:absolute;left:50%;top:130%;transform:translateX(-50%) translateY(6px);
-  white-space:nowrap;font-size:10px;letter-spacing:.14em;color:var(--ice);opacity:0;transition:.35s;pointer-events:none}
-nav .m:hover{color:var(--or-vif);text-shadow:0 0 18px rgba(255,215,122,.7)}
-nav .m:hover::after{opacity:1;transform:translateX(-50%) translateY(0)}
-@media(max-width:760px){nav{gap:14px}nav .m{font-size:10px;letter-spacing:.16em}nav .m::after{display:none}}
+/* HERO compact bien cadre */
+#hero{min-height:88vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding-top:80px}
+.coin{width:78px;height:78px;border-radius:50%;object-fit:cover;border:1px solid rgba(233,211,160,.5);box-shadow:0 0 26px rgba(201,150,47,.55);margin-bottom:14px;background:#0a0d16}
+.brand{font-family:'Cinzel',serif;font-weight:700;font-size:clamp(42px,9vw,96px);letter-spacing:.12em;line-height:1;
+  background:linear-gradient(100deg,var(--bronze),var(--or) 45%,#fff7e0 55%,var(--or) 70%,var(--bronze));background-size:220%;
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:flow 9s linear infinite;
+  filter:drop-shadow(0 4px 22px rgba(201,150,47,.3))}
+@keyframes flow{to{background-position:220% center}}
+.h1{font-family:'Cinzel',serif;font-weight:600;font-size:clamp(19px,4vw,34px);letter-spacing:.06em;color:var(--perle);margin-top:16px}
+.h1 b{color:var(--or-vif)}
+.sub{font-style:italic;font-size:clamp(16px,3vw,22px);color:var(--brume);margin-top:8px}
+.cta{display:inline-block;margin-top:26px;font-family:'Cinzel',serif;font-size:13px;letter-spacing:.22em;text-transform:uppercase;
+  color:#0a0803;background:linear-gradient(100deg,var(--bronze),var(--or-vif),var(--or));background-size:200%;
+  padding:14px 34px;border-radius:100px;text-decoration:none;animation:flow 6s linear infinite;transition:transform .25s}
+.cta:hover{transform:translateY(-2px)}
 
-/* HERO */
-.brand{font-weight:700;font-size:clamp(64px,17vw,190px);letter-spacing:.14em;line-height:1;
-  background:linear-gradient(100deg,var(--bronze),var(--or) 40%,#fff7e0 50%,var(--or) 60%,var(--bronze));
-  background-size:250% auto;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
-  animation:flow 8s linear infinite;filter:drop-shadow(0 6px 40px rgba(201,150,47,.45))}
-@keyframes flow{to{background-position:250% center}}
-.tag{font-style:italic;font-size:clamp(20px,4.4vw,40px);color:var(--perle);margin-top:10px;opacity:.95}
-.tag b{color:var(--or-vif);font-style:normal;font-weight:500}
-.sub{font-family:'Cinzel',serif;font-size:clamp(11px,2.4vw,15px);letter-spacing:.4em;text-transform:uppercase;color:var(--ice);margin-top:18px}
-.big{font-family:'Cinzel',serif;font-weight:700;font-size:clamp(30px,8vw,92px);letter-spacing:.05em;line-height:1.02;color:var(--perle);margin-top:8px;text-shadow:0 0 34px rgba(125,211,252,.28)}
-.big.gold{background:linear-gradient(100deg,var(--or),#fff7e0 50%,var(--or-vif));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
-.suite{font-family:'Cinzel',serif;font-weight:600;font-size:clamp(18px,4vw,40px);letter-spacing:.18em;color:var(--ice);margin-top:20px;text-shadow:0 0 24px rgba(125,211,252,.5);animation:bob 2.2s ease-in-out infinite}
-.vidbg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;opacity:.85;filter:saturate(1.12) contrast(1.06) brightness(1.08)}
-.veil{position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(3,4,10,.5),rgba(3,4,10,.24) 42%,rgba(3,4,10,.72))}
-#scrolllogo{position:fixed;inset:0;z-index:2;display:grid;place-items:center;pointer-events:none;opacity:0;will-change:opacity}
-#scrolllogo video{width:min(46vw,360px);border-radius:50%;filter:drop-shadow(0 0 48px rgba(201,150,47,.8))}
-.herocoin{width:104px;height:104px;border-radius:50%;object-fit:cover;display:block;margin:0 auto 8px;border:1px solid rgba(233,211,160,.55);box-shadow:0 0 34px rgba(201,150,47,.65)}
-#annonces-t{position:fixed;top:50px;left:0;right:0;z-index:40;overflow:hidden;white-space:nowrap;background:linear-gradient(90deg,rgba(3,4,10,.92),rgba(201,150,47,.16),rgba(3,4,10,.92));border-top:1px solid rgba(233,211,160,.18);border-bottom:1px solid rgba(233,211,160,.18);font-family:'Cinzel',serif;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--or)}
-#annonces-t span{display:inline-block;padding:7px 0 7px 100%;animation:tick 28s linear infinite}
-@keyframes tick{to{transform:translateX(-100%)}}
-.enter{margin-top:34px;display:inline-block;font-family:'Cinzel',serif;font-size:14px;letter-spacing:.3em;text-transform:uppercase;
-  color:#0a0803;background:linear-gradient(100deg,var(--bronze),var(--or-vif),var(--or));background-size:200% auto;
-  padding:16px 40px;border-radius:100px;text-decoration:none;animation:breath 3.4s ease-in-out infinite,flow 6s linear infinite;
-  box-shadow:0 0 0 rgba(255,215,122,.5)}
-@keyframes breath{50%{box-shadow:0 0 42px rgba(255,215,122,.6);transform:translateY(-2px)}}
-.hint{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);font-family:'Cinzel',serif;font-size:10px;letter-spacing:.3em;color:var(--brume);text-transform:uppercase;animation:bob 2.2s ease-in-out infinite}
-@keyframes bob{50%{transform:translateX(-50%) translateY(6px);color:var(--or)}}
+/* titres de section */
+.sec-k{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.34em;text-transform:uppercase;color:var(--ice);text-align:center;margin-bottom:6px}
+.sec-t{font-family:'Cinzel',serif;font-weight:600;font-size:clamp(24px,5vw,42px);color:var(--perle);text-align:center;margin-bottom:26px}
+.sec-t em{color:var(--or);font-style:normal}
 
-/* CARROUSEL VIDEO */
-.rideau{font-family:'Cinzel',serif;letter-spacing:.34em;text-transform:uppercase;color:var(--or);font-size:clamp(13px,3vw,18px);margin-bottom:22px}
-.carrousel{position:relative;width:min(1000px,94vw);aspect-ratio:16/9;border-radius:20px;overflow:hidden;
-  border:1px solid rgba(233,211,160,.35);box-shadow:0 30px 90px rgba(0,0,0,.6),inset 0 0 60px rgba(125,211,252,.06)}
-.carrousel video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1.4s ease}
-.carrousel video.on{opacity:1}
-.carrousel .voile{position:absolute;inset:0;background:radial-gradient(120% 100% at 50% 100%,rgba(3,4,10,.7),transparent 60%);pointer-events:none}
-.carrousel .lg{position:absolute;left:22px;bottom:18px;z-index:2;font-family:'Cinzel',serif;letter-spacing:.2em;text-transform:uppercase;color:var(--perle);font-size:clamp(12px,2.4vw,17px);text-shadow:0 2px 20px #000}
-.dots{margin-top:16px;display:flex;gap:10px;justify-content:center}
-.dots i{width:26px;height:3px;border-radius:3px;background:rgba(233,211,160,.3);transition:.4s}
-.dots i.on{background:var(--or-vif);box-shadow:0 0 12px var(--or-vif)}
+/* UNE video cadree (showcase) */
+.showcase{position:relative;width:100%;aspect-ratio:16/9;border-radius:16px;overflow:hidden;border:1px solid rgba(233,211,160,.3);box-shadow:0 24px 60px rgba(0,0,0,.5)}
+.showcase video{width:100%;height:100%;object-fit:cover;display:block}
+.showcase .lg{position:absolute;left:18px;bottom:16px;font-family:'Cinzel',serif;letter-spacing:.18em;text-transform:uppercase;color:#fff;font-size:14px;text-shadow:0 2px 14px #000}
 
-/* UNIVERS medaillons animes au survol */
-.univers{display:flex;flex-wrap:wrap;gap:22px;justify-content:center;margin-top:40px;max-width:1000px}
-.med{width:132px;text-decoration:none;color:var(--perle);text-align:center;transition:.4s}
-.med img{width:104px;height:104px;object-fit:contain;filter:drop-shadow(0 8px 24px rgba(201,150,47,.4)) grayscale(.25);
-  transition:transform .5s,filter .5s;animation:spin 22s linear infinite paused}
-.med:hover img{transform:scale(1.14) rotate(8deg);filter:drop-shadow(0 12px 34px rgba(255,215,122,.7)) grayscale(0);animation-play-state:running}
-.med .n{display:block;margin-top:8px;font-family:'Cinzel',serif;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--or)}
-.med .b{font-size:9px;letter-spacing:.14em;color:var(--ice);text-transform:uppercase;opacity:.8}
-.med.soon .n{color:var(--brume)}
-@keyframes spin{to{transform:rotate(360deg)}}
+/* apps grid */
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px}
+.app{display:block;text-decoration:none;color:var(--perle);background:rgba(8,11,22,.7);border:1px solid rgba(233,211,160,.2);border-radius:14px;padding:18px 14px;text-align:center;transition:.3s}
+.app:hover{transform:translateY(-4px);border-color:var(--or);box-shadow:0 14px 34px rgba(201,150,47,.22)}
+.app img{width:64px;height:64px;object-fit:contain;filter:drop-shadow(0 6px 16px rgba(201,150,47,.35))}
+.app .n{display:block;margin-top:8px;font-family:'Cinzel',serif;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--or)}
+.app .b{font-size:12px;color:var(--brume)}
+.app.soon .n{color:var(--brume)}
 
-/* OFFRE */
-.offre{font-size:clamp(30px,7vw,64px);font-family:'Cinzel',serif;font-weight:700;
+/* offre */
+.offre{text-align:center}
+.offre .big{font-family:'Cinzel',serif;font-weight:700;font-size:clamp(26px,5.5vw,48px);
   background:linear-gradient(100deg,var(--or),#fff7e0,var(--or-vif));background-size:200%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:flow 6s linear infinite}
-.offre-sub{font-style:italic;font-size:clamp(18px,3.6vw,28px);color:var(--perle);margin-top:8px}
-.soon-tag{margin-top:18px;font-family:'Cinzel',serif;font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--ice);border:1px solid rgba(125,211,252,.4);border-radius:100px;padding:9px 20px}
-footer{position:relative;z-index:3;text-align:center;padding:30px 20px 50px;color:var(--brume);font-size:12px;font-style:italic}
+.offre p{color:var(--perle);font-style:italic;margin-top:6px}
+.soon{display:inline-block;margin-top:14px;font-family:'Cinzel',serif;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--ice);border:1px solid rgba(125,211,252,.4);border-radius:100px;padding:8px 16px}
+
+footer{text-align:center;padding:34px 20px 60px;color:var(--brume);font-size:13px;font-style:italic;border-top:1px solid rgba(201,150,47,.15)}
 footer .cz{font-size:10px;letter-spacing:.2em;color:var(--bronze);text-transform:uppercase;margin-bottom:8px}
+@media(max-width:640px){nav{gap:13px}nav a{font-size:10px;letter-spacing:.12em}section{padding:48px 0}}
 </style>
 </head>
 <body>
-<script>/* purge tout ancien service worker + cache pour servir la page neuve */
+<script>/* purge ancien service worker + cache */
 (function(){try{if('serviceWorker' in navigator){navigator.serviceWorker.getRegistrations().then(function(rs){rs.forEach(function(r){r.unregister();});});}if(window.caches&&caches.keys){caches.keys().then(function(ks){ks.forEach(function(k){caches.delete(k);});});}}catch(e){}})();</script>
-<div id="lux"></div><div class="shim"></div><div id="grain"></div>
-<div id="scrolllogo"><video src="/brand/navlys_coin_spin.mp4" autoplay muted loop playsinline poster="/assets/coins/navlys-coin-avers-bronze.png"></video></div>
-<div id="annonces-t"><span>🎁 coffrets cadeaux · un an offert sur les coffrets famille · 💠 mega pot communautaire chiffre d exemple · 🎙️ pilote tout a la voix · ⚓ nouvelle generation genesis · 🌍 l ia pour tous des 0,99 · ✨ navlys a suivre &gt;&gt;&gt;</span></div>
 
 <nav>
-  <a class="m" href="#univers" data-sub="tes applications">univers</a>
-  <a class="m" href="#carrousel" data-sub="en mouvement">video</a>
-  <a class="m" href="/cadeaux" data-sub="compose ton pack">cadeaux</a>
-  <a class="m" href="/adhesion" data-sub="entrer gratuitement">entrer</a>
+  <a href="#univers">univers</a><a href="#video">video</a><a href="/cadeaux">cadeaux</a><a href="/adhesion">entrer</a>
 </nav>
 
-<!-- ECRAN 1 -->
 <section id="hero">
-  <video class="vidbg" src="/videos/scenarios/flotille.mp4" autoplay muted loop playsinline></video><div class="veil"></div>
-  <video class="herocoin" src="/brand/navlys_coin_spin.mp4" autoplay muted loop playsinline poster="/assets/coins/navlys-coin-avers-bronze.png"></video>
+  <video class="coin" src="/brand/navlys_coin_spin.mp4" autoplay muted loop playsinline poster="/assets/coins/navlys-coin-avers-bronze.png"></video>
   <div class="brand">NAVLYS</div>
-  <div class="big">IA ALL IN ONE</div>
-  <div class="big">TELEPHONE &amp; VOIX</div>
-  <div class="big gold">C EST TOUT</div>
-  <div class="suite">NAVLYS A SUIVRE &gt;&gt;&gt;</div>
-  <a class="enter" href="/adhesion">entrer</a>
+  <div class="h1">l ia la plus simple du monde</div>
+  <div class="sub">tu parles <b style="color:var(--or-vif);font-style:normal">elle fait</b> · rien qu au telephone et a la voix</div>
+  <a class="cta" href="/adhesion">entrer gratuitement</a>
 </section>
 
-<!-- ECRAN 2 -->
-<section id="carrousel">
-  <video class="vidbg" src="/videos/scenarios/horizon.mp4" autoplay muted loop playsinline></video><div class="veil"></div>
-  <div class="rideau">navlys en mouvement</div>
-  <div class="carrousel" id="car">
-    <video class="on" src="/videos/univers.mp4" muted autoplay loop playsinline poster="/assets/coins/navlys-coin-core.png"></video>
-    <video src="/videos/scenarios/horizon.mp4" muted loop playsinline></video>
-    <video src="/videos/scenarios/navigation.mp4" muted loop playsinline></video>
-    <div class="voile"></div>
-    <div class="lg">ton univers</div>
-  </div>
-  <div class="dots" id="dots"><i class="on"></i><i></i><i></i></div>
+<div class="wrap">
 
-  <div class="univers" id="univers">
-    <a class="med" href="/next-gen"><img src="/assets/coins/navlys-coin-genesis.png" alt=""><span class="n">genesis</span><span class="b">ta vie</span></a>
-    <a class="med" href="/finance"><img src="/assets/coins/navlys-coin-navfin.png" alt=""><span class="n">navfin</span><span class="b">apprendre</span></a>
-    <a class="med" href="/navlex"><img src="/assets/coins/navlys-coin-navlex.png" alt=""><span class="n">navlex</span><span class="b">le droit</span></a>
-    <a class="med soon" href="#offre"><img src="/assets/coins/navlys-coin-voice.png" alt=""><span class="n">voice</span><span class="b">bientot</span></a>
-    <a class="med soon" href="#offre"><img src="/assets/coins/navlys-coin-radio.png" alt=""><span class="n">radio</span><span class="b">bientot</span></a>
-    <a class="med" href="/mer"><img src="/assets/coins/navlys-coin-la-mer.png" alt=""><span class="n">la mer</span><span class="b">le large</span></a>
-  </div>
-</section>
+  <section id="video" class="reveal">
+    <div class="sec-k">navlys en mouvement</div>
+    <div class="sec-t">ton <em>univers</em> en vidéo</div>
+    <div class="showcase">
+      <video id="sc" src="/videos/scenarios/flotille.mp4" autoplay muted loop playsinline preload="auto" poster="/media/bm-face.jpg"></video>
+      <div class="lg">la mer · la vie · tes créations</div>
+    </div>
+  </section>
 
-<!-- ECRAN 3 -->
-<section id="offre">
-  <video class="vidbg" src="/videos/scenarios/navigation.mp4" autoplay muted loop playsinline></video><div class="veil"></div>
-  <div class="offre">coffrets cadeaux</div>
-  <div class="offre-sub">un an offert sur les coffrets famille</div>
-  <div class="soon-tag">compose le tien ouverture bientot</div>
-  <a class="enter" href="/cadeaux" style="margin-top:26px">composer mon cadeau</a>
-</section>
+  <section id="univers" class="reveal">
+    <div class="sec-k">tes applications</div>
+    <div class="sec-t">un seul <em>univers</em></div>
+    <div class="grid">
+      <a class="app" href="/next-gen"><img src="/assets/coins/navlys-coin-genesis.png" alt=""><span class="n">genesis</span><span class="b">ta vie</span></a>
+      <a class="app" href="/finance"><img src="/assets/coins/navlys-coin-navfin.png" alt=""><span class="n">navfin</span><span class="b">apprendre</span></a>
+      <a class="app" href="/navlex"><img src="/assets/coins/navlys-coin-navlex.png" alt=""><span class="n">navlex</span><span class="b">le droit</span></a>
+      <a class="app" href="/mer"><img src="/assets/coins/navlys-coin-la-mer.png" alt=""><span class="n">la mer</span><span class="b">le large</span></a>
+      <a class="app soon" href="/cadeaux"><img src="/assets/coins/navlys-coin-voice.png" alt=""><span class="n">voice</span><span class="b">bientot</span></a>
+      <a class="app soon" href="/cadeaux"><img src="/assets/coins/navlys-coin-radio.png" alt=""><span class="n">radio</span><span class="b">bientot</span></a>
+    </div>
+  </section>
+
+  <section id="offre" class="reveal offre">
+    <div class="sec-k">coffrets cadeaux</div>
+    <div class="big">un an offert</div>
+    <p>sur les coffrets famille · compose le tien</p>
+    <div class="soon">ouverture bientot</div>
+    <div style="margin-top:22px"><a class="cta" href="/cadeaux">composer mon cadeau</a></div>
+  </section>
+
+</div>
 
 <footer>
   <div class="cz">NAVLYS WEB SERVICE LTD · N° 517373668 · 18+</div>
-  navlys est un projet d education et de veille — jamais un conseil — chacun reste seul responsable de ses decisions
+  navlys est un projet d education et de veille · jamais un conseil · tes contenus t appartiennent
 </footer>
 
-<script>
-/* halo qui suit la souris (le velours s anime au mouvement) */
-addEventListener('mousemove',e=>{
-  const x=(e.clientX/innerWidth*100).toFixed(1), y=(e.clientY/innerHeight*100).toFixed(1);
-  document.getElementById('lux').style.setProperty('--mx',x+'%');
-  document.getElementById('lux').style.setProperty('--my',y+'%');
-});
-/* carrousel video auto : chaque video joue puis passe la main */
-(function(){
-  const vids=[...document.querySelectorAll('#car video')], dots=[...document.querySelectorAll('#dots i')];
-  let i=0;
-  function show(n){
-    vids.forEach((v,k)=>{v.classList.toggle('on',k===n);dots[k].classList.toggle('on',k===n);
-      if(k===n){try{v.currentTime=0;v.play().catch(()=>{});}catch(_){}}else{try{v.pause();}catch(_){}}});
-  }
-  setInterval(()=>{i=(i+1)%vids.length;show(i);},5200);
-  vids.forEach((v,k)=>v.addEventListener('mouseenter',()=>{i=k;show(k);}));
-})();
-</script>
-<!-- effets premium : Lenis smooth scroll + GSAP ScrollTrigger -->
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script>
 (function(){
+  // force le chargement des 2 videos (coin + showcase) une par une, avec repli propre
+  document.querySelectorAll('video').forEach(function(v){ v.muted=true; try{v.play().catch(function(){});}catch(e){} });
   if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   try{
-    var lenis=new Lenis({lerp:.09,smoothWheel:true});
-    function raf(t){lenis.raf(t);requestAnimationFrame(raf);}requestAnimationFrame(raf);
+    var lenis=new Lenis({lerp:.1,smoothWheel:true});
+    (function raf(t){lenis.raf(t);requestAnimationFrame(raf);})();
     if(window.gsap&&window.ScrollTrigger){
       gsap.registerPlugin(ScrollTrigger);
       lenis.on('scroll',ScrollTrigger.update);
-      gsap.utils.toArray('.big,.suite,.rideau,.carrousel,#offre .offre,#offre .offre-sub,#offre .soon-tag').forEach(function(el){
-        gsap.from(el,{opacity:0,y:44,duration:1,ease:'power3.out',scrollTrigger:{trigger:el,start:'top 86%'}});
+      gsap.utils.toArray('.reveal').forEach(function(el){
+        gsap.to(el,{opacity:1,y:0,duration:.9,ease:'power3.out',scrollTrigger:{trigger:el,start:'top 85%'}});
       });
-      gsap.from('.med',{opacity:0,y:30,stagger:.07,duration:.7,ease:'power2.out',scrollTrigger:{trigger:'#univers',start:'top 82%'}});
-      gsap.to('.carrousel',{yPercent:-8,ease:'none',scrollTrigger:{trigger:'#carrousel',start:'top bottom',end:'bottom top',scrub:true}});
-      // logo qui apparait au scroll (facon Partouche) : entre a l ecran 2, s efface a l ecran 3
-      gsap.fromTo('#scrolllogo',{opacity:0},{opacity:.9,ease:'none',scrollTrigger:{trigger:'#carrousel',start:'top 90%',end:'top 30%',scrub:true}});
-      gsap.fromTo('#scrolllogo img',{scale:.55},{scale:1,ease:'none',scrollTrigger:{trigger:'#carrousel',start:'top 90%',end:'top 20%',scrub:true}});
-      gsap.to('#scrolllogo',{opacity:0,ease:'none',scrollTrigger:{trigger:'#offre',start:'top 80%',end:'top 40%',scrub:true}});
-    }
-  }catch(e){}
+    } else { document.querySelectorAll('.reveal').forEach(function(el){el.style.opacity=1;el.style.transform='none';}); }
+  }catch(e){ document.querySelectorAll('.reveal').forEach(function(el){el.style.opacity=1;el.style.transform='none';}); }
 })();
 </script>
 <script src="/navlys-voix.js" defer></script>
