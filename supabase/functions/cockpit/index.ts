@@ -10,7 +10,7 @@ const U = Deno.env.get("SUPABASE_URL")!;
 const K = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
 const ANTH = Deno.env.get("ANTHROPIC_API_KEY") || "";
 // Repli anti-coupure (indépendance CORE) : OpenRouter si Anthropic tombe. Clé tolérante.
-const OR = Deno.env.get("OPENROUTER_API_KEY") || Deno.env.get("OPENROUTER_KEY") || Deno.env.get("OPEN_ROUTER_API_KEY") || "";
+const OR = Deno.env.get("OPENROUTER_API_KEY") || Deno.env.get("OPENROUTER_KEY") || Deno.env.get("OPEN_ROUTER_API_KEY") || Deno.env.get("OPEN_API_ROUTER") || Deno.env.get("OPEN_API_ROUTER_KEY") || "";
 // callBrain : Anthropic direct d'abord, OpenRouter en repli seul. Renvoie "" si rien n'aboutit.
 async function callBrain(system: string, user: string, maxTok: number): Promise<string> {
   if (ANTH) { try {
