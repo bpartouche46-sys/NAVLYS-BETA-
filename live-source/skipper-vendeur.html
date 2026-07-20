@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Mon espace vendeur — SKIPPER · NAVLYS</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Cormorant+Garamond:ital,wght@0,400;1,400&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="/media/navlys_favicon.svg">
+<style>
+:root{--noir:#03040a;--ice:#7DD3FC;--ice-clair:#a8e3ff;--or:#C9A961;--or-pale:#f3e4c4;--perle:#e7eef2;--mut:#9fb3c8;--line:rgba(125,211,252,.18);--panel:rgba(6,8,16,.7);--ok:#34d399;--bad:#fca5a5}
+*{margin:0;padding:0;box-sizing:border-box}
+html{background:var(--noir);scroll-behavior:smooth}
+body{background:var(--noir);color:var(--perle);font-family:'Atkinson Hyperlegible',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+.wrap{max-width:860px;margin:0 auto;padding:34px 16px 96px}
+.k{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:var(--ice);text-align:center}
+h1{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:400;font-size:clamp(30px,7vw,46px);text-align:center;color:#eafaff;margin:8px 0 4px}
+.sub{text-align:center;color:var(--mut);font-size:1rem;max-width:36em;margin:0 auto 22px;line-height:1.7}
+h2{font-family:'Cinzel',serif;font-weight:600;font-size:14px;letter-spacing:.16em;text-transform:uppercase;color:var(--or);display:flex;align-items:center;gap:12px;margin:30px 0 14px}
+h2::after{content:"";flex:1;height:1px;background:var(--line)}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px;margin-bottom:14px}
+.an-head{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.an-head .t{font-weight:700;color:var(--ice-clair);font-size:1.08rem}
+.an-head .p{font-family:'Cinzel',serif;color:var(--or-pale)}
+.badge{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:3px 10px;font-size:.76rem;color:var(--mut);margin-left:auto}
+.badge.pub{border-color:rgba(52,211,153,.5);color:#bff2da}
+.badge.att{border-color:rgba(201,169,97,.5);color:var(--or-pale)}
+.badge.vendue{border-color:rgba(125,211,252,.5);color:var(--ice-clair)}
+.meta{color:var(--mut);font-size:.86rem;margin-top:5px}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.actions button{font:inherit;font-size:.86rem;cursor:pointer;border-radius:10px;padding:8px 14px;border:1px solid var(--line);background:none;color:var(--ice)}
+.actions button:hover{border-color:var(--ice)}
+.actions .prim{background:linear-gradient(135deg,rgba(125,211,252,.16),rgba(201,169,97,.10));border-color:rgba(201,169,97,.4);color:var(--or-pale);font-weight:700}
+.msg{border-top:1px solid rgba(125,211,252,.08);padding:11px 0 3px;margin-top:10px}
+.msg .who{font-size:.82rem;color:var(--mut)}
+.msg .who b{color:var(--ice-clair)}
+.msg .txt{font-size:.95rem;line-height:1.55;margin-top:3px}
+.msg.vend .txt{color:var(--or-pale)}
+.rep{display:flex;gap:8px;margin-top:8px}
+.rep input{flex:1;background:rgba(3,4,10,.8);border:1px solid var(--line);border-radius:10px;color:var(--perle);padding:9px 11px;font:inherit}
+.rep button{background:linear-gradient(135deg,#C9A961,#e3cd96);border:none;border-radius:10px;color:#141005;font-weight:700;padding:9px 14px;cursor:pointer}
+.tx{display:flex;gap:10px;align-items:center;flex-wrap:wrap;border-top:1px solid rgba(125,211,252,.08);padding:10px 0}
+.tx .m{font-family:'Cinzel',serif;color:var(--or-pale)}
+.tx .s{font-size:.8rem;border:1px solid var(--line);border-radius:999px;padding:2px 9px;color:var(--mut)}
+.vide{text-align:center;color:var(--mut);padding:22px 10px;line-height:1.7}
+#gate{max-width:460px;margin:20px auto;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:20px;text-align:center}
+#gate input{width:100%;background:rgba(3,4,10,.8);border:1px solid var(--line);border-radius:10px;color:var(--perle);padding:12px;font:inherit;margin:12px 0}
+#gate button{background:linear-gradient(135deg,#C9A961,#e3cd96);border:none;border-radius:11px;color:#141005;font-weight:700;padding:12px 22px;cursor:pointer}
+.emsg{min-height:20px;text-align:center;color:var(--bad);font-size:.92rem;margin-top:8px}
+.emsg.ok{color:var(--ok)}
+.disc{text-align:center;color:var(--mut);font-size:.85rem;margin-top:32px;line-height:1.7}
+.disc a{color:var(--ice)}
+.hono{background:linear-gradient(135deg,rgba(201,169,97,.12),rgba(125,211,252,.08));border:1px solid rgba(201,169,97,.35);border-radius:12px;padding:11px 14px;color:var(--or-pale);font-size:.9rem;line-height:1.65;margin-bottom:20px;text-align:center}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="k">⚓ SKIPPER · espace vendeur</div>
+  <h1 id="titre">Mon espace vendeur</h1>
+  <p class="sub" id="soustitre">Tes annonces, tes messages, tes réservations — au même endroit.</p>
+
+  <div id="gate" style="display:none">
+    <b>Ouvre ton espace vendeur</b>
+    <p style="color:var(--mut);font-size:.9rem;margin-top:6px">Colle le lien vendeur reçu au dépôt de ton annonce (ou sa clé).</p>
+    <input id="gate-token" type="text" placeholder="clé vendeur (ex. 01bb3c…)">
+    <button id="gate-go" type="button">Entrer</button>
+    <p class="emsg" id="gate-msg"></p>
+  </div>
+
+  <div id="board" style="display:none">
+    <div class="hono">💛 <b>Ton contact reste protégé.</b> Les acheteurs t'écrivent via NAVLYS — tu réponds ici, sans jamais exposer ton e-mail ou ton téléphone.</div>
+
+    <h2>Mes annonces</h2>
+    <div id="annonces"></div>
+
+    <h2>Mes réservations</h2>
+    <div id="transactions"></div>
+  </div>
+
+  <p class="disc">SKIPPER · NAVLYS Web Service (NWS). Aucun débit sans ta validation.
+  <a href="/skipper">Retour aux annonces</a> · <a href="/bateau-test">Faire tester un bateau</a>.</p>
+</div>
+
+<script>
+(function(){
+  var API='https://hhrlgyvtqluxpywjiwkd.supabase.co/functions/v1/skipper';
+  var $=function(id){ return document.getElementById(id); };
+  function E(s){ return String(s==null?'':s).replace(/[&<>"]/g,function(c){ return c==='&'?'&amp;':c==='<'?'&lt;':c==='>'?'&gt;':'&quot;'; }); }
+  function euro(n){ if(n==null||n==='') return '—'; try{ return Number(n).toLocaleString('fr-FR')+' €'; }catch(e){ return n+' €'; } }
+  function dt(s){ try{ return new Date(s).toLocaleDateString('fr-FR'); }catch(e){ return ''; } }
+  var STATUTS={a_valider:'en attente',en_sequestre:'acompte séquestré',liberee:'fonds libérés',remboursee:'remboursée',annulee:'annulée',refusee:'refusée'};
+
+  // token depuis ?t= ou saisi
+  function tokenFromUrl(){ var m=(location.search.match(/[?&]t=([^&]+)/)); return m?decodeURIComponent(m[1]):''; }
+  // accepte un lien complet collé
+  function normToken(v){ v=(v||'').trim(); var m=v.match(/[?&]t=([^&#]+)/); return m?decodeURIComponent(m[1]):v; }
+  var token='';
+
+  function charge(){
+    fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'vendeur_acces',token:token})})
+    .then(function(r){ return r.json(); }).then(function(d){
+      if(!d||!d.ok){ gate((d&&d.error)||'Lien vendeur invalide.'); return; }
+      $('gate').style.display='none'; $('board').style.display='block';
+      $('titre').textContent=d.prenom?('Espace de '+d.prenom):'Mon espace vendeur';
+      renderAnnonces(d.annonces||[], d.messages||[]);
+      renderTx(d.transactions||[], d.annonces||[]);
+    }).catch(function(){ gate('Connexion difficile, réessaie.'); });
+  }
+  function gate(msg){ $('board').style.display='none'; $('gate').style.display='block'; if(msg){ $('gate-msg').textContent=msg; } }
+
+  function badge(st){
+    if(st==='publiee') return '<span class="badge pub">en ligne</span>';
+    if(st==='a_valider') return '<span class="badge att">en validation</span>';
+    if(st==='vendue') return '<span class="badge vendue">vendue</span>';
+    if(st==='archivee') return '<span class="badge">archivée</span>';
+    return '<span class="badge">'+E(st)+'</span>';
+  }
+  function renderAnnonces(ans, msgs){
+    if(!ans.length){ $('annonces').innerHTML='<div class="vide">Aucune annonce pour l\'instant. <a href="/skipper" style="color:var(--ice)">Déposer une annonce</a>.</div>'; return; }
+    var byA={}; msgs.forEach(function(m){ (byA[m.annonce_id]=byA[m.annonce_id]||[]).push(m); });
+    $('annonces').innerHTML=ans.map(function(a){
+      var titre=[a.marque,a.modele].filter(Boolean).join(' ')||'Bateau';
+      var h='<div class="card" data-an="'+a.id+'"><div class="an-head"><span class="t">'+E(titre)+'</span><span class="p">'+E(euro(a.prix_eur))+'</span>'+badge(a.statut)+'</div>';
+      h+='<div class="meta">'+[E(a.annee),E(a.port||a.zone)].filter(Boolean).join(' · ')+'</div>';
+      h+='<div class="actions">';
+      if(a.statut!=='vendue') h+='<button class="prim" data-act="vendue" data-an="'+a.id+'">✔ Marquer vendue</button>';
+      if(a.statut==='publiee') h+='<button data-act="archivee" data-an="'+a.id+'">Retirer</button>';
+      if(a.statut==='archivee') h+='<button data-act="publiee" data-an="'+a.id+'">Remettre en ligne</button>';
+      h+='<a class="actions-view" href="/skipper#a='+E(a.jeton)+'" target="_blank" rel="noopener" style="align-self:center;color:var(--ice);text-decoration:none;font-size:.86rem">Voir l\'annonce ↗</a>';
+      h+='</div>';
+      var ms=(byA[a.id]||[]);
+      if(ms.length){
+        h+='<div style="margin-top:6px">';
+        ms.slice().reverse().forEach(function(m){
+          var vend=(m.expediteur==='vendeur');
+          h+='<div class="msg'+(vend?' vend':'')+'"><div class="who">'+(vend?'Toi':('<b>'+E(m.acheteur_prenom||'Acheteur')+'</b> · '+E(m.acheteur_email||'')))+' · '+E(dt(m.created_at))+'</div><div class="txt">'+E(m.contenu)+'</div></div>';
+        });
+        // répondre au dernier acheteur
+        var lastBuyer=ms.filter(function(m){return m.expediteur==='acheteur';})[0];
+        if(lastBuyer){
+          h+='<div class="rep"><input type="text" placeholder="Répondre à '+E(lastBuyer.acheteur_prenom||'l\'acheteur')+'…" data-rep="'+a.id+'" data-mail="'+E(lastBuyer.acheteur_email||'')+'"><button data-send="'+a.id+'">Envoyer</button></div>';
+        }
+        h+='</div>';
+      }
+      h+='</div>';
+      return h;
+    }).join('');
+    // actions statut
+    Array.prototype.forEach.call(document.querySelectorAll('[data-act]'),function(btn){
+      btn.addEventListener('click',function(){ setStatut(btn.getAttribute('data-an'), btn.getAttribute('data-act')); });
+    });
+    // répondre
+    Array.prototype.forEach.call(document.querySelectorAll('[data-send]'),function(btn){
+      btn.addEventListener('click',function(){
+        var id=btn.getAttribute('data-send');
+        var inp=document.querySelector('[data-rep="'+id+'"]');
+        repondre(id, inp.value, inp.getAttribute('data-mail'), btn);
+      });
+    });
+  }
+  function renderTx(txs, ans){
+    var nom={}; ans.forEach(function(a){ nom[a.id]=[a.marque,a.modele].filter(Boolean).join(' '); });
+    if(!txs.length){ $('transactions').innerHTML='<div class="vide">Aucune réservation pour l\'instant.</div>'; return; }
+    $('transactions').innerHTML='<div class="card">'+txs.map(function(t){
+      return '<div class="tx"><span>🛟 <b>'+E(t.acheteur_prenom||'Acheteur')+'</b> · '+E(nom[t.annonce_id]||('annonce #'+t.annonce_id))+'</span><span class="m">'+E(euro(t.montant_acompte))+'</span><span class="s">'+E(STATUTS[t.statut]||t.statut)+'</span></div>';
+    }).join('')+'<div class="meta" style="margin-top:8px">Un acompte séquestré sécurise la vente. NAVLYS valide chaque étape — aucun débit sans confirmation.</div></div>';
+  }
+
+  function setStatut(id, statut){
+    fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'vendeur_statut',token:token,annonce_id:id,statut:statut})})
+    .then(function(r){ return r.json(); }).then(function(d){ if(d&&d.ok) charge(); }).catch(function(){});
+  }
+  function repondre(id, contenu, mail, btn){
+    if(!contenu || contenu.trim().length<2) return;
+    btn.disabled=true; btn.textContent='…';
+    fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'vendeur_repondre',token:token,annonce_id:id,contenu:contenu,acheteur_email:mail})})
+    .then(function(r){ return r.json(); }).then(function(d){ if(d&&d.ok) charge(); else { btn.disabled=false; btn.textContent='Envoyer'; } }).catch(function(){ btn.disabled=false; btn.textContent='Envoyer'; });
+  }
+
+  // init
+  $('gate-go').addEventListener('click',function(){ token=normToken($('gate-token').value); if(token.length<6){ $('gate-msg').textContent='Colle ton lien vendeur.'; return; } charge(); });
+  token=tokenFromUrl();
+  if(token){ charge(); } else { gate(''); }
+})();
+</script>
+</body>
+</html>
