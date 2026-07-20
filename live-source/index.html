@@ -12,130 +12,67 @@
 <meta property="og:type" content="website"><meta property="og:url" content="https://navlys.com/">
 <meta name="robots" content="index,follow,max-image-preview:large">
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/navlys-ui.css">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"Organization","name":"NAVLYS","legalName":"NAVLYS WEB SERVICE LTD","identifier":"517373668","url":"https://navlys.com","slogan":"l'IA la plus simple du monde","description":"NAVLYS est l'IA la plus simple et accessible au monde : creer et piloter ses applications et sa vie numerique rien qu'au telephone et a la voix. Projet d'education et de veille."}
 </script>
-<script type="application/ld+json">
-{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Qu'est-ce que NAVLYS","acceptedAnswer":{"@type":"Answer","text":"NAVLYS est l'IA la plus simple du monde : tu parles elle fait. Piloter ses applications et sa vie numerique rien qu'au telephone et a la voix sans competences."}}]}
-</script>
-<style>
-:root{--noir:#04050c;--noir2:#080b16;--or:#e9d3a0;--or-vif:#ffd77a;--bronze:#c9962f;--ice:#7dd3fc;--perle:#f4ecdb;--brume:#9aa6b2}
-*{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth;background:var(--noir)}
-body{background:var(--noir);color:var(--perle);font-family:'Cormorant Garamond',Georgia,serif;overflow-x:hidden;font-size:18px;line-height:1.5}
-h1,h2,h3,.cz{font-family:'Cinzel',serif}
-body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
-  background:radial-gradient(60% 50% at 50% 0%,rgba(201,150,47,.10),transparent 60%),radial-gradient(50% 40% at 85% 90%,rgba(125,211,252,.06),transparent 60%),linear-gradient(180deg,#04050c,#080b16 60%,#04050c)}
-
-/* NAV compacte */
-nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;justify-content:center;gap:22px;padding:13px;
-  backdrop-filter:blur(12px);background:linear-gradient(180deg,rgba(4,5,12,.9),rgba(4,5,12,.2))}
-nav a{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--or);text-decoration:none;transition:.25s}
-nav a:hover{color:var(--or-vif);text-shadow:0 0 12px rgba(255,215,122,.6)}
-
-/* conteneur cadre */
-.wrap{max-width:1080px;margin:0 auto;padding:0 22px}
-section{padding:64px 0}
-.reveal{opacity:0;transform:translateY(28px)}
-
-/* HERO compact bien cadre */
-#hero{min-height:88vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding-top:80px}
-.coin{width:78px;height:78px;border-radius:50%;object-fit:cover;border:1px solid rgba(233,211,160,.5);box-shadow:0 0 26px rgba(201,150,47,.55);margin-bottom:14px;background:#0a0d16}
-.brand{font-family:'Cinzel',serif;font-weight:700;font-size:clamp(42px,9vw,96px);letter-spacing:.12em;line-height:1;
-  background:linear-gradient(100deg,var(--bronze),var(--or) 45%,#fff7e0 55%,var(--or) 70%,var(--bronze));background-size:220%;
-  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:flow 9s linear infinite;
-  filter:drop-shadow(0 4px 22px rgba(201,150,47,.3))}
-@keyframes flow{to{background-position:220% center}}
-.h1{font-family:'Cinzel',serif;font-weight:600;font-size:clamp(19px,4vw,34px);letter-spacing:.06em;color:var(--perle);margin-top:16px}
-.h1 b{color:var(--or-vif)}
-.sub{font-style:italic;font-size:clamp(16px,3vw,22px);color:var(--brume);margin-top:8px}
-.cta{display:inline-block;margin-top:26px;font-family:'Cinzel',serif;font-size:13px;letter-spacing:.22em;text-transform:uppercase;
-  color:#0a0803;background:linear-gradient(100deg,var(--bronze),var(--or-vif),var(--or));background-size:200%;
-  padding:14px 34px;border-radius:100px;text-decoration:none;animation:flow 6s linear infinite;transition:transform .25s}
-.cta:hover{transform:translateY(-2px)}
-
-/* titres de section */
-.sec-k{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.34em;text-transform:uppercase;color:var(--ice);text-align:center;margin-bottom:6px}
-.sec-t{font-family:'Cinzel',serif;font-weight:600;font-size:clamp(24px,5vw,42px);color:var(--perle);text-align:center;margin-bottom:26px}
-.sec-t em{color:var(--or);font-style:normal}
-
-/* UNE video cadree (showcase) */
-.showcase{position:relative;width:100%;aspect-ratio:16/9;border-radius:16px;overflow:hidden;border:1px solid rgba(233,211,160,.3);box-shadow:0 24px 60px rgba(0,0,0,.5)}
-.showcase video{width:100%;height:100%;object-fit:cover;display:block}
-.showcase .lg{position:absolute;left:18px;bottom:16px;font-family:'Cinzel',serif;letter-spacing:.18em;text-transform:uppercase;color:#fff;font-size:14px;text-shadow:0 2px 14px #000}
-
-/* apps grid */
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px}
-.app{display:block;text-decoration:none;color:var(--perle);background:rgba(8,11,22,.7);border:1px solid rgba(233,211,160,.2);border-radius:14px;padding:18px 14px;text-align:center;transition:.3s}
-.app:hover{transform:translateY(-4px);border-color:var(--or);box-shadow:0 14px 34px rgba(201,150,47,.22)}
-.app img{width:64px;height:64px;object-fit:contain;filter:drop-shadow(0 6px 16px rgba(201,150,47,.35))}
-.app .n{display:block;margin-top:8px;font-family:'Cinzel',serif;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--or)}
-.app .b{font-size:12px;color:var(--brume)}
-.app.soon .n{color:var(--brume)}
-
-/* offre */
-.offre{text-align:center}
-.offre .big{font-family:'Cinzel',serif;font-weight:700;font-size:clamp(26px,5.5vw,48px);
-  background:linear-gradient(100deg,var(--or),#fff7e0,var(--or-vif));background-size:200%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:flow 6s linear infinite}
-.offre p{color:var(--perle);font-style:italic;margin-top:6px}
-.soon{display:inline-block;margin-top:14px;font-family:'Cinzel',serif;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--ice);border:1px solid rgba(125,211,252,.4);border-radius:100px;padding:8px 16px}
-
-footer{text-align:center;padding:34px 20px 60px;color:var(--brume);font-size:13px;font-style:italic;border-top:1px solid rgba(201,150,47,.15)}
-footer .cz{font-size:10px;letter-spacing:.2em;color:var(--bronze);text-transform:uppercase;margin-bottom:8px}
-@media(max-width:640px){nav{gap:13px}nav a{font-size:10px;letter-spacing:.12em}section{padding:48px 0}}
-</style>
 </head>
 <body>
 <script>/* purge ancien service worker + cache */
 (function(){try{if('serviceWorker' in navigator){navigator.serviceWorker.getRegistrations().then(function(rs){rs.forEach(function(r){r.unregister();});});}if(window.caches&&caches.keys){caches.keys().then(function(ks){ks.forEach(function(k){caches.delete(k);});});}}catch(e){}})();</script>
 
-<nav>
+<nav class="nv-nav">
   <a href="#univers">univers</a><a href="#video">video</a><a href="/cadeaux">cadeaux</a><a href="/adhesion">entrer</a>
 </nav>
 
-<section id="hero">
-  <video class="coin" src="/brand/navlys_coin_spin.mp4" autoplay muted loop playsinline poster="/assets/coins/navlys-coin-avers-bronze.png"></video>
-  <div class="brand">NAVLYS</div>
-  <div class="h1">l ia la plus simple du monde</div>
-  <div class="sub">tu parles <b style="color:var(--or-vif);font-style:normal">elle fait</b> · rien qu au telephone et a la voix</div>
-  <a class="cta" href="/adhesion">entrer gratuitement</a>
+<!-- HERO : vraie video bateaux en fond -->
+<section class="nv-hero">
+  <video class="nv-vidbg" src="/videos/scenarios/flotille.mp4" autoplay muted loop playsinline preload="auto" poster="/media/bm-face.jpg"></video>
+  <div class="nv-veil"></div>
+  <div class="nv-hero-in">
+    <video class="nv-coin" src="/brand/navlys_coin_spin.mp4" autoplay muted loop playsinline poster="/assets/coins/navlys-coin-avers-bronze.png"></video>
+    <div class="nv-brand">NAVLYS</div>
+    <div class="nv-h1">l ia la plus simple du monde</div>
+    <div class="nv-sub">tu parles <b>elle fait</b> · rien qu au telephone et a la voix</div>
+    <a class="nv-cta" href="/adhesion" style="margin-top:26px">entrer gratuitement</a>
+  </div>
 </section>
 
-<div class="wrap">
+<div class="nv-wrap">
 
-  <section id="video" class="reveal">
-    <div class="sec-k">navlys en mouvement</div>
-    <div class="sec-t">ton <em>univers</em> en vidéo</div>
-    <div class="showcase">
-      <video id="sc" src="/videos/scenarios/flotille.mp4" autoplay muted loop playsinline preload="auto" poster="/media/bm-face.jpg"></video>
+  <section id="univers" class="nv-sec nv-reveal">
+    <div class="nv-k">tes applications</div>
+    <div class="nv-t">un seul <em>univers</em></div>
+    <div class="nv-grid">
+      <a class="nv-card" href="/next-gen"><img src="/assets/coins/navlys-coin-genesis.png" alt=""><span class="n">genesis</span><span class="b">ta vie</span></a>
+      <a class="nv-card" href="/finance"><img src="/assets/coins/navlys-coin-navfin.png" alt=""><span class="n">navfin</span><span class="b">apprendre</span></a>
+      <a class="nv-card" href="/navlex"><img src="/assets/coins/navlys-coin-navlex.png" alt=""><span class="n">navlex</span><span class="b">le droit</span></a>
+      <a class="nv-card" href="/mer"><img src="/assets/coins/navlys-coin-la-mer.png" alt=""><span class="n">la mer</span><span class="b">le large</span></a>
+      <a class="nv-card" href="/cadeaux"><img src="/assets/coins/navlys-coin-genesis.png" alt=""><span class="n">cadeaux</span><span class="b">compose</span></a>
+      <a class="nv-card" href="/adhesion"><img src="/assets/coins/navlys-coin-core.png" alt=""><span class="n">entrer</span><span class="b">0,99</span></a>
+    </div>
+  </section>
+
+  <section id="video" class="nv-sec nv-reveal">
+    <div class="nv-k">navlys en mouvement</div>
+    <div class="nv-t">ton <em>univers</em> en vidéo</div>
+    <div class="nv-show">
+      <video src="/videos/univers.mp4" autoplay muted loop playsinline preload="auto" poster="/assets/coins/navlys-coin-core.png"></video>
       <div class="lg">la mer · la vie · tes créations</div>
     </div>
   </section>
 
-  <section id="univers" class="reveal">
-    <div class="sec-k">tes applications</div>
-    <div class="sec-t">un seul <em>univers</em></div>
-    <div class="grid">
-      <a class="app" href="/next-gen"><img src="/assets/coins/navlys-coin-genesis.png" alt=""><span class="n">genesis</span><span class="b">ta vie</span></a>
-      <a class="app" href="/finance"><img src="/assets/coins/navlys-coin-navfin.png" alt=""><span class="n">navfin</span><span class="b">apprendre</span></a>
-      <a class="app" href="/navlex"><img src="/assets/coins/navlys-coin-navlex.png" alt=""><span class="n">navlex</span><span class="b">le droit</span></a>
-      <a class="app" href="/mer"><img src="/assets/coins/navlys-coin-la-mer.png" alt=""><span class="n">la mer</span><span class="b">le large</span></a>
-      <a class="app soon" href="/cadeaux"><img src="/assets/coins/navlys-coin-voice.png" alt=""><span class="n">voice</span><span class="b">bientot</span></a>
-      <a class="app soon" href="/cadeaux"><img src="/assets/coins/navlys-coin-radio.png" alt=""><span class="n">radio</span><span class="b">bientot</span></a>
-    </div>
-  </section>
-
-  <section id="offre" class="reveal offre">
-    <div class="sec-k">coffrets cadeaux</div>
-    <div class="big">un an offert</div>
-    <p>sur les coffrets famille · compose le tien</p>
-    <div class="soon">ouverture bientot</div>
-    <div style="margin-top:22px"><a class="cta" href="/cadeaux">composer mon cadeau</a></div>
+  <section id="offre" class="nv-sec nv-reveal" style="text-align:center">
+    <div class="nv-k">coffrets cadeaux</div>
+    <div class="nv-brand" style="font-size:clamp(26px,5.5vw,48px)">un an offert</div>
+    <p style="color:var(--perle);font-style:italic;margin-top:6px">sur les coffrets famille · compose le tien</p>
+    <div style="margin-top:14px"><span class="nv-soon">ouverture bientot</span></div>
+    <div style="margin-top:22px"><a class="nv-cta" href="/cadeaux">composer mon cadeau</a></div>
   </section>
 
 </div>
 
-<footer>
+<footer class="nv-foot">
   <div class="cz">NAVLYS WEB SERVICE LTD · N° 517373668 · 18+</div>
   navlys est un projet d education et de veille · jamais un conseil · tes contenus t appartiennent
 </footer>
@@ -145,20 +82,14 @@ footer .cz{font-size:10px;letter-spacing:.2em;color:var(--bronze);text-transform
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script>
 (function(){
-  // force le chargement des 2 videos (coin + showcase) une par une, avec repli propre
-  document.querySelectorAll('video').forEach(function(v){ v.muted=true; try{v.play().catch(function(){});}catch(e){} });
-  if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  document.querySelectorAll('video').forEach(function(v){v.muted=true;try{v.play().catch(function(){});}catch(e){}});
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches){document.querySelectorAll('.nv-reveal').forEach(function(el){el.style.opacity=1;el.style.transform='none';});return;}
   try{
-    var lenis=new Lenis({lerp:.1,smoothWheel:true});
-    (function raf(t){lenis.raf(t);requestAnimationFrame(raf);})();
-    if(window.gsap&&window.ScrollTrigger){
-      gsap.registerPlugin(ScrollTrigger);
-      lenis.on('scroll',ScrollTrigger.update);
-      gsap.utils.toArray('.reveal').forEach(function(el){
-        gsap.to(el,{opacity:1,y:0,duration:.9,ease:'power3.out',scrollTrigger:{trigger:el,start:'top 85%'}});
-      });
-    } else { document.querySelectorAll('.reveal').forEach(function(el){el.style.opacity=1;el.style.transform='none';}); }
-  }catch(e){ document.querySelectorAll('.reveal').forEach(function(el){el.style.opacity=1;el.style.transform='none';}); }
+    var lenis=new Lenis({lerp:.1,smoothWheel:true});(function raf(t){lenis.raf(t);requestAnimationFrame(raf);})();
+    if(window.gsap&&window.ScrollTrigger){gsap.registerPlugin(ScrollTrigger);lenis.on('scroll',ScrollTrigger.update);
+      gsap.utils.toArray('.nv-reveal').forEach(function(el){gsap.to(el,{opacity:1,y:0,duration:.9,ease:'power3.out',scrollTrigger:{trigger:el,start:'top 85%'}});});
+    } else {document.querySelectorAll('.nv-reveal').forEach(function(el){el.style.opacity=1;el.style.transform='none';});}
+  }catch(e){document.querySelectorAll('.nv-reveal').forEach(function(el){el.style.opacity=1;el.style.transform='none';});}
 })();
 </script>
 <script src="/navlys-voix.js" defer></script>

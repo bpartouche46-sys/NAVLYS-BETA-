@@ -1,0 +1,52 @@
+/* NAVLYS — charte commune unique (@CoreNAVLYS) : un seul design pour tout le site */
+:root{--noir:#04050c;--noir2:#080b16;--or:#e9d3a0;--or-vif:#ffd77a;--bronze:#c9962f;--ice:#7dd3fc;--perle:#f4ecdb;--brume:#9aa6b2}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;background:var(--noir)}
+body{background:var(--noir);color:var(--perle);font-family:'Cormorant Garamond',Georgia,serif;overflow-x:hidden;font-size:18px;line-height:1.5}
+h1,h2,h3,.cz{font-family:'Cinzel',serif}
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(60% 50% at 50% 0%,rgba(201,150,47,.10),transparent 60%),radial-gradient(50% 40% at 85% 90%,rgba(125,211,252,.06),transparent 60%),linear-gradient(180deg,#04050c,#080b16 60%,#04050c)}
+a{color:inherit}
+/* NAV standard */
+.nv-nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;justify-content:center;gap:22px;padding:13px;backdrop-filter:blur(12px);background:linear-gradient(180deg,rgba(4,5,12,.9),rgba(4,5,12,.2))}
+.nv-nav a{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--or);text-decoration:none;transition:.25s}
+.nv-nav a:hover{color:var(--or-vif);text-shadow:0 0 12px rgba(255,215,122,.6)}
+/* conteneur */
+.nv-wrap{max-width:1080px;margin:0 auto;padding:0 22px}
+.nv-sec{padding:60px 0}
+.nv-reveal{opacity:0;transform:translateY(28px)}
+/* HERO avec vraie video en fond (une seule, legere) */
+.nv-hero{position:relative;min-height:86vh;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.nv-vidbg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;opacity:.92}
+.nv-veil{position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(4,5,12,.5),rgba(4,5,12,.2) 45%,rgba(4,5,12,.82))}
+.nv-hero-in{position:relative;z-index:2;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:80px 20px 40px;width:100%}
+.nv-coin{width:78px;height:78px;border-radius:50%;object-fit:cover;border:1px solid rgba(233,211,160,.5);box-shadow:0 0 26px rgba(201,150,47,.55);margin-bottom:14px;background:#0a0d16}
+.nv-brand{font-family:'Cinzel',serif;font-weight:700;font-size:clamp(40px,8.5vw,90px);letter-spacing:.12em;line-height:1;background:linear-gradient(100deg,var(--bronze),var(--or) 45%,#fff7e0 55%,var(--or) 70%,var(--bronze));background-size:220%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:nv-flow 9s linear infinite;filter:drop-shadow(0 4px 22px rgba(201,150,47,.3))}
+@keyframes nv-flow{to{background-position:220% center}}
+.nv-h1{font-family:'Cinzel',serif;font-weight:600;font-size:clamp(19px,4vw,32px);letter-spacing:.06em;color:var(--perle);margin-top:16px}
+.nv-sub{font-style:italic;font-size:clamp(16px,3vw,22px);color:var(--brume);margin-top:8px}
+.nv-sub b{color:var(--or-vif);font-style:normal}
+/* boutons */
+.nv-cta{display:inline-block;font-family:'Cinzel',serif;font-size:13px;letter-spacing:.22em;text-transform:uppercase;color:#0a0803;background:linear-gradient(100deg,var(--bronze),var(--or-vif),var(--or));background-size:200%;padding:14px 34px;border-radius:100px;text-decoration:none;animation:nv-flow 6s linear infinite;transition:transform .25s;border:none;cursor:pointer}
+.nv-cta:hover{transform:translateY(-2px)}
+/* titres section */
+.nv-k{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.34em;text-transform:uppercase;color:var(--ice);text-align:center;margin-bottom:6px}
+.nv-t{font-family:'Cinzel',serif;font-weight:600;font-size:clamp(24px,5vw,40px);color:var(--perle);text-align:center;margin-bottom:26px}
+.nv-t em{color:var(--or);font-style:normal}
+/* video cadree */
+.nv-show{position:relative;width:100%;aspect-ratio:16/9;border-radius:16px;overflow:hidden;border:1px solid rgba(233,211,160,.3);box-shadow:0 24px 60px rgba(0,0,0,.5)}
+.nv-show video{width:100%;height:100%;object-fit:cover;display:block}
+.nv-show .lg{position:absolute;left:18px;bottom:16px;font-family:'Cinzel',serif;letter-spacing:.18em;text-transform:uppercase;color:#fff;font-size:14px;text-shadow:0 2px 14px #000}
+/* grille cartes */
+.nv-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px}
+.nv-card{display:block;text-decoration:none;color:var(--perle);background:rgba(8,11,22,.7);border:1px solid rgba(233,211,160,.2);border-radius:14px;padding:18px 14px;text-align:center;transition:.3s;cursor:pointer}
+.nv-card:hover{transform:translateY(-4px);border-color:var(--or);box-shadow:0 14px 34px rgba(201,150,47,.22)}
+.nv-card.on{border-color:var(--or-vif);box-shadow:0 0 26px rgba(201,150,47,.35)}
+.nv-card img{width:60px;height:60px;object-fit:contain;filter:drop-shadow(0 6px 16px rgba(201,150,47,.35))}
+.nv-card .n{display:block;margin-top:8px;font-family:'Cinzel',serif;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--or)}
+.nv-card .b{font-size:12px;color:var(--brume)}
+.nv-soon{display:inline-block;font-family:'Cinzel',serif;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--ice);border:1px solid rgba(125,211,252,.4);border-radius:100px;padding:8px 16px}
+/* footer standard */
+.nv-foot{text-align:center;padding:34px 20px 70px;color:var(--brume);font-size:13px;font-style:italic;border-top:1px solid rgba(201,150,47,.15)}
+.nv-foot .cz{font-size:10px;letter-spacing:.2em;color:var(--bronze);text-transform:uppercase;margin-bottom:8px}
+.nv-foot a{color:var(--ice);text-decoration:none}
+@media(max-width:640px){.nv-nav{gap:13px}.nv-nav a{font-size:10px;letter-spacing:.12em}.nv-sec{padding:44px 0}}
