@@ -17,6 +17,7 @@ import type { NewTask } from "./bus.js";
 export const CORE_TASK_LABEL = "core-task";
 export const CORE_TASK_MARKER = "[CORE-TASK]";
 export const APPROVAL_MARKER = "[FEU-VERT-REQUIS]";
+export const TEST_LIAISON_MARKER = "test liaison";
 
 export interface GhLabel { name?: string }
 export interface GhIssue {
@@ -39,6 +40,11 @@ export function isCoreTaskIssue(issue: GhIssue, label = CORE_TASK_LABEL): boolea
   return (issue.title ?? "").toUpperCase().includes(CORE_TASK_MARKER);
 }
 
+/** Une issue est-elle un test de liaison Kimi ↔ Core ? (titre contient "test liaison") */
+export function isTestLiaisonIssue(issue: GhIssue): boolean {
+  return (issue.title ?? "").toLowerCase().includes(TEST_LIAISON_MARKER);
+}
+
 /** La tâche exige-t-elle le feu vert de Bruno avant exécution ? */
 export function issueNeedsApproval(issue: GhIssue): boolean {
   if (labelNames(issue).includes("feu-vert-requis")) return true;
@@ -58,7 +64,7 @@ export function issueToNewTask(issue: GhIssue): NewTask {
   return {
     source: "github",
     cible: "core",
-    type: "github_issue",
+    type: isTestLiaisonIssue(issue) ? "test_liaison" : "github_issue",
     titre: issue.title?.replace(CORE_TASK_MARKER, "").trim() || `Issue #${issue.number}`,
     contenu: {
       instruction: (issue.body ?? "").replace(APPROVAL_MARKER, "").trim() || issue.title,
@@ -90,4 +96,23 @@ export async function fetchCoreTaskIssues(cfg: GhConfig): Promise<GhIssue[]> {
   if (!res.ok) throw new Error(`GitHub ${res.status}: ${await res.text()}`);
   const issues = (await res.json()) as GhIssue[];
   return issues.filter((i) => isCoreTaskIssue(i));
+}
+
+/** Publie un commentaire sur une issue GitHub. */
+export async function postGithubComment(cfg: GhConfig, issueNumber: number, body: string): Promise<void> {
+  const f = cfg.fetchImpl ?? fetch;
+  const res = await f(
+    `https://api.github.com/repos/${cfg.repo}/issues/${issueNumber}/comments`,
+    {
+      method: "POST",
+      headers: {
+        Authorization: "Bearer " + cfg.token,
+        Accept: "application/vnd.github+json",
+        "User-Agent": "navlys-core",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ body }),
+    },
+  );
+  if (!res.ok) throw new Error(`GitHub comment failed for ${cfg.repo}#${issueNumber}: ${res.status} ${await res.text()}`);
 }

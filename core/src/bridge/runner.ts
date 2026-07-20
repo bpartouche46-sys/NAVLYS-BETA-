@@ -17,14 +17,14 @@
 import { loadConfig } from "../config.js";
 import { runOrchestrator } from "../index.js";
 import { createBus, taskInstruction, type CoreTask } from "./bus.js";
-import { fetchCoreTaskIssues, issueToNewTask } from "./githubTasks.js";
+import { fetchCoreTaskIssues, issueToNewTask, postGithubComment } from "./githubTasks.js";
 import { startHealthServer } from "../http/health.js";
 
 const MAX_TASKS_PER_CYCLE = 3;
 
 export interface BridgeDeps {
   bus: ReturnType<typeof createBus>;
-  github?: { repo: string; token: string };
+  github?: { repo: string; token: string; fetchImpl?: typeof fetch };
   runTask: (instruction: string) => Promise<void>;
   log?: (msg: string) => void;
 }
@@ -67,6 +67,36 @@ export async function runCycle(deps: BridgeDeps): Promise<number> {
 
     await bus.postAudit({ type: "task_start", task_id: task.id, message: `Début tâche #${task.id} : ${task.titre}` });
     log(`[bridge] tâche #${task.id} démarrée`);
+
+    // Tâche native test_liaison : pas de LLM — écriture directe de l'audit + commentaire GitHub
+    if (task.type === "test_liaison") {
+      try {
+        await bus.postAudit({
+          type: "liaison_ok",
+          task_id: task.id,
+          message: `Liaison Kimi\u21d4Core opérationnelle — ${new Date().toISOString()}`,
+        });
+        const issueNumber = (task.contenu as { issue_number?: number }).issue_number;
+        if (github && typeof issueNumber === "number") {
+          await postGithubComment(
+            github,
+            issueNumber,
+            `\u2705 Liaison Kimi\u21d4Core opérationnelle.\nTâche bus : \`navlys_tasks.id = ${task.id}\``,
+          );
+        }
+        await bus.finishTask(task.id, "done", "Test liaison OK.");
+        await bus.postAudit({ type: "task_done", task_id: task.id, message: `Tâche #${task.id} terminée (liaison OK).` });
+        log(`[bridge] tâche #${task.id} → liaison_ok`);
+      } catch (e: any) {
+        const msg = e?.message ?? String(e);
+        await bus.finishTask(task.id, "erreur", msg.slice(0, 2000));
+        await bus.postAudit({ type: "task_error", task_id: task.id, message: `Tâche #${task.id} en erreur (test_liaison) : ${msg.slice(0, 500)}` });
+        log(`[bridge] tâche #${task.id} erreur test_liaison: ${msg}`);
+      }
+      done++;
+      continue;
+    }
+
     try {
       await runTask(taskInstruction(task));
       await bus.finishTask(task.id, "done", "Tâche terminée (voir logs du core pour le détail).");
