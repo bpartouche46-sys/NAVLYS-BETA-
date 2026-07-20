@@ -57,6 +57,23 @@ h1{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:400;font
 .hidden{display:none!important}
 .toast{position:fixed;left:50%;bottom:96px;transform:translateX(-50%) translateY(20px);background:rgba(5,10,18,.96);border:1px solid var(--line);color:var(--ice-clair);padding:11px 20px;border-radius:999px;font-size:.9rem;opacity:0;pointer-events:none;transition:opacity .3s,transform .3s;z-index:60}
 .toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+/* simulateur de gains */
+.simu{border:1px solid rgba(201,169,97,.4);border-radius:22px;padding:22px 20px;margin:0 0 28px;background:radial-gradient(120% 120% at 100% 0%,rgba(233,211,160,.10),rgba(4,6,12,.92))}
+.simu .flash{display:inline-block;font-family:'Cinzel',serif;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#03040a;background:linear-gradient(100deg,var(--or),#fff6df);border-radius:999px;padding:5px 14px;margin-bottom:10px}
+.simu h2{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:400;font-size:1.6rem;color:#eafaff;text-align:center;margin-bottom:4px}
+.simu .lead{text-align:center;color:var(--mut);font-size:.95rem;margin-bottom:6px;line-height:1.6}
+.simu label{display:block;font-family:'Cinzel',serif;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--ice-clair);margin:16px 0 6px}
+.simu input[type=range]{width:100%;accent-color:var(--ice)}
+.simu .val{color:var(--or-pale);font-family:'Cormorant Garamond',serif;font-size:1.2rem}
+.simu .paniers{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:6px}
+.simu .paniers button{border:1px solid var(--line);background:rgba(5,7,14,.6);color:var(--perle);border-radius:999px;padding:8px 14px;cursor:pointer;font-family:inherit}
+.simu .paniers button.on{border-color:var(--or);color:var(--or-pale);background:rgba(201,169,97,.12)}
+.simu .res{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:20px}
+.simu .res .c{border:1px solid var(--line);border-radius:14px;padding:14px 8px;text-align:center;background:rgba(5,7,14,.6)}
+.simu .res .c .n{font-family:'Cormorant Garamond',serif;font-size:1.5rem;color:var(--ok);line-height:1.1}
+.simu .res .c .l{font-family:'Cinzel',serif;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--mut);margin-top:6px}
+.simu .note{text-align:center;color:var(--mut);font-size:.8rem;margin-top:14px;line-height:1.6}
+@media(max-width:520px){.simu .res{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -64,6 +81,30 @@ h1{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:400;font
   <div class="k">NAVLYS · Ambassadeur</div>
   <h1 id="titre">Ton univers grandit avec toi</h1>
   <p class="sub">Chaque personne que tu fais entrer dans la mer NAVLYS, c'est toi qui la fais grandir. Plus tu en parles autour de toi, plus tu gagnes de points — et plus on te gâte, toujours dans ce qui reste sain pour l'univers.</p>
+
+  <!-- Simulateur de gains -->
+  <section class="simu" id="simu">
+    <div style="text-align:center"><span class="flash">Flash · 20 % de notre marge nette</span></div>
+    <h2>Ta com quotidienne peut te rapporter</h2>
+    <p class="lead">Tu touches <b>20 % de notre marge nette</b> sur chaque membre que tu fais entrer — <b>chaque mois</b>, tant qu'il reste. Bouge les curseurs :</p>
+    <label>Nouveaux membres par jour ouvré : <span class="val" id="vjour">1</span></label>
+    <input type="range" id="jour" min="0" max="20" step="1" value="1">
+    <label>Panier moyen du filleul (€ HT/mois)</label>
+    <div class="paniers" id="paniers">
+      <button data-p="19.99" class="on">19,99 €</button>
+      <button data-p="29.99">29,99 €</button>
+      <button data-p="49.99">49,99 €</button>
+      <button data-p="99">99 € Pro</button>
+      <button data-p="149">149 € Pro Max</button>
+    </div>
+    <p class="lead" style="margin-top:10px;font-size:.84rem">Entrée <b>19,99 € HT/mois</b>. <b>Pro 99 €</b> / <b>Pro Max 149 €</b> : ton business tourne — front + back office + facturation unique — sans employé, sans ordinateur, juste ton téléphone.</p>
+    <div class="res">
+      <div class="c"><div class="n" id="rMembres">21</div><div class="l">membres / mois</div></div>
+      <div class="c"><div class="n" id="rMois">— €</div><div class="l">net / mois récurrent</div></div>
+      <div class="c"><div class="n" id="rAn">— €</div><div class="l">cumulé sur 12 mois</div></div>
+    </div>
+    <p class="note"><b>1 membre/jour ouvré = 21/mois.</b> Comme c'est <b>récurrent et cumulatif</b>, ta base grossit chaque mois. Projection <b>illustrative, non garantie</b> — dépend de ton activité, du panier et de la rétention. Aucune promesse de gain. Frais/charges (3 %/20 %) à confirmer.</p>
+  </section>
 
   <!-- Connexion par e-mail -->
   <div class="gate" id="gate">
@@ -99,7 +140,7 @@ h1{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:400;font
   </div>
 
   <div class="msg" id="msg"></div>
-  <p class="disc">Tes points montent à chaque partage et à chaque personne que tu fais adhérer. Les cadeaux sont calculés pour rester dans ce qui garde l'univers solide — jamais au-delà. Tout est mesuré chez nous, en direct.</p>
+  <p class="disc">Tes points montent à chaque partage et à chaque personne que tu fais adhérer. Les cadeaux sont calculés pour rester dans ce qui garde l'univers solide — jamais au-delà. Tout est mesuré chez moi, en direct.</p>
 </div>
 <div class="toast" id="toast"></div>
 
@@ -218,6 +259,36 @@ h1{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:400;font
   if(email){ if($('email')) $('email').value=email; charge(); }
 })();
 </script>
+<script>
+/* Simulateur de gains ambassadeur — modèle 20% de la marge nette, TVA déduite.
+   net_membre = (panier − frais 3% − charges 20%) × 20% ÷ (1 + TVA 20%). */
+(function(){
+  var jour=document.getElementById('jour'), vjour=document.getElementById('vjour'),
+      paniers=document.getElementById('paniers'),
+      rM=document.getElementById('rMembres'), rMo=document.getElementById('rMois'), rAn=document.getElementById('rAn');
+  if(!jour||!paniers||!rM) return;
+  var panier=19.99, JO=21, FRAIS=0.03, CHARGES=0.20, TAUX=0.20, TVA=0.20;
+  function netMembre(p){ var marge=p-(p*FRAIS)-(p*CHARGES); return (marge*TAUX)/(1+TVA); }
+  function eur(n){ return (Math.round(n*100)/100).toLocaleString('fr-FR',{minimumFractionDigits:2,maximumFractionDigits:2})+' €'; }
+  function calc(){
+    var perDay=Number(jour.value)||0; vjour.textContent=perDay;
+    var membresMois=perDay*JO, nm=netMembre(panier);
+    rM.textContent=membresMois;
+    rMo.textContent=eur(membresMois*nm);        // revenu mensuel des membres de ce mois
+    rAn.textContent=eur(nm*membresMois*78);      // cumul 12 mois (base qui grossit : 1+2+…+12=78)
+  }
+  jour.addEventListener('input',calc);
+  Array.prototype.forEach.call(paniers.querySelectorAll('button'),function(b){
+    b.onclick=function(){
+      panier=Number(b.getAttribute('data-p'));
+      Array.prototype.forEach.call(paniers.querySelectorAll('button'),function(x){x.classList.remove('on');});
+      b.classList.add('on'); calc();
+    };
+  });
+  calc();
+})();
+</script>
 <script src="/navlys-alive.js" defer></script>
+<script src="/navlys-i18n.js" defer></script>
 </body>
 </html>

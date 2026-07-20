@@ -186,8 +186,9 @@ tools/
   check-i18n.mjs           # banc Playwright : chaque page x chaque langue (passe AVANT tout push)
   faq-traductions.mjs      # génération des traductions FAQ
   hook-verif.mjs           # hook PostToolUse : vérif automatique après Edit/Write
-sql/                       # 11 migrations : routines_cron, agents_bible_memoire, auto_amelioration_recursive,
-                           #   core_incidents_autocicatrisation, apprentissage_permanent, test_bateaux, ...
+sql/                       # migrations : routines_cron, agents_bible_memoire, auto_amelioration_recursive,
+                           #   core_incidents_autocicatrisation, apprentissage_permanent, test_bateaux,
+                           #   navlys_cerveau_recherche_instantanee (navlys_chercher), ...
 deploy/                    # INSTALL_HETZNER, APP_STORES, TERMUX_MOBILE, OLLAMA_OFFLINE + services systemd
 docs/                      # statuts société, règlement, stratégie paiement, enseignements Manus/Meta, ...
 skills-lock.json           # skills vidéo (non committés) : restaurer via npx skills experimental_install
@@ -224,6 +225,44 @@ ou test mobile Termux). Détail : voir « 🖥️ Où tout tourne » plus bas.
 - **Publication** : voir « 🛠️ Workflow — LIVE direct » (doctrine de Bruno).
   ⚠️ Dans CETTE session Claude Code, développer sur la branche désignée et créer
   une PR (contrainte de l'environnement), pas de push direct sur `main`.
+
+## 🧰 Commandes de développement (référence rapide)
+
+> **Pas de framework de test** dans le repo. La « suite de tests » = `node --check`
+> + le banc i18n + le hook PostToolUse (`tools/hook-verif.mjs`, lancé
+> automatiquement après chaque Edit/Write sur `live-source/*.{js,html}` :
+> `node --check`, grep charte, vérif des `<script>` inline).
+
+```bash
+# Worker Python (navlys_core/) — dépendance unique : requests
+pip install -r requirements.txt
+python run.py --once          # un seul cycle
+python run.py                 # boucle 24/7
+
+# Valider un JS (aussi fait par le hook) — réflexe n°1 « preuve avant parole »
+node --check <fichier.js>
+# HTML : extraire le <script> inline puis le vérifier
+awk '/<script>/{f=1;next}/<\/script>/{f=0}f' page.html > /tmp/p.js && node --check /tmp/p.js
+
+# Banc i18n (Playwright) — DOIT passer avant tout push
+cd live-source && python3 -m http.server 8123 &   # servir le site en local
+npm i playwright                                  # une fois (Chromium déjà dans /opt/pw-browsers)
+node tools/check-i18n.mjs                          # tout
+PAGES=index LANGS=en,he DETAIL=1 node tools/check-i18n.mjs   # cibler + détail
+#   → langues TESTÉES par défaut = 14 : en,ru,es,pt,it,de,nl,wa,zh,hi,bn,he,ar,ur
+#   (le moteur navlys-i18n.js maintient 5 langues cœur à la main : FR/EN/RU + HE/AR)
+
+# Charte (zéro toléré, aussi fait par le hook)
+grep -Ei 'violet|mauve|fuchsia' <fichiers>
+```
+
+**Supabase (le cerveau, LIVE) — via les outils MCP `mcp__Supabase__*`, pas de CLI locale :**
+- SQL : `apply_migration` (DDL) · `execute_sql` (requêtes). Après toute nouvelle
+  fonction/migration → `get_advisors(security)` **et** `get_advisors(performance)`.
+- Edge Functions : `deploy_edge_function` avec **`verify_jwt=false` explicite** si
+  appelée par pg_cron ou une page publique sans en-tête Authorization (règle n°98).
+- **Preuve d'un endpoint en direct** (le navigateur sandbox ne joint PAS supabase.co) :
+  `select net.http_get(...)` / `net.http_post(...)` puis lire `net._http_response`.
 
 ## 🚦 Règles d'or (non négociables — voir Bible §6)
 
@@ -440,6 +479,51 @@ ou test mobile Termux). Détail : voir « 🖥️ Où tout tourne » plus bas.
   message absente, modèle économique opaque) — preuve que la routine capte de
   vrais problèmes, pas du bruit.
 
+## 🧺 Jamais toutes les billes dans le même panier — panel de contradiction multi-IA (STANDING — gravé le 2026-07-11)
+
+> Ordre de Bruno : **« Jamais toutes les billes dans le même panier, garde-le en
+> mémoire. On valide toujours par anticipation plusieurs solutions, et on met en
+> contradiction les IA traditionnelles ou spécialisées pour quotidiennement
+> analyser notre site, faire sa classification et sa critique. Ensuite rebasculer
+> les conclusions brutes de chaque IA à moi-même ET au CORE afin de mettre en
+> pratique et en application très au sérieux toutes les remarques et critiques de
+> chacun. »**
+
+- **Jamais de point unique de dépendance.** Modèle, prestataire, canal, solution :
+  toujours **plusieurs paniers**. On ne relie jamais la survie d'une fonction à un
+  seul fournisseur (déjà appliqué : repli `callBrain` Claude→OpenRouter→NVIDIA sur
+  les canaux humains ; ici, panel de modèles de **familles différentes**, jamais le
+  même modèle deux fois).
+- **Valider par anticipation plusieurs solutions.** Avant de trancher, préparer et
+  éprouver au moins deux options en parallèle plutôt qu'une seule — la redondance
+  est la règle, pas l'exception.
+- **Panel de contradiction quotidien.** La brique `bible ?mode=avis` interroge
+  chaque jour **plusieurs IA indépendantes de familles distinctes** (Claude +
+  panel OpenRouter Llama/Mistral/Qwen/DeepSeek/Gemma/**Gemini**/**Cohere** +
+  NVIDIA/Mixtral — 8 familles, jamais le même modèle deux fois) sur le contenu
+  **réel et live** des pages clés (`/`, `/next-gen`, `/finance`, `/adhesion`).
+  Chaque IA doit **classer** le site (`NOTE_GLOBALE /10` + axes : positionnement,
+  confiance, design/mobile, conversion, message perçu) puis le **critiquer sans
+  complaisance** avec citations et reformulations concrètes.
+- **Rebascule des conclusions BRUTES — vers Bruno ET vers le CORE.** Chaque avis
+  intégral (jamais résumé) est écrit tel quel dans **`core_avis_ia`** (table
+  privée, `service_role` only — les critiques ne fuitent jamais vers un visiteur),
+  horodaté, avec sa note. Deux voies vers Bruno : **pull** (`bible ?mode=avis_bruno`)
+  et **push actif** — cron `navlys_avis_push_bruno` (08:30 UTC) appelle
+  `whatsapp ?mode=push_avis`, qui envoie un digest chiffré (notes côte à côte +
+  extrait de critique par IA) sur sa **WhatsApp** puis marque les avis « vus ».
+  En parallèle, le même avis passe par **`ingerer()`** → règle permanente +
+  mémoire de l'agent concerné → mise en application sérieuse, pas seulement
+  archivage. Digest chiffré aussi dans le `journal`.
+- **Ce qui dépend de Bruno** : appliquer la migration `sql/bible_avis_panel_multi_ia.sql`
+  (table `core_avis_ia` + cron push) et redéployer les briques `bible` et
+  `whatsapp` (`verify_jwt=false`, règle n°98) ; poser `OPENROUTER_API_KEY`
+  (+ `NVIDIA_API_KEY`) pour débloquer tout le panel, et `D360_API_KEY` +
+  `BRUNO_WHATSAPP` pour la rebascule WhatsApp (déjà posés pour le webhook). Sans
+  clé, chaque modèle échoue proprement en `""` et le push renvoie `envoye:false`
+  sans rien perdre. Code : `supabase/functions/bible/index.ts`,
+  `supabase/functions/whatsapp/index.ts`.
+
 ## 📺 Veille YouTube influenceurs (STANDING — gravé le 2026-07-07)
 
 > Ordre de Bruno : **« Prends les liens donnés par les influenceurs que je suis. »**
@@ -569,7 +653,8 @@ peux pas obtenir.
   travail déjà fait, réflexe : `select * from navlys_chercher('mot-clé')`.
 - Colonnes `recherche` (tsvector) + triggers `navlys_recherche_maj()` sur les 5
   tables — mise à jour automatique à chaque insertion, aucune maintenance requise.
-  Migration : `navlys_cerveau_recherche_instantanee_v2`.
+  Migration : `navlys_cerveau_recherche_instantanee_v2` — versionnée dans le repo :
+  **`sql/navlys_cerveau_recherche_instantanee.sql`** (idempotente, reflète l'état réel en base).
 - Testé en direct (09/07) : `navlys_chercher('positionnement finance')` retrouve
   en un appel la règle n°76, les leçons de bible liées, et la mémoire NAVMKT
   concernée, classées par pertinence — preuve que le cerveau est bien rangé et
@@ -683,6 +768,61 @@ But : Bruno parle à **un seul endroit** (bot Telegram), plus jamais Claude Code
   mémoire longue en base (`navlys_memoire`, `core_reglement`, `core_knowledge`) ;
   règles gravées au lieu de questions répétées (`navlys_regle`).
 
+## 🎨 Skills design/animation Emil Kowalski (intégrés le 2026-07-14, vérifiés règle n°111)
+
+> Ordre de Bruno : **« intègre le skill suivant pour améliorer notre design »** —
+> repo `emilkowalski/skills` (Emil Kowalski, créateur de Sonner/Vaul/animations.dev).
+
+- **5 skills ajoutés à `skills-lock.json`** (source `emilkowalski/skills`,
+  restaurés comme les autres via `npx -y skills experimental_install`) :
+  - `emil-design-eng` — philosophie de finition UI, décisions d'animation, détails
+    invisibles qui font qu'un logiciel « feel great ».
+  - `apple-design` — principes Apple (motion fluide/physique, ressorts, gestes,
+    matériaux translucides, typographie) traduits pour le web (WWDC *Designing
+    Fluid Interfaces*).
+  - `improve-animations` — audit motion d'un codebase (lecture seule) + plans
+    d'amélioration priorisés (8 catégories).
+  - `review-animations` — revue stricte du code d'animation contre une barre de
+    craft élevée (`disable-model-invocation:true` → à appeler explicitement).
+  - `animation-vocabulary` — glossaire inversé : décrire un effet flou → son terme
+    exact, pour mieux prompter.
+- **Où l'appliquer chez nous** : polir `live-source/` (transitions, karaoké
+  `navlys-alive.js`, calque « vivant », menu onglets, bulles) dans la charte
+  **ice blue + or** (jamais violet/mauve/fuchsia) et l'accessibilité sourds
+  (règle n°105). `apple-design` + `emil-design-eng` = référence de goût ;
+  `review-animations`/`improve-animations` = garde-fou avant tout push d'UI.
+- **Sécurité (règle n°111 — CLEAN)** : repo cloné et scanné en local le 2026-07-14
+  (caractères invisibles/zero-width + bidi, patterns malveillants, URLs, connexions
+  externes). Verdict : **aucun code exécutable, aucune fonction de connexion
+  externe, aucun texte caché à l'œil humain** — ce sont des `.md` d'instructions
+  pures. Seules trouvailles : 4 espaces zero-width `U+200B` collés à des barrières
+  de bloc de code dans `improve-animations/PLAN-TEMPLATE.md` (artifice d'écriture
+  markdown, retirés par hygiène dans notre copie vendored) et « token » = toujours
+  « design tokens » (terminologie CSS). URLs = ressources pédagogiques
+  (animations.dev, easing.dev, emilkowal.ski, shadcn/improve). Zéro connexion
+  externe autre que Bruno.
+
+## 🔄 Plugins autonomie Claude Code — prêts, à activer par Bruno (2026-07-14)
+
+> Suite au Short **« 5 Plugins to Make Claude Code Autonomous »** (Eric Tech).
+> Décision de Bruno : stack autonome de référence via GitHub, Ralph Loop actif.
+
+- **Doc complète : `docs/PLUGINS_AUTONOMES_CLAUDE_CODE.md`** (config prête à coller,
+  commandes `/plugin`, usage sûr de Ralph, verdict sécurité).
+- **Vérifiés règle n°111 (CLEAN, scan local du 2026-07-14)** : `superpowers`
+  (obra, épinglé SHA par Anthropic — hook `SessionStart` = injection de contexte,
+  zéro réseau) et `ralph-loop` (Anthropic officiel — hook `Stop` = relance du même
+  prompt, traitement de texte local, zéro réseau). Déjà en place : Context7
+  (`.mcp.json`), skills Superpowers (`skills-lock.json`), Playwright (local).
+- **Pourquoi non auto-activé** : activer des plugins dans `.claude/settings.json`
+  fait tourner leurs **hooks shell à chaque session sans validation par action** →
+  le garde-fou du harness (et la règle n°111) exige une **revue humaine explicite**,
+  refusée à dessein en session web non-interactive. La config est prête ; Bruno
+  l'active en une étape (Option A committée, ou Option B `/plugin ...`).
+- **Ralph = borner la boucle** (Bible §6, tokens) : jamais `/ralph-loop` nu ;
+  toujours `--max-iterations N` et/ou `--completion-promise 'PHRASE'`. Ralph commit
+  à chaque tour → sur la branche de dev désignée, jamais `main`.
+
 ## 🛰️ Cockpit relié au travail EN DIRECT (STANDING — gravé le 2026-07-07)
 
 > Ordre de Bruno : **« Le cockpit doit être réactif et relié à ton travail en
@@ -790,44 +930,97 @@ But : Bruno parle à **un seul endroit** (bot Telegram), plus jamais Claude Code
   continuité tient à **CLAUDE.md + les commits Git + la mémoire en base**
   (`navlys_memoire`, `core_reglement`, `core_knowledge`), jamais à l'historique du chat.
 - **Chaque matin, une seule phrase à coller dans le nouveau chat** — c'est CE
-  bloc, toujours tenu à jour ici (dernière mise à jour : 2026-07-09). Bruno n'a
+  bloc, toujours tenu à jour ici (dernière mise à jour : 2026-07-11). Bruno n'a
   rien à retenir : il ouvre un nouveau chat, colle le prompt ci-dessous, la
   continuité reprend sans coupure — CLAUDE.md + Git + la base font foi, jamais
   la mémoire du chat précédent.
-- **Prompt de démarrage type** (à coller dans le nouveau chat — maj 2026-07-09) :
-  « Reprends NAVLYS depuis CLAUDE.md + la Bible + l'état Git. On travaille LIVE,
-  push direct sur `main` (plus de PR). **Doctrine :** OUI par défaut (exécute et
-  rends compte, zéro question de validation) ; autonome > dépendance ; jamais de
-  blocage ; tutoiement + prénom ; membre (jamais client), cotisation (jamais
-  prix/tarif) ; charte ice blue + or (interdit violet/mauve/fuchsia) ; preuve
-  avant parole (pg_net/?diag avant d'affirmer) ; un cas qui m'aurait fait
-  redemander → `navlys_regle()` puis avance ; action destructive irréversible →
-  sauvegarde d'abord. Argent (Bible §6) : signalement d'UNE ligne avant tout vrai
-  débit. **Indépendance du CORE (§ dédiée plus bas)** : WhatsApp pilote reste le
-  canal de dialogue direct Bruno↔CORE indépendant de Claude Code ; le repli
-  OpenRouter (`callBrain`) est pour l'instant seulement dans
-  `api/whatsapp-webhook.js` — reste à le propager à `assistant`/`cockpit`/`bible`
-  et à poser `OPENROUTER_API_KEY` chez Vercel (à demander à Bruno, ce n'est pas
-  un débit). **Objectif permanent en fil rouge (gravé 2026-07-09, ne s'arrête
-  qu'à zéro erreur) :** auditer et corriger TOUT navlys.com — chaque page/rubrique,
-  liens tél/mail, inscription, connexion FB/Google/Apple — jusqu'à zéro erreur ;
-  ce qui dépend d'une action réelle de Bruno (comptes OAuth, vérif téléphone) est
+- **Prompt de démarrage type** (à coller dans le nouveau chat — maj 2026-07-11) :
+  « Reprends NAVLYS depuis CLAUDE.md + la Bible + l'état Git. On travaille LIVE
+  (site) mais CETTE session Claude Code passe par branche + PR (contrainte de
+  l'environnement, pas de push direct sur `main` ici). **Doctrine :** OUI par
+  défaut (exécute et rends compte, zéro question de validation) ; autonome >
+  dépendance ; jamais de blocage ; tutoiement + prénom ; membre (jamais client),
+  cotisation (jamais prix/tarif) ; charte ice blue + or (interdit
+  violet/mauve/fuchsia) ; preuve avant parole (pg_net/?diag avant d'affirmer) ;
+  un cas qui m'aurait fait redemander → `navlys_regle()` puis avance ; action
+  destructive irréversible → sauvegarde d'abord. Argent (Bible §6) : signalement
+  d'UNE ligne avant tout vrai débit.
+  **Indépendance du CORE — état réel au 2026-07-11 :** le repli multi-modèle
+  `callBrain` (Claude → OpenRouter/Llama → NVIDIA NIM) est maintenant déployé sur
+  les 4 canaux qui parlent en direct à un humain : `api/whatsapp-webhook.js`
+  (Vercel), et **`supabase/functions/whatsapp/index.ts`** (le vrai webhook
+  360dialog en prod, confirmé via `?diag=1` : `d360:true`, `anth:true`, webhook
+  bien auto-pointé), **`assistant`** (SAV site) et **`bible`** (avis IA
+  quotidien, + `?mode=diag_nvidia` pour tester la clé sans jamais l'exposer).
+  **Propagation TERMINÉE (2026-07-11) :** `cockpit` (v42), `nextgen` (v22),
+  `panel` (v9), `veilleur` (v20) ont désormais le repli `callBrain`
+  (Anthropic direct → OpenRouter) — déployées `verify_jwt=false` et vérifiées
+  en live (pg_net : 200, `repli:true`, `cle:true` donc ANTHROPIC_API_KEY EST
+  bien posée). Plus AUCUNE brique LLM en simple-point-de-défaillance. Reste
+  inerte tant qu'`OPENROUTER_API_KEY` n'est pas posée (repli:false partout),
+  mais le code est prêt — zéro redéploiement le jour où Bruno pose la clé.
+  **Clé NVIDIA (`nvapi-...`, générée sur build.nvidia.com par Bruno) : toujours
+  introuvable** au 2026-07-11 sous aucun des 6 noms testés
+  (`NVIDIA_API_KEY`/`NVAPI_KEY`/`NVIDIA_NIM_KEY`/`NGC_API_KEY`/
+  `NVIDIA_BUILD_API_KEY`/`BUILD_NVIDIA_API_KEY`) — vérifié via `diag_nvidia`
+  (`cle_trouvee:false`). Bruno a confirmé l'avoir "mise dans Supabase" mais elle
+  n'apparaît ni dans les secrets Edge Functions ni dans le Vault — à reproposer
+  le chemin exact (Dashboard → Edge Functions → Secrets → Add new secret) la
+  prochaine fois qu'il en parle, sans redemander pourquoi ça ne marche pas.
+  OpenRouter (`llama`) reste lui aussi à `false` dans les tests `avisIA` — cause
+  non confirmée (clé jamais posée côté Supabase, ou nom différent) : NE PAS
+  redemander, juste re-tester si Bruno signale l'avoir posée.
+  **Sécurité corrigée 2026-07-09/10 (règle n°114) :** `navlys_bateau_publier`
+  (SECURITY DEFINER) était exécutable par `anon`/`authenticated` — n'importe qui
+  pouvait publier un faux rapport sur un dossier client. Revoke fait, plus
+  `search_path` fixé sur 3 fonctions, RLS `chapitres`/`souvenirs` optimisée,
+  index posés sur les FK sans couverture — `get_advisors(security)` et
+  `get_advisors(performance)` repassés propres. Réflexe : relancer les deux après
+  CHAQUE nouvelle fonction/migration.
+  **Objectif permanent en fil rouge (gravé 2026-07-09, ne s'arrête qu'à zéro
+  erreur) :** auditer et corriger TOUT navlys.com — chaque page/rubrique, liens
+  tél/mail, inscription, connexion FB/Google/Apple — jusqu'à zéro erreur ; ce qui
+  dépend d'une action réelle de Bruno (comptes OAuth, vérif téléphone) est
   signalé, pas simulé. **Commence par l'analyse santé complète** (pg_net :
-  inscription, paiement, assistant, media, studio, whatsapp, booster, ambassadeur ;
-  file missions/agents ; incidents ; retours 💡 ; Security Advisor), inscris tes
-  chantiers via `navlys_chantier_ouvrir`, puis avance sans me demander. **En ligne
-  (edge functions hors-Git) :** whatsapp v32 (FAQ+mémoire+lien) + résilience
-  OpenRouter (commit `2f50322`), bible (verifierSite/rechercheWeb/boucle),
-  booster v1, ambassadeur v1 ; sw v1.7.8. **En attente de Bruno (relance-moi) :**
-  1) poser `OPENROUTER_API_KEY` (gratuit sur openrouter.ai) chez Vercel pour
-  activer le repli anti-coupure ; 2) approuver le nom d'affichage WhatsApp Meta
-  (#131037 → « NAVLYS ») ; 3) activer Leaked password protection (Supabase) ;
-  4) compte Google Play 25 $ + PWABuilder → empreinte SHA-256 pour
-  `assetlinks.json` ; 5) secrets média gratuits (GEMINI/HF/Cloudflare) ;
-  6) trancher navlys.io (miroir complet de navlys.com ou usage distinct ?).
-  **Fil rouge cap 1000→1M :** capter le `?code=` à l'inscription (parrainage),
-  clés i18n `/ambassadeur` + `/booster`, vidéos/logo/mobile, zéro-erreur
-  navlys.com. Avance sans me demander. »
+  inscription, paiement, assistant, media, studio, whatsapp, booster,
+  ambassadeur ; file missions/agents ; incidents ; retours 💡 ; Security
+  Advisor), inscris tes chantiers via `navlys_chantier_ouvrir`, puis avance sans
+  me demander. **En attente de Bruno (relance-moi) :** 1) poser correctement
+  `NVIDIA_API_KEY` et `OPENROUTER_API_KEY` dans Supabase Edge Functions →
+  Secrets ; 2) approuver le nom d'affichage WhatsApp Meta (#131037 →
+  « NAVLYS ») ; 3) activer Leaked password protection (Supabase) ; 4) compte
+  Google Play 25 $ + PWABuilder → empreinte SHA-256 pour `assetlinks.json` ;
+  5) secrets média gratuits (GEMINI/HF/Cloudflare) ; 6) trancher navlys.io
+  (miroir complet de navlys.com ou usage distinct ?). **Fil rouge cap
+  1000→1M :** ~~capter le `?code=` à l'inscription~~ ✅ FAIT (parrainage déjà
+  câblé : `/ambassadeur` génère `?parrain=CODE`, `/adhesion` le lit — vérifié) ;
+  ~~propager `callBrain`~~ ✅ FAIT (4 briques déployées) ; RESTE : **clés i18n
+  `/ambassadeur` + `/booster` + `/lancement`** (à faire AVEC le script i18n +
+  banc `tools/check-i18n.mjs`, JAMAIS à la main — règle n°33/34), vidéos/logo/
+  mobile, zéro-erreur navlys.com (audit source fait le 2026-07-11 : charte OK,
+  liens internes OK, JS OK, sitemap OK ; seul défaut trouvé = e-mails
+  non-cliquables sur `next-gen-beta`, corrigé en `mailto:`). Avance sans me
+  demander. »
+
+## 🌙 Session 2026-07-11 — livré (LIVE sur main via PR mergées)
+
+- **Page `/lancement`** (option 1 retenue par Bruno) : cadre blanc « keynote »
+  propre + **voix de Bruno nettoyée** (`media/navlys-bm-voix.mp3`, loudnorm
+  −16 LUFS, extraite d'une vidéo selfie améliorée par ffmpeg) + bouton
+  « Écouter Bruno » + égaliseur ; la vidéo d'origine reste derrière un toggle
+  « Voir la vidéo ». Montage « ils imaginent, NAVLYS fait » (souhait→bulle→
+  résultat) + signature « la seule limite est celle de ton imagination ».
+- **Karaoké VRAI mot à mot (règle n°105)** : `nvKarWords` colore désormais le
+  trail des mots dits en or, le mot en cours en ice vif, les mots à venir
+  estompés — synchro `onboundary` (TTS) + durée réelle (audio), bulle 2 lignes.
+- **callBrain propagé** aux 4 dernières briques (voir bloc « Indépendance »).
+- **Zéro-erreur** : audit complet de `live-source` ; e-mails `next-gen-beta`
+  rendus cliquables (`mailto:`). Funnel `/adhesion` vérifié (OAuth google/apple/
+  azure/facebook/discord + OTP e-mail + gate `NAVLYS_VERIFIE`, repli propre).
+- **Doc `docs/CLE_ANTHROPIC_ET_AUTOPILOTE.md`** + CORE Python : clé Anthropic
+  directe payante (lecture tolérante) + repli OpenRouter dans `navlys_core/llm.py`
+  ; **autopilote** (`navlys_core/autopilote.py`) — le worker se dirige seul
+  (feuille de route auto, garde-fous préparation-only). `python run.py --plan`.
 
 ## 🌙 Nuit du 2026-07-08→09 — livré (à connaître pour la reprise)
 

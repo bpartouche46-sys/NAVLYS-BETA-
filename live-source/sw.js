@@ -12,6 +12,7 @@
  */
 
 const VERSION = 'navlys-v1.9.5';
+const VERSION = 'navlys-v2.0.2';
 const SHELL_CACHE = `${VERSION}-shell`;
 const IMG_CACHE = `${VERSION}-img`;
 
@@ -20,6 +21,7 @@ const SHELL_FILES = [
   '/adhesion',
   '/ambassadeur',
   '/booster',
+  '/concierge',
   '/lancement',
   '/profil',
   '/idee',

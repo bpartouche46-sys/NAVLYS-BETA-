@@ -1,0 +1,37 @@
+ville,pays,population_estimee,ue,transcontinentale,note
+Istanbul,Turquie,15500000,non,oui,plus grande ville; a cheval Europe/Asie
+Moscou,Russie,12600000,non,non,Russie europeenne
+Londres,Royaume-Uni,9000000,non,non,Grand Londres
+Saint-Petersbourg,Russie,5400000,non,non,
+Berlin,Allemagne,3700000,oui,non,
+Madrid,Espagne,3300000,oui,non,
+Kyiv,Ukraine,3000000,non,non,
+Rome,Italie,2800000,oui,non,
+Paris,France,2100000,oui,non,ville propre; agglomeration ~11M
+Minsk,Bielorussie,2000000,non,non,
+Vienne,Autriche,1930000,oui,non,
+Hambourg,Allemagne,1900000,oui,non,
+Bucarest,Roumanie,1800000,non,non,Roumanie hors zone euro
+Varsovie,Pologne,1800000,oui,non,
+Budapest,Hongrie,1700000,oui,non,
+Barcelone,Espagne,1640000,oui,non,
+Munich,Allemagne,1500000,oui,non,
+Kharkiv,Ukraine,1400000,non,non,
+Milan,Italie,1400000,oui,non,
+Belgrade,Serbie,1400000,non,non,
+Kazan,Russie,1300000,non,non,Russie europeenne (Volga)
+Sofia,Bulgarie,1300000,oui,non,
+Prague,Tchequie,1300000,oui,non,
+Nijni-Novgorod,Russie,1200000,non,non,Russie europeenne
+Birmingham,Royaume-Uni,1150000,non,non,ville propre
+Samara,Russie,1140000,non,non,Russie europeenne
+Cologne,Allemagne,1080000,oui,non,
+Rostov-sur-le-Don,Russie,1130000,non,non,Russie europeenne
+Oufa,Russie,1130000,non,oui,proche frontiere Oural
+Volgograd,Russie,1010000,non,non,Russie europeenne
+Voronej,Russie,1050000,non,non,Russie europeenne
+Perm,Russie,1050000,non,oui,region de l'Oural
+Krasnodar,Russie,1000000,non,non,Russie europeenne
+Odessa,Ukraine,1010000,non,non,estimation avant 2022 a verifier
+Dnipro,Ukraine,1000000,non,non,estimation a verifier
+Ekaterinbourg,Russie,1500000,non,oui,sur la limite Oural Europe/Asie

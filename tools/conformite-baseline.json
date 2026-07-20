@@ -1,0 +1,6 @@
+{
+  "_comment": "Dette de conformité connue et acceptée (à résorber). Régénérer : node tools/conformite-check.mjs --update-baseline",
+  "generated": "manuel",
+  "count": 0,
+  "keys": []
+}

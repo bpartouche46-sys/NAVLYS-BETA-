@@ -7,7 +7,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Cormorant+Garamond:ital,wght@0,400;1,400&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
 <link rel="icon" type="image/svg+xml" href="/media/navlys_favicon.svg">
 <link rel="manifest" href="/manifest.webmanifest">
-<script src="https://unpkg.com/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="/vendor/supabase-2.110.5.umd.js"></script>
 <style>
 :root{--noir:#05060a;--ice:#7DD3FC;--ice-clair:#a8e3ff;--or:#e9d3a0;--or-fonce:#C9A961;--perle:#e7eef2;--mut:#9fb3c8;--line:rgba(125,211,252,.18);--ok:#34d399}
 *{margin:0;padding:0;box-sizing:border-box}
@@ -92,7 +92,7 @@ h2::after{content:"";flex:1;height:1px;background:var(--line)}
 
   <div class="verif-gate" id="verif-gate">
     <h2 style="margin-top:0">0 · Valide ton accès</h2>
-    <p class="note" style="margin-top:0">E-mail vérifié obligatoire — ça garde notre base propre et te permet de te retrouver à tout moment. Le plus rapide : connecte-toi en 2 clics.</p>
+    <p class="note" style="margin-top:0">E-mail vérifié obligatoire — ça garde ma base propre et te permet de te retrouver à tout moment. Le plus rapide : connecte-toi en 2 clics.</p>
     <div class="oauth-fan">
       <button class="oauth-btn" id="oauth-google" data-provider="google"><span class="ico">🔵</span> Continuer avec Google</button>
       <button class="oauth-btn" id="oauth-apple" data-provider="apple"><span class="ico"></span> Continuer avec Apple</button>
@@ -114,6 +114,32 @@ h2::after{content:"";flex:1;height:1px;background:var(--line)}
     <div class="champ"><label>Ton e-mail</label><input id="a-email" type="email" autocomplete="email" placeholder="toi@exemple.com" readonly></div>
   </div>
   <input id="a-web" type="text" style="display:none" tabindex="-1" autocomplete="off">
+
+  <h2>1bis · Ton site web</h2>
+  <p class="note" style="margin-top:0">Ton univers vient avec <b>ton tableau de bord et tes pages perso dès le départ</b>. Pour ton site, choisis :</p>
+  <div id="dom-choix" style="display:grid;grid-template-columns:1fr;gap:10px;margin-bottom:10px">
+    <label style="display:flex;gap:12px;align-items:flex-start;background:rgba(6,8,16,.7);border:1px solid rgba(125,211,252,.3);border-radius:14px;padding:14px;cursor:pointer">
+      <input type="radio" name="dom-opt" value="heberge" checked style="margin-top:4px;width:18px;height:18px;accent-color:#7DD3FC">
+      <span><b style="color:#a8e3ff">Mon site hébergé par NAVLYS</b> — <b>inclus dans ta cotisation</b>, prêt immédiatement, à ton prénom.</span>
+    </label>
+    <label style="display:flex;gap:12px;align-items:flex-start;background:rgba(6,8,16,.7);border:1px solid rgba(233,211,160,.4);border-radius:14px;padding:14px;cursor:pointer">
+      <input type="radio" name="dom-opt" value="perso" style="margin-top:4px;width:18px;height:18px;accent-color:#C9A961">
+      <span><b style="color:#f3e4c4">Mon VRAI site à mon nom : nom-prenom.com</b> — <b>+0,99 € HT/mois</b>, payé groupé avec ta cotisation. Ton adresse à toi, pour la vie de ton abonnement.</span>
+    </label>
+  </div>
+  <div id="dom-zone" style="display:none;background:rgba(6,8,16,.7);border:1px solid rgba(233,211,160,.35);border-radius:14px;padding:14px;margin-bottom:12px">
+    <div class="champs">
+      <div class="champ"><label>Ton nom (pour ton domaine)</label><input id="dom-nom" type="text" autocomplete="family-name" placeholder="Dupont"></div>
+    </div>
+    <button id="dom-verifier" type="button" style="margin-top:10px;background:linear-gradient(135deg,#C9A961,#e3cd96);border:none;border-radius:11px;color:#141005;font-weight:700;padding:11px 18px;cursor:pointer;font:inherit">🔎 Vérifier mon domaine en direct</button>
+    <div id="dom-resultats" style="margin-top:10px"></div>
+    <label id="dom-accord-l" style="display:none;gap:10px;align-items:flex-start;margin-top:10px;cursor:pointer">
+      <input type="checkbox" id="dom-accord" style="width:18px;height:18px;accent-color:#C9A961;margin-top:3px">
+      <span class="note" style="margin:0">Je donne mon accord pour l'achat de <b id="dom-elu" style="color:#f3e4c4"></b> en mon nom, au tarif de <b>0,99 € HT/mois</b> ajouté à ma cotisation.</span>
+    </label>
+    <button id="dom-reserver" type="button" style="display:none;margin-top:10px;background:none;border:1px solid rgba(233,211,160,.6);border-radius:11px;color:#f3e4c4;font-weight:700;padding:11px 18px;cursor:pointer;font:inherit">✔ Réserver mon domaine</button>
+    <p class="etat" id="dom-etat" style="margin-top:8px"></p>
+  </div>
 
   <h2>2 · Ta cotisation <span style="letter-spacing:0;text-transform:none;font-family:'Atkinson Hyperlegible',sans-serif;font-size:.75rem;color:var(--mut)">(HT · engagement 1 an — payé en <b>12 fois sans frais</b> par carte, ou l'année en une fois avec −5 %)</span></h2>
   <div class="formules" id="a-formules"></div>
@@ -422,5 +448,69 @@ h2::after{content:"";flex:1;height:1px;background:var(--line)}
   <div>NAVLYS — navlys.com · Paiement sécurisé via Paddle.com (Merchant of Record).</div>
 </footer>
 <script src="/navlys-alive.js" defer></script>
+<script>
+/* 1bis · Ton site web — domaine perso nom-prenom.com (+0,99 € HT/mois groupé).
+   Vérif temps réel via la brique « domaine » (RDAP), astuce du tiret -nav/-navlys/navlys-.
+   L'accord du CLIENT vaut ordre d'achat (doctrine 2026-07-11). */
+(function(){
+  var API='https://hhrlgyvtqluxpywjiwkd.supabase.co/functions/v1/domaine';
+  var $=function(id){ return document.getElementById(id); };
+  function E(s){ return String(s==null?'':s).replace(/[&<>]/g,function(c){ return c==='&'?'&amp;':c==='<'?'&lt;':'&gt;'; }); }
+  var elu=null;
+  Array.prototype.forEach.call(document.querySelectorAll('input[name=dom-opt]'),function(r){
+    r.addEventListener('change',function(){
+      $('dom-zone').style.display = (this.value==='perso') ? 'block' : 'none';
+      try{ localStorage.setItem('nv-site-choix', this.value); }catch(e){}
+    });
+  });
+  $('dom-verifier').addEventListener('click',function(){
+    var prenom=($('a-prenom')&&$('a-prenom').value||'').trim(), nom=($('dom-nom').value||'').trim();
+    var etat=$('dom-etat'); etat.textContent='';
+    if(!prenom||!nom){ etat.textContent='Écris ton prénom (en haut) et ton nom.'; return; }
+    var b=this; b.disabled=true; b.textContent='🔎 Vérification en direct…';
+    fetch(API+'?prenom='+encodeURIComponent(prenom)+'&nom='+encodeURIComponent(nom))
+      .then(function(r){ return r.json(); })
+      .then(function(d){
+        b.disabled=false; b.textContent='🔎 Vérifier mon domaine en direct';
+        if(!d||!d.ok){ etat.textContent=(d&&d.error)||'Réessaie dans un instant.'; return; }
+        var h='';
+        (d.propositions||[]).forEach(function(p){
+          h+='<div style="display:flex;gap:10px;align-items:center;padding:8px 4px;border-bottom:1px solid rgba(125,211,252,.1)">'
+            +'<span style="flex:1;color:#e7eef2;font-weight:700">'+E(p.domaine)+'</span>'
+            +(p.libre===true?'<span style="color:#34d399;font-weight:700">✔ LIBRE</span>'
+              :p.libre===false?'<span style="color:#fca5a5">déjà pris</span>'
+              :'<span style="color:#9fb3c8">?</span>')+'</div>';
+        });
+        $('dom-resultats').innerHTML=h;
+        elu=d.disponible||null;
+        if(elu){
+          $('dom-elu').textContent=elu;
+          $('dom-accord-l').style.display='flex';
+          $('dom-reserver').style.display='inline-block';
+        } else {
+          etat.textContent='Aucune variante libre — écris-nous via 💬, on trouvera ensemble.';
+        }
+      })
+      .catch(function(){ b.disabled=false; b.textContent='🔎 Vérifier mon domaine en direct'; etat.textContent='Connexion difficile, réessaie.'; });
+  });
+  $('dom-reserver').addEventListener('click',function(){
+    var etat=$('dom-etat');
+    var email=($('a-email')&&$('a-email').value||'').trim();
+    if(!email){ etat.textContent='Valide d’abord ton accès (étape 0) pour que ton domaine soit à TON e-mail.'; return; }
+    if(!$('dom-accord').checked){ etat.textContent='Coche ton accord — c’est lui qui déclenche l’achat, en ton nom.'; return; }
+    if(!elu) return;
+    var b=this; b.disabled=true;
+    fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
+      email:email, prenom:($('a-prenom').value||'').trim(), nom:($('dom-nom').value||'').trim(),
+      domaine:elu, accord:true
+    })}).then(function(r){ return r.json(); }).then(function(d){
+      b.disabled=false;
+      if(d&&d.ok){ etat.innerHTML='<b style="color:#34d399">'+E(d.merci)+'</b>';
+        try{ localStorage.setItem('nv-domaine', d.domaine); localStorage.setItem('nv-site-choix','perso'); }catch(e){}
+      } else { etat.textContent=(d&&d.error)||'Réessaie dans un instant.'; }
+    }).catch(function(){ b.disabled=false; etat.textContent='Connexion difficile, réessaie.'; });
+  });
+})();
+</script>
 </body>
 </html>
