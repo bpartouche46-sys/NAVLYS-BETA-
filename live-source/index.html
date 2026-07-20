@@ -62,6 +62,8 @@ nav .m:hover::after{opacity:1;transform:translateX(-50%) translateY(0)}
 @media(max-width:760px){nav{gap:14px}nav .m{font-size:10px;letter-spacing:.16em}nav .m::after{display:none}}
 
 /* HERO */
+.hero-logo{line-height:0;margin:0 auto 10px;display:flex;justify-content:center}
+.hero-logo svg{width:clamp(64px,13vw,116px);height:auto}
 .brand{font-weight:700;font-size:clamp(64px,17vw,190px);letter-spacing:.14em;line-height:1;
   background:linear-gradient(100deg,var(--bronze),var(--or) 40%,#fff7e0 50%,var(--or) 60%,var(--bronze));
   background-size:250% auto;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
@@ -122,6 +124,7 @@ footer .cz{font-size:10px;letter-spacing:.2em;color:var(--bronze);text-transform
 
 <!-- ECRAN 1 -->
 <section id="hero">
+  <div id="nvHeroLogo" class="hero-logo" aria-hidden="true"></div>
   <div class="brand">NAVLYS</div>
   <div class="tag">l ia la plus simple du monde</div>
   <div class="tag"><b>parle et c est fait</b></div>
@@ -184,5 +187,7 @@ addEventListener('mousemove',e=>{
   vids.forEach((v,k)=>v.addEventListener('mouseenter',()=>{i=k;show(k);}));
 })();
 </script>
+<script src="/navlys-logos.js" defer></script>
+<script>window.addEventListener('DOMContentLoaded',function(){var t=0;(function r(){var el=document.getElementById('nvHeroLogo');if(window.NavlysLogo&&el){NavlysLogo.render('index',el,96);}else if(t++<50){setTimeout(r,120);}})();});</script>
 </body>
 </html>
