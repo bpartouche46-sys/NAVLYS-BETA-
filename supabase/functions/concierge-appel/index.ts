@@ -51,22 +51,55 @@ function manqueListe() {
   return m;
 }
 
+// ── RÉSILIENCE MULTI-MODÈLE (indépendance CORE) ──────────────────────────
+// Même pattern que api/whatsapp-webhook.js, supabase/functions/assistant et bible :
+// Claude direct d'abord, puis OpenRouter/Llama, puis NVIDIA NIM. Le script d'appel
+// se rédige même si api.anthropic.com tombe. Lecture tolérante des clés (règle n°4).
+async function appelAnthropic(sys: string, msgs: any[], model: string, maxTok: number): Promise<string> {
+  if (!ANTH) return "";
+  try {
+    const r = await fetch("https://api.anthropic.com/v1/messages", { method:"POST", headers:{ "x-api-key":ANTH, "anthropic-version":"2023-06-01", "Content-Type":"application/json" }, body: JSON.stringify({ model, max_tokens:maxTok, system:sys, messages:msgs }) });
+    const d: any = await r.json().catch(() => ({}));
+    return ((d.content || []).filter((c: any) => c.type === "text").map((c: any) => c.text).join("\n").trim());
+  } catch { return ""; }
+}
+async function appelOpenRouter(sys: string, msgs: any[], maxTok: number): Promise<string> {
+  const orKey = env("OPENROUTER_API_KEY", "OPENROUTER_KEY", "OPEN_ROUTER_API_KEY", "OPEN_API_ROUTER", "OPEN_API_ROUTER_KEY");
+  if (!orKey) return "";
+  try {
+    const r = await fetch("https://openrouter.ai/api/v1/chat/completions", { method:"POST", headers:{ Authorization:`Bearer ${orKey}`, "Content-Type":"application/json", "HTTP-Referer":"https://navlys.com", "X-Title":"NAVLYS Concierge" }, body: JSON.stringify({ model:"meta-llama/llama-3.3-70b-instruct:free", max_tokens:maxTok, messages:[{ role:"system", content:sys }, ...msgs] }) });
+    const d: any = await r.json().catch(() => ({}));
+    return (d?.choices?.[0]?.message?.content || "").trim();
+  } catch { return ""; }
+}
+async function appelNvidia(sys: string, msgs: any[], maxTok: number): Promise<string> {
+  const nvKey = env("NVIDIA_API_KEY", "NVAPI_KEY", "NVIDIA_NIM_KEY", "NGC_API_KEY", "NVIDIA_BUILD_API_KEY", "BUILD_NVIDIA_API_KEY");
+  if (!nvKey) return "";
+  try {
+    const r = await fetch("https://integrate.api.nvidia.com/v1/chat/completions", { method:"POST", headers:{ Authorization:`Bearer ${nvKey}`, "Content-Type":"application/json" }, body: JSON.stringify({ model:"meta/llama-3.3-70b-instruct", max_tokens:maxTok, temperature:0.4, messages:[{ role:"system", content:sys }, ...msgs] }) });
+    const d: any = await r.json().catch(() => ({}));
+    return (d?.choices?.[0]?.message?.content || "").trim();
+  } catch { return ""; }
+}
+async function callBrain(sys: string, msgs: any[], model: string, maxTok: number): Promise<string> {
+  const a = await appelAnthropic(sys, msgs, model, maxTok); if (a) return a;
+  const o = await appelOpenRouter(sys, msgs, maxTok); if (o) return o;
+  const n = await appelNvidia(sys, msgs, maxTok); if (n) return n;
+  return "";
+}
+
 async function ecrireScript(prenom: string, business: string, besoin: string, date: string, voix: string) {
   const decl = "Bonjour, je suis l'assistant NAVLYS qui appelle de la part de " + (prenom || "un client") + ".";
-  if (!ANTH) return decl + " Je souhaite prendre un rendez-vous : " + besoin + (date ? (" — créneau souhaité : " + date + ".") : ".") + " Merci de me dire vos disponibilités.";
-  try {
-    const sys = "Tu écris le SCRIPT d'un appel téléphonique court et poli, en français, où l'assistant NAVLYS appelle un commerce/artisan pour prendre un rendez-vous AU NOM d'un client. Contraintes STRICTES : (1) la 1re phrase déclare clairement que c'est un assistant NAVLYS qui appelle pour le client (transparence, jamais se faire passer pour un humain nommé) ; (2) expose le besoin, propose le créneau souhaité, demande les disponibilités ; (3) reste bref, chaleureux, tutoiement interdit avec un pro (vouvoiement de politesse ici) ; (4) n'invente aucune info non fournie. Réponds UNIQUEMENT par le script parlé.";
-    const usr = `Client : ${prenom || "(prénom non fourni)"}\nCommerce appelé : ${business}\nBesoin/RDV : ${besoin}\nCréneau souhaité : ${date || "(à convenir)"}\nVoix utilisée : ${voix}`;
-    const r = await fetch("https://api.anthropic.com/v1/messages", { method:"POST", headers:{ "x-api-key":ANTH, "anthropic-version":"2023-06-01", "Content-Type":"application/json" }, body: JSON.stringify({ model:"claude-haiku-4-5-20251001", max_tokens:400, system:sys, messages:[{ role:"user", content:usr }] }) });
-    const d: any = await r.json().catch(() => ({}));
-    const out = ((d.content || []).filter((c: any) => c.type === "text").map((c: any) => c.text).join("\n").trim());
-    return out || decl;
-  } catch { return decl; }
+  const replit = decl + " Je souhaite prendre un rendez-vous : " + besoin + (date ? (" — créneau souhaité : " + date + ".") : ".") + " Merci de me dire vos disponibilités.";
+  const sys = "Tu écris le SCRIPT d'un appel téléphonique court et poli, en français, où l'assistant NAVLYS appelle un commerce/artisan pour prendre un rendez-vous AU NOM d'un client. Contraintes STRICTES : (1) la 1re phrase déclare clairement que c'est un assistant NAVLYS qui appelle pour le client (transparence, jamais se faire passer pour un humain nommé) ; (2) expose le besoin, propose le créneau souhaité, demande les disponibilités ; (3) reste bref, chaleureux, tutoiement interdit avec un pro (vouvoiement de politesse ici) ; (4) n'invente aucune info non fournie. Réponds UNIQUEMENT par le script parlé.";
+  const usr = `Client : ${prenom || "(prénom non fourni)"}\nCommerce appelé : ${business}\nBesoin/RDV : ${besoin}\nCréneau souhaité : ${date || "(à convenir)"}\nVoix utilisée : ${voix}`;
+  const out = await callBrain(sys, [{ role:"user", content:usr }], "claude-haiku-4-5-20251001", 400);
+  return out || replit;
 }
 
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response(null, { status: 204, headers: CORS });
-  if (req.method === "GET") return J({ ok:true, service:"navlys-concierge-appel", provider_pret: providerPret() || null, voix_clonee_prete: !!VOICE_ID, manque: manqueListe() });
+  if (req.method === "GET") return J({ ok:true, service:"navlys-concierge-appel", provider_pret: providerPret() || null, voix_clonee_prete: !!VOICE_ID, resilience_llm:["claude","openrouter_llama","nvidia_nim"], manque: manqueListe() });
 
   const b: any = await req.json().catch(() => ({}));
   if (b && b.website) return J({ ok:true }); // pot de miel

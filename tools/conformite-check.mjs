@@ -23,6 +23,12 @@ import { join, relative } from 'node:path';
 const ROOT = 'live-source';
 const BASELINE_PATH = 'tools/conformite-baseline.json';
 const SCAN_EXT = /\.(html?|js|css|json)$/i;
+// Fichiers générés par la machine (tampons de déploiement), jamais du contenu
+// affiché : on ne les scanne pas. version.json est réécrit à CHAQUE publication
+// (son `ts` opérationnel déclenchait un faux positif « date-lancement » sur la
+// règle n°156, sans rien afficher au public). Le garde-fou reste 100 % actif sur
+// toutes les vraies pages.
+const SCAN_SKIP = /^version\.json$/i;
 
 /* ------------------------------------------------------------------ règles */
 // sev:'error' = bloque la CI (hors baseline) · 'warn' = signale sans bloquer.
@@ -53,7 +59,7 @@ function walk(dir, acc = []) {
     const p = join(dir, name);
     const st = statSync(p);
     if (st.isDirectory()) walk(p, acc);
-    else if (SCAN_EXT.test(name)) acc.push(p);
+    else if (SCAN_EXT.test(name) && !SCAN_SKIP.test(name)) acc.push(p);
   }
   return acc;
 }
