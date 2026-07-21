@@ -57,14 +57,18 @@
   function bulle(who,t){var d=document.createElement('div');d.className='nv-b '+(who==='u'?'nv-u':'nv-a');d.textContent=t;log.appendChild(d);log.scrollTop=log.scrollHeight;return d;}
 
   var parle=false, audio=null;
+  var LANG2=((navigator.language||'fr').slice(0,2)).toLowerCase();
+  var TMAP={fr:'fr-FR',en:'en-US',es:'es-ES',de:'de-DE',it:'it-IT',pt:'pt-PT',ar:'ar-SA',he:'he-IL',ru:'ru-RU',zh:'zh-CN',hi:'hi-IN',nl:'nl-NL',pl:'pl-PL',tr:'tr-TR'};
+  function navTts(t){ try{var u=new SpeechSynthesisUtterance(t);u.lang=TMAP[LANG2]||'fr-FR';speechSynthesis.cancel();speechSynthesis.speak(u);}catch(_){}}
   function dire(t){
+    // FR : voix clonee de Bruno. Autres langues : synthese navigateur dans la langue (correspondance stricte).
+    if(LANG2!=='fr'){ navTts(t); return; }
     try{
       fetch(VOIX,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({text:t})})
         .then(function(r){return r.json();}).then(function(d){
-          if(d&&d.ok&&d.audio){ if(audio){try{audio.pause();}catch(_){}} audio=new Audio(d.audio); audio.play().catch(navTts); }
-          else navTts();
-          function navTts(){ try{var u=new SpeechSynthesisUtterance(t);u.lang='fr-FR';speechSynthesis.cancel();speechSynthesis.speak(u);}catch(_){}}
-        })['catch'](function(){ try{var u=new SpeechSynthesisUtterance(t);u.lang='fr-FR';speechSynthesis.cancel();speechSynthesis.speak(u);}catch(_){}});
+          if(d&&d.ok&&d.audio){ if(audio){try{audio.pause();}catch(_){}} audio=new Audio(d.audio); audio.play().catch(function(){navTts(t);}); }
+          else navTts(t);
+        })['catch'](function(){ navTts(t); });
     }catch(_){}
   }
   var enCours=false;
@@ -83,9 +87,13 @@
   send.addEventListener('click',function(){envoyer(txt.value);});
   txt.addEventListener('keydown',function(e){if(e.key==='Enter')envoyer(txt.value);});
 
+  // langue du visiteur -> reconnaissance + reponse dans SA langue (correspondance stricte)
+  var LMAP={fr:'fr-FR',en:'en-US',es:'es-ES',de:'de-DE',it:'it-IT',pt:'pt-PT',ar:'ar-SA',he:'he-IL',ru:'ru-RU',zh:'zh-CN',hi:'hi-IN',nl:'nl-NL',pl:'pl-PL',tr:'tr-TR'};
+  var L2=((navigator.language||'fr').slice(0,2)).toLowerCase();
+  var RLANG=LMAP[L2]||'fr-FR';
   var Reco=window.SpeechRecognition||window.webkitSpeechRecognition, reco=null, ecoute=false;
   if(Reco){
-    reco=new Reco();reco.lang='fr-FR';reco.continuous=false;reco.interimResults=false;
+    reco=new Reco();reco.lang=RLANG;reco.continuous=false;reco.interimResults=false;
     reco.onresult=function(e){var t=e.results&&e.results[0]&&e.results[0][0]&&e.results[0][0].transcript;if(t){txt.value=t;envoyer(t);}};
     reco.onerror=function(){stopMic();};reco.onend=function(){stopMic();};
   }else{mic.title='Micro non supporte — ecris';}
