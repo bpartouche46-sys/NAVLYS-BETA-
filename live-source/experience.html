@@ -54,6 +54,23 @@ a{color:inherit;text-decoration:none}
 .cta{display:inline-block;margin-top:14px;font-family:'Cinzel',serif;font-size:13px;letter-spacing:.08em;text-transform:uppercase;
   background:linear-gradient(100deg,var(--or),var(--orl));color:#1a1206;padding:13px 22px;border-radius:999px;box-shadow:0 10px 26px rgba(184,134,59,.35)}
 .foot{text-align:center;color:var(--ink2);font-size:13px;font-style:italic;padding:30px 20px 60px}
+/* --- polish 21st.dev-caliber : mesh gradient, verre, spotlight, shimmer --- */
+body::before{content:"";position:fixed;inset:-25%;z-index:-1;pointer-events:none;
+ background:
+  radial-gradient(38% 38% at 20% 22%,rgba(184,134,59,.18),transparent 60%),
+  radial-gradient(44% 44% at 84% 16%,rgba(125,211,252,.22),transparent 60%),
+  radial-gradient(48% 48% at 72% 84%,rgba(230,192,121,.18),transparent 60%),
+  radial-gradient(44% 44% at 14% 82%,rgba(95,224,255,.16),transparent 60%);
+ filter:blur(34px);animation:mesh 20s ease-in-out infinite alternate}
+@keyframes mesh{to{transform:translate3d(0,-4%,0) scale(1.09) rotate(2deg)}}
+.card{position:relative;background:rgba(255,255,255,.72);backdrop-filter:blur(10px) saturate(1.1);-webkit-backdrop-filter:blur(10px) saturate(1.1)}
+.card::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .3s;border-radius:18px;
+ background:radial-gradient(180px 180px at var(--mx,50%) var(--my,50%),rgba(184,134,59,.22),transparent 60%)}
+.card:hover::after{opacity:1}
+.cta{position:relative;overflow:hidden}
+.cta::after{content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;
+ background:linear-gradient(100deg,transparent,rgba(255,255,255,.65),transparent);transform:skewX(-20deg);animation:sh 3.4s ease-in-out infinite}
+@keyframes sh{0%,58%{left:-60%}100%{left:130%}}
 </style>
 </head>
 <body>
@@ -127,6 +144,8 @@ var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isInter
 document.querySelectorAll('.card,.reveal').forEach(function(el){io.observe(el);});
 // stagger cards
 cards.forEach(function(c,i){setTimeout(function(){c.classList.add('show');}, 120*i);});
+// spotlight qui suit le curseur (effet 21st.dev)
+cards.forEach(function(c){c.addEventListener('mousemove',function(e){var r=c.getBoundingClientRect();c.style.setProperty('--mx',(e.clientX-r.left)+'px');c.style.setProperty('--my',(e.clientY-r.top)+'px');});});
 </script>
 </body>
 </html>
