@@ -1,22 +1,6 @@
 User-agent: *
 Allow: /
+Disallow: /depot
+Disallow: /mon-espace
 
-# moteurs IA generatifs bienvenus
-User-agent: GPTBot
-Allow: /
-User-agent: OAI-SearchBot
-Allow: /
-User-agent: ChatGPT-User
-Allow: /
-User-agent: PerplexityBot
-Allow: /
-User-agent: Google-Extended
-Allow: /
-User-agent: ClaudeBot
-Allow: /
-User-agent: Claude-Web
-Allow: /
-User-agent: Bytespider
-Allow: /
-
-Sitemap: https://navlys.com/sitemap.xml
+Sitemap: https://www.navlys.com/sitemap.xml
