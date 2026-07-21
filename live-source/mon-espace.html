@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>NAVLYS — Mon espace · client n°1</title>
+<meta name="robots" content="noindex,follow">
+<link rel="icon" type="image/png" href="/assets/coins/navlys-coin-core.png">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/navlys-ui.css">
+<style>
+.esp{max-width:900px;margin:0 auto;padding:96px 20px 60px}
+.big-mic{display:block;margin:18px auto;width:132px;height:132px;border-radius:50%;border:none;cursor:pointer;font-size:52px;color:#0a0803;
+  background:radial-gradient(circle at 38% 30%,#ffe6a6,#e9d3a0 45%,#c9962f 100%);box-shadow:0 12px 40px rgba(201,150,47,.5);animation:mb 3.4s ease-in-out infinite}
+@keyframes mb{50%{box-shadow:0 12px 54px rgba(255,215,122,.7);transform:translateY(-3px)}}
+.big-mic.rec{background:radial-gradient(circle at 38% 30%,#ff9a9a,#e83a3a 100%);color:#fff;animation:rc 1s steps(2) infinite}
+@keyframes rc{50%{opacity:.55}}
+.st{text-align:center;color:var(--ice);font-family:'Cinzel',serif;font-size:12px;letter-spacing:.16em;text-transform:uppercase;min-height:16px}
+.log{max-width:640px;margin:18px auto 0;display:flex;flex-direction:column;gap:9px}
+.b{max-width:88%;padding:10px 14px;border-radius:14px;font-size:15px;line-height:1.45}
+.u{align-self:flex-end;background:linear-gradient(100deg,#c9962f,#e9d3a0);color:#0a0803}
+.a{align-self:flex-start;background:rgba(255,255,255,.06);color:var(--perle);border:1px solid rgba(125,211,252,.18)}
+.bar{display:flex;gap:8px;max-width:640px;margin:14px auto 0}
+.bar input{flex:1;background:rgba(255,255,255,.05);border:1px solid rgba(125,211,252,.25);border-radius:12px;color:#eaf6ff;padding:11px 14px;font-family:'Cormorant Garamond',serif;font-size:16px}
+.bar button{border:none;border-radius:12px;padding:11px 16px;cursor:pointer;background:linear-gradient(100deg,#c9962f,#ffd77a);color:#0a0803;font-size:16px}
+.gen{margin-top:28px;padding:18px;border:1px solid rgba(233,211,160,.25);border-radius:16px;background:rgba(8,11,22,.6)}
+.gen h3{font-family:'Cinzel',serif;color:var(--or);font-size:16px;letter-spacing:.08em}
+.gen .s{color:var(--brume);font-size:13px;margin-top:4px}
+</style>
+</head>
+<body>
+<script>(function(){try{if('serviceWorker' in navigator){navigator.serviceWorker.getRegistrations().then(function(rs){rs.forEach(function(r){r.unregister();});});}}catch(e){}})();</script>
+<nav class="nv-nav"><a href="/">accueil</a><a href="#parle">parle</a><a href="#site">mon site</a><a href="#vie">ma vie</a></nav>
+
+<div class="esp">
+  <p class="nv-k" style="margin-top:6px">client n°1 · bruno</p>
+  <h1 class="nv-t" id="parle">ton espace, <em>à la voix</em></h1>
+  <p style="text-align:center;color:var(--perle);font-style:italic">appuie, parle-moi, je te réponds à voix haute</p>
+
+  <button class="big-mic" id="mic" title="Parler">🎙️</button>
+  <div class="st" id="st">touche le micro et parle</div>
+  <div class="log" id="log"></div>
+  <div class="bar"><input id="txt" placeholder="ou écris-moi ici…" autocomplete="off"><button id="send">➤</button></div>
+
+  <section id="site" class="gen">
+    <h3>🌐 construire mon site à la voix</h3>
+    <div class="s">dis ou écris ce que tu veux sur ton site (nom, thème, sections). Je le garde dans ton espace et je le construis.</div>
+    <div class="bar"><input id="siteTxt" placeholder="ex : un site vitrine bleu nuit avec ma bio et mes bateaux"><button id="siteSave">garder</button></div>
+    <div class="st" id="siteSt" style="text-align:left;text-transform:none;letter-spacing:0;color:var(--brume)"></div>
+  </section>
+
+  <section id="vie" class="gen">
+    <h3>🧬 ma vie · Genesis</h3>
+    <div class="s" id="genSt">chargement…</div>
+  </section>
+</div>
+
+<script>
+var BASE='https://hhrlgyvtqluxpywjiwkd.supabase.co/functions/v1';
+var log=document.getElementById('log'),txt=document.getElementById('txt'),st=document.getElementById('st'),mic=document.getElementById('mic');
+function bulle(w,t){var d=document.createElement('div');d.className='b '+(w==='u'?'u':'a');d.textContent=t;log.appendChild(d);d.scrollIntoView({behavior:'smooth',block:'nearest'});return d;}
+var audio=null;
+function dire(t){try{fetch(BASE+'/voix',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({text:t})}).then(function(r){return r.json();}).then(function(d){if(d&&d.ok&&d.audio){if(audio)try{audio.pause();}catch(_){ }audio=new Audio(d.audio);audio.play().catch(navtts);}else navtts();function navtts(){try{var u=new SpeechSynthesisUtterance(t);u.lang='fr-FR';speechSynthesis.cancel();speechSynthesis.speak(u);}catch(_){}}})['catch'](function(){try{var u=new SpeechSynthesisUtterance(t);u.lang='fr-FR';speechSynthesis.speak(u);}catch(_){}});}catch(_){}}
+var busy=false;
+function envoyer(t){t=(t||'').trim();if(!t||busy)return;busy=true;bulle('u',t);txt.value='';var p=bulle('a','…');st.textContent='je réfléchis';
+ fetch(BASE+'/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message:t})}).then(function(r){return r.json();}).then(function(d){var rep=(d&&d.ok&&d.reply)?d.reply:'Réessaie la.';p.textContent=rep;st.textContent='touche le micro et parle';dire(rep);})['catch'](function(){p.textContent='Connexion indisponible.';st.textContent='';}).then(function(){busy=false;});}
+document.getElementById('send').onclick=function(){envoyer(txt.value);};
+txt.addEventListener('keydown',function(e){if(e.key==='Enter')envoyer(txt.value);});
+var Reco=window.SpeechRecognition||window.webkitSpeechRecognition,reco=null,on=false;
+if(Reco){reco=new Reco();reco.lang='fr-FR';reco.continuous=false;reco.interimResults=false;reco.onresult=function(e){var t=e.results[0][0].transcript;if(t){envoyer(t);}};reco.onerror=function(){stop();};reco.onend=function(){stop();};}
+function start(){if(!reco||on)return;on=true;mic.classList.add('rec');st.textContent='je t écoute…';try{reco.start();}catch(_){stop();}}
+function stop(){on=false;mic.classList.remove('rec');}
+mic.onclick=function(){if(!reco){txt.focus();return;}on?(function(){try{reco.stop();}catch(_){}stop();})():start();};
+// mon site -> garde dans Genesis
+document.getElementById('siteSave').onclick=function(){var v=document.getElementById('siteTxt').value.trim();if(v.length<4){document.getElementById('siteSt').textContent='dis-en un peu plus';return;}
+ fetch(BASE+'/genesis',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'ajouter',membre:'bruno',type:'document',titre:'Mon site',contenu:v,chapitre:'site',source:'mon-espace'})}).then(function(r){return r.json();}).then(function(d){document.getElementById('siteSt').textContent=(d&&d.ok)?'✅ gardé dans ton espace — je le construis':'réessaie';document.getElementById('siteTxt').value='';});};
+// statut Genesis
+fetch(BASE+'/genesis').then(function(r){return r.json();}).then(function(d){document.getElementById('genSt').textContent=(d&&d.ok)?(d.elements_total+' éléments de vie · '+(d.syntheses?d.syntheses.length:0)+' chapitres synthétisés — parle-moi de toi et je garde tout'):'espace prêt — raconte-moi ta vie';})['catch'](function(){document.getElementById('genSt').textContent='espace prêt';});
+</script>
+</body>
+</html>
