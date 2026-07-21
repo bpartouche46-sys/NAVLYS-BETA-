@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://navlys.com/</loc><priority>1.0</priority></url>
-  <url><loc>https://navlys.com/adhesion</loc><priority>0.9</priority></url>
-  <url><loc>https://navlys.com/next-gen</loc><priority>0.8</priority></url>
-  <url><loc>https://navlys.com/finance</loc><priority>0.8</priority></url>
-  <url><loc>https://navlys.com/navlex</loc><priority>0.7</priority></url>
-  <url><loc>https://navlys.com/mer</loc><priority>0.6</priority></url>
-  <url><loc>https://navlys.com/ambassadeur</loc><priority>0.6</priority></url>
-  <url><loc>https://navlys.com/creations</loc><priority>0.5</priority></url>
+  <url><loc>https://www.navlys.com/</loc><lastmod>2026-07-21</lastmod><changefreq>daily</changefreq><priority>1.0</priority></url>
+  <url><loc>https://www.navlys.com/essai</loc><lastmod>2026-07-21</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://www.navlys.com/journal</loc><lastmod>2026-07-21</lastmod><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.navlys.com/adhesion</loc><lastmod>2026-07-21</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://www.navlys.com/cadeaux</loc><lastmod>2026-07-21</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.navlys.com/next-gen</loc><lastmod>2026-07-21</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.navlys.com/finance</loc><lastmod>2026-07-21</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.navlys.com/navlex</loc><lastmod>2026-07-21</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.navlys.com/mer</loc><lastmod>2026-07-21</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url>
 </urlset>
