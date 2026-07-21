@@ -69,9 +69,7 @@
 {"@type":"Question","name":"NAVLYS fonctionne-t-il vraiment sans ordinateur","acceptedAnswer":{"@type":"Answer","text":"Oui. NAVLYS a été pensé pour le téléphone et la voix : aucun ordinateur ni installation n'est nécessaire. Tu parles, l'IA agit, et tout se pilote depuis ton mobile."}},
 {"@type":"Question","name":"En quoi NAVLYS est-il différent d'une autre intelligence artificielle","acceptedAnswer":{"@type":"Answer","text":"NAVLYS mise sur la simplicité et la voix : pas d'écran complexe, pas de compétences, pas d'ordinateur. L'objectif est de rendre l'intelligence artificielle accessible à toutes et tous, dans sa propre langue, directement au téléphone."}},
 {"@type":"Question","name":"Puis-je essayer NAVLYS sans engagement","acceptedAnswer":{"@type":"Answer","text":"Oui. NAVLYS est sans engagement, avec une offre découverte dès 0,99 € HT par mois. Pendant la phase de lancement, l'accès peut être offert, et tu gardes toujours la maîtrise de ton espace et de tes contenus."}},
-{"@type":"Question","name":"À partir de quel âge peut-on utiliser NAVLYS","acceptedAnswer":{"@type":"Answer","text":"NAVLYS est réservé aux personnes majeures (18+). C'est un projet d'éducation et de veille, jamais un conseil personnalisé, et chacun reste seul responsable de ses décisions."}},
-{"@type":"Question","name":"NAVLYS respecte-t-il le RGPD et la protection de mes données","acceptedAnswer":{"@type":"Answer","text":"Oui. NAVLYS place la protection des données au cœur de sa conception : tes contenus et tes créations restent privés, hébergés sur ton propre espace sécurisé, et tu peux les exporter ou les supprimer quand tu veux. NAVLYS ne revend pas tes données et applique une approche respectueuse de la vie privée, dans l'esprit du RGPD."}},
-{"@type":"Question","name":"NAVLYS peut-il gérer mon argent ou passer des ordres à ma place","acceptedAnswer":{"@type":"Answer","text":"Non. NAVLYS ne gère jamais d'argent, ne passe aucun ordre et n'exécute aucune transaction financière à ta place. C'est un projet d'éducation et de veille à vocation informative : il ne donne pas de conseil personnalisé en investissement. Chacun reste seul responsable de ses décisions."}}
+{"@type":"Question","name":"À partir de quel âge peut-on utiliser NAVLYS","acceptedAnswer":{"@type":"Answer","text":"NAVLYS est réservé aux personnes majeures (18+). C'est un projet d'éducation et de veille, jamais un conseil personnalisé, et chacun reste seul responsable de ses décisions."}}
 ]}
 </script>
 </head>
@@ -246,10 +244,6 @@
       <p style="color:var(--perle)">NAVLYS est réservé aux personnes majeures (18+). C'est un projet d'éducation et de veille, jamais un conseil personnalisé, et chacun reste seul responsable de ses décisions.</p>
       <h3 style="color:var(--or);font-family:'Cinzel',serif;font-size:18px;margin-top:18px">Est-ce un conseil financier ?</h3>
       <p style="color:var(--perle)">Non. NAVLYS est un projet d'éducation et de veille à vocation informative. Il ne fournit jamais de conseil personnalisé en investissement, ni de gestion d'argent, et ne remplace pas un professionnel. Chacun reste seul responsable de ses décisions.</p>
-      <h3 style="color:var(--or);font-family:'Cinzel',serif;font-size:18px;margin-top:18px">NAVLYS respecte-t-il le RGPD et la protection de mes données ?</h3>
-      <p style="color:var(--perle)">Oui. NAVLYS place la protection des données au cœur de sa conception&nbsp;: tes contenus et tes créations restent privés, hébergés sur ton propre espace sécurisé. Tu peux les exporter ou les supprimer quand tu veux, et NAVLYS ne revend pas tes données — une approche respectueuse de ta vie privée, dans l'esprit du RGPD.</p>
-      <h3 style="color:var(--or);font-family:'Cinzel',serif;font-size:18px;margin-top:18px">NAVLYS peut-il gérer mon argent à ma place ?</h3>
-      <p style="color:var(--perle)">Non. NAVLYS ne gère jamais d'argent, ne passe aucun ordre et n'exécute aucune transaction à ta place. C'est un projet d'éducation et de veille&nbsp;: aucun conseil personnalisé en investissement. Chacun reste seul responsable de ses décisions.</p>
     </div>
   </section>
 
@@ -267,8 +261,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script>
 (function(){
-  document.querySelectorAll('video').forEach(function(v){v.muted=true;try{v.play().catch(function(){});}catch(e){}});
-  if(matchMedia('(prefers-reduced-motion: reduce)').matches){document.querySelectorAll('.nv-reveal').forEach(function(el){el.style.opacity=1;el.style.transform='none';});return;}
+  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.querySelectorAll('video').forEach(function(v){v.muted=true;if(reduce){try{v.autoplay=false;v.removeAttribute('autoplay');v.loop=false;v.pause();}catch(e){}}else{try{v.play().catch(function(){});}catch(e){}}});
+  if(reduce){document.querySelectorAll('.nv-reveal').forEach(function(el){el.style.opacity=1;el.style.transform='none';});return;}
   try{
     var lenis=new Lenis({lerp:.1,smoothWheel:true});(function raf(t){lenis.raf(t);requestAnimationFrame(raf);})();
     if(window.gsap&&window.ScrollTrigger){gsap.registerPlugin(ScrollTrigger);lenis.on('scroll',ScrollTrigger.update);
