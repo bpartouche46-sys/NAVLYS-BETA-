@@ -2,6 +2,58 @@
 
 > Mis à jour à la fin de chaque session pour que la suivante reprenne sans tout relire.
 
+## Session 2026-07-15 — 🔁 MODE BOUCLE ACTIVE + correction Hetzner (ERR-008)
+
+- 🔍 **État LIVE vérifié** (fetch Vercel de navlys.com, dernière modif 12/07) : le site est **bien
+  plus avancé** que la mémoire ne le disait. **Plus de countdown** (mode produit lancé), **démo voix
+  LIVE** (avatar + clone vocal via edge functions Supabase `hhrlgyvtqluxpywjiwkd` : `/voix`,
+  `/voix-demo`), apps en home (Next Gen, Finance, Test Bateaux, NAVLEX, Journal, Radio, Partenaires),
+  charte `#7DD3FC` OK, disclaimer OK. Nouveaux projets Vercel apparus : `navlys-site`, `navlys-core`,
+  `api`, `123`. → **La mémoire était périmée d'~2 semaines.**
+- 🚩 **2 dérives possibles vs règles gravées à surveiller** : (1) **dépersonnalisation** — la home
+  affiche Bruno (avatar vidéo + « moi c'est Bruno » + voix) alors que la règle n°1 = Bruno invisible
+  sur NAVLYS ; (2) **slogan/positionnement** — devenu « Ton IA · Ta vie · Ton rythme » +
+  « la 1ʳᵉ IA qui orchestre tes IA » (≠ slogan figé « Ma méthode, ton argent, ton rythme »). À
+  arbitrer par Bruno (peut être un choix assumé).
+- 🔴→✅ **ERR-008 corrigée** : la mémoire déclarait « **Hetzner abandonné** » → **FAUX**. Bruno a
+  rétabli : **Hetzner = serveur CENTRAL** (Nuremberg) avec **core NAVLYS + IA locales**. Cap : **tout
+  en cron local indépendant sur Hetzner**, ouvert au web ; **Vercel + Supabase = simples outils**.
+  Corrigé dans `CLAUDE.md`, `AUTONOMIE-CLAUDE.md`, `JOURNAL-ERREURS.md`. Core = `/root/navlys/`.
+- ⚙️ **Décision Bruno 2026-07-15 — BOUCLE ACTIVE jusqu'au « site 100% en ligne »** : Claude ne
+  s'arrête plus, crée autant d'agents de contrôle + marketing que nécessaire. Autonomie =
+  **« Publier auto, argent = toi »** → agents **déploient/publient le contenu public seuls** après
+  gardien conformité ; **toute dépense** + **GATE de lancement final** = **Bruno**.
+- 🎯 **Objectif tokens** : routeur multi-IA sur les **quotas gratuits quotidiens** de toutes les IA
+  dispo (1 compte/IA, free tier légitime — pas de création de comptes en boucle).
+- 📋 **Programme (tasks)** : (1) corriger mémoire ✅ · (2) audit multi-agents → punch-list 100% ✅ ·
+  (3) corriger+déployer les écarts · (4) plan+scripts core-cron Hetzner multi-IA · (5) marketing ·
+  (6) réconciliation PR → PR centralisation · (7) teaser 1er août.
+- ✅ **ARBITRAGE dépersonnalisation (Bruno 2026-07-15)** : **garder Bruno visible/audible** sur
+  NAVLYS **AVEC disclaimer « voix générée par IA » partout** (RGPD art. 9 + IA Act art. 50). Règle
+  gravée n°1 assouplie en conséquence (cf. `CLAUDE.md` §0). Rien retiré.
+- 🚨 **DIAGNOSTIC RÉSOLU — DEUX BRANCHES DIVERGENTES (la cause des « oublis »)** : le dépôt a deux
+  lignes qui ne se parlent pas. **`main`** = la **vraie ligne de dev** : elle porte le **code
+  applicatif** (`supabase/`, `api/cron-tick.js`, `skills-lock.json`), le **`live-source/` COMPLET**,
+  et les pages net-new (`skipper`, `voile`, `cours`, `profil`, `sw.js`). **La branche par défaut**
+  (`claude/memory-saturation-safeguards-kl4ysc`, sur laquelle je travaillais) = un **snapshot
+  mémoire/docs** qui n'a **rien de tout ça** → d'où l'illusion « tout est oublié » : le contenu est
+  sur `main`, pas sur le défaut. **9 PR de vrai travail** ciblent `main` sans être consolidés (202,
+  201, 198, 196, 181, 62, **46**, 44, 39) ; 2 à fermer (53, 42). ⚠️ **Le PLUS bloquant = PR #46** :
+  l'**app NAVLYS Next.js déployable** (onboarding, **gate de lancement**, auth Supabase, pages
+  légales `/legal/*`) — **intégrée NULLE PART**. Sans elle, pas de produit gated conforme = **blocage
+  absolu du lancement**.
+- 🧭 **PLAN DE CENTRALISATION** : créer `claude/centralisation-lancement` **depuis `main`** (pas le
+  défaut) → intégrer d'abord les fichiers net-new (zéro conflit), puis le gros bloc app #46 (revue
+  Bruno, import propre sans l'historique dirty), puis les modifs mono-fichier, puis consolider à la
+  main les fichiers partagés (`index.html`, `CLAUDE.md`, service worker : choisir UNE version),
+  **passe conformité obligatoire** (disclaimer `navlys-alive.js` sur chaque page net-new + caviardage
+  CAP2027), puis fermer les PR sources. **⚠️ Le travail mémoire/docs (ERR-008, Hetzner, arbitrages)
+  reste sur la branche défaut (PR #203) ; le travail CODE se fait depuis `main`.**
+- ✅ **Fait cette session** : ancres cassées `/#univers → /adhesion` (finance + next-gen). ⚠️ à
+  ré-appliquer sur `main` (source de vérité) lors de la centralisation.
+- ✅ **Fait cette session** : ancres cassées `/#univers → /adhesion` (finance + next-gen, source
+  vérifiée conforme à la prod). Escadron **réconciliation PR** en cours (11 PR).
+
 ## Session 2026-06-30 — /controle (routine gardien exécutée)
 
 - ✅ **Routine exécutée** : lecture `JOURNAL-ERREURS`, `CHECKLIST-SECURITE`, `ETAT-DES-LIEUX`, `ROUTINE`, puis audit par l’agent **gardien**.
@@ -11,7 +63,197 @@
 - 🛑 **À décider (hors périmètre local)** : audit prod complémentaire Vercel/Hetzner si contrôle live demandé.
 - 📓 **Leçon** : aucune nouvelle erreur détectée, donc aucune nouvelle entrée `ERR-XXX`.
 
----
+## Session 2026-06-28 — finalisation lancement 1ᵉʳ juillet + sécurité dépôt
+
+- 🔴 **INCIDENT découvert** : le dépôt GitHub est **PUBLIC** et une session parallèle y avait déversé
+  ~30 packs Drive/OneDrive (PII, e-réputation, 2 noms toxiques). Audit complet réalisé.
+- ✅ **Sécurité exécutée** : PII rédigées repo-wide (téléphones, entité → `[entité — hors dépôt]`) ;
+  **fichiers privés retirés** (e-réputation ×6, procédure clés, dossier identité, prospection JCVD) ;
+  doublons imbriqués `sessions/busy-awesome-sagan` supprimés ; `.gitignore` durci.
+- ✅ **Renommage packs toxiques** : `CHEVAL_TROIE_PACK` → `NAVLYS_MARGE_REVELEE_PACK` ;
+  `MARTINGALE_SCIENTIFIQUE_PACK` → `NAVLYS_METHODE_90_10_PACK`.
+- ✅ **Synthèse unique** : `docs/SYNTHESE-NAVLYS-MASTER.md` réunit les 12 rubriques + toutes les
+  recommandations + toute la stratégie de navlys.com (dépersonnalisé). Plan : `docs/PLAN-NETTOYAGE-DEPOT.md`.
+- ✅ **navlys.com prêt à déployer** : countdown = **1ᵉʳ juillet** ✅, 5 pages (index/tarifs/cgu/privacy/mentions),
+  CIF/ORIAS uniquement en négation, 0 `#5fe0ff`, « méditerranéen » retiré du H1 (dépersonnalisation).
+- 🔴 **RESTE À BRUNO** : (1) **passer le dépôt en PRIVÉ** (Settings→Danger Zone) ; (2) **déployer sur Vercel** ;
+  (3) décider la **purge d'historique** (oui/non) ; (4) valider le légal.
+
+## Session 2026-06-25 — build pages navlys.com (« tout faire »)
+
+- ✅ **Grille tarifaire FIGÉE** (validée Bruno) → `STRATEGIE-NAVLYS.md` §5 (Finance Gratuit/19,99/39,99/79,99 ;
+  NAVBIO numérique à vie 0/29,99/49,99/99,99/199,99 ; NAVLEX 0(5q)/9,99/19,99). Étude concurrentielle sourcée :
+  `docs/STRATEGIE-PRICING-2026-06.md`.
+- ✅ **Pages construites (brouillon, charte #7DD3FC, à déployer par Bruno)** :
+  - `sites/navlys.com/tarifs.html` (grille officielle, 3 produits, freemium, CTAs).
+  - `sites/navlys.com/cgu.html` + `privacy.html` (stubs remplacés par versions complètes) + `mentions.html` (nouveau)
+    → **rebouchent les 404 légaux**. Entité masquée → à compléter + valider juridiquement au déploiement.
+  - `sites/navlys.com/index.html` enrichi : **FAQ « questions honnêtes »** (voix NAVLYS 3ᵉ pers.), **maximes**,
+    **punchline signature** (« vent + barre · sois aware »), liens /tarifs + /mentions.
+- 🔎 Conformité revérifiée sur toutes les pages : 0 donnée privée, 0 géo interdite, 0 promesse, 0 `#5fe0ff`, voix neutre.
+- ⏳ **Reste (enrichissements + déploiement)** : page `/partenaires` (les 19), module « pouls du marché » live,
+  accessibilité (texte XL/contraste), bloc manifeste mémoire ; **déploiement Vercel = Bruno** ; **valider le légal**.
+- 🔴 Sécurité (Bruno) inchangée : régénérer clés API GitHub+Alpaca · WHOIS OVH · cockpit mdp+SSL.
+
+## Session 2026-06-23 (nuit) — ultra-review + correctifs
+
+- 🔬 **Revue adversariale multi-agents** (4 dimensions → re-vérification → synthèse).
+  Verdict : **privé/secrets = PROPRE** (0 fuite) ; **conformité doctrinale = à nettoyer** (0 critique, 8 majeurs, 6 mineurs).
+- ✅ **Correctifs appliqués** :
+  - 🌍 **Géo interdite purgée des pages NAVLYS** : `sites/navlys.com/index.html` (titre, ticker, carte plaisir, Radio) + `proto/navlys-v2.html` (meta, Radio). *(La revue avait raison : mes grep ratant les accents avaient masqué ces occurrences.)* bp.com **conserve** Méditerranée (autorisée).
+  - 🎨 `sites/navlys-app/finance.html` : `#5fe0ff` → **#7DD3FC**.
+  - 📐 `DESIGN-NAVLYS.md` : narratif méditerranéen recadré (bp.com only) + mojibake corrigé.
+  - 💶 `STRATEGIE-NAVLYS.md` + `TESTS-FONCTIONNELS.md` : caveat **F4 PRO 99,99** + « grille à figer ».
+  - 🔗 `INVENTAIRE` : renvoi cassé corrigé, « Votre tempo » marqué variante non officielle.
+- 🟠 **Restent décisions Bruno** (non inventées) : figer **1 grille tarifaire** (F1–F4 vs échelle live) ;
+  figer la **valeur de l'accent doré** (bronze #d4a155 vs champagne #e9d3a0).
+
+## Session 2026-06-23 (nuit) — finalisation autonome (G1)
+
+- ✅ **Modèles légaux rapatriés** (`contenu/legal/`) : **mentions** (A1) · **CGU** (A5) ·
+  **Confidentialité RGPD** (A6 v1.1) — **entité/SIREN/adresse masqués**, à valider juridiquement,
+  rebouchent les 404 `/cgu` `/privacy` au déploiement.
+- ✅ **Plan d'enrichissement du site central** (`docs/PLAN-ENRICHISSEMENT-SITE-CENTRAL.md`) :
+  13 blocs priorisés + corrections conformité + méthode.
+- ✅ **Résumé de session** (`docs/RESUME-SESSION-2026-06-23.md`, format Hermès).
+- ⏭️ **Pour Bruno (demain)** : sécurité (clés API, WHOIS, cockpit/SSL) ; aligner sites live #7DD3FC ;
+  figer 1 grille tarifaire + 1 date ; faire valider le légal ; lancer l'enrichissement (prio 1→6).
+- 🔒 Tout le travail de nuit = **GitHub seul, zéro déploiement, zéro donnée privée** (vérifié).
+
+## Session 2026-06-23 — 💎 mine d'or Drive assimilée (analyse étendue)
+
+- ✅ **Accès Google Drive confirmé** (bpartouche46@gmail.com) → ~110 fichiers NAVLYS lus.
+  **`NAVLYS-MASTER.md` (21 juin) = carte maîtresse** (supplante les cartes antérieures).
+- 📄 **Assimilation PUBLIQUE** → `docs/ASSIMILATION-DRIVE-2026-06-23.md` : slogan officiel,
+  doctrine 2 univers (Méditerranée + Israël = **interdits sur NAVLYS**), charte **#7DD3FC zéro pourpre**,
+  méthode 90/10, tarifs F1–F4 + NAVBIO, paiements (Stripe exclu), **slogans obsolètes à bannir**.
+- 🎯 **Chasse « 1+1 / Van Damme » = INTROUVABLE** (ni sites, ni Drive) → à créer avec Bruno s'il y tient.
+  **Personnes connues = liste Y1** (Hasheur, Yomi Denzel, Coin Bureau…) = **prospects privés**, jamais publics.
+- 🔴 **PRIVÉ gardé hors dépôt** (entité, n°, IDs infra, clés, liste influenceurs, généalogie, banque).
+- 🔴 **Urgences sécurité (MASTER G3)** : régénérer **clés API GitHub + Alpaca** (commitées) ; **privacy WHOIS OVH**.
+- ✅ **Décisions Bruno en attente** : (1) confirmer charte #7DD3FC + aligner sites live (encore #5fe0ff) ;
+  (2) créer ou non le « 1+1 / Van Damme ».
+- 🟢 **À rapatrier sur demande** : pack éditorial E1 (bios 13 réseaux, 9 posts IG, 3 reels, calendrier 90j),
+  modèles légaux (CGV/CGU/RGPD), templates emails Resend.
+
+## Session 2026-06-23 — ✅ 1er backup serveur + sources récupérées (en cours)
+
+- ✅ **SNAPSHOT HETZNER CRÉÉ** par Bruno : **`navlys-core-1782194314`** (2026-06-23) →
+  **premier point de restauration complet** du serveur. Risque « zéro backup » levé.
+- 📥 **Sources récupérées de l'ancien PC** (envoyées par Bruno) : code source **navlys.io**
+  (`index.html`) + **vidéo de marque navlys.io** (ElevenLabs) + outils Windows (DiskInfo, etc.).
+- 🔎 **Audit `index.html` navlys.io** : 🔴 palette **violet/fuchsia/rose** (`#4b1a80/#c026d3/#e81889`)
+  = contraire à la charte « zéro pourpre » ; 🟠 Ice Blue ancien `#5fe0ff` (≠ `#7DD3FC`) ;
+  🔴 compte à rebours périmé (cible `2026-06-15`) ; 🟢 OG + schema.org présents, disclaimer OK.
+  → à clarifier : est-ce la version **live** de navlys.io ou un brouillon local ? (audit antérieur
+  disait navlys.io conforme `#7DD3FC`).
+- ⏳ **Reste** : `crontab -l` ; **mot de passe cockpit (exposé) + SSL** ; stocker la vidéo
+  proprement ; décider correction navlys.io (palette → charte, date → 1ᵉʳ juillet).
+- ℹ️ Note : Claude **ne peut pas** écouter les notes vocales (pas de transcription) ni lancer de `.exe`.
+## Session 2026-06-28 (d) — REFONTE navlys.com PRÊTE (aperçu) + apps backend déployé
+
+- ✅ **Refonte navlys.com construite & vérifiée en aperçu** (design navlys.io : fond animé +
+  logo doré, charte `#7DD3FC`, slogan figé) réunissant applis + partenaires + communauté.
+  Aperçu live : `navlys-app-git-claude-migrate-old-computer-data-q7im6j-navlys.vercel.app`.
+- ✅ **Apps backend opérationnel** : `/api/navlex`, `/api/sav`, `/api/voice` **déployées**
+  (fonctions edge à la racine `/api/`, `vercel.json` → `outputDirectory: live-source`).
+  NAVLEX répond (405 sur GET = OK). Clés env posées par Bruno (ANTHROPIC_API_KEY,
+  ELEVENLABS_API_KEY, ELEVENLABS_VOICE_ID). ⚠️ Les apps n'acceptent QUE les vrais domaines
+  (CORS) → test réel possible uniquement sur navlys.com une fois en prod.
+- 🔌 **Vercel navlys-app** : relié à **NAVLYS-BETA-**. ⚠️ **Découverte clé** : la PRODUCTION
+  n'est PAS pilotée par la branche par défaut — **les push Git créent des APERÇUS** (`target:null`).
+  La prod (navlys.com) = déploiements CLI/`claudenavlys` historiques, mis à jour par **promotion**.
+- 🪧 **ÉTAPE FINALE pour mettre la refonte sur navlys.com** (Bruno, sur DESKTOP — pas mobile) :
+  - Soit **Promote to Production** sur le dernier déploiement (Vercel → navlys-app → Deployments
+    → dernier (refonte) → ⋯ → Promote to Production).
+  - Soit **Settings → Git → Production Branch** = la branche poussée → alors les push deviennent
+    prod automatiquement (= autonomie permanente recherchée).
+  - Claude ne peut PAS promouvoir via API (aucun outil MCP) ni pousser en prod sans ce réglage.
+- 🛟 Rollback dispo (anciens déploiements `isRollbackCandidate`). Rien détruit.
+
+## Session 2026-06-28 (c) — CONSOLIDATION navlys.com (en cours) + bascule sur nouveau PC
+
+- 🎯 **Demande Bruno** : un seul site **propre** = navlys.com qui réunit tout (les sites « en
+  vrac »), réorganisé proprement. + finir aujourd'hui + sites beta actifs à tester.
+- ✅ **Fait** :
+  - **Audit complet** des 14 URLs live → `docs/AUDIT-SITES-2026-06-28.md`.
+  - **Plan unique** → `docs/PLAN-SITE-GLOBAL-NAVLYS.md`.
+  - **Version propre de navlys.com construite** dans `live-source/` : `partenaires.html`
+    (19 partenaires rapatriés de navlys.io) + accueil nettoyé (menu Partenaires + pied
+    « Famille NAVLYS »). Conformité VERT. **PR #35 MERGÉE** dans la branche par défaut.
+  - **Décisions Bruno** : lancement public unique = **1ᵉʳ juillet 2026** ; **navlys.io →
+    fusionner dans navlys.com puis rediriger**.
+- 🔌 **État Vercel (navlys-app) au moment de la bascule** :
+  - **NOVA-HUB = DÉCONNECTÉ** (fait par Bruno) ; **NAVLYS-BETA- = PAS ENCORE reconnecté**.
+  - ⚠️ Le site **reste EN LIGNE** (le dernier déploiement prod continue de servir). Rien cassé.
+  - Bruno a eu du mal avec l'UI Vercel/GitHub (onglets) → **il finit le branchement sur le
+    NOUVEAU PC**.
+- 🪧 **SEULE étape restante pour déployer la version propre** :
+  1. navlys-app → Settings → **Git → Connect → `bpartouche46-sys/NAVLYS-BETA-`** (autoriser
+     l'app Vercel sur ce dépôt : « All repositories » ou cocher NAVLYS-BETA-).
+  2. Settings → **General → Root Directory = `live-source`**.
+  3. Laisser « Production Branch » par défaut → **premier déploiement = APERÇU** ; Claude
+     vérifie puis promeut en prod (filet : rollback dispo).
+- 🛠️ **Reste à construire APRÈS le 1er déploiement v1** : `/journal` (fusion `/tech`+
+  `/influenceurs`), **pages légales** (`/mentions` `/cgu` `/confidentialite`), `/communaute`,
+  **redirections** navlys.io + navlys-teaser → navlys.com, **corrections conformité** sur sites
+  séparés (🔴 « Jérusalem » navbio meta, 🔴 « +8 à 12 % » brunopartouche.com/bio).
+- 🔑 **Accès Claude** : Vercel + Supabase OK (MCP, écriture) ; **GitHub limité à `navlys-beta-`**
+  (ne peut PAS éditer NOVA-HUB) → c'est pourquoi navlys-app doit pointer sur NAVLYS-BETA-.
+
+## Session 2026-06-28 (b) — DÉCISION MAJEURE : autonomie Claude sur Vercel+Supabase
+
+- 🎯 **Demande Bruno** : *« prends la main et transfère tout sur Hetzner, puis on récupère la
+  main sur le neuf ; dis-moi ce qui te manque pour être autonome et mettre à jour le site
+  avec/sans moi, en direct / nouveau PC / mobile. »*
+- 🔎 **Vérification live (2026-06-28)** : Claude a un **accès direct réel** à —
+  - **Vercel équipe NAVLYS** (`team_nBtY5FOQMPIT4J8Bmf7wvBSC`) : 6 projets (`navlys-app`,
+    `navbio`, `brunopartouche`, `navlys-io`, `navlys-teaser`, `brunopartouche-teaser`),
+    déploiements visibles, dernier `navlys-app` = **production READY** (déployé en CLI par
+    `claudenavlys`), **rollback candidate** dispo.
+  - **Supabase `navlys-core`** (eu-west-3, ACTIVE_HEALTHY) : base vivante — `journal`(37),
+    `dossiers`(27), `core_knowledge`(15), `missions`(14), `agents`(14), `navlys_memoire`(10),
+    `inscriptions`(1)… RLS actif partout.
+- ❌ **Hetzner par SSH = impossible pour Claude** (cloud isolé + interdit aux agents) ET
+  **legacy** (0 conteneur). → **Détour Hetzner abandonné** : on travaille **nativement
+  Vercel + Supabase**, déjà accessibles.
+- ⚖️ **3 arbitrages Bruno (AskUserQuestion)** :
+  1. **Architecture = Vercel + Supabase** (drop Hetzner).
+  2. **Autonomie prod = « Prod autonome sauf argent/légal »** → Claude **déploie en production
+     seul** après contrôle conformité. ⚠️ **Modifie la règle gravée « public = Bruno »** —
+     choix explicite de Bruno. Argent + juridique restent Bruno.
+  3. **Code source = push GitHub** (Bruno publie les sites dans `navlys-beta-`).
+- 📄 **Gravé** : nouveau doc **`docs/AUTONOMIE-CLAUDE.md`** (source de vérité du « qui fait
+  quoi »). Amendé **`GOUVERNANCE.md`** §2 (accès Vercel/Supabase révocables) + §4 (délégation
+  élargie). Ajouté à la table de réf. de `CLAUDE.md`.
+- ⏳ **Bloquant restant pour l'autonomie complète** : le **vrai code source des sites** n'est
+  pas encore dans le dépôt (déploiements en CLI, non Git) → **Bruno doit pousser** chaque site
+  dans `navlys-beta-` (monorepo) via GitHub Desktop, sinon risque ERR-006 (écraser la voix/pages
+  live avec la v2). Optionnel ensuite : relier Vercel↔GitHub par projet (auto-deploy au push).
+- 🔴 **Aucune action sensible déclenchée** : zéro déploiement, zéro écriture base, zéro dépense.
+  Tout en lecture seule + docs. Premier déploiement prod attendra le code source + contrôle gardien.
+
+## Session 2026-06-28 — MIGRATION ancien PC → nouveau PC + auto-sync core
+
+- 🎯 **Demande Bruno** (sur l'ancien PC) : *« récupère tout pour ne plus avoir à utiliser
+  l'ancien ordinateur ; je veux tout sur le nouveau »* puis précision : *« ne plus rien mettre
+  à jour depuis l'ancien, tout depuis le neuf, et aussi en automatique sur le core NAVLYS Hetzner. »*
+- 📄 **Livrable principal — `docs/MIGRATION-ANCIEN-PC.md`** (guide unique, 7 étapes, n'en
+  duplique aucune autre : il enchaîne `SAUVEGARDE-CODE-VERCEL.md`, `ACCES-SERVEUR.md`,
+  `SECRETS-ET-CLES.md`, `PROCEDURE-VERCEL-GITHUB.md`). Inventaire ancien PC → code vers GitHub →
+  médias vers cloud → secrets vers coffre → mise en route neuf → **automatisation** →
+  vérification finale avant abandon.
+- ⚙️ **Automatisation (le cœur de la demande)** : GitHub = source unique. Le **neuf pousse**,
+  les **sites Vercel** se redéploient au push, et le **core Hetzner tire tout seul** via cron.
+  - 🆕 **`scripts/sync-core.sh`** : pull auto GitHub→core, **non destructif** (s'arrête si modifs
+    locales sur le core au lieu d'écraser ; `FORCE=1` pour forcer, `POST_HOOK` pour redémarrer un
+    service). Installation cron documentée (`*/5 * * * *`). Syntaxe vérifiée (`bash -n`) OK.
+- ⚠️ **Honnêteté technique** : Claude (cloud isolé) **n'a aucun accès** au disque de l'ancien PC
+  ni au serveur Hetzner → ce sont des **procédures que Bruno exécute** (guidé). Rien de sensible
+  déclenché : zéro accès, zéro déploiement, zéro secret écrit dans Git.
+- 🔴 **Point ouvert rappelé** : le « core Hetzner » est **possiblement legacy** → vérifier qu'il
+  doit rester actif **avant** de brancher le cron (sinon seule l'auto-deploy Vercel suffit).
+- 🌿 Branche : `claude/migrate-old-computer-data-q7im6j`. PR brouillon à ouvrir.
 
 ## Session 2026-06-25 — ARBITRAGES BRUNO + exécution
 
@@ -177,6 +419,7 @@
   Garde-fou : grep des termes interdits sur **HTML + JS + CSS** (pas que le HTML).
 - 🐙 **Repos GitHub privés** : (voir statut dans le tableau / la conversation).
 - ⏳ Le cœur de Phase 0 (snapshot, backup.sh, export source) reste à faire sur l'ancien PC.
+
 ## Session 2026-06-23 — passation Hermès archivée (avant retrait)
 
 - 📥 **Passation complète reçue d'Hermès** (via Bruno) → consolidée dans

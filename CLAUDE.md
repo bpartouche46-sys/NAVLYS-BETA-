@@ -28,9 +28,13 @@ Si une de ces étapes est sautée, le travail est considéré comme **non valide
 > pédagogique** (publisher), **PAS CIF / PAS ORIAS / PAS IOBSP**, ni conseil, ni placement, ni
 > encaissement de fonds clients. Source : `recup-docs/onedrive/00_ORGANIGRAMME.md` (§ « Règles gravées »,
 > règle 1) + `recup-docs/onedrive/_MASTER_NAVLYS_NOW.md`. Détail : `docs/GOUVERNANCE.md` (8 règles gravées).
-> ⚠️ Point de vigilance ouvert (à arbitrer par Bruno) : certains **scripts vidéo/voix** incarnent Bruno
-> comme **narrateur/skipper** (« voix de Bruno ») → tolérable SI disclaimer « voix générée par IA » +
-> aucun positionnement de conseiller. Voir `docs/RENFORCEMENT/02-communication.md`.
+> ✅ **ARBITRAGE BRUNO 2026-07-15 (tranché) — INCARNATION ASSUMÉE** : Bruno a décidé de **garder
+> Bruno visible/audible** sur les sites NAVLYS (avatar + voix clonée + nom). **Condition obligatoire
+> pour rester conforme** : ajouter **partout** où la voix/l'avatar cloné apparaît le disclaimer
+> **« voix générée par IA »** (exigence RGPD art. 9 + IA Act art. 50), et **jamais** de positionnement
+> de conseiller (ni CIF/ORIAS, ni conseil perso). La règle n°1 « Bruno invisible » est donc
+> **assouplie** par ce choix explicite : l'incarnation est permise AVEC disclaimer IA. Voir
+> `docs/RENFORCEMENT/02-communication.md` + `docs/ETAT-DES-LIEUX.md` (session 2026-07-15).
 
 > 💰 **RÈGLE FINANCIÈRE ABSOLUE (rappel permanent)** : **Bruno est le SEUL décisionnaire
 > final** sur **tout investissement** et **toute validation de débit/paiement** sur **tous
@@ -69,13 +73,18 @@ jour : **`docs/CARTE-SITES.md`**. ⚠️ Aucun projet n'est relié à GitHub (co
   Source : `recup-docs/onedrive/_MASTER_NAVLYS_NOW.md` (« lancement gate passé le 31 mai 2026 ✓,
   phase BETA en cours »). Détail des dates et arbitrage : `docs/ETAT-DES-LIEUX.md` + `docs/RENFORCEMENT/01-strategie.md`.
 
-### Infrastructure / stack RÉELLE (corrigée 2026-06-25)
+### Infrastructure / stack RÉELLE (corrigée 2026-06-25 · Hetzner rétabli 2026-07-15)
 
-> ⚠️ **Le « core central Hetzner » semble PÉRIMÉ / legacy** : il **n'apparaît PAS** dans les
-> documents récents du « cerveau » récupéré (`recup-docs/onedrive/`, MAJ mai-juin 2026). Aucune
-> trace d'Hetzner dans la stack décrite par `_MASTER_NAVLYS_NOW.md`, `02_SITE_PRODUIT.md`,
-> `03_API_BACKEND_NEXTJS.md`. **À CONFIRMER PAR BRUNO** : Hetzner est-il abandonné ? (cf. aussi le
-> diagnostic 2026-06-22 : serveur sain mais **0 conteneur Docker actif**, quasi vide en exécution).
+> ✅ **CORRECTION 2026-07-15 (ERR-008)** : **Hetzner = notre SERVEUR CENTRAL** (Hetzner Cloud,
+> Nuremberg). Il fait tourner le **core central NAVLYS** + des **IA en local**. **NE PAS écrire
+> « abandonné/legacy »** (erreur passée). Cap gravé par Bruno : **tout en applications cron locales
+> indépendantes sur Hetzner**, **ouvertes aux recherches web** → **Vercel + Supabase = de simples
+> OUTILS** (vitrine + base), pas le cerveau. Localisation du core : **`/root/navlys/`** (~9 dossiers)
+> · secrets `/root/navlys/config/.env` · cockpit `/var/www/cockpit/` · mémoire clonée
+> `/root/navlys/memoire`. ⚠️ **Claude n'a AUCUN accès SSH à Hetzner** → il livre le code via GitHub,
+> Hetzner le tire (cron `scripts/sync-core.sh`). « Pas d'accès pour Claude » ≠ « inutile ». Le
+> diagnostic 22/06 (« 0 conteneur actif ») était une **photo à un instant t**, pas une preuve
+> d'abandon. Objectif tokens : **routeur multi-IA sur les quotas gratuits quotidiens** (1 compte/IA).
 
 | Brique | Réalité (sources `recup-docs/`) |
 |--------|---------------------------------|
@@ -132,6 +141,8 @@ Commande rapide : `/controle` (voir `.claude/commands/controle.md`).
 | Fichier | Rôle |
 |---------|------|
 | `docs/GOUVERNANCE.md` | **Principes fondamentaux** : zéro répétition · surveillance mutuelle · règle financière (Bruno seul décide) |
+| `docs/AUTONOMIE-CLAUDE.md` | **Modèle opérationnel (2026-06-28, corrigé 2026-07-15)** : Claude autonome sur Vercel+Supabase (déploie/publie seul après conformité) ; **argent + juridique + GATE = Bruno**. **Hetzner = serveur central actif** (core + IA locales, piloté via GitHub car pas de SSH — ERR-008). Mode boucle active depuis 2026-07-15. |
+| `docs/MIGRATION-ANCIEN-PC.md` | Guide migration ancien→nouveau PC + auto-sync (le volet Hetzner devient optionnel — voir AUTONOMIE-CLAUDE) |
 | `docs/ARCHITECTURE-AGENT-DIRECTEUR.md` | Architecture orchestrateur + sous-agents + feuille de route |
 | `docs/MEMOIRE-CENTRALE.md` | Consolider les conversations sur le core (puis les supprimer) |
 | `docs/STRATEGIE-NAVLYS.md` | Positionnement, méthode 90/10, conformité, produits (F1/F2/F3) |

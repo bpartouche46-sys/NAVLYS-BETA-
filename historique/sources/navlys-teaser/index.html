@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache"><meta http-equiv="Expires" content="0">
+<title>NAVLYS — lève l'ancre bientôt</title>
+<meta name="description" content="NAVLYS lève l'ancre. L'univers où l'humain orchestre l'IA arrive. Un cap, une main, un jour.">
+<meta property="og:title" content="NAVLYS — lève l'ancre bientôt">
+<meta property="og:description" content="Un cap, une main, un jour. L'univers arrive.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Fraunces:ital,wght@1,500;1,600&family=Lora:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--noir:#05060a;--purple:#4b1a80;--fuchsia:#c026d3;--rose-clair:#ff5eb3;--ice:#5fe0ff;--ice2:#7af0ff;--or:#e9d3a0;--perle:#efe6f5;--lavande:#c9b8e0}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{max-width:100%;overflow-x:hidden;height:100%}
+body{font-family:'Lora',serif;color:var(--perle);min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;
+ background:radial-gradient(900px 600px at 18% -8%,rgba(95,224,255,.16),transparent 60%),radial-gradient(900px 650px at 100% 5%,rgba(192,38,211,.2),transparent 55%),radial-gradient(800px 700px at 50% 120%,rgba(75,26,128,.5),transparent 62%),var(--noir)}
+#bgvid{position:fixed;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;opacity:.30;filter:blur(3px) saturate(1.25);display:none}
+#cosmos{position:fixed;inset:0;width:100%;height:100%;z-index:-1;display:block}
+.wrap{position:relative;z-index:1;padding:32px 22px;max-width:680px;width:100%}
+.lang{position:fixed;top:14px;left:16px;z-index:3;font-family:'Fraunces',serif;font-style:italic;font-size:13px;color:var(--lavande)}
+.lang b{cursor:pointer;color:var(--ice)}
+.music{position:fixed;top:14px;right:14px;z-index:3;border:1px solid rgba(95,224,255,.4);color:#cdeeff;background:rgba(95,224,255,.07);border-radius:30px;padding:7px 14px;font-family:'Fraunces',serif;font-style:italic;font-size:13px;cursor:pointer}
+.music.on{background:var(--ice);color:#05060a}
+.led{width:16px;height:16px;border-radius:50%;margin:0 auto 18px;background:radial-gradient(circle at 50% 40%,var(--ice2),var(--ice) 55%,rgba(95,224,255,.1) 75%);box-shadow:0 0 16px var(--ice);animation:breathe 4.5s ease-in-out infinite}
+@keyframes breathe{0%,100%{opacity:.45;transform:scale(.82)}50%{opacity:1;transform:scale(1.25);box-shadow:0 0 30px var(--ice),0 0 60px rgba(95,224,255,.5)}}
+.brand{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,9vw,3.2rem);letter-spacing:7px;font-weight:600}
+.orch{font-family:'Cormorant Garamond',serif;text-transform:uppercase;letter-spacing:5px;font-size:clamp(12px,3.6vw,18px);margin-top:6px;background:linear-gradient(100deg,#e9d3a0 0%,#e9d3a0 38%,#fff6df 48%,#fff 50%,#5fe0ff 53%,#fff6df 58%,#e9d3a0 70%,#e9d3a0 100%);background-size:260% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:sweep 5s linear infinite}
+@keyframes sweep{0%{background-position:210% 0}100%{background-position:-60% 0}}
+h1{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(1.7rem,7vw,2.7rem);margin:26px 0 6px;line-height:1.1}
+.swash{font-family:'Fraunces',serif;font-style:italic;background:linear-gradient(92deg,var(--ice),var(--or),var(--rose-clair));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.sub{font-family:'Fraunces',serif;font-style:italic;color:var(--lavande);font-size:clamp(1rem,4.2vw,1.2rem);margin-bottom:24px}
+.cd{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:6px 0 26px}
+.cd .u{min-width:74px;background:linear-gradient(160deg,rgba(40,18,60,.5),rgba(14,7,23,.55));border:1px solid rgba(95,224,255,.22);border-radius:14px;padding:12px 6px;backdrop-filter:blur(6px)}
+.cd .n{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(1.8rem,8vw,2.6rem);color:var(--ice);text-shadow:0 0 18px rgba(95,224,255,.45)}
+.cd .l{font-family:'Fraunces',serif;font-style:italic;font-size:.72rem;color:var(--lavande);letter-spacing:1px}
+.adage{min-height:28px;font-family:'Fraunces',serif;font-style:italic;color:var(--ice);font-size:clamp(1rem,4.2vw,1.25rem);opacity:0;transition:opacity 1.2s ease;margin-bottom:22px;text-shadow:0 0 16px rgba(95,224,255,.4)}
+.adage.show{opacity:.95}
+.cta{display:inline-block;font-family:'Lora',serif;font-size:1rem;color:#05060a;background:linear-gradient(100deg,#e9d3a0,#fff6df,#5fe0ff,#e9d3a0);background-size:220% 100%;border:none;border-radius:999px;padding:13px 26px;cursor:pointer;letter-spacing:.4px;text-decoration:none;animation:sweep 5s linear infinite}
+.note{margin-top:14px;font-family:'Fraunces',serif;font-style:italic}
+.note a{color:var(--ice);text-decoration:none}
+.disc{margin-top:26px;font-size:.74rem;color:#8fa6c8;font-style:italic;line-height:1.5}
+.flag{margin-top:18px;font-size:1.05rem;letter-spacing:3px}
+</style>
+</head>
+<body>
+<video id="bgvid" autoplay muted loop playsinline></video>
+<canvas id="cosmos"></canvas>
+<div class="lang"><b onclick="setLang('fr')">FR</b> / <b onclick="setLang('en')">EN</b></div>
+<button class="music" id="music" onclick="toggleMusic()">♪</button>
+
+<div class="wrap">
+  <div class="led"></div>
+  <div class="brand">NAVLYS</div>
+  <div class="orch">AI Orchestrator</div>
+
+  <h1 data-fr="Un cap, une main,<br><span class='swash'>un jour.</span>" data-en="One heading, one hand,<br><span class='swash'>one day.</span>">Un cap, une main,<br><span class="swash">un jour.</span></h1>
+  <div class="sub" id="lead" data-fr="NAVLYS lève l'ancre dans" data-en="NAVLYS sets sail in">NAVLYS lève l'ancre dans</div>
+
+  <div class="cd">
+    <div class="u"><div class="n" id="d">00</div><div class="l" data-fr="Jours" data-en="Days">Jours</div></div>
+    <div class="u"><div class="n" id="h">00</div><div class="l" data-fr="Heures" data-en="Hours">Heures</div></div>
+    <div class="u"><div class="n" id="m">00</div><div class="l" data-fr="Min" data-en="Min">Min</div></div>
+    <div class="u"><div class="n" id="s">00</div><div class="l" data-fr="Sec" data-en="Sec">Sec</div></div>
+  </div>
+
+  <div class="adage" id="adage"></div>
+
+  <a class="cta" href="https://navlys.io" target="_blank" rel="noopener" data-fr="Entrer dans l'univers ›" data-en="Enter the universe ›">Entrer dans l'univers ›</a>
+  <div class="note"><a href="mailto:contact@navlys.com?subject=Préviens-moi%20NAVLYS" data-fr="Être prévenu le jour de l'ouverture" data-en="Get notified on opening day">Être prévenu le jour de l'ouverture</a></div>
+
+  <div class="disc" id="disc" data-fr="Projet d'éducation &amp; de veille à vocation informative. Aucun conseil personnalisé ni promesse de rendement. NAVLYS — marque en cours de dépôt." data-en="Education &amp; market-watch project, for information only. No personalised advice, no performance promise. NAVLYS — trademark pending.">Projet d'éducation &amp; de veille à vocation informative. Aucun conseil personnalisé ni promesse de rendement. NAVLYS — marque en cours de dépôt.</div>
+  <div class="flag">🌊 ⚓ NAVLYS 🪝</div>
+</div>
+
+<script>
+var LAUNCH=new Date('2026-06-15T00:00:00').getTime();
+function tick(){var d=LAUNCH-Date.now();if(d<0)d=0;var dd=Math.floor(d/864e5),hh=Math.floor(d%864e5/36e5),mm=Math.floor(d%36e5/6e4),ss=Math.floor(d%6e4/1e3);function p(x){return(x<10?'0':'')+x}document.getElementById('d').textContent=p(dd);document.getElementById('h').textContent=p(hh);document.getElementById('m').textContent=p(mm);document.getElementById('s').textContent=p(ss)}tick();setInterval(tick,1000);
+function setLang(l){document.querySelectorAll('[data-fr]').forEach(function(e){var v=e.getAttribute('data-'+l);if(v!=null)e.innerHTML=v});document.documentElement.lang=l}
+(function(){var v=document.getElementById('bgvid');if(v){v.src='media/fond.mp4';v.addEventListener('loadeddata',function(){v.style.display='block'});v.addEventListener('error',function(){v.style.display='none'})}})();
+(function(){var c=document.getElementById('cosmos'),x=c.getContext('2d'),st=[],neb=[],str=[];function rz(){c.width=innerWidth;c.height=innerHeight;st=[];for(var i=0;i<Math.min(230,innerWidth*innerHeight/8500);i++)st.push({x:Math.random()*c.width,y:Math.random()*c.height,r:Math.random()*1.3+.2,d:Math.random()*.32+.04,p:Math.random()*6.28});neb=[];var cols=[[95,224,255],[122,240,255],[192,38,211],[232,24,137]];for(var i=0;i<6;i++){var col=cols[i%cols.length];neb.push({x:Math.random()*c.width,y:Math.random()*c.height,r:Math.min(c.width,c.height)*(.26+Math.random()*.34),col:col,vx:(Math.random()-.5)*.07,vy:(Math.random()-.5)*.05,ph:Math.random()*6.28})}}rz();addEventListener('resize',rz);var t=0;function streak(){str.push({x:-60,y:Math.random()*c.height*.72,len:130+Math.random()*200,sp:2.4+Math.random()*2.6,a:0})}setInterval(function(){if(Math.random()<.55)streak()},4300);function lo(){t+=.01;x.clearRect(0,0,c.width,c.height);x.globalCompositeOperation='lighter';for(var i=0;i<neb.length;i++){var n=neb[i];n.x+=n.vx;n.y+=n.vy;if(n.x<-n.r)n.x=c.width+n.r;if(n.x>c.width+n.r)n.x=-n.r;if(n.y<-n.r)n.y=c.height+n.r;if(n.y>c.height+n.r)n.y=-n.r;var pulse=.055+.04*Math.sin(t*.55+n.ph);var g=x.createRadialGradient(n.x,n.y,0,n.x,n.y,n.r);g.addColorStop(0,'rgba('+n.col[0]+','+n.col[1]+','+n.col[2]+','+pulse+')');g.addColorStop(1,'rgba('+n.col[0]+','+n.col[1]+','+n.col[2]+',0)');x.fillStyle=g;x.beginPath();x.arc(n.x,n.y,n.r,0,6.28);x.fill()}for(var i=str.length-1;i>=0;i--){var s=str[i];s.x+=s.sp;s.a=s.a<1?s.a+.04:1;var grd=x.createLinearGradient(s.x,s.y,s.x-s.len,s.y+s.len*.28);grd.addColorStop(0,'rgba(234,246,255,'+(.45*s.a)+')');grd.addColorStop(1,'rgba(95,224,255,0)');x.strokeStyle=grd;x.lineWidth=1.4;x.beginPath();x.moveTo(s.x,s.y);x.lineTo(s.x-s.len,s.y+s.len*.28);x.stroke();if(s.x>c.width+s.len)str.splice(i,1)}x.globalCompositeOperation='source-over';for(var i=0;i<st.length;i++){var s2=st[i];s2.y+=s2.d;if(s2.y>c.height)s2.y=0;var tw=.5+.5*Math.sin(t*2+s2.p);x.globalAlpha=tw*.85;x.fillStyle=tw>.7?'#eaf6ff':'#9fd0e8';x.beginPath();x.arc(s2.x,s2.y,s2.r,0,6.28);x.fill()}x.globalAlpha=1;requestAnimationFrame(lo)}lo()})();
+(function(){var ad=["Un cerveau. Un humain. Tout un univers.","L'IA est le vent, c'est toi qui tiens la barre.","Tes souvenirs t'appartiennent.","Minuscules et libres, face à l'immensité.","L'humain au centre. Toujours."];var el=document.getElementById('adage');var i=0;function show(){el.textContent=ad[i];el.classList.add('show');setTimeout(function(){el.classList.remove('show');setTimeout(function(){i=(i+1)%ad.length;show()},1200)},4000)}show()})();
+var actx,master,musicOn=false;
+function toggleMusic(){if(!actx){actx=new(window.AudioContext||window.webkitAudioContext)();bm();}if(actx.state==='suspended')actx.resume();musicOn=!musicOn;master.gain.setTargetAtTime(musicOn?0.12:0,actx.currentTime,.5);var b=document.getElementById('music');b.classList.toggle('on',musicOn);b.textContent=musicOn?'♪ ✓':'♪'}
+function bm(){master=actx.createGain();master.gain.value=0;master.connect(actx.destination);var lp=actx.createBiquadFilter();lp.type='lowpass';lp.frequency.value=520;lp.connect(master);[110,110.5,164.81,220].forEach(function(f){var o=actx.createOscillator();o.type='sine';o.frequency.value=f;var g=actx.createGain();g.gain.value=.12;o.connect(g);g.connect(lp);o.start();var l=actx.createOscillator();l.frequency.value=1/6;var lg=actx.createGain();lg.gain.value=.06;l.connect(lg);lg.connect(g.gain);l.start()});setInterval(function(){if(musicOn){var t=actx.currentTime;[[0,60,.26],[.16,50,.17]].forEach(function(p){var os=actx.createOscillator();os.type='sine';os.frequency.value=p[1];var g=actx.createGain();g.gain.value=0;os.connect(g);g.connect(master);var s=t+p[0];g.gain.setValueAtTime(0,s);g.gain.linearRampToValueAtTime(p[2],s+.025);g.gain.exponentialRampToValueAtTime(.001,s+.26);os.start(s);os.stop(s+.3)})}},1100)}
+</script>
+</body>
+</html>

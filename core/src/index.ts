@@ -11,6 +11,10 @@
  *
  * ⚠️ Scaffold non testé depuis GitHub (pas d'install réseau). Valider sur le serveur :
  *   npm install && npm run build && npm run start
+ *
+ * Correctif 2026-07-16 : l'exécution directe ne se déclenche que si le fichier est
+ * le point d'entrée (isMain). Avant, un simple `import { runOrchestrator }` (ex. par
+ * le bridge) lançait AUSSI la tâche de démonstration — double exécution.
  */
 
 import { query } from "@anthropic-ai/claude-agent-sdk";
@@ -68,13 +72,16 @@ export async function runOrchestrator(task: string): Promise<void> {
   }
 }
 
-/** Lancement direct : `npm run start "ma tâche"` (sinon tâche de démonstration sûre). */
-const taskFromArgs = process.argv.slice(2).join(" ").trim();
-const task =
-  taskFromArgs ||
-  "Lis docs/OPERATIONNEL-100.md et résume en 5 lignes ce qui reste à faire pour atteindre 100%.";
+/** Lancement direct uniquement : `node dist/index.js "ma tâche"` (rien à l'import). */
+const isMain = process.argv[1] && import.meta.url === new URL(`file://${process.argv[1]}`).href;
+if (isMain) {
+  const taskFromArgs = process.argv.slice(2).join(" ").trim();
+  const task =
+    taskFromArgs ||
+    "Lis docs/OPERATIONNEL-100.md et résume en 5 lignes ce qui reste à faire pour atteindre 100%.";
 
-runOrchestrator(task).catch((err) => {
-  console.error("Erreur orchestrateur:", err?.message ?? err);
-  process.exitCode = 1;
-});
+  runOrchestrator(task).catch((err) => {
+    console.error("Erreur orchestrateur:", err?.message ?? err);
+    process.exitCode = 1;
+  });
+}
