@@ -20,6 +20,15 @@
 //   POST {action:'vendeur_statut', token, annonce_id, statut}  -> vendue/archivee/publiee
 //   POST {action:'vendeur_repondre', token, annonce_id, contenu} -> répond à l'acheteur
 //
+// ADMIN (token=cockpit_pass)
+//   POST {action:'sequestre_init', token, tx_id} -> INERTE sans STRIPE_SECRET_KEY.
+//        Avec la clé : crée un PaymentIntent capture_method=manual (BLOCAGE, PAS débit).
+//        La capture réelle (vrai débit) reste validée à part (Bible §6). `reserver` n'y touche jamais.
+//
+// P1 : anti-abus par IP (rate-limit sur message/avis/reserver/deposer, fail-open),
+//      notif vendeur best-effort (INERTE sans RESEND_API_KEY, ne fuit jamais le contact acheteur).
+//      callBrain : SANS OBJET ici (skipper n'appelle aucun LLM).
+//
 // Contact vendeur JAMAIS exposé côté public : uniquement via la messagerie interne. CORS *.
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 const U = Deno.env.get("SUPABASE_URL")!;
@@ -27,6 +36,12 @@ const K = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
 const CORS = { "Access-Control-Allow-Origin":"*", "Access-Control-Allow-Methods":"GET,POST,OPTIONS", "Access-Control-Allow-Headers":"content-type,authorization,apikey" };
 function J(d:unknown,s=200){ return new Response(JSON.stringify(d),{status:s,headers:{"Content-Type":"application/json",...CORS}}); }
 const H = { apikey:K, Authorization:"Bearer "+K };
+// Secrets lus de façon tolérante (règle n°4) — TOUS optionnels : sans eux, tout reste inerte.
+const env=(...names:string[])=>{ for(const n of names){ const v=Deno.env.get(n); if(v) return v; } return ""; };
+const STRIPE_KEY = env("STRIPE_SECRET_KEY","STRIPE_KEY","STRIPE_API_KEY");           // rail séquestre (inerte sans elle)
+const COCKPIT = env("COCKPIT_TOKEN","COCKPIT_PASS","NAVLYS_COCKPIT_TOKEN");           // porte admin (sequestre_init)
+const RESEND_KEY = env("RESEND_API_KEY","RESEND_KEY");                                 // notif vendeur (inerte sans elle)
+const NOTIF_FROM = env("SKIPPER_NOTIF_FROM","NAVLYS_MAIL_FROM") || "NAVLYS <bruno@navlys.com>";
 async function ins(t:string,b:unknown){ const r=await fetch(U+"/rest/v1/"+t,{method:"POST",headers:{...H,"Content-Type":"application/json",Prefer:"return=representation"},body:JSON.stringify(b)}); return r.ok?await r.json():null; }
 async function patch(t:string,q:string,b:unknown){ const r=await fetch(U+"/rest/v1/"+t+"?"+q,{method:"PATCH",headers:{...H,"Content-Type":"application/json",Prefer:"return=representation"},body:JSON.stringify(b)}); return r.ok?await r.json():null; }
 async function sel(path:string){ const r=await fetch(U+"/rest/v1/"+path,{headers:H}); return r.ok?await r.json():[]; }
@@ -39,6 +54,38 @@ const PUB = "jeton,vendeur_prenom,vendeur_type,type_bateau,marque,modele,annee,l
 
 async function avisDe(annonceId:number){
   return await sel("skipper_avis?annonce_id=eq."+annonceId+"&select=cible,auteur_prenom,note,commentaire,created_at&order=created_at.desc&limit=30");
+}
+
+// --- Anti-abus : rate-limit par IP + action (fenêtre 1 h) -------------------
+function clientIP(req:Request){
+  const xf=req.headers.get("x-forwarded-for")||"";
+  return clean(xf.split(",")[0]||req.headers.get("cf-connecting-ip")||"","64") || "?";
+}
+// true = OK (sous le quota) ; false = quota dépassé. Fail-open si la table manque (jamais bloquer un vrai client).
+async function rateOk(ip:string, action:string, maxParHeure:number){
+  try{
+    const since=new Date(Date.now()-3600_000).toISOString();
+    const rows=await sel("skipper_ratelimit?ip=eq."+enc(ip)+"&action=eq."+enc(action)+"&created_at=gte."+enc(since)+"&select=id");
+    await ins("skipper_ratelimit",{ ip, action });
+    return (Array.isArray(rows)?rows.length:0) < maxParHeure;
+  }catch{ return true; }
+}
+
+// --- Notif vendeur (INERTE sans RESEND_KEY) : prévient qu'il a du nouveau, SANS exposer le contact acheteur ---
+async function notifVendeur(annonce_id:number, sujet:string){
+  if(!RESEND_KEY) return; // inerte tant que la clé n'est pas posée
+  try{
+    const a=await sel("skipper_annonces?id=eq."+annonce_id+"&select=vendeur_email,vendeur_prenom,marque,modele,vendeur_token&limit=1");
+    if(!a.length || !a[0].vendeur_email) return;
+    const prenom=clean(a[0].vendeur_prenom,80)||"toi";
+    const bateau=clean((a[0].marque||"")+" "+(a[0].modele||""),120);
+    const lien="https://navlys.com/skipper-vendeur?t="+clean(a[0].vendeur_token,40);
+    const html="<p>Bonjour "+prenom+",</p><p>"+sujet+" pour ton annonce <b>"+bateau+"</b> sur NAVLYS Skipper.</p>"+
+      "<p>Ouvre ton espace vendeur pour voir le détail et répondre : <a href=\""+lien+"\">"+lien+"</a></p><p>🌊 NAVLYS</p>";
+    await fetch("https://api.resend.com/emails",{ method:"POST",
+      headers:{ "Authorization":"Bearer "+RESEND_KEY, "Content-Type":"application/json" },
+      body:JSON.stringify({ from:NOTIF_FROM, to:[a[0].vendeur_email], subject:"NAVLYS Skipper — "+sujet, html }) });
+  }catch{ /* notif best-effort : n'empêche jamais l'action principale */ }
 }
 
 Deno.serve(async (req)=>{
@@ -75,9 +122,12 @@ Deno.serve(async (req)=>{
   const b:any=await req.json().catch(()=>({}));
   if(b&&b.website) return J({ ok:true }); // pot de miel anti-robots
   const action=clean(b.action,20);
+  const ip=clientIP(req);
+  const TROP="Trop de tentatives depuis ta connexion. Réessaie dans un moment. 🌊";
 
   // ---------- MESSAGE acheteur -> vendeur ----------
   if(action==="message"){
+    if(!(await rateOk(ip,"message",12))) return J({ ok:false, error:TROP },429);
     const email=clean(b.email,160).toLowerCase();
     if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return J({ ok:false, error:"Écris un e-mail valide pour que le vendeur puisse te répondre." },400);
     const contenu=String(b.contenu==null?"":b.contenu).trim().slice(0,4000);
@@ -91,11 +141,13 @@ Deno.serve(async (req)=>{
     await ins("missions",{ departement:"NAVDEM", priorite:2, statut:"a_faire",
       titre:"SKIPPER — mise en relation acheteur/vendeur (annonce #"+an.id+")",
       consigne:"Acheteur "+(clean(b.prenom,80)||"?")+" · "+email+" au sujet de l'annonce #"+an.id+" ("+(an.marque||"")+" "+(an.modele||"")+"). Message: "+contenu+". Le vendeur voit ce message dans son tableau /skipper-vendeur." });
+    await notifVendeur(an.id, "Tu as un nouveau message");
     return J({ ok:true, merci:(clean(b.prenom,80)||"")+" ton message est bien parti. Le vendeur te répond via NAVLYS. 🌊" });
   }
 
   // ---------- AVIS sur le vendeur ----------
   if(action==="avis"){
+    if(!(await rateOk(ip,"avis",6))) return J({ ok:false, error:TROP },429);
     const email=clean(b.email,160).toLowerCase();
     if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return J({ ok:false, error:"Écris un e-mail valide." },400);
     const note=intg(b.note); if(note==null||note<1||note>5) return J({ ok:false, error:"Mets une note de 1 à 5." },400);
@@ -109,6 +161,7 @@ Deno.serve(async (req)=>{
 
   // ---------- RÉSERVER avec acompte séquestré (garde-fou : a_valider) ----------
   if(action==="reserver"){
+    if(!(await rateOk(ip,"reserver",6))) return J({ ok:false, error:TROP },429);
     const email=clean(b.email,160).toLowerCase();
     if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return J({ ok:false, error:"Écris un e-mail valide." },400);
     const arows=await sel("skipper_annonces?jeton=eq."+enc(clean(b.annonce,32))+"&statut=eq.publiee&select=id,marque,modele,prix_eur");
@@ -123,12 +176,14 @@ Deno.serve(async (req)=>{
     await ins("journal",{ type:"skipper_reservation", message:"SKIPPER — RÉSERVATION #"+txid+" (a_valider) sur annonce #"+an.id+" ("+(an.marque||"")+" "+(an.modele||"")+") par "+(clean(b.prenom,80)||email)+" — acompte "+(montant!=null?montant+"€":"?")+". ⚠️ Vrai argent : validation Bruno requise, aucun débit déclenché." });
     await ins("missions",{ departement:"NAVFI", priorite:1, statut:"a_valider",
       titre:"SKIPPER — valider une réservation/séquestre (tx #"+txid+")",
-      consigne:"Réservation SKIPPER #"+txid+" sur annonce #"+an.id+" ("+(an.marque||"")+" "+(an.modele||"")+"). Acheteur: "+(clean(b.prenom,80)||"?")+" · "+email+". Acompte séquestré proposé: "+(montant!=null?montant+" €":"à convenir")+". ⚠️ VRAI ARGENT (Bible §6) : aucun débit n'a été déclenché. Le rail de paiement (Stripe) doit être activé par Bruno. Pour valider et passer en séquestre: update skipper_transactions set statut='en_sequestre' where id="+txid+"; (uniquement une fois le paiement réel encadré)." });
+      consigne:"Réservation SKIPPER #"+txid+" sur annonce #"+an.id+" ("+(an.marque||"")+" "+(an.modele||"")+"). Acheteur: "+(clean(b.prenom,80)||"?")+" · "+email+". Acompte séquestré proposé: "+(montant!=null?montant+" €":"à convenir")+". ⚠️ VRAI ARGENT (Bible §6) : aucun débit n'a été déclenché. Le rail de paiement (Stripe) doit être activé par Bruno. Pour valider et passer en séquestre: appeler l'edge skipper {action:'sequestre_init', token:<cockpit_pass>, tx_id:"+txid+"} (crée un PaymentIntent Stripe capture_method=manual = blocage, PAS débit). La CAPTURE réelle (=vrai débit) reste une action validée séparément." });
+    await notifVendeur(an.id, "Tu as une nouvelle demande de réservation");
     return J({ ok:true, merci:(clean(b.prenom,80)?clean(b.prenom,80)+", ta":"Ta")+" demande de réservation est enregistrée. NAVLYS sécurise la suite (acompte séquestré) — aucun débit tant que tout n'est pas confirmé et validé. 🌊", statut:"a_valider" });
   }
 
   // ---------- DÉPÔT d'une annonce (statut a_valider) ----------
   if(action==="deposer"){
+    if(!(await rateOk(ip,"deposer",6))) return J({ ok:false, error:TROP },429);
     const email=clean(b.email,160).toLowerCase();
     if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return J({ ok:false, error:"Écris un e-mail valide pour qu'on puisse te répondre." },400);
     const marque=clean(b.marque,80), modele=clean(b.modele,160);
@@ -222,6 +277,38 @@ Deno.serve(async (req)=>{
     if(!m) return J({ ok:false, error:"Réessaie dans un instant." },200);
     await ins("journal",{ type:"skipper_message", message:"SKIPPER — vendeur a répondu sur l'annonce #"+annonce_id+"." });
     return J({ ok:true });
+  }
+
+  // ---------- ADMIN : initialiser le séquestre Stripe (INERTE sans clé) ----------
+  // Réservé admin (token=cockpit_pass). Crée un PaymentIntent capture_method=manual =
+  // AUTORISATION/BLOCAGE de l'acompte, PAS un débit. La capture (vrai débit) reste une
+  // action validée à part (Bible §6). `reserver` (public) ne touche JAMAIS ce rail.
+  if(action==="sequestre_init"){
+    if(!COCKPIT || clean(b.token,120)!==COCKPIT) return J({ ok:false, error:"Réservé admin." },401);
+    const tx_id=intg(b.tx_id);
+    if(!tx_id) return J({ ok:false, error:"tx_id requis." },400);
+    if(!STRIPE_KEY) return J({ ok:false, inerte:true,
+      error:"Rail séquestre inerte : pose STRIPE_SECRET_KEY dans les secrets Edge Functions pour l'activer. Aucun débit possible d'ici là." },200);
+    const t=await sel("skipper_transactions?id=eq."+tx_id+"&select=id,montant_acompte,devise,statut,stripe_payment_intent&limit=1");
+    if(!t.length) return J({ ok:false, error:"Transaction introuvable." },404);
+    if(t[0].stripe_payment_intent) return J({ ok:true, deja:true, payment_intent:t[0].stripe_payment_intent });
+    const cents=Math.round((num(t[0].montant_acompte)||0)*100);
+    if(cents<50) return J({ ok:false, error:"Montant d'acompte trop faible ou absent." },400);
+    // capture_method=manual : on BLOQUE, on ne débite pas. Signalement d'UNE ligne (Bible §6).
+    await ins("journal",{ type:"skipper_sequestre", message:"SKIPPER — 💶 mise en séquestre (blocage, PAS débit) demandée sur tx #"+tx_id+" : "+(cents/100)+" "+(t[0].devise||"EUR")+". Autorisation Stripe manual-capture." });
+    const params=new URLSearchParams();
+    params.set("amount",String(cents));
+    params.set("currency",String(t[0].devise||"EUR").toLowerCase());
+    params.set("capture_method","manual");
+    params.set("description","NAVLYS Skipper — acompte séquestré tx #"+tx_id);
+    const r=await fetch("https://api.stripe.com/v1/payment_intents",{ method:"POST",
+      headers:{ "Authorization":"Bearer "+STRIPE_KEY, "Content-Type":"application/x-www-form-urlencoded" }, body:params });
+    const pi:any=await r.json().catch(()=>({}));
+    if(!r.ok || !pi.id) return J({ ok:false, error:"Stripe: "+(pi?.error?.message||"échec création PaymentIntent") },200);
+    await patch("skipper_transactions","id=eq."+tx_id,{ stripe_payment_intent:pi.id, stripe_status:pi.status,
+      statut:"en_sequestre", sequestre_par:"admin", updated_at:new Date().toISOString() });
+    return J({ ok:true, payment_intent:pi.id, stripe_status:pi.status, client_secret:pi.client_secret,
+      note:"Autorisation créée (blocage). La CAPTURE (vrai débit) reste une action séparée validée par Bruno." });
   }
 
   return J({ ok:false, error:"Action inconnue." },400);
