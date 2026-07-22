@@ -54,6 +54,15 @@
 - ✅ **Fait cette session** : ancres cassées `/#univers → /adhesion` (finance + next-gen, source
   vérifiée conforme à la prod). Escadron **réconciliation PR** en cours (11 PR).
 
+## Session 2026-06-30 — /controle (routine gardien exécutée)
+
+- ✅ **Routine exécutée** : lecture `JOURNAL-ERREURS`, `CHECKLIST-SECURITE`, `ETAT-DES-LIEUX`, `ROUTINE`, puis audit par l’agent **gardien**.
+- ✅ **État Git local validé** : branche `copilot/review-session-history-tips`, `git status` propre, `git diff` vide.
+- ✅ **Contrôle récidives** : aucune reproduction détectée des erreurs **ERR-001 → ERR-007** dans l’état actuel du dépôt local.
+- ⚠️ **Correction appliquée** : aucune (pas nécessaire).
+- 🛑 **À décider (hors périmètre local)** : audit prod complémentaire Vercel/Hetzner si contrôle live demandé.
+- 📓 **Leçon** : aucune nouvelle erreur détectée, donc aucune nouvelle entrée `ERR-XXX`.
+
 ## Session 2026-06-28 — finalisation lancement 1ᵉʳ juillet + sécurité dépôt
 
 - 🔴 **INCIDENT découvert** : le dépôt GitHub est **PUBLIC** et une session parallèle y avait déversé

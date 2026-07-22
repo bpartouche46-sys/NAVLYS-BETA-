@@ -50,13 +50,13 @@ export function startHealthServer(opts: HealthServerOpts): Server {
         const payload: Record<string, unknown> = healthPayload({ service: "navlys-core", version: opts.version, startedAt });
         if (opts.getStatus) {
           try { Object.assign(payload, await opts.getStatus()); }
-          catch (e: any) { payload.status_error = e?.message ?? String(e); }
+          catch { payload.status_error = "status_unavailable"; }
         }
         return send(200, payload);
       }
       return send(404, { ok: false, error: "not_found" });
-    } catch (e: any) {
-      return send(500, { ok: false, error: e?.message ?? String(e) });
+    } catch {
+      return send(500, { ok: false, error: "internal_error" });
     }
   });
   server.listen(opts.port, "127.0.0.1", () => {
