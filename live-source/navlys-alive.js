@@ -161,7 +161,7 @@ window.NAVLYS_setVideo = function(v, rate, srcs){
     ctx.shadowBlur=0; ctx.globalCompositeOperation='source-over';
     requestAnimationFrame(frame);
   }
-  requestAnimationFrame(frame);
+  /* boucle canvas desactivee (perf) : le fond video universel suffit */
 
   /* ---------- voile tres leger pour la lisibilite ---------- */
   var veil=document.createElement('div'); veil.id='nv-veil'; document.body.appendChild(veil);
@@ -171,8 +171,7 @@ window.NAVLYS_setVideo = function(v, rate, srcs){
   v.autoplay=true; v.muted=true; v.loop=true; v.playsInline=true; v.setAttribute('playsinline','');
   // fond = voile NAVLYS + présentations, RALENTI mais fluide + HD ; aucun fichier => décor vivant
   v.addEventListener('nv-novideo', function(){ v.remove(); });
-  window.NAVLYS_setVideo(v, 0.6);
-  document.body.appendChild(v);
+  /* 2e video retiree (redondante avec le fond video universel) */
 
   /* ---------- bulles promo (apparaissent / disparaissent) ---------- */
   var promos=[
