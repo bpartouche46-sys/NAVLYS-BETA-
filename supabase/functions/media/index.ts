@@ -51,7 +51,8 @@ async function a_huggingface(prompt:string,key:string){
   return { image:"data:image/png;base64,"+b64(buf) };
 }
 async function a_cloudflare(prompt:string){
-  const tok=env(["CLOUDFLARE_AI_TOKEN","CF_AI_TOKEN"]); const acct=env(["CLOUDFLARE_ACCOUNT_ID","CF_ACCOUNT_ID"]);
+  const tok=env(["CLOUDFLARE_AI_TOKEN","CF_AI_TOKEN"]) || await cleEnBase(["CLOUDFLARE_AI_TOKEN","CF_AI_TOKEN"]);
+  const acct=env(["CLOUDFLARE_ACCOUNT_ID","CF_ACCOUNT_ID"]) || await cleEnBase(["CLOUDFLARE_ACCOUNT_ID","CF_ACCOUNT_ID"]);
   if(!tok||!acct) throw new Error("cf token/account absent");
   const r=await fetch("https://api.cloudflare.com/client/v4/accounts/"+acct+"/ai/run/@cf/black-forest-labs/flux-1-schnell",{method:"POST",headers:{Authorization:"Bearer "+tok,"Content-Type":"application/json"},body:JSON.stringify({prompt})});
   if(!r.ok) throw new Error("cf "+r.status);
@@ -121,7 +122,13 @@ Deno.serve(async (req) => {
       const out = await adap(prompt, key, size);
       await rpc("navlys_media_utilise",{ p_code:c.code });
       await ins("journal",{type:"media",message:"🎨 "+type+" via "+c.code+(c.paid?" (payant)":" (gratuit)")});
-      return J({ ok:true, provider:c.code, paid:!!c.paid, ...out, tried });
+      // NAVLYS — envoi AUTO de la création au dépôt central (navlys.com/depot).
+      // Additif et NON bloquant : un échec de dépôt ne casse jamais la création.
+      // type hors liste Genesis (design/video/logo) => rangé dans le dépôt, pas en Genesis.
+      const depotType = /vid[eé]o/i.test(type) ? "video" : (String(body.depot_type||"").trim() || "design");
+      const depotTitre = (String(body.titre||"").trim() || prompt).slice(0,140);
+      try{ await ins("navlys_depot",{ source:"media", type:depotType, titre:depotTitre, contenu:(out.image?"[création générée — image base64 dans la réponse média]":""), url:out.url||null, route:"depot" }); }catch(_){ /* le dépôt ne bloque jamais la création */ }
+      return J({ ok:true, provider:c.code, paid:!!c.paid, ...out, tried, depose:true });
     }catch(e){ tried.push(c.code+":echec("+String((e as Error).message||e).slice(0,40)+")"); }
   }
   return J({ ok:false, message:"Aucun prestataire dispo pour '"+type+"'. Ajoute une cle gratuite (HF_TOKEN, CLOUDFLARE_AI_TOKEN+CLOUDFLARE_ACCOUNT_ID, GEMINI_API_KEY) ou appelle en admin (token) pour le payant.", tried }, 200);
