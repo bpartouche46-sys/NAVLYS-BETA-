@@ -10,7 +10,7 @@
   var BASE='https://hhrlgyvtqluxpywjiwkd.supabase.co/functions/v1';
   var CHAT=BASE+'/chat', VOIX=BASE+'/voix';
   // Voix par défaut (chaude, humaine). Remplaçable par la voix clonée de Bruno.
-  var VOICE_ID='JBFqnCBsd6RMkjVDRZzb';
+  var VOICE_ID='SlMeTvFmET6Zf5gdxJ9H';
 
   var LMAP={fr:'fr-FR',en:'en-US',es:'es-ES',de:'de-DE',it:'it-IT',pt:'pt-PT',ar:'ar-SA',he:'he-IL',ru:'ru-RU',zh:'zh-CN',nl:'nl-NL'};
   var lang2=(navigator.language||'fr').slice(0,2).toLowerCase();
