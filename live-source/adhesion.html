@@ -65,6 +65,8 @@ h2::after{content:"";flex:1;height:1px;background:var(--line)}
 .oauth-btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;background:#fff;color:#1a1a1a;border:1px solid rgba(0,0,0,.15);border-radius:12px;padding:13px;font-weight:700;font-size:.98rem;cursor:pointer;font-family:'Atkinson Hyperlegible',sans-serif}
 .oauth-btn:disabled{opacity:.5;cursor:wait}
 .oauth-btn .ico{font-size:1.15rem}
+.oauth-btn.bientot{opacity:.6}
+.oauth-btn.bientot::after{content:"· bientôt";font-size:.72rem;font-weight:400;color:#9a9a9a}
 .ou-divider{text-align:center;color:var(--mut);font-size:.85rem;margin:14px 0;position:relative}
 .ou-divider::before,.ou-divider::after{content:"";position:absolute;top:50%;width:40%;height:1px;background:var(--line)}
 .ou-divider::before{left:0}.ou-divider::after{right:0}
@@ -411,13 +413,27 @@ h2::after{content:"";flex:1;height:1px;background:var(--line)}
       marquerVerifie(u.email||'', prenomAuto);
     })['catch'](function(){});
 
+    // Providers OAuth RÉELLEMENT activés dans Supabase → Authentication → Providers.
+    // Tant qu'un provider est false, on NE redirige PAS (sinon Supabase renvoie une page
+    // d'erreur brute « provider is not enabled »). Passe à true dès qu'il est activé côté Supabase.
+    var OAUTH_ON = { google:false, apple:false, azure:false, facebook:false, discord:false };
+    var OAUTH_NOM = { google:'Google', apple:'Apple', azure:'Microsoft', facebook:'Facebook', discord:'Discord' };
     ['google','apple','azure','facebook','discord'].forEach(function(p){
       var b=$('oauth-'+p); if(!b) return;
+      if(!OAUTH_ON[p]){
+        // pas encore activé : aucun redirect (donc aucune page d'erreur), on oriente vers l'e-mail
+        b.classList.add('bientot'); b.setAttribute('aria-disabled','true');
+        b.onclick=function(){
+          vEtat.textContent='La connexion '+(OAUTH_NOM[p]||p)+' arrive bientôt — pour l\'instant, valide ton accès par e-mail juste en dessous. ⬇️';
+          try{ vEmail&&vEmail.focus(); }catch(e){}
+        };
+        return;
+      }
       b.onclick=function(){
         document.querySelectorAll('.oauth-btn').forEach(function(x){x.disabled=true;});
-        vEtat.textContent='… redirection vers '+p;
+        vEtat.textContent='… redirection vers '+(OAUTH_NOM[p]||p);
         sb.auth.signInWithOAuth({ provider:p, options:{ redirectTo: location.origin+location.pathname } })
-          .then(function(r){ if(r&&r.error){ vEtat.textContent='Connexion '+p+' indisponible pour le moment — essaie un autre choix ou vérifie ton e-mail.'; document.querySelectorAll('.oauth-btn').forEach(function(x){x.disabled=false;}); } })
+          .then(function(r){ if(r&&r.error){ vEtat.textContent='Connexion '+(OAUTH_NOM[p]||p)+' indisponible pour le moment — essaie un autre choix ou vérifie ton e-mail.'; document.querySelectorAll('.oauth-btn').forEach(function(x){x.disabled=false;}); } })
           ['catch'](function(){ vEtat.textContent='Connexion indisponible — réessaie.'; document.querySelectorAll('.oauth-btn').forEach(function(x){x.disabled=false;}); });
       };
     });
