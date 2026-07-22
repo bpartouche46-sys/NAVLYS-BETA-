@@ -61,13 +61,17 @@ function clientIP(req:Request){
   const xf=req.headers.get("x-forwarded-for")||"";
   return clean(xf.split(",")[0]||req.headers.get("cf-connecting-ip")||"","64") || "?";
 }
-// true = OK (sous le quota) ; false = quota dépassé. Fail-open si la table manque (jamais bloquer un vrai client).
+// true = OK (sous le quota) ; false = quota dépassé. Fail-open (jamais bloquer un vrai client si la
+// brique compteur est indisponible). Appel en 1 aller-retour via RPC skipper_rate_hit (insert de la
+// requête courante + count des ANTÉRIEURES) -> on rejette au-delà de maxParHeure (fenêtre 1 h glissante).
 async function rateOk(ip:string, action:string, maxParHeure:number){
   try{
-    const since=new Date(Date.now()-3600_000).toISOString();
-    const rows=await sel("skipper_ratelimit?ip=eq."+enc(ip)+"&action=eq."+enc(action)+"&created_at=gte."+enc(since)+"&select=id");
-    await ins("skipper_ratelimit",{ ip, action });
-    return (Array.isArray(rows)?rows.length:0) < maxParHeure;
+    const r=await fetch(U+"/rest/v1/rpc/skipper_rate_hit",{ method:"POST",
+      headers:{...H,"Content-Type":"application/json"},
+      body:JSON.stringify({ p_ip:ip, p_action:action }) });
+    if(!r.ok) return true;                 // fail-open
+    const n=Number(await r.json());        // n = nb requêtes ANTÉRIEURES sur 1 h (la courante vient d'être insérée mais pas comptée)
+    return !isFinite(n) || n<maxParHeure;   // autorise exactement maxParHeure requêtes/h, puis 429
   }catch{ return true; }
 }
 
