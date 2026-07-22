@@ -28,3 +28,6 @@ navlys_core/*.db
 *.ipa
 android.keystore
 signing-key-info.txt
+node_modules/
+package.json
+package-lock.json

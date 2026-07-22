@@ -30,11 +30,14 @@ if (fp.endsWith('.js')) {
   try { execFileSync('node', ['--check', fp], { stdio: 'pipe' }); }
   catch (e) { problems.push(`SYNTAXE JS : node --check échoue sur ${fp} : ${String(e.stderr || e.message).slice(0, 300)}`); }
 } else if (fp.endsWith('.html')) {
-  const re = /<script(?![^>]*\bsrc=)[^>]*>([\s\S]*?)<\/script>/gi;
+  const re = /<script((?![^>]*\bsrc=)[^>]*)>([\s\S]*?)<\/script>/gi;
   let m, i = 0;
   while ((m = re.exec(src))) {
     i++;
-    try { new (await import('node:vm')).Script(m[1]); }
+    // les <script type="application/ld+json"> (et autres types data) ne sont pas du JS
+    const type = (/\btype\s*=\s*["']?([^"'\s>]+)/i.exec(m[1] || '') || [])[1] || '';
+    if (type && !/javascript|module/i.test(type)) continue;
+    try { new (await import('node:vm')).Script(m[2]); }
     catch (e) { problems.push(`SYNTAXE HTML : <script> inline n°${i} de ${fp} : ${String(e.message).slice(0, 200)}`); }
   }
   // ids accentués (leçon srÉcart : getElementById silencieusement null)
