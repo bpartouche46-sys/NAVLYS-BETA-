@@ -6,7 +6,7 @@
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 const ANTH = Deno.env.get("ANTHROPIC_API_KEY") || "";
 // Repli anti-coupure (indépendance CORE) : OpenRouter si Anthropic tombe. Clé tolérante.
-const OR = Deno.env.get("OPENROUTER_API_KEY") || Deno.env.get("OPENROUTER_KEY") || Deno.env.get("OPEN_ROUTER_API_KEY") || "";
+const OR = Deno.env.get("OPENROUTER_API_KEY") || Deno.env.get("OPENROUTER_KEY") || Deno.env.get("OPEN_ROUTER_API_KEY") || Deno.env.get("OPEN_API_ROUTER") || Deno.env.get("OPEN_API_ROUTER_KEY") || "";
 const MODEL = "claude-haiku-4-5-20251001";
 const OR_MODELS = ["anthropic/claude-haiku-4.5", "meta-llama/llama-3.3-70b-instruct:free"];
 const CORS = { "Access-Control-Allow-Origin": "*", "Access-Control-Allow-Methods": "POST,GET,OPTIONS", "Access-Control-Allow-Headers": "content-type,authorization,apikey" };
@@ -38,7 +38,7 @@ async function ask(system: string, user: string, maxT = 1200) {
 }
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response(null, { status: 204, headers: CORS });
-  if (req.method === "GET") return J({ ok: true, service: "navlys-nextgen" });
+  if (req.method === "GET") return J({ ok: true, service: "navlys-nextgen", cle: !!ANTH, repli: !!OR });
   const b: any = await req.json().catch(() => ({}));
   const action = clean(b.action, 20) || "polir";
   const texte = clean(b.texte, 8000);

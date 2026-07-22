@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#02040a">
+<title>NAVLYS — Cinéma · films générés, nouveaux chaque jour</title>
+<meta name="description" content="Le cinéma NAVLYS : des films courts générés par l'IA, images réelles et ambiances, renouvelés automatiquement. L'IA la plus simple du monde, à la voix.">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://www.navlys.com/cine">
+<link rel="icon" type="image/png" href="/assets/coins/navlys-coin-core.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/navlys-ui.css">
+<style>
+.cw{max-width:960px;margin:0 auto;padding:80px 18px 80px}
+.ch{text-align:center;margin-bottom:30px}
+.ch .k{font-family:'Cinzel',serif;letter-spacing:.2em;text-transform:uppercase;font-size:12px;color:var(--ice)}
+.ch h1{font-family:'Cinzel',serif;font-weight:600;font-size:clamp(28px,5.5vw,48px);color:var(--perle);margin:.25em 0 .1em}
+.ch h1 em{color:var(--or);font-style:normal}
+.ch p{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:19px;color:var(--perle);opacity:.9}
+#films{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px}
+.film{background:rgba(8,11,22,.55);border:1px solid rgba(233,211,160,.18);border-radius:16px;overflow:hidden;animation:cf .6s ease}
+@keyframes cf{from{opacity:0;transform:translateY(10px)}to{opacity:1}}
+.film video{width:100%;display:block;background:#04050c}
+.film .m{padding:12px 15px}
+.film .t{font-family:'Cinzel',serif;font-size:14px;color:var(--or);letter-spacing:.04em}
+.film .d{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ice);margin-top:3px}
+.cfoot{margin-top:40px;text-align:center;color:var(--brume);font-size:12px;font-style:italic}
+</style>
+</head>
+<body>
+<script>(function(){try{if('serviceWorker' in navigator){navigator.serviceWorker.getRegistrations().then(function(rs){rs.forEach(function(r){r.unregister();});});}}catch(e){}})();</script>
+<nav class="nv-nav" aria-label="navigation"><a href="/">accueil</a><a href="/journal">journal</a><a href="/essai">essaie</a><a href="/mon-espace">mon espace</a></nav>
+<div class="cw">
+  <div class="ch">
+    <p class="k">généré par l'IA · renouvelé chaque jour</p>
+    <h1>le <em>cinéma</em> NAVLYS</h1>
+    <p>des films courts, images réelles et ambiances — sans un mot, juste l'image et le son.</p>
+  </div>
+  <div id="films">
+    <div class="film"><video src="/videos/navlys-cine-20260722.mp4" controls playsinline preload="metadata"></video><div class="m"><div class="t">La Mer, tempête puis calme</div><div class="d">22 juillet 2026 · tempête · calme · mer</div></div></div>
+    <div class="film" data-id="navlys-cine">
+      <video src="/videos/navlys-cine.mp4" controls playsinline preload="metadata" poster="/videos/poster-univers.jpg"></video>
+      <div class="m"><div class="t">La flotte NAVLYS</div><div class="d">21 juillet 2026 · voile · mer · horizon</div></div>
+    </div>
+  </div>
+  <p class="cfoot">Films générés automatiquement par le CORE NAVLYS, dans les quotas gratuits des outils de création. © 2026 NAVLYS — tous droits réservés.</p>
+</div>
+</body>
+</html>
