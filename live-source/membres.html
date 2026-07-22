@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Espace membre NAVLYS</title>
+<meta name="description" content="L'espace membre NAVLYS : chacun construit son petit site à son nom, gratuitement, et le fait grandir avec la communauté.">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Cormorant+Garamond:ital,wght@0,400;1,400&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="/media/navlys_favicon.svg">
+<link rel="manifest" href="/manifest.webmanifest">
+<style>
+:root{--noir:#03040a;--ice:#7DD3FC;--ice-clair:#a8e3ff;--or:#C9A961;--or-pale:#f3e4c4;--perle:#e7eef2;--mut:#9fb3c8;--line:rgba(125,211,252,.18);--ok:#34d399}
+*{margin:0;padding:0;box-sizing:border-box}
+html{background:var(--noir)}
+body{background:var(--noir);color:var(--perle);font-family:'Atkinson Hyperlegible',system-ui,sans-serif;-webkit-font-smoothing:antialiased;min-height:100vh}
+.wrap{max-width:680px;margin:0 auto;padding:34px 20px 96px}
+.k{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:var(--ice);text-align:center}
+.bandeau{text-align:center;font-size:.82rem;color:var(--or-pale);background:rgba(201,169,97,.08);border:1px solid rgba(201,169,97,.3);border-radius:999px;padding:6px 14px;margin:0 auto 18px;max-width:max-content}
+.photo{width:112px;height:112px;border-radius:50%;object-fit:cover;display:block;margin:6px auto 14px;border:1px solid var(--line);background:rgba(5,7,14,.6)}
+h1{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:400;font-size:clamp(30px,7vw,44px);text-align:center;color:#eafaff;margin:4px 0 8px;word-break:break-word}
+.bio{text-align:center;color:var(--perle);font-size:1.05rem;line-height:1.7;margin:0 auto 22px;max-width:34em;white-space:pre-wrap}
+.liens{display:grid;gap:10px;margin:0 auto 26px;max-width:26em}
+.liens a{display:block;text-align:center;border:1px solid var(--line);border-radius:14px;padding:13px;color:var(--ice-clair);text-decoration:none;background:rgba(5,7,14,.6);transition:border-color .2s}
+.liens a:hover{border-color:var(--ice)}
+.badge{text-align:center;font-family:'Cinzel',serif;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--mut);margin-bottom:26px}
+.msg{text-align:center;color:var(--mut);margin:20px 0;min-height:1.3em;line-height:1.6}
+.btn{display:inline-block;border:1px solid var(--line);cursor:pointer;font-family:'Cinzel',serif;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--ice-clair);background:none;border-radius:999px;padding:11px 22px;transition:border-color .2s,color .2s}
+.btn:hover{border-color:var(--ice);color:#eafaff}
+.btn.gold{color:var(--or-pale);border-color:rgba(201,169,97,.5)}
+.center{text-align:center}
+.hidden{display:none!important}
+/* éditeur */
+.editeur{border:1px solid var(--line);border-radius:18px;padding:20px 18px;background:rgba(5,7,14,.6);margin:8px 0 20px}
+.editeur .section-t{font-family:'Cinzel',serif;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ice-clair);text-align:center;margin-bottom:14px}
+.editeur label{display:block;font-size:.78rem;color:var(--mut);margin:12px 0 5px}
+.editeur input,.editeur textarea{width:100%;background:rgba(6,8,16,.7);border:1px solid var(--line);border-radius:12px;padding:11px 13px;color:var(--ice-clair);font-family:inherit;font-size:1rem}
+.editeur input:focus,.editeur textarea:focus{outline:none;border-color:var(--ice)}
+.editeur textarea{min-height:90px;resize:vertical;line-height:1.6}
+.lien-row{display:flex;gap:8px;margin-bottom:8px}
+.lien-row input{flex:1;min-width:0}
+.lien-row button{flex:none;border:1px solid var(--line);background:none;color:var(--mut);border-radius:10px;padding:0 12px;cursor:pointer}
+.editeur .cta{display:block;width:100%;margin-top:16px;border:none;cursor:pointer;background:linear-gradient(100deg,var(--or),#fff6df,var(--or));color:var(--noir);border-radius:14px;padding:15px;font-weight:700;font-size:1.05rem;font-family:'Atkinson Hyperlegible',sans-serif}
+.crit{border-top:1px solid var(--line);margin-top:22px;padding-top:20px}
+.crit textarea{width:100%;background:rgba(6,8,16,.7);border:1px solid var(--line);border-radius:12px;padding:11px 13px;color:var(--ice-clair);font-family:inherit;font-size:1rem;min-height:70px}
+.crit textarea:focus{outline:none;border-color:var(--ice)}
+.disc{text-align:center;color:var(--mut);font-size:.82rem;margin-top:24px;line-height:1.7}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="k">NAVLYS · Espace membre</div>
+
+  <div id="vue"></div>
+
+  <div class="msg" id="msg"></div>
+  <p class="disc"><a href="/adhesion" style="color:#a8e3ff;text-decoration:none">Toi aussi, crée ton espace NAVLYS</a> — gratuit en découverte, à ton nom.</p>
+</div>
+
+<script>
+(function(){
+  var API='https://hhrlgyvtqluxpywjiwkd.supabase.co/functions/v1/membre';
+  var $=function(id){return document.getElementById(id);};
+  // slug depuis le chemin /membres/<slug> (le rewrite Vercel garde l'URL) — jamais un query param
+  var parts=(location.pathname||'').split('/').filter(Boolean); // ['membres','<slug>']
+  var slug=(parts[0]==='membres' && parts[1]) ? decodeURIComponent(parts[1]).toLowerCase().replace(/[^a-z0-9-]/g,'').slice(0,40) : '';
+  var token=''; try{ token=localStorage.getItem('nv-token')||''; }catch(e){}
+  var monSlug=''; // slug du visiteur connecté (pour savoir s'il est propriétaire)
+
+  function el(tag,cls,txt){ var e=document.createElement(tag); if(cls)e.className=cls; if(txt!=null)e.textContent=txt; return e; }
+  function lienSur(url){ url=String(url||''); return /^(https?:|mailto:|tel:)/i.test(url) ? url : ''; } // liste blanche
+  function toast(t){ $('msg').textContent=t; }
+
+  // ---- vue publique (aucun innerHTML brut : tout en textContent / href validé) ----
+  function rendrePublic(site, owner){
+    var v=$('vue'); v.textContent='';
+    if(site.statut!=='actif') v.appendChild(el('div','bandeau','✦ Espace en découverte'));
+    if(site.photo_url && lienSur(site.photo_url)){ var img=document.createElement('img'); img.className='photo'; img.src=site.photo_url; img.alt=''; img.onerror=function(){img.style.display='none';}; v.appendChild(img); }
+    v.appendChild(el('h1',null, site.titre || (site.prenom? (site.prenom+' sur NAVLYS') : 'Espace NAVLYS')));
+    if(site.bio) v.appendChild(el('p','bio', site.bio));
+    var liens=Array.isArray(site.liens)?site.liens:[];
+    if(liens.length){ var box=el('div','liens'); liens.forEach(function(l){ var href=lienSur(l&&l.url); if(!href)return; var a=el('a',null, (l.label||href)); a.href=href; a.target='_blank'; a.rel='noopener nofollow'; box.appendChild(a); }); v.appendChild(box); }
+    v.appendChild(el('div','badge','Membre NAVLYS'));
+    if(owner){ var b=el('button','btn gold','✎ Éditer mon espace'); b.onclick=ouvrirEditeur; var wrap=el('div','center'); wrap.appendChild(b); v.appendChild(wrap); }
+    rendreCritique(v);
+  }
+
+  function rendreCritique(v){
+    var c=el('div','crit');
+    c.appendChild(el('div','section-t','Un avis, une idée pour cet espace ?'));
+    var ta=document.createElement('textarea'); ta.id='crit-txt'; ta.placeholder='Ta remarque (elle arrive au CORE NAVLYS)…'; c.appendChild(ta);
+    var b=el('button','btn','Envoyer'); b.style.marginTop='10px'; b.onclick=function(){
+      var t=(ta.value||'').trim(); if(!t){ toast('Écris ta remarque.'); return; }
+      b.disabled=true;
+      fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'critique',slug:slug,texte:t})})
+        .then(function(r){return r.json();}).then(function(d){ b.disabled=false; ta.value=''; toast((d&&d.message)||'Merci 🌊'); })
+        ['catch'](function(){ b.disabled=false; toast('Envoi impossible — réessaie.'); });
+    };
+    var w=el('div','center'); w.appendChild(b); c.appendChild(w);
+    v.appendChild(c);
+  }
+
+  // ---- éditeur (propriétaire) ----
+  var siteCourant=null;
+  function ouvrirEditeur(){
+    var v=$('vue'); v.textContent='';
+    var e=el('div','editeur');
+    e.appendChild(el('div','section-t','Construis ton espace'));
+    e.appendChild(el('label',null,'Titre'));
+    var iTitre=document.createElement('input'); iTitre.id='e-titre'; iTitre.maxLength=120; iTitre.value=siteCourant.titre||''; e.appendChild(iTitre);
+    e.appendChild(el('label',null,'À propos de toi'));
+    var iBio=document.createElement('textarea'); iBio.id='e-bio'; iBio.maxLength=2000; iBio.value=siteCourant.bio||''; e.appendChild(iBio);
+    e.appendChild(el('label',null,'Photo (lien https)'));
+    var iPhoto=document.createElement('input'); iPhoto.id='e-photo'; iPhoto.maxLength=400; iPhoto.placeholder='https://…'; iPhoto.value=siteCourant.photo_url||''; e.appendChild(iPhoto);
+    e.appendChild(el('label',null,'Tes liens'));
+    var lbox=el('div'); lbox.id='e-liens'; e.appendChild(lbox);
+    (Array.isArray(siteCourant.liens)?siteCourant.liens:[]).forEach(function(l){ ajouteLigne(lbox,l.label,l.url); });
+    if(!lbox.children.length) ajouteLigne(lbox,'','');
+    var plus=el('button','btn','+ un lien'); plus.style.marginTop='4px'; plus.onclick=function(){ ajouteLigne(lbox,'',''); }; e.appendChild(plus);
+    var save=el('button','cta','Enregistrer mon espace'); save.onclick=enregistrer; e.appendChild(save);
+    v.appendChild(e);
+    var annul=el('button','btn','← Voir mon espace'); annul.onclick=function(){ rendrePublic(siteCourant,true); }; var w=el('div','center'); w.appendChild(annul); v.appendChild(w);
+  }
+  function ajouteLigne(box,label,url){
+    var row=el('div','lien-row');
+    var a=document.createElement('input'); a.placeholder='Nom'; a.maxLength=60; a.value=label||''; a.className='l-label';
+    var b=document.createElement('input'); b.placeholder='https://…'; b.maxLength=300; b.value=url||''; b.className='l-url';
+    var x=el('button',null,'✕'); x.onclick=function(){ box.removeChild(row); };
+    row.appendChild(a); row.appendChild(b); row.appendChild(x); box.appendChild(row);
+  }
+  function enregistrer(){
+    var liens=[]; Array.prototype.forEach.call(document.querySelectorAll('#e-liens .lien-row'),function(r){
+      var label=(r.querySelector('.l-label').value||'').trim(), url=(r.querySelector('.l-url').value||'').trim();
+      if(label && /^https?:\/\//i.test(url)) liens.push({label:label,url:url});
+    });
+    var body={ action:'save', token:token, titre:($('e-titre').value||'').trim(), bio:($('e-bio').value||'').trim(), photo_url:($('e-photo').value||'').trim(), liens:liens };
+    toast('… enregistrement');
+    fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)})
+      .then(function(r){return r.json();}).then(function(d){
+        if(!d||!d.ok){ toast((d&&d.error)||'Réessaie.'); return; }
+        siteCourant=d.site||siteCourant; toast('Ton espace est à jour ✦'); rendrePublic(siteCourant,true);
+        if(d.slug && d.slug!==slug){ history.replaceState(null,'','/membres/'+d.slug); slug=d.slug; }
+      })['catch'](function(){ toast('Enregistrement impossible — réessaie.'); });
+  }
+
+  // ---- init ----
+  function chargerPublic(){
+    fetch(API+'?slug='+encodeURIComponent(slug))
+      .then(function(r){return r.json();}).then(function(d){
+        if(!d||!d.ok||!d.site){ vueInconnu(); return; }
+        siteCourant=d.site;
+        var owner=(monSlug && monSlug===slug);
+        rendrePublic(d.site, owner);
+      })['catch'](function(){ toast('Connexion difficile — réessaie. 🌊'); });
+  }
+  function vueInconnu(){
+    var v=$('vue'); v.textContent='';
+    v.appendChild(el('h1',null,'Cet espace n’existe pas encore'));
+    v.appendChild(el('p','bio','Il est peut-être en construction. En attendant, découvre NAVLYS.'));
+    var b=el('button','btn gold','Créer mon espace'); b.onclick=function(){ location.href='/adhesion'; };
+    var w=el('div','center'); w.appendChild(b); v.appendChild(w);
+  }
+
+  if(!slug){ // /membres nu : si connecté, va sur mon espace ; sinon invite
+    if(token){ fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'reserver',token:token})})
+      .then(function(r){return r.json();}).then(function(d){ if(d&&d.ok&&d.slug){ location.href='/membres/'+d.slug; } else vueInconnu(); })['catch'](vueInconnu); }
+    else vueInconnu();
+  } else {
+    // si connecté, on demande mon slug pour activer l'édition sur MON espace
+    if(token){ fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'reserver',token:token})})
+      .then(function(r){return r.json();}).then(function(d){ if(d&&d.ok) monSlug=d.slug||''; chargerPublic(); })['catch'](chargerPublic); }
+    else chargerPublic();
+  }
+})();
+</script>
+<script src="/navlys-alive.js" defer></script>
+<script src="/navlys-i18n.js" defer></script>
+</body>
+</html>
