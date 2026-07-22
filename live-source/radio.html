@@ -88,32 +88,39 @@ function embedUrl(u){
   let m;
   if(host==='youtu.be'){
     m=path.match(/^([\w-]{6,})/);
-    if(m) return {src:'https://www.youtube.com/embed/'+m[1]+'?autoplay=1', audio:false};
+    if(m) return {provider:'youtube', id:m[1], audio:false};
     return null;
   }
   if(host==='youtube.com'){
     m=(url.searchParams.get('v')||'').match(/^([\w-]{6,})$/);
-    if(m) return {src:'https://www.youtube.com/embed/'+m[1]+'?autoplay=1', audio:false};
+    if(m) return {provider:'youtube', id:m[1], audio:false};
     m=path.match(/^(?:embed|live|shorts)\/([\w-]{6,})$/);
-    if(m) return {src:'https://www.youtube.com/embed/'+m[1]+'?autoplay=1', audio:false};
+    if(m) return {provider:'youtube', id:m[1], audio:false};
     m=path.match(/^(?:c\/|channel\/|@)?[\w-]+$/);
     if(!m) return null;
   }
   if(host==='open.spotify.com'){
     m=path.match(/^(track|playlist|album|episode|show|artist)\/([\w]+)$/);
-    if(m) return {src:'https://open.spotify.com/embed/'+m[1]+'/'+m[2], audio:true};
+    if(m) return {provider:'spotify', kind:m[1], id:m[2], audio:true};
   }
   return null;
+}
+function embedSrc(e){
+  if(e.provider==='youtube') return 'https://www.youtube.com/embed/'+e.id+'?autoplay=1';
+  if(e.provider==='spotify') return 'https://open.spotify.com/embed/'+e.kind+'/'+e.id;
+  return '';
 }
 document.getElementById('go').onclick=()=>{
   const u=document.getElementById('url').value, box=document.getElementById('box'), msg=document.getElementById('msg');
   const e=embedUrl(u);
   if(!e){ msg.style.color='#ffcf6b'; msg.textContent='Lien non reconnu — colle un lien YouTube (youtu.be/…) ou Spotify (open.spotify.com/…).'; return; }
+  const src=embedSrc(e);
+  if(!src){ msg.style.color='#ffcf6b'; msg.textContent='Lien non reconnu — colle un lien YouTube (youtu.be/…) ou Spotify (open.spotify.com/…).'; return; }
   msg.style.color='var(--vert)'; msg.textContent='🔴 En direct.';
   box.className='frameBox'+(e.audio?' audio':''); box.style.display='block';
   box.replaceChildren();
   const iframe=document.createElement('iframe');
-  iframe.src=e.src;
+  iframe.src=src;
   iframe.allow='autoplay; encrypted-media; clipboard-write; picture-in-picture';
   iframe.allowFullscreen=true;
   iframe.loading='lazy';
