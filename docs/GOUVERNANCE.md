@@ -11,8 +11,14 @@
 > départements », règles 1→7) + `recup-docs/onedrive/_MASTER_NAVLYS_NOW.md` (§ « INTERDITS gravés »).
 > Ces 8 règles sont **au-dessus** de tout le travail NAVLYS (stratégie, com, code, calculs, légal).
 
-1. **DÉPERSONNALISATION.** NAVLYS = marque produit dépersonnalisée. **Bruno invisible** sur NAVLYS
-   (il vit sur **brunopartouche.com**). Réputation : **Bruno → NAVLYS, jamais l'inverse.**
+1. **DÉPERSONNALISATION — assouplie le 2026-07-15 (incarnation assumée).** NAVLYS = marque produit
+   dépersonnalisée **par défaut**. ⚠️ **Nuance gravée par Bruno le 2026-07-15** (cf. `CLAUDE.md` §0 +
+   `docs/ETAT-DES-LIEUX.md`, session 2026-07-15) : **Bruno peut être visible/audible sur NAVLYS**
+   (avatar, voix clonée, prénom) **À CONDITION d'un disclaimer « voix générée par IA »** partout où
+   la voix/l'avatar clonés apparaissent (RGPD art. 9 + IA Act art. 50). La règle « Bruno invisible »
+   **n'est donc plus absolue** — ne plus bloquer une page conforme au seul motif que Bruno y est
+   présent. `brunopartouche.com` reste son espace personnel. Réputation : **Bruno → NAVLYS, jamais
+   l'inverse.**
 2. **NI CONSEIL, NI PLACEMENT, NI ENCAISSEMENT.** NAVLYS = **éditeur pédagogique** (publisher).
    **PAS CIF / PAS ORIAS / PAS IOBSP.** On vend de l'information et une méthode — jamais un conseil
    personnalisé, jamais un ordre (RTO), jamais des fonds clients.
@@ -66,7 +72,10 @@ Toute tâche faite **une fois** doit être **capturée** pour être **réutilisa
 
 - **Claude** = cerveau **code + conformité**. Accès **GitHub** (`navlys-beta-`) **+ accès direct
   Vercel (équipe NAVLYS) et Supabase (`navlys-core`) via MCP** (décision 2026-06-28, vérifié).
-  **Toujours aucun accès SSH serveur** (Hetzner abandonné/legacy). Ces accès MCP sont
+  **Toujours aucun accès SSH serveur** — mais ⚠️ **Hetzner n'est PAS abandonné : c'est le serveur
+  CENTRAL actif** (core NAVLYS `/root/navlys/` + IA locales, Nuremberg). Claude n'y a simplement pas
+  d'accès SSH — **distinguer « Claude n'a pas accès à X » de « X est inutile »** (`ERR-008` du
+  `docs/JOURNAL-ERREURS.md`, corrigé 2026-07-15). Ces accès MCP sont
   **révocables en 1 geste** par Bruno (déconnexion du connecteur).
 - **Le gardien** (`.claude/agents/gardien.md`) = **arbitre** conformité/sécurité.
 - **Tout opérateur serveur futur** est **bridé par le moteur du core** (liste blanche d'outils,

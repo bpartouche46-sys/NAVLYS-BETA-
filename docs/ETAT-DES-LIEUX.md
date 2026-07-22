@@ -2,6 +2,24 @@
 
 > Mis à jour à la fin de chaque session pour que la suivante reprenne sans tout relire.
 
+## Session 2026-07-22 (soir) — ✅ Corrections ultrareview : M-1, M-2, I-1/I-2
+
+Suite du rapport `docs/ULTRAREVIEW-2026-07-22.md`, corrections livrées en PR (base `main` pour le
+code, lignée docs pour la gouvernance) :
+- ✅ **M-1 — disclaimer « voix générée par IA »** ajouté partout où la voix/l'avatar clonés de Bruno
+  se déclenchent (8 surfaces + i18n propre, RU_VALUES réaligné). **Mergé sur `main`** (PR #231).
+- ✅ **M-2 — placeholder `+972`** (indicatif Israël) remplacé par `+33` sur `bateau-test.html` +
+  `skipper.html`. PR sur `main` (#239), CI verte, 0 trace géo résiduelle.
+- ✅ **I-1/I-2 — `docs/GOUVERNANCE.md`** aligné sur les arbitrages du 2026-07-15 : règle n°1
+  (déperso) porte désormais la nuance **incarnation assumée + disclaimer voix IA** (plus « Bruno
+  invisible » en absolu) ; la mention **« Hetzner abandonné/legacy » corrigée** en « serveur CENTRAL
+  actif, Claude n'a juste pas le SSH » (ERR-008). PR sur la lignée docs.
+- 🔜 **Reste du cascade cohérence (I-3→I-10, du rapport)** encore OUVERT : propager l'arbitrage
+  incarnation à `STRATEGIE-NAVLYS`, `SYNTHESE(-MASTER)`, `ASSIMILATION`, `RENFORCEMENT 00/01/02`,
+  `AUTONOMIE-CLAUDE.md:86-87` (critère de déploiement) ; purger les ~9 autres traces « Hetzner
+  legacy » ; cascader le slogan figé « Ton rythme » (4 variantes vivantes). Décisions Bruno
+  toujours ouvertes : C1 (entité/KYC Stripe), C2 (early-bird).
+
 ## Session 2026-07-22 — 🛰️ ULTRAREVIEW 360° (4 agents) → `docs/ULTRAREVIEW-2026-07-22.md`
 
 - 🔎 **Revue multi-agents** (conformité sites · cohérence docs/stratégie · sécurité/hygiène · technique
