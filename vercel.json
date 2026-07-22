@@ -2,6 +2,9 @@
   "outputDirectory": "live-source",
   "cleanUrls": true,
   "trailingSlash": false,
+  "rewrites": [
+    { "source": "/membres/:slug", "destination": "/membres.html" }
+  ],
   "headers": [
     {
       "source": "/(.*)",
