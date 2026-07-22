@@ -2,6 +2,39 @@
 
 > Mis à jour à la fin de chaque session pour que la suivante reprenne sans tout relire.
 
+## Session 2026-07-22 — 🛰️ ULTRAREVIEW 360° (4 agents) → `docs/ULTRAREVIEW-2026-07-22.md`
+
+- 🔎 **Revue multi-agents** (conformité sites · cohérence docs/stratégie · sécurité/hygiène · technique
+  front), findings vérifiés en adversarial **et recoupés sur `main`** (le vrai candidat prod). Rapport
+  complet : **`docs/ULTRAREVIEW-2026-07-22.md`**. Aucun fichier de code modifié cette passe.
+- 🔴 **1 seul risque réglementaire dur, présent sur `main`** : la **voix clonée de Bruno est diffusée
+  sans disclaimer « voix générée par IA »** (`navlys-voix.js`, `navlys-alive.js` boutons « écouter
+  Bruno », `lancement.html`, `brunopartouche.com`) — or c'est la **condition** de l'arbitrage
+  incarnation 2026-07-15 (RGPD art. 9 + IA Act art. 50). Les **docs** portent l'exigence, **les sites
+  ne l'appliquent pas**. → correction #1.
+- 🟠 **`+972` (indicatif Israël) en placeholder tél.** sur `main` (`bateau-test.html:91`,
+  `skipper.html:105`) = trace narratif Israël sur le candidat prod. → grep termes interdits à étendre
+  aux attributs `placeholder`.
+- 🟠 **Dette de gouvernance (la + volumineuse)** : les 2 arbitrages 2026-07-15 ne sont inscrits que dans
+  `CLAUDE.md`/`ETAT`. **`GOUVERNANCE.md` (lu chaque session) affirme encore l'inverse** — « Bruno
+  invisible » (l.14-15) + « Hetzner abandonné » (l.69). `AUTONOMIE-CLAUDE.md:86-87` garde même
+  « Bruno invisible » comme **critère de conformité pré-déploiement** (bloquerait à tort une page
+  conforme au nouvel arbitrage). Arbitrage à cascader dans ~8 docs de référence.
+- 🟡 **Hygiène** : slogan à **4 variantes vivantes** (figée « Ton rythme » non appliquée, 2 docs figent
+  « Ton contrôle ») · comptes à rebours **échus** (1er juillet, sur 6 pages `sites/`) · CTA/liens morts
+  (`navbiolife` « Réserver ma place », `navlex` « M'abonner ») · assets absolus à risque 404 · typo
+  hors-charte (Fraunces/Lora vs Cinzel) · OG/`og:image` quasi absents.
+- ✅ **Sain confirmé** : secrets **B+** (0 clé privée/token live/`service_role`/PII), charte `#7DD3FC`
+  propre, 0 promesse de rendement, positionnement en négation partout, disclaimer voix IA **présent
+  côté docs**. Points sécurité mineurs : VOICE_ID en dur dans **snapshot legacy** `NAVLYS_CENTRAL_20260614`
+  (live déjà propre) ; `_VOIX_BRUNO_OFFICIEL.md` suivi alors qu'il doit rester hors Git (champ vide
+  aujourd'hui) → `.gitignore` à durcir.
+- 🔴 **Toujours OUVERT pour Bruno** : C1 entité juridique + KYC Stripe (+ archiver `05_MONETISATION__2.md`),
+  C2 early-bird. **Blocage structurel** rappelé : **PR #46** (app gated) non intégrée + 9 PR vers `main`
+  non consolidées.
+- 🧭 **Prochaine étape** : brancher depuis `main` pour M-1/M-2 (conformité prod) + passe docs I-1/I-2
+  (gouvernance), après gardien. Ce rapport est poussé sur `claude/ultrareview-report-3wwve0` (PR brouillon).
+
 ## Session 2026-07-15 — 🔁 MODE BOUCLE ACTIVE + correction Hetzner (ERR-008)
 
 - 🔍 **État LIVE vérifié** (fetch Vercel de navlys.com, dernière modif 12/07) : le site est **bien
