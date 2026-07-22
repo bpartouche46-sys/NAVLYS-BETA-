@@ -147,5 +147,6 @@ cards.forEach(function(c,i){setTimeout(function(){c.classList.add('show');}, 120
 // spotlight qui suit le curseur (effet 21st.dev)
 cards.forEach(function(c){c.addEventListener('mousemove',function(e){var r=c.getBoundingClientRect();c.style.setProperty('--mx',(e.clientX-r.left)+'px');c.style.setProperty('--my',(e.clientY-r.top)+'px');});});
 </script>
+<script src="/navlys-bg.js" defer></script>
 </body>
 </html>
