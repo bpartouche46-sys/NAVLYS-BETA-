@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Prévisionnel — 1 million de membres NAVLYS</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Cormorant+Garamond:ital,wght@0,400;1,400&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="/media/navlys_favicon.svg">
+<style>
+:root{--noir:#03040a;--ice:#7DD3FC;--ice-clair:#a8e3ff;--or:#C9A961;--or-pale:#f3e4c4;--perle:#e7eef2;--mut:#9fb3c8;--line:rgba(125,211,252,.18);--panel:rgba(6,8,16,.7);--ok:#34d399}
+*{margin:0;padding:0;box-sizing:border-box}
+html{background:var(--noir)}
+body{background:var(--noir);color:var(--perle);font-family:'Atkinson Hyperlegible',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+.wrap{max-width:860px;margin:0 auto;padding:34px 16px 90px}
+.k{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:var(--ice);text-align:center}
+h1{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:400;font-size:clamp(30px,7.5vw,46px);text-align:center;color:#eafaff;margin:8px 0 4px}
+.sub{text-align:center;color:var(--mut);font-size:.98rem;max-width:38em;margin:0 auto 24px;line-height:1.75}
+h2{font-family:'Cinzel',serif;font-weight:600;font-size:14px;letter-spacing:.16em;text-transform:uppercase;color:var(--or);display:flex;align-items:center;gap:12px;margin:36px 0 14px}
+h2::after{content:"";flex:1;height:1px;background:var(--line)}
+.carte{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:14px}
+.carte p{color:var(--mut);font-size:.96rem;line-height:1.75;margin-bottom:10px}
+.carte p:last-child{margin-bottom:2px}
+.carte p b{color:var(--perle)}
+.carte p .o{color:var(--or-pale)}
+.mesures{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}
+.me{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px;text-align:center}
+.me .n{font-size:1.3rem;font-weight:700;color:var(--ice-clair)}
+.me .l{font-size:.75rem;color:var(--mut);margin-top:4px;line-height:1.4}
+.scroll{overflow-x:auto;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:8px 12px;margin-bottom:14px}
+table{width:100%;border-collapse:collapse;font-size:.9rem;min-width:660px}
+th{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ice);text-align:left;padding:10px 8px;border-bottom:1px solid var(--line);white-space:nowrap}
+td{padding:11px 8px;border-bottom:1px solid rgba(125,211,252,.08);vertical-align:top;line-height:1.55;white-space:nowrap}
+td:first-child{color:var(--or-pale);font-weight:700}
+tr.m1 td{background:rgba(201,169,97,.07)}
+ul.liste{list-style:none}
+ul.liste li{padding:8px 0 8px 26px;position:relative;font-size:.95rem;line-height:1.65;color:var(--perle);border-bottom:1px solid rgba(125,211,252,.07)}
+ul.liste li:last-child{border-bottom:none}
+ul.liste li::before{content:"◆";position:absolute;left:4px;top:9px;font-size:10px;color:var(--ice)}
+ul.liste li b{color:var(--ice-clair)}
+.phare{background:linear-gradient(135deg,rgba(201,169,97,.14),rgba(125,211,252,.10));border:1px solid rgba(201,169,97,.4);border-radius:16px;padding:18px;text-align:center;margin:26px 0}
+.phare b{color:var(--or-pale);font-size:1.15rem;line-height:1.6}
+.phare span{display:block;color:var(--mut);font-size:.92rem;margin-top:8px;line-height:1.7}
+.disc{text-align:center;color:var(--mut);font-size:.85rem;margin-top:32px;line-height:1.75;max-width:42em;margin-left:auto;margin-right:auto}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="k">📊 Prévisionnel · Cap 1 000 000 de membres</div>
+  <h1>De quelle mémoire NAVLYS a besoin</h1>
+  <p class="sub">Hypothèse : chaque membre a <b>son site web</b> et peut créer des <b>applications légères</b>,
+  privées ou versées à l'Univers NAVLYS. Étude du 10 juillet 2026, ancrée sur nos mesures réelles.</p>
+
+  <h2>Ce que NAVLYS pèse aujourd'hui (mesuré, pas estimé)</h2>
+  <div class="mesures">
+    <div class="me"><div class="n">30 Mo</div><div class="l">Base de données totale</div></div>
+    <div class="me"><div class="n">24 Mo</div><div class="l">Fichiers stockés (248)</div></div>
+    <div class="me"><div class="n">42</div><div class="l">Briques edge + 15 agents + crons</div></div>
+    <div class="me"><div class="n">~2 Mo</div><div class="l">Une page NAVLYS complète, médias compris</div></div>
+  </div>
+  <div class="carte" style="margin-top:12px"><p>Autrement dit : <b>tout l'univers NAVLYS actuel tient sur une clé USB de fête foraine.</b>
+  La croissance est donc une affaire de <span class="o">stockage et de bande passante</span>, pas de puissance de calcul —
+  et c'est une excellente nouvelle : le stockage est ce qui coûte le moins cher au To.</p></div>
+
+  <h2>Hypothèses par membre (provision prudente)</h2>
+  <ul class="liste" style="background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:8px 14px;margin-bottom:14px">
+    <li><b>Son site web</b> : ~30 Mo en moyenne médias compris (quota conseillé : 100 Mo inclus dans la cotisation, extension possible)</li>
+    <li><b>1-2 applications légères</b> : ~10 Mo (code + données)</li>
+    <li><b>Ses données en base</b> (profil, missions, retours, app data) : ~2 Mo</li>
+    <li><b>Réalité Pareto</b> : ~20 % des membres consomment ~80 % des ressources — la moyenne réelle constatée sera sous la provision</li>
+  </ul>
+
+  <h2>Le prévisionnel par paliers</h2>
+  <div class="scroll">
+    <table>
+      <tr><th>Membres</th><th>Stockage (sites+apps)</th><th>Base de données</th><th>RAM totale</th><th>CPU</th><th>Sortie réseau/mois</th><th>Coût infra/mois*</th></tr>
+      <tr><td>1 000</td><td>~40 Go</td><td>2-5 Go</td><td>8-16 Go</td><td>2-4 vCPU</td><td>1-2 To</td><td>≈ 50 €</td></tr>
+      <tr><td>10 000</td><td>~400 Go</td><td>20-50 Go</td><td>32-64 Go</td><td>8-16 vCPU</td><td>10-20 To</td><td>≈ 150-300 €</td></tr>
+      <tr><td>100 000</td><td>~4 To</td><td>200-500 Go<br>(partitionnée + réplica)</td><td>128-256 Go</td><td>32-64 vCPU</td><td>100-200 To<br>(CDN absorbe 85-95 %)</td><td>≈ 800-2 000 €</td></tr>
+      <tr class="m1"><td>1 000 000</td><td>~40 To utiles<br>(provision 100 To)</td><td>2-4 To<br>(shardée par lots de membres)</td><td>≈ 1-1,5 To<br>répartie sur 10-15 machines</td><td>200-400 vCPU</td><td>0,5-1 Po<br>(CDN obligatoire)</td><td>≈ 6 000-15 000 €</td></tr>
+    </table>
+  </div>
+  <div class="carte"><p>* Ordres de grandeur en architecture économe (serveurs dédiés type Hetzner + stockage objet + CDN Cloudflare).
+  Le même palier chez un hyperscaler américain (AWS/GCP/Azure) coûte <b>3 à 5 fois plus</b> — surtout à cause de la sortie réseau facturée au Go.</p></div>
+
+  <div class="phare">
+    <b>Le chiffre à retenir : à 1 million de membres, l'infrastructure coûte ~0,01 € par membre et par mois.</b>
+    <span>Une cotisation moyenne d'un seul euro couvre l'infrastructure 60 à 150 fois. La technique n'est pas le mur —
+    c'est même le poste le plus léger de tout le projet. La croissance paye la croissance.</span>
+  </div>
+
+  <h2>La réponse directe à la question « mémoire »</h2>
+  <div class="carte">
+    <p><b>La RAM n'est PAS le facteur limitant</b> — parce que notre architecture est la bonne : les sites des membres sont
+    <span class="o">statiques et servis par le CDN</span> (comme navlys.com aujourd'hui). Un site statique ne consomme
+    <b>zéro RAM</b> sur nos serveurs entre deux visites. La RAM ne sert qu'au cerveau : base de données, caches, workers.</p>
+    <p><b>À 1 million de membres il faut ≈ 1 à 1,5 To de RAM au total</b> — jamais sur une seule machine :
+    base principale 256-512 Go + 2 réplicas de lecture + caches (128 Go) + workers/agents. Soit 10-15 serveurs dédiés
+    (chacun 64-128 Go), ou l'équivalent managé.</p>
+    <p><b>Un seul VPS ne portera jamais 1 M de membres</b> — et n'a pas à le faire : le VPS unique tient confortablement
+    jusqu'à ~10 000 membres, ensuite on empile des briques, on ne remplace rien.</p>
+  </div>
+
+  <h2>Les 4 seuils de bascule (rien à refaire, on empile)</h2>
+  <ul class="liste" style="background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:8px 14px;margin-bottom:14px">
+    <li><b>0 → 10 000 :</b> la pile actuelle (Vercel CDN + Supabase) tient TELLE QUELLE. Seul geste : passer les plans gratuits en plans Pro (~50 €/mois). Rien à réécrire.</li>
+    <li><b>10 000 → 100 000 :</b> sortir les fichiers des membres vers un stockage objet dédié (Hetzner Object Storage ou Cloudflare R2 — R2 = zéro frais de sortie) + Cloudflare CDN devant tout. ~1 semaine de chantier.</li>
+    <li><b>100 000 → 500 000 :</b> base partitionnée + réplica de lecture, files de travail séparées pour les agents, quotas par membre appliqués partout.</li>
+    <li><b>500 000 → 1 000 000 :</b> sharding (découpage des membres en lots de ~100 k, chaque lot sur son groupe de serveurs), multi-région si l'audience le demande. C'est le même plan que Wix/Shopify à leurs débuts.</li>
+  </ul>
+
+  <h2>Ce qui coûtera vraiment (par ordre)</h2>
+  <div class="carte">
+    <p><b>1. La bande passante</b> — le vrai poste à 1 M de sites. Parade décisive : CDN avec cache fort (85-95 % du trafic ne touche jamais nos serveurs) et Cloudflare R2 dont la sortie est gratuite.</p>
+    <p><b>2. Le stockage</b> — 40-100 To : ~250-600 €/mois en stockage objet. Maîtrisé par les quotas par membre et la compression des médias (ce qu'on fait déjà sur Test Bateaux : photos réduites côté téléphone AVANT envoi).</p>
+    <p><b>3. Le calcul (RAM/CPU)</b> — le plus petit poste grâce au statique. Les agents IA sont un coût à part (OpenRouter/Anthropic), proportionnel à l'usage et plafonnable comme on vient de le faire avec Gemini (250 ₪/mois).</p>
+  </div>
+
+  <h2>💰 Rentabilité NET-NET — cotisation de base 20 €/mois</h2>
+  <div class="carte">
+    <p>La vraie rentabilité par membre, en comptant <b>TOUT ce qui se paie</b> : l'infrastructure ci-dessus,
+    <b>les abonnements prestataires</b> qui montent aussi par palier (le cerveau des agents en premier — Anthropic/OpenRouter,
+    puis ElevenLabs pour la voix, 360dialog pour WhatsApp, Gemini pour les images, HeyGen pour la vidéo, Vercel, Supabase, domaines),
+    <b>les frais d'encaissement</b> (le poste que tout le monde oublie : ~3 % + 0,25 € par paiement), et une
+    <b>réserve de fonctionnement</b> (comptabilité, juridique, modération humaine d'appoint) qui apparaît dès 10 000 membres.
+    Chaque membre a son site web perso et ses apps — déjà compté dans l'infra (quota 100 Mo) et dans le coût agents
+    (le site est généré une fois puis statique : il ne consomme plus rien).</p>
+  </div>
+  <div class="scroll">
+    <table>
+      <tr><th>Membres</th><th>Recettes/mois</th><th>Infra</th><th>Prestataires (SaaS)</th><th>Agents IA (LLM)</th><th>Encaissement (~3 %)</th><th>Réserve fonct.</th><th>NET-NET/mois</th><th>Net par membre</th></tr>
+      <tr><td>1 000</td><td>20 000 €</td><td>50 €</td><td>≈ 270 €</td><td>≈ 300 €<br>(0,30 €/membre)</td><td>≈ 850 €</td><td>—</td><td>≈ 18 530 €</td><td><b>18,53 €</b> · 92,7 %</td></tr>
+      <tr><td>10 000</td><td>200 000 €</td><td>≈ 225 €</td><td>≈ 1 000 €</td><td>≈ 2 500 €<br>(0,25 €/membre)</td><td>≈ 8 500 €</td><td>≈ 500 €</td><td>≈ 187 300 €</td><td><b>18,73 €</b> · 93,6 %</td></tr>
+      <tr><td>100 000</td><td>2 000 000 €</td><td>≈ 1 400 €</td><td>≈ 4 000 €</td><td>≈ 18 000 €<br>(0,18 €/membre)</td><td>≈ 85 000 €</td><td>≈ 15 000 €</td><td>≈ 1 876 600 €</td><td><b>18,77 €</b> · 93,8 %</td></tr>
+      <tr class="m1"><td>1 000 000</td><td>20 000 000 €</td><td>≈ 10 000 €</td><td>≈ 15 000 €</td><td>≈ 120 000 €<br>(0,12 €/membre)</td><td>≈ 500 000 €<br>(taux négocié ~2,5 %)</td><td>≈ 100 000 €</td><td>≈ 19 255 000 €</td><td><b>19,26 €</b> · 96,3 %</td></tr>
+    </table>
+  </div>
+  <div class="carte">
+    <p><b>Le détail « Prestataires » par palier</b> — à 1 000 membres : Vercel Pro 20 € · Supabase Pro 25 € ·
+    ElevenLabs 20 € · HeyGen 50 € · 360dialog WhatsApp 60 € · Gemini 62 € (ton plafond 250 ₪) · domaines &amp; divers 30 €.
+    À chaque palier ces plans montent d'un cran (Supabase Team, ElevenLabs Pro→Business, WhatsApp au volume,
+    Gemini plafond relevé sur ta validation) — c'est intégré dans la colonne.</p>
+    <p><b>Le poste n°1 n'est ni l'infra ni l'IA : c'est l'encaissement.</b> À tous les paliers, les ~3 % du
+    prestataire de paiement pèsent plus que tout le reste réuni. Levier : négocier le taux au volume
+    (à 1 M on obtient ~2,2-2,5 %) et encourager le paiement annuel (12 encaissements → 1).</p>
+    <p><b>Le poste n°2 : le cerveau des agents.</b> Il BAISSE par membre avec l'échelle (0,30 € → 0,12 €) grâce aux
+    quotas par membre (comme ton plafond Gemini), au cache, et aux petits modèles pour le courant (Haiku) —
+    le site perso, lui, est généré une fois puis statique : coût récurrent nul.</p>
+  </div>
+  <div class="phare">
+    <b>Net-net : sur 20 € de cotisation, il reste entre 18,50 € et 19,25 € par membre et par mois. Marge : 93 à 96 %.</b>
+    <span>Point mort : ~20 membres couvrent tous les coûts fixes de départ. À 1 000 membres : ≈ 18 500 €/mois net.
+    À 1 million : ≈ 19,3 M€/mois net. L'économie du logiciel : les coûts montent en escalier, les recettes en ligne droite.</span>
+  </div>
+  <div class="carte">
+    <p><b>Honnêteté de capitaine (non négociable)</b> — ces chiffres sont <span class="o">avant impôts et TVA</span>
+    (à trancher avec le comptable selon le statut NWS) ; ils supposent des <b>quotas d'usage par membre</b> partout
+    (un membre sans limite peut coûter 10× la moyenne — les plafonds type Gemini 250 ₪ sont LA clé de la marge) ;
+    ils ne comptent <b>aucun budget publicitaire</b> (doctrine Manus : croissance organique) ; et le churn n'est pas
+    modélisé — c'est la valeur perçue (site + apps + agents + communauté) qui décide qu'on garde un membre, pas le tableau.</p>
+  </div>
+
+  <p class="disc">Prévisionnel &amp; rentabilité NAVLYS — 10-11 juillet 2026 — ordres de grandeur fondés sur nos mesures réelles
+  et les tarifs publics constatés (Hetzner, Cloudflare, Supabase, Stripe, ElevenLabs, 360dialog). À re-mesurer à chaque
+  palier réel : les vrais chiffres des 1 000 premiers membres recalibreront tout le tableau. Ce document vit sur le cockpit.</p>
+</div>
+</body>
+</html>

@@ -1,0 +1,33 @@
+# NAVLYS — hébergement web (Netlify). Le site rend du vrai HTML (contrairement
+# aux Edge Functions Supabase qui sandboxent le HTML). L'API/cerveau reste sur
+# Supabase (Edge Functions + cron). Publication LIVE directe.
+[build]
+  publish = "live-source"
+
+# Routes propres
+[[redirects]]
+  from = "/cockpit"
+  to = "/cockpit.html"
+  status = 200
+
+[[redirects]]
+  from = "/calculateur"
+  to = "/calculateur-marketing.html"
+  status = 200
+
+[[redirects]]
+  from = "/plan"
+  to = "/plan-marketing.html"
+  status = 200
+
+[[redirects]]
+  from = "/voile"
+  to = "/voile.html"
+  status = 200
+
+# Sécurité de base
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"

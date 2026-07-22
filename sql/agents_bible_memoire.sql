@@ -1,0 +1,32 @@
+-- ============================================================
+-- NAVLYS — Chaque agent a SA bible + SA mémoire propres.
+-- Appliqué en base le 2026-07-08 (migration agents_bible_et_memoire_propres).
+-- Complété par : edge function `agent_veille` + cron `navlys_agent_veille`.
+--
+-- Objectif (ordre de Bruno) : agents AUTONOMES à terme, NON complaisants,
+-- avec leur propre bible et leur propre mémoire de travail / recherche /
+-- apprentissage / tests web / autocritique.
+--
+-- Tables :
+--   agent_bible(code PK → agents.id, mission, doctrine, focus_veille, charte_ton)
+--   agent_memoire(id, agent_code, type, sujet, contenu, source, ts)
+--     type ∈ travail | recherche | apprentissage | test_web | autocritique | doctrine
+-- RPC (SECURITY DEFINER, EXECUTE révoqué anon/authenticated) :
+--   agent_note(code,type,sujet,contenu,source)  → grave une note
+--   agent_bible_lire(code)                        → lit la bible
+--   agent_memoire_lire(code,limit)                → lit la mémoire récente
+--   agent_bible_set(code,mission,doctrine,focus,ton)
+--
+-- Autonomie web (hors ce fichier, edge + cron) :
+--   edge `agent_veille` : POST {code} ou ?mode=rotative&n=3
+--     → recherche web réelle (DuckDuckGo) sur focus_veille
+--     → LLM (Haiku) : 2-3 apprentissages CONCRETS + 1 AUTOCRITIQUE non complaisante
+--     → tout gravé via agent_note (test_web + apprentissage + autocritique)
+--   cron `navlys_agent_veille` (40 7 * * *) : 3 agents/jour, rotation par
+--     moins-récemment-veillé → les 15 agents actifs tournent tous les 5 jours.
+--
+-- Garde-fous NAVLYS inchangés : membre/cotisation (jamais client/prix), statut
+-- simple citoyen, charte ice+or, aucune action sensible seul (argent/prod/secret
+-- = feu vert Bruno, Bible §6). Le corps complet du DDL est dans la migration
+-- Supabase du même nom ; ce fichier sert de trace repo (source de vérité).
+-- ============================================================

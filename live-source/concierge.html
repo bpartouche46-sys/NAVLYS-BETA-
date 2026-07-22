@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>NAVLYS Concierge — dis ton besoin, je trouve la solution près de toi</title>
+<meta name="description" content="Restaurant, hôtel, plombier, médecin, taxi… Dis à NAVLYS ce dont tu as besoin et où : il cherche sur plusieurs sources et te propose de vraies adresses autour de toi.">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Cormorant+Garamond:ital,wght@0,400;1,400&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="/media/navlys_favicon.svg">
+<link rel="manifest" href="/manifest.webmanifest">
+<style>
+:root{--noir:#03040a;--ice:#7DD3FC;--ice-clair:#a8e3ff;--or:#C9A961;--or-pale:#f3e4c4;--perle:#e7eef2;--mut:#9fb3c8;--line:rgba(125,211,252,.18);--ok:#34d399}
+*{margin:0;padding:0;box-sizing:border-box}
+html{background:var(--noir)}
+body{background:var(--noir);color:var(--perle);font-family:'Atkinson Hyperlegible',system-ui,sans-serif;-webkit-font-smoothing:antialiased;min-height:100vh}
+.wrap{max-width:760px;margin:0 auto;padding:34px 20px 96px}
+.k{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:var(--ice);text-align:center}
+h1{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:400;font-size:clamp(32px,8vw,50px);text-align:center;color:#eafaff;margin:8px 0 6px}
+.sub{text-align:center;color:var(--mut);font-size:1.02rem;margin:0 auto 26px;line-height:1.7;max-width:34em}
+/* recherche */
+.chercher{border:1px solid var(--line);border-radius:22px;padding:20px 18px;background:radial-gradient(120% 120% at 50% 0%,rgba(125,211,252,.10),rgba(4,6,12,.92));margin-bottom:22px}
+.chercher label{display:block;font-family:'Cinzel',serif;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--ice-clair);margin:0 0 6px}
+.chercher input{width:100%;padding:14px 16px;border-radius:14px;border:1px solid var(--line);background:rgba(5,7,14,.7);color:var(--perle);font-family:inherit;font-size:1.05rem;margin-bottom:12px}
+.chercher input:focus{outline:none;border-color:var(--ice)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:2px 0 14px}
+.chip{border:1px solid var(--line);background:rgba(5,7,14,.6);color:var(--perle);border-radius:999px;padding:8px 14px;cursor:pointer;font-family:inherit;font-size:.9rem;transition:border-color .2s,color .2s}
+.chip:hover{border-color:var(--ice);color:#eafaff}
+.cta{display:block;width:100%;border:none;cursor:pointer;background:linear-gradient(100deg,var(--or),#fff6df,var(--or));color:var(--noir);border-radius:14px;padding:16px;font-weight:700;font-size:1.08rem;font-family:'Atkinson Hyperlegible',sans-serif;box-shadow:0 12px 40px rgba(201,169,97,.16)}
+.cta:disabled{opacity:.55;cursor:wait}
+/* état / conseil */
+.etat{text-align:center;color:var(--or);font-size:.98rem;margin:14px 0 4px;min-height:1.4em;line-height:1.6}
+.conseil{border-left:2px solid var(--or);background:rgba(201,169,97,.06);border-radius:8px;padding:12px 16px;color:var(--perle);font-size:.98rem;line-height:1.6;margin-bottom:16px}
+.lieu-resolu{text-align:center;color:var(--mut);font-size:.86rem;margin-bottom:14px}
+/* fiches */
+.section-t{font-family:'Cinzel',serif;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--ice-clair);text-align:center;margin:6px 0 14px}
+.fiche{border:1px solid var(--line);border-radius:16px;padding:16px 18px;background:rgba(5,7,14,.6);margin-bottom:12px}
+.fiche .nom{font-family:'Cormorant Garamond',serif;font-size:1.5rem;color:#eafaff;line-height:1.15}
+.fiche .adr{color:var(--mut);font-size:.92rem;margin-top:4px;line-height:1.5}
+.fiche .meta{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:10px}
+.fiche .badge{font-family:'Cinzel',serif;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--mut);border:1px solid var(--line);border-radius:999px;padding:4px 9px}
+.fiche .h{color:var(--ice-clair);font-size:.85rem}
+.fiche a.act{display:inline-block;border:1px solid rgba(201,169,97,.5);color:var(--or-pale);border-radius:999px;padding:8px 16px;text-decoration:none;font-family:'Cinzel',serif;font-size:11px;letter-spacing:.08em;text-transform:uppercase;transition:border-color .2s}
+.fiche a.act:hover{border-color:var(--or)}
+.fiche a.web{color:var(--ice-clair);font-size:.85rem;text-decoration:none;word-break:break-all}
+.fiche a.web:hover{text-decoration:underline}
+.suite{text-align:center;color:var(--mut);font-size:.92rem;margin-top:16px;line-height:1.7}
+.disc{text-align:center;color:var(--mut);font-size:.82rem;margin-top:26px;line-height:1.7}
+.hidden{display:none!important}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="k">NAVLYS · Concierge</div>
+  <h1>Dis ton besoin, je trouve.</h1>
+  <p class="sub">Un restaurant, un hôtel, un plombier, un médecin, un taxi… Dis-moi ce qu'il te faut et où. Je cherche sur plusieurs sources en même temps et je te donne de vraies adresses près de toi — jamais un cul-de-sac.</p>
+
+  <div class="chercher">
+    <label for="besoin">De quoi as-tu besoin ?</label>
+    <input id="besoin" type="text" autocomplete="off" placeholder="ex. un plombier en urgence, une table pour 2 ce soir…">
+    <div class="chips" id="chips"></div>
+    <label for="lieu">Où ?</label>
+    <input id="lieu" type="text" autocomplete="off" placeholder="ville ou code postal — ex. Paris 75011">
+    <button class="cta" id="go">Trouver</button>
+  </div>
+
+  <div class="etat" id="etat"></div>
+  <div class="lieu-resolu hidden" id="lieuResolu"></div>
+  <div class="conseil hidden" id="conseil"></div>
+  <div id="resultats"></div>
+  <div class="suite hidden" id="suite"></div>
+
+  <p class="disc">NAVLYS te propose de vraies adresses issues de sources ouvertes, il n'invente rien. Vérifie toujours les horaires et la disponibilité avant de te déplacer. Bientôt, NAVLYS pourra aussi appeler et prendre le rendez-vous pour toi.</p>
+</div>
+
+<script>
+(function(){
+  var API='https://hhrlgyvtqluxpywjiwkd.supabase.co/functions/v1/concierge';
+  var $=function(id){return document.getElementById(id);};
+  function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
+
+  // raccourcis de besoins fréquents
+  var CHIPS=['Restaurant','Hôtel','Plombier','Serrurier','Électricien','Médecin','Pharmacie','Taxi'];
+  (function(){ var h=''; CHIPS.forEach(function(c){ h+='<button class="chip" data-c="'+esc(c)+'">'+esc(c)+'</button>'; }); $('chips').innerHTML=h;
+    Array.prototype.forEach.call($('chips').querySelectorAll('.chip'),function(b){ b.onclick=function(){ $('besoin').value=b.getAttribute('data-c'); $('besoin').focus(); }; }); })();
+
+  function fiche(o){
+    var tel=(o.tel||'').trim();
+    var telLink = tel ? '<a class="act" href="tel:'+esc(tel.replace(/\s/g,''))+'">Appeler</a>' : '';
+    var web = o.site ? '<a class="web" href="'+esc(o.site)+'" target="_blank" rel="noopener">site web</a>' : '';
+    var h = o.horaires ? '<span class="h">🕒 '+esc(o.horaires)+'</span>' : '';
+    return '<div class="fiche">'+
+      '<div class="nom">'+esc(o.nom||'—')+'</div>'+
+      (o.adresse?'<div class="adr">'+esc(o.adresse)+'</div>':'')+
+      '<div class="meta">'+telLink+web+h+'<span class="badge">'+esc(o.source||'source')+'</span></div>'+
+    '</div>';
+  }
+
+  function chercher(){
+    var besoin=($('besoin').value||'').trim(), lieu=($('lieu').value||'').trim();
+    if(!besoin){ $('etat').textContent='Dis-moi d\'abord ce dont tu as besoin.'; $('besoin').focus(); return; }
+    if(!lieu){ $('etat').textContent='Et où ? (une ville ou un code postal)'; $('lieu').focus(); return; }
+    var go=$('go'); go.disabled=true;
+    $('etat').textContent='Je cherche sur plusieurs sources…';
+    $('conseil').classList.add('hidden'); $('lieuResolu').classList.add('hidden'); $('suite').classList.add('hidden');
+    $('resultats').innerHTML='';
+    fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({besoin:besoin,lieu:lieu})})
+    .then(function(r){return r.json();})
+    .then(function(d){
+      go.disabled=false;
+      if(!d||!d.ok){ $('etat').textContent=(d&&d.error)||'Réessaie dans un instant.'; if(d&&d.prochaine_etape){ $('suite').textContent=d.prochaine_etape; $('suite').classList.remove('hidden'); } return; }
+      $('etat').textContent='';
+      if(d.lieu&&d.lieu.resolu){ $('lieuResolu').textContent='📍 '+d.lieu.resolu+(d.categorie?(' · '+d.categorie):''); $('lieuResolu').classList.remove('hidden'); }
+      if(d.conseil){ $('conseil').textContent=d.conseil; $('conseil').classList.remove('hidden'); }
+      var opts=Array.isArray(d.options)?d.options:[];
+      if(opts.length){
+        $('resultats').innerHTML='<div class="section-t">'+opts.length+' pistes près de toi</div>'+opts.map(fiche).join('');
+      }
+      if(d.prochaine_etape){ $('suite').textContent=d.prochaine_etape; $('suite').classList.remove('hidden'); }
+    })
+    .catch(function(){ go.disabled=false; $('etat').textContent='Connexion difficile — réessaie dans un instant. 🌊'; });
+  }
+
+  $('go').onclick=chercher;
+  $('lieu').addEventListener('keydown',function(e){ if(e.key==='Enter') chercher(); });
+  $('besoin').addEventListener('keydown',function(e){ if(e.key==='Enter') $('lieu').focus(); });
+
+  // pré-remplissage possible via ?besoin=&lieu=
+  try{ var q=new URLSearchParams(location.search); if(q.get('besoin')) $('besoin').value=q.get('besoin').slice(0,120); if(q.get('lieu')){ $('lieu').value=q.get('lieu').slice(0,80); if($('besoin').value) chercher(); } }catch(e){}
+})();
+</script>
+<script src="/navlys-alive.js" defer></script>
+<script src="/navlys-i18n.js" defer></script>
+</body>
+</html>

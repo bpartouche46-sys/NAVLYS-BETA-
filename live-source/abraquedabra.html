@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Abraquedabra — l'IA à la voix</title>
+<meta name="description" content="L'IA next-génération, uniquement à la voix. Une révolution à la portée de tous, pour tout. Parle — elle t'écoute.">
+<meta name="theme-color" content="#05060a">
+<style>
+  :root{ --ice:#7DD3FC; --or:#e9d3a0; --bg:#05060a; --txt:#eaf2fb; }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html,body{ height:100%; background:var(--bg); color:var(--txt); font-family:'Lora',Georgia,serif; overflow:hidden; }
+  #sky{ position:fixed; inset:0; z-index:0; display:block; }
+  .wrap{ position:fixed; inset:0; z-index:2; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:24px; gap:26px; }
+  .kicker{ letter-spacing:.32em; text-transform:uppercase; font-size:.72rem; color:var(--ice); opacity:.85; }
+  h1{ font-size:clamp(2rem,7vw,3.6rem); font-weight:600; line-height:1.08; }
+  h1 em{ color:var(--or); font-style:normal; }
+  .sub{ font-size:clamp(1rem,3.4vw,1.35rem); color:#bcd3ea; max-width:22ch; line-height:1.5; }
+  .orbBtn{ position:relative; width:184px; height:184px; border:none; background:transparent; cursor:pointer; border-radius:50%; }
+  .orb{ position:absolute; inset:0; border-radius:50%;
+    background:radial-gradient(circle at 50% 42%, rgba(125,211,252,.95), rgba(125,211,252,.28) 46%, rgba(233,211,160,.12) 70%, transparent 78%);
+    box-shadow:0 0 60px rgba(125,211,252,.45), inset 0 0 40px rgba(233,211,160,.25); transition:transform .18s ease; }
+  .orbBtn::after{ content:''; position:absolute; inset:-14px; border-radius:50%; border:1px solid rgba(125,211,252,.35); animation:halo 2.6s ease-in-out infinite; }
+  @keyframes halo{ 0%,100%{ transform:scale(1); opacity:.5 } 50%{ transform:scale(1.12); opacity:0 } }
+  .orbLabel{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-size:1rem; color:#04121f; font-weight:700; text-shadow:0 1px 6px rgba(255,255,255,.4); }
+  .state{ min-height:1.6em; font-size:.95rem; color:var(--ice); letter-spacing:.02em; }
+  .said{ min-height:1.4em; font-size:1.05rem; color:#dfeaf6; max-width:30ch; opacity:.9; }
+  .reply{ font-size:clamp(1.05rem,3.6vw,1.4rem); color:#fff; max-width:34ch; line-height:1.5; min-height:1.5em; }
+  .foot{ position:fixed; bottom:16px; left:0; right:0; z-index:2; text-align:center; font-size:.72rem; color:#5c6f86; letter-spacing:.04em; }
+  .foot a{ color:#7f93aa; text-decoration:none; }
+  .live .orb{ animation:pulse 1.1s ease-in-out infinite; }
+  .talk .orb{ animation:pulse .55s ease-in-out infinite; }
+  @keyframes pulse{ 0%,100%{ transform:scale(1) } 50%{ transform:scale(1.09) } }
+  :root[dir="rtl"] .sub, :root[dir="rtl"] .reply{ direction:rtl; }
+  @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<canvas id="sky"></canvas>
+<div class="wrap">
+  <div class="kicker" id="k-kicker">Abraquedabra · NAVLYS</div>
+  <h1 id="k-title">L'IA, <em>à la voix.</em></h1>
+  <div class="sub" id="k-sub">Une révolution à la portée de tous, pour tout. Touche l'orbe, puis parle — je t'écoute.</div>
+  <button class="orbBtn" id="orb" aria-label="Parler">
+    <span class="orb"></span>
+    <span class="orbLabel" id="orbLabel">Parle</span>
+  </button>
+  <div class="state" id="state"></div>
+  <div class="said" id="said"></div>
+  <div class="reply" id="reply"></div>
+</div>
+<div class="foot">🌊 NAVLYS — <a href="/">retour à l'univers</a> · <span id="k-secret">dis « stop » pour te reposer</span></div>
+
+<script>
+/* ================================================================
+   ABRAQUEDABRA — l'IA uniquement à la voix. Page live isolée.
+   Écoute continue (mains libres) + cerveau central NAVLYS + voix.
+   5 langues (auto), RTL hébreu/arabe. Aucune dépendance externe.
+   ================================================================ */
+(function(){
+  'use strict';
+  var ASSIST='https://hhrlgyvtqluxpywjiwkd.supabase.co/functions/v1/assistant';
+  var VOIX='https://hhrlgyvtqluxpywjiwkd.supabase.co/functions/v1/voix';
+
+  /* ---- langue ---- */
+  function lireLang(){
+    var l='fr';
+    try{ l=localStorage.getItem('nv-lang')||''; }catch(e){}
+    if(!l){ try{ l=String(navigator.language||'fr').slice(0,2).toLowerCase(); }catch(e){} }
+    return (['en','ru','he','ar'].indexOf(l)>-1)?l:'fr';
+  }
+  var LANG=lireLang();
+  var RTL={he:1,ar:1};
+  var T={
+    fr:{kick:'Abraquedabra · NAVLYS', title:['L\'IA, ','à la voix.'], sub:'Une révolution à la portée de tous, pour tout. Touche l\'orbe, puis parle — je t\'écoute.', parle:'Parle', ecoute:'👂 Je t\'écoute…', reflechit:'… je réfléchis', repos:'😴 Repos. Touche pour reprendre.', secret:'dis « stop » pour te reposer', errmic:'Autorise le micro pour me parler 🎙️'},
+    en:{kick:'Abraquedabra · NAVLYS', title:['AI, ','by voice.'], sub:'A revolution within everyone\'s reach, for everything. Tap the orb, then speak — I\'m listening.', parle:'Speak', ecoute:'👂 I\'m listening…', reflechit:'… thinking', repos:'😴 Resting. Tap to resume.', secret:'say "stop" to rest', errmic:'Allow the mic to talk to me 🎙️'},
+    ru:{kick:'Abraquedabra · NAVLYS', title:['ИИ — ','голосом.'], sub:'Революция, доступная каждому, для всего. Коснись сферы и говори — я слушаю.', parle:'Говори', ecoute:'👂 Я слушаю…', reflechit:'… думаю', repos:'😴 Отдых. Коснись, чтобы продолжить.', secret:'скажи «стоп», чтобы отдохнуть', errmic:'Разреши микрофон, чтобы говорить со мной 🎙️'},
+    he:{kick:'Abraquedabra · NAVLYS', title:['בינה מלאכותית, ','בקול.'], sub:'מהפכה בהישג יד של כולם, לכל דבר. גע בכדור ואז דבר — אני מקשיב.', parle:'דבר', ecoute:'👂 אני מקשיב…', reflechit:'… חושב', repos:'😴 מנוחה. גע כדי להמשיך.', secret:'אמור «stop» כדי לנוח', errmic:'אפשר את המיקרופון כדי לדבר איתי 🎙️'},
+    ar:{kick:'Abraquedabra · NAVLYS', title:['الذكاء الاصطناعي، ','بالصوت.'], sub:'ثورة في متناول الجميع، لكل شيء. المس الكرة ثم تكلّم — أنا أستمع.', parle:'تكلّم', ecoute:'👂 أنا أستمع…', reflechit:'… أفكّر', repos:'😴 راحة. المس للمتابعة.', secret:'قل «stop» للراحة', errmic:'اسمح بالميكروفون لتكلّمني 🎙️'}
+  };
+  function appliquer(){
+    var t=T[LANG]||T.fr;
+    document.documentElement.lang=LANG;
+    document.documentElement.setAttribute('dir', RTL[LANG]?'rtl':'ltr');
+    document.getElementById('k-kicker').textContent=t.kick;
+    document.getElementById('k-title').innerHTML=t.title[0]+'<em>'+t.title[1]+'</em>';
+    document.getElementById('k-sub').textContent=t.sub;
+    document.getElementById('orbLabel').textContent=t.parle;
+    document.getElementById('k-secret').textContent=t.secret;
+  }
+  appliquer();
+  function tr(k){ return (T[LANG]||T.fr)[k]; }
+  function codeVoix(){ return LANG==='en'?'en-US':LANG==='ru'?'ru-RU':LANG==='he'?'he-IL':LANG==='ar'?'ar-SA':'fr-FR'; }
+
+  /* ---- ciel animé (léger) ---- */
+  (function(){
+    var c=document.getElementById('sky'), x=c.getContext('2d'), W,H,st=[];
+    function rz(){ W=c.width=innerWidth; H=c.height=innerHeight; st=[]; var n=Math.min(120,Math.floor(W*H/16000)); for(var i=0;i<n;i++) st.push({x:Math.random()*W,y:Math.random()*H,r:Math.random()*1.4+.2,p:Math.random()*6.28,s:.3+Math.random()*.7}); }
+    rz(); addEventListener('resize',rz);
+    var t=0;
+    (function f(){ t+=0.016; x.clearRect(0,0,W,H);
+      var g=x.createRadialGradient(W/2,H*0.42,20,W/2,H*0.42,Math.max(W,H)*0.7);
+      g.addColorStop(0,'rgba(125,211,252,.06)'); g.addColorStop(1,'rgba(5,6,10,0)'); x.fillStyle=g; x.fillRect(0,0,W,H);
+      for(var i=0;i<st.length;i++){ var s=st[i]; var a=.35+.55*Math.abs(Math.sin(t*s.s+s.p));
+        x.beginPath(); x.arc(s.x,s.y,s.r,0,6.28); x.fillStyle='rgba(233,211,160,'+(a*.5)+')'; x.shadowColor='rgba(125,211,252,.7)'; x.shadowBlur=6; x.fill(); }
+      x.shadowBlur=0; requestAnimationFrame(f);
+    })();
+  })();
+
+  /* ---- voix (NAVLYS clonée, sinon navigateur) ---- */
+  var audio=null;
+  function stopVoix(){ try{ if(audio){audio.pause();audio=null;} }catch(e){} try{ if('speechSynthesis'in window) speechSynthesis.cancel(); }catch(e){} }
+  function nav(t){ if(!('speechSynthesis'in window))return; try{ var u=new SpeechSynthesisUtterance(t); u.lang=codeVoix(); u.rate=.98; speechSynthesis.cancel(); speechSynthesis.speak(u); }catch(e){} }
+  function parler(t, apres){
+    var txt=String(t).replace(/[*_#>`]|🌊|👋|😊/g,'').trim(); if(!txt){ if(apres)apres(); return; }
+    stopVoix(); wrap.classList.add('talk');
+    fin=apres;
+    try{
+      fetch(VOIX,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({text:txt})})
+        .then(function(r){return r.json();})
+        .then(function(d){
+          if(d&&d.ok&&d.audio){ audio=new Audio(d.audio); audio.onended=onTalkEnd; var p=audio.play(); if(p&&p.catch)p.catch(function(){ nav(txt); onTalkEnd(); }); }
+          else { nav(txt); onTalkEnd(); }
+        }).catch(function(){ nav(txt); onTalkEnd(); });
+    }catch(e){ nav(txt); onTalkEnd(); }
+  }
+  var fin=null;
+  function onTalkEnd(){ wrap.classList.remove('talk'); var f=fin; fin=null; if(f) setTimeout(f,150); }
+
+  /* ---- cerveau central ---- */
+  var sess='abra-'+Math.abs(Math.floor((performance.now()*1000)%1e9));
+  function nvEmail(){ var ks=['nv-email','email','nv_user_email']; for(var i=0;i<ks.length;i++){ try{ var v=localStorage.getItem(ks[i]); if(v&&v.indexOf('@')>-1) return v; }catch(e){} } return ''; }
+  function nvPrenom(){ try{ return localStorage.getItem('nv-prenom')||''; }catch(e){ return ''; } }
+  function demander(texte){
+    said.textContent='« '+texte+' »';
+    stateEl.textContent=tr('reflechit'); reply.textContent='';
+    fetch(ASSIST,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({session:sess,text:texte,nom:nvPrenom(),email:nvEmail(),lang:LANG})})
+      .then(function(r){return r.json();})
+      .then(function(d){ var rep=(d&&d.reply)?d.reply:'…'; reply.textContent=rep; stateEl.textContent=''; parler(rep, reprendre); })
+      .catch(function(){ stateEl.textContent=''; reprendre(); });
+  }
+
+  /* ---- commande de langue à la voix ---- */
+  var NOMS={fr:['francais','french','franc','צרפתית','الفرنسية'],en:['anglais','english','angl','אנגלית','الإنجليزية','الانجليزية'],ru:['russe','russian','russ','רוסית','الروسية'],he:['hebreu','hebrew','ivrit','иврит','עברית','بالعبرية','العبرية'],ar:['arabe','arabic','arabsk','ערבית','العربية','بالعربية']};
+  function norm(s){ s=String(s||'').toLowerCase(); try{ s=s.normalize('NFD').replace(/[̀-ͯ]/g,''); }catch(e){} return s.replace(/[’']/g,' ').replace(/\s+/g,' ').trim(); }
+  function cmdLangue(t){ var n=norm(t); var cible=null,len=0,l,j; for(l in NOMS){ for(j=0;j<NOMS[l].length;j++){ var m=norm(NOMS[l][j]); if(m.length>2&&m.length>len&&n.indexOf(m)>-1){ cible=l; len=m.length; } } } return (cible&&n.length<=34)?cible:null; }
+
+  /* ---- moteur mains libres ---- */
+  var orb=document.getElementById('orb'), wrap=document.querySelector('.wrap'),
+      stateEl=document.getElementById('state'), said=document.getElementById('said'), reply=document.getElementById('reply');
+  var SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  var rec=null, tourne=false, veut=false, occupe=false;
+  var STOP=['stop','dors','au revoir','stop navlys','stop listening','стоп','спи','пока','עצור','די','توقف','قف'];
+
+  function demarrer(){
+    if(!SR){ stateEl.textContent='🎙️ '+ (LANG==='en'?'Voice needs Chrome/Android.':'La voix marche sur Chrome/Android.'); return; }
+    if(tourne) return;
+    try{
+      rec=new SR(); rec.lang=codeVoix(); rec.continuous=true; rec.interimResults=true; rec.maxAlternatives=1;
+      rec.onstart=function(){ tourne=true; wrap.classList.add('live'); stateEl.textContent=tr('ecoute'); };
+      rec.onresult=onResult;
+      rec.onerror=function(ev){ if(ev&&ev.error==='not-allowed'){ veut=false; wrap.classList.remove('live'); stateEl.textContent=tr('errmic'); } };
+      rec.onend=function(){ tourne=false; if(veut && !occupe && document.visibilityState==='visible'){ setTimeout(function(){ try{demarrer();}catch(e){} },300); } else wrap.classList.remove('live'); };
+      rec.start();
+    }catch(e){ tourne=false; }
+  }
+  function pause(){ occupe=true; try{ if(rec) rec.stop(); }catch(e){} }
+  function reprendre(){ occupe=false; if(veut) setTimeout(demarrer,250); }
+
+  function onResult(ev){
+    if(occupe) return; /* on traite déjà une demande : on ne se chevauche pas */
+    var txt=''; for(var i=ev.resultIndex;i<ev.results.length;i++){ txt+=ev.results[i][0].transcript; }
+    var fina=ev.results[ev.results.length-1].isFinal;
+    if(!fina){ said.textContent=txt; return; }
+    var n=norm(txt); if(n.length<2) return;
+    var s; for(s=0;s<STOP.length;s++){ if(n.indexOf(norm(STOP[s]))>-1){ veut=false; pause(); wrap.classList.remove('live'); stateEl.textContent=tr('repos'); orbLabelReset(); return; } }
+    var cl=cmdLangue(txt); if(cl && cl!==LANG){ LANG=cl; try{localStorage.setItem('nv-lang',cl);}catch(e){} appliquer(); pause(); parler(tr('ecoute'), reprendre); return; }
+    pause(); demander(txt);
+  }
+  function orbLabelReset(){ document.getElementById('orbLabel').textContent=tr('parle'); }
+
+  orb.onclick=function(){
+    if(veut){ veut=false; pause(); wrap.classList.remove('live'); stateEl.textContent=tr('repos'); return; }
+    veut=true; occupe=false; said.textContent=''; reply.textContent='';
+    /* petit mot d'accueil vocal puis écoute (le clic débloque le micro) */
+    var salut={fr:'Je t\'écoute. Parle-moi.',en:'I\'m listening. Talk to me.',ru:'Я слушаю. Говори со мной.',he:'אני מקשיב. דבר איתי.',ar:'أنا أستمع. كلّمني.'}[LANG];
+    parler(salut, demarrer);
+  };
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,34 @@
+{
+  "packageId": "com.navlys.app",
+  "host": "navlys.com",
+  "name": "NAVLYS",
+  "launcherName": "NAVLYS",
+  "display": "standalone",
+  "orientation": "portrait",
+  "themeColor": "#03040a",
+  "themeColorDark": "#03040a",
+  "navigationColor": "#03040a",
+  "navigationColorDark": "#03040a",
+  "backgroundColor": "#03040a",
+  "startUrl": "/",
+  "iconUrl": "https://navlys.com/media/icon-512.png",
+  "maskableIconUrl": "https://navlys.com/media/icon-maskable-512.png",
+  "monochromeIconUrl": "https://navlys.com/media/icon-maskable-512.png",
+  "shortcuts": [
+    { "name": "Assistance vocale", "shortName": "Voix", "url": "/assistance", "chosenIconUrl": "https://navlys.com/media/icon-192.png" },
+    { "name": "Cinéma", "shortName": "Cinéma", "url": "/cinema", "chosenIconUrl": "https://navlys.com/media/icon-192.png" },
+    { "name": "Ambassadeur", "shortName": "Ambassadeur", "url": "/ambassadeur", "chosenIconUrl": "https://navlys.com/media/icon-192.png" }
+  ],
+  "webManifestUrl": "https://navlys.com/manifest.webmanifest",
+  "fallbackType": "customtabs",
+  "enableNotifications": true,
+  "features": {},
+  "appVersionName": "1.0.0",
+  "appVersionCode": 1,
+  "minSdkVersion": 23,
+  "signingKey": {
+    "path": "./android.keystore",
+    "alias": "navlys"
+  },
+  "_note": "Config pour Bubblewrap / PWABuilder. La clé de signature (android.keystore) est générée par Bruno et NE DOIT JAMAIS être commitée. Son empreinte SHA256 (publique) va dans /.well-known/assetlinks.json."
+}

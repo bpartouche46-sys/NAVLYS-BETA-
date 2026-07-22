@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>NAVLOCK — le double verrou NAVLYS</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Cormorant+Garamond:ital,wght@0,400;1,400&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="/media/navlys_favicon.svg">
+<style>
+:root{--noir:#03040a;--ice:#7DD3FC;--ice-clair:#a8e3ff;--or:#C9A961;--or-pale:#f3e4c4;--perle:#e7eef2;--mut:#9fb3c8;--line:rgba(125,211,252,.18);--ok:#34d399;--err:#fca5a5}
+*{margin:0;padding:0;box-sizing:border-box}
+html{background:var(--noir)}
+body{background:var(--noir);color:var(--perle);font-family:'Atkinson Hyperlegible',system-ui,sans-serif;-webkit-font-smoothing:antialiased;min-height:100vh}
+.wrap{max-width:560px;margin:0 auto;padding:34px 20px 80px}
+.k{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:var(--ice);text-align:center}
+h1{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:400;font-size:clamp(34px,9vw,54px);text-align:center;color:#eafaff;margin:8px 0 4px}
+.sub{text-align:center;color:var(--mut);font-size:1.02rem;max-width:34em;margin:0 auto 26px;line-height:1.7}
+.coffre{position:relative;border:1px solid var(--line);border-radius:22px;padding:26px 20px;text-align:center;
+  background:radial-gradient(120% 100% at 50% 0%,rgba(125,211,252,.08),rgba(4,6,12,.9));overflow:hidden}
+.coffre.ouvert{border-color:rgba(233,211,160,.6);box-shadow:0 0 40px rgba(233,211,160,.25)}
+.coffre.bloque{border-color:rgba(252,165,165,.55);box-shadow:0 0 30px rgba(252,165,165,.16)}
+.verrous{display:flex;gap:14px;justify-content:center;margin:18px 0 6px}
+.verrou{flex:1;max-width:200px;border:1px solid var(--line);border-radius:16px;padding:18px 10px 14px;background:rgba(5,7,14,.65)}
+.verrou .ico{font-size:34px;line-height:1;filter:grayscale(1) opacity(.55);transition:.4s}
+.verrou.on .ico{filter:none}
+.verrou .nom{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--mut);margin-top:9px}
+.verrou.on{border-color:rgba(52,211,153,.55);box-shadow:0 0 18px rgba(52,211,153,.18)}
+.verrou.on .nom{color:var(--ok)}
+.verrou .etat{font-size:.82rem;color:var(--mut);margin-top:4px;min-height:1.2em}
+.verrou.on .etat{color:var(--ok)}
+.btn{display:inline-block;border:none;cursor:pointer;font-family:'Cinzel',serif;font-size:13px;letter-spacing:.1em;text-transform:uppercase;
+  color:#04121c;font-weight:700;background:linear-gradient(90deg,var(--ice),var(--ice-clair));border-radius:999px;padding:15px 26px;margin-top:16px;min-height:48px}
+.btn.or{background:linear-gradient(90deg,var(--or),var(--or-pale))}
+.btn[disabled]{opacity:.45;cursor:default}
+.ghost{background:none;border:1px solid var(--line);color:var(--ice-clair);font-weight:400}
+.msg{margin-top:14px;font-size:1rem;color:var(--ice-clair);min-height:1.4em;line-height:1.6}
+.msg.err{color:var(--err)}
+#tresor{display:none;margin-top:20px;padding:20px;border:1px solid rgba(233,211,160,.4);border-radius:16px;background:linear-gradient(160deg,rgba(233,211,160,.10),rgba(5,7,14,.8))}
+#tresor .t{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.5rem;color:var(--or-pale)}
+#tresor p{margin-top:8px;color:var(--perle);line-height:1.7}
+.conf{margin-top:20px;border-top:1px solid var(--line);padding-top:18px}
+.conf .lbl{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--or);margin-bottom:8px;text-align:center}
+.champ{width:100%;background:rgba(5,6,10,.8);border:1px solid var(--line);border-radius:12px;color:var(--perle);
+  padding:13px;font-family:'Atkinson Hyperlegible',sans-serif;font-size:1.05rem;text-align:center;margin-bottom:6px}
+.disc{text-align:center;color:var(--mut);font-size:.86rem;margin-top:26px;line-height:1.7;max-width:36em;margin-left:auto;margin-right:auto}
+.badge{display:inline-block;margin:6px auto 0;padding:4px 12px;border:1px solid rgba(52,211,153,.4);border-radius:999px;color:var(--ok);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;font-family:'Cinzel',serif}
+footer{margin:48px auto 24px;max-width:720px;padding:22px 18px;border-top:1px solid var(--line);text-align:center;color:var(--mut);font-size:.9rem;line-height:1.9}
+footer a{color:var(--ice-clair);text-decoration:none;margin:0 9px}
+@media(prefers-reduced-motion:reduce){.verrou .ico{transition:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="k">NAVLOCK · double verrou certifié</div>
+  <h1>Ta voix + ton visage</h1>
+  <p class="sub">Deux clés, une seule serrure. Ton <b>empreinte ou ton visage</b> <b>et</b> ta <b>phrase secrète</b>,
+  ensemble, ouvrent ton espace. Vérifié <b>sur mes serveurs</b> — au moindre doute, ça se bloque tout seul.</p>
+  <div style="text-align:center"><span class="badge">Certifié serveur</span></div>
+
+  <div class="coffre" id="coffre" style="margin-top:18px">
+    <div class="verrous">
+      <div class="verrou" id="v-doigt">
+        <div class="ico"><svg width="36" height="36" viewBox="0 0 36 36" fill="none" stroke="#7DD3FC" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+          <path d="M18 8c-6 0-10 4.5-10 10 0 4 1 7 2.5 10"/>
+          <path d="M18 13c-3.3 0-5.5 2.4-5.5 5.5 0 3.5 1 6.5 2.5 9"/>
+          <path d="M18 18.5c0 4-.5 7.5-2 10.5" stroke="#C9A961"/>
+          <path d="M23.5 18.5c0-3.1-2.2-5.5-5.5-5.5" stroke="#C9A961"/>
+          <path d="M28 18c0-5.5-4-10-10-10" opacity=".6"/>
+          <path d="M23.5 24c-.3 2.6-1 4.8-2 7" opacity=".7"/>
+        </svg></div>
+        <div class="nom">Empreinte / visage</div>
+        <div class="etat" id="e-doigt">verrouillé</div>
+      </div>
+      <div class="verrou" id="v-voix">
+        <div class="ico">🎙️</div>
+        <div class="nom">Phrase secrète</div>
+        <div class="etat" id="e-voix">verrouillé</div>
+      </div>
+    </div>
+
+    <!-- identité -->
+    <div class="conf" id="ident">
+      <div class="lbl">Ton e-mail (lie ton coffre à toi)</div>
+      <input class="champ" id="in-email" type="email" inputmode="email" autocomplete="email" placeholder="ton@email.com" aria-label="Ton e-mail">
+    </div>
+
+    <!-- configuration -->
+    <div id="setup" style="display:none">
+      <div class="conf">
+        <div class="lbl">Ta phrase secrète (au moins deux mots)</div>
+        <input class="champ" id="in-phrase" value="je tiens la barre" aria-label="Ta phrase secrète">
+      </div>
+      <button class="btn" id="b-enroll">Créer mon double verrou</button>
+      <div class="msg" id="m-setup"></div>
+    </div>
+
+    <!-- ouverture -->
+    <div id="unlock" style="display:none">
+      <button class="btn or" id="b-open">Ouvrir avec mes deux clés</button>
+      <div class="msg" id="m-open"></div>
+      <button class="btn ghost" id="b-reset" style="font-size:11px;padding:10px 18px">↺ reconfigurer</button>
+    </div>
+
+    <div id="tresor">
+      <div class="t">⚓ Le coffre est ouvert.</div>
+      <p id="t-msg">Bienvenue à bord. Cet espace ne s'ouvre qu'avec TES deux clés, vérifiées sur mes serveurs — personne d'autre ne peut entrer, même avec ton téléphone en main.</p>
+    </div>
+  </div>
+
+  <p class="disc">NAVLOCK, c'est deux preuves indépendantes vérifiées sur mes serveurs : l'empreinte / le visage
+  passe par le capteur sécurisé de ton téléphone (WebAuthn — rien de biométrique ne quitte l'appareil), et
+  ta phrase secrète n'est jamais stockée en clair (empreinte chiffrée seulement). Au moindre doute — appareil
+  ou lieu inconnu — l'accès se bloque et redemande les deux clés.</p>
+</div>
+
+<footer>
+  <nav><a href="/conditions">Conditions</a><a href="/confidentialite">Confidentialité</a><a href="/remboursement">Remboursement</a></nav>
+  <div>NAVLYS — navlys.com · Sécurité NAVLOCK.</div>
+</footer>
+
+<script>
+(function(){
+  var NAVLOCK='https://hhrlgyvtqluxpywjiwkd.supabase.co/functions/v1/navlock';
+  var $=function(id){ return document.getElementById(id); };
+  var vD=$('v-doigt'), vV=$('v-voix'), eD=$('e-doigt'), eV=$('e-voix');
+  var setup=$('setup'), unlock=$('unlock'), tresor=$('tresor'), coffre=$('coffre');
+
+  function norm(s){
+    s=String(s||'').toLowerCase();
+    try{ s=s.normalize('NFD').replace(/[̀-ͯ]/g,''); }catch(e){}
+    return s.replace(/[^a-z0-9֐-׿Ѐ-ӿ ]+/g,' ').replace(/\s+/g,' ').trim();
+  }
+  function msg(el,t,err){ el.textContent=t; el.className='msg'+(err?' err':''); }
+
+  /* ---- base64url <-> ArrayBuffer ---- */
+  function abToB64url(buf){ var b=new Uint8Array(buf),s='',i; for(i=0;i<b.length;i++) s+=String.fromCharCode(b[i]); return btoa(s).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,''); }
+  function b64urlToAb(str){ str=String(str).replace(/-/g,'+').replace(/_/g,'/'); while(str.length%4) str+='='; var bin=atob(str),a=new Uint8Array(bin.length),i; for(i=0;i<bin.length;i++) a[i]=bin.charCodeAt(i); return a.buffer; }
+
+  /* ---- signature d'appareil (anti-doute) ---- */
+  var DSIG='';
+  function computeDeviceSig(){
+    var raw=[navigator.userAgent, navigator.platform||'', (screen.width+'x'+screen.height), screen.colorDepth,
+      (Intl.DateTimeFormat().resolvedOptions().timeZone||''), navigator.language||''].join('|');
+    if(!(window.crypto&&crypto.subtle)) { DSIG=String(raw.length)+'-'+(navigator.language||''); return Promise.resolve(DSIG); }
+    return crypto.subtle.digest('SHA-256', new TextEncoder().encode(raw)).then(function(buf){ DSIG=abToB64url(buf).slice(0,32); return DSIG; });
+  }
+
+  var USER='';
+  function api(action, extra){
+    var body={ action:action, user:USER, device_sig:DSIG };
+    if(extra) for(var k in extra) body[k]=extra[k];
+    return fetch(NAVLOCK,{ method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(body) })
+      .then(function(r){ return r.json().then(function(j){ j._status=r.status; return j; }); });
+  }
+
+  var webauthnOK = !!(window.PublicKeyCredential && navigator.credentials && navigator.credentials.create);
+  var SR = window.SpeechRecognition||window.webkitSpeechRecognition;
+
+  /* ---- état d'affichage ---- */
+  function localOn(){ try{ return localStorage.getItem('nvlock-on:'+USER)==='1'; }catch(e){ return false; } }
+  function setLocalOn(v){ try{ v?localStorage.setItem('nvlock-on:'+USER,'1'):localStorage.removeItem('nvlock-on:'+USER); }catch(e){} }
+  function show(){
+    var ready=!!USER;
+    setup.style.display = ready && !localOn() ? 'block':'none';
+    unlock.style.display = ready && localOn() ? 'block':'none';
+  }
+  function lockUI(){ vD.className='verrou'; vV.className='verrou'; eD.textContent='verrouillé'; eV.textContent='verrouillé'; tresor.style.display='none'; coffre.className='coffre'; }
+
+  /* ---- e-mail : lie le coffre ---- */
+  var inEmail=$('in-email');
+  try{ inEmail.value=(localStorage.getItem('nv-email')||'').toLowerCase(); }catch(e){}
+  function refreshUser(){
+    if(/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(inEmail.value.trim())){ USER=inEmail.value.trim().toLowerCase(); try{ localStorage.setItem('nv-email',USER); }catch(e){} }
+    else USER='';
+    show();
+  }
+  inEmail.addEventListener('input', refreshUser);
+  computeDeviceSig().then(refreshUser);
+
+  /* ---------- 1. ENRÔLEMENT ---------- */
+  $('b-enroll').onclick=function(){
+    if(!USER){ msg($('m-setup'),'Mets d\'abord ton e-mail en haut.',true); return; }
+    var p=norm($('in-phrase').value);
+    if(!p||p.split(' ').length<2){ msg($('m-setup'),'Choisis une phrase d\'au moins deux mots.',true); return; }
+    if(!webauthnOK){ msg($('m-setup'),'Ce navigateur ne propose pas l\'empreinte/visage. Essaie Chrome ou Safari sur ton téléphone.',true); return; }
+    msg($('m-setup'),'👉 Pose ton doigt (ou montre ton visage) quand ton téléphone te le demande…');
+    api('register_options').then(function(r){
+      if(r.error){ msg($('m-setup'),r.error,true); return Promise.reject('opt'); }
+      var pk=r.options;
+      pk.challenge=b64urlToAb(pk.challenge);
+      pk.user.id=b64urlToAb(pk.user.id);
+      if(pk.excludeCredentials) pk.excludeCredentials=pk.excludeCredentials.map(function(c){ return {type:c.type,id:b64urlToAb(c.id),transports:c.transports}; });
+      return navigator.credentials.create({publicKey:pk});
+    }).then(function(cred){
+      var att={ id:cred.id, rawId:abToB64url(cred.rawId), type:cred.type,
+        response:{ clientDataJSON:abToB64url(cred.response.clientDataJSON), attestationObject:abToB64url(cred.response.attestationObject),
+          transports:(cred.response.getTransports?cred.response.getTransports():[]) },
+        clientExtensionResults:(cred.getClientExtensionResults?cred.getClientExtensionResults():{}),
+        authenticatorAttachment:cred.authenticatorAttachment||undefined };
+      return api('register_verify',{ att:att, phrase:p });
+    }).then(function(r){
+      if(r&&r.ok){ setLocalOn(true); show(); msg($('m-open'),'Double verrou créé ✓ — à toi d\'ouvrir.'); }
+      else msg($('m-setup'),(r&&r.error)||'Enregistrement refusé — réessaie.',true);
+    }).catch(function(err){
+      if(err==='opt') return;
+      msg($('m-setup'),'Empreinte/visage non enregistré ('+(err&&err.name?err.name:'refus')+'). Réessaie.',true);
+    });
+  };
+
+  /* ---------- 2. OUVERTURE : les DEUX clés ---------- */
+  function ecouteVoix(){
+    return new Promise(function(resolve){
+      if(!SR){ resolve(null); return; }
+      var lng='fr-FR';
+      try{ var l=localStorage.getItem('nv-lang'); if(l==='en') lng='en-US'; else if(l==='ru') lng='ru-RU'; else if(l==='he') lng='he-IL'; else if(l==='ar') lng='ar'; }catch(e){}
+      eV.textContent='parle…'; msg($('m-open'),'🎙️ Dis ta phrase secrète, maintenant.');
+      var r=new SR(); r.lang=lng; r.interimResults=false; r.maxAlternatives=4;
+      var done=false, best='';
+      r.onresult=function(ev){ done=true; var i,j; for(i=0;i<ev.results.length;i++){ for(j=0;j<ev.results[i].length;j++){ var t=ev.results[i][j].transcript; if(t&&t.length>best.length) best=t; } } resolve(best); };
+      r.onerror=function(){ if(!done){ eV.textContent='erreur micro'; resolve(null); } };
+      r.onend=function(){ if(!done){ resolve(best||null); } };
+      try{ r.start(); }catch(e){ resolve(null); }
+    });
+  }
+
+  $('b-open').onclick=function(){
+    lockUI();
+    if(!USER){ msg($('m-open'),'Mets ton e-mail en haut.',true); return; }
+    if(!webauthnOK){ msg($('m-open'),'Empreinte/visage indisponible sur ce navigateur.',true); return; }
+    eD.textContent='pose ton doigt / visage…'; msg($('m-open'),'👆 Clé 1 : ton empreinte ou ton visage.');
+    var assertion=null;
+    api('auth_options').then(function(r){
+      if(r.need_setup){ setLocalOn(false); show(); msg($('m-setup'),'Configure d\'abord ton double verrou.',true); return Promise.reject('setup'); }
+      if(r.error){ msg($('m-open'),r.error,true); return Promise.reject('opt'); }
+      var pk=r.options;
+      pk.challenge=b64urlToAb(pk.challenge);
+      if(pk.allowCredentials) pk.allowCredentials=pk.allowCredentials.map(function(c){ return {type:c.type,id:b64urlToAb(c.id),transports:c.transports}; });
+      return navigator.credentials.get({publicKey:pk});
+    }).then(function(ass){
+      assertion={ id:ass.id, rawId:abToB64url(ass.rawId), type:ass.type,
+        response:{ clientDataJSON:abToB64url(ass.response.clientDataJSON), authenticatorData:abToB64url(ass.response.authenticatorData),
+          signature:abToB64url(ass.response.signature), userHandle:(ass.response.userHandle?abToB64url(ass.response.userHandle):undefined) },
+        clientExtensionResults:(ass.getClientExtensionResults?ass.getClientExtensionResults():{}),
+        authenticatorAttachment:ass.authenticatorAttachment||undefined };
+      vD.className='verrou on'; eD.textContent='vérifiée ✓';
+      return ecouteVoix();
+    }).then(function(transcript){
+      if(transcript===null){ eV.textContent='micro indispo'; msg($('m-open'),'Je n\'ai pas pu écouter — autorise le micro et réessaie.',true); return Promise.reject('mic'); }
+      eV.textContent='je vérifie…';
+      return api('auth_verify',{ ass:assertion, phrase:transcript });
+    }).then(function(r){
+      if(r&&r.ok&&r.token){
+        try{ sessionStorage.setItem('nvlock-token',r.token); sessionStorage.setItem('nvlock-user',USER); }catch(e){}
+        vV.className='verrou on'; eV.textContent='reconnue ✓';
+        coffre.className='coffre ouvert'; tresor.style.display='block';
+        msg($('m-open'),'Les deux clés ont tourné. ⚓');
+      } else if(r&&r.factor==='phrase'){ eV.textContent='pas reconnue'; msg($('m-open'),'Ce n\'est pas la phrase. Réessaie — calmement, on a le temps.',true); }
+      else if(r&&r.factor==='biometrie'){ eD.textContent='refusée'; msg($('m-open'),'Empreinte/visage non validé côté serveur. Réessaie.',true); }
+      else { msg($('m-open'),(r&&r.error)||'Ouverture refusée.',true); }
+    }).catch(function(err){
+      if(err==='setup'||err==='opt'||err==='mic') return;
+      eD.textContent='refusée'; msg($('m-open'),'Empreinte/visage non vérifié ('+(err&&err.name?err.name:'refus')+'). Réessaie.',true);
+    });
+  };
+
+  /* ---------- reset : exige une ouverture valide (jeton) ---------- */
+  $('b-reset').onclick=function(){
+    var tok=''; try{ tok=sessionStorage.getItem('nvlock-token')||''; }catch(e){}
+    if(!tok){ msg($('m-open'),'Ouvre d\'abord ton coffre, puis tu pourras reconfigurer.',true); return; }
+    api('reset',{ token:tok }).then(function(r){
+      if(r&&r.ok){ setLocalOn(false); try{ sessionStorage.removeItem('nvlock-token'); }catch(e){} lockUI(); show(); msg($('m-setup'),'Verrou effacé — reconfigure tes deux clés.'); }
+      else msg($('m-open'),(r&&r.error)||'Reconfiguration refusée.',true);
+    });
+  };
+})();
+</script>
+<script src="/navlys-alive.js" defer></script>
+</body>
+</html>

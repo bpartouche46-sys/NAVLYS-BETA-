@@ -1,40 +1,30 @@
-# Secrets — ne JAMAIS committer
 .env
-.env.*
-*.key
-*.pem
-secrets/
-credentials*.json
-# … mais on AUTORISE les modèles d'exemple (sans valeurs)
-!.env.example
-!*.env.example
-
-# Dépendances
 node_modules/
-vendor/
-.venv/
 __pycache__/
-
-# Build / sortie
-dist/
-build/
-.next/
-out/
-.vercel/
-.turbo/
-
-# Système / éditeurs
-.DS_Store
-Thumbs.db
+*.pyc
+.venv/
+venv/
 *.log
-.vscode/
-.idea/
 
-# Réglages locaux Claude (perso, non partagés)
-.claude/settings.local.json
+# bases locales de test (offline)
+navlys_core/*.db
+*.db
 
-# Core — fichiers locaux/secrets (on garde *.example, jamais les vrais)
-core/.env
-core/.mcp.json
-core/logs/
-core/dist/
+# skills installés localement (restaurés via: npx -y skills experimental_install)
+.agents/
+.claude/skills/
+
+# clés de signature app (JAMAIS dans Git — identité d'éditeur, à sauvegarder hors-ligne)
+*.keystore
+*.jks
+*.p12
+*.p8
+*.mobileprovision
+*.cer
+*.certSigningRequest
+# paquets d'app générés
+*.aab
+*.apk
+*.ipa
+android.keystore
+signing-key-info.txt

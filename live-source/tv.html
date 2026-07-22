@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>NAVLYS TV — l'écran de cinéma vivant</title>
+<meta name="description" content="NAVLYS TV : un écran de cinéma vivant. En haut, l'écran TV permanent qui présente tout ; en bas, l'univers qui défile en grand, rétroéclairé.">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Cormorant+Garamond:ital,wght@0,500;1,500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="/media/navlys_favicon.svg">
+<style>
+:root{--noir:#03040a;--ice:#7DD3FC;--ice-clair:#a8e3ff;--or:#C9A961;--or-pale:#f3e4c4;--bronze:#B87333;--perle:#eaf6ff;--mut:#9fb3c8;--line:rgba(125,211,252,.16);
+  --filet:7px;--tv:min(36vh,320px);--bar:48px}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;background:var(--noir)}
+body{background:var(--noir);color:var(--perle);font-family:'Cormorant Garamond',Georgia,serif;font-size:19px;line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+/* Filets cinéma (letterbox) fins et sombres, permanents */
+.filet{position:fixed;left:0;right:0;height:var(--filet);z-index:70;pointer-events:none;background:linear-gradient(180deg,#000,rgba(0,0,0,.2))}
+.filet.top{top:0}
+.filet.bot{bottom:0;transform:rotate(180deg)}
+/* ── ÉCRAN TV permanent (tiers supérieur) ── */
+.tv{position:fixed;top:var(--filet);left:0;right:0;height:var(--tv);z-index:50;overflow:hidden;border-bottom:1px solid var(--line);background:#04060d}
+#tvbg{position:absolute;inset:0;width:100%;height:100%}
+.tv .veil{position:absolute;inset:0;background:radial-gradient(80% 90% at 50% 40%,transparent,rgba(3,4,10,.55));pointer-events:none}
+.scene{position:absolute;left:0;right:0;top:0;bottom:34px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:14px 18px;opacity:0;transition:opacity 1.6s ease,transform 8s linear}
+.scene.on{opacity:1}
+.scene .k{font-family:'Cinzel',serif;font-size:clamp(9px,2.4vw,12px);letter-spacing:.34em;color:var(--ice);text-transform:uppercase}
+.scene .t{font-family:'Cinzel',serif;font-weight:600;font-size:clamp(22px,6vw,44px);letter-spacing:.08em;line-height:1.05;margin:6px 0;
+  background:linear-gradient(100deg,var(--or-pale),var(--or) 45%,#fff7e6 55%,var(--or) 70%,var(--bronze));background-size:220% auto;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:sh 9s linear infinite}
+@keyframes sh{to{background-position:220% center}}
+.scene .s{color:var(--ice-clair);font-style:italic;font-size:clamp(14px,3.4vw,20px);max-width:640px;text-shadow:0 0 14px rgba(125,211,252,.4)}
+/* choix d'infos façon YouTube/Google, en bas de la TV */
+.chips{position:absolute;left:0;right:0;bottom:0;height:34px;display:flex;gap:7px;align-items:center;padding:0 10px;overflow-x:auto;scrollbar-width:none;
+  background:linear-gradient(0deg,rgba(3,4,10,.92),transparent);mask-image:linear-gradient(90deg,transparent,#000 16px,#000 calc(100% - 16px),transparent)}
+.chips::-webkit-scrollbar{display:none}
+.chips a{flex:0 0 auto;text-decoration:none;font-family:'Cinzel',serif;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:#cfe6f7;
+  border:1px solid var(--line);border-radius:999px;padding:5px 11px;white-space:nowrap;transition:.2s}
+.chips a:hover,.chips a.on{color:#04121c;background:linear-gradient(100deg,var(--or),#fff6df);border-color:transparent}
+/* ── CONTENU bas (2/3), scrollable, gros & rétroéclairé ── */
+main{padding-top:calc(var(--filet) + var(--tv) + 16px);padding-bottom:calc(var(--bar) + var(--filet) + 26px)}
+.wrap{max-width:760px;margin:0 auto;padding:0 18px}
+.sec{padding:44px 0;border-top:1px solid rgba(125,211,252,.08);opacity:0;transform:translateY(24px);transition:opacity 1s,transform 1s}
+.sec.in{opacity:1;transform:none}
+.sec h2{font-family:'Cinzel',serif;font-weight:600;font-size:clamp(28px,8vw,54px);letter-spacing:.04em;line-height:1.06;color:#eaf6ff;
+  text-shadow:0 0 20px rgba(125,211,252,.55);animation:breath 4.5s ease-in-out infinite}
+@keyframes breath{50%{text-shadow:0 0 38px rgba(125,211,252,.95),0 0 4px rgba(125,211,252,.6)}}
+.sec p{font-size:clamp(18px,4.4vw,24px);color:#dbe9f6;margin-top:12px;text-shadow:0 0 10px rgba(125,211,252,.25)}
+.sec .em{color:var(--or-pale)}
+/* encadrés « réalisation concrète » */
+.box{margin:18px 0;border:1px solid var(--line);border-radius:16px;padding:16px;background:rgba(4,7,15,.6);box-shadow:0 0 40px rgba(125,211,252,.1)}
+.box .bk{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.14em;color:var(--ice);text-transform:uppercase}
+.box .bt{font-size:clamp(19px,4.6vw,24px);color:#eaf6ff;margin:6px 0}
+.box .bs{color:var(--mut);font-style:italic;font-size:16px}
+.reel{display:flex;gap:8px;overflow-x:auto;margin-top:10px;scrollbar-width:none}.reel::-webkit-scrollbar{display:none}
+.reel .ph{flex:0 0 auto;width:120px;height:80px;border-radius:10px;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:26px;
+  background:linear-gradient(120deg,rgba(58,141,181,.28),transparent 60%),#06101f;animation:vs 12s ease-in-out infinite alternate}
+@keyframes vs{to{filter:hue-rotate(-12deg) brightness(1.12)}}
+.disc{color:var(--mut);font-size:13px;font-style:italic;margin-top:8px;border-left:2px solid var(--or);padding-left:10px}
+/* barre du bas permanente & discrète */
+.tvbar{position:fixed;bottom:var(--filet);left:0;right:0;height:var(--bar);z-index:60;display:flex;justify-content:space-around;align-items:center;
+  background:rgba(3,4,10,.6);backdrop-filter:blur(14px);border-top:1px solid rgba(125,211,252,.1)}
+.tvbar a{display:flex;flex-direction:column;align-items:center;gap:2px;text-decoration:none;color:#7f93a6;font-family:'Cinzel',serif;font-size:11px;letter-spacing:.08em;text-transform:uppercase;flex:1;transition:.25s;min-height:44px;justify-content:center}
+.tvbar a .i{font-size:17px;filter:grayscale(.4) opacity(.8)}
+.tvbar a:hover{color:var(--ice-clair)}.tvbar a:hover .i{filter:none}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<div class="filet top"></div>
+
+<!-- ÉCRAN TV permanent -->
+<section class="tv" aria-label="Écran NAVLYS TV">
+  <canvas id="tvbg"></canvas>
+  <div class="veil"></div>
+  <div class="scene on" id="scene"></div>
+  <nav class="chips" id="chips"></nav>
+</section>
+
+<main>
+  <div class="wrap">
+    <section class="sec">
+      <h2>Un cerveau. Une personne. <span class="em">Tout un univers.</span></h2>
+      <p>L'IA est le vent, c'est toi qui tiens la barre. En haut, l'écran ne s'éteint jamais. En bas, ton univers défile en grand.</p>
+    </section>
+
+    <section class="sec">
+      <h2>Ta vie, <span class="em">mise en scène</span>.</h2>
+      <p>NAVLYS Next Gen regarde tes photos, te pose des questions comme un ami, corrige ton récit et le fait vivre.</p>
+      <div class="box">
+        <div class="bk">Réalisation concrète · NAVLYS Next Gen</div>
+        <div class="bt">« Le grand-père, la valise, 1962 »</div>
+        <div class="bs">Photos anciennes → récit corrigé & mis en vie → montage fondus/morphing → promo du jour.</div>
+        <div class="reel"><span class="ph">🖼️</span><span class="ph">🎞️</span><span class="ph">🖼️</span><span class="ph">🎵</span><span class="ph">📣</span></div>
+        <div class="disc">Exemple. Ta création reste à toi. Bientôt : coloriage IA des vieilles photos, vidéos & musique.</div>
+      </div>
+    </section>
+
+    <section class="sec">
+      <h2>Comprendre l'argent, <span class="em">sereinement</span>.</h2>
+      <p>Méthode 90/10 : un socle « bon père de famille », et une part de risque encadrée, expliquée.</p>
+      <div class="box">
+        <div class="bk">La courbe du jour · règle des 10 %</div>
+        <div class="bt">Une journée de risque, en image</div>
+        <svg id="curve" viewBox="0 0 300 120" width="100%" style="max-width:520px;margin-top:8px" aria-label="Courbe pédagogique du jour"></svg>
+        <div class="disc">Illustration <b>pédagogique</b>, statut simple citoyen — pas un conseil ni une promesse de rendement. Tu décides tout.</div>
+      </div>
+    </section>
+
+    <section class="sec">
+      <h2>Parle. <span class="em">NAVLYS t'écoute.</span></h2>
+      <p>Tout à la voix, depuis ton téléphone. Le guichet répond, en parlant — déjà vivant.</p>
+    </section>
+  </div>
+</main>
+
+<div class="filet bot"></div>
+<nav class="tvbar">
+  <a href="/"><span class="i">≋</span>Accueil</a>
+  <a href="/finance"><span class="i">📈</span>Finance</a>
+  <a href="/next-gen-atelier"><span class="i">🎞️</span>Next Gen</a>
+  <a href="/assistance"><span class="i">🎙️</span>Voix</a>
+  <a href="/cockpit"><span class="i">⛬</span>Cockpit</a>
+</nav>
+
+<script>
+/* ÉCRAN TV : scénario long (~5 min), ralenti au max, en boucle. Pur code. */
+var SCENES=[
+  {k:'NAVLYS · en direct',t:'NAVLYS',s:'Naviguer l’avenir, ensemble.'},
+  {k:'Offre',t:'Teste gratuitement',s:'0 €, en toute liberté. L’accès anticipé est ouvert.'},
+  {k:'Adage',t:'L’IA est le vent',s:'C’est toi qui tiens la barre.'},
+  {k:'Application',t:'Finance',s:'Comprendre les marchés sans jargon. Éducation, méthode 90/10. Gratuit.'},
+  {k:'Application',t:'NAVLYS Next Gen',s:'Ta vie racontée, gardée, transmise — 9,90 €, un produit comme jamais.'},
+  {k:'Nouveau',t:'La promo du jour',s:'NAVLYS écrit tout seul le teaser de ton histoire, prêt à partager.'},
+  {k:'Application',t:'NAVLEX',s:'Tes questions de droit, expliquées simplement. 3 offertes.'},
+  {k:'Application',t:'Assistance vocale',s:'Parle ou écris — on te répond, à la voix.'},
+  {k:'Flash',t:'Tout à la voix',s:'Depuis ton téléphone, sans rien installer.'},
+  {k:'Application',t:'Radio',s:'La bande-son de l’Équipage, en continu.'},
+  {k:'Application',t:'Bien-être',s:'Réflexologie, reiki, art de vivre méditerranéen.'},
+  {k:'Adage',t:'Ton histoire vaut de l’or',s:'Écris-la, transmets-la.'},
+  {k:'Univers',t:'L’Équipage',s:'14 équipes en formation, un navire amiral : NAVLYS.'},
+  {k:'Promotion',t:'Membre = partenaire',s:'Partage NAVLYS, gagne ta place à bord.'},
+  {k:'Passerelle',t:'NAVLYS.IO',s:'Ton idée en or ? NAVLYS la co-construit avec toi.'},
+  {k:'Flash',t:'Installable',s:'Ajoute NAVLYS à ton écran d’accueil, comme une appli.'},
+  {k:'Adage',t:'Un cap, une main, un jour',s:'NAVLYS te guide d’un seul geste vers ton objectif.'},
+  {k:'À venir',t:'13 langues',s:'Et la voix doublée, pour tous, partout.'}
+];
+var scene=document.getElementById('scene'), si=0;
+function paint(i){ var d=SCENES[i%SCENES.length];
+  scene.classList.remove('on');
+  setTimeout(function(){ scene.innerHTML='<div class="k">'+d.k+'</div><div class="t">'+d.t+'</div><div class="s">'+d.s+'</div>'; scene.style.transform='scale(1.06)'; scene.classList.add('on'); requestAnimationFrame(function(){ scene.style.transform='scale(1)'; }); }, 700);
+}
+paint(0);
+var SCENE_MS=15000; // ~15 s/scène × 18 = ~4,5 min, ralenti au max
+setInterval(function(){ si=(si+1)%SCENES.length; paint(si); }, SCENE_MS);
+
+/* choix d'infos (façon YouTube/Google) */
+var CHIPS=['NAVLYS','Finance','Next Gen','NAVLEX','Voix','Radio','Équipage','Offre 0€'];
+var chips=document.getElementById('chips');
+chips.innerHTML=CHIPS.map(function(c,i){ return '<a href="#" data-i="'+i+'"'+(i===0?' class="on"':'')+'>'+c+'</a>'; }).join('');
+chips.addEventListener('click',function(e){ var a=e.target.closest('a'); if(!a)return; e.preventDefault();
+  Array.prototype.forEach.call(chips.children,function(x){x.classList.remove('on');}); a.classList.add('on');
+  var map=[0,3,4,6,7,9,12,1]; si=map[+a.getAttribute('data-i')]||0; paint(si);
+});
+
+/* fond TV vivant (mer + particules, doux) */
+(function(){
+  var c=document.getElementById('tvbg'),x=c.getContext('2d'),W=0,H=0,DPR=Math.min(devicePixelRatio||1,2),P=[];
+  function size(){W=c.clientWidth=c.offsetWidth;H=c.clientHeight=c.offsetHeight;c.width=W*DPR;c.height=H*DPR;x.setTransform(DPR,0,0,DPR,0,0);P=[];for(var i=0;i<40;i++)P.push({x:Math.random(),y:Math.random(),r:.5+Math.random()*1.8,ph:Math.random()*6.28});}
+  addEventListener('resize',size);size();
+  function f(t){var s=t*0.001;var g=x.createLinearGradient(0,0,0,H);g.addColorStop(0,'#04060d');g.addColorStop(.6,'#08172b');g.addColorStop(1,'#0a2740');x.fillStyle=g;x.fillRect(0,0,W,H);
+    x.globalCompositeOperation='lighter';for(var i=0;i<P.length;i++){var p=P[i];p.y-=0.0006;if(p.y<-.05)p.y=1.05;var tw=.4+.6*Math.abs(Math.sin(s*1.1+p.ph));x.beginPath();x.arc(p.x*W,p.y*H,p.r*(0.7+tw*0.6),0,6.28);x.fillStyle='rgba(168,227,255,'+(.14+.34*tw)+')';x.shadowColor='rgba(125,211,252,.7)';x.shadowBlur=7;x.fill();}
+    x.shadowBlur=0;x.globalCompositeOperation='source-over';requestAnimationFrame(f);}
+  requestAnimationFrame(f);
+})();
+
+/* révélations au scroll */
+(function(){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)e.target.classList.add('in');});},{threshold:.12});document.querySelectorAll('.sec').forEach(function(el){io.observe(el);});})();
+
+/* courbe du jour (illustration pédagogique, dessin lent) */
+(function(){
+  var svg=document.getElementById('curve'); if(!svg)return;
+  var pts=[10,14,12,18,16,22,20,26,24,31,28,34,30,27,33,38,36,42], W=300,H=120, n=pts.length;
+  var d='', min=Math.min.apply(null,pts), max=Math.max.apply(null,pts);
+  for(var i=0;i<n;i++){ var X=(i/(n-1))*(W-16)+8, Y=H-8-((pts[i]-min)/(max-min))*(H-24); d+=(i?'L':'M')+X.toFixed(1)+' '+Y.toFixed(1)+' '; }
+  svg.innerHTML='<defs><linearGradient id="cg" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#7DD3FC"/><stop offset="1" stop-color="#C9A961"/></linearGradient></defs>'+
+    '<line x1="8" y1="'+(H-8)+'" x2="'+(W-8)+'" y2="'+(H-8)+'" stroke="rgba(125,211,252,.2)"/>'+
+    '<path d="'+d+'" fill="none" stroke="url(#cg)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="stroke-dasharray:900;stroke-dashoffset:900;animation:draw 3.4s ease forwards"/>'+
+    '<style>@keyframes draw{to{stroke-dashoffset:0}}</style>';
+})();
+</script>
+</body>
+</html>

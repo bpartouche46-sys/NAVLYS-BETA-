@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="robots" content="noindex, nofollow" />
+<title>NAVLYS — Calculateur Marketing & Rentabilité</title>
+<style>
+  :root{
+    --bg:#070b12;--bg2:#0c1320;--panel:#0f1726;--panel2:#131e30;
+    --ice:#7fd4ff;--ice-soft:#bfe9ff;--gold:#d8bd84;--gold-soft:#efe0bd;
+    --txt:#e8f2fb;--mut:#8fa6bd;--line:#1d2c42;--ok:#54d6a0;--bad:#ef7b7b;--warn:#e8c15a;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:radial-gradient(1100px 700px at 75% -10%,#10203a 0%,var(--bg) 55%);color:var(--txt);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:980px;margin:0 auto;padding:20px 16px 80px}
+  h1{font-size:clamp(1.5rem,4vw,2.1rem);margin-bottom:2px}
+  h1 .g{background:linear-gradient(90deg,var(--ice),var(--gold));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .sub{color:var(--mut);margin-bottom:20px;font-size:.95rem}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:760px){.grid{grid-template-columns:1fr}}
+  .card{background:linear-gradient(180deg,var(--panel),var(--bg2));border:1px solid var(--line);border-radius:16px;padding:18px}
+  .card h2{font-size:.8rem;letter-spacing:1.2px;text-transform:uppercase;color:var(--ice-soft);margin-bottom:14px}
+  label{display:block;margin:12px 0 5px;font-size:.9rem;color:var(--mut)}
+  .row{display:flex;align-items:center;gap:8px}
+  input[type=number]{width:100%;background:#0a1322;border:1px solid var(--line);border-radius:10px;color:var(--txt);padding:10px 12px;font:inherit}
+  input:focus{outline:none;border-color:var(--ice)}
+  .unit{color:var(--mut);font-size:.85rem;white-space:nowrap}
+  /* Résultats */
+  .kpis{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .kpi{background:#0b1828;border:1px solid var(--line);border-radius:12px;padding:12px;text-align:center}
+  .kpi .n{font-size:1.5rem;font-weight:700;line-height:1}
+  .kpi .l{font-size:.72rem;color:var(--mut);text-transform:uppercase;letter-spacing:.5px;margin-top:6px}
+  .verdict{margin-top:14px;border-radius:12px;padding:14px;text-align:center;font-weight:600;border:1px solid var(--line)}
+  .v-ok{background:linear-gradient(180deg,#0e2a20,#0b1828);border-color:#22513c;color:var(--ok)}
+  .v-bad{background:linear-gradient(180deg,#2a1414,#0b1828);border-color:#5a2c2c;color:var(--bad)}
+  .v-mid{background:linear-gradient(180deg,#2a2410,#0b1828);border-color:#4a3c1c;color:var(--warn)}
+  table{width:100%;border-collapse:collapse;margin-top:12px;font-size:.85rem}
+  th,td{padding:7px 6px;text-align:right;border-bottom:1px solid #121c2c}
+  th{color:var(--mut);font-weight:600;text-transform:uppercase;font-size:.68rem;letter-spacing:.5px}
+  td:first-child,th:first-child{text-align:left}
+  .pos{color:var(--ok)} .neg{color:var(--bad)}
+  .disc{margin-top:20px;color:var(--mut);font-size:.8rem;line-height:1.5;border-top:1px solid var(--line);padding-top:14px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Calculateur <span class="g">Marketing & Rentabilité</span></h1>
+  <p class="sub">Mets tes chiffres, vois la rentabilité réelle, et la boucle d'auto-financement (réinvestir uniquement le profit prouvé).</p>
+
+  <div class="grid">
+    <!-- Entrées -->
+    <div class="card">
+      <h2>① Tes hypothèses</h2>
+      <label>Budget pub / jour</label>
+      <div class="row"><input type="number" id="budget" value="20" min="0" step="1"><span class="unit">€ / jour</span></div>
+      <label>Coût par clic (CPC)</label>
+      <div class="row"><input type="number" id="cpc" value="0.40" min="0.01" step="0.01"><span class="unit">€ / clic</span></div>
+      <label>Taux de conversion (visiteur → membre)</label>
+      <div class="row"><input type="number" id="cvr" value="2" min="0" step="0.1"><span class="unit">%</span></div>
+      <label>Revenu encaissé par membre (panier / LTV)</label>
+      <div class="row"><input type="number" id="rpc" value="9.99" min="0" step="0.5"><span class="unit">€</span></div>
+      <label>Charges réelles par membre (Stripe, TVA, IA… tout compris)</label>
+      <div class="row"><input type="number" id="charges" value="2.50" min="0" step="0.1"><span class="unit">€ / membre</span></div>
+      <label>% du <b>net</b> réinvesti en pub chaque jour <span style="color:var(--gold)">(ta règle)</span></label>
+      <div class="row"><input type="number" id="reinv" value="10" min="0" max="100" step="1"><span class="unit">%</span></div>
+      <label>Horizon de projection</label>
+      <div class="row"><input type="number" id="jours" value="30" min="1" max="365" step="1"><span class="unit">jours</span></div>
+    </div>
+
+    <!-- Sorties -->
+    <div class="card">
+      <h2>② Ta rentabilité (jour 1)</h2>
+      <div class="kpis">
+        <div class="kpi"><div class="n" id="k_clients">–</div><div class="l">membres / jour</div></div>
+        <div class="kpi"><div class="n" id="k_cac">–</div><div class="l">CAC (coût/membre)</div></div>
+        <div class="kpi"><div class="n" id="k_roas">–</div><div class="l">ROAS</div></div>
+        <div class="kpi"><div class="n" id="k_profit">–</div><div class="l">profit / jour</div></div>
+      </div>
+      <div class="verdict" id="verdict">–</div>
+    </div>
+  </div>
+
+  <!-- Projection boucle auto-financement -->
+  <div class="card" style="margin-top:16px">
+    <h2>③ Boucle d'auto-financement (réinvestissement du profit)</h2>
+    <div id="proj"></div>
+  </div>
+
+  <p class="disc">
+    ⚖️ <b>Outil éducatif, statut simple citoyen.</b> Ce sont des <b>estimations</b> à partir de TES hypothèses, pas une promesse de résultat.
+    À grande échelle, le CPC monte et le taux de conversion bouge : <b>re-mesure tes vrais chiffres</b> chaque semaine (Semrush / analytics) et réajuste.
+    Toute dépense publicitaire reste <b>ta décision</b> (garde-fou NAVLYS : un vrai débit = ta validation). On ne réinvestit que ce qui est <b>prouvé rentable</b>.
+  </p>
+</div>
+
+<script>
+const KEY='navlys_calc_mkt';
+const ids=['budget','cpc','cvr','rpc','marge','reinv','jours'];
+const $=(i)=>document.getElementById(i);
+const eur=(n)=>(isFinite(n)?n:0).toLocaleString('fr-FR',{maximumFractionDigits:2})+' €';
+const num=(n,d=2)=>(isFinite(n)?n:0).toLocaleString('fr-FR',{maximumFractionDigits:d});
+
+// Restaure les valeurs sauvegardées
+const saved=JSON.parse(localStorage.getItem(KEY)||'{}');
+ids.forEach(i=>{ if(saved[i]!=null) $(i).value=saved[i]; });
+
+function compute(){
+  const B=+$('budget').value||0, cpc=+$('cpc').value||0, cvr=(+$('cvr').value||0)/100,
+        rpc=+$('rpc').value||0, marge=(+$('marge').value||0)/100, reinv=(+$('reinv').value||0)/100,
+        jours=Math.max(1,Math.min(365,+$('jours').value||30));
+  // Sauvegarde
+  const s={}; ids.forEach(i=>s[i]=$(i).value); localStorage.setItem(KEY,JSON.stringify(s));
+
+  // Jour 1
+  const clics = cpc>0 ? B/cpc : 0;
+  const membres = clics*cvr;
+  const cac = membres>0 ? B/membres : 0;
+  const revenu = membres*rpc;
+  const margeBrute = revenu*marge;          // ce que rapporte vraiment le membre (hors pub)
+  const profit = margeBrute - B;            // profit net après pub
+  const roas = B>0 ? revenu/B : 0;
+
+  $('k_clients').textContent=num(membres,1);
+  $('k_cac').textContent=eur(cac);
+  $('k_roas').textContent='×'+num(roas,2);
+  $('k_profit').textContent=eur(profit);
+  $('k_profit').className='n '+(profit>=0?'pos':'neg');
+
+  // Verdict (seuil = la marge couvre la pub)
+  const v=$('verdict');
+  const seuilCVR = (rpc*marge)>0 ? B/(clics*rpc*marge) : Infinity; // info
+  if(profit>0.0001){ v.className='verdict v-ok';
+    v.innerHTML=`✅ RENTABLE — chaque jour te rapporte ${eur(profit)} net. Tu peux réinvestir et faire grandir.`;
+  } else if(Math.abs(profit)<=0.0001){ v.className='verdict v-mid';
+    v.innerHTML=`⚖️ À L'ÉQUILIBRE — tu ne perds ni ne gagnes. Améliore le taux de conversion ou le panier.`;
+  } else { v.className='verdict v-bad';
+    v.innerHTML=`⛔ PAS ENCORE RENTABLE — tu perds ${eur(-profit)}/jour. NE PAS scaler. Améliore conversion/panier ou baisse le CPC avant de dépenser plus.`;
+  }
+
+  // Projection boucle : on réinvestit reinv% du profit du jour dans le budget du lendemain (si profit>0)
+  let budget=B, cumul=0, rows='';
+  const marks=new Set([1,7,14,30,jours]);
+  for(let d=1; d<=jours; d++){
+    const cl = (cpc>0?budget/cpc:0)*cvr;
+    const rev = cl*rpc, mb = rev*marge, pr = mb - budget;
+    cumul += pr;
+    if(marks.has(d)){
+      rows+=`<tr><td>Jour ${d}</td><td>${eur(budget)}</td><td>${num(cl,1)}</td>
+        <td class="${pr>=0?'pos':'neg'}">${eur(pr)}</td><td class="${cumul>=0?'pos':'neg'}">${eur(cumul)}</td></tr>`;
+    }
+    budget = budget + (pr>0 ? pr*reinv : 0);
+  }
+  $('proj').innerHTML = (cpc<=0||membres<=0)
+    ? '<p style="color:var(--mut)">Renseigne un CPC et un taux de conversion pour voir la projection.</p>'
+    : `<table><thead><tr><th>Étape</th><th>Budget pub/j</th><th>Membres/j</th><th>Profit/j</th><th>Profit cumulé</th></tr></thead><tbody>${rows}</tbody></table>
+       <p style="color:var(--mut);font-size:.8rem;margin-top:10px">Hypothèse : CPC et conversion stables (optimiste). Re-mesure tes vrais chiffres et réajuste.</p>`;
+}
+ids.forEach(i=>$(i).addEventListener('input',compute));
+compute();
+</script>
+</body>
+</html>

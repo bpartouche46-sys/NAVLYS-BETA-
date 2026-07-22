@@ -1,0 +1,15 @@
+# NAVLYS — cron des espions (à installer sur Hetzner : `crontab -e`)
+# Loop externe indépendant de Claude Code, ZÉRO / très peu de token.
+# Adapte le chemin /root/navlys/ si besoin.
+
+# 1) Veille YouTube horaire (RSS public, sans token) → met les nouvelles vidéos en file
+5 * * * *   /root/navlys/scripts/espions/espion_youtube.sh
+
+# 2) Transcription locale (Whisper, sans token) — bornée à 3 vidéos/passe
+20 * * * *  /root/navlys/scripts/espions/transcribe.sh
+
+# 3) Extraction des techniques virales (heuristique + Ollama local si présent)
+35 * * * *  /usr/bin/python3 /root/navlys/scripts/espions/extract_viral.py
+
+# 4) (optionnel) synchro du code depuis GitHub avant le cycle, si tu utilises un sync
+# 0 * * * *   /root/navlys/scripts/sync-core.sh

@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>NAVLYS.IO — La passerelle des bâtisseurs | Entreprendre avec NAVLYS</title>
+<meta name="description" content="NAVLYS.IO — Tu as une idée en or et un vrai potentiel de travail ? On construit l'entreprise complète avec toi : moteur, agents, infrastructure. Intéressement à la réussite + frais de gestion et de développement. Partenariat clair.">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://navlys.com/io">
+<script>document.documentElement.className+=' nav-js';</script>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Fraunces:ital@1&family=JetBrains+Mono&display=swap" rel="stylesheet">
+<style>
+:root{--noir:#02040a;--noir2:#070b14;--ice:#7DD3FC;--ice-clair:#a8e3ff;--gold:#e9d3a0;--gold-pale:#f3e4c4;--perle:#e7eef2;--perle-doux:#b9c6d1;--brume:#7c8b95;--line:rgba(125,211,252,.18);--ok:#54d6a0;--bad:#ef7b7b}
+*{margin:0;padding:0;box-sizing:border-box}
+html{background:var(--noir);scroll-behavior:smooth}
+body{background:transparent;color:var(--perle);font-family:'Cormorant Garamond',Georgia,serif;font-size:20px;line-height:1.55;min-height:100vh;overflow-x:hidden;-webkit-text-size-adjust:100%}
+body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(55% 45% at 14% 6%,rgba(125,211,252,.14),transparent 60%),radial-gradient(48% 42% at 86% 30%,rgba(233,211,160,.10),transparent 62%),radial-gradient(60% 50% at 50% 120%,rgba(125,211,252,.06),transparent 64%);animation:resp 18s ease-in-out infinite alternate}
+@keyframes resp{from{opacity:.7}to{opacity:1}}
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(2,4,10,.86);backdrop-filter:blur(16px);border-bottom:1px solid var(--line);padding:12px 18px;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.nav a.logo{font-family:'Cinzel',serif;font-size:14px;letter-spacing:.3em;color:var(--gold);text-transform:uppercase;font-weight:600;text-decoration:none}
+.nav .links{display:flex;gap:16px;align-items:center}
+.nav .links a{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--perle-doux);text-decoration:none;transition:.25s}
+.nav .links a:hover{color:var(--ice)}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px;position:relative;z-index:5}
+.hero{text-align:center;padding:120px 20px 40px;position:relative;z-index:5}
+.hero .kick{font-family:'Cinzel',serif;font-size:12px;letter-spacing:.4em;text-transform:uppercase;color:var(--ice)}
+.hero .kick span{color:var(--gold)}
+.brand{font-family:'Cinzel',serif;font-weight:600;font-size:clamp(46px,11vw,104px);letter-spacing:.12em;text-transform:uppercase;background:linear-gradient(100deg,var(--gold-pale),var(--gold) 45%,#fff7e6 55%,var(--gold) 70%,#c9a961);background-size:220% auto;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:shine 9s linear infinite;margin:12px 0 6px;line-height:1.04;filter:drop-shadow(0 0 18px rgba(233,211,160,.28))}
+@keyframes shine{to{background-position:220% center}}
+.hero .tag{font-family:'Fraunces',serif;font-style:italic;font-size:clamp(18px,3.5vw,26px);color:var(--ice-clair);text-shadow:0 0 16px rgba(125,211,252,.4)}
+.hero .lead{max-width:680px;margin:18px auto 6px;color:var(--perle-doux);font-size:clamp(17px,2.4vw,21px)}
+.cta{margin-top:24px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.btn{display:inline-block;font-family:'Cinzel',serif;font-size:12px;letter-spacing:.18em;text-transform:uppercase;text-decoration:none;border-radius:999px;padding:13px 26px;transition:.25s;cursor:pointer;border:0}
+.btn.p{background:linear-gradient(100deg,var(--gold),#fff6df);color:#05060a}
+.btn.p:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(233,211,160,.3)}
+.btn.s{border:1px solid #1d5675;color:var(--ice-clair);background:transparent}
+.btn.s:hover{border-color:var(--ice);color:#fff}
+section{padding:54px 0;border-top:1px solid rgba(125,211,252,.1);position:relative;z-index:5}
+h2{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(30px,6vw,48px);text-align:center;line-height:1.06;margin-bottom:8px}
+h2 em{color:var(--gold);font-style:italic}
+.punch{text-align:center;font-style:italic;color:var(--perle-doux);max-width:680px;margin:0 auto 34px;font-size:clamp(16px,2.4vw,20px)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),1fr));gap:16px}
+.card{background:rgba(3,5,12,.66);border:1px solid var(--line);border-radius:16px;padding:22px;transition:.35s}
+.card:hover{border-color:rgba(125,211,252,.55);transform:translateY(-3px);box-shadow:0 14px 36px rgba(125,211,252,.16)}
+.card .ic{font-size:26px;margin-bottom:8px}
+.card h3{font-family:'Cinzel',serif;font-size:15px;letter-spacing:.08em;color:var(--gold);text-transform:uppercase;margin-bottom:8px}
+.card p{color:var(--perle-doux);font-size:16.5px;line-height:1.5}
+.deal{background:linear-gradient(180deg,rgba(125,211,252,.06),rgba(233,211,160,.04));border:1px solid var(--line);border-radius:18px;padding:26px;display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media(max-width:680px){.deal{grid-template-columns:1fr}}
+.deal .d{padding:8px}
+.deal h3{font-family:'Cinzel',serif;font-size:13px;letter-spacing:.12em;color:var(--ice);text-transform:uppercase;margin-bottom:8px}
+.deal p{color:var(--perle);font-size:17px}
+.deal .big{font-family:'Cormorant Garamond';font-size:26px;color:var(--gold);font-weight:600}
+.steps{counter-reset:s;display:grid;gap:12px;max-width:760px;margin:0 auto}
+.step{display:flex;gap:16px;align-items:flex-start;background:rgba(3,5,12,.5);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.step::before{counter-increment:s;content:counter(s);flex:0 0 auto;width:38px;height:38px;border-radius:50%;display:grid;place-items:center;font-family:'Cinzel',serif;color:#05060a;background:linear-gradient(100deg,var(--gold),#fff6df);font-size:17px}
+.step b{font-family:'Cinzel',serif;font-size:13px;letter-spacing:.08em;color:var(--ice-clair);text-transform:uppercase;display:block;margin-bottom:3px}
+.step span{color:var(--perle-doux);font-size:16.5px}
+/* Formulaire */
+form{max-width:680px;margin:0 auto;background:rgba(3,5,12,.7);border:1px solid var(--line);border-radius:18px;padding:24px}
+label{display:block;font-family:'Cinzel',serif;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--perle-doux);margin:14px 0 6px}
+input,textarea{width:100%;background:#0a1322;border:1px solid var(--line);border-radius:10px;color:var(--perle);padding:12px 14px;font:inherit;font-size:17px}
+input:focus,textarea:focus{outline:none;border-color:var(--ice)}
+textarea{min-height:120px;resize:vertical}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.fm-cta{margin-top:18px;text-align:center}
+#msg{margin-top:14px;text-align:center;font-size:16px;min-height:22px}
+#msg.ok{color:var(--ok)} #msg.err{color:var(--bad)}
+.disc{max-width:760px;margin:26px auto 0;color:var(--brume);font-size:14.5px;line-height:1.55;text-align:center;border-top:1px solid var(--line);padding-top:18px}
+footer{padding:40px 20px 70px;text-align:center;color:var(--brume);font-size:14px;border-top:1px solid rgba(233,211,160,.16);position:relative;z-index:5}
+footer a{color:var(--ice-clair);text-decoration:none;margin:0 8px}
+/* ── Animations NAVLYS : révélations au scroll + micro-interactions (sobres) ── */
+.nav-js .reveal{opacity:0}
+.reveal.in{opacity:1;animation:navRise .75s cubic-bezier(.22,.61,.36,1) backwards}
+@keyframes navRise{from{opacity:0;transform:translateY(20px)}}
+.navBreathe{animation:navBreathe 5s ease-in-out infinite}
+@keyframes navBreathe{0%,100%{opacity:.86}50%{opacity:1}}
+.step{transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease}
+.step:hover{transform:translateX(4px);border-color:rgba(125,211,252,.45);box-shadow:0 10px 28px rgba(125,211,252,.12)}
+.step::before{transition:box-shadow .25s ease}
+.step:hover::before{box-shadow:0 0 18px rgba(233,211,160,.5)}
+.deal{transition:border-color .3s ease,box-shadow .3s ease}
+.deal:hover{border-color:rgba(125,211,252,.4);box-shadow:0 14px 36px rgba(125,211,252,.1)}
+input:focus,textarea:focus{box-shadow:0 0 0 3px rgba(125,211,252,.14)}
+@media (prefers-reduced-motion:reduce){
+  .nav-js .reveal,.reveal.in{opacity:1!important;animation:none!important;transform:none!important}
+  .navBreathe{animation:none!important}
+  .step:hover{transform:none!important}
+}
+</style>
+</head>
+<body>
+<nav class="nav">
+  <a class="logo" href="/">NAVLYS</a>
+  <div class="links">
+    <a href="/">Accueil</a>
+    <a href="#candidature">Candidater</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="kick navBreathe">NAVLYS<span>.</span>IO — la passerelle des bâtisseurs</div>
+  <div class="brand">NAVLYS.IO</div>
+  <div class="tag">Ton idée en or. Ma machine. Une entreprise, bâtie ensemble.</div>
+  <p class="lead">Tu es un entrepreneur intelligent, avec une idée prête à exploiter et un vrai potentiel de travail&nbsp;? On construit avec toi l'entreprise complète — moteur, agents, infrastructure, méthode — exactement comme on a bâti NAVLYS, et on pilote sa progression à tes côtés.</p>
+  <div class="cta">
+    <a class="btn p" href="#candidature">Présenter mon idée</a>
+    <a class="btn s" href="#principe">Comment ça marche</a>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <section id="principe">
+    <h2>Le <em>principe</em></h2>
+    <p class="punch">Toi, tu apportes l'étincelle et l'énergie. NAVLYS apporte la machine qui transforme une idée en entreprise qui tourne.</p>
+    <div class="grid">
+      <div class="card reveal"><div class="ic">💡</div><h3>Tu apportes</h3><p>Une idée en or, prête à exploiter, et un vrai engagement de travail. C'est le carburant — le reste, on l'a.</p></div>
+      <div class="card reveal"><div class="ic">⚙️</div><h3>On apporte la machine</h3><p>14 agents spécialisés, l'infrastructure, le design, le juridique, le marketing, la finance et l'exécution — déjà en place.</p></div>
+      <div class="card reveal"><div class="ic">🏗️</div><h3>On co-construit en interne</h3><p>On bâtit ton entreprise comme une nouvelle branche NAVLYS : même rigueur, même vitesse, mêmes garde-fous.</p></div>
+      <div class="card reveal"><div class="ic">📈</div><h3>On pilote la progression</h3><p>On suit la croissance ensemble, étape par étape, avec un tableau de bord et des points réguliers.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Ce que NAVLYS met <em>sur la table</em></h2>
+    <p class="punch">Une usine à entreprises, prête à servir ton projet dès le premier jour.</p>
+    <div class="grid">
+      <div class="card reveal"><div class="ic">🤖</div><h3>Moteur agentique</h3><p>Le CORE NAVLYS et ses 14 départements travaillent sur ton dossier en continu.</p></div>
+      <div class="card reveal"><div class="ic">🛠️</div><h3>Tech & infra</h3><p>Site, base de données, automatisations, déploiement — l'ossature technique fournie.</p></div>
+      <div class="card reveal"><div class="ic">🎨</div><h3>Marque & design</h3><p>Identité, charte, pages, contenu : une image pro, cohérente, immédiate.</p></div>
+      <div class="card reveal"><div class="ic">⚖️</div><h3>Cadre & juridique</h3><p>Structure, contrats, conformité — on borde le terrain avant d'avancer.</p></div>
+      <div class="card reveal"><div class="ic">📣</div><h3>Marketing & finance</h3><p>Acquisition, calculateurs de rentabilité, méthode d'auto-financement.</p></div>
+      <div class="card reveal"><div class="ic">🚀</div><h3>Exécution</h3><p>On ne fait pas que conseiller : on construit, on teste, on met en ligne.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Le <em>deal</em>, clair et transparent</h2>
+    <p class="punch">Un partenariat aligné : on ne gagne vraiment que si ton projet réussit.</p>
+    <div class="deal reveal">
+      <div class="d"><h3>Intéressement à la réussite</h3><p class="big">On grandit avec toi.</p><p>Une part d'intéressement sur la réussite du projet : mes objectifs sont les tiens.</p></div>
+      <div class="d"><h3>Frais de gestion & développement</h3><p class="big">Le carburant du build.</p><p>Les frais de gestion et de développement de l'entreprise sont facturés, de façon transparente, pour financer la construction.</p></div>
+      <div class="d"><h3>Contrat simple</h3><p>Un contrat de partenariat — ou d'affiliation spécial — adapté à ton cas. Pas d'usine à gaz.</p></div>
+      <div class="d"><h3>Ouverture rapide</h3><p>Chaque partenariat ouvre à NAVLYS un nouveau domaine, et à toi une équipe complète, tout de suite.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Le <em>parcours</em></h2>
+    <p class="punch">De l'idée à l'entreprise qui tourne, en cinq étapes.</p>
+    <div class="steps">
+      <div class="step reveal"><div><b>Candidature</b><span>Tu présentes ton idée et ce que tu apportes — 2 minutes.</span></div></div>
+      <div class="step reveal"><div><b>Évaluation du potentiel</b><span>Paul (Partenariats) et le CORE étudient marché, faisabilité et vitesse de mise en or.</span></div></div>
+      <div class="step reveal"><div><b>Contrat de partenariat</b><span>On cadre l'intéressement et les frais ; Bruno valide. Tu signes en confiance.</span></div></div>
+      <div class="step reveal"><div><b>Co-construction interne</b><span>Les agents bâtissent ton entreprise : tech, marque, juridique, marketing.</span></div></div>
+      <div class="step reveal"><div><b>Progression pilotée</b><span>On suit la croissance ensemble, on ajuste, on fait grandir.</span></div></div>
+    </div>
+  </section>
+
+  <section id="candidature">
+    <h2>Présente ton <em>idée en or</em></h2>
+    <p class="punch">Si elle a du potentiel, on revient vite vers toi. Tout reste confidentiel.</p>
+    <form id="form" class="reveal" autocomplete="on">
+      <div class="hp"><label>Ne pas remplir<input type="text" id="website" tabindex="-1" autocomplete="off"></label></div>
+      <label for="nom">Ton nom *</label>
+      <input id="nom" type="text" maxlength="120" placeholder="Prénom Nom" required>
+      <label for="email">Ton email *</label>
+      <input id="email" type="email" maxlength="160" placeholder="toi@exemple.com" required>
+      <label for="domaine">Domaine / secteur</label>
+      <input id="domaine" type="text" maxlength="120" placeholder="Ex : santé, immobilier, e-commerce, IA…">
+      <label for="idee">Ton idée en or *</label>
+      <textarea id="idee" maxlength="4000" placeholder="Décris l'idée, le problème qu'elle résout, pourquoi c'est le bon moment." required></textarea>
+      <label for="apport">Ce que tu apportes (temps, compétences, réseau)</label>
+      <textarea id="apport" maxlength="2000" placeholder="Ton engagement, ton expérience, tes atouts."></textarea>
+      <label for="contact">Autre moyen de contact (optionnel)</label>
+      <input id="contact" type="text" maxlength="200" placeholder="Téléphone, WhatsApp, LinkedIn…">
+      <div class="fm-cta"><button class="btn p" type="submit" id="send">Envoyer ma candidature</button></div>
+      <div id="msg"></div>
+    </form>
+    <p class="disc">
+      ⚖️ <b>Cadre.</b> NAVLYS est un partenaire de construction d'entreprise (venture-building), pas un conseiller en investissement
+      ni un intermédiaire financier. Aucune promesse de rendement&nbsp;: la réussite dépend du projet et du travail commun.
+      Tout cadre de partenariat (intéressement, frais de gestion et de développement) est formalisé par contrat et validé avant tout engagement.
+      Tes informations restent confidentielles et ne servent qu'à étudier ta candidature.
+    </p>
+  </section>
+
+</div>
+
+<footer>
+  NAVLYS.IO — Naviguer l'avenir, ensemble.
+  <div style="margin-top:10px"><a href="/">Accueil</a> · <a href="#candidature">Candidater</a></div>
+</footer>
+
+<script>
+/* révélations au scroll — vanilla, sûr (échoue en montrant tout) */
+(function(){
+  try{
+    var els=document.querySelectorAll('.reveal');
+    if(!els.length)return;
+    var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var i;
+    if(reduce||!('IntersectionObserver' in window)){
+      for(i=0;i<els.length;i++)els[i].classList.add('in');
+      return;
+    }
+    var obs=new IntersectionObserver(function(entries){
+      var d=0;
+      for(var k=0;k<entries.length;k++){
+        var e=entries[k];
+        if(e.isIntersecting){
+          e.target.style.animationDelay=(d*70)+'ms';
+          e.target.classList.add('in');
+          obs.unobserve(e.target);
+          d++;
+        }
+      }
+    },{threshold:0.12,rootMargin:'0px 0px -6% 0px'});
+    for(i=0;i<els.length;i++)obs.observe(els[i]);
+  }catch(err){
+    var all=document.querySelectorAll('.reveal');
+    for(var j=0;j<all.length;j++)all[j].classList.add('in');
+  }
+})();
+</script>
+<script>
+var ENDPOINT='https://hhrlgyvtqluxpywjiwkd.supabase.co/functions/v1/passerelle';
+var f=document.getElementById('form'), msg=document.getElementById('msg'), btn=document.getElementById('send');
+function val(id){return (document.getElementById(id).value||'').trim();}
+f.addEventListener('submit',function(ev){
+  ev.preventDefault();
+  if(val('website')){return;} // honeypot
+  var nom=val('nom'), email=val('email'), idee=val('idee');
+  if(!nom||!idee){msg.className='err';msg.textContent='Indique au moins ton nom et ton idée.';return;}
+  if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){msg.className='err';msg.textContent='Vérifie ton email.';return;}
+  btn.disabled=true; msg.className=''; msg.textContent='Envoi en cours…';
+  fetch(ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
+    nom:nom, email:email, domaine:val('domaine'), idee:idee, apport:val('apport'), contact:val('contact')
+  })}).then(function(r){return r.json();}).then(function(d){
+    if(d&&d.ok){
+      msg.className='ok';
+      msg.textContent='✅ Candidature reçue. Paul (Partenariats) l’étudie — on revient vite vers toi.';
+      f.reset();
+    }else{
+      msg.className='err'; msg.textContent=(d&&d.error)?d.error:'Une erreur est survenue. Réessaie.';
+      btn.disabled=false;
+    }
+  }).catch(function(){ msg.className='err'; msg.textContent='Connexion impossible. Réessaie dans un instant.'; btn.disabled=false; });
+});
+</script>
+</body>
+</html>

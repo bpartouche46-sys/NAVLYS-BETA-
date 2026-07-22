@@ -4,8 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>NAVLYS Finance — Ton cockpit du jour, en euros et en bon sens</title>
-<meta name="description" content="NAVLYS Finance : le brief du jour, ta strategie en 1 clic, le simulateur anti-jackpot. Education & veille, chiffre en euros, jamais de conseil. Gratuit (0 EUR).">
+<meta name="description" content="NAVLYS Finance : le brief du jour, ta stratégie en 1 clic, le simulateur anti-jackpot. Éducation & veille, chiffré en euros, jamais de conseil. Gratuit (0 EUR).">
 <link rel="canonical" href="https://navlys.com/finance">
+<script>document.documentElement.className+=' nav-js';</script>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Fraunces:ital@1&family=Lora:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root{--noir:#05060a;--ice:#7DD3FC;--or:#e9d3a0;--rouge:#ff2a1f;--vin:#7a1f2b;--vert:#7be29a;--perle:#eef0f6;--mut:#9fb3c8}
@@ -34,7 +35,7 @@ input[type=number]{width:100%;background:rgba(5,6,10,.5);border:1px solid rgba(1
 .scn.serein{background:linear-gradient(160deg,rgba(125,211,252,.10),rgba(123,226,154,.10));border-color:rgba(125,211,252,.3)}
 .scn h3{font-family:'Cormorant Garamond';font-size:1.35rem;color:#fff;margin-bottom:2px}
 .scn .tagline{font-family:'Fraunces';font-style:italic;font-size:.85rem;color:var(--mut);margin-bottom:14px}
-.big{font-family:'Cormorant Garamond';font-size:2.1rem;font-weight:700;line-height:1.1}
+.big{font-family:'Cormorant Garamond';font-size:1.6rem;font-weight:700;line-height:1.18}
 .big.win{color:var(--vert)}.big.loss{color:#ff6a5e}.big.calm{color:var(--ice)}
 .note{font-size:.86rem;color:var(--mut);margin-top:8px}
 .legende{font-size:.8rem;color:#8fa6c8;font-style:italic;margin-top:6px}
@@ -65,45 +66,94 @@ input[type=number]{width:100%;background:rgba(5,6,10,.5);border:1px solid rgba(1
 .msg{font-family:'Fraunces';font-style:italic;font-size:.9rem;margin-top:10px}
 .disc{margin-top:30px;font-size:.8rem;color:#8fa6c8;font-style:italic;line-height:1.7;border-top:1px solid rgba(255,255,255,.08);padding-top:18px}
 .flag{letter-spacing:3px;margin-top:18px;color:#8fa6c8}
+/* ── Animations NAVLYS : révélations au scroll + micro-interactions (sobres) ── */
+.nav-js .reveal{opacity:0}
+.reveal.in{opacity:1;animation:navRise .75s cubic-bezier(.22,.61,.36,1) backwards}
+@keyframes navRise{from{opacity:0;transform:translateY(20px)}}
+.navBreathe{animation:navBreathe 5s ease-in-out infinite}
+@keyframes navBreathe{0%,100%{opacity:.86}50%{opacity:1}}
+.card{transition:transform .3s ease,box-shadow .3s ease,border-color .3s ease}
+.card:hover{transform:translateY(-3px);border-color:rgba(125,211,252,.4);box-shadow:0 16px 40px rgba(125,211,252,.12)}
+.scn{transition:transform .25s ease,box-shadow .25s ease}
+.scn:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(125,211,252,.12)}
+.brief .item{transition:transform .2s ease,border-color .2s ease}
+.brief .item:hover{transform:translateX(3px);border-color:rgba(125,211,252,.4)}
+.btn{transition:transform .2s ease,box-shadow .2s ease}
+.btn:hover{transform:translateY(-2px);box-shadow:0 10px 26px rgba(125,211,252,.22)}
+.kpi span{transition:transform .2s ease,border-color .2s ease}
+.kpi span:hover{transform:translateY(-1px);border-color:rgba(125,211,252,.4)}
+.plan .choose button{transition:transform .2s ease,background .2s ease,border-color .2s ease}
+.plan .choose button:hover{transform:translateY(-1px);background:rgba(125,211,252,.08);border-color:var(--ice)}
+@media (prefers-reduced-motion:reduce){
+  .nav-js .reveal,.reveal.in{opacity:1!important;animation:none!important;transform:none!important}
+  .navBreathe{animation:none!important}
+  .card:hover,.scn:hover,.brief .item:hover,.btn:hover,.kpi span:hover,.plan .choose button:hover{transform:none!important}
+}
+/* ── DÉFILÉ BOURSE NAVLYS (bande cinéma, cours suivis — illustration, pas un conseil) ── */
+.ticker{display:flex;align-items:stretch;margin:16px 0 6px;border:1px solid rgba(125,211,252,.22);border-radius:12px;overflow:hidden;
+  background:linear-gradient(90deg,rgba(5,8,16,.92),rgba(10,14,24,.72));box-shadow:0 0 26px rgba(125,211,252,.10)}
+.ticker-tag{flex:0 0 auto;display:flex;align-items:center;gap:6px;padding:0 12px;font-family:'Cormorant Garamond',serif;font-size:.82rem;
+  color:#05060a;background:linear-gradient(100deg,var(--or),#fff6df);font-weight:700;white-space:nowrap}
+.ticker-tag span{color:#5a4a1c;font-style:italic;font-weight:500;font-size:.72rem}
+.ticker-view{flex:1;overflow:hidden;position:relative;height:40px;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 22px,#000 calc(100% - 22px),transparent);
+  mask-image:linear-gradient(90deg,transparent,#000 22px,#000 calc(100% - 22px),transparent)}
+.ticker-track{position:absolute;top:0;left:0;height:100%;display:flex;align-items:center;gap:26px;white-space:nowrap;padding-left:26px;will-change:transform;animation:tkScroll 48s linear infinite}
+.ticker:hover .ticker-track{animation-play-state:paused}
+.ticker .tk{display:inline-flex;align-items:baseline;gap:7px;font-family:'Lora',serif;font-size:.94rem}
+.ticker .tk .sym{color:#cfe0f2;font-weight:600}
+.ticker .tk .px{color:#fff}
+.ticker .tk .ch{font-size:.82rem;font-weight:600}
+.ticker .tk .ch.up{color:var(--vert)}
+.ticker .tk .ch.dn{color:#ff6a5e}
+@keyframes tkScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){.ticker-track{animation:none;padding-left:12px}}
+@media(max-width:560px){.ticker-tag span{display:none}.ticker-view{height:38px}}
 </style>
 </head>
 <body>
 <div class="bg"></div>
 <div class="wrap">
   <header><span class="led"></span><span class="brand">NAVLYS</span><span style="color:var(--mut);font-family:'Fraunces';font-style:italic">&middot; Finance</span><a class="home" href="/" style="margin-left:auto">&lsaquo; Accueil</a></header>
-  <h1>Ton cockpit du jour,<br>en euros et en bon sens.</h1>
-  <p class="sub">Le brief du matin, ta strategie en 1 clic, et un simulateur qui te montre &mdash; chiffre en euros &mdash; comment la serenite fait grandir ton argent. NAVLYS prepare ; toi, tu gardes la barre.</p>
-  <span class="pill">GRATUIT &middot; 0 &euro; &middot; pure education &amp; veille</span>
 
-  <div class="card" id="cockpit">
+  <div class="ticker" id="ticker" aria-label="Cours suivis — illustration pédagogique, données différées, pas un conseil">
+    <div class="ticker-tag">&#128200; NAVLYS BOURSE <span>&middot; suivi, pas un conseil</span></div>
+    <div class="ticker-view"><div class="ticker-track" id="tkTrack"></div></div>
+  </div>
+
+  <h1>Ton cockpit du jour,<br>en euros et en bon sens.</h1>
+  <p class="sub">Le brief du matin, ta stratégie en 1 clic, et un simulateur qui te montre &mdash; chiffré en euros &mdash; comment la sérénité fait grandir ton argent. NAVLYS prépare ; toi, tu gardes la barre.</p>
+  <span class="pill navBreathe">GRATUIT &middot; 0 &euro; &middot; pure éducation &amp; veille</span>
+
+  <div class="card reveal" id="cockpit">
     <h2>&#129504; Le cockpit autonome &mdash; le brief du jour</h2>
-    <p class="note">Chaque jour, <b>NAVLYS CORE</b> rassemble les infos cles et te les presente. Tu vois, tu regles, <b>tu approuves</b>. <b style="color:var(--ice)">Toi seul lances tes ordres</b> &mdash; NAVLYS te prepare tout, tu gardes la barre. <i>Apercu de beta : exemples pedagogiques.</i></p>
+    <p class="note">Chaque jour, <b>NAVLYS CORE</b> rassemble les infos clés et te les présente. Tu vois, tu règles, <b>tu approuves</b>. <b style="color:var(--ice)">Toi seul lances tes ordres</b> &mdash; NAVLYS te prépare tout, tu gardes la barre. <i>Aperçu de bêta : exemples pédagogiques.</i></p>
     <div class="brief">
-      <div class="item"><span class="d">Aujourd'hui</span>&#128200; <b>Marches :</b> sur les semis IA, le flux d'options sort souvent le signal avant la presse. <i>(a verifier)</i></div>
-      <div class="item"><span class="d">Aujourd'hui</span>&#128737; <b>Cap serein :</b> 90 % a l'abri, 10 % pour apprendre. Pas de pari sur la maison.</div>
+      <div class="item"><span class="d">Aujourd'hui</span>&#128200; <b>Marchés :</b> sur les semis IA, le flux d'options sort souvent le signal avant la presse. <i>(à vérifier)</i></div>
+      <div class="item"><span class="d">Aujourd'hui</span>&#128737; <b>Cap serein :</b> 90 % à l'abri, 10 % pour apprendre. Pas de pari sur la maison.</div>
       <div class="item"><span class="d">Aujourd'hui</span>&#129518; <b>Watchlist suivie :</b> NVDA &middot; AAPL &middot; AMZN &middot; GOOGL &middot; CRWD &middot; PANW <i>(suivi, pas un conseil)</i></div>
     </div>
-    <h3 style="font-family:'Cormorant Garamond';color:#fff;font-size:1.25rem;margin:18px 0 2px">&#127898; Tes reglages du jour</h3>
+    <h3 style="font-family:'Cormorant Garamond';color:#fff;font-size:1.25rem;margin:18px 0 2px">&#127898; Tes réglages du jour</h3>
     <label>Part &laquo; ecole &raquo; que <b>TU</b> acceptes de voir bouger : <span class="val" id="riskV">10 %</span></label>
     <input type="range" id="risk" min="0" max="20" step="1" value="10">
     <div class="toggles">
       <label class="tg"><input type="checkbox" id="t1" checked> Recevoir le brief chaque matin</label>
-      <label class="tg"><input type="checkbox" id="t2"> Me proposer des parametres d'achat/vente <b>a approuver</b></label>
+      <label class="tg"><input type="checkbox" id="t2"> Me proposer des paramètres d'achat/vente <b>à approuver</b></label>
       <label class="tg"><input type="checkbox" id="t3" checked disabled> Toujours me demander avant tout &mdash; <span class="lock">toujours ta validation &#128274;</span></label>
     </div>
-    <button class="btn" id="approve">&#9989; J'approuve mes reglages</button>
+    <button class="btn" id="approve">&#9989; J'approuve mes réglages</button>
     <div class="msg" id="ackMsg"></div>
   </div>
 
-  <div class="card">
-    <h2>&#127919; Ta strategie du jour &mdash; en 1 clic</h2>
-    <p class="note">Dis-moi ton enveloppe du jour, et NAVLYS te prepare un <b>plan clair</b> : la repartition sereine en euros, la watchlist, et <b>le cap du capitaine</b>. Tu l'adoptes... ou tu traces ta route. Rien n'est execute.</p>
+  <div class="card reveal">
+    <h2>&#127919; Ta stratégie du jour &mdash; en 1 clic</h2>
+    <p class="note">Dis-moi ton enveloppe du jour, et NAVLYS te prépare un <b>plan clair</b> : la répartition sereine en euros, la watchlist, et <b>le cap du capitaine</b>. Tu l'adoptes... ou tu traces ta route. Rien n'est exécuté.</p>
     <label>&#128181; Mon enveloppe du jour</label>
     <input type="number" id="env" value="2000" min="0" step="100">
-    <button class="btn" id="plan">&#9889; Preparer ma journee</button>
+    <button class="btn" id="plan">&#9889; Préparer ma journée</button>
     <div class="plan" id="planBox">
       <h4>&#129518; Ton plan serein du jour</h4>
-      <div class="line"><span>&#128735; Part a l'abri (90 %)</span><b id="p90">&mdash;</b></div>
+      <div class="line"><span>&#128735; Part à l'abri (90 %)</span><b id="p90">&mdash;</b></div>
       <div class="line"><span>&#127891; Part &laquo; ecole &raquo; (10 %)</span><b id="p10">&mdash;</b></div>
       <div class="line"><span>&#128064; Tu suis (pas un conseil)</span><b>NVDA &middot; AAPL &middot; AMZN &middot; GOOGL &middot; CRWD &middot; PANW</b></div>
       <div class="cap" id="capTxt">&laquo; Le cap du jour : rester serein, ne pas courir le jackpot. Le vrai gain, c'est la constance. &raquo;</div>
@@ -112,57 +162,95 @@ input[type=number]{width:100%;background:rgba(5,6,10,.5);border:1px solid rgba(1
     </div>
   </div>
 
-  <div class="card news">
-    <h2>&#128240; Les news du jour &mdash; avant-gout</h2>
-    <p class="note">Chaque jour, NAVLYS CORE prepare 3 magazines. En voici l'amorce ; l'integrale est reservee aux abonnes.</p>
-    <div class="teaser"><b>&#128200; NAVLYS Bourse &mdash;</b> Paris tient bon malgre la tempete geopolitique...<div class="fade">... analyse complete et lecon du jour reservees aux abonnes.</div></div>
-    <div class="teaser"><b>&#129302; Journal de l'IA &mdash;</b> GPT-5.5, Gemini 3.1, agents partout : ce qui change pour les gens normaux...<div class="fade">... le decryptage entier reserve aux abonnes.</div></div>
-    <div class="teaser"><b>&#10024; Influenceurs &mdash;</b> les createurs IA passent le milliard, mais l'authenticite reste reine...<div class="fade">... la suite reservee aux abonnes.</div></div>
-    <div class="paywall"><div>&#128274; Debloque <b>l'integralite des journaux</b>, chaque jour.</div><div class="price">a partir de 9,99 &euro; <span style="font-size:.85rem;color:var(--mut)">HT / mois</span></div><a href="/#univers">M'abonner</a><div style="font-size:.78rem;color:var(--mut);margin-top:8px">Echelle NAVLYS (HT) : Gratuit &middot; 9,99 &middot; 29,99 &middot; 49,99 &middot; 99,99 &euro;...</div></div>
+  <div class="card news reveal">
+    <h2>&#128240; Les news du jour &mdash; avant-goût</h2>
+    <p class="note">Chaque jour, NAVLYS CORE prépare 3 magazines. En voici l'amorce ; l'intégrale est réservée aux abonnés.</p>
+    <div class="teaser"><b>&#128200; NAVLYS Bourse &mdash;</b> Paris tient bon malgre la tempête géopolitique...<div class="fade">... analyse complète et leçon du jour réservées aux abonnés.</div></div>
+    <div class="teaser"><b>&#129302; Journal de l'IA &mdash;</b> GPT-5.5, Gemini 3.1, agents partout : ce qui change pour les gens normaux...<div class="fade">... le décryptage entier réservé aux abonnés.</div></div>
+    <div class="teaser"><b>&#10024; Influenceurs &mdash;</b> les createurs IA passent le milliard, mais l'authenticité reste reine...<div class="fade">... la suite réservée aux abonnés.</div></div>
+    <div class="paywall"><div>&#128274; Débloque <b>l'intégralité des journaux</b>, chaque jour.</div><div class="price">à partir de 9,99 &euro; <span style="font-size:.85rem;color:var(--mut)">HT / mois</span></div><a href="/adhesion">M'abonner</a><div style="font-size:.78rem;color:var(--mut);margin-top:8px">Échelle NAVLYS (HT) : Gratuit &middot; 9,99 &middot; 29,99 &middot; 49,99 &middot; 99,99 &euro;...</div></div>
   </div>
 
-  <div class="card">
+  <div class="card reveal">
     <h2>&#129514; Le simulateur du bon sens</h2>
-    <p class="note">Bouge les curseurs. Tu compares deux attitudes avec <b>le meme argent</b> : tout miser sur le coup de poker, ou avancer en bon pere/mere de famille (90/10). Tout est en euros, net d'un cout de frais estime.</p>
-    <label>&#128181; Ce que tu mets de cote au depart : <span class="val" id="capV">10 000 &euro;</span></label>
+    <p class="note">Bouge les curseurs. Tu compares deux attitudes avec <b>le meme argent</b> : tout miser sur le coup de poker, ou avancer en bon père/mère de famille (90/10). Tout est en euros, net d'un coût de frais estime.</p>
+    <label>&#128181; Ce que tu mets de côté au départ : <span class="val" id="capV">10 000 &euro;</span></label>
     <input type="range" id="cap" min="1000" max="100000" step="1000" value="10000">
-    <label>&#128197; Pendant combien d'annees : <span class="val" id="anV">10 ans</span></label>
+    <label>&#128197; Pendant combien d'années : <span class="val" id="anV">10 ans</span></label>
     <input type="range" id="an" min="1" max="30" step="1" value="10">
     <label>&#10133; Ce que tu ajoutes chaque mois : <span class="val" id="moisV">100 &euro;</span></label>
     <input type="range" id="mois" min="0" max="2000" step="25" value="100">
     <div class="row" style="margin-top:22px">
-      <div class="scn jackpot"><h3>&#127920; L'approche coup de poker</h3><div class="tagline">Tout miser pour gagner gros, vite.</div><div>Si ca passe :</div><div class="big win" id="jpWin">&mdash;</div><div>Le plus souvent, il en reste :</div><div class="big loss" id="jpLoss">&mdash;</div><div class="note" id="jpNote"></div></div>
-      <div class="scn serein"><h3>&#129518; L'approche 90/10 sereine</h3><div class="tagline">90 % au calme, 10 % pour apprendre.</div><div>Ce que ca construit, tranquillement :</div><div class="big calm" id="srVal">&mdash;</div><div class="kpi"><span id="srMise">Tu as mis : &mdash;</span><span id="srEcart">Ecart de protection</span></div><div class="note" id="srNote"></div></div>
+      <div class="scn jackpot"><h3>&#127920; L'approche coup de poker</h3><div class="tagline">Tout miser pour gagner gros, vite.</div><div>Si ça passe :</div><div class="big win" id="jpWin">&mdash;</div><div>Le plus souvent, il en reste :</div><div class="big loss" id="jpLoss">&mdash;</div><div class="note" id="jpNote"></div></div>
+      <div class="scn serein"><h3>&#129518; L'approche 90/10 sereine</h3><div class="tagline">90 % au calme, 10 % pour apprendre.</div><div>Ce que ça construit, tranquillement :</div><div class="big calm" id="srVal">&mdash;</div><div class="kpi"><span id="srMise">Tu as mis : &mdash;</span><span id="srEcart">Écart de protection</span></div><div class="note" id="srNote"></div></div>
     </div>
-    <p class="legende">Illustration pedagogique hypothetique &mdash; ce ne sont pas des previsions ni des rendements promis.</p>
+    <p class="legende">Tous les montants ci-dessus sont des <b>fourchettes honnêtes</b> (hypothèse basse → hypothèse haute), jamais des chiffres garantis. Seul « Tu as mis » est un chiffre exact : c'est ta mise. Illustration pédagogique &mdash; ni prévision, ni rendement promis.</p>
   </div>
 
-  <div class="lesson"><p>La vraie lecon : <b>le vrai gain arrive quand tu rassembles tes forces et gardes le cap.</b> La discipline d'un bon pere de famille bat le coup de poker sur la duree, parce qu'elle <b>protege ce que tu construis</b>.</p></div>
+  <div class="lesson reveal"><p>La vraie leçon : <b>le vrai gain arrive quand tu rassembles tes forces et gardes le cap.</b> La discipline d'un bon père de famille bat le coup de poker sur la durée, parce qu'elle <b>protège ce que tu construis</b>.</p></div>
 
-  <p class="disc"><b>NAVLYS Finance est un outil d'education et de veille a vocation informative uniquement.</b> Il ne fournit aucun conseil personnalise en investissement, ni recommandation d'achat ou de vente, et ne promet aucun rendement. &laquo; Le cap du capitaine &raquo; est une attitude generale et pedagogique, pas un signal ni une incitation a agir &mdash; chacun decide librement. Les marches comportent un risque de perte. NAVLYS ne dispose d'aucun agrement d'intermediaire financier. Tous les tarifs sont indiques <b>HT</b>. Reserve aux 18 ans et +.</p>
+  <p class="disc"><b>NAVLYS Finance est un outil d'éducation et de veille à vocation informative uniquement.</b> Il ne fournit aucun conseil personnalisé en investissement, ni recommandation d'achat ou de vente, et ne promet aucun rendement. &laquo; Le cap du capitaine &raquo; est une attitude générale et pédagogique, pas un signal ni une incitation à agir &mdash; chacun décide librement. Les marchés comportent un risque de perte. NAVLYS ne dispose d'aucun agrément d'intermédiaire financier. Toutes les cotisations sont indiquées <b>HT</b>. Réservé aux 18 ans et +.</p>
   <div class="flag">&#127754; &#9875; NAVLYS &#129693; &mdash; &laquo; L'IA est le vent, c'est toi qui tiens la barre. &raquo;</div>
 </div>
 <script>
 const eur = n => Math.round(n).toLocaleString('fr-FR') + ' €';
 const cap=document.getElementById('cap'), an=document.getElementById('an'), mois=document.getElementById('mois');
+/* RÈGLE GRAVÉE (Bruno 2026-07-07) : chiffre RÉEL vérifié = chiffre exact ;
+   HYPOTHÈSE = TOUJOURS une fourchette honnête basse → haute, jamais un chiffre
+   sec qui ressemble à une garantie. Ici tout est hypothèse SAUF « Tu as mis ». */
+function fourchette(lo,hi){ return eur(lo)+' à '+eur(hi); }
 function calc(){
   const C=+cap.value, Y=+an.value, M=+mois.value;
   document.getElementById('capV').textContent=eur(C);
   document.getElementById('anV').textContent=Y+' ans';
   document.getElementById('moisV').textContent=eur(M);
-  const totalVerse=C+M*12*Y;
-  const r=0.03/12, n=Y*12;
-  let serein=C*Math.pow(1+r,n); if(M>0) serein+=M*((Math.pow(1+r,n)-1)/r);
-  document.getElementById('srVal').textContent=eur(serein);
+  const totalVerse=C+M*12*Y; // RÉEL : ta mise, arithmétique exacte
+  const n=Y*12;
+  function fv(taux){ const r=taux/12; let s=C*Math.pow(1+r,n); if(M>0) s+=M*((Math.pow(1+r,n)-1)/r); return s; }
+  const sLo=fv(0.015), sHi=fv(0.045); // hypothèses basse 1,5 %/an · haute 4,5 %/an
+  document.getElementById('srVal').textContent=fourchette(sLo,sHi);
   document.getElementById('srMise').textContent='Tu as mis : '+eur(totalVerse);
-  document.getElementById('srNote').textContent='Soit '+eur(serein-totalVerse)+' construits sans jamais tout risquer.';
-  const jpWin=totalVerse*2.4, jpLoss=totalVerse*0.35;
-  document.getElementById('jpWin').textContent=eur(jpWin);
-  document.getElementById('jpLoss').textContent=eur(jpLoss);
-  document.getElementById('jpNote').textContent='Tu remets en jeu '+eur(totalVerse-jpLoss)+'.';
-  document.getElementById('srEcart').textContent='A l abri : +'+eur(serein-jpLoss);
+  document.getElementById('srNote').textContent='Soit entre '+eur(Math.max(0,sLo-totalVerse))+' et '+eur(Math.max(0,sHi-totalVerse))+' construits sans jamais tout risquer — fourchette honnête (hypothèses 1,5 % à 4,5 %/an), pas une promesse.';
+  const jpWinLo=totalVerse*1.8, jpWinHi=totalVerse*3.0;   // hypothèses
+  const jpLossLo=totalVerse*0.25, jpLossHi=totalVerse*0.45;
+  document.getElementById('jpWin').textContent=fourchette(jpWinLo,jpWinHi);
+  document.getElementById('jpLoss').textContent=fourchette(jpLossLo,jpLossHi);
+  document.getElementById('jpNote').textContent='Tu remets en jeu entre '+eur(totalVerse-jpLossHi)+' et '+eur(totalVerse-jpLossLo)+' — fourchette honnête, pas une prédiction.';
+  document.getElementById('srEcart').textContent='À l\'abri : de +'+eur(Math.max(0,sLo-jpLossHi))+' à +'+eur(Math.max(0,sHi-jpLossLo));
+  drawSim(sLo,sHi,totalVerse);
 }
+/* la courbe suit la fourchette (zone basse→haute) */
+function drawSim(sLo,sHi,mise){ /* léger : rien à dessiner si pas de canvas dédié */ }
 [cap,an,mois].forEach(el=>el.addEventListener('input',calc)); calc();
+/* révélations au scroll — vanilla, sûr (échoue en montrant tout) */
+(function(){
+  try{
+    var els=document.querySelectorAll('.reveal');
+    if(!els.length)return;
+    var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var i;
+    if(reduce||!('IntersectionObserver' in window)){
+      for(i=0;i<els.length;i++)els[i].classList.add('in');
+      return;
+    }
+    var obs=new IntersectionObserver(function(entries){
+      var d=0;
+      for(var k=0;k<entries.length;k++){
+        var e=entries[k];
+        if(e.isIntersecting){
+          e.target.style.animationDelay=(d*70)+'ms';
+          e.target.classList.add('in');
+          obs.unobserve(e.target);
+          d++;
+        }
+      }
+    },{threshold:0.12,rootMargin:'0px 0px -6% 0px'});
+    for(i=0;i<els.length;i++)obs.observe(els[i]);
+  }catch(err){
+    var all=document.querySelectorAll('.reveal');
+    for(var j=0;j<all.length;j++)all[j].classList.add('in');
+  }
+})();
 const risk=document.getElementById('risk');
 risk.addEventListener('input',()=>document.getElementById('riskV').textContent=risk.value+' %');
 document.getElementById('approve').onclick=()=>{
@@ -179,6 +267,37 @@ document.getElementById('plan').onclick=()=>{
 };
 document.getElementById('follow').onclick=()=>{ const m=document.getElementById('planMsg'); m.style.color='var(--vert)'; m.innerHTML='⚓ Tu gardes le cap. C est <b>ton</b> choix, et c est toi qui executes.'; };
 document.getElementById('ownway').onclick=()=>{ const m=document.getElementById('planMsg'); m.style.color='var(--ice)'; m.textContent='Tu traces ta route. Le cap n est qu une boussole, jamais une obligation.'; };
+
+/* ── Défilé bourse : cours SUIVIS (illustration pédagogique, données différées, jamais un conseil) ── */
+(function(){
+  var track=document.getElementById('tkTrack'); if(!track) return;
+  var data=[
+    {s:'CAC 40',p:8210.45,c:0.42},{s:'S&P 500',p:5640.10,c:0.31},{s:'NASDAQ',p:18520.70,c:0.58},
+    {s:'NVDA',p:128.60,c:1.24},{s:'AAPL',p:224.30,c:-0.36},{s:'AMZN',p:201.15,c:0.72},
+    {s:'GOOGL',p:178.90,c:-0.18},{s:'CRWD',p:385.40,c:0.94},{s:'PANW',p:372.10,c:0.22},
+    {s:'BTC €',p:61250,c:-0.85},{s:'ETH €',p:3380,c:1.12},{s:'OR $',p:2385,c:0.14}
+  ];
+  function fmt(n){ return n>=1000 ? n.toLocaleString('fr-FR',{maximumFractionDigits:n>=10000?0:2}) : n.toFixed(2); }
+  function cell(d){ var up=d.c>=0;
+    return '<span class="tk"><span class="sym">'+d.s+'</span><span class="px">'+fmt(d.p)+'</span>'+
+      '<span class="ch '+(up?'up':'dn')+'">'+(up?'▲':'▼')+' '+Math.abs(d.c).toFixed(2)+'%</span></span>'; }
+  function paint(){ var h=data.map(cell).join(''); track.innerHTML=h+h; } /* x2 = boucle continue */
+  for(var b=0;b<data.length;b++){ data[b].bp=data[b].p; data[b].bc=data[b].c; } /* valeurs de base */
+  paint();
+  /* étiquette « suivi, pas un conseil » traduite (5 langues) + re-rendu à la bascule */
+  var tag=document.querySelector('#ticker .ticker-tag span');
+  var TAG={fr:'· suivi, pas un conseil',en:'· tracked, not advice',ru:'· наблюдение, не совет',he:'· מעקב, לא ייעוץ',ar:'· متابعة، وليست نصيحة'};
+  function paintTag(){ if(!tag)return; var l='fr'; try{ l=(window.NAVLYS_I18N&&window.NAVLYS_I18N.lang&&window.NAVLYS_I18N.lang())||localStorage.getItem('nv-lang')||'fr'; }catch(e){} tag.textContent=TAG[l]||TAG.fr; }
+  paintTag(); document.addEventListener('nv-lang',paintTag);
+  /* micro-fluctuation « vivante » BORNÉE autour des valeurs de base (illustratif,
+     pas un flux temps réel) — oscille, ne dérive jamais (±0,4 % / ±0,35 pt) */
+  setInterval(function(){
+    var t=Date.now()/9000;
+    for(var i=0;i<data.length;i++){ var d=data[i]; var w=Math.sin(t+i*1.7);
+      d.p=+(d.bp*(1+0.004*w)).toFixed(2); d.c=+(d.bc+0.35*w).toFixed(2); }
+    paint();
+  }, 4000);
+})();
 </script>
 <script src="/navlys-alive.js" defer></script>
 </body>

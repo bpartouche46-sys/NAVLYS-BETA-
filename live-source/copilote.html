@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>NAVLYS — Copilote vocal</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="/media/navlys_favicon.svg">
+<style>
+:root{--noir:#03040a;--ice:#7DD3FC;--ice-clair:#a8e3ff;--or:#C9A961;--or-pale:#f3e4c4;--perle:#e7eef2;--mut:#9fb3c8;--line:rgba(125,211,252,.16);--ok:#54d6a0}
+*{margin:0;padding:0;box-sizing:border-box}
+html{background:var(--noir)}
+body{background:radial-gradient(1000px 500px at 50% -8%,#0b1524,#03040a 62%);color:var(--perle);font-family:'Atkinson Hyperlegible',system-ui,sans-serif;min-height:100vh;-webkit-font-smoothing:antialiased}
+.wrap{max-width:700px;margin:0 auto;padding:26px 16px 90px}
+.brand{text-align:center;font-family:'Cinzel',serif;letter-spacing:.28em;color:var(--or-pale);font-size:26px}
+.sub{text-align:center;color:var(--ice);font-size:12px;letter-spacing:.24em;text-transform:uppercase;margin:4px 0 18px}
+.orbwrap{display:flex;flex-direction:column;align-items:center;gap:12px;margin:6px 0 16px}
+.orb{width:150px;height:150px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#12233b,#070f1c 70%);border:2px solid var(--line);display:flex;align-items:center;justify-content:center;position:relative;cursor:pointer;transition:.25s}
+.orb .ring{position:absolute;inset:-6px;border-radius:50%;border:2px solid transparent}
+.orb.live{border-color:var(--ice);box-shadow:0 0 32px rgba(125,211,252,.35)}
+.orb.live .ring{border-color:rgba(125,211,252,.4);animation:pulse 2.2s infinite}
+.orb.wake{border-color:var(--or);box-shadow:0 0 40px rgba(201,169,97,.5)}
+.orb.speak{border-color:var(--ok);box-shadow:0 0 34px rgba(84,214,160,.45)}
+@keyframes pulse{0%{transform:scale(1);opacity:.9}70%{transform:scale(1.18);opacity:0}100%{opacity:0}}
+.ic{font-size:44px}
+.state{font-size:13px;color:var(--mut);min-height:18px;text-align:center;padding:0 12px}
+.pill{display:inline-block;font-size:12px;color:var(--ice);border:1px solid var(--line);background:rgba(4,7,15,.6);border-radius:999px;padding:5px 12px;margin:2px}
+.btns{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:4px}
+button{font:inherit;cursor:pointer;border:1px solid var(--line);background:rgba(4,7,15,.6);color:var(--perle);border-radius:11px;padding:11px 15px;transition:.2s}
+button:hover{border-color:var(--ice)}
+button.gold{background:rgba(201,169,97,.1);border-color:rgba(201,169,97,.45);color:var(--or-pale)}
+.card{background:rgba(4,7,15,.62);border:1px solid var(--line);border-radius:14px;padding:15px 16px;margin:12px 0}
+.card h2{font-family:'Cinzel',serif;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ice-clair);margin-bottom:9px}
+.line{display:flex;gap:8px;align-items:flex-start;margin:7px 0;font-size:14px;line-height:1.45}
+.line .who{font-size:10px;text-transform:uppercase;color:var(--mut);min-width:52px;padding-top:3px}
+.bub{border-radius:10px;padding:8px 11px;flex:1;white-space:pre-wrap;text-shadow:0 1px 3px rgba(0,0,0,.5)}
+.line.u .bub{background:rgba(125,211,252,.1);border:1px solid var(--line)}
+.line.n .bub{background:rgba(4,7,15,.55);border:1px solid rgba(201,169,97,.22)}
+.hint{color:var(--mut);font-size:13px;line-height:1.6}
+.hint b{color:var(--ice-clair)}
+.warn{border-color:rgba(201,169,97,.35);background:rgba(201,169,97,.06)}
+.warn h2{color:var(--or-pale)}
+.foot{text-align:center;color:var(--mut);font-size:11px;margin-top:18px;line-height:1.6}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="brand">NAVLYS</div>
+  <div class="sub">Copilote vocal</div>
+
+  <div class="orbwrap">
+    <div id="orb" class="orb"><div class="ring"></div><div class="ic" id="ic">🎙️</div></div>
+    <div class="state" id="state">Touche l'orbe, puis dis « Hey NAVLYS ».</div>
+    <div><span class="pill" id="modePill">Veille</span><span class="pill">Voix FR</span></div>
+    <div class="btns">
+      <button class="gold" id="mainBtn">Activer l'écoute</button>
+      <button id="pttBtn">Parler une fois</button>
+      <button id="shBtn">Silence</button>
+    </div>
+  </div>
+
+  <div class="card"><h2>Conversation</h2><div id="log"></div></div>
+
+  <div class="card"><h2>Essaie de dire</h2><div class="hint">
+    « <b>Hey NAVLYS</b> » pour me réveiller, puis :<br>
+    • « quelle heure est-il » · « quelle est la date »<br>
+    • « mets ma playlist du matin » (ouvre Spotify)<br>
+    • « ouvre le cockpit » · « ouvre la finance »<br>
+    • « cherche sur le web les taux directeurs »<br>
+    • n'importe quelle question → je demande au CORE et je réponds à voix haute.
+  </div></div>
+
+  <div class="card warn"><h2>WhatsApp — la vérité</h2><div class="hint">
+    Lire tes <b>WhatsApp non lus</b> à voix haute est <b>impossible depuis un navigateur</b> (WhatsApp n'a aucune API pour la boîte perso). Sur <b>Android</b> il faut une petite app compagnon avec « Accès aux notifications ». Sur <b>iPhone</b>, pas de solution fiable. Ce bouton ouvre juste WhatsApp Web.
+    <div class="btns" style="justify-content:flex-start;margin-top:8px"><button id="waBtn">Ouvrir WhatsApp Web</button></div>
+  </div></div>
+
+  <div class="foot">Statut simple citoyen · aucune action sensible sans validation.<br>iOS : garde Safari <b>ouvert</b> (l'écoute ne marche pas en app installée / écran verrouillé).</div>
+</div>
+
+<script>
+(function(){
+  var ASSIST='https://hhrlgyvtqluxpywjiwkd.supabase.co/functions/v1/assistant';
+  var SESSION='copilote-bruno';
+  var PAGES={cockpit:'/cockpit',finance:'/finance',cinema:'/cinema',club:'/club',promo:'/promo',accueil:'/',equipage:'/equipage',assistance:'/assistance',bibles:'/bibles',tv:'/tv'};
+  var SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  var rec=null,listening=false,awake=false,wakeTimer=null;
+  function el(id){return document.getElementById(id);}
+  function setState(t){el('state').textContent=t;}
+  function setMode(m){el('modePill').textContent=m;}
+  function esc(s){return String(s==null?'':s).replace(/[&<>]/g,function(c){return c==='&'?'&amp;':c==='<'?'&lt;':'&gt;';});}
+  function orbClass(c){el('orb').className='orb'+(c?' '+c:'');}
+  function add(role,txt){
+    var log=el('log');var d=document.createElement('div');
+    d.className='line '+(role==='u'?'u':'n');
+    d.innerHTML='<span class="who">'+(role==='u'?'Toi':'NAVLYS')+'</span><span class="bub">'+esc(txt)+'</span>';
+    log.appendChild(d);log.scrollTop=log.scrollHeight;return d;
+  }
+  function speak(txt){
+    if(!('speechSynthesis' in window))return;
+    var u=new SpeechSynthesisUtterance(String(txt).replace(/[*_#>`]/g,''));
+    u.lang='fr-FR';u.rate=1;
+    u.onstart=function(){orbClass('speak');};
+    u.onend=function(){orbClass(listening?'live':'');};
+    speechSynthesis.cancel();speechSynthesis.speak(u);
+  }
+  function stopVoice(){if('speechSynthesis' in window)speechSynthesis.cancel();orbClass(listening?'live':'');}
+  function openUrl(u){window.open(u,'_blank');}
+  function reply(txt){add('n',txt);speak(txt);}
+  function matchPage(t){
+    if(t.indexOf('ouvre')<0)return null;
+    for(var k in PAGES){if(t.indexOf(k)>-1)return{name:k,url:PAGES[k]};}
+    return null;
+  }
+  function askCore(text){
+    var p=add('n','…');setState('NAVLYS réfléchit…');
+    fetch(ASSIST,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({session:SESSION,text:text})})
+      .then(function(r){return r.json();})
+      .then(function(d){var rep=(d&&d.reply)?d.reply:'Je n\'ai pas de réponse pour l\'instant.';p.querySelector('.bub').textContent=rep;speak(rep);})
+      .catch(function(){p.querySelector('.bub').textContent='Connexion difficile, réessaie.';speak('Connexion difficile, réessaie.');})
+      .then(function(){setState(listening?'À l\'écoute…':'En veille');});
+  }
+  function handle(text){
+    var t=text.toLowerCase().trim();add('u',text);
+    if(/quelle heure|il est quelle heure|l'heure/.test(t)){var d=new Date();reply('Il est '+d.getHours()+' heures '+d.getMinutes());return;}
+    if(/quel jour|quelle date|la date/.test(t)){var dd=new Date();reply('Nous sommes le '+dd.toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long',year:'numeric'}));return;}
+    if(/(mets|lance|joue).*(playlist|musique|spotify)|playlist du matin|ma musique/.test(t)){
+      reply('J\'ouvre Spotify. Pour lancer une playlist sans toucher l\'écran, il faudra activer la brique Spotify du CORE avec ton compte Premium.');
+      var q=t.replace(/.*(playlist|musique)/,'').trim();
+      openUrl(q?('https://open.spotify.com/search/'+encodeURIComponent(q)):'https://open.spotify.com');return;
+    }
+    var pg=matchPage(t);
+    if(pg){reply('J\'ouvre '+pg.name+'.');openUrl(pg.url);return;}
+    if(/(cherche|recherche|trouve|google)/.test(t)){
+      var q2=t.replace(/^(cherche|recherche|trouve|google)\s*(moi|sur le web|sur internet|le web)?/,'').trim();
+      if(q2){reply('Je cherche : '+q2);openUrl('https://www.google.com/search?q='+encodeURIComponent(q2));return;}
+    }
+    askCore(text);
+  }
+  function buildRec(){
+    if(!SR){setState('Ton navigateur ne gère pas la reconnaissance vocale. Essaie Chrome (Android/PC) ou Safari iOS.');el('mainBtn').disabled=true;return null;}
+    var r=new SR();r.lang='fr-FR';r.continuous=true;r.interimResults=false;
+    r.onresult=function(ev){
+      var said=ev.results[ev.results.length-1][0].transcript.trim();if(!said)return;
+      if(!awake){
+        if(/hey navlys|h[eé] navlys|ok navlys|navlys/i.test(said)){awake=true;orbClass('wake');setMode('Réveillé');setState('Je t\'écoute…');speak('Oui ?');armWake();}
+        return;
+      }
+      awake=false;clearTimeout(wakeTimer);orbClass(listening?'live':'');handle(said);setMode(listening?'À l\'écoute':'Veille');
+    };
+    r.onerror=function(ev){if(ev.error==='not-allowed'){setState('Micro refusé. Autorise le micro dans le navigateur.');stop();}};
+    r.onend=function(){if(listening){try{r.start();}catch(e){}}};
+    return r;
+  }
+  function armWake(){clearTimeout(wakeTimer);wakeTimer=setTimeout(function(){if(awake){awake=false;orbClass(listening?'live':'');setMode(listening?'À l\'écoute':'Veille');setState('J\'attends « Hey NAVLYS »…');}},9000);}
+  function start(){if(!rec)rec=buildRec();if(!rec)return;try{rec.start();}catch(e){}listening=true;orbClass('live');setMode('À l\'écoute');el('mainBtn').textContent='Couper l\'écoute';el('ic').textContent='👂';setState('Écoute active. Dis « Hey NAVLYS ».');}
+  function stop(){listening=false;awake=false;if(rec){try{rec.stop();}catch(e){}}orbClass('');setMode('Veille');el('mainBtn').textContent='Activer l\'écoute';el('ic').textContent='🎙️';setState('En veille. Touche l\'orbe pour reprendre.');}
+  function pushToTalk(){
+    if(!SR){setState('Reconnaissance vocale indisponible sur ce navigateur.');return;}
+    var one=new SR();one.lang='fr-FR';one.interimResults=false;one.continuous=false;
+    orbClass('wake');setState('Parle maintenant…');
+    one.onresult=function(ev){var s=ev.results[0][0].transcript.trim();orbClass(listening?'live':'');if(s)handle(s);};
+    one.onerror=function(){orbClass(listening?'live':'');setState('Je n\'ai pas entendu.');};
+    one.onend=function(){orbClass(listening?'live':'');};
+    try{one.start();}catch(e){}
+  }
+  el('orb').addEventListener('click',function(){listening?stop():start();});
+  el('mainBtn').addEventListener('click',function(){listening?stop():start();});
+  el('pttBtn').addEventListener('click',pushToTalk);
+  el('shBtn').addEventListener('click',stopVoice);
+  el('waBtn').addEventListener('click',function(){openUrl('https://web.whatsapp.com');});
+  if(!SR){setState('Navigateur non compatible (essaie Chrome Android/PC ou Safari iOS ouvert).');}
+  add('n','Bonjour Bruno. Touche l\'orbe puis dis « Hey NAVLYS ».');
+})();
+</script>
+</body>
+</html>

@@ -17,6 +17,14 @@
   .ui .dots span{animation:bl 1.4s infinite}.ui .dots span:nth-child(2){animation-delay:.2s}.ui .dots span:nth-child(3){animation-delay:.4s}
   @keyframes bl{0%,100%{opacity:.2}50%{opacity:1}}
   .top{position:fixed;top:22px;left:0;right:0;text-align:center;color:#9fc4d8;font-size:.78rem;letter-spacing:3px}
+  /* ── Animations NAVLYS : entrées douces des overlays (sobres) ── */
+  .top{animation:navFadeDown 1.2s ease .2s backwards}
+  .ui{animation:navFadeUp 1.4s ease .5s backwards}
+  @keyframes navFadeDown{from{opacity:0;transform:translateY(-8px)}}
+  @keyframes navFadeUp{from{opacity:0;transform:translateY(12px)}}
+  @media (prefers-reduced-motion:reduce){
+    *{animation-duration:.001ms!important;animation-delay:0s!important;animation-iteration-count:1!important}
+  }
 </style>
 </head>
 <body>
@@ -24,7 +32,7 @@
   <div class="top">N A V L Y S &nbsp;·&nbsp; C O R E</div>
   <div class="ui">
     <div class="lab">Intelligence en action</div>
-    <div class="st" id="st">Lecture des bases du client…</div>
+    <div class="st" id="st">Lecture des bases du membre…</div>
   </div>
 <script>
 var c=document.getElementById('c'),x=c.getContext('2d'),DPR=Math.min(devicePixelRatio||1,2),W,H,CX,CY;
@@ -72,7 +80,7 @@ function frame(t){
 }
 requestAnimationFrame(frame);
 // statuts qui défilent (digestion)
-var msgs=['Lecture des bases du client…','Analyse des souvenirs et documents…','Reconnaissance des visages et des dates…','Tri des meilleurs moments…','Composition du film…','Choix de la musique et du rythme…','Touche finale, lumière et émotion…'];
+var msgs=['Lecture des bases du membre…','Analyse des souvenirs et documents…','Reconnaissance des visages et des dates…','Tri des meilleurs moments…','Composition du film…','Choix de la musique et du rythme…','Touche finale, lumière et émotion…'];
 var mi=0,el=document.getElementById('st');
 setInterval(function(){mi=(mi+1)%msgs.length;el.style.opacity=0;setTimeout(function(){el.textContent=msgs[mi];el.style.opacity=1;},250);},2600);
 el.style.transition='opacity .25s';

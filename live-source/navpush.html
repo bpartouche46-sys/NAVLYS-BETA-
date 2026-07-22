@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>NAVPUSH — le plan de reconstruction & le budget</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Cormorant+Garamond:ital,wght@0,400;1,400&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="/media/navlys_favicon.svg">
+<style>
+:root{--noir:#03040a;--ice:#7DD3FC;--ice-clair:#a8e3ff;--or:#C9A961;--or-pale:#f3e4c4;--perle:#e7eef2;--mut:#9fb3c8;--line:rgba(125,211,252,.18)}
+*{margin:0;padding:0;box-sizing:border-box}
+html{background:var(--noir)}
+body{background:var(--noir);color:var(--perle);font-family:'Atkinson Hyperlegible',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+.wrap{max-width:760px;margin:0 auto;padding:34px 18px 90px}
+.k{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:var(--ice);text-align:center}
+h1{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:400;font-size:clamp(32px,8.5vw,52px);text-align:center;color:#eafaff;margin:8px 0 4px}
+.sub{text-align:center;color:var(--mut);font-size:1rem;max-width:36em;margin:0 auto 30px;line-height:1.7}
+h2{font-family:'Cinzel',serif;font-weight:600;font-size:15px;letter-spacing:.18em;text-transform:uppercase;color:var(--or);
+  display:flex;align-items:center;gap:12px;margin:38px 0 16px}
+h2::after{content:"";flex:1;height:1px;background:var(--line)}
+p{line-height:1.75;margin-bottom:12px;max-width:38em}
+.note{color:var(--mut);font-size:.9rem;line-height:1.7}
+/* tableaux budget */
+.tbl{width:100%;border-collapse:collapse;margin:10px 0 6px;font-size:.95rem}
+.tbl th{font-family:'Cinzel',serif;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ice);
+  text-align:left;padding:9px 8px;border-bottom:1px solid var(--line)}
+.tbl td{padding:10px 8px;border-bottom:1px solid rgba(125,211,252,.08);vertical-align:top;line-height:1.5}
+.tbl td.n{white-space:nowrap;font-variant-numeric:tabular-nums;color:var(--ice-clair);font-weight:700}
+.tbl tr.total td{border-top:2px solid rgba(233,211,160,.5);border-bottom:none;color:var(--or-pale);font-weight:700;font-size:1.05rem}
+.scroll{overflow-x:auto}
+.badge{display:inline-block;font-size:.72rem;font-weight:700;border-radius:999px;padding:2px 9px;margin-left:6px;vertical-align:1px}
+.badge.zero{color:#34d399;border:1px solid rgba(52,211,153,.45)}
+.badge.deja{color:var(--mut);border:1px solid var(--line)}
+/* prompt maître */
+.promptbox{position:relative;border:1px solid rgba(233,211,160,.35);border-radius:16px;background:rgba(5,7,14,.75);overflow:hidden}
+.promptbox pre{white-space:pre-wrap;word-break:break-word;padding:20px 16px;font-family:ui-monospace,Menlo,Consolas,monospace;
+  font-size:.82rem;line-height:1.6;color:#dfe8f2;max-height:70vh;overflow:auto}
+.copybtn{position:sticky;top:0;display:flex;justify-content:flex-end;padding:10px 12px;background:linear-gradient(180deg,rgba(5,7,14,.95),rgba(5,7,14,.7));border-bottom:1px solid var(--line)}
+.copybtn button{border:none;cursor:pointer;font-family:'Cinzel',serif;font-size:12px;letter-spacing:.08em;text-transform:uppercase;
+  color:#04121c;font-weight:700;background:linear-gradient(90deg,var(--or),var(--or-pale));border-radius:999px;padding:11px 20px;min-height:44px}
+.disc{text-align:center;color:var(--mut);font-size:.85rem;margin-top:34px;line-height:1.7}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="k">NAVPUSH · reconstruire &amp; budgéter</div>
+  <h1>Le plan complet, en une page</h1>
+  <p class="sub">Deux trésors : le <b>prompt maître</b> qui permet de recréer tout un écosystème comme navlys.com
+  (branches vides, prêtes à remplir pour une application ou un lot d'applications), et le <b>budget mensuel réel</b>,
+  prestataire par prestataire, dès le premier mois.</p>
+
+  <!-- ======================= BUDGET ======================= -->
+  <h2>💶 Budget mensuel — aujourd'hui (bêta, juillet)</h2>
+  <p class="note">Ce dont on a <b>réellement</b> besoin ce mois-ci pour tout faire tourner. Les gratuits suffisent tant que le trafic est celui d'une bêta.</p>
+  <div class="scroll"><table class="tbl">
+    <tr><th>Prestataire</th><th>Rôle</th><th>Besoin réel / mois</th><th>€ / mois</th></tr>
+    <tr><td>Vercel <span class="badge zero">gratuit</span></td><td>Affichage du site (navlys.com)</td><td>Plan Hobby — largement suffisant en bêta</td><td class="n">0 €</td></tr>
+    <tr><td>Supabase <span class="badge zero">gratuit</span></td><td>Le cerveau : base, agents, crons, briques</td><td>Plan Free — 500 Mo base, 500k appels Edge</td><td class="n">0 €</td></tr>
+    <tr><td>Anthropic (Claude)</td><td>Concierge SAV + agents</td><td>≈ 1 000–2 000 conversations SAV (Haiku : ~5k tokens entrée + 300 sortie par échange ≈ 0,006 €/échange)</td><td class="n">≈ 10 €</td></tr>
+    <tr><td>ElevenLabs</td><td>TA voix clonée (Aide, scène, clips)</td><td>Plan Starter : 30 000 crédits ≈ 30 min d'audio — assez pour l'accueil + réponses vocales de bêta</td><td class="n">≈ 5 €</td></tr>
+    <tr><td>fal.ai</td><td>Images/avatars (à l'usage, pas d'abo)</td><td>~10–20 générations d'images de promo</td><td class="n">≈ 5 €</td></tr>
+    <tr><td>HeyGen <span class="badge zero">gratuit</span></td><td>Vidéos avatar / rendus cloud</td><td>Plan Free pour les tests</td><td class="n">0 €</td></tr>
+    <tr><td>Zapier <span class="badge zero">gratuit</span></td><td>Ponts (mail, voix, publications)</td><td>Free : 100 tâches/mois — OK en bêta</td><td class="n">0 €</td></tr>
+    <tr><td>Domaine navlys.com</td><td>Le nom</td><td>~12 €/an lissé</td><td class="n">1 €</td></tr>
+    <tr><td>Google Workspace <span class="badge deja">déjà en cours</span></td><td>bruno@navlys.com, Gmail, Drive</td><td>1 utilisateur</td><td class="n">≈ 7 €</td></tr>
+    <tr><td>Hetzner <span class="badge deja">optionnel</span></td><td>Worker permanent + Telegram</td><td>CPX11 — seulement si on l'allume</td><td class="n">0–5 €</td></tr>
+    <tr class="total"><td colspan="3">TOTAL réel du mois (bêta)</td><td class="n">≈ 28–33 €</td></tr>
+  </table></div>
+
+  <h2>💶 Budget mensuel — à l'ouverture (trafic réel)</h2>
+  <p class="note">À passer <b>seulement quand la traction arrive</b> — chaque ligne se déclenche indépendamment, jamais avant d'en avoir besoin.</p>
+  <div class="scroll"><table class="tbl">
+    <tr><th>Prestataire</th><th>Déclencheur du passage payant</th><th>Plan</th><th>€ / mois</th></tr>
+    <tr><td>Vercel Pro</td><td>Trafic soutenu, analytics, plusieurs membres</td><td>Pro 20 $</td><td class="n">≈ 19 €</td></tr>
+    <tr><td>Supabase Pro</td><td>Sauvegardes 7 j, base &gt; 500 Mo, pas de mise en pause</td><td>Pro 25 $</td><td class="n">≈ 24 €</td></tr>
+    <tr><td>Anthropic (Claude)</td><td>5 000–15 000 conversations SAV + agents quotidiens</td><td>à l'usage (Haiku + un peu de Sonnet)</td><td class="n">30–60 €</td></tr>
+    <tr><td>ElevenLabs Creator</td><td>Voix sur toutes les réponses + clips réguliers</td><td>Creator : 100k crédits ≈ 100 min</td><td class="n">≈ 21 €</td></tr>
+    <tr><td>HeyGen Creator</td><td>Clips avatar hebdomadaires (promos, next-gen)</td><td>Creator</td><td class="n">≈ 24 €</td></tr>
+    <tr><td>Zapier Starter</td><td>&gt; 100 tâches automatiques/mois</td><td>Starter</td><td class="n">≈ 19 €</td></tr>
+    <tr><td>Hetzner</td><td>Worker 24/7 + bot Telegram MasterNav</td><td>CPX11</td><td class="n">≈ 5 €</td></tr>
+    <tr><td>fal.ai</td><td>Génération d'images/avatars réguliers</td><td>à l'usage</td><td class="n">10–20 €</td></tr>
+    <tr><td>Domaine + Workspace</td><td>—</td><td>—</td><td class="n">≈ 8 €</td></tr>
+    <tr class="total"><td colspan="3">TOTAL à l'ouverture</td><td class="n">≈ 160–200 €</td></tr>
+  </table></div>
+
+  <p class="note">📏 <b>Les « tokens » réels, par prestataire :</b> Anthropic compte en <b>tokens</b>
+  (Haiku ≈ 1 € le million en entrée, 5 € le million en sortie — un échange SAV ≈ 0,006 €) ;
+  ElevenLabs compte en <b>crédits ≈ caractères</b> (1 000 crédits ≈ 1 minute de voix) ;
+  HeyGen compte en <b>crédits vidéo</b> (≈ 1 crédit la minute d'avatar) ;
+  fal.ai compte en <b>€ par génération</b> (image ≈ 0,03–0,08 €, vidéo avatar ≈ 0,30–0,60 €) ;
+  Zapier compte en <b>tâches</b> (1 envoi = 1 tâche). Vercel/Supabase comptent en trafic/stockage — gratuits à mon échelle actuelle.</p>
+
+  <!-- ======================= PROMPT MAÎTRE ======================= -->
+  <h2>🧬 Le prompt maître — recréer tout, branches vides</h2>
+  <p class="note">À donner tel quel à une IA (Claude) pour reconstruire un écosystème complet comme navlys.com —
+  pour une application ou un lot d'applications. Remplis les champs <b>{{…}}</b>, laisse les branches vides se remplir au fil de l'eau.</p>
+
+  <div class="promptbox">
+    <div class="copybtn"><button id="b-copy">📋 Copier le prompt</button></div>
+    <pre id="leprompt">Tu es l'architecte-orchestrateur d'un écosystème d'applications vivant, construit et publié EN LIGNE en continu. Construis-le exactement selon ce plan, sans jamais attendre la perfection en local.
+
+═══ 1. IDENTITÉ ═══
+- Nom du projet : {{NOM_PROJET}}
+- Domaine : {{DOMAINE}}
+- Porteur : {{PORTEUR}} — statut : {{STATUT_LEGAL}} (adapte tous les contenus à ce statut ; si « simple citoyen » : éducatif uniquement, jamais de conseil personnalisé, jamais de promesse de résultat).
+- Mission en une phrase : {{MISSION}}
+- Philosophie / ton : {{PHILOSOPHIE}} (ex. : zen, serein, chaleureux ; on s'adresse à UNE personne, par son prénom, tutoiement toujours ; phrases courtes ; jamais de jargon).
+- Devise : {{DEVISE}}
+
+═══ 2. CHARTE VISUELLE ═══
+- Couleur principale : {{COULEUR_1}} · Accent : {{COULEUR_2}} · Fond : {{FOND}} (sombre).
+- Interdits absolus : {{COULEURS_INTERDITES}}.
+- Typographies : {{TYPO_TITRES}} (titres), {{TYPO_TEXTE}} (texte, haute lisibilité).
+- Textes GROS et AÉRÉS partout : corps ≥ 1.2rem, interligne ≥ 1.8, phrases courtes, retours à la ligne, jamais de pavé.
+- Emblème/logo : {{DESCRIPTION_LOGO}} — décliné en icônes PWA (72→512 + maskable) + favicon.
+
+═══ 3. ARCHITECTURE (la colonne vertébrale) ═══
+- AFFICHAGE : site 100 % statique (HTML/CSS/JS vanilla ES5, zéro framework, zéro build) déployé sur Vercel depuis la branche main d'un repo Git. Chaque push = mise en ligne immédiate.
+- CERVEAU : Supabase — Postgres (tables mémoire), Edge Functions (briques serveur), pg_cron (routines 24/7), Storage. Secrets UNIQUEMENT dans les secrets Supabase, jamais dans Git.
+- PWA : manifest.webmanifest + service worker NETWORK-FIRST pour pages et JS (leçon : le cache-first fige l'ancien code sur les téléphones), stale-while-revalidate pour images, VERSION bumpée à chaque changement.
+- COUCHE VIVANTE : un seul fichier partagé (ex. {{NOM}}-alive.js) inclus sur chaque page : décor animé, barre de navigation, bulle SAV (bas-droite), bouton feedback (bas-gauche), lisibilité, compte à rebours, langues.
+- i18n AUTONOME : un fichier dictionnaire FR→XX (clés = phrases sources normalisées), bascule DOM par TreeWalker + attributs, MutationObserver pour le contenu dynamique, localStorage, langue par défaut = celle du navigateur. Chaque nouvelle langue est validée par BACK-TRANSLATION vers une langue déjà sûre avant publication.
+
+═══ 4. DOCTRINE DE TRAVAIL (non négociable) ═══
+- TOUJOURS EN LIGNE D'ABORD : publier live, puis corriger AVEC la communauté (le bouton feedback est le moteur officiel de correction : lire → appliquer → répondre).
+- EN PAGES : chaque nouvel élément = une nouvelle page isolée (/{{page}}) qui ne peut rien casser.
+- TESTER AVANT DE PUBLIER : node --check sur chaque JS, extraction+check des scripts inline des HTML, contrôle charte (grep des couleurs interdites), rendu mobile vérifié (capture).
+- JAMAIS « fait/prêt » sans preuve réelle (requête sur la prod, test en direct).
+- RÈGLES GRAVÉES : chaque question qui se répète devient une règle écrite (table core_reglement + fichier CLAUDE.md = mémoire de session). Réponse par défaut : OUI, avancer. Seule exception : un vrai débit d'argent → signalement d'une ligne, puis agir.
+- AUTONOMIE : toute dépendance externe instable est contournée ou remplacée par une brique interne. Auto-test quotidien (note /100), auto-amélioration (mission ciblée sur le point faible), auto-cicatrisation des incidents (règles permanentes).
+
+═══ 5. BRIQUES SERVEUR À CRÉER (Edge Functions) ═══
+- assistant : concierge SAV — répond au nom du porteur, sa philosophie, tutoiement + prénom, ancré sur la FAQ (table core_faq), répond dans la LANGUE de la personne (l'alphabet du message gagne), garde-fous stricts, fallback statique multilingue hors-LLM.
+- voix : TTS voix clonée du porteur (ElevenLabs, réglages expressifs), lecture tolérante des noms de clés, voix par défaut = {{VOICE_ID}}.
+- retour : reçoit les feedbacks du bouton bas-gauche (type critique/remarque/suggestion + portée perso/communauté + page d'origine) → table core_feedback + journal + routage incident si critique.
+- veilleur : contrôle de santé de toutes les pages (HTTP 200 + contenus attendus) + création de contenus.
+- sauvegarde : export régulier des tables critiques (mirroring).
+- inscription / paiement / passerelle : selon le modèle économique {{MODELE_ECO}} (vocabulaire : « cotisation/adhésion », JAMais « prix/tarif » pour l'adhésion).
+
+═══ 6. TABLES MÉMOIRE (Supabase) ═══
+journal (tout événement) · agents (l'équipage : {{NB_AGENTS}} agents, prénom+handle+mode) · missions (file de travail) · core_faq (encyclopédie SAV) · core_feedback (retours communauté) · core_incidents + core_incident_rules (auto-cicatrisation) · core_reglement (règles gravées) · navlys_memoire→{{NOM}}_memoire (doctrines) · core_config (interrupteurs) · sav_messages (conversations).
+
+═══ 7. LES BRANCHES — le lot d'applications (VIDES, à remplir une par une) ═══
+Chaque branche = une page live isolée + ses briques. Ne construis une branche que lorsqu'elle est demandée ; laisse les autres vides.
+- Branche 1 · {{APP_1_NOM}} : {{APP_1_PROMESSE}} — page /{{APP_1_SLUG}} — mode éco : {{APP_1_MODELE}}
+- Branche 2 · {{APP_2_NOM}} : …
+- Branche 3 · {{APP_3_NOM}} : …
+- Branche 4 · {{APP_4_NOM}} : …
+- Branche 5 · {{APP_5_NOM}} : …
+- (ajoute autant de branches que nécessaire ; chacune hérite automatiquement de : la charte, la couche vivante, l'i18n, le SAV concierge, le bouton feedback, la PWA.)
+
+═══ 8. COMMUNAUTÉ & CROISSANCE ═══
+- Parrainage : crédits par filleul prouvé, paliers de récompense (mois offerts) — tables core_credits/core_parrainage.
+- Cagnotte communautaire visible qui monte, redistribuée aux membres (esprit : premiers embarqués mieux récompensés).
+- Presse/ambassadeurs : accès offert aux créateurs/journalistes qui racontent le projet.
+
+═══ 9. ORDRE DE CONSTRUCTION (fais-le dans cet ordre) ═══
+1. Repo Git + Vercel branché sur main + page d'accueil charte + PWA (manifest+SW network-first).
+2. Supabase : tables mémoire + secrets + première brique assistant (concierge FAQ).
+3. Couche vivante partagée (nav + SAV + feedback + lisibilité) incluse sur chaque page.
+4. i18n (langue 2 complète, validée par back-translation) + langue auto.
+5. Briques voix/retour/veilleur/sauvegarde + crons (santé, auto-test quotidien).
+6. Branches d'applications, une par une, à la demande — toujours en ligne, toujours testées.
+7. Communauté (parrainage, cagnotte) puis paiement ({{MODELE_ECO}}).
+
+À chaque étape : publie, vérifie en production, journalise, grave les règles apprises, et continue sans t'arrêter.</pre>
+  </div>
+
+  <p class="disc">NAVPUSH · {{NOM_PROJET}} = NAVLYS pour moi — ce prompt est le plan réel qui a construit navlys.com.<br>
+  Statut simple citoyen — information générale.</p>
+</div>
+
+<script>
+(function(){
+  var b=document.getElementById('b-copy');
+  b.onclick=function(){
+    var t=document.getElementById('leprompt').textContent;
+    function done(){ b.textContent='✓ Copié — colle-le où tu veux'; setTimeout(function(){ b.textContent='📋 Copier le prompt'; },2600); }
+    if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(t).then(done,function(){ fallback(); }); }
+    else fallback();
+    function fallback(){
+      var ta=document.createElement('textarea'); ta.value=t; document.body.appendChild(ta); ta.select();
+      try{ document.execCommand('copy'); done(); }catch(e){}
+      document.body.removeChild(ta);
+    }
+  };
+})();
+</script>
+<script src="/navlys-alive.js" defer></script>
+</body>
+</html>

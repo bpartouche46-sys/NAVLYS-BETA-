@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Mon profil NAVLYS — mes applications & paramétrages</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Cormorant+Garamond:ital,wght@0,400;1,400&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="/media/navlys_favicon.svg">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="robots" content="noindex">
+<style>
+:root{--noir:#05060a;--ice:#7DD3FC;--ice-clair:#a8e3ff;--or:#e9d3a0;--perle:#e7eef2;--mut:#9fb3c8;--line:rgba(125,211,252,.18);--ok:#34d399}
+*{margin:0;padding:0;box-sizing:border-box}
+html{background:var(--noir)}
+body{background:var(--noir);color:var(--perle);font-family:'Atkinson Hyperlegible',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+.wrap{max-width:720px;margin:0 auto;padding:34px 16px 110px}
+.k{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:var(--ice);text-align:center}
+h1{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:400;font-size:clamp(28px,7vw,42px);text-align:center;color:#eafaff;margin:8px 0 4px}
+.sub{text-align:center;color:var(--mut);font-size:.98rem;margin:0 auto 24px;line-height:1.7;max-width:36em}
+h2{font-family:'Cinzel',serif;font-weight:600;font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--or);display:flex;align-items:center;gap:12px;margin:26px 0 12px}
+h2::after{content:"";flex:1;height:1px;background:var(--line)}
+.carte{background:rgba(6,8,16,.72);border:1px solid var(--line);border-radius:15px;padding:16px}
+.ligne{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px solid rgba(125,211,252,.08);font-size:.95rem}
+.ligne:last-child{border-bottom:none}
+.ligne .l{color:var(--mut)}
+.ligne .v{color:#eafaff;font-weight:700;text-align:right}
+.ligne .v.ok{color:var(--ok)}
+.champ{background:rgba(6,8,16,.7);border:1px solid var(--line);border-radius:12px;padding:11px 13px;margin-bottom:9px}
+.champ label{display:block;font-size:.78rem;color:var(--mut);margin-bottom:5px}
+.champ input,.champ select{width:100%;background:none;border:none;outline:none;color:var(--ice-clair);font-size:1.05rem;font-weight:700}
+.champ select option{background:#0a0c14;color:var(--perle)}
+.apps{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:9px}
+.app{display:flex;align-items:center;gap:10px;background:rgba(6,8,16,.72);border:1px solid var(--line);border-radius:13px;padding:10px 12px;cursor:pointer}
+.app.on{border-color:var(--ice);background:rgba(125,211,252,.08)}
+.app b{font-size:.92rem;color:#eafaff}
+.app small{display:block;color:var(--mut);font-size:.78rem}
+.btn{display:inline-block;border:1px solid rgba(125,211,252,.45);background:rgba(125,211,252,.1);color:var(--ice-clair);border-radius:11px;padding:11px 16px;font-weight:700;cursor:pointer;font-family:'Atkinson Hyperlegible',sans-serif;margin:10px 8px 0 0;text-decoration:none;font-size:.95rem}
+.btn.or{border:none;background:linear-gradient(100deg,var(--or),#fff6df,var(--or));color:var(--noir)}
+.etat{color:var(--or);font-size:.92rem;margin-top:10px;min-height:1.3em;line-height:1.6}
+.disc{text-align:center;color:var(--mut);font-size:.83rem;margin-top:32px;line-height:1.75}
+#p-vide{display:none;text-align:center;padding:40px 10px}
+#p-corps{display:none}
+.mini{color:var(--mut);font-size:.86rem;line-height:1.6;margin-bottom:12px}
+.dossier{display:flex;align-items:flex-start;gap:10px;background:rgba(6,8,16,.72);border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin-bottom:8px}
+.dossier .d-body{flex:1;min-width:0}
+.dossier b{font-size:.94rem;color:#eafaff;display:block;word-break:break-word}
+.dossier small{display:block;color:var(--mut);font-size:.8rem;word-break:break-word}
+.dossier a{color:var(--ice-clair);text-decoration:none}
+.dossier .d-x{flex:0 0 auto;border:1px solid rgba(233,90,90,.4);background:rgba(233,90,90,.1);color:#f0a8a8;border-radius:9px;padding:4px 9px;cursor:pointer;font-size:.85rem}
+.autor{align-items:center;justify-content:space-between}
+.autor .sw{flex:0 0 auto;width:42px;height:24px;border-radius:999px;background:rgba(125,211,252,.14);border:1px solid var(--line);position:relative;transition:.2s}
+.autor.on .sw{background:rgba(52,211,153,.28);border-color:var(--ok)}
+.autor .sw::after{content:"";position:absolute;top:2px;left:2px;width:18px;height:18px;border-radius:50%;background:#cfe6f5;transition:.2s}
+.autor.on .sw::after{left:20px;background:var(--ok)}
+#p-site{background:linear-gradient(160deg,rgba(2,8,20,.8),rgba(6,8,16,.9));border:1px solid rgba(125,211,252,.4)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="k">✦ Ton espace · réel, mobile &amp; ordinateur</div>
+  <h1 id="p-titre">Mon profil</h1>
+  <p class="sub" id="p-sous">…</p>
+
+  <div id="p-vide">
+    <p class="sub">Je ne trouve pas encore ton accès sur cet appareil.</p>
+    <a class="btn or" href="/adhesion">Je m'enregistre en 30 secondes</a>
+  </div>
+
+  <div id="p-corps">
+    <h2>Ma formule</h2>
+    <div class="carte" id="p-formule"></div>
+    <a class="btn" href="/adhesion">Monter de formule — 🎁 −50 % à vie (offre de lancement)</a>
+
+    <h2>Mes applications</h2>
+    <div class="apps" id="p-apps"></div>
+    <p class="etat" id="p-etat-apps"></p>
+
+    <h2>Mon site NAVLYS</h2>
+    <div class="carte" id="p-site">
+      <div class="ligne"><span class="l">Ton espace</span><span class="v ok">créé — il vit ici</span></div>
+      <div class="ligne"><span class="l">Ton adresse</span><span class="v" id="p-site-url">navlys.com/moi</span></div>
+      <p class="mini" style="margin-top:10px">Dès ton inscription, ton espace est ouvert. Ajoute tes dossiers ci-dessous et dis à NAVLYS ce qu'il peut faire : ta page se construit toute seule, à la voix, depuis ton téléphone.</p>
+      <a class="btn or" id="p-site-open" href="/next-gen">Construire ma page →</a>
+    </div>
+
+    <h2>Mes dossiers &amp; fichiers</h2>
+    <div class="carte">
+      <p class="mini">Ajoute les dossiers, liens ou notes que NAVLYS doit connaître pour travailler pour toi. Tout reste privé, chez toi — jamais revendu, jamais public.</p>
+      <div id="p-dossiers"></div>
+      <div class="champ"><label>Nom du dossier / du fichier</label><input id="d-nom" type="text" maxlength="80" placeholder="Ex. : Mes contrats 2026"></div>
+      <div class="champ"><label>Lien (optionnel — Drive, Dropbox, une URL…)</label><input id="d-url" type="url" maxlength="400" placeholder="https://…"></div>
+      <div class="champ"><label>Note pour NAVLYS (optionnel)</label><input id="d-note" type="text" maxlength="160" placeholder="Ce que tu veux que j'en fasse"></div>
+      <button class="btn or" id="d-add">➕ Ajouter à mon espace</button>
+      <p class="etat" id="d-etat"></p>
+    </div>
+
+    <h2>Mes autorisations</h2>
+    <div class="carte">
+      <p class="mini">Tu décides ce que NAVLYS a le droit de faire pour toi. Tu peux changer d'avis à tout moment — et rien de sensible ne part sans ta validation.</p>
+      <div id="p-autor"></div>
+      <p class="etat" id="p-etat-autor"></p>
+    </div>
+
+    <h2>Mes paramétrages</h2>
+    <div class="champ"><label>Mon prénom (on se parle par le prénom)</label><input id="p-prenom" type="text" autocomplete="given-name"></div>
+    <div class="champ"><label>Ma langue</label>
+      <select id="p-lang">
+        <option value="fr">Français</option><option value="en">English</option><option value="ru">Русский</option>
+        <option value="es">Español</option><option value="pt">Português</option><option value="it">Italiano</option>
+        <option value="de">Deutsch</option><option value="nl">Nederlands</option><option value="wa">Walon</option>
+        <option value="zh">中文</option><option value="hi">हिन्दी</option><option value="bn">বাংলা</option>
+        <option value="he">עברית</option><option value="ar">العربية</option><option value="ur">اردو</option>
+      </select>
+    </div>
+    <div class="champ"><label>La voix NAVLYS me répond à voix haute</label>
+      <select id="p-voix"><option value="oui">Oui, je veux l'entendre</option><option value="non">Non, en silence</option></select>
+    </div>
+    <button class="btn or" id="p-save">Enregistrer mes paramétrages</button>
+    <button class="btn" id="p-install" style="display:none">📲 Installer NAVLYS sur cet appareil</button>
+    <button class="btn" id="p-quit">Me déconnecter d'ici</button>
+    <p class="etat" id="p-etat"></p>
+  </div>
+
+  <p class="disc">Ton profil vit chez NAVLYS, en sécurité — jamais revendu, jamais public.
+  Cotisations hors taxes. Contenu éducatif uniquement, statut simple citoyen.</p>
+</div>
+
+<script>
+(function(){
+  'use strict';
+  var $=function(id){return document.getElementById(id);};
+  var COMPTE='https://hhrlgyvtqluxpywjiwkd.supabase.co/functions/v1/compte';
+  var NOMS={essai:'Essai libre',n1:'Entrée',n2:'Duo',n3:'Trio',n4:'Grand large',univers:'Univers NAVLYS',universplus:'Univers Plus',integral:'Univers Intégral',
+    cadeau1:'Coffret Cadeau (1 an)',cadeau2:'Package Double (1 an)',cadeau3:'Package Triple (1 an)',coffret:'Coffret 1 an',
+    palier1:'Entrée',palier2:'Duo',palier3:'Trio',palier4:'Grand large',palier5:'Cap au nord',palier6:'Univers entier'};
+  var UNIQUES={cadeau1:1,cadeau2:1,cadeau3:1,coffret:1};
+  var APPS=[
+    {code:'accueil',nom:'L\'Univers NAVLYS',url:'/'},{code:'finance',nom:'Finance',url:'/finance'},
+    {code:'next-gen',nom:'Next Gen — biographie',url:'/next-gen'},{code:'assistance',nom:'L\'Aide & le Concierge',url:'/assistance'},
+    {code:'radio',nom:'Radio NAVLYS',url:'/radio'},{code:'navlex',nom:'NAVLEX',url:'/navlex'},
+    {code:'mer',nom:'La Mer',url:'/mer'},{code:'cinema',nom:'Cinéma',url:'/cinema'},
+    {code:'cockpit',nom:'Cockpit personnel',url:''},{code:'navjeu',nom:'NAVJEU',url:''}
+  ];
+  /* Autorisations : ce que NAVLYS a le droit de faire pour le membre. Rien de
+     sensible activé par défaut (doctrine garde-fou humain — Bible §6). */
+  var AUTOR=[
+    {code:'site',nom:'Créer & publier ma page',desc:'NAVLYS construit mon mini-site',def:true},
+    {code:'fichiers',nom:'Gérer mes dossiers & fichiers',desc:'lire et organiser ce que j\'ajoute',def:true},
+    {code:'ecrire',nom:'M\'écrire (rappels, nouveautés)',desc:'par e-mail, jamais de spam',def:false},
+    {code:'agir',nom:'Agir en mon nom',desc:'préparer des actions — tu valides toujours avant',def:false}
+  ];
+  function esc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+  /* Fusionne toujours l'ensemble des params (voix + dossiers + autorisations)
+     pour ne jamais en écraser une partie lors d'un enregistrement. */
+  function paramsMerge(extra){ var p={}; if(M&&M.params) for(var k in M.params){ p[k]=M.params[k]; } if(extra) for(var j in extra){ p[j]=extra[j]; } return p; }
+  function slug(s){ return String(s||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'').slice(0,24); }
+  function renderDossiers(){
+    var box=$('p-dossiers'); if(!box) return;
+    var list=(M.params&&M.params.dossiers)||[];
+    if(!list.length){ box.innerHTML='<p class="mini" style="margin:0">Aucun dossier pour l\'instant — ajoute le premier ci-dessous.</p>'; return; }
+    var h=''; list.forEach(function(d,idx){
+      var lien=d.url?('<small><a href="'+esc(d.url)+'" target="_blank" rel="noopener">'+esc(d.url)+'</a></small>'):'';
+      var note=d.note?('<small>'+esc(d.note)+'</small>'):'';
+      h+='<div class="dossier"><div class="d-body"><b>'+esc(d.nom||'Dossier')+'</b>'+lien+note+'</div><button class="d-x" data-i="'+idx+'" title="Retirer">✕</button></div>';
+    });
+    box.innerHTML=h;
+    Array.prototype.forEach.call(box.querySelectorAll('.d-x'),function(b){
+      b.onclick=function(){ var i=+b.getAttribute('data-i'); var arr=((M.params&&M.params.dossiers)||[]).slice(); arr.splice(i,1);
+        post({action:'maj',token:token,params:paramsMerge({dossiers:arr})}).then(function(r){ if(r&&r.ok){ M=r.membre; renderDossiers(); $('d-etat').textContent='Retiré de ton espace.'; } }); };
+    });
+  }
+  function renderAutor(){
+    var box=$('p-autor'); if(!box) return;
+    var cur=(M.params&&M.params.autorisations)||{}; var h='';
+    AUTOR.forEach(function(a){ var on=(a.code in cur)?!!cur[a.code]:a.def;
+      h+='<div class="app autor'+(on?' on':'')+'" data-a="'+a.code+'"><span><b>'+esc(a.nom)+'</b><small>'+esc(a.desc)+'</small></span><span class="sw"></span></div>';
+    });
+    box.innerHTML=h;
+    Array.prototype.forEach.call(box.querySelectorAll('.autor'),function(el){
+      el.onclick=function(){ var c=el.getAttribute('data-a'); var cur=(M.params&&M.params.autorisations)||{}; var next={}; for(var k in cur) next[k]=cur[k];
+        var def=(AUTOR.filter(function(x){return x.code===c;})[0]||{}).def; var was=(c in cur)?!!cur[c]:def; next[c]=!was;
+        el.classList.toggle('on', next[c]);
+        post({action:'maj',token:token,params:paramsMerge({autorisations:next})}).then(function(r){ if(r&&r.ok){ M=r.membre; $('p-etat-autor').textContent='C\'est noté — tu gardes la main.'; } }); };
+    });
+  }
+  var token=''; try{ token=localStorage.getItem('nv-token')||''; }catch(e){}
+  var M=null, sel=[];
+  function fmt(n){ return Number(n).toFixed(2).replace('.',','); }
+  function post(b){ return fetch(COMPTE,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(b)}).then(function(r){return r.json();}); }
+  function statutTxt(s,paye){
+    if(paye||s==='actif') return ['Actif — bienvenue à bord','ok'];
+    if(s==='essai') return ['Essai gratuit en cours','ok'];
+    if(s==='precommande') return ['Précommande enregistrée — on te prévient en premier',''];
+    if(s==='en_attente_paiement') return ['Accès créé — règlement à finaliser',''];
+    return [s,''];
+  }
+  function rendre(){
+    var st=statutTxt(M.statut,M.paye);
+    $('p-titre').textContent = M.prenom ? 'Bonjour '+M.prenom : 'Mon profil';
+    $('p-sous').textContent = M.prenom ? 'Comment vas-tu ? Voici ton espace — tout est à toi ici.' : 'Ton espace — tout est à toi ici.';
+    $('p-formule').innerHTML =
+      '<div class="ligne"><span class="l">Formule</span><span class="v">'+(NOMS[M.formule]||M.formule)+'</span></div>'+
+      '<div class="ligne"><span class="l">Cotisation</span><span class="v">'+(Number(M.montant)>0?fmt(M.montant)+' € HT'+(UNIQUES[M.formule]?' (1 an, réglé une fois)':'/mois — réglée à l\'année'):'0 € — essai gratuit')+'</span></div>'+
+      '<div class="ligne"><span class="l">État</span><span class="v '+st[1]+'">'+st[0]+'</span></div>'+
+      '<div class="ligne"><span class="l">E-mail</span><span class="v">'+M.email+'</span></div>';
+    sel=(M.apps||[]).slice();
+    var h=''; APPS.forEach(function(a){
+      var on=sel.indexOf(a.code)>-1;
+      h+='<div class="app'+(on?' on':'')+'" data-a="'+a.code+'"><span><b>'+a.nom+'</b><small>'+(on?(a.url?'active — ouvre-la':'précommande — bientôt'):'non choisie')+'</small></span></div>';
+    });
+    $('p-apps').innerHTML=h;
+    Array.prototype.forEach.call(document.querySelectorAll('.app'),function(el){
+      el.onclick=function(){
+        var c=el.getAttribute('data-a'), a=APPS.filter(function(x){return x.code===c;})[0];
+        if(sel.indexOf(c)>-1 && a.url){ location.href=a.url; return; }
+        sel.push(c);
+        post({action:'maj',token:token,apps:sel}).then(function(d){ if(d&&d.ok){ M=d.membre; rendre(); $('p-etat-apps').textContent='C\'est noté — application ajoutée à ton univers.'; } });
+      };
+    });
+    var su=$('p-site-url'); if(su) su.textContent='navlys.com/'+(slug(M.prenom)||'moi');
+    renderDossiers();
+    renderAutor();
+    $('p-prenom').value=M.prenom||'';
+    $('p-lang').value=(M.lang||'fr').slice(0,2);
+    $('p-voix').value=(M.params&&M.params.voix==='non')?'non':'oui';
+  }
+  function charger(){
+    if(!token){ $('p-vide').style.display='block'; $('p-sous').textContent='Enregistre-toi pour ouvrir ton espace.'; return; }
+    post({action:'profil',token:token}).then(function(d){
+      if(!d||!d.ok){ $('p-vide').style.display='block'; $('p-sous').textContent='Enregistre-toi pour ouvrir ton espace.'; return; }
+      M=d.membre; $('p-corps').style.display='block';
+      var q=new URLSearchParams(location.search);
+      if(q.get('paye')==='ok' && !M.paye){
+        post({action:'paye_ok',token:token}).then(function(x){ if(x&&x.ok){ M=x.membre; rendre(); $('p-etat').textContent='🎉 Cotisation confirmée — bienvenue dans l\'univers, pour de vrai.'; } });
+      }
+      if(q.get('bienvenue')){ $('p-etat').textContent='🎉 Ton accès est créé — bienvenue chez toi.'; }
+      rendre();
+    }).catch(function(){ $('p-vide').style.display='block'; });
+  }
+  $('d-add').onclick=function(){
+    var nom=($('d-nom').value||'').trim(); if(nom.length<2){ $('d-etat').textContent='Donne un nom à ton dossier.'; return; }
+    var url=($('d-url').value||'').trim(), note=($('d-note').value||'').trim();
+    var arr=((M&&M.params&&M.params.dossiers)||[]).slice(); arr.push({nom:nom,url:url,note:note});
+    post({action:'maj',token:token,params:paramsMerge({dossiers:arr})}).then(function(r){
+      if(r&&r.ok){ M=r.membre; $('d-nom').value='';$('d-url').value='';$('d-note').value=''; renderDossiers(); $('d-etat').textContent='Ajouté à ton espace ✓'; }
+      else $('d-etat').textContent=(r&&r.error)||'Réessaie dans un instant.';
+    }).catch(function(){ $('d-etat').textContent='Connexion difficile — réessaie. 🌊'; });
+  };
+  $('p-save').onclick=function(){
+    var lng=$('p-lang').value;
+    post({action:'maj',token:token,prenom:$('p-prenom').value,lang:lng,params:paramsMerge({voix:$('p-voix').value})})
+    .then(function(d){ if(d&&d.ok){ M=d.membre; try{ localStorage.setItem('nv-prenom',M.prenom||''); if(M.email)localStorage.setItem('nv-email',M.email); localStorage.setItem('nv-lang',lng); }catch(e){} rendre(); $('p-etat').textContent='Enregistré — tes paramétrages sont à jour, partout.'; }
+      else $('p-etat').textContent=(d&&d.error)||'Réessaie dans un instant.'; })
+    .catch(function(){ $('p-etat').textContent='Connexion difficile — réessaie dans un instant. 🌊'; });
+  };
+  $('p-quit').onclick=function(){ try{ localStorage.removeItem('nv-token'); }catch(e){} location.href='/'; };
+  var defered=null;
+  window.addEventListener('beforeinstallprompt',function(e){ e.preventDefault(); defered=e; $('p-install').style.display='inline-block'; });
+  $('p-install').onclick=function(){ if(defered){ defered.prompt(); defered=null; $('p-install').style.display='none'; } };
+  charger();
+})();
+</script>
+<script src="/navlys-alive.js" defer></script>
+</body>
+</html>

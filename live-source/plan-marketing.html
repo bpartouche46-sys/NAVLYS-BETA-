@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="robots" content="noindex, nofollow" />
+<title>NAVLYS — Plan Marketing Unifié</title>
+<style>
+  :root{
+    --bg:#070b12;--bg2:#0c1320;--panel:#0f1726;--panel2:#131e30;
+    --ice:#7fd4ff;--ice-soft:#bfe9ff;--gold:#d8bd84;--gold-soft:#efe0bd;
+    --txt:#e8f2fb;--mut:#8fa6bd;--line:#1d2c42;--ok:#54d6a0;--bad:#ef7b7b;--warn:#e8c15a;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:radial-gradient(1100px 700px at 78% -10%,#10203a 0%,var(--bg) 55%);color:var(--txt);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased;line-height:1.55}
+  .wrap{max-width:1000px;margin:0 auto;padding:24px 18px 90px}
+  header.top{text-align:center;padding:24px 0 12px;border-bottom:1px solid var(--line);margin-bottom:8px}
+  .kick{letter-spacing:4px;text-transform:uppercase;font-size:.72rem;color:var(--gold)}
+  h1{font-size:clamp(1.7rem,5vw,2.6rem);margin:8px 0 6px}
+  h1 .g{background:linear-gradient(90deg,var(--ice),var(--gold));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .meta{color:var(--mut);font-size:.86rem}
+  nav.toc{position:sticky;top:0;background:rgba(7,11,18,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);
+    display:flex;gap:6px;flex-wrap:wrap;padding:10px 0;margin:10px 0 22px;z-index:10}
+  nav.toc a{color:var(--ice-soft);text-decoration:none;font-size:.8rem;border:1px solid var(--line);border-radius:20px;padding:4px 11px;white-space:nowrap}
+  nav.toc a:hover{border-color:var(--ice)}
+  section{background:linear-gradient(180deg,var(--panel),var(--bg2));border:1px solid var(--line);border-radius:16px;padding:20px 20px 16px;margin:16px 0}
+  h2{font-size:1.15rem;color:var(--ice-soft);display:flex;align-items:center;gap:9px;margin-bottom:12px}
+  h2 .no{font-family:ui-monospace,monospace;color:var(--gold);font-size:.95rem;border:1px solid var(--line);border-radius:8px;padding:1px 8px}
+  h3{font-size:.98rem;color:var(--gold-soft);margin:14px 0 6px}
+  p,li{color:#d7e4f2;font-size:.95rem}
+  ul,ol{margin:6px 0 6px 20px}
+  li{margin:3px 0}
+  .pill{display:inline-block;background:#0b1828;border:1px solid var(--line);border-radius:20px;padding:2px 10px;font-size:.8rem;color:var(--mut);margin:2px 4px 2px 0}
+  table{width:100%;border-collapse:collapse;margin:0;font-size:.9rem}
+  .tbl-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:10px 0;max-width:100%}
+  th,td{padding:8px 8px;border-bottom:1px solid #121c2c;text-align:left}
+  th{color:var(--mut);text-transform:uppercase;font-size:.7rem;letter-spacing:.5px}
+  .tag{font-size:.72rem;border-radius:6px;padding:1px 7px;border:1px solid var(--line)}
+  .t-ok{color:var(--ok);border-color:#22513c} .t-todo{color:var(--warn);border-color:#4a3c1c}
+  a.btn{display:inline-block;color:#05060a;background:linear-gradient(100deg,var(--gold),#fff6df);text-decoration:none;border-radius:999px;padding:9px 16px;font-weight:600;font-size:.9rem;margin:6px 6px 0 0}
+  a.lnk{color:var(--ice)}
+  .warn{background:linear-gradient(180deg,#241f10,#0b1828);border:1px solid #4a3c1c;border-radius:12px;padding:12px;color:var(--gold-soft);font-size:.9rem;margin-top:10px}
+  .flag{text-align:center;letter-spacing:3px;color:#7f95b6;font-size:.8rem;margin-top:30px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="kick">NAVLYS · DOCUMENT UNIQUE</div>
+    <h1>Plan Marketing <span class="g">Unifié</span></h1>
+    <p class="meta">Synthèse de toutes les directives de Bruno (Bible + Classeur). Statut simple citoyen — éducatif, jamais de conseil personnalisé.</p>
+  </header>
+
+  <nav class="toc">
+    <a href="#cap">① Cap</a>
+    <a href="#offre">② Offre & prix</a>
+    <a href="#moteur">③ Auto-financement</a>
+    <a href="#90j">④ Plan 90 jours</a>
+    <a href="#affil">⑤ Affiliations</a>
+    <a href="#influ">⑥ Influenceurs</a>
+    <a href="#kpi">⑦ KPI & calculs</a>
+    <a href="#routines">⑧ Routines auto</a>
+    <a href="#garde">⑨ Garde-fous</a>
+    <a href="#decisions">⑩ À trancher</a>
+  </nav>
+
+  <section id="cap">
+    <h2><span class="no">①</span> Le cap & la promesse</h2>
+    <p><b>NAVLYS</b> = un univers d'applications nouvelle génération qui réunit l'humain et l'IA, <b>accessible à tous</b> (mobile + voix) : éducation, veille, communauté, média, affiliation.</p>
+    <ul>
+      <li><b>Objectif financier</b> : viser ~<b>102 000 €/mois</b> par paliers d'abonnés — chiffré en <b>euros réels</b>, esprit « bon père de famille », <b>anti-jackpot</b>.</li>
+      <li><b>Posture</b> : statut <b>simple citoyen</b> — contenu éducatif/informatif, <b>jamais</b> de conseil personnalisé ni de promesse de rendement, disclaimer d'office sur tout contenu financier.</li>
+      <li><b>QG</b> : <span class="pill">navlys.com</span> · satellites <span class="pill">navbiolife.com</span> <span class="pill">brunopartouche.com</span> <span class="pill">navlys.io</span></li>
+      <li><b>Lancement</b> : compte à rebours réel → <b>14 juillet 2026, 23:59:59</b> (pré-inscriptions ouvertes).</li>
+    </ul>
+  </section>
+
+  <section id="offre">
+    <h2><span class="no">②</span> L'offre & l'échelle de prix</h2>
+    <h3>Produits</h3>
+    <ul>
+      <li><b>NAVLYS Finance</b> — éducation & veille (méthode 90/10), <b>gratuit 0 €</b> pour entrer.</li>
+      <li><b>NAVLYS Next Gen / NAVBIO</b> — livre/film de vie, « écris ta vie ». Pack One Life <b>49,99</b> · abo « Ma vie en images » <b>9,99/mois</b>.</li>
+      <li><b>NAVLEX</b> — info juridique (3 questions offertes puis abonnement).</li>
+      <li><b>Journal des Influenceurs</b> · <b>Journal de l'IA</b> · <b>Radio NAVLYS</b> — média & communauté.</li>
+    </ul>
+    <h3>Échelle de prix (HT — Bible, source de vérité)</h3>
+    <div class="tbl-scroll"><table>
+      <tr><th>Palier</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>Coffret fêtes</th></tr>
+      <tr><td>Prix</td><td>9,99</td><td>19,99</td><td>29,99</td><td>49,99</td><td>79,99</td><td>99,99</td><td>99,99 (1 an + biographie)</td></tr>
+    </table></div>
+    <p>Encaissement : <b>Stripe</b> (rail principal). PayPal / Wise / Lemon Squeezy = secondaires à étudier.</p>
+    <div class="warn">⚠️ <b>Décision à trancher</b> : deux échelles de prix ont coexisté dans les anciens docs. Celle ci-dessus (Bible) fait foi jusqu'à ta validation finale.</div>
+  </section>
+
+  <section id="moteur">
+    <h2><span class="no">③</span> Le moteur d'auto-financement — <b>règle des 10 %</b></h2>
+    <p>Principe honnête (aucune promesse magique) : <b>on ne réinvestit que ce qui est prouvé rentable.</b></p>
+    <h3>La règle, en clair</h3>
+    <ol>
+      <li><b>Dès le 1<sup>er</sup> encaissement réel</b>, on calcule le <b>net réel</b> = encaissements − <b>charges réelles par membre</b> (Stripe, TVA/MoR, coûts produits/IA, tout confondu).</li>
+      <li>On réinvestit <b>10 % du net réel</b> <b>immédiatement</b> en publicité — recalculé <b>chaque jour</b> (quasi temps réel) selon les encaissements du jour.</li>
+      <li>Chaque nouveau membre <b>augmente la base</b> → 10 % d'un net plus grand → plus de pub → plus de membres : <b>boucle composée</b>.</li>
+      <li>Garde-fou : on ne pousse que les canaux dont le <b>ROAS &gt; 1</b>. Un canal non rentable est coupé, pas alimenté.</li>
+    </ol>
+    <a class="btn" href="/calculateur-marketing">🧮 Ouvrir le calculateur (règle des 10 %)</a>
+
+    <h3>🎯 Analyse experte — la cible (personas)</h3>
+    <div class="tbl-scroll"><table>
+      <tr><th>Cible</th><th>Ce qu'elle veut</th><th>Porte d'entrée</th></tr>
+      <tr><td><b>Le curieux finance</b> (25–45)</td><td>comprendre sans se faire avoir</td><td>NAVLYS Finance gratuit (90/10)</td></tr>
+      <tr><td><b>Le créateur / influenceur</b></td><td>revenus + outils + visibilité</td><td>ambassadeur + affiliation</td></tr>
+      <tr><td><b>Celui qui veut transmettre</b> (45–70+)</td><td>laisser une trace, sa vie en livre/film</td><td>NAVLYS Next Gen / NAVBIO</td></tr>
+      <tr><td><b>Le francophone international</b> (FR + diaspora méditerranéenne)</td><td>accessible, mobile, en voix</td><td>app mobile + voix NAVLYS</td></tr>
+    </table></div>
+
+    <h3>📡 Analyse experte — les supports (décupler les vues)</h3>
+    <ul>
+      <li><b>Vidéo court format</b> (TikTok, Reels, YouTube Shorts) = <b>portée exponentielle, coût bas</b> → <b>priorité n°1</b>, voix + visage NAVLYS (clone prêt).</li>
+      <li><b>YouTube long</b> + <b>SEO/blog</b> (Semrush) = autorité + trafic <b>gratuit qui se compose</b> dans le temps.</li>
+      <li><b>E-mail / pré-inscriptions</b> = l'audience qu'on <b>possède</b> (la plus rentable).</li>
+      <li><b>Pub payante</b> (Meta / Google) = <b>uniquement</b> sur ce qui convertit, alimentée par la règle des 10 %.</li>
+      <li><b>Communauté</b> (Nas.io / Telegram) = rétention + <b>bouche-à-oreille</b>.</li>
+    </ul>
+
+    <h3>🚀 Le levier exponentiel</h3>
+    <p>Chaque membre peut devenir <b>diffuseur</b> (membre + affilié + ambassadeur, triple casquette). Croissance <b>virale</b> × boucle des <b>10 %</b> = effet composé sur le CA, les réseaux, la présence et les spots en ligne.</p>
+
+    <div class="warn">⚖️ Toute dépense publicitaire reste <b>ta décision</b> (garde-fou : un vrai débit = un signalement + ta validation). À grande échelle le CPC monte et la conversion bouge : on <b>re-mesure les vrais chiffres</b> chaque semaine et on réajuste les 10 %.</div>
+  </section>
+
+  <section id="90j">
+    <h2><span class="no">④</span> Le plan d'attaque 90 jours (13 réseaux)</h2>
+    <h3>Phase 1 — Amorçage (J1–J30)</h3>
+    <ul>
+      <li>Page de lancement + compte à rebours + pré-inscriptions (capture e-mails).</li>
+      <li>Contenu éducatif gratuit quotidien (mini-leçon 90/10, Daily News FR+EN) → autorité + référencement.</li>
+      <li>Présence sur les réseaux clés (court format vidéo en priorité) — voix & visage NAVLYS (voix clone prête).</li>
+    </ul>
+    <h3>Phase 2 — Traction (J31–J60)</h3>
+    <ul>
+      <li>Premières pubs <b>petit budget</b>, mesure ROAS, on garde ce qui convertit.</li>
+      <li>Activation des <b>affiliations</b> (Alpaca & co) et du programme <b>ambassadeurs</b>.</li>
+      <li>Upsells : −50 % palier supérieur, packs cadeau à code (+1 an offert à un ami).</li>
+    </ul>
+    <h3>Phase 3 — Mise à l'échelle (J61–J90)</h3>
+    <ul>
+      <li>On scale uniquement les canaux rentables (boucle d'auto-financement).</li>
+      <li>Déploiement multi-sites (navbiolife, brunopartouche) + coffrets cadeaux.</li>
+      <li>Rétention : communauté, journal, radio, contenu récurrent.</li>
+    </ul>
+  </section>
+
+  <section id="affil">
+    <h2><span class="no">⑤</span> Affiliations & partenaires (revenus complémentaires)</h2>
+    <p>Référence affilié <b>BP001</b>, toujours signalé <span class="pill">#partenaire</span>, transparence totale (<code>rel=sponsored</code>).</p>
+    <ul>
+      <li><b>Brokers</b> : Alpaca (compte démo / paper trading en porte d'entrée), eToro, Trade Republic, Bourse Direct.</li>
+      <li><b>Crypto</b> : Bybit, OKX, Kraken. <b>Néo-banques</b> : Revolut, Wise, BoursoBank.</li>
+      <li><b>Outils</b> : Nas.io, Notion, Vercel, Stripe.</li>
+    </ul>
+    <p>Tunnel type : contenu éducatif → page partenaire dédiée → lien affilié transparent. Aucun conseil personnalisé.</p>
+  </section>
+
+  <section id="influ">
+    <h2><span class="no">⑥</span> Influenceurs & ambassadeurs (gagnant-gagnant)</h2>
+    <ul>
+      <li>Modèle où <b>chaque membre peut devenir partenaire + affilié</b> (triple casquette).</li>
+      <li>Sous-site <span class="pill">/influenceurs</span> + département <b>NAVLEAD</b> (Lena).</li>
+      <li>Kit ambassadeur : visuels prêts (NAVGEN), liens affiliés, scripts de contenu.</li>
+    </ul>
+    <div class="warn">🔴 À développer ensemble : cibles précises, deals, kit de contenu. (+ idées à cadrer : inspiration <b>Groupe Partouche</b>, offre spéciale <b>Jean-Claude Van Damme</b>.)</div>
+  </section>
+
+  <section id="kpi">
+    <h2><span class="no">⑦</span> Les KPI & calculateurs (aller au plus juste)</h2>
+    <div class="tbl-scroll"><table>
+      <tr><th>Indicateur</th><th>Formule</th><th>Pourquoi</th></tr>
+      <tr><td><b>CAC</b></td><td>budget pub ÷ membres acquis</td><td>combien coûte un membre</td></tr>
+      <tr><td><b>LTV</b></td><td>revenu total moyen d'un membre</td><td>combien rapporte un membre</td></tr>
+      <tr><td><b>ROAS</b></td><td>revenu pub ÷ dépense pub</td><td>rentabilité immédiate (&gt;1 = positif)</td></tr>
+      <tr><td><b>CVR</b></td><td>membres ÷ visiteurs</td><td>efficacité de la page</td></tr>
+      <tr><td><b>Payback</b></td><td>CAC ÷ marge mensuelle/membre</td><td>en combien de temps on récupère</td></tr>
+      <tr><td><b>Seuil rentab.</b></td><td>LTV×marge = CAC</td><td>point d'équilibre</td></tr>
+    </table></div>
+    <p><b>Bases de données & recherche</b> à brancher : <span class="pill">Semrush</span> (SEO/mots-clés/concurrents), <span class="pill">Supermetrics</span> (data pub multi-sources), <span class="pill">FMP</span> (data marchés, pour la pédagogie finance), analytics web.</p>
+    <a class="btn" href="/calculateur-marketing">🧮 Calculateur</a>
+  </section>
+
+  <section id="routines">
+    <h2><span class="no">⑧</span> Les routines automatiques NAVLYS</h2>
+    <p>Le cerveau (Supabase, indépendant) crée et traite ces missions tout seul, 24/7 :</p>
+    <ul>
+      <li><span class="tag t-ok">actif</span> Veille Bourse / Tech / IA du jour · Daily Brief · Mémoire (apprentissage).</li>
+      <li><span class="tag t-ok">actif</span> <b>Veille skills/prompts/code</b> quotidienne (NAVLAB) → NAVLYS s'améliore chaque jour.</li>
+      <li><span class="tag t-todo">à brancher</span> <b>ROI quotidien</b> : suivi dépense pub vs revenus, calcul ROAS, reco scale/coupe (NAVMKT).</li>
+      <li><span class="tag t-todo">à brancher</span> Contenu de promotion (NAVCOM) + livre de vie (NAVBIO) — déjà en file.</li>
+    </ul>
+  </section>
+
+  <section id="garde">
+    <h2><span class="no">⑨</span> Garde-fous (non négociables)</h2>
+    <ul>
+      <li><b>Aucun débit</b> sans validation de Bruno (téléphone). Un vrai débit = signalement d'1 ligne puis action.</li>
+      <li><b>Aucune publication / e-mail / déploiement</b> sans validation. Aperçu mobile avant tout post.</li>
+      <li><b>Honnêteté radicale</b> : pas de promesse de rendement, e-mails privés jamais publics.</li>
+      <li>Charte respectée (ice blue + champagne or, fond sombre, zéro mauve).</li>
+    </ul>
+  </section>
+
+  <section id="decisions">
+    <h2><span class="no">⑩</span> Décisions à trancher ensemble</h2>
+    <ol>
+      <li><b>Échelle de prix</b> : confirmer celle de la Bible (§②).</li>
+      <li><b>Inspiration Groupe Partouche</b> : storytelling ? esthétique ? structure ?</li>
+      <li><b>Offre Jean-Claude Van Damme</b> : format exact ?</li>
+      <li><b>FAQ SAV</b> : rédiger puis brancher sur la voix clone.</li>
+      <li><b>Archiver les anciens teasers</b> et remettre le bon navlys.com en avant.</li>
+    </ol>
+  </section>
+
+  <div class="flag">🌊 ⚓ NAVLYS — PLAN MARKETING UNIFIÉ 🪝</div>
+</div>
+</body>
+</html>
