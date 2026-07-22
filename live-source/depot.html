@@ -1,0 +1,96 @@
+<!DOCTYPE html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex"><title>NAVLYS · Dépôt de transmission</title>
+<style>
+:root{--bg:#070b12;--panel:#0f1726;--p2:#131e30;--p3:#0a1322;--ice:#7fd4ff;--ice2:#bfe9ff;--gold:#d8bd84;--gold2:#efe0bd;--txt:#e8f2fb;--mut:#8fa6bd;--line:#1d2c42;--ok:#54d6a0;--bad:#ef7b7b;--warn:#e8c06a}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--txt);font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif;line-height:1.5}
+.wrap{max-width:900px;margin:0 auto;padding:14px 14px 90px}
+.bar{display:flex;align-items:center;gap:9px;flex-wrap:wrap;padding:13px 15px;background:var(--panel);border:1px solid var(--line);border-radius:14px;margin-bottom:14px;position:sticky;top:6px;z-index:20;backdrop-filter:blur(4px)}
+.bar .brand{font-family:Cinzel,serif;letter-spacing:.18em;color:var(--gold);font-weight:700}
+.sp{flex:1}
+.pill{font-size:12px;padding:4px 10px;border-radius:20px;border:1px solid var(--line);display:inline-flex;align-items:center;gap:6px}
+.dot{width:8px;height:8px;border-radius:50%;display:inline-block;background:var(--ok);box-shadow:0 0 8px currentColor;color:var(--ok);animation:pl 2.4s infinite}
+@keyframes pl{0%,100%{opacity:1}50%{opacity:.35}}
+h1{font-size:1.15rem;color:var(--ice2);margin:2px 0 2px}
+.lead{color:var(--mut);font-size:14px;margin-bottom:16px}
+h2{font-size:.72rem;letter-spacing:1.4px;text-transform:uppercase;color:var(--ice2);margin:22px 4px 10px;display:flex;align-items:center;gap:8px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:15px;margin-bottom:4px}
+.gold-card{border-color:#5a4d2c;background:linear-gradient(180deg,#161206 0%,var(--panel) 80%)}
+ul{list-style:none;display:flex;flex-direction:column;gap:9px}
+li{display:flex;gap:10px;font-size:14.5px;align-items:flex-start}
+li .ic{flex:0 0 20px;text-align:center}
+.ok li .ic{color:var(--ok)}
+.wait li .ic{color:var(--warn)}
+.aim li .ic{color:var(--ice)}
+b{color:var(--gold2);font-weight:600}
+code{background:var(--p3);border:1px solid var(--line);border-radius:6px;padding:1px 6px;font-size:13px;color:var(--ice2)}
+.prompt{position:relative}
+pre{background:var(--p3);border:1px solid #24406a;border-radius:12px;padding:14px;font-size:12.6px;line-height:1.55;white-space:pre-wrap;color:var(--ice2);max-height:340px;overflow:auto;font-family:ui-monospace,Menlo,Consolas,monospace}
+.copy{position:absolute;top:9px;right:9px;font:inherit;font-size:12px;cursor:pointer;border:1px solid #5a4d2c;background:#241f12;color:var(--gold2);border-radius:9px;padding:6px 11px;transition:.15s}
+.copy:hover{border-color:var(--gold)}
+.links{display:flex;gap:9px;flex-wrap:wrap;margin-top:6px}
+.links a{text-decoration:none;font-size:13.5px;border:1px solid var(--line);background:var(--p2);color:var(--txt);border-radius:10px;padding:9px 13px;transition:.15s}
+.links a:hover{border-color:var(--ice)}
+.foot{color:var(--mut);font-size:12px;text-align:center;margin-top:26px}
+.tag{font-size:11px;color:var(--mut);background:var(--p2);border:1px solid var(--line);border-radius:20px;padding:1px 8px}
+</style></head><body>
+<div class="wrap">
+  <div class="bar">
+    <span class="brand">NAVLYS</span>
+    <span class="tag">Dépôt de transmission</span>
+    <span class="sp"></span>
+    <span class="pill"><span class="dot"></span> CORE en ligne 24/7</span>
+  </div>
+
+  <h1>Tout l'état de NAVLYS, déposé ici.</h1>
+  <p class="lead">Bruno — plus besoin de passer par une conversation Claude. Ici se trouve l'état réel, prouvé en direct, et le prompt unique pour repartir d'un chat neuf sans rien perdre. La continuité tient à <b>CLAUDE.md + les commits Git + la mémoire en base</b>, jamais à l'historique du chat.</p>
+
+  <h2>▶ Prompt de reprise <span class="tag">colle ça dans un chat neuf</span></h2>
+  <div class="card prompt">
+    <button class="copy" onclick="cp()">Copier</button>
+    <pre id="p">Reprends NAVLYS depuis CLAUDE.md + la Bible + l'état Git. On travaille LIVE. Doctrine : OUI par défaut (exécute et rends compte, zéro question de validation) ; autonome &gt; dépendance ; jamais de blocage ; tutoiement + prénom ; membre (jamais client), cotisation (jamais prix) ; charte ice blue + or, fond sombre (teintes chaudes proscrites) ; preuve avant parole (pg_net/?diag avant d'affirmer) ; un cas qui m'aurait fait redemander → navlys_regle() puis avance. Argent (Bible §6) : signalement d'UNE ligne avant tout vrai débit.
+
+Commence par l'analyse santé complète (pg_net : navlys.com pages clés, inscription, paiement, assistant, media, whatsapp ; file missions/agents ; incidents ; retours 💡 ; Security Advisor), inscris tes chantiers via navlys_chantier_ouvrir, puis avance sans me demander.
+
+Objectif permanent (ne s'arrête qu'à zéro erreur) : auditer et corriger TOUT navlys.com — chaque page, liens tél/mail, inscription, connexion FB/Google/Apple — jusqu'à zéro erreur ; ce qui dépend d'une action réelle de moi (OAuth, vérif téléphone) est signalé, pas simulé.</pre>
+  </div>
+
+  <h2>✅ En ligne — prouvé en direct</h2>
+  <div class="card ok"><ul>
+    <li><span class="ic">✔</span><span><b>navlys.com</b> — toutes les pages clés répondent 200 (/, /cockpit, /adhesion, /finance, /next-gen, /navlex, sitemap). Veille santé quotidienne automatique.</span></li>
+    <li><span class="ic">✔</span><span><b>WhatsApp CORE v38</b> — canal direct Bruno↔CORE. Capture des messages vocaux + transcription active (webhook 200, envoi 200, nom d'affichage Meta approuvé).</span></li>
+    <li><span class="ic">✔</span><span><b>Dashboard /cockpit</b> — centralisé : parle au CORE, KPI membres, travail en cours, manques à régler, à valider, agents, kanban. Actualisé en direct.</span></li>
+    <li><span class="ic">✔</span><span><b>Cerveau 24/7</b> — Supabase + pg_cron : bible (apprentissage), autotest, auto-amélioration, incidents, veille. Tourne seul, sans Claude Code.</span></li>
+    <li><span class="ic">✔</span><span><b>Repli anti-coupure</b> — <code>callBrain</code> (Anthropic → OpenRouter) posé dans le webhook WhatsApp. Le CORE survit à une coupure Claude/Anthropic.</span></li>
+  </ul></div>
+
+  <h2>⏳ En attente de toi — actions réelles (pas simulables)</h2>
+  <div class="card wait"><ul>
+    <li><span class="ic">◆</span><span><b>OpenRouter</b> — vérifier le nom de la clé chez Vercel. Tu as posé <code>OPEN_API_ROUTER</code> ; le code lit <code>OPENROUTER_API_KEY</code>. À aligner (renommer la variable OU j'étends la lecture tolérante) pour activer le repli.</span></li>
+    <li><span class="ic">◆</span><span><b>OAuth inscription</b> — activer Google / Apple / Facebook dans Supabase → Auth → Providers (créer l'app dev + coller Client ID/Secret). En attendant, le lien e-mail marche déjà.</span></li>
+    <li><span class="ic">◆</span><span><b>Google Play</b> — compte 25 $ + PWABuilder → empreinte SHA-256 pour <code>assetlinks.json</code>.</span></li>
+    <li><span class="ic">◆</span><span><b>Secrets média gratuits</b> — GEMINI / HF / Cloudflare (débloque un cran de génération d'image de plus, sans redéploiement).</span></li>
+    <li><span class="ic">◆</span><span><b>navlys.io</b> — trancher : miroir complet de navlys.com, ou usage distinct ?</span></li>
+  </ul></div>
+
+  <h2>🎯 Fil rouge — cap 1000 → 1M</h2>
+  <div class="card aim"><ul>
+    <li><span class="ic">→</span><span>Zéro erreur sur tout navlys.com (porte de lancement : <b>zéro point rouge = on lance</b>).</span></li>
+    <li><span class="ic">→</span><span>Parrainage : capter le <code>?code=</code> à l'inscription.</span></li>
+    <li><span class="ic">→</span><span>Améliorations permanentes : vidéos, logo, mise en page mobile/web, karaoké accessibilité.</span></li>
+  </ul></div>
+
+  <h2>🔗 Accès</h2>
+  <div class="card">
+    <div class="links">
+      <a href="/cockpit">🛰️ Cockpit (piloter)</a>
+      <a href="/">🏠 Site public</a>
+      <a href="https://claude.ai/code" target="_blank" rel="noopener">💬 Chat neuf (Claude Code)</a>
+    </div>
+  </div>
+
+  <p class="foot">NAVLYS Web Service (NWS) · dépôt interne, non indexé · la vérité fait foi dans CLAUDE.md + Git + la base.</p>
+</div>
+<script>
+function cp(){var t=document.getElementById('p').innerText;navigator.clipboard.writeText(t).then(function(){var b=document.querySelector('.copy');b.textContent='Copié ✓';setTimeout(function(){b.textContent='Copier'},1800)})}
+</script>
+</body></html>
