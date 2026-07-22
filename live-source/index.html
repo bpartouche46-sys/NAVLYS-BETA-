@@ -30,8 +30,6 @@
 <style>
 .nv-skip{position:absolute;left:-999px;top:0;z-index:1000;background:#c9962f;color:#0a0803;padding:10px 16px;border-radius:0 0 10px 0;font-family:'Cinzel',serif;font-size:13px}
 .nv-skip:focus{left:0}
-.nv-skip:focus-visible{left:0}
-a:focus-visible,button:focus-visible,[role=button]:focus-visible,.nv-cta:focus-visible,.nv-card:focus-visible,.nv-prix .p a:focus-visible{outline:3px solid var(--ice,#7dd3fc);outline-offset:3px;border-radius:10px}
 .nv-prix{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px;max-width:960px;margin:8px auto 0}
 .nv-prix .p{background:rgba(8,11,22,.62);border:1px solid rgba(233,211,160,.22);border-radius:18px;padding:22px 18px;text-align:center;transition:border-color .3s,transform .3s}
 .nv-prix .p:hover{border-color:rgba(233,211,160,.6);transform:translateY(-4px)}
@@ -86,7 +84,7 @@ a:focus-visible,button:focus-visible,[role=button]:focus-visible,.nv-cta:focus-v
 
 <!-- HERO : vraie video bateaux en fond + H1 SEO -->
 <header class="nv-hero">
-  <video class="nv-vidbg" src="/videos/reel-hero.mp4" autoplay muted loop playsinline preload="metadata" fetchpriority="low" poster="/videos/poster-hero.jpg"></video>
+  <video class="nv-vidbg" src="/videos/reel-hero.mp4" autoplay muted loop playsinline preload="metadata" poster="/videos/poster-hero.jpg" aria-hidden="true"></video>
   <div class="nv-veil"></div>
   <div class="nv-hero-in">
     <video class="nv-coin" src="/brand/navlys_coin_spin.mp4" autoplay muted loop playsinline poster="/assets/coins/navlys-coin-avers-bronze.png" aria-label="Logo NAVLYS animé"></video>
@@ -263,9 +261,8 @@ a:focus-visible,button:focus-visible,[role=button]:focus-visible,.nv-cta:focus-v
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script>
 (function(){
-  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
-  document.querySelectorAll('video').forEach(function(v){v.muted=true;if(reduce){try{v.autoplay=false;v.removeAttribute('autoplay');v.loop=false;v.pause();}catch(e){}}else{try{v.play().catch(function(){});}catch(e){}}});
-  if(reduce){document.querySelectorAll('.nv-reveal').forEach(function(el){el.style.opacity=1;el.style.transform='none';});return;}
+  document.querySelectorAll('video').forEach(function(v){v.muted=true;try{v.play().catch(function(){});}catch(e){}});
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches){document.querySelectorAll('.nv-reveal').forEach(function(el){el.style.opacity=1;el.style.transform='none';});return;}
   try{
     var lenis=new Lenis({lerp:.1,smoothWheel:true});(function raf(t){lenis.raf(t);requestAnimationFrame(raf);})();
     if(window.gsap&&window.ScrollTrigger){gsap.registerPlugin(ScrollTrigger);lenis.on('scroll',ScrollTrigger.update);
