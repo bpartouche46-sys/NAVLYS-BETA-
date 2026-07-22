@@ -81,14 +81,28 @@ input{width:100%;background:rgba(5,6,10,.55);border:1px solid rgba(95,224,255,.2
 <script>
 function embedUrl(u){
   u=u.trim();
-  // YouTube
-  let m=u.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|live\/|shorts\/))([\w-]{6,})/);
-  if(m) return {src:'https://www.youtube.com/embed/'+m[1]+'?autoplay=1', audio:false};
-  m=u.match(/youtube\.com\/(?:c\/|channel\/|@)?([\w-]+)/);
-  if(u.includes('youtube.com')&&!m) return null;
-  // Spotify
-  m=u.match(/open\.spotify\.com\/(track|playlist|album|episode|show|artist)\/([\w]+)/);
-  if(m) return {src:'https://open.spotify.com/embed/'+m[1]+'/'+m[2], audio:true};
+  let url;
+  try { url=new URL(u); } catch { return null; }
+  const host=url.hostname.toLowerCase().replace(/^www\./,'');
+  const path=url.pathname.replace(/^\/+/,'');
+  let m;
+  if(host==='youtu.be'){
+    m=path.match(/^([\w-]{6,})/);
+    if(m) return {src:'https://www.youtube.com/embed/'+m[1]+'?autoplay=1', audio:false};
+    return null;
+  }
+  if(host==='youtube.com'){
+    m=(url.searchParams.get('v')||'').match(/^([\w-]{6,})$/);
+    if(m) return {src:'https://www.youtube.com/embed/'+m[1]+'?autoplay=1', audio:false};
+    m=path.match(/^(?:embed|live|shorts)\/([\w-]{6,})$/);
+    if(m) return {src:'https://www.youtube.com/embed/'+m[1]+'?autoplay=1', audio:false};
+    m=path.match(/^(?:c\/|channel\/|@)?[\w-]+$/);
+    if(!m) return null;
+  }
+  if(host==='open.spotify.com'){
+    m=path.match(/^(track|playlist|album|episode|show|artist)\/([\w]+)$/);
+    if(m) return {src:'https://open.spotify.com/embed/'+m[1]+'/'+m[2], audio:true};
+  }
   return null;
 }
 document.getElementById('go').onclick=()=>{
@@ -97,7 +111,13 @@ document.getElementById('go').onclick=()=>{
   if(!e){ msg.style.color='#ffcf6b'; msg.textContent='Lien non reconnu — colle un lien YouTube (youtu.be/…) ou Spotify (open.spotify.com/…).'; return; }
   msg.style.color='var(--vert)'; msg.textContent='🔴 En direct.';
   box.className='frameBox'+(e.audio?' audio':''); box.style.display='block';
-  box.innerHTML='<iframe src="'+e.src+'" allow="autoplay; encrypted-media; clipboard-write; picture-in-picture" allowfullscreen loading="lazy"></iframe>';
+  box.replaceChildren();
+  const iframe=document.createElement('iframe');
+  iframe.src=e.src;
+  iframe.allow='autoplay; encrypted-media; clipboard-write; picture-in-picture';
+  iframe.allowFullscreen=true;
+  iframe.loading='lazy';
+  box.appendChild(iframe);
 };
 </script>
 <script src="/navlys-alive.js" defer></script>
