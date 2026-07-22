@@ -334,6 +334,8 @@ h2::after{content:"";flex:1;height:1px;background:var(--line)}
     .then(function(d){
       if(!d||!d.ok||!d.membre){ go.disabled=false; $('a-etat').textContent=(d&&d.error)||'Réessaie dans un instant.'; return; }
       try{ localStorage.setItem('nv-token',d.membre.token); localStorage.setItem('nv-prenom',prenom||''); localStorage.setItem('nv-email',email||''); }catch(e){}
+      // réserve l'espace membre (slug + fiche) dès l'inscription — sans bloquer le flux (fire-and-forget)
+      try{ fetch('https://hhrlgyvtqluxpywjiwkd.supabase.co/functions/v1/membre',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'reserver',token:d.membre.token})}); }catch(e){}
       if(f.montant===0||mode==='precommande'){ location.href='/profil?bienvenue=1'; return; }
       $('a-etat').textContent='… ouverture du règlement sécurisé';
       // Paddle.js overlay si prêt (vrai price_id + token) — sinon plan B serveur juste après
