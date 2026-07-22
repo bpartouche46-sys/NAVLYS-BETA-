@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Point Mer — NAVLYS</title>
+<meta name="description" content="Le point mer du jour à Césarée : état de la mer, hauteur des vagues, vent et rafales sur 3 jours. Information éducative NAVLYS, aucun conseil de navigation.">
+<style>
+  :root{
+    --ice:#8fd3ff; --ice-2:#bfe9ff; --or:#e7c66b; --or-2:#f4dd93;
+    --fond:#060b16; --fond-2:#0b1526; --carte:#0e1c31; --carte-2:#122540;
+    --texte:#eaf4ff; --doux:#9fb6d4; --bord:rgba(143,211,255,.16);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:radial-gradient(1200px 600px at 50% -10%,rgba(143,211,255,.10) 0,transparent 60%),
+               linear-gradient(180deg,var(--fond),var(--fond-2));
+    color:var(--texte); min-height:100dvh; line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:760px;margin:0 auto;padding:28px 18px 64px}
+  header{text-align:center;padding:14px 0 8px}
+  .eyebrow{letter-spacing:.28em;text-transform:uppercase;font-size:12px;color:var(--or);font-weight:700}
+  h1{font-size:clamp(28px,7vw,44px);margin:.25em 0 .1em;font-weight:800;
+     background:linear-gradient(90deg,var(--ice-2),var(--or-2));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .lieu{color:var(--doux);font-size:15px}
+  .etat{
+    margin:22px auto;border:1px solid var(--bord);border-radius:22px;
+    background:linear-gradient(180deg,var(--carte-2),var(--carte));
+    padding:26px 22px;text-align:center;box-shadow:0 18px 50px rgba(0,0,0,.35)
+  }
+  .etat .pastille{font-size:56px;line-height:1;margin-bottom:6px}
+  .etat .mot{font-size:clamp(24px,6vw,34px);font-weight:800;letter-spacing:.01em}
+  .etat .sous{color:var(--doux);margin-top:6px;font-size:15px}
+  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:18px}
+  .cell{border:1px solid var(--bord);border-radius:16px;background:rgba(143,211,255,.05);padding:16px}
+  .cell .k{color:var(--doux);font-size:13px;letter-spacing:.04em}
+  .cell .v{font-size:26px;font-weight:800;margin-top:4px}
+  .cell .u{font-size:14px;color:var(--doux);font-weight:600}
+  h2{font-size:18px;margin:30px 0 10px;color:var(--ice-2)}
+  .heures{display:flex;gap:10px;overflow-x:auto;padding:4px 2px 10px;scroll-snap-type:x mandatory}
+  .h{min-width:96px;scroll-snap-align:start;border:1px solid var(--bord);border-radius:14px;
+     background:rgba(18,37,64,.6);padding:12px 10px;text-align:center}
+  .h .hh{color:var(--or-2);font-weight:700;font-size:13px}
+  .h .hv{font-size:20px;font-weight:800;margin-top:6px}
+  .h .hs{font-size:12px;color:var(--doux);margin-top:2px}
+  .note{margin-top:26px;border-left:3px solid var(--or);padding:12px 14px;background:rgba(231,198,107,.06);
+        border-radius:0 12px 12px 0;color:var(--doux);font-size:14px}
+  .maj{text-align:center;color:var(--doux);font-size:13px;margin-top:18px}
+  .err{text-align:center;color:var(--or-2);padding:18px}
+  a.retour{display:inline-block;margin-top:22px;color:var(--ice);text-decoration:none;border:1px solid var(--bord);
+    padding:10px 16px;border-radius:999px;font-weight:600}
+  .skl{opacity:.35;animation:pulse 1.4s ease-in-out infinite}
+  @keyframes pulse{50%{opacity:.7}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="eyebrow">NAVLYS · Point Mer</div>
+    <h1>Le point mer du jour</h1>
+    <div class="lieu">Césarée — côte israélienne · fuseau d'Israël</div>
+  </header>
+
+  <section class="etat" id="etat" aria-live="polite">
+    <div class="pastille skl" id="pastille">🌊</div>
+    <div class="mot skl" id="mot">Lecture…</div>
+    <div class="sous" id="sous">On interroge la mer en direct.</div>
+  </section>
+
+  <div class="grid" id="grid">
+    <div class="cell"><div class="k">Vagues</div><div class="v skl" id="vague">—<span class="u"> m</span></div></div>
+    <div class="cell"><div class="k">Vent</div><div class="v skl" id="vent">—<span class="u"> km/h</span></div></div>
+    <div class="cell"><div class="k">Rafales</div><div class="v skl" id="raf">—<span class="u"> km/h</span></div></div>
+    <div class="cell"><div class="k">Direction</div><div class="v skl" id="dir">—</div></div>
+  </div>
+
+  <h2>Les prochaines heures</h2>
+  <div class="heures" id="heures"></div>
+
+  <div class="note" id="note">
+    Information <strong>éducative</strong> pour comprendre la mer, pas une consigne de navigation.
+    Avant de sortir en mer, réfère-toi toujours au bulletin officiel de sécurité maritime et à ton propre jugement.
+  </div>
+  <div class="maj" id="maj"></div>
+  <div style="text-align:center"><a class="retour" href="/">← Retour NAVLYS</a></div>
+</div>
+
+<script>
+// Source unique : l'edge interne NAVLYS "mer" (qui est lui-même le plan B Open-Meteo).
+// Règle n°20 : jamais d'appel externe direct côté client sans plan B interne — ici
+// on ne parle QU'À notre CORE, jamais à un tiers directement.
+var BASE = (location.hostname.indexOf("navlys") >= 0)
+  ? "https://hhrlgyvtqluxpywjiwkd.supabase.co/functions/v1/mer"
+  : "https://hhrlgyvtqluxpywjiwkd.supabase.co/functions/v1/mer";
+
+function etatMer(v){ // v = hauteur de vague en mètres
+  if(v==null) return {p:"🌊",m:"Mer inconnue",s:"Donnée momentanément indisponible."};
+  if(v<0.5)  return {p:"🟢",m:"Mer calme",     s:"Plat à ridée — conditions douces."};
+  if(v<1.25) return {p:"🟢",m:"Peu agitée",    s:"Petites vagues, sortie confortable pour les initiés."};
+  if(v<2.5)  return {p:"🟡",m:"Agitée",         s:"Vagues formées — prudence, réservé aux expérimentés."};
+  if(v<4)    return {p:"🟠",m:"Forte",          s:"Mer forte — sortie déconseillée."};
+  return               {p:"🔴",m:"Très forte",  s:"Conditions dangereuses — reste à terre."};
+}
+function rose(d){ if(d==null) return "—";
+  var n=["N","NNE","NE","ENE","E","ESE","SE","SSE","S","SSO","SO","OSO","O","ONO","NO","NNO"];
+  return n[Math.round(d/22.5)%16]+" "+Math.round(d)+"°"; }
+function set(id,html){ var e=document.getElementById(id); if(e){e.innerHTML=html; e.classList.remove("skl");} }
+function h2(t){ try{ return new Date(t).toLocaleTimeString("fr-FR",{hour:"2-digit"}); }catch(e){ return String(t).slice(11,16); } }
+
+function proche(heures){
+  var now=Date.now(), best=heures[0], bd=Infinity;
+  for(var i=0;i<heures.length;i++){ var d=Math.abs(new Date(heures[i].t).getTime()-now); if(d<bd){bd=d;best=heures[i];} }
+  return best;
+}
+
+fetch(BASE,{headers:{"Content-Type":"application/json"}})
+  .then(function(r){ return r.json(); })
+  .then(function(d){
+    if(!d || !d.ok || !d.heures || !d.heures.length) throw new Error("vide");
+    var maintenant = proche(d.heures);
+    var e = etatMer(maintenant.vague);
+    set("pastille", e.p); set("mot", e.m); set("sous", e.s);
+    set("vague", (maintenant.vague!=null?maintenant.vague:"—")+'<span class="u"> m</span>');
+    set("vent",  (maintenant.vent!=null?Math.round(maintenant.vent):"—")+'<span class="u"> km/h</span>');
+    set("raf",   (maintenant.raf!=null?Math.round(maintenant.raf):"—")+'<span class="u"> km/h</span>');
+    set("dir",   rose(maintenant.dir));
+    // 12 prochaines heures à partir de maintenant
+    var idx = d.heures.indexOf(maintenant); if(idx<0) idx=0;
+    var suite = d.heures.slice(idx, idx+12), box=document.getElementById("heures"), out="";
+    for(var i=0;i<suite.length;i++){ var s=suite[i], es=etatMer(s.vague);
+      out += '<div class="h"><div class="hh">'+h2(s.t)+'</div><div class="hv">'+es.p+'</div>'+
+             '<div class="hs">'+(s.vague!=null?s.vague+' m':'—')+'</div>'+
+             '<div class="hs">'+(s.vent!=null?Math.round(s.vent)+' km/h':'')+'</div></div>';
+    }
+    box.innerHTML = out;
+    document.getElementById("maj").textContent = "Source : NAVLYS · Open-Meteo — mis à jour à l'instant.";
+  })
+  .catch(function(){
+    document.getElementById("etat").innerHTML =
+      '<div class="err">La mer ne répond pas à l\'instant.<br>Réessaie dans quelques minutes — le point mer revient tout seul. 🌊</div>';
+    document.getElementById("grid").style.display="none";
+  });
+</script>
+</body>
+</html>
