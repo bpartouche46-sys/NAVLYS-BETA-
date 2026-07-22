@@ -30,6 +30,7 @@
 <style>
 .nv-skip{position:absolute;left:-999px;top:0;z-index:1000;background:#c9962f;color:#0a0803;padding:10px 16px;border-radius:0 0 10px 0;font-family:'Cinzel',serif;font-size:13px}
 .nv-skip:focus{left:0}
+:where(a,button,.nv-cta,.nv-card,summary,[tabindex]):focus-visible{outline:2px solid #7dd3fc;outline-offset:3px;border-radius:8px}
 .nv-prix{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px;max-width:960px;margin:8px auto 0}
 .nv-prix .p{background:rgba(8,11,22,.62);border:1px solid rgba(233,211,160,.22);border-radius:18px;padding:22px 18px;text-align:center;transition:border-color .3s,transform .3s}
 .nv-prix .p:hover{border-color:rgba(233,211,160,.6);transform:translateY(-4px)}
@@ -272,6 +273,8 @@
   }catch(e){document.querySelectorAll('.nv-reveal').forEach(function(el){el.style.opacity=1;el.style.transform='none';});}
 })();
 </script>
+<script src="/navlys-i18n.js" defer></script>
 <script src="/navlys-voix.js" defer></script>
+<script src="/navlys-bg.js" defer></script>
 </body>
 </html>

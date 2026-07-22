@@ -714,6 +714,7 @@ window.NAVLYS_setVideo = function(v, rate, srcs){
     '<div class="lbl">Mon espace</div>'+
     '<button id="nv-account">👤 <span>Identité &amp; Compte</span></button>'+
     '<button id="nv-pay">💳 <span>Abonnement &amp; Paiement</span></button>'+
+    '<button id="nv-monsite">🌐 <span>Mon site public</span></button>'+
     '<button id="nv-settings">🎛️ <span>Réglages</span></button>'+
     '<div class="sep"></div>'+
     '<div class="lbl">Langue</div>'+
@@ -739,6 +740,7 @@ window.NAVLYS_setVideo = function(v, rate, srcs){
 
   // actions menu
   gearM.querySelector('#nv-account').onclick=function(){ closeAll(); location.href='/profil'; };
+  (function(){ var b=gearM.querySelector('#nv-monsite'); if(b) b.onclick=function(){ closeAll(); location.href='/membres'; }; })();
   gearM.querySelector('#nv-pay').onclick=function(){ closeAll(); location.href='/adhesion'; };
   gearM.querySelector('#nv-settings').onclick=function(){ toast('Réglages personnels — en chemin 🎛️'); };
   gearM.querySelector('#nv-help').onclick=function(){ closeAll(); var b=document.getElementById('nv-sav-btn'); if(b) b.click(); };

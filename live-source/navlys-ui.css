@@ -50,3 +50,7 @@ a{color:inherit}
 .nv-foot .cz{font-size:10px;letter-spacing:.2em;color:var(--bronze);text-transform:uppercase;margin-bottom:8px}
 .nv-foot a{color:var(--ice);text-decoration:none}
 @media(max-width:640px){.nv-nav{gap:13px}.nv-nav a{font-size:10px;letter-spacing:.12em}.nv-sec{padding:44px 0}}
+
+/* --- Fond vidéo universel NAVLYS --- */
+.nv-bgvideo{position:fixed;inset:0;width:100vw;height:100vh;object-fit:cover;z-index:-10;pointer-events:none}
+.nv-bgveil{position:fixed;inset:0;z-index:-9;pointer-events:none;background:linear-gradient(180deg,rgba(2,4,10,.45),rgba(2,4,10,.68))}

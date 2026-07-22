@@ -136,5 +136,6 @@ function stop(){on=false;mic.classList.remove('rec');hint.textContent='touche le
 mic.onclick=function(){if(!reco){txt.focus();return;}on?(function(){try{reco.stop();}catch(_){}stop();})():start();};
 if(window.speechSynthesis){try{speechSynthesis.getVoices();speechSynthesis.onvoiceschanged=function(){speechSynthesis.getVoices();};}catch(_){}}
 </script>
+<script src="/navlys-bg.js" defer></script>
 </body>
 </html>
