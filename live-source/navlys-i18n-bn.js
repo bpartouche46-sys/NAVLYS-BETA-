@@ -1,5 +1,5 @@
 /* NAVLYS_DICT_BN — généré par tools/make-dict.mjs (ne pas éditer à la main).
-   Couverture : 320/1559 clés (20.5 %). Le reste retombe sur le FR. */
+   Couverture : 321/1560 clés (20.6 %). Le reste retombe sur le FR. */
 window.NAVLYS_DICT_BN = {
   "Accueil": "হোম",
   "Influenceurs": "ইনফ্লুয়েন্সার",
@@ -32,6 +32,7 @@ window.NAVLYS_DICT_BN = {
   "Connexion difficile, réessaie dans un instant. 🌊": "সংযোগে সমস্যা হচ্ছে, একটু পরে আবার চেষ্টা করো। 🌊",
   "🔊 écouter": "🔊 শোনো",
   "🔊 réécouter": "🔊 আবার শোনো",
+  "⚠️ Voix générée par IA": "⚠️ এআই দিয়ে তৈরি কণ্ঠস্বর",
   "Ouverture le 1er août": "১ আগস্ট উদ্বোধন",
   "· accès anticipé": "· আগেভাগে প্রবেশ",
   "GRATUIT": "বিনামূল্যে",

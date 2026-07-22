@@ -1,5 +1,5 @@
 /* NAVLYS_DICT_UR — généré par tools/make-dict.mjs (ne pas éditer à la main).
-   Couverture : 320/1559 clés (20.5 %). Le reste retombe sur le FR. */
+   Couverture : 321/1560 clés (20.6 %). Le reste retombe sur le FR. */
 window.NAVLYS_DICT_UR = {
   "Accueil": "ہوم",
   "Influenceurs": "انفلوئنسرز",
@@ -32,6 +32,7 @@ window.NAVLYS_DICT_UR = {
   "Connexion difficile, réessaie dans un instant. 🌊": "کنکشن میں دشواری ہے، تھوڑی دیر میں دوبارہ کوشش کرو۔ 🌊",
   "🔊 écouter": "🔊 سنو",
   "🔊 réécouter": "🔊 دوبارہ سنو",
+  "⚠️ Voix générée par IA": "⚠️ اے آئی سے تیار کردہ آواز",
   "Ouverture le 1er août": "یکم اگست کو افتتاح",
   "· accès anticipé": "· جلد رسائی",
   "GRATUIT": "مفت",

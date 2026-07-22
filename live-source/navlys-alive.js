@@ -208,6 +208,7 @@ window.NAVLYS_setVideo = function(v, rate, srcs){
   document.body.appendChild(btn);
   var panel=document.createElement('div'); panel.id='nv-sav';
   panel.innerHTML='<div class="hd"><span class="dot"></span> NAVLYS · Aide &amp; SAV</div>'+
+    '<div class="nv-aiv" style="font-size:11px;line-height:1.3;opacity:.85;padding:4px 12px;color:#a8e3ff">⚠️ Voix générée par IA</div>'+
     '<div class="bd" id="nv-bd"><div class="b n">Bonjour 👋 Je suis là pour t\'aider sur NAVLYS — une question, une idée ? Écris-moi.<br><span class="lt" id="nv-hello">🔊 écouter Bruno</span></div></div>'+
     '<div class="ft"><textarea id="nv-q" placeholder="Ta question…"></textarea><button class="mic" id="nv-mic" title="Parle — je t\'écoute">🎙️</button><button class="snd" id="nv-snd">→</button></div>'+
     '<div id="nv-fb-open">💡 Améliorer</div>';
