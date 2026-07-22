@@ -60,12 +60,12 @@ Objectif permanent (ne s'arrête qu'à zéro erreur) : auditer et corriger TOUT 
     <li><span class="ic">✔</span><span><b>WhatsApp CORE v38</b> — canal direct Bruno↔CORE. Capture des messages vocaux + transcription active (webhook 200, envoi 200, nom d'affichage Meta approuvé).</span></li>
     <li><span class="ic">✔</span><span><b>Dashboard /cockpit</b> — centralisé : parle au CORE, KPI membres, travail en cours, manques à régler, à valider, agents, kanban. Actualisé en direct.</span></li>
     <li><span class="ic">✔</span><span><b>Cerveau 24/7</b> — Supabase + pg_cron : bible (apprentissage), autotest, auto-amélioration, incidents, veille. Tourne seul, sans Claude Code.</span></li>
-    <li><span class="ic">✔</span><span><b>Repli anti-coupure</b> — <code>callBrain</code> (Anthropic → OpenRouter) posé dans le webhook WhatsApp. Le CORE survit à une coupure Claude/Anthropic.</span></li>
+    <li><span class="ic">✔</span><span><b>Repli anti-coupure</b> — Anthropic → OpenRouter posé dans WhatsApp, l'assistant et la bible. Le code lit ton nom de clé maison <code>OPEN_API_ROUTER</code> (lecture tolérante). Le CORE survit à une coupure Claude/Anthropic.</span></li>
+    <li><span class="ic">✔</span><span><b>Noms de clés maison</b> — nos secrets portent nos propres noms (ex. <code>OPEN_API_ROUTER</code>) : un attaquant ne devine pas les variables. Le code s'adapte, jamais l'inverse.</span></li>
   </ul></div>
 
   <h2>⏳ En attente de toi — actions réelles (pas simulables)</h2>
   <div class="card wait"><ul>
-    <li><span class="ic">◆</span><span><b>OpenRouter</b> — vérifier le nom de la clé chez Vercel. Tu as posé <code>OPEN_API_ROUTER</code> ; le code lit <code>OPENROUTER_API_KEY</code>. À aligner (renommer la variable OU j'étends la lecture tolérante) pour activer le repli.</span></li>
     <li><span class="ic">◆</span><span><b>OAuth inscription</b> — activer Google / Apple / Facebook dans Supabase → Auth → Providers (créer l'app dev + coller Client ID/Secret). En attendant, le lien e-mail marche déjà.</span></li>
     <li><span class="ic">◆</span><span><b>Google Play</b> — compte 25 $ + PWABuilder → empreinte SHA-256 pour <code>assetlinks.json</code>.</span></li>
     <li><span class="ic">◆</span><span><b>Secrets média gratuits</b> — GEMINI / HF / Cloudflare (débloque un cran de génération d'image de plus, sans redéploiement).</span></li>
