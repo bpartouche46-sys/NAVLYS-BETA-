@@ -10,10 +10,6 @@
 <link rel="canonical" href="https://navlys.com/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
-<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-<link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
-<link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
 <link rel="alternate" hreflang="fr" href="https://navlys.com/">
 <link rel="alternate" hreflang="x-default" href="https://navlys.com/">
 <link rel="icon" type="image/png" href="/assets/coins/navlys-coin-core.png">
@@ -265,8 +261,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script>
 (function(){
-  document.querySelectorAll('video').forEach(function(v){v.muted=true;try{v.play().catch(function(){});}catch(e){}});
-  if(matchMedia('(prefers-reduced-motion: reduce)').matches){document.querySelectorAll('.nv-reveal').forEach(function(el){el.style.opacity=1;el.style.transform='none';});return;}
+  var nvRM=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.querySelectorAll('video').forEach(function(v){v.muted=true;if(nvRM){try{v.pause();v.removeAttribute('autoplay');}catch(e){}}else{try{v.play().catch(function(){});}catch(e){}}});
+  if(nvRM){document.querySelectorAll('.nv-reveal').forEach(function(el){el.style.opacity=1;el.style.transform='none';});return;}
   try{
     var lenis=new Lenis({lerp:.1,smoothWheel:true});(function raf(t){lenis.raf(t);requestAnimationFrame(raf);})();
     if(window.gsap&&window.ScrollTrigger){gsap.registerPlugin(ScrollTrigger);lenis.on('scroll',ScrollTrigger.update);
