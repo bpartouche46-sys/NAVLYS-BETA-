@@ -47,7 +47,7 @@
   document.body.appendChild(fab);
 
   var karao=document.createElement('div');karao.id='nv-karao';karao.setAttribute('aria-live','polite');
-  karao.innerHTML='<div id="nv-kline"></div><div id="nv-knext"></div>';
+  karao.innerHTML='<div id="nv-kaiv" style="font-size:11px;opacity:.8;color:#a8e3ff;margin-bottom:4px">⚠️ Voix générée par IA</div><div id="nv-kline"></div><div id="nv-knext"></div>';
   document.body.appendChild(karao);
   var kline=karao.querySelector('#nv-kline'), knext=karao.querySelector('#nv-knext');
 

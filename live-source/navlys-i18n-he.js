@@ -31,6 +31,7 @@ window.NAVLYS_DICT_HE = {
 "Connexion difficile, réessaie dans un instant. 🌊": "החיבור קשה כרגע, נסה שוב בעוד רגע. 🌊",
 "🔊 écouter": "🔊 להאזין",
 "🔊 réécouter": "🔊 להאזין שוב",
+"⚠️ Voix générée par IA": "⚠️ קול שנוצר בבינה מלאכותית",
 "Ouverture le 1er août": "נפתח ב-1 באוגוסט",
 "· accès anticipé": "· גישה מוקדמת",
 "GRATUIT": "חינם",
