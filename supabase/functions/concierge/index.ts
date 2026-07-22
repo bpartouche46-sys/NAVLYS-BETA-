@@ -107,18 +107,54 @@ function dedupe(list: any[]) {
   return out;
 }
 
-async function conseilLLM(besoin: string, cat: string, lieuNom: string, n: number) {
+// ── RÉSILIENCE MULTI-MODÈLE (indépendance CORE) ──────────────────────────
+// Même pattern que api/whatsapp-webhook.js, supabase/functions/assistant et bible :
+// Claude direct d'abord, puis OpenRouter/Llama, puis NVIDIA NIM, dans cet ordre —
+// le conseil du concierge ne doit jamais rester muet si un autre modèle peut le
+// formuler. Lecture tolérante des clés (règle n°4). Aucune donnée n'est inventée :
+// le LLM ne FORMULE que le conseil, jamais les listings (toujours OSM, réels).
+async function appelAnthropic(sys: string, msgs: any[], model: string, maxTok: number): Promise<string> {
   if (!ANTH) return "";
   try {
-    const r = await fetch("https://api.anthropic.com/v1/messages", { method:"POST", headers:{ "x-api-key":ANTH, "anthropic-version":"2023-06-01", "Content-Type":"application/json" }, body: JSON.stringify({ model:"claude-haiku-4-5-20251001", max_tokens:220, system:"Tu es le concierge NAVLYS, chaleureux, tutoiement, direct et poli. On te donne un besoin, une catégorie, un lieu et le nombre d'options trouvées (vraies, issues d'OpenStreetMap). Écris 2 phrases max : comment choisir vite, et quoi vérifier avant d'appeler (horaires, urgence, avis). N'invente aucun nom. Français.", messages:[{ role:"user", content:`Besoin : ${besoin}\nCatégorie : ${cat}\nLieu : ${lieuNom}\nOptions trouvées : ${n}` }] }) });
+    const r = await fetch("https://api.anthropic.com/v1/messages", { method:"POST", headers:{ "x-api-key":ANTH, "anthropic-version":"2023-06-01", "Content-Type":"application/json" }, body: JSON.stringify({ model, max_tokens:maxTok, system:sys, messages:msgs }) });
     const d: any = await r.json().catch(() => ({}));
     return ((d.content || []).filter((c: any) => c.type === "text").map((c: any) => c.text).join(" ").trim());
   } catch { return ""; }
 }
+async function appelOpenRouter(sys: string, msgs: any[], maxTok: number): Promise<string> {
+  const orKey = Deno.env.get("OPENROUTER_API_KEY") || Deno.env.get("OPENROUTER_KEY") || Deno.env.get("OPEN_ROUTER_API_KEY") || Deno.env.get("OPEN_API_ROUTER") || Deno.env.get("OPEN_API_ROUTER_KEY") || "";
+  if (!orKey) return "";
+  try {
+    const r = await fetch("https://openrouter.ai/api/v1/chat/completions", { method:"POST", headers:{ Authorization:`Bearer ${orKey}`, "Content-Type":"application/json", "HTTP-Referer":"https://navlys.com", "X-Title":"NAVLYS Concierge" }, body: JSON.stringify({ model:"meta-llama/llama-3.3-70b-instruct:free", max_tokens:maxTok, messages:[{ role:"system", content:sys }, ...msgs] }) });
+    const d: any = await r.json().catch(() => ({}));
+    return (d?.choices?.[0]?.message?.content || "").trim();
+  } catch { return ""; }
+}
+async function appelNvidia(sys: string, msgs: any[], maxTok: number): Promise<string> {
+  const nvKey = Deno.env.get("NVIDIA_API_KEY") || Deno.env.get("NVAPI_KEY") || Deno.env.get("NVIDIA_NIM_KEY") || Deno.env.get("NGC_API_KEY") || Deno.env.get("NVIDIA_BUILD_API_KEY") || Deno.env.get("BUILD_NVIDIA_API_KEY") || "";
+  if (!nvKey) return "";
+  try {
+    const r = await fetch("https://integrate.api.nvidia.com/v1/chat/completions", { method:"POST", headers:{ Authorization:`Bearer ${nvKey}`, "Content-Type":"application/json" }, body: JSON.stringify({ model:"meta/llama-3.3-70b-instruct", max_tokens:maxTok, temperature:0.4, messages:[{ role:"system", content:sys }, ...msgs] }) });
+    const d: any = await r.json().catch(() => ({}));
+    return (d?.choices?.[0]?.message?.content || "").trim();
+  } catch { return ""; }
+}
+async function callBrain(sys: string, msgs: any[], model: string, maxTok: number): Promise<string> {
+  const a = await appelAnthropic(sys, msgs, model, maxTok); if (a) return a;
+  const o = await appelOpenRouter(sys, msgs, maxTok); if (o) return o;
+  const n = await appelNvidia(sys, msgs, maxTok); if (n) return n;
+  return "";
+}
+
+async function conseilLLM(besoin: string, cat: string, lieuNom: string, n: number) {
+  const sys = "Tu es le concierge NAVLYS, chaleureux, tutoiement, direct et poli. On te donne un besoin, une catégorie, un lieu et le nombre d'options trouvées (vraies, issues d'OpenStreetMap). Écris 2 phrases max : comment choisir vite, et quoi vérifier avant d'appeler (horaires, urgence, avis). N'invente aucun nom. Français.";
+  const usr = `Besoin : ${besoin}\nCatégorie : ${cat}\nLieu : ${lieuNom}\nOptions trouvées : ${n}`;
+  return await callBrain(sys, [{ role:"user", content:usr }], "claude-haiku-4-5-20251001", 220);
+}
 
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response(null, { status: 204, headers: CORS });
-  if (req.method === "GET") return J({ ok:true, service:"navlys-concierge", categories: CATS.map((c) => c.key), llm: !!ANTH });
+  if (req.method === "GET") return J({ ok:true, service:"navlys-concierge", categories: CATS.map((c) => c.key), llm: !!ANTH, resilience_llm:["claude","openrouter_llama","nvidia_nim"] });
 
   const b: any = await req.json().catch(() => ({}));
   if (b && b.website) return J({ ok:true }); // pot de miel anti-bot

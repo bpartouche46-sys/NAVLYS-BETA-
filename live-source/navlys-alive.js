@@ -261,20 +261,33 @@ window.NAVLYS_setVideo = function(v, rate, srcs){
     if(karEl) return karEl;
     var s=document.createElement('style'); s.textContent=
       '#nv-karaoke{position:fixed;left:10px;right:10px;bottom:150px;z-index:63;pointer-events:none;'+
-      'text-align:center;white-space:nowrap;overflow:hidden;font-family:\'Cormorant Garamond\',Georgia,serif;'+
-      'font-size:clamp(1.05rem,3.4vw,1.45rem);font-weight:600;color:#fff;'+
-      'text-shadow:0 0 10px rgba(125,211,252,.8),0 2px 6px rgba(0,0,0,.9);'+
+      'text-align:center;font-family:\'Cormorant Garamond\',Georgia,serif;'+
+      'font-size:clamp(1.05rem,3.4vw,1.45rem);font-weight:600;line-height:1.42;'+
       'opacity:0;transition:opacity .35s}'+
       '#nv-karaoke.on{opacity:1}'+
-      '#nv-karaoke .done{color:'+OR+'}';
+      '#nv-karaoke span{transition:color .12s ease,text-shadow .12s ease}'+
+      /* mot déjà dit = or ; mot en cours = ice vif ; mots à venir = estompés */
+      '#nv-karaoke .done{color:'+OR+';text-shadow:0 2px 6px rgba(0,0,0,.9)}'+
+      '#nv-karaoke .now{color:#fff;text-shadow:0 0 12px rgba(125,211,252,.95),0 2px 6px rgba(0,0,0,.9)}'+
+      '#nv-karaoke .next{color:rgba(233,238,242,.5);text-shadow:0 2px 6px rgba(0,0,0,.85)}';
     document.head.appendChild(s);
     karEl=document.createElement('div'); karEl.id='nv-karaoke'; karEl.setAttribute('aria-live','off');
     document.body.appendChild(karEl); return karEl;
   }
   function nvKarStop(){ clearInterval(karTimer); karTimer=null; if(karEl){ karEl.classList.remove('on'); } }
-  function nvKarWords(words, upto){ /* fenêtre glissante : on voit la fin de la phrase en cours */
-    var el=nvKarEl(); var shown=words.slice(Math.max(0,upto-9), upto).join(' ');
-    el.innerHTML='<span class="done">'+shown.replace(/[<>&]/g,'')+'</span>';
+  function nvKarWords(words, upto){ /* karaoké VRAI mot à mot : trail or (dit),
+     mot en cours ice vif, mots à venir estompés — fenêtre glissante 2 lignes */
+    var el=nvKarEl();
+    var cur=Math.max(1, Math.min(words.length, upto));  // nb de mots révélés (1-based)
+    var start=Math.max(0, cur-8);                       // on garde la fin de la phrase
+    var end=Math.min(words.length, cur+4);              // + quelques mots à venir estompés
+    var html='';
+    for(var i=start;i<end;i++){
+      var w=words[i].replace(/[<>&]/g,'');
+      var cls=(i<cur-1)?'done':(i===cur-1?'now':'next');
+      html+='<span class="'+cls+'">'+w+'</span> ';
+    }
+    el.innerHTML=html;
     el.classList.add('on');
   }
   function nvKarAudio(text, audio){ /* mots répartis sur la durée réelle du son */
@@ -550,6 +563,7 @@ window.NAVLYS_setVideo = function(v, rate, srcs){
   var pages=[
     {n:'Cadeaux',h:'/ambassadeur',i:'🎁',gift:true},
     {n:'Adhésion',h:'/adhesion',i:'✦'},
+    {n:'Concierge',h:'/concierge',i:'📍'},
     {n:'Ton idée',h:'/idee',i:'💡'},
     {n:'NAVLEX',h:'/navlex',i:'⚖'},
     {n:'Influenceurs',h:'/influenceurs',i:'★'},
@@ -605,8 +619,8 @@ window.NAVLYS_setVideo = function(v, rate, srcs){
   .nv-menu a:hover,.nv-menu button:hover{background:rgba(125,211,252,.12);color:#fff}
   .nv-menu .sep{height:1px;background:rgba(125,211,252,.16);margin:5px 2px}
   .nv-menu .lbl{font-size:.72rem;letter-spacing:1.5px;color:#8aa3bf;padding:6px 12px 2px;text-transform:uppercase}
-  .nv-langs{display:flex;gap:6px;padding:4px 8px 8px}
-  .nv-lang{flex:1;text-align:center;cursor:pointer;border:1px solid rgba(125,211,252,.25);border-radius:9px;padding:7px 0;color:#cfe0f2;font-family:'Lora',serif;font-size:.85rem}
+  .nv-langs{display:flex;flex-wrap:wrap;gap:6px;padding:4px 8px 8px;max-height:44vh;overflow:auto}
+  .nv-lang{flex:1 1 26%;min-width:58px;text-align:center;cursor:pointer;border:1px solid rgba(125,211,252,.25);border-radius:9px;padding:7px 4px;color:#cfe0f2;font-family:'Lora',serif;font-size:.82rem;white-space:nowrap}
   .nv-lang.on{background:rgba(125,211,252,.18);color:#fff;border-color:rgba(125,211,252,.5)}
   .nv-lang.soon{opacity:.6}
   #nv-toast{position:fixed;left:50%;top:calc(var(--nv-top-h) + 14px);transform:translateX(-50%) translateY(-8px);z-index:130;
@@ -632,6 +646,16 @@ window.NAVLYS_setVideo = function(v, rate, srcs){
       '<button class="nv-btn" id="nv-gearB">⚙️<span class="t">&nbsp;Menu</span></button>'+
     '</div>';
   document.body.appendChild(bar);
+
+  // Logo ANIMÉ par page (moteur navlys-logos.js) : remplace l'icône statique du
+  // brand par l'animation propre à la page courante. L'icône reste en repli si le
+  // script ne charge pas (dégradation propre, zéro risque sur le chrome existant).
+  (function(){ try{
+    var brand=bar.querySelector('.nv-brand');
+    function apply(){ if(window.NavlysLogo&&brand){ try{ window.NavlysLogo.brand(brand,34); }catch(e){} } }
+    if(window.NavlysLogo){ apply(); }
+    else{ var s=document.createElement('script'); s.src='/navlys-logos.js'; s.async=true; s.onload=apply; document.head.appendChild(s); }
+  }catch(e){} })();
 
   function mkMenu(id,html,anchorRight){
     var m=document.createElement('div'); m.className='nv-menu'; m.id=id; m.innerHTML=html;
@@ -663,7 +687,29 @@ window.NAVLYS_setVideo = function(v, rate, srcs){
   var shareM=mkMenu('nv-shareM',shareHTML,true);
 
   // ---- menu RÉGLAGES / COMPTE / PAIEMENT / LANGUE ----
-  var curLang='fr'; try{ curLang=(window.localStorage&&localStorage.getItem('nv-lang'))||'fr'; }catch(e){} if(['en','ru','he','ar'].indexOf(curLang)<0) curLang='fr';
+  var curLang='fr'; try{ curLang=(window.localStorage&&localStorage.getItem('nv-lang'))||'fr'; }catch(e){}
+  // Registre des langues : source unique = navlys-i18n.js (window.NAVLYS_I18N).
+  // Repli local si l'i18n n'est pas encore prêt (scripts defer, ordre non garanti).
+  var LANGCHIPS=(function(){
+    try{
+      if(window.NAVLYS_I18N&&window.NAVLYS_I18N.langs){
+        return window.NAVLYS_I18N.langs().map(function(c){
+          var m=(window.NAVLYS_I18N.meta&&window.NAVLYS_I18N.meta(c))||{};
+          return {c:c,n:m.native||c};
+        });
+      }
+    }catch(e){}
+    return [{c:'fr',n:'Français'},{c:'en',n:'English'},{c:'ru',n:'Русский'},
+      {c:'es',n:'Español'},{c:'pt',n:'Português'},{c:'it',n:'Italiano'},
+      {c:'de',n:'Deutsch'},{c:'nl',n:'Nederlands'},{c:'wa',n:'Walon'},
+      {c:'zh',n:'中文'},{c:'hi',n:'हिन्दी'},{c:'bn',n:'বাংলা'},
+      {c:'he',n:'עברית'},{c:'ar',n:'العربية'},{c:'ur',n:'اردو'}];
+  })();
+  if(!LANGCHIPS.some(function(x){return x.c===curLang;})) curLang='fr';
+  function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+  var langChipsHTML=LANGCHIPS.map(function(x){
+    return '<div class="nv-lang'+(curLang===x.c?' on':'')+'" data-l="'+esc(x.c)+'" data-n="'+esc(x.n)+'">'+esc(x.n)+'</div>';
+  }).join('');
   var gearHTML=
     '<div class="lbl">Mon espace</div>'+
     '<button id="nv-account">👤 <span>Identité &amp; Compte</span></button>'+
@@ -671,13 +717,7 @@ window.NAVLYS_setVideo = function(v, rate, srcs){
     '<button id="nv-settings">🎛️ <span>Réglages</span></button>'+
     '<div class="sep"></div>'+
     '<div class="lbl">Langue</div>'+
-    '<div class="nv-langs">'+
-      '<div class="nv-lang'+(curLang==='fr'?' on':'')+'" data-l="fr">FR</div>'+
-      '<div class="nv-lang'+(curLang==='en'?' on':'')+'" data-l="en">EN</div>'+
-      '<div class="nv-lang'+(curLang==='ru'?' on':'')+'" data-l="ru">RU</div>'+
-      '<div class="nv-lang'+(curLang==='he'?' on':'')+'" data-l="he">עב</div>'+
-      '<div class="nv-lang'+(curLang==='ar'?' on':'')+'" data-l="ar">ع</div>'+
-    '</div>'+
+    '<div class="nv-langs">'+langChipsHTML+'</div>'+
     '<div class="sep"></div>'+
     '<button id="nv-help">💬 <span>Aide &amp; SAV</span></button>';
   var gearM=mkMenu('nv-gearM',gearHTML,true);
@@ -705,15 +745,14 @@ window.NAVLYS_setVideo = function(v, rate, srcs){
   Array.prototype.forEach.call(gearM.querySelectorAll('.nv-lang'),function(el){
     el.onclick=function(){
       var l=el.getAttribute('data-l');
-      // toute langue encore en préparation : simple toast, pas de bascule
-      if(el.classList.contains('soon')){ toast((l||'').toUpperCase()+' — version en préparation 🌍'); return; }
-      // FR / EN / RU : bascule i18n réelle
+      // bascule i18n réelle (toutes les langues du registre sont actives ;
+      // couverture partielle = repli FR automatique, jamais de trou visible)
       if(window.NAVLYS_I18N){ window.NAVLYS_I18N.set(l); }
-      // marque l'onglet actif (sans toucher aux langues « soon »)
+      // marque l'onglet actif
       Array.prototype.forEach.call(gearM.querySelectorAll('.nv-lang'),function(x){
-        if(!x.classList.contains('soon')){ if(x===el) x.classList.add('on'); else x.classList.remove('on'); }
+        if(x===el) x.classList.add('on'); else x.classList.remove('on');
       });
-      toast(l==='ru'?'Русский — готово ✓ 🌍':(l==='en'?'English — done ✓ 🌍':(l==='he'?'עברית — מוכן ✓ 🌍':(l==='ar'?'العربية — جاهز ✓ 🌍':'Français — activé ✓ 🌊'))));
+      toast((el.getAttribute('data-n')||l)+' ✓ 🌍');
     };
   });
 })();
@@ -786,15 +825,15 @@ window.NAVLYS_setVideo = function(v, rate, srcs){
     act.insertBefore(mu, act.firstChild);
   });
 
-  // --- compte à rebours réel jusqu'au 1er juillet 2026, 00:00 ---
+  // --- compte à rebours réel jusqu'au 1er août 2026, 00:00 ---
   var band=document.createElement('a'); band.id='nv-count'; band.href='/adhesion'; document.body.appendChild(band);
-  var TARGET=new Date(2026,6,1,0,0,0).getTime();
+  var TARGET=new Date(2026,7,1,0,0,0).getTime();
   function pad(n){ return (n<10?'0':'')+n; }
   function tick(){
     var diff=TARGET-Date.now();
     if(diff<=0){ band.innerHTML='✨ <b>NAVLYS est lancé</b> — entre dans l\'univers, accès anticipé <b>GRATUIT</b> &rsaquo;'; return; }
     var d=Math.floor(diff/864e5), h=Math.floor(diff%864e5/36e5), m=Math.floor(diff%36e5/6e4), s=Math.floor(diff%6e4/1e3);
-    band.innerHTML='✨ <span class="pin">Ouverture le 1er juillet</span> · accès anticipé <b>GRATUIT</b> — <b>'+d+'j '+pad(h)+'h '+pad(m)+'m '+pad(s)+'s</b> &rsaquo;';
+    band.innerHTML='✨ <span class="pin">Ouverture le 1er août</span> · accès anticipé <b>GRATUIT</b> — <b>'+d+'j '+pad(h)+'h '+pad(m)+'m '+pad(s)+'s</b> &rsaquo;';
   }
   tick(); setInterval(tick,1000);
 
@@ -931,7 +970,7 @@ window.NAVLYS_setVideo = function(v, rate, srcs){
   // Barre basse app (feutrée) — sauf si la page en a déjà une (ex. /cinema)
   if(!has('.botbar') && !has('#nv-botbar')){
     var path=(location.pathname||'/').replace(/index\.html$/,'').replace(/\.html$/,'').replace(/\/+$/,'')||'/';
-    var items=[['/','≋','Accueil'],['/finance','📈','Finance'],['/next-gen','📖','Next Gen'],['/assistance','🎙️','Voix'],['/cockpit','⛬','Cockpit']];
+    var items=[['/','≋','Accueil'],['/finance','📈','Finance'],['/next-gen','📖','Next Gen'],['/bateau-test','🚤','Bateaux'],['/assistance','🎙️','Voix'],['/cockpit','⛬','Cockpit']];
     var css='#nv-botbar{position:fixed;bottom:0;left:0;right:0;height:60px;z-index:59;display:flex;justify-content:space-around;align-items:center;'
       +'background:rgba(4,6,12,.80);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid rgba(125,211,252,.14);padding-bottom:env(safe-area-inset-bottom)}'
       +"#nv-botbar a{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:#8fa2b3;font-family:'Cinzel','Cormorant Garamond',serif;font-size:8.5px;letter-spacing:.12em;text-transform:uppercase;flex:1;transition:.25s}"
@@ -1050,7 +1089,7 @@ window.NAVLYS_setVideo = function(v, rate, srcs){
       +'-webkit-mask-image:linear-gradient(90deg,transparent,#000 18px,#000 calc(100% - 18px),transparent);'
       +'mask-image:linear-gradient(90deg,transparent,#000 18px,#000 calc(100% - 18px),transparent)}'
       +'#nv-cine .track{position:absolute;top:0;left:0;height:100%;display:flex;align-items:center;gap:30px;white-space:nowrap;padding-left:30px;'
-      +'font-family:\'Cormorant Garamond\',\'Lora\',serif;font-size:.92rem;color:#eaf6ff;text-shadow:0 0 8px rgba(125,211,252,.45);will-change:transform;animation:nvCine 30s linear infinite}'
+      +'font-family:\'Cormorant Garamond\',\'Lora\',serif;font-size:.92rem;color:#eaf6ff;text-shadow:0 0 8px rgba(125,211,252,.45);will-change:transform;animation:nvCine 60s linear infinite}'
       +'#nv-cine:hover .track{animation-play-state:paused}'
       +'#nv-cine .track b{color:'+OR+';font-weight:700;text-shadow:0 0 8px rgba(233,211,160,.6)}'
       +'#nv-cine .track span.it{display:inline-flex;align-items:center;gap:7px}'

@@ -1,223 +1,221 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>NAVLYS — Ton espace ambassadeur</title>
-<meta name="description" content="Partage l'univers NAVLYS autour de toi, gagne des points et reçois des cadeaux. Chaque membre fait grandir la mer.">
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Cormorant+Garamond:ital,wght@0,400;1,400&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
-<link rel="icon" type="image/svg+xml" href="/media/navlys_favicon.svg">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>NAVLYS — Deviens ambassadeur</title>
+<meta name="description" content="Programme ambassadeur NAVLYS : gratuit, ouvert à tous, transparent. Partage l'univers, cumule des récompenses et avantages. Aucune rémunération garantie.">
+<meta name="theme-color" content="#04122b">
+<link rel="canonical" href="https://navlys.com/ambassadeur.html">
+<meta property="og:title" content="NAVLYS — Deviens ambassadeur">
+<meta property="og:description" content="Partage NAVLYS, cumule récompenses et avantages. Programme d'affiliation gratuit et transparent.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://navlys.com/ambassadeur.html">
+<meta property="og:image" content="https://navlys.com/brand/navlys_medaillon_1024.png">
+<link rel="icon" href="/favicons/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicons/navlys-coin-avers-bronze-32.png">
+<link rel="apple-touch-icon" href="/favicons/navlys-coin-avers-bronze-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-:root{--noir:#03040a;--ice:#7DD3FC;--ice-clair:#a8e3ff;--or:#C9A961;--or-pale:#f3e4c4;--perle:#e7eef2;--mut:#9fb3c8;--line:rgba(125,211,252,.18);--ok:#34d399}
-*{margin:0;padding:0;box-sizing:border-box}
-html{background:var(--noir)}
-body{background:var(--noir);color:var(--perle);font-family:'Atkinson Hyperlegible',system-ui,sans-serif;-webkit-font-smoothing:antialiased;min-height:100vh}
-.wrap{max-width:760px;margin:0 auto;padding:34px 20px 96px}
-.k{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:var(--ice);text-align:center}
-h1{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:400;font-size:clamp(32px,8vw,50px);text-align:center;color:#eafaff;margin:8px 0 6px}
-.sub{text-align:center;color:var(--mut);font-size:1.02rem;margin:0 auto 26px;line-height:1.7;max-width:36em}
-/* connexion */
-.gate{max-width:400px;margin:0 auto 8px;text-align:center}
-.gate input{width:100%;padding:14px 16px;border-radius:14px;border:1px solid var(--line);background:rgba(5,7,14,.7);color:var(--perle);font-family:inherit;font-size:1rem;text-align:center}
-.gate input:focus{outline:none;border-color:var(--ice)}
-.gate .btn{margin:12px auto 0}
-.btn{display:inline-block;border:1px solid var(--line);cursor:pointer;font-family:'Cinzel',serif;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--ice-clair);background:none;border-radius:999px;padding:12px 24px;transition:border-color .2s,color .2s}
-.btn:hover{border-color:var(--ice);color:#eafaff}
-.btn.gold{color:var(--or-pale);border-color:rgba(201,169,97,.5)}
-/* code */
-.codecard{border:1px solid var(--line);border-radius:22px;padding:24px 22px;text-align:center;background:radial-gradient(120% 120% at 50% 0%,rgba(125,211,252,.10),rgba(4,6,12,.92));margin-bottom:20px}
-.codecard .l{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--mut)}
-.codecard .code{font-family:'Cinzel',serif;font-size:clamp(1.7rem,7vw,2.5rem);letter-spacing:.08em;color:var(--or-pale);margin:8px 0 4px;word-break:break-all}
-.codecard .lien{font-size:.9rem;color:var(--ice-clair);word-break:break-all;margin:6px 0 16px}
-.codecard .actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
-/* tuiles */
-.head{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:22px}
-.tuile{border:1px solid var(--line);border-radius:16px;padding:16px 18px;text-align:center;background:rgba(5,7,14,.6);min-width:120px;flex:1}
-.tuile .n{font-family:'Cormorant Garamond',serif;font-size:2.3rem;color:var(--or-pale);line-height:1}
-.tuile .l{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--mut);margin-top:6px}
-.bar{height:9px;border-radius:99px;background:rgba(125,211,252,.12);margin:14px 0 6px;overflow:hidden}
-.bar>span{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,var(--ice),var(--or));width:0;transition:width 1.1s ease}
-.palig{text-align:center;color:var(--mut);font-size:.9rem;margin-bottom:24px}
-.palig b{color:var(--ice-clair)}
-/* partage */
-.section-t{font-family:'Cinzel',serif;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--ice-clair);text-align:center;margin:6px 0 14px}
-.share{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-bottom:26px}
-.share button{display:flex;align-items:center;justify-content:center;gap:8px;border:1px solid var(--line);background:rgba(5,7,14,.6);color:var(--perle);border-radius:14px;padding:14px 12px;font-family:inherit;font-size:.95rem;cursor:pointer;transition:border-color .2s,transform .15s}
-.share button:hover{border-color:var(--ice);transform:translateY(-1px)}
-.share button .ic{width:18px;height:18px;flex:none}
-/* cadeaux */
-.cadeaux{border:1px solid var(--line);border-radius:16px;padding:6px 4px;margin-bottom:20px;background:rgba(5,7,14,.5)}
-.cad{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:12px 16px;border-bottom:1px solid rgba(125,211,252,.08)}
-.cad:last-child{border-bottom:none}
-.cad .g{color:var(--or-pale);font-size:.98rem}
-.cad .g small{display:block;color:var(--mut);font-size:.8rem;margin-top:2px}
-.cad .v{color:var(--ok);font-family:'Cormorant Garamond',serif;font-size:1.3rem;white-space:nowrap}
-.msg{text-align:center;color:var(--mut);margin-top:8px;min-height:1.3em}
-.disc{text-align:center;color:var(--mut);font-size:.82rem;margin-top:24px;line-height:1.7}
-.hidden{display:none!important}
-.toast{position:fixed;left:50%;bottom:96px;transform:translateX(-50%) translateY(20px);background:rgba(5,10,18,.96);border:1px solid var(--line);color:var(--ice-clair);padding:11px 20px;border-radius:999px;font-size:.9rem;opacity:0;pointer-events:none;transition:opacity .3s,transform .3s;z-index:60}
-.toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+:root{--noir:#04122b;--noir2:#082a5e;--bleu:#114b8f;--bronze:#B87333;--or:#E6C264;--or2:#FBEBB4;--ice:#8FC7EE;--aqua:#4fd6c2;--perle:#EAF2FB;--brume:#8fa5bd;--carte:#0a2248;--ligne:rgba(230,194,100,.2);--verre:rgba(143,199,238,.07)}
+*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
+body{background:var(--noir);color:var(--perle);font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(19px,2.1vw,22px);line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased;padding-bottom:64px}
+.bg{position:fixed;inset:0;z-index:-2;background:radial-gradient(900px 620px at 82% -6%,rgba(184,115,51,.13),transparent 60%),radial-gradient(820px 600px at 8% 4%,rgba(143,199,238,.11),transparent 60%),radial-gradient(1200px 900px at 50% 118%,rgba(230,194,100,.10),transparent 62%),linear-gradient(180deg,#04122b,#082a5e 55%,#04122b)}
+.bg::after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 40%,rgba(143,199,238,.06) 50%,transparent 60%);background-size:250% 250%;animation:shimmerbg 14s ease-in-out infinite}
+@keyframes shimmerbg{0%{background-position:0% 0%}50%{background-position:100% 100%}100%{background-position:0% 0%}}
+.sea{position:fixed;left:0;right:0;bottom:0;height:46vh;z-index:-1;opacity:.5;pointer-events:none}.sea svg{width:200%;height:100%;display:block}
+.wv{animation:drift 14s linear infinite}.wv2{animation:drift 22s linear infinite reverse;opacity:.6}.wv3{animation:drift 32s linear infinite;opacity:.4}
+@keyframes drift{to{transform:translateX(-50%)}}
+.wrap{max-width:900px;margin:0 auto;padding:0 22px}
+header{position:sticky;top:0;z-index:60;display:flex;align-items:center;gap:14px;padding:18px 22px 14px;backdrop-filter:blur(10px);background:linear-gradient(180deg,rgba(4,18,43,.72),rgba(4,18,43,0));border-bottom:1px solid var(--ligne)}
+.logo{font-family:'Cinzel',serif;letter-spacing:7px;font-size:1.35rem;color:#fff;font-weight:600;text-decoration:none}
+nav.top{margin-left:auto;display:flex;gap:18px;align-items:center;flex-wrap:wrap}nav.top a{color:var(--brume);text-decoration:none;font-style:italic;font-size:.96rem}nav.top a:hover{color:var(--ice)}
+.lang{display:flex;gap:2px;border:1px solid var(--ligne);border-radius:999px;padding:3px;background:rgba(4,18,43,.5)}
+.lang button{background:none;border:0;color:var(--brume);font-family:'JetBrains Mono',monospace;font-size:.62rem;letter-spacing:.08em;padding:4px 8px;border-radius:999px;cursor:pointer;transition:.15s}
+.lang button.on{background:linear-gradient(100deg,var(--or),var(--or2));color:#1a1206}.lang button:hover:not(.on){color:var(--ice)}
+@media(max-width:560px){nav.top a{font-size:.85rem}.lang button{padding:4px 6px;font-size:.55rem}}
+section{padding:44px 0 8px}.hero{text-align:center;padding:46px 0 18px}
+.over{font-family:'JetBrains Mono',monospace;font-size:.66rem;letter-spacing:.32em;text-transform:uppercase;color:var(--bronze)}
+h1{font-family:'Cinzel',serif;font-weight:700;line-height:1.1;text-wrap:balance;font-size:clamp(2rem,6.6vw,3.6rem);margin:18px 0 12px;background:linear-gradient(100deg,#8FC7EE,#4fd6c2 22%,#E6C264 48%,#FBEBB4 62%,#4fd6c2 82%,#8FC7EE);background-size:280% auto;-webkit-background-clip:text;background-clip:text;color:transparent;animation:aqua 9s linear infinite;filter:drop-shadow(0 2px 26px rgba(143,199,238,.22))}
+@keyframes aqua{to{background-position:280% center}}
+.sub{font-style:italic;color:var(--or);font-size:clamp(1.1rem,2.7vw,1.45rem);max-width:720px;margin:0 auto}
+.lead{max-width:680px;margin:14px auto 0;color:var(--perle);opacity:.9}
+.card{background:linear-gradient(180deg,var(--carte),#061f45);border:1px solid var(--ligne);border-radius:22px;padding:26px 24px}
+.eyebrow{font-family:'JetBrains Mono',monospace;font-size:.62rem;letter-spacing:.3em;text-transform:uppercase;color:var(--bronze);text-align:center}
+.stitle{font-family:'Cinzel',serif;color:#fff;text-align:center;font-weight:600;font-size:clamp(1.4rem,4vw,2rem);margin:10px 0 6px;text-wrap:balance}
+.slead{text-align:center;color:var(--brume);font-style:italic;max-width:640px;margin:0 auto 24px}
+.calc .field{margin:16px 0}label{display:block;font-family:'JetBrains Mono',monospace;font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:var(--bronze);margin-bottom:8px}
+input[type=number],input[type=text],input[type=range]{width:100%;background:rgba(4,18,43,.6);border:1px solid var(--ligne);border-radius:12px;padding:12px 14px;color:var(--perle);font-family:'Cormorant Garamond',serif;font-size:1.05rem;outline:none;transition:.18s}input:focus{border-color:var(--or);box-shadow:0 0 0 3px rgba(230,194,100,.15)}input[type=range]{padding:8px 0;background:none;border:0}
+.range{display:flex;align-items:center;gap:14px}.range input{flex:1}.range .val{min-width:64px;text-align:center;font-family:'Cinzel',serif;color:var(--or);font-size:1.3rem}
+.result{text-align:center;margin:22px 0 8px}.result b{display:block;font-family:'Cinzel',serif;font-size:clamp(2.2rem,6vw,3.4rem);color:var(--or);line-height:1}.result span{font-family:'JetBrains Mono',monospace;font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--brume)}
+.note{font-size:.8rem;color:var(--brume);font-style:italic;text-align:center;margin-top:12px}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:8px}@media(max-width:640px){.steps{grid-template-columns:1fr}}
+.step{position:relative;text-align:center;padding:22px 16px;background:linear-gradient(180deg,var(--verre),transparent);border:1px solid var(--ligne);border-radius:18px}
+.step .num{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;margin:0 auto 12px;background:linear-gradient(100deg,var(--or),var(--or2));color:#1a1206;font-family:'Cinzel',serif;font-weight:700}
+.step h4{font-family:'Cinzel',serif;color:#fff;font-size:1.08rem;margin-bottom:6px}.step p{color:var(--brume);font-size:.95rem;line-height:1.45}
+.share .linkbox{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0 10px}.share .linkbox input{flex:1;min-width:220px;font-family:'JetBrains Mono',monospace;font-size:.85rem}
+.btn{font-family:'Cinzel',serif;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;padding:13px 22px;border-radius:999px;transition:.18s;display:inline-flex;align-items:center;gap:9px;cursor:pointer;border:0}
+.btn.p{background:linear-gradient(100deg,var(--or),var(--or2));color:#1a1206;box-shadow:0 8px 30px rgba(230,194,100,.22)}.btn.p:hover{transform:translateY(-2px);box-shadow:0 12px 40px rgba(230,194,100,.34)}
+.btn.g{border:1px solid var(--ligne);color:var(--perle);background:transparent}.btn.g:hover{border-color:var(--or);color:#fff}
+.wa{background:#25D366;color:#fff;border:0}.wa:hover{filter:brightness(1.1);transform:translateY(-2px)}
+.share .hint{font-size:.82rem;color:var(--brume);text-align:center;margin-top:12px}
+.faq{display:grid;gap:10px;margin-top:8px}
+.faq details{background:linear-gradient(180deg,var(--verre),transparent);border:1px solid var(--ligne);border-radius:14px;padding:4px 18px}
+.faq summary{cursor:pointer;font-family:'Cinzel',serif;color:#fff;font-size:1.08rem;padding:12px 0;min-height:44px}.faq summary:hover{color:var(--or2)}.faq p{color:var(--perle);font-size:1rem;padding:0 0 14px;margin:0}
+footer{margin-top:60px;padding:34px 0 40px;border-top:1px solid var(--ligne);text-align:center;color:var(--brume);font-size:.88rem}footer a{color:var(--or);text-decoration:none}footer a:hover{color:var(--ice)}footer .fl{display:flex;gap:18px;justify-content:center;flex-wrap:wrap;margin-bottom:12px}
+.toast{position:fixed;left:50%;bottom:80px;transform:translateX(-50%) translateY(120px);background:linear-gradient(100deg,var(--or),var(--or2));color:#1a1206;padding:13px 24px;border-radius:999px;box-shadow:0 12px 40px rgba(230,194,100,.4);transition:.4s;z-index:120;max-width:90vw;font-size:.92rem;font-family:'JetBrains Mono',monospace;letter-spacing:.03em}.toast.show{transform:translateX(-50%) translateY(0)}
+.disc{background:rgba(4,18,43,.6);border:1px solid var(--ligne);border-left:3px solid var(--or);border-radius:12px;padding:16px 20px;font-size:.84rem;color:var(--brume);margin:26px auto 0}
+.rev{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease}.rev.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.rev{opacity:1;transform:none}*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
 </style>
 </head>
 <body>
+<div class="bg"></div>
+<div class="sea" aria-hidden="true">
+  <svg viewBox="0 0 1440 320" preserveAspectRatio="none">
+    <path class="wv3" fill="rgba(143,199,238,.10)" d="M0,160 C240,220 480,100 720,150 C960,200 1200,120 1440,160 L1440,320 L0,320 Z M1440,160 C1680,220 1920,100 2160,150 C2400,200 2640,120 2880,160 L2880,320 L1440,320 Z"></path>
+    <path class="wv2" fill="rgba(79,214,194,.10)" d="M0,190 C240,140 480,240 720,190 C960,140 1200,230 1440,190 L1440,320 L0,320 Z M1440,190 C1680,140 1920,240 2160,190 C2400,140 2640,230 2880,190 L2880,320 L1440,320 Z"></path>
+    <path class="wv" fill="rgba(230,194,100,.09)" d="M0,220 C240,260 480,180 720,220 C960,260 1200,190 1440,220 L1440,320 L0,320 Z M1440,220 C1680,260 1920,180 2160,220 C2400,260 2640,190 2880,220 L2880,320 L1440,320 Z"></path>
+  </svg>
+</div>
+
 <div class="wrap">
-  <div class="k">NAVLYS · Ambassadeur</div>
-  <h1 id="titre">Ton univers grandit avec toi</h1>
-  <p class="sub">Chaque personne que tu fais entrer dans la mer NAVLYS, c'est toi qui la fais grandir. Plus tu en parles autour de toi, plus tu gagnes de points — et plus on te gâte, toujours dans ce qui reste sain pour l'univers.</p>
+  <header>
+    <a href="index.html" class="logo">NAVLYS</a>
+    <nav class="top">
+      <a href="index.html" data-i18n="nav_home">Accueil</a>
+      <div class="lang" id="lang" role="group" aria-label="Langue">
+        <button data-l="fr" class="on" type="button" aria-label="Français" aria-pressed="true">FR</button>
+        <button data-l="en" type="button" aria-label="English" aria-pressed="false">EN</button>
+        <button data-l="es" type="button" aria-label="Español" aria-pressed="false">ES</button>
+        <button data-l="it" type="button" aria-label="Italiano" aria-pressed="false">IT</button>
+      </div>
+    </nav>
+  </header>
 
-  <!-- Connexion par e-mail -->
-  <div class="gate" id="gate">
-    <input id="email" type="email" inputmode="email" autocomplete="email" placeholder="Ton e-mail de membre">
-    <button class="btn gold" id="voir">Voir mon espace</button>
-  </div>
+  <section class="hero">
+    <div class="over" data-i18n="amb_over">Programme ambassadeur</div>
+    <h1 data-i18n="amb_h1">Deviens ambassadeur NAVLYS — partage l'univers, cumule les avantages</h1>
+    <p class="sub" data-i18n="amb_sub">Gratuit, ouvert à tous, transparent. Pas de revenu promis : des récompenses et avantages selon ton engagement.</p>
+    <p class="lead" data-i18n="amb_lead">Rejoins le programme d'affiliation NAVLYS. Partage ton lien personnalisé, fais découvrir l'univers à voix, et accumule des points-récompense convertibles en avantages exclusifs.</p>
+  </section>
 
-  <!-- Espace ambassadeur -->
-  <div id="espace" class="hidden">
-    <div class="codecard">
-      <div class="l">Ton code de parrainage</div>
-      <div class="code" id="code">—</div>
-      <div class="lien" id="lien">—</div>
-      <div class="actions">
-        <button class="btn gold" id="copierlien">Copier mon lien</button>
-        <button class="btn" id="copiercode">Copier le code</button>
+  <section class="card calc rev">
+    <div class="eyebrow" data-i18n="calc_eye">Simulateur</div>
+    <h2 class="stitle" data-i18n="calc_title">Calcule tes récompenses</h2>
+    <p class="slead" data-i18n="calc_lead">Fais glisser pour estimer tes points-récompense mensuels.</p>
+    <div class="field">
+      <label for="refs" data-i18n="calc_label">Nombre de filleuls actifs</label>
+      <div class="range">
+        <input id="refs" type="range" min="0" max="50" value="5" aria-label="Filleuls">
+        <span class="val" id="refsVal">5</span>
       </div>
     </div>
+    <div class="result"><b id="points">2 500</b><span data-i18n="calc_unit">points-récompense / mois</span></div>
+    <p class="note" data-i18n="calc_note">Chiffre d'exemple à titre indicatif. Les récompenses réelles dépendent de l'engagement de chacun. Aucun revenu garanti.</p>
+  </section>
 
-    <div class="head" id="head"></div>
-    <div class="bar"><span id="barp" data-w="0"></span></div>
-    <div class="palig" id="palig"></div>
-
-    <div class="section-t">Partage en un geste</div>
-    <div class="share" id="share"></div>
-
-    <div id="cadwrap" class="hidden">
-      <div class="section-t">Tes cadeaux reçus</div>
-      <div class="cadeaux" id="cadeaux"></div>
+  <section>
+    <div class="eyebrow" data-i18n="steps_eye">Comment ça marche</div>
+    <h2 class="stitle" data-i18n="steps_title">Trois étapes, zéro friction</h2>
+    <div class="steps">
+      <div class="step rev"><div class="num">1</div><h4 data-i18n="step1_t">Rejoins</h4><p data-i18n="step1_p">Inscris-toi gratuitement au programme ambassadeur. Aucun achat requis.</p></div>
+      <div class="step rev"><div class="num">2</div><h4 data-i18n="step2_t">Partage</h4><p data-i18n="step2_p">Diffuse ton lien personnalisé par message, réseaux ou WhatsApp.</p></div>
+      <div class="step rev"><div class="num">3</div><h4 data-i18n="step3_t">Cumule</h4><p data-i18n="step3_p">Reçois des points-récompense et des avantages chaque mois, tant que tes filleuls restent actifs.</p></div>
     </div>
+  </section>
 
-    <button class="btn" id="refresh" style="display:block;margin:8px auto 0">↻ Rafraîchir</button>
-  </div>
+  <section class="card share rev">
+    <div class="eyebrow" data-i18n="share_eye">Ton lien</div>
+    <h2 class="stitle" data-i18n="share_title">Génère ton lien d'ambassadeur</h2>
+    <p class="slead" data-i18n="share_lead">Saisis ton prénom pour personnaliser ton lien de partage.</p>
+    <div class="field">
+      <label for="firstName" data-i18n="share_name">Ton prénom</label>
+      <input id="firstName" type="text" placeholder="Marina" data-i18n-ph="share_ph" autocomplete="given-name">
+    </div>
+    <div class="linkbox">
+      <input id="shareLink" type="text" readonly value="https://navlys.com/?ref=NOM">
+      <button class="btn p" id="copyBtn" type="button" data-i18n="copy_btn">Copier</button>
+      <a class="btn wa" id="waBtn" href="https://wa.me/15559913239?text=Bonjour%20NAVLYS%2C%20je%20veux%20devenir%20ambassadeur" target="_blank" rel="noopener" data-i18n="wa_btn">WhatsApp</a>
+    </div>
+    <p class="hint" data-i18n="share_hint">En partageant, tu acceptes les conditions du programme d'affiliation NAVLYS.</p>
+  </section>
 
-  <div class="msg" id="msg"></div>
-  <p class="disc">Tes points montent à chaque partage et à chaque personne que tu fais adhérer. Les cadeaux sont calculés pour rester dans ce qui garde l'univers solide — jamais au-delà. Tout est mesuré chez nous, en direct.</p>
+  <section>
+    <div class="eyebrow" data-i18n="faq_eye">FAQ</div>
+    <h2 class="stitle" data-i18n="faq_title">Questions fréquentes</h2>
+    <div class="faq">
+      <details class="rev"><summary data-i18n="faq1_q">Le programme est-il payant ?</summary><p data-i18n="faq1_a">Non. Devenir ambassadeur est 100 % gratuit et accessible à tous, clients comme non-clients.</p></details>
+      <details class="rev"><summary data-i18n="faq2_q">Est-ce que je vais gagner de l'argent ?</summary><p data-i18n="faq2_a">Non. NAVLYS ne promet aucun revenu ni gain garanti. Tu accumules des récompenses et avantages selon ton engagement réel.</p></details>
+      <details class="rev"><summary data-i18n="faq3_q">Comment reçois-je mes récompenses ?</summary><p data-i18n="faq3_a">Tes points-récompense sont crédités chaque mois tant que tes filleuls restent actifs. Ils sont convertibles en avantages NAVLYS selon les conditions en vigueur.</p></details>
+      <details class="rev"><summary data-i18n="faq4_q">Puis-je partager où je veux ?</summary><p data-i18n="faq4_a">Oui, tant que le partage reste honnête et respectueux. Aucune promesse de gain, aucun spam. Le programme est transparent et encadré.</p></details>
+    </div>
+  </section>
+
+  <div class="disc" data-i18n="disc">Programme d'affiliation NAVLYS : récompenses et avantages liés à l'engagement. Aucune rémunération, gain ou revenu n'est garanti. NAVLYS reste un outil d'éducation et de veille, jamais un conseil réglementé.</div>
+
+  <footer>
+    <div class="fl">
+      <a href="index.html" data-i18n="foot_home">← Accueil</a>
+      <a href="mentions-legales.html" data-i18n="foot_ml">Mentions légales</a>
+      <a href="cgv.html" data-i18n="foot_cgv">CGV</a>
+      <a href="confidentialite.html" data-i18n="foot_conf">Confidentialité</a>
+    </div>
+    <div data-i18n="foot_copy">© 2026 NAVLYS — NAVLYS WEB SERVICE LTD</div>
+  </footer>
 </div>
+
 <div class="toast" id="toast"></div>
 
 <script>
-(function(){
-  var API='https://hhrlgyvtqluxpywjiwkd.supabase.co/functions/v1/ambassadeur';
-  var SITE='https://navlys.com';
-  var $=function(id){return document.getElementById(id);};
-  var email='', prenom='', code='', lien='';
+"use strict";
+var DICT={
+  en:{nav_home:"Home",amb_over:"Ambassador program",amb_h1:"Become a NAVLYS ambassador — share the universe, stack perks",amb_sub:"Free, open to everyone, transparent. No promised income: rewards and perks based on your engagement.",amb_lead:"Join the NAVLYS affiliate program. Share your personal link, introduce the voice-first universe, and earn reward points you can turn into exclusive perks.",calc_eye:"Simulator",calc_title:"Estimate your rewards",calc_lead:"Drag to estimate your monthly reward points.",calc_label:"Active referrals",calc_unit:"reward points / month",calc_note:"Example figure for illustration only. Actual rewards depend on each person's engagement. No income guaranteed.",steps_eye:"How it works",steps_title:"Three steps, zero friction",step1_t:"Join",step1_p:"Sign up to the ambassador program for free. No purchase required.",step2_t:"Share",step2_p:"Spread your personal link by message, socials or WhatsApp.",step3_t:"Stack",step3_p:"Earn reward points and perks every month, as long as your referrals stay active.",share_eye:"Your link",share_title:"Generate your ambassador link",share_lead:"Enter your first name to personalize your share link.",share_name:"First name",share_ph:"Marina",copy_btn:"Copy",wa_btn:"WhatsApp",share_hint:"By sharing, you agree to the NAVLYS affiliate program terms.",faq_eye:"FAQ",faq_title:"Frequently asked questions",faq1_q:"Does the program cost anything?",faq1_a:"No. Becoming an ambassador is 100% free and open to clients and non-clients alike.",faq2_q:"Will I earn money?",faq2_a:"No. NAVLYS never promises income or guaranteed earnings. You collect rewards and perks based on real engagement.",faq3_q:"How do I receive my rewards?",faq3_a:"Your reward points are credited monthly while your referrals remain active. They can be converted into NAVLYS perks according to the current terms.",faq4_q:"Can I share anywhere?",faq4_a:"Yes, as long as sharing stays honest and respectful. No earnings promises, no spam. The program is transparent and regulated.",disc:"NAVLYS affiliate program: rewards and perks tied to engagement. No remuneration, gain or income is guaranteed. NAVLYS remains an education and insight tool, never regulated advice.",foot_home:"← Home",foot_ml:"Legal notice",foot_cgv:"Terms of sale",foot_conf:"Privacy",foot_copy:"© 2026 NAVLYS — NAVLYS WEB SERVICE LTD",toast_copy:"Link copied — thanks for sharing 🌊",toast_empty:"Enter a first name to personalize the link 🌊"},
+  es:{nav_home:"Inicio",amb_over:"Programa embajador",amb_h1:"Hazte embajador NAVLYS — comparte el universo, acumula ventajas",amb_sub:"Gratis, abierto a todos, transparente. Sin ingresos prometidos: recompensas y ventajas según tu compromiso.",amb_lead:"Únete al programa de afiliados NAVLYS. Comparte tu enlace personal, haz descubrir el universo por voz y acumula puntos-recompensa canjeables por ventajas exclusivas.",calc_eye:"Simulador",calc_title:"Calcula tus recompensas",calc_lead:"Desliza para estimar tus puntos-recompensa mensuales.",calc_label:"Número de referidos activos",calc_unit:"puntos-recompensa / mes",calc_note:"Cifra de ejemplo a título informativo. Las recompensas reales dependen del compromiso de cada uno. Ningún ingreso garantizado.",steps_eye:"Cómo funciona",steps_title:"Tres pasos, cero fricción",step1_t:"Únete",step1_p:"Inscríbete gratis al programa embajador. No se requiere compra.",step2_t:"Comparte",step2_p:"Difunde tu enlace personalizado por mensaje, redes o WhatsApp.",step3_t:"Acumula",step3_p:"Recibe puntos-recompensa y ventajas cada mes, mientras tus referidos sigan activos.",share_eye:"Tu enlace",share_title:"Genera tu enlace de embajador",share_lead:"Escribe tu nombre para personalizar tu enlace de compartir.",share_name:"Tu nombre",share_ph:"Marina",copy_btn:"Copiar",wa_btn:"WhatsApp",share_hint:"Al compartir, aceptas las condiciones del programa de afiliados NAVLYS.",faq_eye:"FAQ",faq_title:"Preguntas frecuentes",faq1_q:"¿El programa es de pago?",faq1_a:"No. Ser embajador es 100 % gratis y abierto a clientes y no clientes.",faq2_q:"¿Voy a ganar dinero?",faq2_a:"No. NAVLYS no promete ingresos ni ganancias garantizadas. Acumulas recompensas y ventajas según tu compromiso real.",faq3_q:"¿Cómo recibo mis recompensas?",faq3_a:"Tus puntos-recompensa se acreditan cada mes mientras tus referidos permanezcan activos. Son canjeables por ventajas NAVLYS según las condiciones vigentes.",faq4_q:"¿Puedo compartir donde quiera?",faq4_a:"Sí, siempre que el compartido sea honesto y respetuoso. Ninguna promesa de ganancias, ningún spam. El programa es transparente y regulado.",disc:"Programa de afiliados NAVLYS: recompensas y ventajas vinculadas al compromiso. No se garantiza remuneración, ganancia ni ingreso alguno. NAVLYS sigue siendo una herramienta de educación e información, nunca consejo regulado.",foot_home:"← Inicio",foot_ml:"Aviso legal",foot_cgv:"Condiciones de venta",foot_conf:"Privacidad",foot_copy:"© 2026 NAVLYS — NAVLYS WEB SERVICE LTD",toast_copy:"Enlace copiado — gracias por compartir 🌊",toast_empty:"Escribe un nombre para personalizar el enlace 🌊"},
+  it:{nav_home:"Home",amb_over:"Programma ambasciatore",amb_h1:"Diventa ambasciatore NAVLYS — condividi l'universo, accumula vantaggi",amb_sub:"Gratuito, aperto a tutti, trasparente. Nessun reddito promesso: ricompense e vantaggi in base al tuo impegno.",amb_lead:"Unisciti al programma di affiliazione NAVLYS. Condividi il tuo link personale, fai scoprire l'universo a voce e accumula punti-ricompensa convertibili in vantaggi esclusivi.",calc_eye:"Simulatore",calc_title:"Calcola le tue ricompense",calc_lead:"Scorri per stimare i tuoi punti-ricompensa mensili.",calc_label:"Numero di invitati attivi",calc_unit:"punti-ricompensa / mese",calc_note:"Cifra di esempio a titolo indicativo. Le ricompense reali dipendono dall'impegno di ciascuno. Nessun reddito garantito.",steps_eye:"Come funziona",steps_title:"Tre passaggi, zero attrito",step1_t:"Unisciti",step1_p:"Iscriviti gratuitamente al programma ambasciatore. Nessun acquisto richiesto.",step2_t:"Condividi",step2_p:"Diffondi il tuo link personalizzato via messaggio, social o WhatsApp.",step3_t:"Accumula",step3_p:"Ricevi punti-ricompensa e vantaggi ogni mese, finché i tuoi invitati restano attivi.",share_eye:"Il tuo link",share_title:"Genera il tuo link ambasciatore",share_lead:"Inserisci il tuo nome per personalizzare il link da condividere.",share_name:"Il tuo nome",share_ph:"Marina",copy_btn:"Copia",wa_btn:"WhatsApp",share_hint:"Condividendo, accetti le condizioni del programma di affiliazione NAVLYS.",faq_eye:"FAQ",faq_title:"Domande frequenti",faq1_q:"Il programma è a pagamento?",faq1_a:"No. Diventare ambasciatore è gratuito al 100% e aperto a clienti e non clienti.",faq2_q:"Guadagnerò soldi?",faq2_a:"No. NAVLYS non promette redditi né guadagni garantiti. Accumuli ricompense e vantaggi in base al tuo impegno reale.",faq3_q:"Come ricevo le mie ricompense?",faq3_a:"I tuoi punti-ricompensa vengono accreditati ogni mese finché i tuoi invitati restano attivi. Sono convertibili in vantaggi NAVLYS secondo le condizioni vigenti.",faq4_q:"Posso condividere ovunque?",faq4_a:"Sì, purché la condivisione sia onesta e rispettosa. Nessuna promessa di guadagni, nessuno spam. Il programma è trasparente e regolamentato.",disc:"Programma di affiliazione NAVLYS: ricompense e vantaggi legati all'impegno. Non è garantita alcuna remunerazione, guadagno o reddito. NAVLYS resta uno strumento di educazione e informazione, mai consulenza regolamentata.",foot_home:"← Home",foot_ml:"Note legali",foot_cgv:"Condizioni di vendita",foot_conf:"Privacy",foot_copy:"© 2026 NAVLYS — NAVLYS WEB SERVICE LTD",toast_copy:"Link copiato — grazie per la condivisione 🌊",toast_empty:"Inserisci un nome per personalizzare il link 🌊"}
+};
 
-  function eur(n){ n=Number(n||0); return (Math.round(n*100)/100).toLocaleString('fr-FR',{minimumFractionDigits:0})+' €'; }
-  function toast(t){ var e=$('toast'); e.textContent=t; e.classList.add('on'); setTimeout(function(){ e.classList.remove('on'); },1900); }
-  function copy(txt,label){
-    if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(txt).then(function(){ toast(label+' copié ✓'); },function(){ toast('Copie impossible'); }); }
-    else { try{ var t=document.createElement('textarea'); t.value=txt; document.body.appendChild(t); t.select(); document.execCommand('copy'); document.body.removeChild(t); toast(label+' copié ✓'); }catch(e){ toast('Copie impossible'); } }
-  }
-
-  // Icônes SVG maison (charte ice, jamais d'emoji de plateforme — règle n°19)
-  var IC={
-    whatsapp:'<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="#7DD3FC" stroke-width="1.7"><path d="M3 21l1.6-4.3A8 8 0 1 1 8 20z"/><path d="M8.5 8.5c-.3 2 3 5.3 5 5.5.7 0 1.4-.6 1.6-1.2.1-.4-.9-.9-1.4-1.1-.4-.1-.7.4-1 .5-.8-.3-1.8-1.3-2.1-2.1.1-.3.6-.6.5-1-.2-.5-.7-1.5-1.1-1.4-.5.1-1 .5-1 .8z"/></svg>',
-    facebook:'<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="#7DD3FC" stroke-width="1.7"><path d="M15 3h-2.5A3.5 3.5 0 0 0 9 6.5V9H7v3h2v9h3v-9h2.5l.5-3H12V6.7c0-.5.3-.7.8-.7H15z"/></svg>',
-    x:'<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="#7DD3FC" stroke-width="1.7"><path d="M4 4l16 16M20 4L4 20"/></svg>',
-    telegram:'<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="#7DD3FC" stroke-width="1.7"><path d="M21 5L3 12l5 2 2 5 3-3.5 4 3 4-13z"/><path d="M8 14l9-6"/></svg>',
-    email:'<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="#7DD3FC" stroke-width="1.7"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M4 7l8 6 8-6"/></svg>'
-  };
-
-  function shareText(){ return "Je fais partie de l'univers NAVLYS 🌊 Viens voir, je pense que ça va te plaire : "; }
-  var RESEAUX=[
-    {id:'whatsapp', nom:'WhatsApp', url:function(){ return 'https://wa.me/?text='+encodeURIComponent(shareText()+lien); }},
-    {id:'facebook', nom:'Facebook', url:function(){ return 'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(lien); }},
-    {id:'x', nom:'X', url:function(){ return 'https://twitter.com/intent/tweet?text='+encodeURIComponent(shareText())+'&url='+encodeURIComponent(lien); }},
-    {id:'telegram', nom:'Telegram', url:function(){ return 'https://t.me/share/url?url='+encodeURIComponent(lien)+'&text='+encodeURIComponent(shareText()); }},
-    {id:'email', nom:'E-mail', url:function(){ return 'mailto:?subject='+encodeURIComponent('Je te fais découvrir NAVLYS')+'&body='+encodeURIComponent(shareText()+lien); }}
-  ];
-
-  function partageLog(reseau){
-    fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'partager',email:email,reseau:reseau})})
-      .then(function(r){return r.json();}).then(render).catch(function(){});
-  }
-
-  function buildShare(){
-    var h='';
-    RESEAUX.forEach(function(r){ h+='<button data-r="'+r.id+'">'+(IC[r.id]||'')+'<span>'+r.nom+'</span></button>'; });
-    $('share').innerHTML=h;
-    Array.prototype.forEach.call($('share').querySelectorAll('button'),function(b){
-      b.onclick=function(){
-        var id=b.getAttribute('data-r');
-        var r=RESEAUX.filter(function(x){return x.id===id;})[0];
-        if(r){ try{ window.open(r.url(),'_blank','noopener'); }catch(e){} partageLog(id); toast('+1 point — merci de faire grandir la mer ✦'); }
-      };
-    });
-  }
-
-  function render(d){
-    if(!d||!d.ok){ $('msg').textContent=(d&&d.error)?d.error:'Espace indisponible — réessaie dans un instant.'; return; }
-    code=d.code||''; lien=SITE+'/adhesion?parrain='+encodeURIComponent(code);
-    $('code').textContent=code||'—';
-    $('lien').textContent=lien;
-    var p=d.palier||{nom:'Graine',min:0,suivant:null,seuil_suivant:null};
-    var pts=Number(d.points||0);
-    $('head').innerHTML=
-      '<div class="tuile"><div class="n">'+pts+'</div><div class="l">Points</div></div>'+
-      '<div class="tuile"><div class="n">'+p.nom+'</div><div class="l">Ton palier</div></div>'+
-      '<div class="tuile"><div class="n">'+Number(d.nb_partages||0)+'</div><div class="l">Partages</div></div>'+
-      '<div class="tuile"><div class="n">'+Number(d.nb_parraines||0)+'</div><div class="l">Parrainés</div></div>'+
-      '<div class="tuile"><div class="n">'+eur(d.total_cadeaux)+'</div><div class="l">Cadeaux reçus</div></div>';
-    // barre vers le palier suivant
-    var w=100, txt='Tu es au sommet — palier <b>'+p.nom+'</b>. Bravo ✦';
-    if(p.seuil_suivant!=null){
-      var base=p.min, cible=p.seuil_suivant;
-      w=Math.max(4,Math.min(100,Math.round((pts-base)/(cible-base)*100)));
-      var reste=Math.max(0,cible-pts);
-      txt='Palier <b>'+p.nom+'</b> — encore <b>'+reste+'</b> point'+(reste>1?'s':'')+' pour passer <b>'+p.suivant+'</b>.';
-    }
-    $('barp').setAttribute('data-w',w);
-    $('palig').innerHTML=txt;
-    setTimeout(function(){ $('barp').style.width=w+'%'; },80);
-    // cadeaux
-    var cx=d.cadeaux||[];
-    if(cx.length){
-      var ch='';
-      cx.forEach(function(c){
-        var dt=c.cree_le?new Date(c.cree_le).toLocaleDateString('fr-FR'):'';
-        ch+='<div class="cad"><div class="g">'+(c.type||'Cadeau')+'<small>'+(c.motif||'')+(dt?(' · '+dt):'')+'</small></div><div class="v">'+eur(c.valeur_eur)+'</div></div>';
-      });
-      $('cadeaux').innerHTML=ch; $('cadwrap').classList.remove('hidden');
-    } else { $('cadwrap').classList.add('hidden'); }
-    $('msg').textContent='';
-  }
-
-  function charge(){
-    if(!email){ return; }
-    $('msg').textContent='Un instant…';
-    $('gate').classList.add('hidden'); $('espace').classList.remove('hidden');
-    if(prenom){ $('titre').textContent=prenom+', ton univers grandit avec toi'; }
-    buildShare();
-    fetch(API+'?email='+encodeURIComponent(email)).then(function(r){return r.json();}).then(render)
-      .catch(function(){ $('msg').textContent='Réseau indisponible — réessaie.'; });
-  }
-
-  function connecter(){
-    var v=($('email').value||'').trim().toLowerCase();
-    if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v)){ toast('Ton e-mail ne semble pas complet'); return; }
-    email=v; try{ localStorage.setItem('nv-email',v); }catch(e){}
-    charge();
-  }
-
-  $('voir').onclick=connecter;
-  $('email').addEventListener('keydown',function(e){ if(e.key==='Enter') connecter(); });
-  $('copierlien').onclick=function(){ copy(lien,'Ton lien'); };
-  $('copiercode').onclick=function(){ copy(code,'Ton code'); };
-  $('refresh').onclick=charge;
-
-  // Auto-connexion si on connaît déjà le membre
-  try{ email=(localStorage.getItem('nv-email')||'').trim().toLowerCase(); prenom=(localStorage.getItem('nv-prenom')||'').trim(); }catch(e){}
-  if(email){ if($('email')) $('email').value=email; charge(); }
-})();
+var curLang='fr';
+var nodes=[].slice.call(document.querySelectorAll('[data-i18n]'));
+nodes.forEach(function(n){ n.setAttribute('data-fr', n.innerHTML); });
+var PH=[].slice.call(document.querySelectorAll('[data-i18n-ph]'));
+PH.forEach(function(n){ n.setAttribute('data-fr-ph', n.placeholder||''); });
+function trK(k,fr){ if(curLang==='fr')return fr; var d=DICT[curLang]; return (d&&d[k])||fr; }
+function applyLang(l){
+  curLang=l; document.documentElement.lang=l;
+  document.querySelectorAll('[data-i18n-ph]').forEach(function(n){ var k=n.getAttribute('data-i18n-ph'), fr=n.getAttribute('data-fr-ph'); n.placeholder=(l==='fr')?fr:((DICT[l]&&DICT[l][k])||fr); });
+  nodes.forEach(function(n){ var k=n.getAttribute('data-i18n'); if(l==='fr'){ n.innerHTML=n.getAttribute('data-fr'); return; } var d=DICT[l]; n.innerHTML=(d&&d[k]!=null)?d[k]:n.getAttribute('data-fr'); });
+  document.getElementById('lang').querySelectorAll('button').forEach(function(b){ var on=b.getAttribute('data-l')===l; b.classList.toggle('on', on); b.setAttribute('aria-pressed', on?'true':'false'); });
+  try{ localStorage.setItem('navlys_lang', l); }catch(e){}
+  updateLink(); updateCalc();
+}
+document.getElementById('lang').addEventListener('click',function(e){ var b=e.target.closest('button'); if(b) applyLang(b.getAttribute('data-l')); });
+function slugify(s){ return (s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-zA-Z0-9]/g,''); }
+function shareUrl(){ var n=slugify(document.getElementById('firstName').value); return 'https://navlys.com/?ref='+(n||'NOM'); }
+function waText(){ var t={fr:"Bonjour NAVLYS, je veux devenir ambassadeur",en:"Hello NAVLYS, I want to become an ambassador",es:"Hola NAVLYS, quiero ser embajador",it:"Ciao NAVLYS, voglio diventare ambasciatore"}; return 'https://wa.me/15559913239?text='+encodeURIComponent(t[curLang]||t.fr); }
+function updateLink(){ document.getElementById('shareLink').value=shareUrl(); document.getElementById('waBtn').href=waText(); }
+var firstName=document.getElementById('firstName');
+firstName.addEventListener('input',function(){ try{ localStorage.setItem('navlys_ref_name', firstName.value); }catch(e){} updateLink(); });
+try{ var savedName=localStorage.getItem('navlys_ref_name')||''; if(savedName) firstName.value=savedName; }catch(e){}
+updateLink();
+var refs=document.getElementById('refs'), refsVal=document.getElementById('refsVal'), points=document.getElementById('points');
+var RATE=500;
+function fmt(n){ return n.toLocaleString(curLang==='fr'?'fr-FR':(curLang==='en'?'en-US':(curLang==='es'?'es-ES':'it-IT'))).replace(/,/g,' '); }
+function updateCalc(){ var v=parseInt(refs.value,10)||0; refsVal.textContent=v; points.textContent=fmt(v*RATE); }
+refs.addEventListener('input',updateCalc); updateCalc();
+var toastEl=document.getElementById('toast'), tTo;
+function toast(m){ toastEl.textContent=m; toastEl.classList.add('show'); clearTimeout(tTo); tTo=setTimeout(function(){toastEl.classList.remove('show');},3600); }
+document.getElementById('copyBtn').addEventListener('click',function(){
+  var url=document.getElementById('shareLink').value;
+  if(url.indexOf('ref=NOM')>-1 && !slugify(firstName.value)){ toast(trK('toast_empty','Saisis un prénom pour personnaliser le lien 🌊')); return; }
+  if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(url).then(function(){ toast(trK('toast_copy','Lien copié — merci de partager 🌊')); }).catch(function(){ toast(url); }); } else { toast(url); }
+});
+var saved='fr'; try{ saved=localStorage.getItem('navlys_lang')||'fr'; }catch(e){}
+try{ var ql=new URLSearchParams(location.search).get('lang'); if(ql&&/^(fr|en|es|it)$/.test(ql)) saved=ql; }catch(e){}
+applyLang(saved);
+if('IntersectionObserver' in window){ var els=document.querySelectorAll('.rev'); var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } }); },{rootMargin:'0px 0px -8% 0px'}); els.forEach(function(el){ io.observe(el); }); }
 </script>
-<script src="/navlys-alive.js" defer></script>
 </body>
 </html>

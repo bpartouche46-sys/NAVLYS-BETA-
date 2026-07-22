@@ -6,7 +6,7 @@ import { readFileSync, existsSync } from 'fs';
 
 const ROOT = 'http://127.0.0.1:8123';
 const PAGES = (process.env.PAGES || 'index,adhesion,idee,profil,finance,next-gen,assistance,navlex,mer,partenaires,radio,tech,influenceurs,club,promo,cinema,equipage,bientot,ecris-ta-vie,next-gen-beta,bibles,tv,copilote,io,navjeu').split(',');
-const LANGS = (process.env.LANGS || 'en,ru,he,ar').split(',');
+const LANGS = (process.env.LANGS || 'en,ru,es,pt,it,de,nl,wa,zh,hi,bn,he,ar,ur').split(',');
 
 const src = readFileSync('/home/user/NAVLYS-BETA-/live-source/navlys-i18n.js', 'utf8');
 const dictSrc = src.slice(src.indexOf('var DICT = {'), src.indexOf('};', src.indexOf('var DICT = {')) + 2);
@@ -23,9 +23,12 @@ function loadWinDict(file, name) {
   new Function('window', s)(sb.window);
   return sb.window[name] || {};
 }
-const HE = loadWinDict('navlys-i18n-he.js', 'NAVLYS_DICT_HE');
-const AR = loadWinDict('navlys-i18n-ar.js', 'NAVLYS_DICT_AR');
-const MAPS = { en: EN, ru: RU, he: HE, ar: AR };
+// EN et RU sont intégrés ; toute autre langue est un fichier lazy navlys-i18n-<lang>.js.
+const MAPS = { en: EN, ru: RU };
+for (const l of LANGS) {
+  if (l === 'en' || l === 'ru' || l === 'fr') continue;
+  MAPS[l] = loadWinDict(`navlys-i18n-${l}.js`, `NAVLYS_DICT_${l.toUpperCase()}`);
+}
 
 const norm = (s) => s.replace(/\s+/g, ' ').trim();
 const BRANDS = /Univers Intégral|Univers Plus|Univers NAVLYS|NAVLYS|NAVLEX|NAVBIO|Next Gen|Bruno Partouche|Méditerranée|©/g;

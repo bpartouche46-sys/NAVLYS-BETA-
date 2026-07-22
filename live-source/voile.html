@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>NAVLYS — Cap sur la voile : cours en ligne (catamaran Hobie 20)</title>
+<meta name="description" content="Cours de voile en ligne NAVLYS : identifier un catamaran Hobie 20, comprendre la vitesse selon le vent, la rose des allures, naviguer en zigzag et réussir son virement de bord. Pédagogie visuelle, jamais un conseil.">
+<link rel="canonical" href="https://navlys.com/voile">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Cormorant+Garamond:ital@0;1&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="/media/navlys_favicon.svg">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#03040a">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="NAVLYS">
+<link rel="apple-touch-icon" href="/media/icon-192.svg">
+<style>
+:root{--noir:#02040a;--bronze:#B87333;--bronze-clair:#D49B5B;--or:#C9A961;--or-pale:#f3e4c4;--ice:#7DD3FC;--ice-clair:#a8e3ff;--perle:#e7eef2;--perle-doux:#bcc9d1;--brume:#7c8b95;--vert:#3a8c5a}
+*{margin:0;padding:0;box-sizing:border-box}
+html{background:#02040a;scroll-behavior:smooth}
+body{background:transparent;color:var(--perle);font-family:'Cormorant Garamond',Georgia,serif;font-size:20px;line-height:1.55;min-height:100vh;-webkit-text-size-adjust:100%;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(55% 45% at 12% 8%,rgba(125,211,252,0.13),transparent 60%),radial-gradient(50% 40% at 88% 32%,rgba(184,115,51,0.10),transparent 62%),radial-gradient(60% 50% at 50% 120%,rgba(125,211,252,0.06),transparent 64%);animation:respire 18s ease-in-out infinite alternate}
+@keyframes respire{from{opacity:.7}to{opacity:1}}
+
+.fam-nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(2,4,10,0.88);backdrop-filter:blur(18px);border-bottom:1px solid rgba(125,211,252,0.18);padding:12px 18px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.fam-logo{font-family:'Cinzel',serif;font-size:14px;letter-spacing:.32em;color:var(--or);text-transform:uppercase;font-weight:600;text-decoration:none;white-space:nowrap}
+.fam-links{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+.fam-links a{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--perle-doux);text-decoration:none;transition:.25s}
+.fam-links a:hover{color:var(--ice)}
+
+.hero{padding:110px 20px 24px;text-align:center;position:relative;z-index:5}
+.hero .kicker{font-family:'Cinzel',serif;font-size:13px;letter-spacing:.42em;color:var(--ice);text-transform:uppercase;margin-bottom:14px}
+.hero .kicker span{color:var(--or)}
+.brandline{font-family:'Cinzel',serif;font-weight:600;font-size:clamp(40px,10vw,96px);letter-spacing:.12em;text-transform:uppercase;background:linear-gradient(100deg,var(--or-pale),var(--or) 45%,#fff7e6 55%,var(--or) 70%,var(--bronze));background-size:220% auto;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:shine 9s linear infinite;margin:6px 0 14px;line-height:1.05;filter:drop-shadow(0 0 18px rgba(184,115,51,0.35))}
+@keyframes shine{to{background-position:220% center}}
+.hero h1{font-family:'Cormorant Garamond',serif;font-weight:400;font-size:clamp(22px,4.5vw,34px);line-height:1.25;color:var(--perle);margin:0 auto 14px;max-width:820px}
+.hero h1 em{color:var(--or-pale);font-style:italic}
+.hero .sub{font-style:italic;color:var(--perle-doux);max-width:640px;margin:0 auto}
+
+.wrap{max-width:1000px;margin:0 auto;padding:0 20px;position:relative;z-index:5}
+
+.sommaire{margin:30px auto 10px;padding:22px 24px;background:rgba(2,4,10,0.6);border:1px solid rgba(125,211,252,0.22);border-radius:14px}
+.sommaire h2{font-family:'Cinzel',serif;font-size:13px;letter-spacing:.24em;color:var(--ice);text-transform:uppercase;margin-bottom:14px}
+.sommaire ol{list-style:none;counter-reset:s;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(240px,100%),1fr));gap:10px}
+.sommaire li{counter-increment:s}
+.sommaire a{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--perle);font-family:'Cormorant Garamond',serif;font-size:17px;padding:8px 10px;border:1px solid rgba(125,211,252,0.12);border-radius:10px;transition:.25s}
+.sommaire a::before{content:counter(s);font-family:'Cinzel',serif;font-size:12px;color:#02040a;background:linear-gradient(100deg,var(--or),#fff6df);width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex:0 0 auto}
+.sommaire a:hover{border-color:rgba(125,211,252,0.6);transform:translateX(3px)}
+
+section.chap{padding:46px 0;border-top:1px solid rgba(125,211,252,0.1)}
+section.chap>.tag{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.3em;color:var(--ice);text-transform:uppercase;margin-bottom:8px}
+section.chap h2{font-family:'Cormorant Garamond',serif;font-weight:400;font-size:clamp(30px,6vw,48px);line-height:1.08;color:var(--perle);margin-bottom:8px}
+section.chap h2 em{color:var(--or);font-style:italic}
+section.chap p{margin:0 0 14px;color:var(--perle-doux)}
+section.chap p strong,section.chap li strong{color:var(--perle)}
+section.chap h3{font-family:'Cinzel',serif;font-size:14px;letter-spacing:.14em;color:var(--ice-clair);text-transform:uppercase;margin:22px 0 10px}
+ul.liste{list-style:none;margin:0 0 14px}
+ul.liste li{position:relative;padding-left:24px;margin-bottom:8px;color:var(--perle-doux)}
+ul.liste li::before{content:"⛵";position:absolute;left:0;font-size:13px}
+
+.fig{margin:22px 0 8px;padding:14px;background:rgba(2,4,10,0.6);border:1px solid rgba(125,211,252,0.2);border-radius:14px}
+.fig svg{width:100%;height:auto;display:block;border-radius:8px}
+.fig .cap{font-style:italic;color:var(--brume);font-size:14.5px;text-align:center;margin-top:10px}
+
+.tbl{width:100%;border-collapse:collapse;margin:6px 0 16px;font-size:16px;overflow:hidden;border-radius:12px}
+.tbl th,.tbl td{padding:10px 12px;text-align:left;border-bottom:1px solid rgba(125,211,252,0.12)}
+.tbl th{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ice);background:rgba(125,211,252,0.06)}
+.tbl td{color:var(--perle-doux)}
+.tbl tr:hover td{background:rgba(125,211,252,0.04)}
+.tbl .hot{color:var(--or-pale);font-weight:600}
+
+.callout{margin:18px 0;padding:16px 18px;border-radius:12px;border-left:3px solid var(--or);background:rgba(201,169,97,0.08)}
+.callout.warn{border-left-color:#e0674f;background:rgba(224,103,79,0.09)}
+.callout .t{font-family:'Cinzel',serif;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--or);margin-bottom:6px}
+.callout.warn .t{color:#f0a08c}
+.callout p{margin:0;color:var(--perle)}
+
+.wide{max-width:860px;margin-left:auto;margin-right:auto}
+
+footer{padding:46px 20px 70px;text-align:center;border-top:1px solid rgba(184,115,51,0.18);position:relative;z-index:5;margin-top:20px}
+.foot-fam{display:flex;gap:18px;justify-content:center;flex-wrap:wrap;margin-bottom:14px}
+.foot-fam a{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ice-clair);text-decoration:none}
+.foot-fam a:hover{color:var(--ice)}
+.foot-brand{font-size:20px;color:var(--perle)}
+.foot-brand span{color:var(--or)}
+.disclaimer{font-style:italic;color:var(--brume);font-size:13.5px;line-height:1.65;max-width:800px;margin:16px auto 0;padding:18px;border:1px solid rgba(184,115,51,0.18);border-radius:12px;background:rgba(2,4,10,0.55)}
+
+@media(max-width:768px){
+  .fam-links{display:none}
+  .hero{padding:92px 14px 18px}
+  section.chap{padding:34px 0}
+  .tbl{font-size:14px}
+  .tbl th,.tbl td{padding:8px 8px}
+}
+</style>
+</head>
+<body>
+
+<nav class="fam-nav">
+  <a class="fam-logo" href="/">🌊 NAVLYS</a>
+  <div class="fam-links">
+    <a href="/">Accueil</a>
+    <a href="/finance">Finance</a>
+    <a href="/next-gen">Next Gen</a>
+    <a href="/navlex">NAVLEX</a>
+    <a href="/partenaires">Partenaires</a>
+    <a href="/radio">Radio</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="kicker">NAVLYS <span>ACADÉMIE</span> · cours en ligne</div>
+  <div class="brandline">Cap sur la voile</div>
+  <h1>Lire un bateau, dompter le vent, tracer sa route.<br><em>Le catamaran Hobie 20, expliqué en dessins.</em></h1>
+  <p class="sub">L'IA est le vent, c'est toi qui tiens la barre. Un cours visuel, pas à pas — pour comprendre vraiment ce qui fait avancer un cata de sport.</p>
+</header>
+
+<div class="wrap">
+
+  <nav class="sommaire" aria-label="Sommaire du cours">
+    <h2>Programme du cours</h2>
+    <ol>
+      <li><a href="#c1">Reconnaître le bateau</a></li>
+      <li><a href="#c2">La vitesse selon le vent</a></li>
+      <li><a href="#c3">La rose des allures</a></li>
+      <li><a href="#c4">Naviguer en zigzag</a></li>
+      <li><a href="#c5">Le virement de bord</a></li>
+      <li><a href="#c6">Sécurité &amp; bon sens</a></li>
+    </ol>
+  </nav>
+
+  <!-- ============ CHAPITRE 1 ============ -->
+  <section class="chap" id="c1">
+    <div class="tag">Chapitre 1</div>
+    <h2>Reconnaître le <em>bateau</em></h2>
+    <p>Notre fil rouge : un <strong>Hobie 20 (Hobie Miracle 20)</strong>, catamaran de sport reconnaissable à sa grand-voile à bandes bleu/jaune, ses deux coques blanches et son logo <em>Hobie</em> cursif.</p>
+    <h3>Les indices qui ne trompent pas</h3>
+    <ul class="liste">
+      <li><strong>Deux coques (flotteurs)</strong> reliées par un trampoline — pas de quille, il glisse sur l'eau.</li>
+      <li><strong>Des « ailes » latérales</strong> (sièges qui dépassent) : signature du Hobie 20.</li>
+      <li><strong>Gréement sloop</strong> : une grand-voile <em>+ un foc</em> à l'avant.</li>
+      <li>Un nom peint à l'arrière (ex. « GATEWAY ») = <strong>le nom du bateau</strong>, pas le modèle. Le modèle se lit sur la <strong>plaque HIN</strong> (12 caractères, tableau arrière tribord — les 2 derniers = mois + année).</li>
+    </ul>
+
+    <h3>Fiche technique — Hobie 20</h3>
+    <table class="tbl">
+      <tr><th>Caractéristique</th><th>Valeur typique</th></tr>
+      <tr><td>Longueur (LOA)</td><td>6,10 m (20 pieds)</td></tr>
+      <tr><td>Largeur (avec ailes)</td><td>~2,59 m</td></tr>
+      <tr><td>Poids à vide</td><td>~180 kg</td></tr>
+      <tr><td>Hauteur de mât</td><td>~9,1 m</td></tr>
+      <tr><td>Grand-voile</td><td>~15,8 m² (lattée, corne « square top »)</td></tr>
+      <tr><td>Foc</td><td>~4,2 m²</td></tr>
+      <tr><td>Spinnaker (option)</td><td>~21 m² (asymétrique, sur bout-dehors)</td></tr>
+      <tr><td>Équipage</td><td>1 à 2 personnes</td></tr>
+    </table>
+  </section>
+
+  <!-- ============ CHAPITRE 2 ============ -->
+  <section class="chap" id="c2">
+    <div class="tag">Chapitre 2</div>
+    <h2>La vitesse selon le <em>vent</em></h2>
+    <p>Un catamaran de sport peut aller <strong>plus vite que le vent</strong> aux bonnes allures. Voici des ordres de grandeur réalistes (équipage au trapèze, réglages corrects). <em>1 nœud ≈ 1,85 km/h.</em></p>
+
+    <h3>Vitesse globale par force du vent</h3>
+    <table class="tbl">
+      <tr><th>Vent réel</th><th>Force</th><th>Vitesse moyenne</th><th>Pointe</th></tr>
+      <tr><td>5–8 nds</td><td>2–3 Bf</td><td>5–8 nds (9–15 km/h)</td><td>~10 nds</td></tr>
+      <tr><td>10–12 nds</td><td>4 Bf</td><td>10–13 nds (18–24 km/h)</td><td>~15 nds</td></tr>
+      <tr><td>15–18 nds</td><td>5 Bf</td><td>14–17 nds (26–31 km/h)</td><td class="hot">18–20 nds</td></tr>
+      <tr><td>20–25 nds</td><td>6 Bf</td><td>16–20 nds (30–37 km/h)</td><td class="hot">22–24 nds ⚠️</td></tr>
+    </table>
+
+    <h3>Vitesse du bateau selon l'allure (vent ~15–18 nds)</h3>
+    <table class="tbl">
+      <tr><th>Allure</th><th>Vitesse (nds)</th></tr>
+      <tr><td>Près serré (~45° du vent)</td><td>9–11</td></tr>
+      <tr><td>Bon plein</td><td>12–14</td></tr>
+      <tr><td>Travers (vent de côté) 🔥</td><td class="hot">15–18</td></tr>
+      <tr><td>Largue (~120°) 🔥 spi</td><td class="hot">16–19</td></tr>
+      <tr><td>Grand largue</td><td>14–17</td></tr>
+      <tr><td>Vent arrière pur</td><td>8–11</td></tr>
+    </table>
+
+    <div class="callout">
+      <div class="t">À retenir</div>
+      <p><strong>Pointe max ≈ 22–24 nds (40–44 km/h)</strong> au travers/largue, dans 20+ nds de vent, mer plate, avec spi. Le <strong>vent arrière pur est l'allure la plus lente</strong> — contre-intuitif, mais vrai sur un cata !</p>
+    </div>
+  </section>
+
+  <!-- ============ CHAPITRE 3 : ROSE DES ALLURES ============ -->
+  <section class="chap" id="c3">
+    <div class="tag">Chapitre 3</div>
+    <h2>La rose des <em>allures</em></h2>
+    <p>Le nom de chaque orientation du bateau par rapport au vent. <strong>Le vent vient du haut.</strong> Vert = le plus rapide, rouge = interdit (face au vent), bleu = vent arrière (le plus lent).</p>
+    <div class="fig wide">
+      <svg viewBox="0 0 820 880" xmlns="http://www.w3.org/2000/svg" font-family="'Cinzel',serif" role="img" aria-label="Rose des allures du Hobie 20">
+        <rect width="820" height="880" fill="#071320"/>
+        <text x="410" y="44" text-anchor="middle" fill="#cfe8ff" font-size="28" font-weight="bold">Rose des allures — Hobie 20</text>
+        <text x="410" y="72" text-anchor="middle" fill="#d8b46a" font-size="16">Vitesses du bateau (nds) — vent réel ~15-18 nds</text>
+        <text x="410" y="112" text-anchor="middle" fill="#cfe8ff" font-size="16" font-weight="bold">VENT</text>
+        <line x1="410" y1="120" x2="410" y2="168" stroke="#cfe8ff" stroke-width="4"/>
+        <polygon points="410,182 401,162 419,162" fill="#cfe8ff"/>
+        <path d="M410,470 L205,265 A290,290 0 0 1 615,265 Z" fill="#e74c3c" fill-opacity="0.32" stroke="#e74c3c"/>
+        <path d="M410,470 L615,265 A290,290 0 0 1 695,420 Z" fill="#e8a13a" fill-opacity="0.30" stroke="#e8a13a"/>
+        <path d="M410,470 L695,420 A290,290 0 0 1 682,569 Z" fill="#2ecc71" fill-opacity="0.40" stroke="#2ecc71"/>
+        <path d="M410,470 L682,569 A290,290 0 0 1 555,721 Z" fill="#27ae60" fill-opacity="0.45" stroke="#27ae60"/>
+        <path d="M410,470 L555,721 A290,290 0 0 1 410,760 Z" fill="#3a78c2" fill-opacity="0.30" stroke="#3a78c2"/>
+        <path d="M410,470 L205,265 A290,290 0 0 0 125,420 Z" fill="#e8a13a" fill-opacity="0.30" stroke="#e8a13a"/>
+        <path d="M410,470 L125,420 A290,290 0 0 0 138,569 Z" fill="#2ecc71" fill-opacity="0.40" stroke="#2ecc71"/>
+        <path d="M410,470 L138,569 A290,290 0 0 0 265,721 Z" fill="#27ae60" fill-opacity="0.45" stroke="#27ae60"/>
+        <path d="M410,470 L265,721 A290,290 0 0 0 410,760 Z" fill="#3a78c2" fill-opacity="0.30" stroke="#3a78c2"/>
+        <circle cx="410" cy="470" r="290" fill="none" stroke="#3b556e" stroke-width="1.5"/>
+        <g transform="translate(410,470)">
+          <ellipse cx="-13" cy="0" rx="9" ry="34" fill="#e9eef3" stroke="#9fb4c7"/>
+          <ellipse cx="13" cy="0" rx="9" ry="34" fill="#e9eef3" stroke="#9fb4c7"/>
+          <polygon points="0,-30 0,22 16,18" fill="#d8b46a"/>
+          <line x1="-22" y1="-6" x2="22" y2="-6" stroke="#9fb4c7" stroke-width="2"/>
+        </g>
+        <text x="410" y="215" text-anchor="middle" fill="#ffd1cb" font-size="15" font-weight="bold">ZONE INTERDITE</text>
+        <text x="410" y="234" text-anchor="middle" fill="#ffd1cb" font-size="13">(face au vent, ~90°)</text>
+        <text x="600" y="318" text-anchor="middle" fill="#ffe1b3" font-size="15" font-weight="bold">PRÈS</text>
+        <text x="600" y="337" text-anchor="middle" fill="#ffe1b3" font-size="14">12-14 nds</text>
+        <text x="220" y="318" text-anchor="middle" fill="#ffe1b3" font-size="15" font-weight="bold">PRÈS</text>
+        <text x="220" y="337" text-anchor="middle" fill="#ffe1b3" font-size="14">12-14 nds</text>
+        <text x="628" y="455" text-anchor="middle" fill="#bff5d4" font-size="15" font-weight="bold">TRAVERS</text>
+        <text x="628" y="474" text-anchor="middle" fill="#bff5d4" font-size="14">15-18 nds</text>
+        <text x="192" y="455" text-anchor="middle" fill="#bff5d4" font-size="15" font-weight="bold">TRAVERS</text>
+        <text x="192" y="474" text-anchor="middle" fill="#bff5d4" font-size="14">15-18 nds</text>
+        <text x="590" y="585" text-anchor="middle" fill="#9be8b8" font-size="15" font-weight="bold">LARGUE ⚡</text>
+        <text x="590" y="604" text-anchor="middle" fill="#9be8b8" font-size="14">16-19 nds (MAX)</text>
+        <text x="230" y="585" text-anchor="middle" fill="#9be8b8" font-size="15" font-weight="bold">⚡ LARGUE</text>
+        <text x="230" y="604" text-anchor="middle" fill="#9be8b8" font-size="14">16-19 nds (MAX)</text>
+        <text x="410" y="700" text-anchor="middle" fill="#bcd8f5" font-size="15" font-weight="bold">VENT ARRIÈRE</text>
+        <text x="410" y="719" text-anchor="middle" fill="#bcd8f5" font-size="14">8-11 nds (lent !)</text>
+        <rect x="160" y="792" width="500" height="58" rx="10" fill="#0c2136" stroke="#d8b46a" stroke-width="1.5"/>
+        <text x="410" y="817" text-anchor="middle" fill="#d8b46a" font-size="16" font-weight="bold">POINTE MAX ≈ 22-24 nds (40-44 km/h)</text>
+        <text x="410" y="838" text-anchor="middle" fill="#cfe8ff" font-size="13">au travers/largue, dans 20+ nds de vent, mer plate, avec spi</text>
+      </svg>
+      <div class="cap">Pour aller vite : garde le vent sur le côté (travers) ou un peu derrière (largue) — jamais pile dans le dos.</div>
+    </div>
+  </section>
+
+  <!-- ============ CHAPITRE 4 : ZIGZAG ============ -->
+  <section class="chap" id="c4">
+    <div class="tag">Chapitre 4</div>
+    <h2>Naviguer en <em>zigzag</em></h2>
+    <p>On ne va jamais tout droit face au vent, ni pile vent arrière. On <strong>tire des bords</strong> : le chemin est plus long, mais bien plus rapide car on garde ses allures efficaces.</p>
+    <div class="fig">
+      <svg viewBox="0 0 900 820" xmlns="http://www.w3.org/2000/svg" font-family="'Cinzel',serif" role="img" aria-label="Naviguer en zigzag">
+        <rect width="900" height="820" fill="#071320"/>
+        <text x="450" y="42" text-anchor="middle" fill="#cfe8ff" font-size="26" font-weight="bold">Naviguer en zigzag — Hobie 20</text>
+        <text x="450" y="68" text-anchor="middle" fill="#d8b46a" font-size="15">On ne va jamais tout droit face au vent ni pile vent arrière : on tire des bords</text>
+        <text x="450" y="104" text-anchor="middle" fill="#cfe8ff" font-size="15" font-weight="bold">VENT</text>
+        <line x1="450" y1="110" x2="450" y2="150" stroke="#cfe8ff" stroke-width="4"/>
+        <polygon points="450,162 442,144 458,144" fill="#cfe8ff"/>
+        <line x1="450" y1="180" x2="450" y2="800" stroke="#284056" stroke-width="1.5" stroke-dasharray="6 6"/>
+        <text x="230" y="210" text-anchor="middle" fill="#bff5d4" font-size="19" font-weight="bold">REMONTER au vent</text>
+        <text x="230" y="232" text-anchor="middle" fill="#9fb4c7" font-size="13">= LOUVOYER / tirer des bords de PRÈS</text>
+        <circle cx="230" cy="270" r="9" fill="#e74c3c"/>
+        <text x="230" y="258" text-anchor="middle" fill="#ffd1cb" font-size="12">Objectif (au vent)</text>
+        <path d="M230,270 L150,470 L310,470 Z" fill="#e74c3c" fill-opacity="0.14" stroke="#e74c3c" stroke-opacity="0.5" stroke-dasharray="4 4"/>
+        <text x="230" y="400" text-anchor="middle" fill="#e88" font-size="12">zone interdite</text>
+        <text x="230" y="416" text-anchor="middle" fill="#e88" font-size="12">(face au vent)</text>
+        <polyline points="230,730 330,560 150,420 310,300 230,278" fill="none" stroke="#2ecc71" stroke-width="4" stroke-linejoin="round"/>
+        <circle cx="330" cy="560" r="6" fill="#d8b46a"/>
+        <circle cx="150" cy="420" r="6" fill="#d8b46a"/>
+        <circle cx="310" cy="300" r="6" fill="#d8b46a"/>
+        <circle cx="230" cy="730" r="7" fill="#cfe8ff"/>
+        <text x="230" y="752" text-anchor="middle" fill="#cfe8ff" font-size="12">Départ</text>
+        <polygon points="288,626 300,606 274,612" fill="#2ecc71"/>
+        <polygon points="224,486 214,506 240,500" fill="#2ecc71"/>
+        <polygon points="238,354 252,336 226,340" fill="#2ecc71"/>
+        <text x="360" y="560" fill="#d8b46a" font-size="12">virement</text>
+        <text x="360" y="575" fill="#d8b46a" font-size="12">de bord</text>
+        <text x="70" y="420" fill="#d8b46a" font-size="12">virement</text>
+        <text x="670" y="210" text-anchor="middle" fill="#bcd8f5" font-size="19" font-weight="bold">DESCENDRE sous le vent</text>
+        <text x="670" y="232" text-anchor="middle" fill="#9fb4c7" font-size="13">= EMPANNER / tirer des bords de LARGUE</text>
+        <circle cx="670" cy="278" r="7" fill="#cfe8ff"/>
+        <text x="670" y="266" text-anchor="middle" fill="#cfe8ff" font-size="12">Départ</text>
+        <path d="M670,278 L590,478 L750,478 Z" fill="#3a78c2" fill-opacity="0.14" stroke="#3a78c2" stroke-opacity="0.5" stroke-dasharray="4 4"/>
+        <text x="670" y="404" text-anchor="middle" fill="#8fb8e6" font-size="12">vent arrière pur</text>
+        <text x="670" y="420" text-anchor="middle" fill="#8fb8e6" font-size="12">= lent, à éviter</text>
+        <polyline points="670,290 770,470 590,610 750,730" fill="none" stroke="#27ae60" stroke-width="4" stroke-linejoin="round"/>
+        <circle cx="770" cy="470" r="6" fill="#d8b46a"/>
+        <circle cx="590" cy="610" r="6" fill="#d8b46a"/>
+        <polygon points="728,396 740,414 714,410" fill="#27ae60"/>
+        <polygon points="664,544 654,522 680,528" fill="#27ae60"/>
+        <polygon points="712,676 700,656 726,662" fill="#27ae60"/>
+        <circle cx="750" cy="730" r="9" fill="#e74c3c"/>
+        <text x="750" y="752" text-anchor="middle" fill="#ffd1cb" font-size="12">Objectif (sous le vent)</text>
+        <text x="800" y="470" fill="#d8b46a" font-size="12">empannage</text>
+        <text x="470" y="610" fill="#d8b46a" font-size="12">empannage</text>
+        <rect x="90" y="778" width="720" height="34" rx="9" fill="#0c2136" stroke="#d8b46a" stroke-width="1.3"/>
+        <text x="450" y="800" text-anchor="middle" fill="#d8b46a" font-size="14" font-weight="bold">Points dorés = on change de bord • Vert = trajet réel, plus long mais bien plus rapide que tout droit</text>
+      </svg>
+      <div class="cap">À gauche : remonter au vent (louvoyer). À droite : descendre sous le vent (empanner).</div>
+    </div>
+    <table class="tbl">
+      <tr><th>Manœuvre</th><th>Quand</th><th>Le vent passe…</th></tr>
+      <tr><td><strong>Virement de bord</strong></td><td>en remontant au vent</td><td>par l'<strong>avant</strong> du bateau</td></tr>
+      <tr><td><strong>Empannage</strong></td><td>en descendant sous le vent</td><td>par l'<strong>arrière</strong> (⚠️ la bôme traverse fort)</td></tr>
+    </table>
+  </section>
+
+  <!-- ============ CHAPITRE 5 : VIREMENT ============ -->
+  <section class="chap" id="c5">
+    <div class="tag">Chapitre 5</div>
+    <h2>Le virement de <em>bord</em></h2>
+    <p>Passer d'un bord à l'autre en faisant traverser le vent par l'<strong>avant</strong> du bateau. Sur un cata, tout est dans le <strong>timing et la vitesse d'entrée</strong>.</p>
+    <div class="fig wide">
+      <svg viewBox="0 0 900 860" xmlns="http://www.w3.org/2000/svg" font-family="'Cinzel',serif" role="img" aria-label="Le virement de bord étape par étape">
+        <rect width="900" height="860" fill="#071320"/>
+        <text x="450" y="42" text-anchor="middle" fill="#cfe8ff" font-size="26" font-weight="bold">Le virement de bord — étape par étape</text>
+        <text x="450" y="68" text-anchor="middle" fill="#d8b46a" font-size="15">Faire traverser le vent par l'AVANT du bateau — Hobie 20</text>
+        <text x="450" y="104" text-anchor="middle" fill="#cfe8ff" font-size="15" font-weight="bold">VENT</text>
+        <line x1="450" y1="110" x2="450" y2="150" stroke="#cfe8ff" stroke-width="4"/>
+        <polygon points="450,162 442,144 458,144" fill="#cfe8ff"/>
+        <path d="M250,690 Q450,150 650,690" fill="none" stroke="#2f4a63" stroke-width="2" stroke-dasharray="7 7"/>
+        <g transform="translate(255,660) rotate(35)"><ellipse cx="-11" cy="0" rx="8" ry="30" fill="#e9eef3" stroke="#9fb4c7"/><ellipse cx="11" cy="0" rx="8" ry="30" fill="#e9eef3" stroke="#9fb4c7"/><polygon points="0,-26 0,20 15,14" fill="#2ecc71"/></g>
+        <circle cx="255" cy="700" r="14" fill="#d8b46a"/><text x="255" y="705" text-anchor="middle" fill="#0b1a2b" font-size="15" font-weight="bold">1</text>
+        <g transform="translate(330,430) rotate(18)"><ellipse cx="-11" cy="0" rx="8" ry="30" fill="#e9eef3" stroke="#9fb4c7"/><ellipse cx="11" cy="0" rx="8" ry="30" fill="#e9eef3" stroke="#9fb4c7"/><polygon points="0,-26 0,20 12,16" fill="#59d98d"/></g>
+        <circle cx="360" cy="405" r="14" fill="#d8b46a"/><text x="360" y="410" text-anchor="middle" fill="#0b1a2b" font-size="15" font-weight="bold">2</text>
+        <g transform="translate(450,250)"><ellipse cx="-11" cy="0" rx="8" ry="30" fill="#e9eef3" stroke="#9fb4c7"/><ellipse cx="11" cy="0" rx="8" ry="30" fill="#e9eef3" stroke="#9fb4c7"/><line x1="0" y1="-26" x2="0" y2="18" stroke="#e74c3c" stroke-width="3"/></g>
+        <circle cx="450" cy="222" r="14" fill="#e74c3c"/><text x="450" y="227" text-anchor="middle" fill="#fff" font-size="15" font-weight="bold">3</text>
+        <g transform="translate(570,430) rotate(-18)"><ellipse cx="-11" cy="0" rx="8" ry="30" fill="#e9eef3" stroke="#9fb4c7"/><ellipse cx="11" cy="0" rx="8" ry="30" fill="#e9eef3" stroke="#9fb4c7"/><polygon points="0,-26 0,20 -12,16" fill="#59d98d"/></g>
+        <circle cx="540" cy="405" r="14" fill="#d8b46a"/><text x="540" y="410" text-anchor="middle" fill="#0b1a2b" font-size="15" font-weight="bold">4</text>
+        <g transform="translate(645,660) rotate(-35)"><ellipse cx="-11" cy="0" rx="8" ry="30" fill="#e9eef3" stroke="#9fb4c7"/><ellipse cx="11" cy="0" rx="8" ry="30" fill="#e9eef3" stroke="#9fb4c7"/><polygon points="0,-26 0,20 -15,14" fill="#2ecc71"/></g>
+        <circle cx="645" cy="700" r="14" fill="#d8b46a"/><text x="645" y="705" text-anchor="middle" fill="#0b1a2b" font-size="15" font-weight="bold">5</text>
+        <rect x="70" y="745" width="760" height="100" rx="10" fill="#0c2136" stroke="#284056" stroke-width="1.3"/>
+        <text x="90" y="772" fill="#2ecc71" font-size="13.5" font-weight="bold">1 · « Paré à virer ? Envoie ! »</text>
+        <text x="118" y="790" fill="#cfe8ff" font-size="12.5">Bien lancé au près, de la vitesse. On prévient l'équipier.</text>
+        <text x="90" y="812" fill="#59d98d" font-size="13.5" font-weight="bold">2 · Pousser la barre (loffer)</text>
+        <text x="118" y="830" fill="#cfe8ff" font-size="12.5">Barre vers la voile ; l'étrave monte au vent. On garde le foc bordé un instant.</text>
+        <text x="470" y="772" fill="#e88" font-size="13.5" font-weight="bold">3 · Passage face au vent</text>
+        <text x="498" y="790" fill="#cfe8ff" font-size="12.5">Voiles qui faseyent (point mort). On traverse l'axe grâce à l'élan.</text>
+        <text x="470" y="812" fill="#59d98d" font-size="13.5" font-weight="bold">4-5 · Changer de côté &amp; border</text>
+        <text x="498" y="830" fill="#cfe8ff" font-size="12.5">On passe de l'autre bord, on borde la nouvelle amure, on abat → ça accélère.</text>
+      </svg>
+      <div class="cap">Le point mort (position 3) se franchit avec de l'élan : sans vitesse, le cata reste coincé face au vent.</div>
+    </div>
+    <div class="callout warn">
+      <div class="t">Erreur classique</div>
+      <p>Virer <strong>trop lentement</strong> → le bateau reste coincé face au vent et repart en arrière (« manqué à virer »). La parade : arriver vite, et si tu cales, laisse le <strong>foc à contre</strong> (bordé du mauvais côté) — il repousse l'avant et te relance.</p>
+    </div>
+  </section>
+
+  <!-- ============ CHAPITRE 6 : SÉCURITÉ ============ -->
+  <section class="chap" id="c6">
+    <div class="tag">Chapitre 6</div>
+    <h2>Sécurité &amp; <em>bon sens</em></h2>
+    <table class="tbl">
+      <tr><th>Vent</th><th>Conseil</th></tr>
+      <tr><td>&lt; 12 nds</td><td>Idéal apprentissage / balade</td></tr>
+      <tr><td>12–18 nds</td><td>Sportif, trapèze, super sensations</td></tr>
+      <tr><td>18–25 nds</td><td>Expert seulement — risque de <em>pitchpole</em> (chavirage par l'avant)</td></tr>
+      <tr><td>&gt; 25 nds</td><td>On ne sort pas (sauf régatier confirmé)</td></tr>
+    </table>
+    <ul class="liste">
+      <li><strong>Gilet de sauvetage</strong> toujours porté, à bord comme au trapèze.</li>
+      <li>On <strong>réduit la voilure</strong> quand ça forcit, on est prêt à choquer.</li>
+      <li>On vérifie la météo <strong>avant</strong> de sortir, et on prévient quelqu'un à terre.</li>
+      <li>On reste toujours <strong>avec le bateau</strong> en cas de dessalage — il flotte, pas de panique.</li>
+    </ul>
+    <div class="callout">
+      <div class="t">La philosophie NAVLYS</div>
+      <p>Comme en mer : <strong>l'IA est le vent, c'est toi qui tiens la barre.</strong> On apprend à lire les éléments, on trace sa route — et on garde toujours la main.</p>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <div class="foot-fam">
+    <a href="/">Accueil</a>
+    <a href="/partenaires">Partenaires</a>
+    <a href="https://brunopartouche.com" target="_blank" rel="noopener">⚓ Bruno Partouche</a>
+  </div>
+  <div class="foot-brand"><span>NAVLYS</span> · Académie</div>
+  <div class="disclaimer">Cours à vocation <b>éducative et informative uniquement</b>. Les valeurs de vitesse, réglages et conseils sont des ordres de grandeur pédagogiques et ne remplacent ni une formation en école de voile, ni l'avis d'un moniteur diplômé. La navigation comporte des risques ; chacun reste seul responsable de sa sécurité et du respect de la réglementation maritime. © 2026 NAVLYS · navlys.com</div>
+</footer>
+
+<script>/* NAVLYS installable comme une appli mobile (hors-ligne + écran d'accueil) */
+if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('/sw.js').catch(function(){});});}</script>
+</body>
+</html>

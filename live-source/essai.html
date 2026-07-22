@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#02040a">
+<title>Essaie NAVLYS — parle, il le fait, à voix haute</title>
+<meta name="description" content="Essaie NAVLYS maintenant : dis ce que tu veux — un mot pour un proche, une explication simple, une histoire, une traduction — NAVLYS l'écrit et te le lit à voix haute. L'IA la plus simple du monde, à la voix.">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://www.navlys.com/essai">
+<link rel="icon" type="image/png" href="/assets/coins/navlys-coin-core.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/navlys-ui.css">
+<style>
+.wrap{max-width:820px;margin:0 auto;padding:84px 20px 70px;text-align:center}
+.k{font-family:'Cinzel',serif;letter-spacing:.22em;text-transform:uppercase;font-size:12px;color:var(--ice)}
+h1{font-family:'Cinzel',serif;font-weight:600;font-size:clamp(30px,6vw,54px);color:var(--perle);margin:.3em 0 .1em;line-height:1.08}
+h1 em{color:var(--or);font-style:normal}
+.sub{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(18px,3vw,23px);color:var(--perle);opacity:.9;margin-bottom:26px}
+.chips{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;max-width:720px;margin:0 auto 26px}
+.chip{cursor:pointer;border:1px solid rgba(233,211,160,.3);background:rgba(8,11,22,.55);color:var(--perle);border-radius:999px;padding:9px 15px;font-family:'Cormorant Garamond',serif;font-size:16px;transition:.25s}
+.chip:hover{border-color:var(--or);color:#ffe6a6;transform:translateY(-2px)}
+.mic{display:block;margin:6px auto 0;width:118px;height:118px;border-radius:50%;border:none;cursor:pointer;font-size:46px;color:#0a0803;
+  background:radial-gradient(circle at 38% 30%,#ffe6a6,#e9d3a0 45%,#c9962f 100%);box-shadow:0 12px 40px rgba(201,150,47,.5);animation:mb 3.4s ease-in-out infinite}
+@keyframes mb{50%{box-shadow:0 12px 54px rgba(255,215,122,.7);transform:translateY(-3px)}}
+.mic.rec{background:radial-gradient(circle at 38% 30%,#ff9a9a,#e83a3a 100%);color:#fff;animation:rc 1s steps(2) infinite}
+.mic.think{filter:saturate(.7);cursor:progress}
+@keyframes rc{50%{opacity:.55}}
+.hint{font-family:'Cinzel',serif;letter-spacing:.14em;text-transform:uppercase;font-size:11px;color:var(--ice);margin-top:12px;min-height:15px}
+.bar{display:flex;gap:8px;max-width:620px;margin:16px auto 0}
+.bar input{flex:1;background:rgba(255,255,255,.05);border:1px solid rgba(125,211,252,.25);border-radius:12px;color:#eaf6ff;padding:12px 15px;font-family:'Cormorant Garamond',serif;font-size:17px}
+.bar input:focus{outline:none;border-color:rgba(125,211,252,.55)}
+.bar button{border:none;border-radius:12px;padding:12px 17px;cursor:pointer;background:linear-gradient(100deg,#c9962f,#ffd77a);color:#0a0803;font-size:17px}
+.voixsel{display:inline-flex;gap:6px;margin-top:16px;background:rgba(8,11,22,.6);border:1px solid rgba(233,211,160,.22);border-radius:999px;padding:4px}
+.voixsel button{border:none;background:transparent;color:var(--perle);font-family:'Cinzel',serif;font-size:12px;letter-spacing:.1em;text-transform:uppercase;padding:7px 14px;border-radius:999px;cursor:pointer}
+.voixsel button.on{background:linear-gradient(100deg,#c9962f,#ffd77a);color:#0a0803}
+.result{max-width:700px;margin:30px auto 0;padding:26px 24px;border-radius:18px;background:rgba(8,11,22,.55);border:1px solid rgba(233,211,160,.18);
+  font-family:'Cormorant Garamond',serif;font-size:clamp(20px,3.4vw,26px);line-height:1.5;color:#f4ecdb;white-space:pre-wrap;display:none}
+.result.on{display:block;animation:fade .6s ease}
+@keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1}}
+.acts{display:none;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:18px}
+.acts.on{display:flex}
+.acts button,.acts a{border:1px solid rgba(233,211,160,.3);background:rgba(8,11,22,.5);color:var(--perle);border-radius:12px;padding:10px 16px;cursor:pointer;font-family:'Cormorant Garamond',serif;font-size:16px;text-decoration:none}
+.acts .cta{border:none;background:linear-gradient(100deg,#c9962f,#ffd77a);color:#0a0803;font-weight:600}
+.foot{margin-top:44px;color:var(--brume);font-size:12px;font-style:italic;max-width:620px;margin-left:auto;margin-right:auto}
+</style>
+</head>
+<body>
+<script>(function(){try{if('serviceWorker' in navigator){navigator.serviceWorker.getRegistrations().then(function(rs){rs.forEach(function(r){r.unregister();});});}}catch(e){}})();</script>
+<nav class="nv-nav" aria-label="navigation"><a href="/">accueil</a><a href="/#tarifs">tarifs</a><a href="/adhesion">entrer</a></nav>
+
+<div class="wrap">
+  <p class="k">essaie · maintenant · gratuit</p>
+  <h1>parle. <em>NAVLYS le fait.</em></h1>
+  <p class="sub">dis ce que tu veux — il l'écrit et te le lit à voix haute.</p>
+
+  <div class="chips" id="chips">
+    <span class="chip">Écris un mot tendre pour ma maman</span>
+    <span class="chip">Explique-moi l'intelligence artificielle simplement</span>
+    <span class="chip">Raconte une petite histoire du soir</span>
+    <span class="chip">Traduis « je t'aime » en 6 langues</span>
+    <span class="chip">Donne-moi une belle idée de cadeau</span>
+    <span class="chip">Écris un poème court sur la mer</span>
+  </div>
+
+  <button class="mic" id="mic" title="Parler" aria-label="Parler à NAVLYS">🎙️</button>
+  <div class="hint" id="hint">touche le micro et parle — ou écris</div>
+  <div class="bar"><input id="txt" placeholder="dis ou écris ce que tu veux…" autocomplete="off" aria-label="Ta demande"><button id="send" aria-label="Envoyer">➤</button></div>
+
+  <div class="voixsel" role="group" aria-label="Choix de la voix">
+    <button id="vH" class="on">voix chaude</button><button id="vF">voix féminine</button>
+  </div>
+
+  <div class="result" id="result" aria-live="polite"></div>
+  <div class="acts" id="acts">
+    <button id="replay">🔊 réécouter</button>
+    <button id="again">↺ encore</button>
+    <a class="cta" href="/adhesion">entrer dès 0,99 €</a>
+  </div>
+
+  <p class="foot">NAVLYS — projet d'éducation et de veille, à vocation informative. Jamais un conseil personnalisé ni une promesse de gains. © 2026 NAVLYS — tous droits réservés.</p>
+</div>
+
+<script>
+var BASE='https://hhrlgyvtqluxpywjiwkd.supabase.co/functions/v1';
+var ROUTER=BASE+'/router', VOIX=BASE+'/voix';
+var VOICE_M='JBFqnCBsd6RMkjVDRZzb', VOICE_F='XB0fDUnXU5powFXDhCwa', VOICE=VOICE_M;
+var SYS="Tu es NAVLYS, une voix humaine, chaude et vivante — jamais un robot. Tu ES NAVLYS et rien d'autre : ne cite jamais un autre nom, marque ou systeme derriere toi. Fais exactement ce qu'on te demande, joliment, simplement, avec du coeur : un mot, une explication claire, une histoire, une traduction, une idee. 2 a 6 phrases, mots de tous les jours, tu tutoies. Reponds dans la langue de la personne. Projet d'education et de veille : jamais de conseil financier reglemente, jamais de promesse de gains.";
+var mic=document.getElementById('mic'),txt=document.getElementById('txt'),hint=document.getElementById('hint'),
+    result=document.getElementById('result'),acts=document.getElementById('acts');
+var lang2=(navigator.language||'fr').slice(0,2).toLowerCase();
+var LMAP={fr:'fr-FR',en:'en-US',es:'es-ES',de:'de-DE',it:'it-IT',pt:'pt-PT',ar:'ar-SA',he:'he-IL',ru:'ru-RU',zh:'zh-CN'};
+var BCP=LMAP[lang2]||'fr-FR';
+var lastText='';
+
+document.getElementById('vH').onclick=function(){VOICE=VOICE_M;this.classList.add('on');document.getElementById('vF').classList.remove('on');if(lastText)parler(lastText);};
+document.getElementById('vF').onclick=function(){VOICE=VOICE_F;this.classList.add('on');document.getElementById('vH').classList.remove('on');if(lastText)parler(lastText);};
+
+document.getElementById('chips').addEventListener('click',function(e){var c=e.target.closest('.chip');if(c){txt.value=c.textContent.trim();envoyer(txt.value);}});
+
+var audio=null;
+function parler(t){
+  fetch(VOIX,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({text:t,voice_id:VOICE})})
+  .then(function(r){if(!r.ok||(r.headers.get('content-type')||'').indexOf('audio')<0)throw 0;return r.blob();})
+  .then(function(b){var u=URL.createObjectURL(b);if(audio){try{audio.pause();}catch(_){}}audio=new Audio(u);audio.play().catch(navtts);})
+  .catch(function(){navtts();});
+  function navtts(){try{var s=new SpeechSynthesisUtterance(t);s.lang=BCP;speechSynthesis.cancel();speechSynthesis.speak(s);}catch(_){}}
+}
+var busy=false;
+function envoyer(t){
+  t=(t||'').trim();if(!t||busy)return;busy=true;mic.classList.add('think');hint.textContent='NAVLYS réfléchit…';
+  result.classList.remove('on');acts.classList.remove('on');
+  fetch(ROUTER,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({tier:'eco',tache:'essai_public',system:SYS,prompt:t,max:320})})
+  .then(function(r){return r.json();})
+  .then(function(d){
+    var rep=(d&&d.ok&&d.text)?d.text.trim():'Je t’écoute — redis-moi ça autrement.';
+    lastText=rep;result.textContent=rep;result.classList.add('on');acts.classList.add('on');
+    hint.textContent='touche le micro et parle — ou écris';parler(rep);
+  })
+  .catch(function(){result.textContent='La connexion est coupée un instant. Réessaie, je suis là.';result.classList.add('on');})
+  .then(function(){busy=false;mic.classList.remove('think');});
+}
+document.getElementById('send').onclick=function(){envoyer(txt.value);};
+txt.addEventListener('keydown',function(e){if(e.key==='Enter')envoyer(txt.value);});
+document.getElementById('replay').onclick=function(){if(lastText)parler(lastText);};
+document.getElementById('again').onclick=function(){txt.value='';txt.focus();result.classList.remove('on');acts.classList.remove('on');};
+
+var Reco=window.SpeechRecognition||window.webkitSpeechRecognition,reco=null,on=false;
+if(Reco){reco=new Reco();reco.lang=BCP;reco.continuous=false;reco.interimResults=false;
+  reco.onresult=function(e){var t=e.results[0][0].transcript;if(t){txt.value=t;envoyer(t);}};
+  reco.onerror=function(){stop();};reco.onend=function(){stop();};}
+function start(){if(!reco||on)return;on=true;mic.classList.add('rec');hint.textContent='je t’écoute…';try{reco.start();}catch(_){stop();}}
+function stop(){on=false;mic.classList.remove('rec');hint.textContent='touche le micro et parle — ou écris';}
+mic.onclick=function(){if(!reco){txt.focus();return;}on?(function(){try{reco.stop();}catch(_){}stop();})():start();};
+if(window.speechSynthesis){try{speechSynthesis.getVoices();speechSynthesis.onvoiceschanged=function(){speechSynthesis.getVoices();};}catch(_){}}
+</script>
+</body>
+</html>

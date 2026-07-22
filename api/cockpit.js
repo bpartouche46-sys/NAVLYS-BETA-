@@ -33,6 +33,49 @@ function j(d, s) {
   });
 }
 
+// ════════ INDÉPENDANCE DU CORE (gravé 2026-07-09) ════════
+// Le rapporteur du cockpit doit continuer à parler même si api.anthropic.com
+// tombe (coupure Claude). callBrain() essaie Anthropic direct puis, si ça
+// échoue, bascule seul sur OpenRouter (modèle gratuit non-Anthropic en dernier
+// recours) — lecture tolérante de la clé (règle n°4), aucun redéploiement
+// nécessaire le jour où OPENROUTER_API_KEY est posée dans Vercel. Même pattern
+// que whatsapp-webhook.js.
+function envAny(names) { for (const n of names) { const v = process.env[n]; if (v) return v; } return ''; }
+async function callBrain(system, user, { anthKey, maxTokens = MAX_BRIEF_TOKENS, model = MODEL_BRIEF } = {}) {
+  if (anthKey) {
+    try {
+      const r = await fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers: { 'x-api-key': anthKey, 'anthropic-version': '2023-06-01', 'Content-Type': 'application/json' },
+        body: JSON.stringify({ model, max_tokens: maxTokens, system, messages: [{ role: 'user', content: user }] }),
+      });
+      if (r.ok) {
+        const d = await r.json();
+        const t = (d.content || []).filter((c) => c.type === 'text').map((c) => c.text).join('\n').trim();
+        if (t) return t;
+      }
+    } catch { /* on tente le repli ci-dessous */ }
+  }
+  const orKey = envAny(['OPENROUTER_API_KEY', 'OPENROUTER_KEY', 'OPEN_ROUTER_API_KEY', 'OPEN_API_ROUTER', 'OPEN_API_ROUTER_KEY']);
+  if (orKey) {
+    for (const orModel of ['meta-llama/llama-3.3-70b-instruct:free', 'anthropic/claude-haiku-4.5']) {
+      try {
+        const r = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+          method: 'POST',
+          headers: { Authorization: `Bearer ${orKey}`, 'Content-Type': 'application/json', 'HTTP-Referer': 'https://navlys.com', 'X-Title': 'NAVLYS CORE' },
+          body: JSON.stringify({ model: orModel, max_tokens: maxTokens, messages: [{ role: 'system', content: system }, { role: 'user', content: user }] }),
+        });
+        if (r.ok) {
+          const d = await r.json();
+          const t = (d?.choices?.[0]?.message?.content || '').trim();
+          if (t) return t;
+        }
+      } catch { /* essai suivant */ }
+    }
+  }
+  return '';
+}
+
 // Comparaison de token à temps ~constant (évite de fuiter la longueur par timing).
 function tokenOk(given, expected) {
   if (!expected) return false;
@@ -288,8 +331,10 @@ export default async function handler(req) {
         .map((m) => `#${m.id} [${m.departement}] ${m.titre}`).slice(0, 12);
       const recent = journal.map((e) => `${e.type}: ${e.message}`).slice(0, 12);
 
-      // Sans clé LLM : rapport déterministe (toujours utile, zéro coût).
-      if (!aKey) {
+      // Sans AUCUN cerveau (ni Anthropic ni OpenRouter) : rapport déterministe
+      // (toujours utile, zéro coût, indépendant de toute coupure LLM).
+      const hasOr = !!envAny(['OPENROUTER_API_KEY', 'OPENROUTER_KEY', 'OPEN_ROUTER_API_KEY', 'OPEN_API_ROUTER', 'OPEN_API_ROUTER_KEY']);
+      if (!aKey && !hasOr) {
         const lignes = [
           `Bonjour Bruno. Voici l'état du corps central NAVLYS.`,
           `${agents.length} agents enregistrés.`,
@@ -315,18 +360,17 @@ export default async function handler(req) {
         `Fais-moi le point de vive voix.`,
       ].join('\n');
 
-      const r = await fetch('https://api.anthropic.com/v1/messages', {
-        method: 'POST',
-        headers: { 'x-api-key': aKey, 'anthropic-version': '2023-06-01', 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          model: MODEL_BRIEF, max_tokens: MAX_BRIEF_TOKENS, system: SYSTEM,
-          messages: [{ role: 'user', content: user }],
-        }),
-      });
-      const data = await r.json().catch(() => ({}));
-      if (!r.ok) return j({ error: 'rapporteur indisponible' }, 502);
-      const text = (data.content || []).filter((c) => c.type === 'text').map((c) => c.text).join('\n').trim();
-      return j({ text: text || 'Tout est calme pour le moment.' }, 200);
+      const text = await callBrain(SYSTEM, user, { anthKey: aKey });
+      // Si tous les cerveaux tombent : repli déterministe plutôt qu'une erreur,
+      // pour que le cockpit parle toujours (indépendance du CORE).
+      if (!text) {
+        return j({ text:
+          `Bonjour Bruno. ${agents.length} agents enregistrés. ` +
+          `Missions : ${stats['a_valider'] || 0} à valider, ${stats['a_faire'] || 0} à faire, ` +
+          `${stats['en_cours'] || 0} en cours, ${stats['fait'] || 0} faites, ${stats['erreur'] || 0} en erreur. ` +
+          (aValider.length ? `À valider en priorité : ${aValider.join(' ; ')}.` : `Rien n'attend ta validation.`) }, 200);
+      }
+      return j({ text }, 200);
     }
 
     return j({ error: `action inconnue : ${action}` }, 400);

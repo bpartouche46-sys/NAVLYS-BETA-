@@ -8,7 +8,10 @@
    - toujours réversible vers le FR (source), et bascule directe EN<->RU
    - met document.documentElement.lang à jour
    API : window.NAVLYS_I18N = { set(l), toggle(), lang(), refresh() }
-   v2 · 2026-07-02 · ajout du RUSSE (ru) · <script src="/navlys-i18n.js" defer></script>
+   v4 · 2026-07-11 · registre N langues enfichables (fr/en/ru intégrés ;
+     es/pt/it/de/nl/wa/zh/hi/bn/he/ar/ur chargés à la demande) · RTL auto
+     (he/ar/ur) · repli FR pour toute clé absente (couverture progressive).
+   <script src="/navlys-i18n.js" defer></script>
    ==================================================================== */
 (function(){
   'use strict';
@@ -69,7 +72,7 @@
     "🔊 réécouter": "🔊 replay",
 
     /* ---- chrome : compte à rebours ---- */
-    "Ouverture le 1er juillet": "Opening July 1st",
+    "Ouverture le 1er août": "Opening August 1st",
     "· accès anticipé": "· early access",
     "GRATUIT": "FREE",
     "NAVLYS est lancé": "NAVLYS is live",
@@ -124,11 +127,11 @@
     "La bande-son de l'Équipage : musique et flux en direct pour travailler, apprendre, respirer.": "The Crew's soundtrack: live music and streams to work, learn, breathe.",
     "Écouter →": "Listen →",
     "brokers · banques · outils": "brokers · banks · tools",
-    "Nos partenaires testés (brokers, crypto, néo-banques, outils), en toute transparence sur l'affiliation.": "Our tested partners (brokers, crypto, neo-banks, tools), fully transparent about affiliation.",
+    "Mes partenaires testés (brokers, crypto, néo-banques, outils), en toute transparence sur l'affiliation.": "My tested partners (brokers, crypto, neo-banks, tools), fully transparent about affiliation.",
     "Voir →": "See →",
 
     /* section partenaires */
-    "Nos": "Our",
+    "Mes": "My",
     "partenaires": "partners",
     "Brokers, banques et outils — tous testés, liens d'affiliation transparents, sans surcoût pour toi.": "Brokers, banks and tools — all tested, transparent affiliate links, at no extra cost to you.",
     "Pour investir en actions et ETF, du néo-broker européen au PEA français.": "To invest in stocks and ETFs, from the European neo-broker to the French PEA.",
@@ -146,9 +149,9 @@
     "Rejoindre l'aventure →": "Join the adventure →",
 
     /* section mission */
-    "Notre": "Our",
+    "Ma": "My",
     "mission": "mission",
-    "Mettre l'IA à la portée de tous, en un clic et à la voix — pour égaliser l'accès au savoir, au bien-être et à la transmission. L'humain reste la pièce centrale. NAVLYS, c'est aussi 100 % dématérialisé, dans le respect de la Méditerranée qui nous porte.": "Bringing AI within everyone's reach, in one click and by voice — to level access to knowledge, well-being and legacy. The human stays at the heart of it. NAVLYS is also 100% paperless, honoring the Mediterranean that carries us.",
+    "Mettre l'IA à la portée de tous, en un clic et à la voix — pour égaliser l'accès au savoir, au bien-être et à la transmission. L'humain reste la pièce centrale. NAVLYS, c'est aussi 100 % dématérialisé, dans le respect de la Méditerranée qui me porte.": "Bringing AI within everyone's reach, in one click and by voice — to level access to knowledge, well-being and legacy. The human stays at the heart of it. NAVLYS is also 100% paperless, honoring the Mediterranean that carries me.",
 
     /* pied de page */
     "· le site référence": "· the reference site",
@@ -288,7 +291,7 @@
     "Réserver ma place": "Reserve my spot",
     "Éducation & mémoire personnelle. Tes contenus restent ta propriété. Pas de revente de données, pas de pub.": "Education & personal memory. Your content stays yours. No data resale, no ads.",
     "Manifeste": "Manifesto",
-    "Nous portons tous une histoire.": "We all carry a story.",
+    "On porte tous une histoire.": "We all carry a story.",
     "Des moments, des passages, des choix, des silences.": "Moments, passages, choices, silences.",
     "Cette histoire, elle s'efface si on ne la garde pas.": "That story fades if we don't keep it.",
     "NAVLYS Next Gen n'est pas un livre figé. C'est": "NAVLYS Next Gen is not a frozen book. It's",
@@ -347,7 +350,7 @@
     "et des surclassements. Toi aussi, deviens un pilier de l'équipage.": "and upgrades. You too, become a pillar of the crew.",
     "Ta progression": "Your progress",
     "2 500 crédits · 1 an offert 🎁": "2,500 credits · 1 year free 🎁",
-    "Chaque personne à qui tu envoies notre recommandation (avec un petit mot) et que tu nous prouves =": "Each person you send our recommendation to (with a short note) and can show us proof of =",
+    "Chaque personne à qui tu envoies ma recommandation (avec un petit mot) et que tu me prouves =": "Each person you send my recommendation to (with a short note) and can show me proof of =",
     "10 crédits": "10 credits",
     ". 10 personnes = 100 crédits. 50 = 500. Et ça s'accumule.": ". 10 people = 100 credits. 50 = 500. And it adds up.",
     "Ce que tu débloques": "What you unlock",
@@ -359,7 +362,7 @@
     "1 an offert": "1 year free",
     "— l'offre découverte 9,90 €, gratuite un an entier.": "— the €9.90 discovery offer, free for a whole year.",
     "Prouve ta recommandation": "Prove your recommendation",
-    "Tu as envoyé une de nos pubs à des amis avec un petit mot ? Dis-le-nous — on valide, on te crédite.": "Sent one of our ads to friends with a short note? Tell us — we verify, we credit you.",
+    "Tu as envoyé une de mes pubs à des amis avec un petit mot ? Dis-le-moi — je valide, je te crédite.": "Sent one of my ads to friends with a short note? Tell me — I verify, I credit you.",
     "Ton e-mail (membre)": "Your email (member)",
     "Combien de personnes as-tu touchées ?": "How many people did you reach?",
     "Ta preuve (colle les prénoms/liens, décris ton envoi)": "Your proof (paste the first names/links, describe your send)",
@@ -376,7 +379,7 @@
     "version découverte gratuite": "free discovery version",
     "pour tester et raconter NAVLYS à ta communauté. Une histoire rare à raconter :": "to try NAVLYS and tell your community about it. A rare story to tell:",
     "une entreprise d'une seule personne, pilotée par un cerveau IA, qui fait tout — pendant que son fondateur est encore salarié.": "a one-person company, run by an AI brain that does everything — while its founder still holds a day job.",
-    "Écris-nous.": "Write to us.",
+    "Écris-moi.": "Write to me.",
     "Les premiers embarqués sont les mieux récompensés. Le large t'attend. 🌊": "The first aboard are the best rewarded. The open sea awaits you. 🌊",
     "Club NAVLYS · statut simple citoyen — information générale, aucune promesse de rendement. Les crédits ouvrent des accès au contenu, pas des produits financiers.": "Club NAVLYS · private-citizen status — general information, no promise of return. Credits unlock access to content, not financial products.",
     "J'ai envoyé la pub NAVLYS à 20 amis sur WhatsApp avec le message : « … »": "I sent the NAVLYS ad to 20 friends on WhatsApp with the message: “…”",
@@ -393,7 +396,7 @@
     "Ta génération. Ta généalogie.": "Your generation. Your genealogy.",
     "Ta génétique.": "Your genetics.",
     "L'histoire qui ne se raconte qu'une seule fois — la tienne.": "The story told only once — yours.",
-    "notre philosophie": "our philosophy",
+    "ma philosophie": "my philosophy",
     "Plaisir.": "Pleasure.",
     "Sérénité.": "Serenity.",
     "Prends le temps. NAVLYS s'occupe du reste.": "Take your time. NAVLYS handles the rest.",
@@ -413,7 +416,7 @@
     "Espace d'information générale. Pas de conseil financier ou juridique personnalisé. La voix fonctionne sur ton navigateur (gratuite, rien n'est envoyé à un tiers pour la transcription).": "A space for general information. No personalized financial or legal advice. The voice runs in your browser (free, nothing is sent to a third party for transcription).",
     "Toi": "You",
     "NAVLYS écrit": "NAVLYS is typing",
-    "Bonjour 🌊 Je suis l’assistant NAVLYS. Tu peux me parler ou m’écrire — une question sur nos applications, ton compte, ou autre chose ?": "Hi 🌊 I'm the NAVLYS assistant. You can speak or write to me — a question about our apps, your account, or something else?",
+    "Bonjour 🌊 Je suis l’assistant NAVLYS. Tu peux me parler ou m’écrire — une question sur mes applications, ton compte, ou autre chose ?": "Hi 🌊 I'm the NAVLYS assistant. You can speak or write to me — a question about my apps, your account, or something else?",
     "Je note ta demande, l’équipe revient vers toi vite. 🌊": "I've noted your request, the team will get back to you soon. 🌊",
     "Voix de réponse (activer/couper)": "Reply voice (on/off)",
     "Parler": "Speak",
@@ -428,7 +431,7 @@
     "Chaque bible reprend toute la philosophie et tout ce qui concerne son sujet. Déplie celle que tu veux lire. En cas de contradiction,": "Each bible gathers all the philosophy and everything about its subject. Unfold the one you want to read. In case of contradiction,",
     "la Bible NAVLYS fait foi": "the NAVLYS Bible prevails",
     "Présentation — Bruno Mark Partouche": "Introduction — Bruno Mark Partouche",
-    ", porteur et capitaine de NAVLYS, basé en Israël. Homme d'univers et de transmission : il bâtit une maison d'applications où": ", founder and captain of NAVLYS, based in Israel. A man of universes and legacy: he builds a house of apps where",
+    ", porteur et capitaine de NAVLYS. Homme d'univers et de transmission : il bâtit une maison d'applications où": ", founder and captain of NAVLYS. A man of universes and legacy: he builds a house of apps where",
     "l'humain tient la barre et l'IA est le vent": "the human holds the helm and AI is the wind",
     "Posture": "Stance",
     "Statut : simple citoyen.": "Status: ordinary citizen.",
@@ -440,7 +443,7 @@
     "Honnêteté radicale": "Radical honesty",
     "et respect de chacun (accessibilité pour tous, langage simple et imagé, marin).": "and respect for everyone (accessibility for all, simple, vivid, seafaring language).",
     "Cadre": "Framework",
-    "Société israélienne (fiscalité en Israël, banque Mizrahi à Ashkelon). NAVLYS encaisse via plusieurs prestataires pour ne jamais être bloqué et couvrir la France, l'Europe, le Royaume-Uni et la Suisse.": "Israeli company (taxation in Israel, Mizrahi bank in Ashkelon). NAVLYS collects via several providers to never be blocked and to cover France, Europe, the United Kingdom and Switzerland.",
+    "NAVLYS encaisse via plusieurs prestataires pour ne jamais être bloqué et couvrir la France, l'Europe, le Royaume-Uni et la Suisse.": "NAVLYS collects via several providers to never be blocked and to cover France, Europe, the United Kingdom and Switzerland.",
     "Univers de référence & inspiration : le prestige et l'héritage d'un grand groupe familial — la transmission, la tenue, le long terme.": "Reference universe & inspiration: the prestige and heritage of a great family group — legacy, poise, the long term.",
     "Présentation — Le projet NAVLYS": "Introduction — The NAVLYS project",
     "= un univers d'applications nouvelle génération réunissant l'humain et l'IA,": "= a universe of next-generation apps bringing together the human and AI,",
@@ -465,7 +468,7 @@
     "— questions de droit expliquées simplement (3 offertes).": "— legal questions explained simply (3 on the house).",
     "Bien-être · Radio · Journal des Influenceurs": "Well-being · Radio · Influencers Journal",
     "— l'art de vivre NAVLYS.": "— the NAVLYS art of living.",
-    ": 1er juillet 2026. QG :": ": July 1st, 2026. HQ:",
+    ": 1er août 2026. QG :": ": August 1st, 2026. HQ:",
     "Philosophie & options communes à toutes les apps": "Philosophy & options common to all the apps",
     "L'esprit": "The spirit",
     "Un cap, une main, un jour. NAVLYS te guide d'un seul geste vers ton objectif.": "One course, one hand, one day. NAVLYS guides you to your goal in a single gesture.",
@@ -548,7 +551,7 @@
     "— qui oriente vers les": "— that points toward the",
     "bons choix du jour": "good choices of the day",
     "pour la part de risque quotidienne, toujours dans le cadre": "for the daily risk share, always within the",
-    "Sources croisées : presse & réseaux, données marché (via notre API Alpaca en paper/test), courbes de référence.": "Cross-checked sources: press & social, market data (via our Alpaca API in paper/test), reference curves.",
+    "Sources croisées : presse & réseaux, données marché (via mon API Alpaca en paper/test), courbes de référence.": "Cross-checked sources: press & social, market data (via my Alpaca API in paper/test), reference curves.",
     "On cherche le": "We look for the",
     "signal récurrent": "recurring signal",
     "(le même fait anormal qui revient), pas le coup de chance isolé.": "(the same abnormal fact that keeps returning), not the isolated stroke of luck.",
@@ -556,7 +559,7 @@
     "note pédagogique du jour": "educational note of the day",
     "(le « cap »), avec le raisonnement et les garde-fous — jamais un ordre.": "(the “course”), with the reasoning and the safeguards — never an order.",
     "Outils déjà en place": "Tools already in place",
-    ": lecture live du compte (Alpaca paper) via notre API.": ": live account reading (Alpaca paper) via our API.",
+    ": lecture live du compte (Alpaca paper) via mon API.": ": live account reading (Alpaca paper) via my API.",
     "Veille Bourse quotidienne + mini-leçons 90/10 (agents NAVFI).": "Daily market insights + 90/10 mini-lessons (NAVFI agents).",
     "Partenaires brokers (affiliation, statut #partenaire) : Alpaca, eToro, Trade Republic… — jamais d'encaissement de fonds clients par NAVLYS.": "Broker partners (affiliation, #partner status): Alpaca, eToro, Trade Republic… — NAVLYS never collects client funds.",
     "Guide Marketing complet": "Complete Marketing Guide",
@@ -616,7 +619,7 @@
     "Brokers, banques & outils — tous testés.": "Brokers, banks & tools — all tested.",
     "Les liens marqués": "The links marked",
     "« affilié »": "“affiliate”",
-    "nous versent une petite commission,": "pay us a small commission,",
+    "me versent une petite commission,": "pay me a small commission,",
     "sans aucun surcoût pour toi": "at no extra cost to you",
     ". On ne référence que ce qu'on utilise vraiment. C'est de l'": ". We only list what we actually use. It's",
     "éducation et de la veille": "education and insights",
@@ -649,7 +652,7 @@
     "organisation": "organization",
     "Notes, wiki, projets. On y centralise le travail.": "Notes, wiki, projects. We centralize the work there.",
     "hébergement": "hosting",
-    "Héberge tous nos sites : SSL auto, CDN mondial.": "Hosts all our sites: auto SSL, global CDN.",
+    "Héberge tous mes sites : SSL auto, CDN mondial.": "Hosts all my sites: auto SSL, global CDN.",
     "paiements": "payments",
     "Le standard mondial du paiement en ligne.": "The global standard for online payment.",
     "⚠️ Liste en cours de consolidation (14 partenaires affichés). D'autres seront ajoutés après vérification — on n'invente rien.": "⚠️ List being consolidated (14 partners shown). More will be added after verification — we invent nothing.",
@@ -839,7 +842,7 @@
     ", sous ta marque, simplement avec un téléphone et un abonnement classique.": ", under your brand, simply with a phone and a standard subscription.",
     "Toi : l'idée": "You: the idea",
     "Tu la racontes avec tes mots, à l'écrit ou dictée à la voix. C'est tout ce qu'on te demande.": "You tell it in your own words, written or dictated by voice. That's all we ask of you.",
-    "Nous : tout le reste": "Us: everything else",
+    "Moi : tout le reste": "Me: everything else",
     "Site, cerveau IA 24/7, encaissement, sécurité, maintenance — NAVLYS WEB SERVICE gère tout, jour et nuit.": "Website, 24/7 AI brain, payments, security, maintenance — NAVLYS WEB SERVICE handles everything, day and night.",
     "Toi : les commandes": "You: the controls",
     "Ton entreprise pilotée depuis ton téléphone : contenus, membres, encaissements. Partenaire à vie.": "Your business run from your phone: content, members, payments. Partner for life.",
@@ -936,7 +939,7 @@
     "En 2026, l'IA ne remplace pas le talent : elle lui enlève les corvées. Les créateurs qui s'en sortent utilisent l'IA comme un": "In 2026, AI doesn't replace talent: it takes away the chores. The creators who thrive use AI as an",
     "amplificateur": "amplifier",
     "— elle gère le répétitif, eux gardent la stratégie, le récit, le lien. Les marques gagnantes mélangent assets IA et vrais visages pour rester crédibles tout en passant à l'échelle.": "— it handles the repetitive, they keep the strategy, the story, the connection. Winning brands mix AI assets and real faces to stay credible while scaling up.",
-    "Notre lecture NAVLYS : l'outil au service de la personne, jamais l'inverse. C'est la ligne de tout l'univers.": "Our NAVLYS reading: the tool serving the person, never the other way around. That's the line of the whole universe.",
+    "Ma lecture NAVLYS : l'outil au service de la personne, jamais l'inverse. C'est la ligne de tout l'univers.": "My NAVLYS reading: the tool serving the person, never the other way around. That's the line of the whole universe.",
     "⚡ Flash du jour — créateur / partenaire à l'honneur": "⚡ Flash of the day — creator / partner in the spotlight",
     "Emplacement réservé pour mettre en lumière": "Reserved spot to shine a light on",
     "un créateur ou partenaire réel": "a real creator or partner",
@@ -1022,7 +1025,7 @@
     "NAVLYS Finance": "NAVLYS Finance",
     "(Finance, Next Gen) →": "(Finance, Next Gen) →",
     "La Mer de Bruno — Césarée · vagues & vents 3 jours": "Bruno's Sea — Caesarea · waves & winds, 3 days",
-    "⚓ La mer de Bruno · Césarée, Israël": "⚓ Bruno's sea · Caesarea, Israel",
+    "⚓ La mer de Bruno": "⚓ Bruno's sea",
     "Vagues & vents — 3 jours": "Waves & winds — 3 days",
     "Prévision marine en direct (Open-Meteo, point large de Césarée) pour ton catamaran de 4 × 2 m. Verdict par créneau selon TES seuils : ✅ tu sors · ⚠️ limite · ⛔ reste au port.": "Live marine forecast (Open-Meteo, offshore point of Caesarea) for your 4 × 2 m catamaran. Verdict per time slot according to YOUR thresholds: ✅ you go out · ⚠️ borderline · ⛔ stay in port.",
     "Vent max pour sortir (km/h)": "Max wind to go out (km/h)",
@@ -1031,7 +1034,7 @@
     "⏳ Lecture de la mer en cours…": "⏳ Reading the sea…",
     "🌊 Hauteur de vague = « hauteur significative » au large : près du bord, à Césarée, c'est souvent": "🌊 Wave height = “significant height” offshore: near the shore, in Caesarea, it's often",
     "moins": "less",
-    "— mais on décide toujours sur le chiffre prudent. Direction du vent = d'où il VIENT (la flèche montre où il va). Données Open-Meteo, heure locale d'Israël, rafraîchies à chaque ouverture. Prévision = aide à la décision, jamais une garantie : sur l'eau, c'est toujours le capitaine qui décide. NAVLYS · info générale.": "— but we always decide on the cautious number. Wind direction = where it comes FROM (the arrow shows where it goes). Open-Meteo data, Israel local time, refreshed at every opening. A forecast is a decision aid, never a guarantee: on the water, the captain always decides. NAVLYS · general information.",
+    "— mais on décide toujours sur le chiffre prudent. Direction du vent = d'où il VIENT (la flèche montre où il va). Données Open-Meteo, heure locale (Méditerranée), rafraîchies à chaque ouverture. Prévision = aide à la décision, jamais une garantie : sur l'eau, c'est toujours le capitaine qui décide. NAVLYS · info générale.": "— but we always decide on the cautious number. Wind direction = where it comes FROM (the arrow shows where it goes). Open-Meteo data, local time (Mediterranean), refreshed at every opening. A forecast is a decision aid, never a guarantee: on the water, the captain always decides. NAVLYS · general information.",
     "Club NAVLYS — Récompenses VIP, parrainage & affiliation": "NAVLYS Club — VIP rewards, referrals & affiliation",
     "Flash équipage": "Crew flash",
     "La cagnotte de l'équipage": "The crew's pot",
@@ -1188,7 +1191,7 @@
     "NAVLYS.IO — La passerelle des bâtisseurs | Entreprendre avec NAVLYS": "NAVLYS.IO — The builders' gateway | Building a business with NAVLYS",
     "Candidater": "Apply",
     "IO — la passerelle des bâtisseurs": "IO — the builders' gateway",
-    "Ton idée en or. Notre machine. Une entreprise, bâtie ensemble.": "Your golden idea. Our machine. A business, built together.",
+    "Ton idée en or. Ma machine. Une entreprise, bâtie ensemble.": "Your golden idea. My machine. A business, built together.",
     "Tu es un entrepreneur intelligent, avec une idée prête à exploiter et un vrai potentiel de travail ? On construit avec toi l'entreprise complète — moteur, agents, infrastructure, méthode — exactement comme on a bâti NAVLYS, et on pilote sa progression à tes côtés.": "You're a smart entrepreneur with an idea ready to exploit and real capacity for work? We build the complete business with you — engine, agents, infrastructure, method — exactly as we built NAVLYS, and we steer its progress at your side.",
     "Présenter mon idée": "Present my idea",
     "Comment ça marche": "How it works",
@@ -1222,7 +1225,7 @@
     "Un partenariat aligné : on ne gagne vraiment que si ton projet réussit.": "An aligned partnership: we only truly win if your project succeeds.",
     "Intéressement à la réussite": "Success-based share",
     "On grandit avec toi.": "We grow with you.",
-    "Une part d'intéressement sur la réussite du projet : nos objectifs sont les tiens.": "A share of interest in the project's success: our goals are yours.",
+    "Une part d'intéressement sur la réussite du projet : mes objectifs sont les tiens.": "A share of interest in the project's success: my goals are yours.",
     "Frais de gestion & développement": "Management & development fees",
     "Le carburant du build.": "The fuel of the build.",
     "Les frais de gestion et de développement de l'entreprise sont facturés, de façon transparente, pour financer la construction.": "The business's management and development fees are billed, transparently, to fund the construction.",
@@ -1414,7 +1417,61 @@
     "précommande": "pre-order",
     "Ta formule inclut": "Your plan includes",
     "application au choix": "app of your choice",
-    "applications au choix": "apps of your choice"
+    "applications au choix": "apps of your choice",
+    "NAVLYS · Ambassadeur": "NAVLYS · Ambassador",
+    "Ton univers grandit avec toi": "Your universe grows with you",
+    "Chaque personne que tu fais entrer dans la mer NAVLYS, c'est toi qui la fais grandir. Plus tu en parles autour de toi, plus tu gagnes de points — et plus on te gâte, toujours dans ce qui reste sain pour l'univers.": "Every person you bring into the NAVLYS sea, it's you who makes it grow. The more you talk about it around you, the more points you earn — and the more we spoil you, always within what stays healthy for the universe.",
+    "Ton e-mail de membre": "Your member email",
+    "Voir mon espace": "See my space",
+    "Ton code de parrainage": "Your referral code",
+    "Copier mon lien": "Copy my link",
+    "Copier le code": "Copy the code",
+    "Partage en un geste": "Share in one gesture",
+    "Tes cadeaux reçus": "Your gifts received",
+    "↻ Rafraîchir": "↻ Refresh",
+    "Tes points montent à chaque partage et à chaque personne que tu fais adhérer. Les cadeaux sont calculés pour rester dans ce qui garde l'univers solide — jamais au-delà. Tout est mesuré chez moi, en direct.": "Your points rise with every share and every person you bring on board. The gifts are calculated to stay within what keeps the universe solid — never beyond. Everything is measured at my end, live.",
+    "Points": "Points",
+    "Partages": "Shares",
+    "Parrainés": "Referred",
+    "Cadeaux reçus": "Gifts received",
+    "Graine": "Seed",
+    "Bronze": "Bronze",
+    "Argent": "Silver",
+    "Or": "Gold",
+    "Diamant": "Diamond",
+    "Un instant…": "One moment…",
+    "Espace indisponible — réessaie dans un instant.": "Space unavailable — try again in a moment.",
+    "Réseau indisponible — réessaie.": "Network unavailable — try again.",
+    "Ton e-mail ne semble pas complet": "Your email doesn't look complete",
+    "Copie impossible": "Copy failed",
+    "Ton lien copié ✓": "Your link copied ✓",
+    "Ton code copié ✓": "Your code copied ✓",
+    "+1 point — merci de faire grandir la mer ✦": "+1 point — thank you for growing the sea ✦",
+    "NAVLYS · Dis-le avec tes mots": "NAVLYS · Say it in your words",
+    "Ton envie, en clair": "Your wish, made clear",
+    "Tu n'as pas besoin de « bien demander ». Dis ton envie en quelques mots — à la voix si tu veux — et NAVLYS en fait une demande claire et riche, prête pour la bonne app.": "You don't need to “ask well”. Say your wish in a few words — by voice if you like — and NAVLYS turns it into a clear, rich request, ready for the right app.",
+    "Le livre de ma vie": "The book of my life",
+    "Comprendre l'argent": "Understanding money",
+    "Mes repères juridiques": "My legal bearings",
+    "Mon idée": "My idea",
+    "L'aide à la voix": "Voice help",
+    "En général": "In general",
+    "Ex : je veux raconter mon enfance à mes petits-enfants, mais je sais pas par où commencer…": "E.g.: I want to tell my grandchildren about my childhood, but I don't know where to start…",
+    "Dicter à la voix": "Dictate by voice",
+    "✦ Transforme mon envie": "✦ Transform my wish",
+    "Copier ma demande": "Copy my request",
+    "Une autre version": "Another version",
+    "Ou explore autrement": "Or explore differently",
+    "Ta demande": "Your request",
+    "NAVLYS met tes mots au clair…": "NAVLYS is clarifying your words…",
+    "Dis-moi ton envie en quelques mots 🌊": "Tell me your wish in a few words 🌊",
+    "La voix n’a pas pris — écris, ça marche aussi 🌊": "The voice didn't catch — type it, that works too 🌊",
+    "La voix n’est pas dispo ici — écris ton envie 🌊": "Voice isn't available here — type your wish 🌊",
+    "Version choisie — tu peux la copier": "Version chosen — you can copy it",
+    "Réessaie dans un instant": "Try again in a moment",
+    "Réseau indisponible — réessaie 🌊": "Network unavailable — try again 🌊",
+    "Ta demande est copiée ✓": "Your request is copied ✓",
+    "Astuce.": "Tip."
   };
 
   /* ---------- Dictionnaire FR -> RU (RUSSE, niveau expert) -------------------
@@ -1455,7 +1512,7 @@
 "Связь неустойчива, попробуй ещё раз через мгновение. 🌊",
 "🔊 слушать",
 "🔊 послушать снова",
-"Запуск 1 июля",
+"Запуск 1 августа",
 "· ранний доступ",
 "БЕСПЛАТНО",
 "NAVLYS запущен",
@@ -1498,9 +1555,9 @@
 "Саундтрек Экипажа: музыка и прямые эфиры, чтобы работать, учиться, дышать.",
 "Слушать →",
 "брокеры · банки · инструменты",
-"Наши проверенные партнёры (брокеры, крипто, необанки, инструменты), с полной прозрачностью по партнёрским ссылкам.",
+"Мои проверенные партнёры (брокеры, крипто, необанки, инструменты), с полной прозрачностью по партнёрским ссылкам.",
 "Смотреть →",
-"Наши",
+"Мои",
 "партнёры",
 "Брокеры, банки и инструменты — все проверены, прозрачные партнёрские ссылки, без доплаты для тебя.",
 "Чтобы инвестировать в акции и ETF, от европейского необрокера до французского PEA.",
@@ -1514,9 +1571,9 @@
 "Экипаж",
 "Закрытое сообщество, чтобы учиться вместе, в твоём ритме. Ты никогда не один у штурвала.",
 "Присоединиться к приключению →",
-"Наша",
+"Моя",
 "миссия",
-"Сделать ИИ доступным каждому, в один клик и голосом — чтобы уравнять доступ к знаниям, благополучию и передаче наследия. Человек остаётся в центре. NAVLYS ещё и на 100 % без бумаги, с уважением к Средиземному морю, которое нас несёт.",
+"Сделать ИИ доступным каждому, в один клик и голосом — чтобы уравнять доступ к знаниям, благополучию и передаче наследия. Человек остаётся в центре. NAVLYS ещё и на 100 % без бумаги, с уважением к Средиземному морю, которое меня несёт.",
 "· эталонный сайт",
 "Приложения · Партнёры · Сообщество · Журнал",
 "NAVLYS — это проект ",
@@ -1778,7 +1835,7 @@
 "Каждая библия вбирает всю философию и всё, что касается её темы. Разверни ту, которую хочешь прочитать. В случае противоречия",
 "Библия NAVLYS имеет силу",
 "Представление — Bruno Mark Partouche",
-", носитель и капитан NAVLYS, базируется в Израиле. Человек вселенных и передачи: он строит дом приложений, где",
+", носитель и капитан NAVLYS. Человек вселенных и передачи: он строит дом приложений, где",
 "человек держит штурвал, а ИИ — это ветер",
 "Позиция",
 "Статус: простой гражданин.",
@@ -1790,7 +1847,7 @@
 "Радикальная честность",
 "и уважение к каждому (доступность для всех, простой и образный, морской язык).",
 "Рамки",
-"Израильская компания (налогообложение в Израиле, банк Mizrahi в Ашкелоне). NAVLYS принимает платежи через нескольких провайдеров, чтобы никогда не быть заблокированным и охватить Францию, Европу, Великобританию и Швейцарию.",
+"NAVLYS принимает платежи через нескольких провайдеров, чтобы никогда не быть заблокированным и охватить Францию, Европу, Великобританию и Швейцарию.",
 "Эталонная вселенная и вдохновение: престиж и наследие большого семейного дома — передача, выдержанность, долгий срок.",
 "Представление — Проект NAVLYS",
 "= вселенная приложений нового поколения, объединяющая человека и ИИ,",
@@ -1815,7 +1872,7 @@
 "— вопросы права, объяснённые просто (3 в подарок).",
 "Благополучие · Радио · Журнал инфлюенсеров",
 "— искусство жить по NAVLYS.",
-": 1 июля 2026. Штаб:",
+": 1 августа 2026. Штаб:",
 "Философия и общие возможности всех приложений",
 "Дух",
 "Один курс, одна рука, один день. NAVLYS ведёт тебя к твоей цели одним жестом.",
@@ -2368,7 +2425,7 @@
 "NAVLYS Финансы",
 "(Финансы, Next Gen) →",
 "Море Бруно — Кесария · волны и ветра, 3 дня",
-"⚓ Море Бруно · Кесария, Израиль",
+"⚓ Море Бруно",
 "Волны и ветра — 3 дня",
 "Морской прогноз в реальном времени (Open-Meteo, точка в море у Кесарии) для твоего катамарана 4 × 2 м. Вердикт по каждому окну по ТВОИМ порогам: ✅ выходишь · ⚠️ на грани · ⛔ оставайся в порту.",
 "Макс. ветер для выхода (км/ч)",
@@ -2377,7 +2434,7 @@
 "⏳ Читаю море…",
 "🌊 Высота волны = « значимая высота » в открытом море: у берега, в Кесарии, часто",
 "меньше",
-"— но решаем всегда по осторожной цифре. Направление ветра = откуда он ДУЕТ (стрелка показывает, куда он идёт). Данные Open-Meteo, местное время Израиля, обновляются при каждом открытии. Прогноз — помощь в решении, никогда не гарантия: на воде всегда решает капитан. NAVLYS · общая информация.",
+"— но решаем всегда по осторожной цифре. Направление ветра = откуда он ДУЕТ (стрелка показывает, куда он идёт). Данные Open-Meteo, местное время (Средиземноморье), обновляются при каждом открытии. Прогноз — помощь в решении, никогда не гарантия: на воде всегда решает капитан. NAVLYS · общая информация.",
 "Клуб NAVLYS — VIP-награды, рекомендации и партнёрство",
 "Флеш экипажа",
 "Копилка экипажа",
@@ -2760,7 +2817,61 @@
 "предзаказ",
 "Твоя формула включает",
 "приложение на выбор",
-"приложения на выбор"
+"приложения на выбор",
+"NAVLYS · Амбассадор",
+"Твоя вселенная растёт вместе с тобой",
+"Каждый человек, которого ты приводишь в море NAVLYS, растёт благодаря тебе. Чем больше ты рассказываешь о нём вокруг, тем больше очков получаешь — и тем больше мы тебя балуем, всегда в рамках того, что остаётся здоровым для вселенной.",
+"Твой e-mail участника",
+"Открыть моё пространство",
+"Твой реферальный код",
+"Скопировать мою ссылку",
+"Скопировать код",
+"Поделись одним движением",
+"Твои полученные подарки",
+"↻ Обновить",
+"Твои очки растут с каждым репостом и с каждым человеком, которого ты приводишь. Подарки рассчитаны так, чтобы оставаться в рамках того, что сохраняет вселенную крепкой — никогда сверх того. Всё измеряется у меня, в реальном времени.",
+"Очки",
+"Репосты",
+"Приглашённые",
+"Полученные подарки",
+"Росток",
+"Бронза",
+"Серебро",
+"Золото",
+"Бриллиант",
+"Одну минуту…",
+"Пространство недоступно — попробуй ещё раз через мгновение.",
+"Сеть недоступна — попробуй ещё раз.",
+"Твой e-mail выглядит неполным",
+"Не удалось скопировать",
+"Твоя ссылка скопирована ✓",
+"Твой код скопирован ✓",
+"+1 очко — спасибо, что растишь море ✦",
+"NAVLYS · Скажи это своими словами",
+"Твоё желание — ясно и просто",
+"Тебе не нужно «правильно просить». Скажи своё желание в нескольких словах — голосом, если хочешь — и NAVLYS превратит его в чёткий, богатый запрос, готовый для нужного приложения.",
+"Книга моей жизни",
+"Понять деньги",
+"Мои юридические ориентиры",
+"Моя идея",
+"Помощь голосом",
+"В общем",
+"Напр.: я хочу рассказать внукам о своём детстве, но не знаю, с чего начать…",
+"Диктовать голосом",
+"✦ Преобразить моё желание",
+"Скопировать мой запрос",
+"Другая версия",
+"Или посмотри иначе",
+"Твой запрос",
+"NAVLYS проясняет твои слова…",
+"Скажи мне своё желание в нескольких словах 🌊",
+"Голос не сработал — напиши, так тоже работает 🌊",
+"Голос здесь недоступен — напиши своё желание 🌊",
+"Версия выбрана — можешь её скопировать",
+"Попробуй ещё раз через мгновение",
+"Сеть недоступна — попробуй ещё раз 🌊",
+"Твой запрос скопирован ✓",
+"Совет."
 ];
   var DICT_RU = {};
   (function(){
@@ -2775,22 +2886,45 @@
      Chargés depuis des fichiers séparés pour rester légers au premier octet :
      navlys-i18n-he.js et navlys-i18n-ar.js définissent window.NAVLYS_DICT_HE /
      window.NAVLYS_DICT_AR, chargés À LA DEMANDE au premier passage en he/ar. */
-  var DICT_HE = null;
-  var DICT_AR = null;
-  var RTL_LANGS = { he:1, ar:1 };
-  function loadRtlDict(l, done){
-    var have = (l==='he' && DICT_HE) || (l==='ar' && DICT_AR);
-    if(have){ if(done) done(); return; }
-    var g = (l==='he') ? window.NAVLYS_DICT_HE : window.NAVLYS_DICT_AR;
-    if(g){ if(l==='he') DICT_HE=g; else DICT_AR=g; if(done) done(); return; }
+  /* ---------- Registre des langues (v4 · N langues enfichables) -------------
+     EN et RU sont intégrés (inline, plus haut). Toute autre langue est « lazy »
+     et chargée à la demande depuis /navlys-i18n-<code>.js, qui expose
+     window.NAVLYS_DICT_<CODE> (objet {cléFR: traduction}). Ajouter une langue =
+     1 entrée ici + 1 fichier dico (généré par tools/make-dict.mjs) + 1 puce
+     dans le menu (navlys-alive.js). Repli FR automatique pour toute clé absente
+     → couverture progressive, jamais de trou visible. */
+  var LANG_META = {
+    fr:{ native:'Français',   short:'FR'  },
+    en:{ native:'English',    short:'EN'  },
+    ru:{ native:'Русский',    short:'RU'  },
+    he:{ native:'עברית',      short:'עב',   rtl:1, lazy:1 },
+    ar:{ native:'العربية',    short:'ع',    rtl:1, lazy:1 },
+    es:{ native:'Español',    short:'ES',   lazy:1 },
+    pt:{ native:'Português',  short:'PT',   lazy:1 },
+    it:{ native:'Italiano',   short:'IT',   lazy:1 },
+    de:{ native:'Deutsch',    short:'DE',   lazy:1 },
+    nl:{ native:'Nederlands', short:'NL',   lazy:1 },
+    wa:{ native:'Walon',      short:'WA',   lazy:1 },
+    zh:{ native:'中文',        short:'中',   lazy:1 },
+    hi:{ native:'हिन्दी',       short:'हि',   lazy:1 },
+    bn:{ native:'বাংলা',       short:'বাং',  lazy:1 },
+    ur:{ native:'اردو',        short:'اردو', rtl:1, lazy:1 }
+  };
+  var RTL_LANGS = {};
+  (function(){ for(var c in LANG_META){ if(LANG_META[c].rtl) RTL_LANGS[c]=1; } })();
+
+  /* cache des dicos « lazy » déjà chargés : code -> objet {cléFR: trad} */
+  var LAZY = {};
+  function isLazy(l){ return !!(LANG_META[l] && LANG_META[l].lazy); }
+  function globalDictName(l){ return 'NAVLYS_DICT_'+l.toUpperCase(); }
+  function loadDict(l, done){
+    if(LAZY[l]){ if(done) done(); return; }
+    var g = window[globalDictName(l)];
+    if(g){ LAZY[l]=g; if(done) done(); return; }
     var s=document.createElement('script');
     s.src='/navlys-i18n-'+l+'.js';
-    s.onload=function(){
-      if(l==='he') DICT_HE=window.NAVLYS_DICT_HE||{};
-      else DICT_AR=window.NAVLYS_DICT_AR||{};
-      if(done) done();
-    };
-    s.onerror=function(){ if(l==='he') DICT_HE={}; else DICT_AR={}; if(done) done(); };
+    s.onload=function(){ LAZY[l]=window[globalDictName(l)]||{}; if(done) done(); };
+    s.onerror=function(){ LAZY[l]={}; if(done) done(); };
     (document.head||document.documentElement).appendChild(s);
   }
 
@@ -2801,11 +2935,10 @@
 
   /* dictionnaire actif selon la langue cible (null en FR = source) */
   function dictFor(lang){
-    if(lang==='ru') return DICT_RU;
+    if(lang==='fr') return null; /* FR : source, pas de traduction */
     if(lang==='en') return DICT;
-    if(lang==='he') return DICT_HE||{};
-    if(lang==='ar') return DICT_AR||{};
-    return null;
+    if(lang==='ru') return DICT_RU;
+    return LAZY[lang]||{}; /* langues lazy : dico chargé (ou {} le temps du chargement) */
   }
 
   /* renvoie la traduction de `raw` vers LANG (espaces de bord préservés) ou null.
@@ -2922,8 +3055,8 @@
   }
 
   /* ---------- API publique ---------- */
-  var LANGS=['fr','en','ru','he','ar'];
-  function normLang(l){ return (l==='en'||l==='ru'||l==='he'||l==='ar')?l:'fr'; }
+  var LANGS=['fr','en','ru','es','pt','it','de','nl','wa','zh','hi','bn','he','ar','ur'];
+  function normLang(l){ return LANG_META[l]?l:'fr'; }
   function applyDir(){
     if(!document.documentElement) return;
     document.documentElement.lang=LANG;
@@ -2933,7 +3066,7 @@
     LANG=normLang(l);
     try{ localStorage.setItem('nv-lang',LANG); }catch(e){}
     applyDir();
-    if(RTL_LANGS[LANG]){ loadRtlDict(LANG, translateAll); }
+    if(LANG!=='fr' && isLazy(LANG)){ loadDict(LANG, translateAll); }
     else translateAll();
     /* signal pour le texte injecté par JS (bande cinéma, ticker…) qui n'est pas
        dans le DICT : il se re-rend dans la bonne langue. Non-cassant. */
@@ -2942,11 +3075,14 @@
 
   window.NAVLYS_I18N={
     set:setLang,
-    toggle:function(){ /* cycle fr -> en -> ru -> fr */
+    toggle:function(){ /* cycle fr -> en -> ru -> ... -> fr */
       var i=LANGS.indexOf(LANG); if(i<0) i=0;
       setLang(LANGS[(i+1)%LANGS.length]);
     },
     lang:function(){ return LANG; },
+    langs:function(){ return LANGS.slice(); },          /* ordre d'affichage */
+    meta:function(l){ return l?LANG_META[l]:LANG_META; },/* registre (native, short, rtl…) */
+    isRtl:function(l){ return !!RTL_LANGS[l||LANG]; },
     refresh:translateAll
   };
 
@@ -2958,19 +3094,22 @@
       /* langue par défaut = celle de l'utilisateur (téléphone / navigateur) */
       var nav='fr';
       try{ nav=String(navigator.language||navigator.userLanguage||'fr').toLowerCase(); }catch(e){}
-      if(nav.indexOf('en')===0) saved='en';
-      else if(nav.indexOf('ru')===0) saved='ru';
-      else if(nav.indexOf('he')===0||nav.indexOf('iw')===0) saved='he';
-      else if(nav.indexOf('ar')===0) saved='ar';
-      else saved='fr';
+      var two=nav.slice(0,2);
+      if(two==='iw') two='he'; /* ancien code ISO de l'hébreu */
+      saved = LANG_META[two] ? two : 'fr';
     }
     LANG=normLang(saved);
     applyDir();
     startObserver();
     if(LANG!=='fr'){
-      if(RTL_LANGS[LANG]) loadRtlDict(LANG, translateAll);
+      if(isLazy(LANG)) loadDict(LANG, translateAll);
       else translateAll();
     }
+    /* Signale la langue détectée aux textes injectés par JS (bande cinéma,
+       ouverture « il y a bien longtemps… », annonce héros…) qui ne sont pas dans
+       le DICT — sinon ils restaient en français pour un visiteur auto-détecté
+       non-FR (corrigé 2026-07-11). Émis aussi pour 'fr' : sans effet, cohérent. */
+    try{ document.dispatchEvent(new CustomEvent('nv-lang',{detail:LANG})); }catch(e){}
   }
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init);
   else init();

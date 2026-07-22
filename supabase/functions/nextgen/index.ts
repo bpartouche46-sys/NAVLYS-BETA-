@@ -5,23 +5,45 @@
 //   'deroule'   -> enchaînement photo→vidéo→récit→son→musique à partir du récit
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 const ANTH = Deno.env.get("ANTHROPIC_API_KEY") || "";
+// Repli anti-coupure (indépendance CORE) : OpenRouter si Anthropic tombe. Clé tolérante.
+const OR = Deno.env.get("OPENROUTER_API_KEY") || Deno.env.get("OPENROUTER_KEY") || Deno.env.get("OPEN_ROUTER_API_KEY") || Deno.env.get("OPEN_API_ROUTER") || Deno.env.get("OPEN_API_ROUTER_KEY") || "";
 const MODEL = "claude-haiku-4-5-20251001";
+const OR_MODELS = ["anthropic/claude-haiku-4.5", "meta-llama/llama-3.3-70b-instruct:free"];
 const CORS = { "Access-Control-Allow-Origin": "*", "Access-Control-Allow-Methods": "POST,GET,OPTIONS", "Access-Control-Allow-Headers": "content-type,authorization,apikey" };
 function J(d: unknown, s = 200) { return new Response(JSON.stringify(d), { status: s, headers: { "Content-Type": "application/json", ...CORS } }); }
 const clean = (x: unknown, n: number) => String(x == null ? "" : x).replace(/\0/g, "").slice(0, n);
-async function ask(system: string, user: string, maxT = 1200) {
+async function askAnthropic(system: string, user: string, maxT: number) {
   const r = await fetch("https://api.anthropic.com/v1/messages", { method: "POST", headers: { "x-api-key": ANTH, "anthropic-version": "2023-06-01", "Content-Type": "application/json" }, body: JSON.stringify({ model: MODEL, max_tokens: maxT, system, messages: [{ role: "user", content: user }] }) });
   const d: any = await r.json().catch(() => ({}));
-  return ((d.content || []).filter((c: any) => c.type === "text").map((c: any) => c.text).join("\n").trim());
+  if (!r.ok) throw new Error("anthropic_" + r.status);
+  const t = ((d.content || []).filter((c: any) => c.type === "text").map((c: any) => c.text).join("\n").trim());
+  if (!t) throw new Error("anthropic_empty");
+  return t;
+}
+async function askOpenRouter(system: string, user: string, maxT: number) {
+  for (const m of OR_MODELS) {
+    try {
+      const r = await fetch("https://openrouter.ai/api/v1/chat/completions", { method: "POST", headers: { "Authorization": "Bearer " + OR, "Content-Type": "application/json", "HTTP-Referer": "https://navlys.com", "X-Title": "NAVLYS" }, body: JSON.stringify({ model: m, max_tokens: maxT, messages: [{ role: "system", content: system }, { role: "user", content: user }] }) });
+      const d: any = await r.json().catch(() => ({}));
+      if (r.ok) { const t = (d?.choices?.[0]?.message?.content || "").trim(); if (t) return t; }
+    } catch (_) { /* modèle suivant */ }
+  }
+  throw new Error("openrouter_failed");
+}
+// callBrain : Anthropic direct d'abord, OpenRouter en repli seul (indépendance CORE)
+async function ask(system: string, user: string, maxT = 1200) {
+  if (ANTH) { try { return await askAnthropic(system, user, maxT); } catch (_) { /* repli */ } }
+  if (OR) return await askOpenRouter(system, user, maxT);
+  throw new Error("no_llm");
 }
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response(null, { status: 204, headers: CORS });
-  if (req.method === "GET") return J({ ok: true, service: "navlys-nextgen" });
+  if (req.method === "GET") return J({ ok: true, service: "navlys-nextgen", cle: !!ANTH, repli: !!OR });
   const b: any = await req.json().catch(() => ({}));
   const action = clean(b.action, 20) || "polir";
   const texte = clean(b.texte, 8000);
   const sujet = clean(b.sujet, 200);
-  if (!ANTH) return J({ ok: false, error: "IA indisponible" }, 200);
+  if (!ANTH && !OR) return J({ ok: false, error: "IA indisponible" }, 200);
   try {
     if (action === "questions") {
       const sys = "Tu es NAVLYS Next Gen, un biographe chaleureux et humain. On te donne un souvenir, un document, une photo ou une vidéo (décrite). Pose 3 à 5 questions courtes, douces et précises pour enrichir ce souvenir (qui, où, quand, l'émotion, un détail sensoriel). En français. Réponds UNIQUEMENT par les questions, une par ligne, sans numéro.";

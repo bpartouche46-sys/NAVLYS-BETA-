@@ -36,6 +36,9 @@ input:focus,textarea:focus{outline:none;border-color:var(--ice)}
 #apercu{display:grid;grid-template-columns:repeat(auto-fill,minmax(84px,1fr));gap:8px;margin-top:10px}
 #apercu img{width:100%;height:84px;object-fit:cover;border-radius:10px;border:1px solid var(--line)}
 button{font:inherit;cursor:pointer}
+.exemple{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,rgba(125,211,252,.12),rgba(201,169,97,.10));border:1px solid rgba(201,169,97,.45);border-radius:12px;color:var(--or-pale);font-weight:700;font-size:1rem;padding:13px 22px;text-decoration:none;transition:border-color .2s,color .2s}
+.exemple:hover{border-color:var(--ice);color:var(--ice-clair)}
+.exemple span{color:var(--mut);font-weight:400;font-size:.86rem}
 .envoyer{width:100%;margin-top:18px;background:linear-gradient(135deg,#C9A961,#e3cd96);border:none;border-radius:12px;color:#141005;font-weight:700;font-size:1.08rem;padding:15px}
 .envoyer:disabled{opacity:.55;cursor:wait}
 #msg{min-height:22px;margin-top:10px;text-align:center;font-size:.95rem;color:var(--bad);line-height:1.6}
@@ -66,6 +69,10 @@ button{font:inherit;cursor:pointer}
     <div class="et"><div class="n">1 · TU ENVOIES</div><p>Le dossier complet de ton bateau + jusqu'à <b>6 photos</b>. Deux minutes, tout se passe ici.</p></div>
     <div class="et"><div class="n">2 · ON ÉTUDIE</div><p>NAVLYS analyse : points forts, points de vigilance, questions à poser, check-list de visite.</p></div>
     <div class="et"><div class="n">3 · TU REÇOIS TON LIEN</div><p>Une <b>page dédiée en ligne</b> avec ton rapport. <b>Gratuit et complet pour les membres</b> (lien permanent). Pas encore membre ? Tu reçois <b>le début de ton rapport</b> — juge sur pièce, sur TON bateau.</p></div>
+  </div>
+
+  <div style="text-align:center;margin:20px 0 4px">
+    <a class="exemple" href="/bateau-rapport?d=7df44d6ad9b0d4a8de21ed236b9512d2" target="_blank" rel="noopener">🚤 Voir un exemple de rapport <span>Amel Maramu 46' · 1989</span></a>
   </div>
 
   <h2>Ton dossier</h2>
@@ -100,7 +107,7 @@ button{font:inherit;cursor:pointer}
     <label for="description">Le dossier complet * — raconte tout : état, historique, ce que dit le vendeur, ce que tu veux savoir</label>
     <textarea id="description" placeholder="Ex : catamaran de 2008, resté 2 ans sous bâche, le vendeur dit que les voiles sont neuves, je veux savoir quoi vérifier avant d'acheter…"></textarea>
     <label>Tes photos (jusqu'à 6 — coque, pont, gréement, moteur, détails qui t'inquiètent)</label>
-    <div class="photos" id="zone">📷 <b>Touche ici pour ajouter tes photos</b><br>elles sont réduites automatiquement, rien à préparer</div>
+    <div class="photos" id="photozone">📷 <b>Touche ici pour ajouter tes photos</b><br>elles sont réduites automatiquement, rien à préparer</div>
     <input id="fichiers" type="file" accept="image/*" multiple style="display:none">
     <div id="apercu"></div>
     <button class="envoyer" id="go" type="submit">Envoyer mon dossier 🌊</button>
@@ -128,7 +135,7 @@ button{font:inherit;cursor:pointer}
   var $=function(id){ return document.getElementById(id); };
   var photos=[]; // dataURLs déjà réduits
 
-  $('zone').addEventListener('click', function(){ $('fichiers').click(); });
+  $('photozone').addEventListener('click', function(){ $('fichiers').click(); });
   $('fichiers').addEventListener('change', function(){
     var fs=Array.prototype.slice.call(this.files||[]);
     fs.forEach(function(f){
@@ -151,7 +158,7 @@ button{font:inherit;cursor:pointer}
     var h='';
     for(var i=0;i<photos.length;i++) h+='<img src="'+photos[i]+'" alt="photo '+(i+1)+'">';
     $('apercu').innerHTML=h;
-    $('zone').innerHTML='📷 <b>'+photos.length+'/6 photo(s) prête(s)</b><br>touche pour en ajouter';
+    $('photozone').innerHTML='📷 <b>'+photos.length+'/6 photo(s) prête(s)</b><br>touche pour en ajouter';
   }
 
   $('f').addEventListener('submit', function(ev){

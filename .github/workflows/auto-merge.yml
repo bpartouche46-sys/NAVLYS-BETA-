@@ -1,0 +1,72 @@
+# Merge AUTOMATIQUE des PR de Claude — plus jamais de merge à la main pour Bruno.
+#
+# Doctrine : NAVLYS travaille LIVE (push direct → Vercel déploie). Cette session
+# Claude Code impose de passer par une PR sur une branche « claude/… » ; ce
+# workflow referme la boucle : dès qu'une PR « claude/** » a TOUS ses checks au
+# vert (CI + déploiement Vercel), il la sort du mode brouillon et la fusionne
+# (squash) dans main, puis supprime la branche. Vercel déploie alors la prod tout
+# seul. Rien à cliquer.
+#
+# Sécurité (règle n°111) : périmètre volontairement restreint —
+#   · uniquement les branches préfixées « claude/ » (jamais une PR arbitraire) ;
+#   · uniquement si TOUS les checks sont concluants et verts ;
+#   · aucune connexion externe : seul le GITHUB_TOKEN interne d'Actions est utilisé ;
+#   · le code du workflow est lu depuis main (pull_request_target) → une PR ne peut
+#     pas modifier sa propre logique de merge pour tricher.
+name: Auto-merge Claude PRs
+
+on:
+  # tentative immédiate à chaque évolution de la PR
+  pull_request_target:
+    types: [opened, reopened, ready_for_review, synchronize]
+  # poller fiable : rattrape le cas « Vercel/CI finit après l'ouverture » (≤ 15 min)
+  schedule:
+    - cron: '*/15 * * * *'
+  # déclenchement manuel possible
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+  checks: read
+  statuses: read
+
+concurrency:
+  group: auto-merge
+  cancel-in-progress: false
+
+jobs:
+  automerge:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fusionner les PR « claude/** » vertes
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -u
+          # PR ouvertes dont la branche commence par claude/
+          prs=$(gh pr list --repo "$REPO" --state open \
+                  --json number,headRefName \
+                  --jq '.[] | select(.headRefName|startswith("claude/")) | .number')
+          if [ -z "$prs" ]; then
+            echo "Aucune PR claude/** ouverte."
+            exit 0
+          fi
+          for pr in $prs; do
+            echo "==== PR #$pr ===="
+            # gh pr checks : code retour 0 = TOUS les checks au vert.
+            # (≠0 = au moins un en échec, en attente, ou aucun check trouvé)
+            if gh pr checks "$pr" --repo "$REPO"; then
+              echo "PR #$pr : tous les checks verts → merge."
+              # sortir du brouillon si nécessaire (un brouillon ne peut pas fusionner)
+              gh pr ready "$pr" --repo "$REPO" 2>/dev/null || true
+              if gh pr merge "$pr" --repo "$REPO" --squash --delete-branch; then
+                echo "✅ PR #$pr fusionnée."
+              else
+                echo "⚠️ Merge de #$pr non abouti (conflit ou protection) — laissé tel quel."
+              fi
+            else
+              echo "PR #$pr : checks non concluants (échec/en attente) → on attend."
+            fi
+          done

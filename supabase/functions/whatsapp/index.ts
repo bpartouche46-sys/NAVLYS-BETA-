@@ -1,13 +1,13 @@
-// NAVLYS — Webhook WhatsApp (360dialog). v37 (2026-07-11).
+// NAVLYS — Webhook WhatsApp (360dialog). v36 (2026-07-10).
 // v34 : BIBLE FAQ PRÉ-TRADUITE (core_faq.traductions en/ru/he) + LIEN DIRECT par fiche.
-// v35 : HÉRITAGE DE LANGUE + VERROU DE LANGUE.
-// v37 : clé ElevenLabs auto-découverte (réutilise la clé voix existante). VOIX ENFIN COMPRISE —
-//        (1) CORRECTIF CAPTURE : le téléchargement média 360dialog passe par le
-//            proxy waba-v2.360dialog.io (l'URL lookaside.fbsbx.com refuse la
-//            D360-API-KEY). C'était la cause de « je n'ai pas pu récupérer le fichier ».
-//        (2) TRANSCRIPTION : un vocal est transcrit (Groq → OpenAI → ElevenLabs,
-//            gratuit d'abord, lecture tolérante des clés) puis TRAITÉ COMME UN
-//            MESSAGE TEXTE → NAVLYS répond au CONTENU, plus juste « bien reçu ».
+// v35 : HÉRITAGE DE LANGUE (« Ok » après un échange anglais reste en anglais —
+//        si le message ne tranche pas, on hérite du dernier message qui tranchait)
+//        + VERROU DE LANGUE (consigne finale absolue dans la langue cible).
+// v36 : RÉSILIENCE (indépendance CORE) — repli Claude → OpenRouter/Llama →
+//        NVIDIA NIM. C'est LE canal indépendant de Claude Code (doctrine
+//        2026-07-09) : il ne doit jamais rester silencieux si Anthropic
+//        direct tombe. Même pattern que api/whatsapp-webhook.js (Vercel).
+// Diag : vérifie ET répare le webhook 360dialog ; ?silencieux=1 = pas d'envoi test.
 // Bruno CONVERSE avec le cerveau central (pas de mission auto). Espace fichiers.
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 const MODEL = "claude-haiku-4-5-20251001", MODEL_OWNER="claude-sonnet-4-6", MAX_TOKENS = 700;
@@ -17,10 +17,6 @@ const K = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") || Deno.env.get("SUPABASE_SE
 const ANTH = Deno.env.get("ANTHROPIC_API_KEY") || "";
 const D360 = Deno.env.get("D360_API_KEY") || "";
 const VERIFY = Deno.env.get("WHATSAPP_VERIFY_TOKEN") || "";
-// Clés de transcription vocale (STT) — lecture tolérante, gratuit d'abord (règle n°4).
-const GROQ = Deno.env.get("GROQ_API_KEY") || Deno.env.get("GROQ_KEY") || "";
-const OPENAI = Deno.env.get("OPENAI_API_KEY") || Deno.env.get("OPENAI_KEY") || "";
-const ELEVEN = Deno.env.get("ELEVENLABS_API_KEY") || Deno.env.get("ELEVENLABS_KEY") || Deno.env.get("ELEVENLAB_KEY") || Deno.env.get("NAVLYS_VOICE_KEY") || "";
 const SELF_URL = U + "/functions/v1/whatsapp";
 const onlyDigits = (s)=>String(s||"").replace(/\D/g,"");
 const OWNERS = (Deno.env.get("BRUNO_WHATSAPP")||"").split(/[,;\s]+/).map(onlyDigits).filter(Boolean);
@@ -36,7 +32,7 @@ function signalLang(t){
   return null;
 }
 const detLang = (t)=> signalLang(t) || "fr";
-const LANGNAME={fr:"français",en:"anglais",ru:"russe",he:"hébreu",ar:"arabe"};
+const LANGNAME={fr:"français",en:"anglais",ru:"русский",he:"hébreu",ar:"arabe"};
 const LANGLOCK={
   en:"FINAL AND ABSOLUTE RULE — this conversation is in ENGLISH: your ENTIRE reply must be in English. Do not write a single French word.",
   ru:"ФИНАЛЬНОЕ И АБСОЛЮТНОЕ ПРАВИЛО — этот разговор идёт по-русски: ВЕСЬ твой ответ должен быть на русском языке.",
@@ -56,10 +52,43 @@ const SYSTEM_OWNER = [
   "DÉLÉGATION : si Bruno veut confier une tâche à un agent, rappelle-lui qu'il écrit @navfi, @navtech, @navcom, @navlex, @navlab, @navdem… (ça crée la mission). Sinon, tu discutes simplement et tu l'aides à décider.",
   "Tu peux t'appuyer sur l'ÉTAT INTERNE fourni. Réponds dans la langue de Bruno (français par défaut)."
 ].join(" ");
-async function anthropicMsgs(system, msgs, model){
-  const r = await fetch("https://api.anthropic.com/v1/messages",{method:"POST",headers:{"x-api-key":ANTH,"anthropic-version":"2023-06-01","Content-Type":"application/json"},body:JSON.stringify({model:model||MODEL,max_tokens:MAX_TOKENS,system,messages:msgs})});
-  const d = await r.json().catch(()=>({}));
-  return ((d.content||[]).filter((c)=>c.type==="text").map((c)=>c.text).join("\n").trim());
+// ── RÉSILIENCE MULTI-MODÈLE (indépendance CORE) ──────────────────────────
+// C'est LE canal WhatsApp indépendant de Claude Code : Claude direct d'abord,
+// puis OpenRouter/Llama, puis NVIDIA NIM — jamais de silence si Anthropic tombe.
+async function appelAnthropic(system, msgs, model){
+  if(!ANTH) return "";
+  try{
+    const r = await fetch("https://api.anthropic.com/v1/messages",{method:"POST",headers:{"x-api-key":ANTH,"anthropic-version":"2023-06-01","Content-Type":"application/json"},body:JSON.stringify({model:model||MODEL,max_tokens:MAX_TOKENS,system,messages:msgs})});
+    const d = await r.json().catch(()=>({}));
+    return ((d.content||[]).filter((c)=>c.type==="text").map((c)=>c.text).join("\n").trim());
+  }catch{ return ""; }
+}
+async function appelOpenRouter(system, msgs){
+  const orKey = Deno.env.get("OPENROUTER_API_KEY") || Deno.env.get("OPENROUTER_KEY") || Deno.env.get("OPEN_ROUTER_API_KEY") || Deno.env.get("OPEN_API_ROUTER") || Deno.env.get("OPEN_API_ROUTER_KEY") || "";
+  if(!orKey) return "";
+  try{
+    const r = await fetch("https://openrouter.ai/api/v1/chat/completions",{method:"POST",headers:{Authorization:`Bearer ${orKey}`,"Content-Type":"application/json","HTTP-Referer":"https://navlys.com","X-Title":"NAVLYS WhatsApp"},body:JSON.stringify({model:"meta-llama/llama-3.3-70b-instruct:free",max_tokens:MAX_TOKENS,messages:[{role:"system",content:system},...msgs]})});
+    const d = await r.json().catch(()=>({}));
+    return (d?.choices?.[0]?.message?.content || "").trim();
+  }catch{ return ""; }
+}
+async function appelNvidia(system, msgs){
+  const nvKey = Deno.env.get("NVIDIA_API_KEY") || Deno.env.get("NVAPI_KEY") || Deno.env.get("NVIDIA_NIM_KEY") || Deno.env.get("NGC_API_KEY") || Deno.env.get("NVIDIA_BUILD_API_KEY") || Deno.env.get("BUILD_NVIDIA_API_KEY") || "";
+  if(!nvKey) return "";
+  try{
+    const r = await fetch("https://integrate.api.nvidia.com/v1/chat/completions",{method:"POST",headers:{Authorization:`Bearer ${nvKey}`,"Content-Type":"application/json"},body:JSON.stringify({model:"meta/llama-3.3-70b-instruct",max_tokens:MAX_TOKENS,temperature:0.4,messages:[{role:"system",content:system},...msgs]})});
+    const d = await r.json().catch(()=>({}));
+    return (d?.choices?.[0]?.message?.content || "").trim();
+  }catch{ return ""; }
+}
+async function callBrain(system, msgs, model){
+  const a = await appelAnthropic(system, msgs, model);
+  if(a) return a;
+  const o = await appelOpenRouter(system, msgs);
+  if(o) return o;
+  const n = await appelNvidia(system, msgs);
+  if(n) return n;
+  return "";
 }
 async function sendWA(to, body){ if(body.length>3900) body=body.slice(0,3900)+"\n…"; const r = await fetch("https://waba-v2.360dialog.io/messages",{method:"POST",headers:{"D360-API-KEY":D360,"Content-Type":"application/json"},body:JSON.stringify({messaging_product:"whatsapp",to,type:"text",text:{body}})}); console.log("WA_SEND", r.status, (await r.text().catch(()=>"")).slice(0,200)); }
 function h(){ return { apikey:K, Authorization:"Bearer "+K, "Content-Type":"application/json" }; }
@@ -67,6 +96,30 @@ async function sbGet(table,select,order,limit){ const url=(o)=>`${U}/rest/v1/${t
 async function sbFilter(table,select,filter,limit,order){ const r=await fetch(`${U}/rest/v1/${table}?select=${encodeURIComponent(select)}&${filter}${order?`&order=${encodeURIComponent(order)}`:""}${limit?`&limit=${limit}`:""}`,{headers:h()}); return r.ok? await r.json().catch(()=>[]):[]; }
 async function sbPatch(table,filter,patch){ await fetch(`${U}/rest/v1/${table}?${filter}`,{method:"PATCH",headers:{...h(),Prefer:"return=representation"},body:JSON.stringify(patch)}); }
 async function sbInsert(table,row){ const r=await fetch(`${U}/rest/v1/${table}`,{method:"POST",headers:{...h(),Prefer:"return=representation"},body:JSON.stringify(row)}); return r.ok? await r.json().catch(()=>[]):[]; }
+// Panel de contradiction (règle « jamais toutes les billes dans le même panier ») :
+// extrait le cœur de la CRITIQUE d'un avis IA pour un digest WhatsApp court.
+function extraitCritique(avis){
+  const s=String(avis||"");
+  const m=s.match(/CRITIQUE\s*:?\s*([\s\S]*?)(?:PROPOSITIONS|$)/i);
+  const bloc=m?m[1]:s;
+  const lignes=bloc.split(/\n+/).map((l)=>l.trim()).filter((l)=>l.length>3).slice(0,2);
+  let t=lignes.join("\n"); if(t.length>320) t=t.slice(0,320)+"…";
+  return t||s.slice(0,200);
+}
+async function pushAvisBruno(){
+  const nonVus = await sbFilter("core_avis_ia","id,fournisseur,modele,famille,note,avis,cree_le","vu_par_bruno=eq.false",20,"cree_le.desc");
+  if(!nonVus.length) return {ok:true,envoye:false,raison:"aucun avis non lu"};
+  const notesTxt = nonVus.map((a)=>a.note!=null?`${a.famille} ${a.note}/10`:`${a.famille} ?`).join(" · ");
+  const dispo = nonVus.map((a)=>`▪️ ${a.famille}${a.note!=null?` (${a.note}/10)`:""}\n${extraitCritique(a.avis)}`).join("\n\n");
+  const notesNum = nonVus.map((a)=>a.note).filter((n)=>n!=null).map(Number);
+  const moy = notesNum.length? Math.round(notesNum.reduce((x,y)=>x+y,0)/notesNum.length*10)/10 : null;
+  const corps = `🧺 Panel de contradiction — ${nonVus.length} IA${moy!=null?` · moyenne ${moy}/10`:""}\n${notesTxt}\n\n${dispo}\n\n(avis complets dans le cockpit)`;
+  let envoye=false, err=null;
+  if(D360 && OWNERS[0]){ try{ await sendWA(OWNERS[0], corps); envoye=true; }catch(e){ err=String(e).slice(0,150); } }
+  else { return {ok:true,envoye:false,raison:"D360/BRUNO_WHATSAPP absent",ia:nonVus.length}; }
+  if(envoye){ await sbPatch("core_avis_ia", `id=in.(${nonVus.map((a)=>a.id).join(",")})`, {vu_par_bruno:true}); }
+  return {ok:true,envoye,ia:nonVus.length,moyenne:moy,err};
+}
 
 // ---- BIBLE FAQ (core_faq) : PRÉ-TRADUITE par langue + lien direct par fiche ----
 const LIENS = `LIENS À DONNER (propose le lien direct utile) : Accueil ${SITE} · Adhésion ${SITE}/adhesion · Next Gen ${SITE}/next-gen · Finance ${SITE}/finance · NAVLEX ${SITE}/navlex · Aide à la voix ${SITE}/assistance · Ambassadeur ${SITE}/ambassadeur`;
@@ -91,91 +144,19 @@ async function faqBloc(lang){
   return kb;
 }
 
-// ---- ESPACE FICHIERS + TÉLÉCHARGEMENT MÉDIA 360dialog ----
+// ---- ESPACE FICHIERS ----
 async function ensureBucket(){ await fetch(`${U}/storage/v1/bucket`,{method:"POST",headers:{Authorization:`Bearer ${K}`,apikey:K,"Content-Type":"application/json"},body:JSON.stringify({id:BUCKET,name:BUCKET,public:false})}).catch(()=>{}); }
-// CORRECTIF v36 : la 2e étape (téléchargement des octets) doit passer par le
-// proxy 360dialog. GET /{id} renvoie une url lookaside.fbsbx.com (CDN Meta) qui
-// REFUSE la D360-API-KEY → 401/403 → fichier jamais récupéré. On garde le chemin
-// + la query et on remplace l'origine par waba-v2.360dialog.io.
-async function d360Media(id){
-  const r=await fetch(`https://waba-v2.360dialog.io/${id}`,{headers:{"D360-API-KEY":D360}});
-  const d=await r.json().catch(()=>({}));
-  let url=d&&d.url?String(d.url):"";
-  if(!url) return null;
-  try{ const p=new URL(url); if(p.hostname!=="waba-v2.360dialog.io") url="https://waba-v2.360dialog.io"+p.pathname+p.search; }catch(_e){}
-  let rr=await fetch(url,{headers:{"D360-API-KEY":D360}});
-  // Repli : si le proxy refuse, on retente l'URL d'origine telle quelle.
-  if(!rr.ok && d.url && url!==String(d.url)) rr=await fetch(String(d.url),{headers:{"D360-API-KEY":D360}});
-  if(!rr.ok) return null;
-  return { bytes:new Uint8Array(await rr.arrayBuffer()), mime:d.mime_type||"application/octet-stream" };
-}
+async function d360Media(id){ const r=await fetch(`https://waba-v2.360dialog.io/${id}`,{headers:{"D360-API-KEY":D360}}); const d=await r.json().catch(()=>({})); const url=d&&d.url?String(d.url):""; if(!url) return null; const rr=await fetch(url,{headers:{"D360-API-KEY":D360}}); if(!rr.ok) return null; return { bytes:new Uint8Array(await rr.arrayBuffer()), mime:d.mime_type||"application/octet-stream" }; }
 async function saveToSpace(from, media, kind, ts){ await ensureBucket(); const ext=(media.mime.split("/")[1]||"bin").split(";")[0]; const path=`${onlyDigits(from)}/${kind}-${ts}.${ext}`; const up=await fetch(`${U}/storage/v1/object/${BUCKET}/${path}`,{method:"POST",headers:{Authorization:`Bearer ${K}`,apikey:K,"Content-Type":media.mime,"x-upsert":"true"},body:media.bytes}); if(!up.ok) throw new Error("storage "+up.status); return path; }
-
-// Découverte auto de la clé ElevenLabs dans l'env (même logique que la brique voix) :
-// tout nom contenant ELEVEN/XI/VOICE/VOIX, ou toute valeur sk_… , validée contre /v1/user.
-// Ainsi la transcription réutilise la clé ElevenLabs DÉJÀ posée, sans nouveau secret.
-function elevenCandidats(){
-  const env=Deno.env.toObject(); const out=[]; const vus=new Set();
-  if(ELEVEN){ out.push(ELEVEN); vus.add(ELEVEN); }
-  for(const nom of Object.keys(env)){
-    const val=(env[nom]||"").trim();
-    if(!val||val.length<20||vus.has(val)) continue;
-    const nomU=nom.toUpperCase();
-    const nomMatch=/ELEVEN|^XI_|_XI$|VOICE|VOIX/.test(nomU) && !/VOICE_ID|VOICE_MODEL/.test(nomU);
-    const valMatch=/^sk_[a-f0-9]{20,}$/i.test(val);
-    if(nomMatch||valMatch){ out.push(val); vus.add(val); }
-  }
-  return out;
-}
-let EV_CACHE=null;
-async function elevenKey(){
-  if(EV_CACHE!==null) return EV_CACHE||null;
-  for(const val of elevenCandidats()){
-    try{ const r=await fetch("https://api.elevenlabs.io/v1/user",{headers:{"xi-api-key":val}}); if(r.ok){ EV_CACHE=val; return val; } }catch(_e){}
-  }
-  EV_CACHE=""; return null;
-}
-
-// ---- TRANSCRIPTION VOCALE (STT) — gratuit d'abord : Groq → OpenAI → ElevenLabs (clé auto) ----
-async function transcribe(bytes, mime){
-  const ext=(String(mime).split("/")[1]||"ogg").split(";")[0];
-  const fname="audio."+ext;
-  const blob=new Blob([bytes],{type:mime||"audio/ogg"});
-  if(GROQ){
-    try{
-      const fd=new FormData(); fd.append("file",blob,fname); fd.append("model","whisper-large-v3");
-      const r=await fetch("https://api.groq.com/openai/v1/audio/transcriptions",{method:"POST",headers:{Authorization:"Bearer "+GROQ},body:fd});
-      if(r.ok){ const d=await r.json().catch(()=>({})); if(d&&d.text) return String(d.text).trim(); }
-    }catch(_e){}
-  }
-  if(OPENAI){
-    try{
-      const fd=new FormData(); fd.append("file",blob,fname); fd.append("model","whisper-1");
-      const r=await fetch("https://api.openai.com/v1/audio/transcriptions",{method:"POST",headers:{Authorization:"Bearer "+OPENAI},body:fd});
-      if(r.ok){ const d=await r.json().catch(()=>({})); if(d&&d.text) return String(d.text).trim(); }
-    }catch(_e){}
-  }
-  const ev = await elevenKey();
-  if(ev){
-    try{
-      const fd=new FormData(); fd.append("file",blob,fname); fd.append("model_id","scribe_v1");
-      const r=await fetch("https://api.elevenlabs.io/v1/speech-to-text",{method:"POST",headers:{"xi-api-key":ev},body:fd});
-      if(r.ok){ const d=await r.json().catch(()=>({})); if(d&&(d.text||d.transcript)) return String(d.text||d.transcript).trim(); }
-    }catch(_e){}
-  }
-  return "";
-}
-
 const RECU={fr:(k)=>`📁 J'ai bien reçu ton ${k} et rangé dans ton espace NAVLYS. Privé, à toi.`,en:(k)=>`📁 Got your ${k} — saved to your NAVLYS space. Private, yours.`,ru:(k)=>`📁 Получил твой ${k} — сохранил в твоём пространстве NAVLYS. Приватно.`,he:(k)=>`📁 קיבלתי את ה-${k} — שמרתי במרחב NAVLYS שלך. פרטי, שלך.`,ar:(k)=>`📁 وصلني ${k} — حفظته في مساحة NAVLYS الخاصة بك. خاص ولك.`};
 const KINDNAME={fr:{image:"photo",document:"document",audio:"vocal"},en:{image:"photo",document:"document",audio:"voice note"},ru:{image:"фото",document:"документ",audio:"голосовое"},he:{image:"תמונה",document:"מסמך",audio:"הקלטה"},ar:{image:"صورة",document:"مستند",audio:"رسالة صوتية"}};
-// Vocal reçu mais transcription indisponible (aucune clé STT) — message par langue.
-const VOCAL_NOSTT={fr:"🎙️ J'ai bien reçu ton vocal et je l'ai rangé. Je ne sais pas encore le transcrire (il me manque une clé de transcription) — écris-moi aussi en texte et je te réponds tout de suite 🌊",en:"🎙️ Got your voice note and saved it. I can't transcribe it yet — send me text too and I'll reply right away 🌊",ru:"🎙️ Получил голосовое и сохранил. Пока не могу расшифровать — напиши текстом, и я сразу отвечу 🌊",he:"🎙️ קיבלתי את ההקלטה ושמרתי. עדיין לא מצליח לתמלל — כתוב לי גם בטקסט ואשיב מיד 🌊",ar:"🎙️ وصلتني الرسالة الصوتية وحفظتها. لا أستطيع تفريغها بعد — أرسل لي نصًا وسأرد فورًا 🌊"};
 
 // ---- SAV PROSPECT : mémoire + FAQ pré-traduite + lien direct + héritage de langue ----
 const LIENFALLBACK={fr:`Je reviens vers toi tout de suite 🌊 En attendant, tout est ici : ${SITE}`,en:`I'm right with you 🌊 Meanwhile, everything is here: ${SITE}`,ru:`Я сейчас вернусь 🌊 А пока всё здесь: ${SITE}`,he:`אני כבר חוזר אליך 🌊 בינתיים הכול כאן: ${SITE}`,ar:`سأعود إليك حالاً 🌊 وفي هذه الأثناء كل شيء هنا: ${SITE}`};
 async function savChat(from, text){
   const sess="sav-"+onlyDigits(from)+"-"+dateJour();
   const hist=await sbFilter("sav_messages","role,message",`session=eq.${encodeURIComponent(sess)}`,16,"id.asc");
+  // langue : signal du message, sinon héritage du dernier message qui tranchait
   let lang = signalLang(text) || "";
   if(!lang){ for(let i=hist.length-1;i>=0&&!lang;i--){ const s=signalLang(String(hist[i].message||"")); if(s) lang=s; } }
   if(!lang) lang="fr";
@@ -186,7 +167,7 @@ async function savChat(from, text){
     +"\n\nLANGUE : réponds en "+(LANGNAME[lang]||"français")+" ; si la personne change de langue, suis-la immédiatement."
     +(lang!=="fr"&&LANGLOCK[lang]?"\n\n"+LANGLOCK[lang]:"");
   let reply=LIENFALLBACK[lang]||LIENFALLBACK.fr;
-  if(ANTH){ const t=await anthropicMsgs(sys,msgs,MODEL); if(t) reply=t; }
+  const t=await callBrain(sys,msgs,MODEL); if(t) reply=t;
   await sbInsert("sav_messages",{session:sess,canal:"whatsapp",role:"client",message:text});
   await sbInsert("sav_messages",{session:sess,canal:"whatsapp",role:"navlys",message:reply});
   return reply;
@@ -209,7 +190,7 @@ async function ownerChat(from, text){
   msgs.push({role:"user",content:text});
   const sys=SYSTEM_OWNER+"\n\n"+(await etatInterne());
   let reply="Je t'écoute, Bruno. 🌊";
-  if(ANTH){ const t=await anthropicMsgs(sys,msgs,MODEL_OWNER); if(t) reply=t; }
+  const t=await callBrain(sys,msgs,MODEL_OWNER); if(t) reply=t;
   await sbInsert("sav_messages",{session:sess,canal:"whatsapp",role:"client",message:text});
   await sbInsert("sav_messages",{session:sess,canal:"whatsapp",role:"navlys",message:reply});
   return reply;
@@ -236,17 +217,11 @@ async function pilote(from, text){
   return await ownerChat(from, text);
 }
 
-// Traite un message texte OU un transcript vocal : répond au CONTENU.
-async function repondreTexte(from, txt){
-  const isOwner = OWNERS.includes(onlyDigits(from));
-  if(isOwner && U && K) return await pilote(from, txt);
-  return await savChat(from, txt);
-}
-
 Deno.serve(async (req) => {
   const u = new URL(req.url);
   if (req.method === "GET") {
     if (u.searchParams.get("diag")) {
+      // 1) webhook 360dialog : lire, et RÉPARER s'il ne pointe pas vers nous
       let webhook=null, webhook_fix=null;
       if(D360){
         try{
@@ -259,12 +234,17 @@ Deno.serve(async (req) => {
           }
         }catch(e){ webhook={error:String(e).slice(0,120)}; }
       }
+      // 2) test d'envoi réel (sauf ?silencieux=1)
       let send=null;
-      if(D360&&OWNERS[0]&&!u.searchParams.get("silencieux")){ const rr=await fetch("https://waba-v2.360dialog.io/messages",{method:"POST",headers:{"D360-API-KEY":D360,"Content-Type":"application/json"},body:JSON.stringify({messaging_product:"whatsapp",to:OWNERS[0],type:"text",text:{body:"NAVLYS diag ✅ v37 — voix comprise (capture 360dialog corrigée + transcription)"}})}); send={status:rr.status,body:(await rr.text().catch(()=>"")).slice(0,300)}; }
+      if(D360&&OWNERS[0]&&!u.searchParams.get("silencieux")){ const rr=await fetch("https://waba-v2.360dialog.io/messages",{method:"POST",headers:{"D360-API-KEY":D360,"Content-Type":"application/json"},body:JSON.stringify({messaging_product:"whatsapp",to:OWNERS[0],type:"text",text:{body:"NAVLYS diag ✅ v36 — résilience Claude→OpenRouter→NVIDIA"}})}); send={status:rr.status,body:(await rr.text().catch(()=>"")).slice(0,300)}; }
       let faqN=0; try{ faqN=(await sbFilter("core_faq","id,traductions","or=(actif.is.true,actif.is.null)",1000)).filter((r)=>r.traductions&&r.traductions.he).length; }catch(_e){}
-      const evk = await elevenKey();
-      const stt = { groq:!!GROQ, openai:!!OPENAI, eleven:!!evk, actif:!!(GROQ||OPENAI||evk) };
-      return new Response(JSON.stringify({version:37,d360:!!D360,owners:OWNERS,anth:!!ANTH,storage:!!(U&&K),stt,faq_traduites:faqN,self:SELF_URL,webhook,webhook_fix,send}),{status:200,headers:{"Content-Type":"application/json"}});
+      return new Response(JSON.stringify({version:36,d360:!!D360,owners:OWNERS,anth:!!ANTH,resilience_llm:["claude","openrouter_llama","nvidia_nim"],storage:!!(U&&K),faq_traduites:faqN,self:SELF_URL,webhook,webhook_fix,send}),{status:200,headers:{"Content-Type":"application/json"}});
+    }
+    // Rebascule ACTIVE : pousse à Bruno les avis bruts non lus du panel multi-IA.
+    // Appelé par cron (navlys_avis_push_bruno) après l'avis quotidien.
+    if (u.searchParams.get("mode")==="push_avis") {
+      const r = await pushAvisBruno();
+      return new Response(JSON.stringify(r),{status:200,headers:{"Content-Type":"application/json"}});
     }
     const mode=u.searchParams.get("hub.mode"), token=u.searchParams.get("hub.verify_token"), challenge=u.searchParams.get("hub.challenge");
     if (mode==="subscribe" && token && token===VERIFY) return new Response(challenge||"",{status:200});
@@ -277,37 +257,23 @@ Deno.serve(async (req) => {
     const msg=value?.messages?.[0];
     if(msg && D360){
       const from=msg.from;
+      const isOwner = OWNERS.includes(onlyDigits(from));
       const ts = msg.timestamp || "0";
       const mediaKind = msg.type==="image"?"image":msg.type==="document"?"document":(msg.type==="audio"||msg.type==="voice")?"audio":"";
       if(mediaKind && U && K){
         const mid = msg[msg.type]?.id; const cap = msg[msg.type]?.caption || ""; const lang = detLang(cap||"");
         try{
           const media = mid ? await d360Media(mid) : null;
-          if(media){
-            const path = await saveToSpace(from, media, mediaKind, ts);
-            await sbInsert("journal",{type:"espace",message:`📁 ${mediaKind} WhatsApp [${onlyDigits(from).slice(-4)}] -> ${path}`});
-            if(mediaKind==="audio"){
-              // VOIX : on transcrit et on RÉPOND au contenu (plus juste « bien reçu »).
-              const transcript = await transcribe(media.bytes, media.mime);
-              if(transcript){
-                await sbInsert("journal",{type:"voix",message:`🎙️ WhatsApp [${onlyDigits(from).slice(-4)}] transcrit : ${transcript.slice(0,120)}`});
-                const reply = await repondreTexte(from, transcript);
-                await sendWA(from, "🎙️ J'ai entendu : « "+transcript.slice(0,300)+" »\n\n"+reply);
-              } else {
-                await sendWA(from, VOCAL_NOSTT[lang]||VOCAL_NOSTT.fr);
-              }
-            } else {
-              const kname=(KINDNAME[lang]||KINDNAME.fr)[mediaKind]||mediaKind;
-              await sendWA(from,(RECU[lang]||RECU.fr)(kname));
-            }
-          }
+          if(media){ const path = await saveToSpace(from, media, mediaKind, ts); await sbInsert("journal",{type:"espace",message:`📁 ${mediaKind} WhatsApp [${onlyDigits(from).slice(-4)}] -> ${path}`}); const kname=(KINDNAME[lang]||KINDNAME.fr)[mediaKind]||mediaKind; await sendWA(from,(RECU[lang]||RECU.fr)(kname)); }
           else await sendWA(from, "Je n'ai pas pu récupérer le fichier, réessaie 🌊");
         }catch(_e){ await sendWA(from, "Petit souci pour ranger ton fichier, réessaie 🌊"); }
         return new Response(JSON.stringify({received:true,media:mediaKind}),{status:200,headers:{"Content-Type":"application/json"}});
       }
       if(msg.type==="text"){
         const txt=msg.text?.body||"";
-        const reply=await repondreTexte(from, txt);
+        let reply;
+        if(isOwner && U && K) reply=await pilote(from, txt);
+        else reply=await savChat(from, txt);
         if(reply) await sendWA(from,reply);
       }
     }

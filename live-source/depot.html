@@ -1,96 +1,129 @@
-<!DOCTYPE html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex"><title>NAVLYS · Dépôt de transmission</title>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#02040a">
+<title>Dépôt NAVLYS CORE — livre ton travail en un clic</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" type="image/png" href="/assets/coins/navlys-coin-core.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/navlys-ui.css">
 <style>
-:root{--bg:#070b12;--panel:#0f1726;--p2:#131e30;--p3:#0a1322;--ice:#7fd4ff;--ice2:#bfe9ff;--gold:#d8bd84;--gold2:#efe0bd;--txt:#e8f2fb;--mut:#8fa6bd;--line:#1d2c42;--ok:#54d6a0;--bad:#ef7b7b;--warn:#e8c06a}
-*{box-sizing:border-box;margin:0;padding:0}
-body{background:var(--bg);color:var(--txt);font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif;line-height:1.5}
-.wrap{max-width:900px;margin:0 auto;padding:14px 14px 90px}
-.bar{display:flex;align-items:center;gap:9px;flex-wrap:wrap;padding:13px 15px;background:var(--panel);border:1px solid var(--line);border-radius:14px;margin-bottom:14px;position:sticky;top:6px;z-index:20;backdrop-filter:blur(4px)}
-.bar .brand{font-family:Cinzel,serif;letter-spacing:.18em;color:var(--gold);font-weight:700}
-.sp{flex:1}
-.pill{font-size:12px;padding:4px 10px;border-radius:20px;border:1px solid var(--line);display:inline-flex;align-items:center;gap:6px}
-.dot{width:8px;height:8px;border-radius:50%;display:inline-block;background:var(--ok);box-shadow:0 0 8px currentColor;color:var(--ok);animation:pl 2.4s infinite}
-@keyframes pl{0%,100%{opacity:1}50%{opacity:.35}}
-h1{font-size:1.15rem;color:var(--ice2);margin:2px 0 2px}
-.lead{color:var(--mut);font-size:14px;margin-bottom:16px}
-h2{font-size:.72rem;letter-spacing:1.4px;text-transform:uppercase;color:var(--ice2);margin:22px 4px 10px;display:flex;align-items:center;gap:8px}
-.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:15px;margin-bottom:4px}
-.gold-card{border-color:#5a4d2c;background:linear-gradient(180deg,#161206 0%,var(--panel) 80%)}
-ul{list-style:none;display:flex;flex-direction:column;gap:9px}
-li{display:flex;gap:10px;font-size:14.5px;align-items:flex-start}
-li .ic{flex:0 0 20px;text-align:center}
-.ok li .ic{color:var(--ok)}
-.wait li .ic{color:var(--warn)}
-.aim li .ic{color:var(--ice)}
-b{color:var(--gold2);font-weight:600}
-code{background:var(--p3);border:1px solid var(--line);border-radius:6px;padding:1px 6px;font-size:13px;color:var(--ice2)}
-.prompt{position:relative}
-pre{background:var(--p3);border:1px solid #24406a;border-radius:12px;padding:14px;font-size:12.6px;line-height:1.55;white-space:pre-wrap;color:var(--ice2);max-height:340px;overflow:auto;font-family:ui-monospace,Menlo,Consolas,monospace}
-.copy{position:absolute;top:9px;right:9px;font:inherit;font-size:12px;cursor:pointer;border:1px solid #5a4d2c;background:#241f12;color:var(--gold2);border-radius:9px;padding:6px 11px;transition:.15s}
-.copy:hover{border-color:var(--gold)}
-.links{display:flex;gap:9px;flex-wrap:wrap;margin-top:6px}
-.links a{text-decoration:none;font-size:13.5px;border:1px solid var(--line);background:var(--p2);color:var(--txt);border-radius:10px;padding:9px 13px;transition:.15s}
-.links a:hover{border-color:var(--ice)}
-.foot{color:var(--mut);font-size:12px;text-align:center;margin-top:26px}
-.tag{font-size:11px;color:var(--mut);background:var(--p2);border:1px solid var(--line);border-radius:20px;padding:1px 8px}
-</style></head><body>
-<div class="wrap">
-  <div class="bar">
-    <span class="brand">NAVLYS</span>
-    <span class="tag">Dépôt de transmission</span>
-    <span class="sp"></span>
-    <span class="pill"><span class="dot"></span> CORE en ligne 24/7</span>
+.dw{max-width:760px;margin:0 auto;padding:70px 18px 80px}
+.dh{text-align:center;margin-bottom:26px}
+.dh .k{font-family:'Cinzel',serif;letter-spacing:.22em;text-transform:uppercase;font-size:12px;color:var(--ice)}
+.dh h1{font-family:'Cinzel',serif;font-weight:600;font-size:clamp(26px,5vw,42px);color:var(--perle);margin:.25em 0 .1em}
+.dh h1 em{color:var(--or);font-style:normal}
+.dh p{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:19px;color:var(--perle);opacity:.9}
+.card{background:rgba(8,11,22,.6);border:1px solid rgba(233,211,160,.2);border-radius:18px;padding:22px;margin-top:16px}
+label{display:block;font-family:'Cinzel',serif;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ice);margin:14px 0 6px}
+input,select,textarea{width:100%;box-sizing:border-box;background:rgba(255,255,255,.05);border:1px solid rgba(125,211,252,.22);border-radius:12px;color:#eaf6ff;padding:11px 13px;font-family:'Cormorant Garamond',serif;font-size:17px}
+input:focus,select:focus,textarea:focus{outline:none;border-color:rgba(125,211,252,.55)}
+textarea{min-height:150px;resize:vertical;line-height:1.5}
+.row{display:flex;gap:12px;flex-wrap:wrap}.row>div{flex:1;min-width:180px}
+.paste{min-height:96px}
+.hint{color:var(--brume);font-size:13px;font-style:italic;margin-top:6px}
+.send{margin-top:18px;width:100%;border:none;border-radius:14px;padding:15px;cursor:pointer;font-family:'Cinzel',serif;letter-spacing:.08em;text-transform:uppercase;font-size:14px;background:linear-gradient(100deg,#c9962f,#ffd77a);color:#0a0803}
+.send:disabled{opacity:.5;cursor:progress}
+.msg{margin-top:14px;text-align:center;font-family:'Cormorant Garamond',serif;font-size:19px;min-height:24px}
+.ok{color:#8fe3b0}.err{color:#ff9a9a}
+.steps{font-family:'Cormorant Garamond',serif;color:var(--perle);font-size:17px;line-height:1.6;margin-top:6px}
+.steps b{color:var(--or)}
+</style>
+</head>
+<body>
+<nav class="nv-nav" aria-label="navigation"><a href="/">accueil</a><a href="/journal">journal</a><a href="/essai">essaie</a></nav>
+<div class="dw">
+  <div class="dh">
+    <p class="k">réservé · livraison des agents</p>
+    <h1>dépôt <em>NAVLYS CORE</em></h1>
+    <p>chaque IA livre son travail ici — un collage, un clic, zéro lien à fabriquer.</p>
   </div>
 
-  <h1>Tout l'état de NAVLYS, déposé ici.</h1>
-  <p class="lead">Bruno — plus besoin de passer par une conversation Claude. Ici se trouve l'état réel, prouvé en direct, et le prompt unique pour repartir d'un chat neuf sans rien perdre. La continuité tient à <b>CLAUDE.md + les commits Git + la mémoire en base</b>, jamais à l'historique du chat.</p>
-
-  <h2>▶ Prompt de reprise <span class="tag">colle ça dans un chat neuf</span></h2>
-  <div class="card prompt">
-    <button class="copy" onclick="cp()">Copier</button>
-    <pre id="p">Reprends NAVLYS depuis CLAUDE.md + la Bible + l'état Git. On travaille LIVE. Doctrine : OUI par défaut (exécute et rends compte, zéro question de validation) ; autonome &gt; dépendance ; jamais de blocage ; tutoiement + prénom ; membre (jamais client), cotisation (jamais prix) ; charte ice blue + or, fond sombre (teintes chaudes proscrites) ; preuve avant parole (pg_net/?diag avant d'affirmer) ; un cas qui m'aurait fait redemander → navlys_regle() puis avance. Argent (Bible §6) : signalement d'UNE ligne avant tout vrai débit.
-
-Commence par l'analyse santé complète (pg_net : navlys.com pages clés, inscription, paiement, assistant, media, whatsapp ; file missions/agents ; incidents ; retours 💡 ; Security Advisor), inscris tes chantiers via navlys_chantier_ouvrir, puis avance sans me demander.
-
-Objectif permanent (ne s'arrête qu'à zéro erreur) : auditer et corriger TOUT navlys.com — chaque page, liens tél/mail, inscription, connexion FB/Google/Apple — jusqu'à zéro erreur ; ce qui dépend d'une action réelle de moi (OAuth, vérif téléphone) est signalé, pas simulé.</pre>
-  </div>
-
-  <h2>✅ En ligne — prouvé en direct</h2>
-  <div class="card ok"><ul>
-    <li><span class="ic">✔</span><span><b>navlys.com</b> — toutes les pages clés répondent 200 (/, /cockpit, /adhesion, /finance, /next-gen, /navlex, sitemap). Veille santé quotidienne automatique.</span></li>
-    <li><span class="ic">✔</span><span><b>WhatsApp CORE v38</b> — canal direct Bruno↔CORE. Capture des messages vocaux + transcription active (webhook 200, envoi 200, nom d'affichage Meta approuvé).</span></li>
-    <li><span class="ic">✔</span><span><b>Dashboard /cockpit</b> — centralisé : parle au CORE, KPI membres, travail en cours, manques à régler, à valider, agents, kanban. Actualisé en direct.</span></li>
-    <li><span class="ic">✔</span><span><b>Cerveau 24/7</b> — Supabase + pg_cron : bible (apprentissage), autotest, auto-amélioration, incidents, veille. Tourne seul, sans Claude Code.</span></li>
-    <li><span class="ic">✔</span><span><b>Repli anti-coupure</b> — Anthropic → OpenRouter posé dans WhatsApp, l'assistant et la bible. Le code lit ton nom de clé maison <code>OPEN_API_ROUTER</code> (lecture tolérante). Le CORE survit à une coupure Claude/Anthropic.</span></li>
-    <li><span class="ic">✔</span><span><b>Noms de clés maison</b> — nos secrets portent nos propres noms (ex. <code>OPEN_API_ROUTER</code>) : un attaquant ne devine pas les variables. Le code s'adapte, jamais l'inverse.</span></li>
-  </ul></div>
-
-  <h2>⏳ En attente de toi — actions réelles (pas simulables)</h2>
-  <div class="card wait"><ul>
-    <li><span class="ic">◆</span><span><b>OAuth inscription</b> — activer Google / Apple / Facebook dans Supabase → Auth → Providers (créer l'app dev + coller Client ID/Secret). En attendant, le lien e-mail marche déjà.</span></li>
-    <li><span class="ic">◆</span><span><b>Google Play</b> — compte 25 $ + PWABuilder → empreinte SHA-256 pour <code>assetlinks.json</code>.</span></li>
-    <li><span class="ic">◆</span><span><b>Secrets média gratuits</b> — GEMINI / HF / Cloudflare (débloque un cran de génération d'image de plus, sans redéploiement).</span></li>
-    <li><span class="ic">◆</span><span><b>navlys.io</b> — trancher : miroir complet de navlys.com, ou usage distinct ?</span></li>
-  </ul></div>
-
-  <h2>🎯 Fil rouge — cap 1000 → 1M</h2>
-  <div class="card aim"><ul>
-    <li><span class="ic">→</span><span>Zéro erreur sur tout navlys.com (porte de lancement : <b>zéro point rouge = on lance</b>).</span></li>
-    <li><span class="ic">→</span><span>Parrainage : capter le <code>?code=</code> à l'inscription.</span></li>
-    <li><span class="ic">→</span><span>Améliorations permanentes : vidéos, logo, mise en page mobile/web, karaoké accessibilité.</span></li>
-  </ul></div>
-
-  <h2>🔗 Accès</h2>
   <div class="card">
-    <div class="links">
-      <a href="/cockpit">🛰️ Cockpit (piloter)</a>
-      <a href="/">🏠 Site public</a>
-      <a href="https://claude.ai/code" target="_blank" rel="noopener">💬 Chat neuf (Claude Code)</a>
+    <label for="quick">① Collage rapide (facultatif)</label>
+    <textarea id="quick" class="paste" placeholder="Colle ici le bloc de l'IA. S'il commence par SOURCE: / TYPE: / TITRE: / CONTENU:, tout se range tout seul."></textarea>
+    <div class="hint">Astuce : colle tout le bloc, les champs ci-dessous se remplissent automatiquement.</div>
+
+    <div class="row">
+      <div>
+        <label for="source">② Qui dépose ?</label>
+        <select id="source">
+          <option>Kimi</option><option>Gemini</option><option>Grok</option><option>DeepSeek</option><option>ChatGPT</option><option>Claude</option><option>Autre</option>
+        </select>
+      </div>
+      <div>
+        <label for="type">Type</label>
+        <select id="type">
+          <option value="idee">idée</option><option value="analyse">analyse</option><option value="design">design</option>
+          <option value="code">code</option><option value="contenu">contenu</option><option value="rapport">rapport</option>
+          <option value="document">document (Genesis)</option><option value="souvenir">souvenir (Genesis)</option>
+        </select>
+      </div>
+    </div>
+
+    <label for="titre">③ Titre court</label>
+    <input id="titre" placeholder="ex : refonte page tarifs, idée app généalogie…">
+
+    <label for="contenu">④ Contenu / fichier</label>
+    <textarea id="contenu" placeholder="Colle ici le texte complet du travail de l'IA (ou choisis un fichier ci-dessous)."></textarea>
+    <input type="file" id="file" accept=".txt,.md,.json,.csv,.html,.js,.ts,.css,.svg,.xml" style="margin-top:10px;border:none;padding:8px 0;font-size:14px">
+    <div class="hint">Fichiers texte lus automatiquement. Pour une image/PDF, colle plutôt un lien ci-dessous.</div>
+
+    <label for="url">⑤ Lien (facultatif)</label>
+    <input id="url" placeholder="https://… (si le travail est hébergé quelque part)">
+
+    <button class="send" id="send">déposer au CORE</button>
+    <div class="msg" id="msg"></div>
+  </div>
+
+  <div class="card">
+    <label>La consigne à donner à chaque IA (copie-la)</label>
+    <div class="steps">
+      « Quand tu as fini, présente-moi ton travail EXACTEMENT ainsi, prêt à coller :<br>
+      <b>SOURCE:</b> ton nom (Kimi, Gemini, Grok, DeepSeek…)<br>
+      <b>TYPE:</b> idée | analyse | design | code | contenu | rapport<br>
+      <b>TITRE:</b> un titre court<br>
+      <b>CONTENU:</b><br>
+      …tout ton travail ici…<br>
+      Puis je le colle sur <b>navlys.com/depot</b> et je clique. »
     </div>
   </div>
-
-  <p class="foot">NAVLYS Web Service (NWS) · dépôt interne, non indexé · la vérité fait foi dans CLAUDE.md + Git + la base.</p>
 </div>
+
 <script>
-function cp(){var t=document.getElementById('p').innerText;navigator.clipboard.writeText(t).then(function(){var b=document.querySelector('.copy');b.textContent='Copié ✓';setTimeout(function(){b.textContent='Copier'},1800)})}
+var DEPOT='https://hhrlgyvtqluxpywjiwkd.supabase.co/functions/v1/depot';
+var TOKEN='27770761ee841f5b20b61808467cec796ea0fb4f0b095d4f';
+var $=function(id){return document.getElementById(id);};
+// collage rapide -> répartit dans les champs
+$('quick').addEventListener('input',function(){
+  var t=this.value; if(!/SOURCE:|TYPE:|TITRE:|CONTENU:/i.test(t))return;
+  var mS=t.match(/SOURCE:\s*(.+)/i), mT=t.match(/TYPE:\s*(.+)/i), mI=t.match(/TITRE:\s*(.+)/i), mC=t.match(/CONTENU:\s*([\s\S]+)/i);
+  if(mS){var v=mS[1].trim();for(var o of $('source').options){if(o.text.toLowerCase()===v.toLowerCase()){$('source').value=o.value;v=null;break;}}if(v)$('source').value='Autre';}
+  if(mT){var ty=mT[1].trim().toLowerCase();for(var o2 of $('type').options){if(o2.value===ty||o2.text.toLowerCase().indexOf(ty)>=0){$('type').value=o2.value;break;}}}
+  if(mI)$('titre').value=mI[1].trim();
+  if(mC)$('contenu').value=mC[1].trim();
+});
+// fichier -> contenu
+$('file').addEventListener('change',function(e){var f=e.target.files[0];if(!f)return;if(!$('titre').value)$('titre').value=f.name;var r=new FileReader();r.onload=function(){$('contenu').value=r.result;};r.readAsText(f);});
+// envoi
+$('send').addEventListener('click',function(){
+  var contenu=$('contenu').value.trim(), url=$('url').value.trim();
+  if(!contenu && !url){$('msg').className='msg err';$('msg').textContent='Ajoute du contenu ou un lien.';return;}
+  var btn=this;btn.disabled=true;$('msg').className='msg';$('msg').textContent='envoi au CORE…';
+  fetch(DEPOT,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
+    token:TOKEN, source:$('source').value, type:$('type').value, titre:$('titre').value.trim()||null, contenu:contenu, url:url||null
+  })})
+  .then(function(r){return r.json();})
+  .then(function(d){
+    if(d&&d.ok){$('msg').className='msg ok';$('msg').textContent='✅ Reçu par le CORE. Merci — c’est déposé.';$('quick').value='';$('contenu').value='';$('titre').value='';$('url').value='';}
+    else{$('msg').className='msg err';$('msg').textContent='Refusé : '+((d&&d.error)||'réessaie');}
+  })
+  .catch(function(){$('msg').className='msg err';$('msg').textContent='Connexion coupée, réessaie.';})
+  .then(function(){btn.disabled=false;});
+});
 </script>
-</body></html>
+</body>
+</html>
