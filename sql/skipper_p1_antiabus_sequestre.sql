@@ -47,3 +47,27 @@ alter table skipper_transactions add column if not exists stripe_payment_intent 
 alter table skipper_transactions add column if not exists stripe_status text;   -- ex: requires_capture, canceled, succeeded
 alter table skipper_transactions add column if not exists sequestre_par text;    -- qui a lancé la mise en séquestre (admin)
 comment on column skipper_transactions.stripe_payment_intent is 'ID PaymentIntent Stripe (capture_method=manual). Rempli uniquement quand un admin lance sequestre_init ET que STRIPE_SECRET_KEY est posée. Inerte sinon.';
+
+-- ============================================================
+-- 3) Anti-abus ROBUSTE (ajout 2026-07-22, migration skipper_rate_hit_atomique)
+-- Le rate-limit à deux temps (SELECT puis INSERT côté edge) était contournable
+-- par un burst simultané (chaque appel comptait 0 avant que les autres insèrent).
+-- Correctif : insert + count en UN seul appel RPC, atomique côté Postgres.
+-- Pas SECURITY DEFINER (INVOKER, tourne en service_role via l'edge) ; REVOKE public (n°114).
+-- ============================================================
+create or replace function public.skipper_rate_hit(p_ip text, p_action text)
+returns bigint
+language sql
+volatile
+set search_path = public
+as $$
+  with ins as (
+    insert into public.skipper_ratelimit(ip, action)
+    values (coalesce(p_ip,''), coalesce(p_action,'')) returning 1
+  )
+  select count(*)::bigint from public.skipper_ratelimit
+   where ip = coalesce(p_ip,'') and action = coalesce(p_action,'')
+     and created_at > now() - interval '1 hour';
+$$;
+revoke execute on function public.skipper_rate_hit(text,text) from anon, authenticated, public;
+comment on function public.skipper_rate_hit(text,text) is 'SKIPPER anti-abus : insère la requête courante et renvoie le nb de requêtes ANTÉRIEURES (ip,action) sur 1 h. service_role only. L''edge rejette quand ce nb >= max.';
