@@ -61,6 +61,6 @@
     "/depot"
   ],
   "qa": "green",
-  "qa_maj": "2026-07-23 19:38 UTC",
-  "qa_detail": "19/19 pages 200, 41/41 liens internes 200, chat(ok:true)+voix(audio/mpeg)+router(ok) OK, 0 fuite reelle (sk- = faux positif confirme). Fond video: navlys-bg.js sur /finance; / et /experience utilisent fonds alternatifs (img.bg / + <video> navlys-cine.mp4 /experience) — non bloquant."
+  "qa_maj": "2026-07-23 20:37 UTC",
+  "qa_detail": "19/19 pages 200, 41/41 liens internes 200, chat(ok:true)+voix(audio/mpeg)+router(ok) OK sur host Supabase, 0 fuite reelle (sk- = faux positif confirme, aucun service_role/token). Fond video: navlys-bg.js sur /finance; autres pages via fonds alternatifs (<video> navlys-cine.mp4 sur /experience,/cine,/labo) — non bloquant."
 }
