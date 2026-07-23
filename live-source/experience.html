@@ -23,7 +23,7 @@ a{color:inherit;text-decoration:none}
 .nav a{color:var(--ink2)}.nav a:hover{color:var(--or)}
 /* HERO STICKY : la vidéo/média reste en haut et change selon le cadre */
 .stage{position:sticky;top:0;z-index:1;height:62vh;min-height:360px;overflow:hidden;background:#dfe8f3}
-.layer{position:absolute;inset:0;opacity:0;transition:opacity .9s ease;background-size:cover;background-position:center;transform:scale(1.06);animation:kb 14s ease-in-out infinite alternate}
+.layer{position:absolute;inset:0;opacity:0;transition:opacity .18s ease;background-size:cover;background-position:center;transform:scale(1.06);animation:kb 14s ease-in-out infinite alternate}
 .layer.on{opacity:1}
 .layer video{width:100%;height:100%;object-fit:cover;display:block}
 @keyframes kb{from{transform:scale(1.04)}to{transform:scale(1.14)}}
@@ -35,16 +35,16 @@ a{color:inherit;text-decoration:none}
 /* CARROUSEL DE CADRES */
 .rail{position:relative;z-index:2;background:linear-gradient(180deg,rgba(238,244,251,.6),#eef4fb);padding:26px 0 12px}
 .rail h2{text-align:center;font-family:'Cinzel',serif;font-weight:600;font-size:14px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink2);margin:0 0 16px}
-.track{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding:6px 20px 20px;scrollbar-width:none}
+.track{display:flex;gap:28px;overflow-x:auto;scroll-snap-type:x mandatory;padding:14px 26px 30px;scrollbar-width:none}
 .track::-webkit-scrollbar{display:none}
-.card{scroll-snap-align:center;flex:0 0 auto;width:230px;background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden;
+.card{scroll-snap-align:center;flex:0 0 auto;width:250px;background:rgba(255,255,255,.9);border:1px solid var(--line);border-radius:22px;overflow:hidden;
   box-shadow:0 12px 30px rgba(24,50,86,.10);cursor:pointer;opacity:0;transform:translateY(18px);transition:transform .5s ease,box-shadow .35s,border-color .35s,opacity .6s}
 .card.show{opacity:1;transform:translateY(0)}
 .card:hover,.card.active{transform:translateY(-6px);box-shadow:0 20px 44px rgba(184,134,59,.28);border-color:var(--orl)}
-.card .thumb{height:132px;background-size:cover;background-position:center}
-.card .b{padding:13px 15px}
-.card .n{font-family:'Cinzel',serif;font-size:15px;letter-spacing:.04em;color:var(--ink)}
-.card .d{font-size:15px;color:var(--ink2);margin-top:3px}
+.card .coin{width:84px;height:84px;margin:28px auto 10px;display:block;filter:drop-shadow(0 8px 22px rgba(184,134,59,.45))}
+.card .b{padding:0 18px 28px;text-align:center}
+.card .n{font-family:'Cinzel',serif;font-weight:600;font-size:clamp(25px,3.4vw,34px);letter-spacing:.11em;color:#0e2138;text-shadow:0 1px 0 rgba(255,255,255,.65)}
+.card .d{font-family:'Cinzel',serif;font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:var(--or);margin-top:9px}
 /* SUITE animée */
 .sec{max-width:820px;margin:0 auto;padding:40px 22px}
 .reveal{opacity:0;transform:translateY(22px);transition:opacity .8s ease,transform .8s ease}
@@ -88,20 +88,20 @@ body::before{content:"";position:fixed;inset:-25%;z-index:-1;pointer-events:none
 <div class="rail">
   <h2>explore — le haut suit ton cadre</h2>
   <div class="track" id="track">
-    <div class="card" data-media="video:/videos/navlys-cine.mp4" data-k="l'univers navlys" data-h="une flotte, un cap" data-p="tes applications, à la voix">
-      <div class="thumb" style="background-image:url('/lab/img1.jpg')"></div><div class="b"><div class="n">L'univers</div><div class="d">tout, à la voix</div></div>
+    <div class="card" data-media="video:/videos/navlys-cine.mp4" data-k="l'univers" data-h="NAVLYS" data-p="tout, à la voix">
+      <img class="coin" src="/assets/coins/navlys-coin-core.png" alt="NAVLYS"><div class="b"><div class="n">NAVLYS</div><div class="d">l'univers</div></div>
     </div>
-    <div class="card" data-media="img:/lab/img1.jpg" data-k="genesis" data-h="ta vie, ton navire" data-p="raconte, transmets, à la voix">
-      <div class="thumb" style="background-image:url('/lab/img1.jpg')"></div><div class="b"><div class="n">Genesis</div><div class="d">ta vie · ta mémoire</div></div>
+    <div class="card" data-media="img:/lab/img1.jpg" data-k="genesis" data-h="GENESIS" data-p="ta vie">
+      <img class="coin" src="/assets/coins/navlys-coin-genesis.png" alt="Genesis"><div class="b"><div class="n">GENESIS</div><div class="d">ta vie</div></div>
     </div>
-    <div class="card" data-media="img:/lab/img2.jpg" data-k="navfin" data-h="avancer ensemble" data-p="comprendre, sans jargon">
-      <div class="thumb" style="background-image:url('/lab/img2.jpg')"></div><div class="b"><div class="n">NAVFIN</div><div class="d">apprendre</div></div>
+    <div class="card" data-media="img:/lab/img2.jpg" data-k="navfin" data-h="NAVFIN" data-p="apprendre">
+      <img class="coin" src="/assets/coins/navlys-coin-navfin.png" alt="NAVFIN"><div class="b"><div class="n">NAVFIN</div><div class="d">apprendre</div></div>
     </div>
-    <div class="card" data-media="img:/lab/img3.jpg" data-k="la mer" data-h="le large" data-p="le mode de vie maritime">
-      <div class="thumb" style="background-image:url('/lab/img3.jpg')"></div><div class="b"><div class="n">La Mer</div><div class="d">le large</div></div>
+    <div class="card" data-media="img:/lab/img3.jpg" data-k="la mer" data-h="LA MER" data-p="le large">
+      <img class="coin" src="/assets/coins/navlys-coin-la-mer.png" alt="La Mer"><div class="b"><div class="n">LA MER</div><div class="d">le large</div></div>
     </div>
-    <div class="card" data-media="img:/lab/img4.jpg" data-k="l'horizon" data-h="vers de nouveaux mondes" data-p="entre dès aujourd'hui">
-      <div class="thumb" style="background-image:url('/lab/img4.jpg')"></div><div class="b"><div class="n">Entrer</div><div class="d">gratuitement</div></div>
+    <div class="card" data-media="img:/lab/img4.jpg" data-k="entrer" data-h="ENTRER" data-p="gratuit">
+      <img class="coin" src="/assets/coins/navlys-coin-navlex.png" alt="Entrer"><div class="b"><div class="n">ENTRER</div><div class="d">gratuit</div></div>
     </div>
   </div>
 </div>
@@ -147,6 +147,6 @@ cards.forEach(function(c,i){setTimeout(function(){c.classList.add('show');}, 120
 // spotlight qui suit le curseur (effet 21st.dev)
 cards.forEach(function(c){c.addEventListener('mousemove',function(e){var r=c.getBoundingClientRect();c.style.setProperty('--mx',(e.clientX-r.left)+'px');c.style.setProperty('--my',(e.clientY-r.top)+'px');});});
 </script>
-<script src="/navlys-bg.js" defer></script>
+<script>(function(){if(document.querySelector(".nv-wa"))return;var st=document.createElement("style");st.textContent=".nv-wa{position:fixed;left:18px;bottom:18px;width:54px;height:54px;border-radius:50%;background:rgba(8,11,22,.86);border:1px solid rgba(233,211,160,.55);display:flex;align-items:center;justify-content:center;box-shadow:0 8px 24px rgba(0,0,0,.5);z-index:60;transition:transform .2s;backdrop-filter:blur(6px)}.nv-wa:hover{transform:scale(1.08)}.nv-wa svg{width:28px;height:28px}";document.head.appendChild(st);var a=document.createElement("a");a.className="nv-wa";a.href="https://wa.me/15559913239";a.target="_blank";a.rel="noopener";a.title="Parler à NAVLYS sur WhatsApp";a.setAttribute("aria-label","Parler à NAVLYS sur WhatsApp");a.innerHTML="<svg viewBox=\\"0 0 24 24\\" fill=\\"#25D366\\" aria-hidden=\\"true\\"><path d=\\"M12 2a10 10 0 0 0-8.6 15l-1.4 5 5.1-1.3A10 10 0 1 0 12 2Zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.6-.6-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8 0-1.3.7-1.9 1-2.2.2-.2.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.4 0 .5l-.3.5c-.1.2-.3.3-.1.6.1.3.7 1.1 1.4 1.8.9.8 1.7 1 2 1.2.2.1.4.1.5-.1l.6-.7c.2-.2.3-.2.6-.1l1.8.9c.3.1.4.2.5.3.1.2.1.7-.1 1.3Z\\"/></svg>";document.body.appendChild(a);})();</script>
 </body>
 </html>

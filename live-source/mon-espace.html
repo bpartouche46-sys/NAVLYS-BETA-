@@ -33,6 +33,7 @@
 .big .t{font-family:'Cinzel',serif;font-size:15px;color:var(--perle);margin-top:6px;letter-spacing:.05em}
 .big .d{color:var(--brume);font-size:13px;margin-top:4px}
 .q{display:none}.q.on{display:block}
+.q.nodq .qrow,.q.nodq .go{display:none}
 .qrow{margin-top:12px}
 .qrow label{display:block;font-family:'Cinzel',serif;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ice);margin-bottom:5px}
 .qin{display:flex;gap:8px}
@@ -74,6 +75,7 @@
     <div class="choose" id="choose">
       <div class="big" data-mode="video"><div class="ic">🎬</div><div class="t">une vidéo</div><div class="d">script + storyboard prêts</div></div>
       <div class="big" data-mode="cv"><div class="ic">📄</div><div class="t">un CV</div><div class="d">propre, élégant, prêt</div></div>
+      <div class="big" data-mode="dossier"><div class="ic">🗂️</div><div class="t">un dossier classé</div><div class="d">Genesis range tes fichiers</div></div>
     </div>
 
     <div class="q" id="q">
@@ -84,6 +86,7 @@
       <div class="msg" id="msg"></div>
       <div class="out" id="out"></div>
       <div class="dl" id="dl"><a id="dlfile">⬇️ télécharger</a><button id="listen">🔊 écouter</button><button id="redo">↺ recommencer</button></div>
+      <div style="font-size:11px;opacity:.8;color:#a8e3ff;margin-top:6px">⚠️ Voix générée par IA</div>
     </div>
   </div>
 </div>
@@ -91,8 +94,8 @@
 <script>
 var SUP='https://hhrlgyvtqluxpywjiwkd.supabase.co';
 var ANON='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhocmxneXZ0cWx1eHB5d2ppd2tkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODExNzYxMzIsImV4cCI6MjA5Njc1MjEzMn0.tGq_XXd4nJY-aYk9DfWGFJ5DW4C_NJJKb67owmvoejo';
-var ROUTER=SUP+'/functions/v1/router', VOIX=SUP+'/functions/v1/voix';
-var MEMBRE='bruno', VOICE='JBFqnCBsd6RMkjVDRZzb';
+var ROUTER=SUP+'/functions/v1/router', VOIX=SUP+'/functions/v1/voix', GENESIS=SUP+'/functions/v1/genesis';
+var MEMBRE='bruno', VOICE='SlMeTvFmET6Zf5gdxJ9H';
 var $=function(id){return document.getElementById(id);};
 
 /* ---- upload sans limite ---- */
@@ -112,9 +115,22 @@ function envoiFichiers(list){
     var path=MEMBRE+'/'+Date.now()+'_'+safe;
     fetch(SUP+'/storage/v1/object/genesis-media/'+path,{method:'POST',headers:{'apikey':ANON,'Authorization':'Bearer '+ANON,'Content-Type':f.type||'application/octet-stream'},body:f})
     .then(function(r){return r.json().then(function(d){return {ok:r.ok,d:d};});})
-    .then(function(x){var st=row.querySelector('.st');if(x.ok){st.className='st ok';st.textContent=human(f.size)+' · ✅ gardé';}else{st.className='st er';st.textContent='échec';}})
+    .then(function(x){var st=row.querySelector('.st');if(x.ok){st.className='st ok';st.textContent=human(f.size)+' · ✅ gardé · classement…';ingest(f,path,st);}else{st.className='st er';st.textContent='échec';}})
     .catch(function(){var st=row.querySelector('.st');st.className='st er';st.textContent='échec';});
   });
+}
+/* ---- Genesis ingère & classe chaque fichier ---- */
+function ingest(f,path,st){
+  function send(texte){
+    fetch(GENESIS,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({membre:MEMBRE,action:'ingerer',nom:f.name,fichier:'genesis-media/'+path,texte:texte||''})})
+    .then(function(r){return r.json();}).then(function(d){
+      if(d&&d.ok&&d.classement){st.className='st ok';st.textContent='✅ '+d.classement.type+' → '+d.classement.chapitre;}
+      else{st.textContent=human(f.size)+' · ✅ gardé';}
+    }).catch(function(){st.textContent=human(f.size)+' · ✅ gardé';});
+  }
+  if(/^(text\/|application\/json)/.test(f.type||'')||/\.(txt|md|csv|json)$/i.test(f.name)){
+    var rd=new FileReader();rd.onload=function(){send(String(rd.result||'').slice(0,6000));};rd.onerror=function(){send('');};rd.readAsText(f);
+  }else{send('');}
 }
 
 /* ---- questions eclair CV / video ---- */
@@ -125,32 +141,51 @@ var QS={
 var mode=null, lastOut='', lastTitle='cv';
 document.getElementById('choose').addEventListener('click',function(e){
   var b=e.target.closest('.big'); if(!b)return; mode=b.getAttribute('data-mode');
+  $('out').className='out';$('dl').className='dl';$('msg').textContent='';
+  if(mode==='dossier'){
+    $('q').className='q on nodq';$('q').scrollIntoView({behavior:'smooth',block:'center'});
+    genererLivrable('dossier',null);return;
+  }
   $('l1').textContent='1 · '+QS[mode][0];$('l2').textContent='2 · '+QS[mode][1];$('l3').textContent='3 · '+QS[mode][2];
-  $('a1').value='';$('a2').value='';$('a3').value='';$('out').className='out';$('dl').className='dl';$('msg').textContent='';
-  $('q').classList.add('on');$('q').scrollIntoView({behavior:'smooth',block:'center'});
+  $('a1').value='';$('a2').value='';$('a3').value='';
+  $('q').className='q on';$('q').scrollIntoView({behavior:'smooth',block:'center'});
 });
+/* Genesis : crée un livrable (cv/dossier) EN UTILISANT les fichiers ingérés (+ réponses éclair) */
+function genererLivrable(format,answers){
+  $('out').className='out';$('dl').className='dl';
+  $('msg').textContent='NAVGEN rassemble tes fichiers et prépare ton '+(format==='cv'?'CV':'dossier')+'…';
+  var pre=Promise.resolve();
+  if(answers){
+    var items=[{t:'Profil / objectif',c:answers[0],ch:'Profil'},{t:'Forces / expériences',c:answers[1],ch:'Carriere'},{t:'Style souhaité',c:answers[2],ch:'Profil'}].filter(function(x){return x.c;});
+    pre=Promise.all(items.map(function(x){return fetch(GENESIS,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({membre:MEMBRE,action:'ajouter',type:'note',titre:x.t,contenu:x.c,chapitre:x.ch})}).catch(function(){});}));
+  }
+  pre.then(function(){
+    return fetch(GENESIS,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({membre:MEMBRE,action:'creer',format:format})});
+  }).then(function(r){return r.json();}).then(function(d){
+    if(d&&d.ok&&d.texte){
+      var t=d.texte.trim();lastOut=t;lastTitle=(format==='cv'?'CV':'Dossier');
+      $('out').textContent=t;$('out').className='out on';$('msg').textContent='';
+      var blob=new Blob([t],{type:'text/markdown'});var a=$('dlfile');a.href=URL.createObjectURL(blob);a.download=(format==='cv'?'mon-cv':'mon-dossier')+'.md';
+      $('dl').className='dl on';
+    }else{
+      $('msg').textContent=(d&&d.error&&/aucun/.test(d.error))?'Dépose d’abord des fichiers, ou réponds aux 3 questions.':'Réessaie dans un instant.';
+    }
+  }).catch(function(){$('msg').textContent='connexion coupée, réessaie.';});
+}
 $('go').addEventListener('click',function(){
   if(!mode)return; var a1=$('a1').value.trim(),a2=$('a2').value.trim(),a3=$('a3').value.trim();
+  if(mode==='cv'){ genererLivrable('cv',[a1,a2,a3]); return; }
   if(!a1&&!a2){$('msg').textContent='dis-moi au moins les deux premières.';return;}
-  var sys,prompt,titre;
-  if(mode==='cv'){
-    titre='CV';
-    sys='Tu es NAVLYS. À partir des réponses, rédige un CV professionnel COMPLET et élégant en Markdown : titre (nom + intitulé), puis sections Profil, Expériences, Compétences, Formation. Style demandé : '+(a3||'moderne')+'. Français, concis, valorisant, prêt à envoyer. N’invente aucun fait non fourni ; si une info manque, laisse un [à compléter].';
-    prompt='Nom/objectif : '+a1+'\nForces/expériences : '+a2+'\nStyle : '+a3;
-  } else {
-    titre='Script vidéo';
-    sys='Tu es NAVLYS. À partir des réponses, écris : 1) une ACCROCHE, 2) un SCRIPT vidéo court prêt à tourner (voix off), 3) un STORYBOARD = liste de plans numérotés (image à filmer + texte à l’écran), 4) une suggestion d’ambiance/musique. Durée cible : '+(a3||'30 s')+'. Français, direct, émotionnel, concret.';
-    prompt='Sujet : '+a1+'\nMessage clé : '+a2+'\nAmbiance/durée : '+a3;
-  }
-  var btn=this;btn.disabled=true;$('msg').textContent='NAVGEN prépare ton '+titre.toLowerCase()+'…';$('out').className='out';$('dl').className='dl';
-  fetch(ROUTER,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({tier:'eco',tache:'espace_'+mode,system:sys,prompt:prompt,max:900})})
+  var titre='Script vidéo';
+  var sys='Tu es NAVLYS. À partir des réponses, écris : 1) une ACCROCHE, 2) un SCRIPT vidéo court prêt à tourner (voix off), 3) un STORYBOARD = liste de plans numérotés (image à filmer + texte à l’écran), 4) une suggestion d’ambiance/musique. Durée cible : '+(a3||'30 s')+'. Français, direct, émotionnel, concret.';
+  var prompt='Sujet : '+a1+'\nMessage clé : '+a2+'\nAmbiance/durée : '+a3;
+  var btn=this;btn.disabled=true;$('msg').textContent='NAVGEN prépare ton script vidéo…';$('out').className='out';$('dl').className='dl';
+  fetch(ROUTER,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({tier:'eco',tache:'espace_video',system:sys,prompt:prompt,max:900})})
   .then(function(r){return r.json();})
   .then(function(d){
     var t=(d&&d.ok&&d.text)?d.text.trim():'Réessaie, je n’ai pas tout saisi.';
-    lastOut=t;lastTitle=titre;$('out').textContent=t;$('out').className='out on';
-    $('msg').textContent='';
-    var blob=new Blob([t],{type:'text/markdown'});
-    var a=$('dlfile');a.href=URL.createObjectURL(blob);a.download=(titre==='CV'?'mon-cv':'mon-script-video')+'.md';
+    lastOut=t;lastTitle=titre;$('out').textContent=t;$('out').className='out on';$('msg').textContent='';
+    var blob=new Blob([t],{type:'text/markdown'});var a=$('dlfile');a.href=URL.createObjectURL(blob);a.download='mon-script-video.md';
     $('dl').className='dl on';
   })
   .catch(function(){$('msg').textContent='connexion coupée, réessaie.';})

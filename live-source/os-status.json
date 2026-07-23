@@ -1,0 +1,66 @@
+{
+ "maj": "2026-07-22",
+ "mission": "10/10 partout + TOP 3 GEO AI · lancement 1er août",
+ "decision": "Autoriser le connecteur GitHub (je rapatrie les vieux repos) OU les agents redéposent via /depot ?",
+ "priorites": [
+  "Harmoniser la grille tarifaire sur /adhesion (4 rangs : Découverte/Matelot/Capitaine/Commodore)",
+  "GEO AI : réponses canoniques + schema.org + FAQ riches pour être CITÉ par les moteurs IA",
+  "Rendre les sections translucides pour que le fond vidéo se voie partout"
+ ],
+ "blocages": [
+  "Voix clonée de Bruno manquante — fournir le voice_id ElevenLabs",
+  "Clé Kimi (KIMI_CODE_API_KEY) rejetée 401 — à régénérer",
+  "Déploiement des edge functions cassé (bug ZodError) — bloque FAL/génération d'images IA sur le site"
+ ],
+ "fait": [
+  "Fond vidéo universel plein écran (14 pages)",
+  "Grille 4 rangs sur l'accueil + JSON-LD + FAQ (0,99/19,99 supprimés)",
+  "sitemap.xml + robots.txt + canonical www",
+  "Pages live : /experience (vidéo sticky qui suit le cadre), /essai, /cine, /labo, /journal, /mon-espace",
+  "Boucle 10/10 toutes les 2h + rapport de nuit + brief Chief of Staff 7h16",
+  "0 lien cassé sur 44 pages testées"
+ ],
+ "agents": [
+  {
+   "role": "CTO IA",
+   "charge": "GitHub, qualité, tickets, régressions, vérif livraisons"
+  },
+  {
+   "role": "CMO IA",
+   "charge": "GEO/SEO, LinkedIn, Meta & Google Ads, newsletters"
+  },
+  {
+   "role": "Creative Director IA",
+   "charge": "identité, vidéos, voix clonée, spots, storytelling"
+  },
+  {
+   "role": "Business IA",
+   "charge": "prospects, CRM, relances, devis, contrats"
+  },
+  {
+   "role": "Support IA",
+   "charge": "FAQ, SAV, documentation, réponses"
+  }
+ ],
+ "depots_total": 75,
+ "outils_gen": 19,
+ "pages_live": [
+  "/",
+  "/experience",
+  "/essai",
+  "/cine",
+  "/labo",
+  "/journal",
+  "/mon-espace",
+  "/adhesion",
+  "/cadeaux",
+  "/next-gen",
+  "/finance",
+  "/navlex",
+  "/mer",
+  "/depot"
+ ],
+ "qa": "green",
+ "qa_maj": "2026-07-23 04:38 UTC",
+ "qa_detail": "19/19 pages 200 · 45/45 liens/assets 200 · chat+voix+router OK · 0 fuite secret · fond video OK pages cles (accueil/legales = setup dedie gsap/alive)"
+}
