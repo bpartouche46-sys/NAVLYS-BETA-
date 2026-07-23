@@ -61,6 +61,6 @@
     "/depot"
   ],
   "qa": "green",
-  "qa_maj": "2026-07-23 13:38 UTC",
-  "qa_detail": "19 pages 200 · 40 assets/liens OK · chat/voix/router OK · 0 fuite secret · fond OK (bg.js sur cine/labo/finance/mer, CSS/vidéo ailleurs)"
+  "qa_maj": "2026-07-23 14:39 UTC",
+  "qa_detail": "19 pages 200 · 40 liens/assets OK · chat/voix/router OK · 0 fuite secret · fond video OK (bg.js finance/journal/cine/labo/mer + <video> /experience + CSS ailleurs, assets 200)"
 }
