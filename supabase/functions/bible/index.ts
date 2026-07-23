@@ -195,11 +195,24 @@ async function verifierRecherche() {
 // modèles indépendants, et on fait passer leur avis par le même pipeline
 // ingerer() que les audits humains (Gemini, ChatGPT) → règle + mémoire agent.
 function htmlVersTexte(html: string): string {
+  // Décodage COMPLET des entités (v2 2026-07-23) : les juges IA recevaient des
+  // « &mdash; / &#8217; » littéraux et pénalisaient des « symboles cassés »
+  // inexistants sur le site rendu — notation faussée.
+  const ENT: Record<string, string> = {
+    nbsp: " ", amp: "&", lt: "<", gt: ">", quot: '"', apos: "'",
+    eacute: "é", egrave: "è", ecirc: "ê", euml: "ë", agrave: "à", acirc: "â",
+    ccedil: "ç", ugrave: "ù", ucirc: "û", icirc: "î", iuml: "ï", ocirc: "ô",
+    mdash: "—", ndash: "–", hellip: "…", rsquo: "’", lsquo: "‘",
+    rdquo: "”", ldquo: "“", laquo: "«", raquo: "»", euro: "€",
+    copy: "©", middot: "·", times: "×", deg: "°",
+  };
   return html
     .replace(/<script[\s\S]*?<\/script>/gi, " ")
     .replace(/<style[\s\S]*?<\/style>/gi, " ")
     .replace(/<[^>]+>/g, " ")
-    .replace(/&nbsp;/g, " ").replace(/&amp;/g, "&").replace(/&eacute;/g, "é").replace(/&egrave;/g, "è").replace(/&agrave;/g, "à")
+    .replace(/&#x([0-9a-f]+);/gi, (_m, h) => { try { return String.fromCodePoint(parseInt(h, 16)); } catch { return " "; } })
+    .replace(/&#(\d+);/g, (_m, d) => { try { return String.fromCodePoint(parseInt(d, 10)); } catch { return " "; } })
+    .replace(/&([a-z]+);/gi, (m, n) => ENT[n.toLowerCase()] ?? m)
     .replace(/\s+/g, " ")
     .trim();
 }
