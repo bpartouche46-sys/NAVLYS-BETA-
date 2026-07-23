@@ -1,5 +1,5 @@
 /* NAVLYS_DICT_WA — généré par tools/make-dict.mjs (ne pas éditer à la main).
-   Couverture : 21/1391 clés (1.5 %). Le reste retombe sur le FR. */
+   Couverture : 30/1560 clés (1.9 %). Le reste retombe sur le FR. */
 window.NAVLYS_DICT_WA = {
   "Accueil": "Accueye",
   "Voix": "Vwès",
@@ -21,5 +21,14 @@ window.NAVLYS_DICT_WA = {
   "Écouter →": "Schoûter →",
   "Voir →": "Vey →",
   "partenaires": "pårtneres",
-  "Ma": "Mi"
+  "Ma": "Mi",
+  "aller au contenu": "potchî å contnou",
+  "comment": "kimint",
+  "tarifs": "pris",
+  "cadeaux": "bistokes",
+  "entrer": "intrer",
+  "simple comme parler": "simpe come djåzer",
+  "pour qui": "po kî",
+  "pour toi": "po twè",
+  "les familles": "les famyies"
 };

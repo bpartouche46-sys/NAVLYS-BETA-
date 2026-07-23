@@ -42,6 +42,7 @@
   <div class="kicker" id="k-kicker">Abraquedabra · NAVLYS</div>
   <h1 id="k-title">L'IA, <em>à la voix.</em></h1>
   <div class="sub" id="k-sub">Une révolution à la portée de tous, pour tout. Touche l'orbe, puis parle — je t'écoute.</div>
+  <div class="sub" id="k-aiv" style="font-size:.8rem;opacity:.85">⚠️ Voix générée par IA</div>
   <button class="orbBtn" id="orb" aria-label="Parler">
     <span class="orb"></span>
     <span class="orbLabel" id="orbLabel">Parle</span>
@@ -73,11 +74,11 @@
   var LANG=lireLang();
   var RTL={he:1,ar:1};
   var T={
-    fr:{kick:'Abraquedabra · NAVLYS', title:['L\'IA, ','à la voix.'], sub:'Une révolution à la portée de tous, pour tout. Touche l\'orbe, puis parle — je t\'écoute.', parle:'Parle', ecoute:'👂 Je t\'écoute…', reflechit:'… je réfléchis', repos:'😴 Repos. Touche pour reprendre.', secret:'dis « stop » pour te reposer', errmic:'Autorise le micro pour me parler 🎙️'},
-    en:{kick:'Abraquedabra · NAVLYS', title:['AI, ','by voice.'], sub:'A revolution within everyone\'s reach, for everything. Tap the orb, then speak — I\'m listening.', parle:'Speak', ecoute:'👂 I\'m listening…', reflechit:'… thinking', repos:'😴 Resting. Tap to resume.', secret:'say "stop" to rest', errmic:'Allow the mic to talk to me 🎙️'},
-    ru:{kick:'Abraquedabra · NAVLYS', title:['ИИ — ','голосом.'], sub:'Революция, доступная каждому, для всего. Коснись сферы и говори — я слушаю.', parle:'Говори', ecoute:'👂 Я слушаю…', reflechit:'… думаю', repos:'😴 Отдых. Коснись, чтобы продолжить.', secret:'скажи «стоп», чтобы отдохнуть', errmic:'Разреши микрофон, чтобы говорить со мной 🎙️'},
-    he:{kick:'Abraquedabra · NAVLYS', title:['בינה מלאכותית, ','בקול.'], sub:'מהפכה בהישג יד של כולם, לכל דבר. גע בכדור ואז דבר — אני מקשיב.', parle:'דבר', ecoute:'👂 אני מקשיב…', reflechit:'… חושב', repos:'😴 מנוחה. גע כדי להמשיך.', secret:'אמור «stop» כדי לנוח', errmic:'אפשר את המיקרופון כדי לדבר איתי 🎙️'},
-    ar:{kick:'Abraquedabra · NAVLYS', title:['الذكاء الاصطناعي، ','بالصوت.'], sub:'ثورة في متناول الجميع، لكل شيء. المس الكرة ثم تكلّم — أنا أستمع.', parle:'تكلّم', ecoute:'👂 أنا أستمع…', reflechit:'… أفكّر', repos:'😴 راحة. المس للمتابعة.', secret:'قل «stop» للراحة', errmic:'اسمح بالميكروفون لتكلّمني 🎙️'}
+    fr:{kick:'Abraquedabra · NAVLYS', title:['L\'IA, ','à la voix.'], sub:'Une révolution à la portée de tous, pour tout. Touche l\'orbe, puis parle — je t\'écoute.', parle:'Parle', ecoute:'👂 Je t\'écoute…', reflechit:'… je réfléchis', repos:'😴 Repos. Touche pour reprendre.', secret:'dis « stop » pour te reposer', errmic:'Autorise le micro pour me parler 🎙️', aiv:'⚠️ Voix générée par IA'},
+    en:{kick:'Abraquedabra · NAVLYS', title:['AI, ','by voice.'], sub:'A revolution within everyone\'s reach, for everything. Tap the orb, then speak — I\'m listening.', parle:'Speak', ecoute:'👂 I\'m listening…', reflechit:'… thinking', repos:'😴 Resting. Tap to resume.', secret:'say "stop" to rest', errmic:'Allow the mic to talk to me 🎙️', aiv:'⚠️ AI-generated voice'},
+    ru:{kick:'Abraquedabra · NAVLYS', title:['ИИ — ','голосом.'], sub:'Революция, доступная каждому, для всего. Коснись сферы и говори — я слушаю.', parle:'Говори', ecoute:'👂 Я слушаю…', reflechit:'… думаю', repos:'😴 Отдых. Коснись, чтобы продолжить.', secret:'скажи «стоп», чтобы отдохнуть', errmic:'Разреши микрофон, чтобы говорить со мной 🎙️', aiv:'⚠️ Голос сгенерирован ИИ'},
+    he:{kick:'Abraquedabra · NAVLYS', title:['בינה מלאכותית, ','בקול.'], sub:'מהפכה בהישג יד של כולם, לכל דבר. גע בכדור ואז דבר — אני מקשיב.', parle:'דבר', ecoute:'👂 אני מקשיב…', reflechit:'… חושב', repos:'😴 מנוחה. גע כדי להמשיך.', secret:'אמור «stop» כדי לנוח', errmic:'אפשר את המיקרופון כדי לדבר איתי 🎙️', aiv:'⚠️ קול שנוצר בבינה מלאכותית'},
+    ar:{kick:'Abraquedabra · NAVLYS', title:['الذكاء الاصطناعي، ','بالصوت.'], sub:'ثورة في متناول الجميع، لكل شيء. المس الكرة ثم تكلّم — أنا أستمع.', parle:'تكلّم', ecoute:'👂 أنا أستمع…', reflechit:'… أفكّر', repos:'😴 راحة. المس للمتابعة.', secret:'قل «stop» للراحة', errmic:'اسمح بالميكروفون لتكلّمني 🎙️', aiv:'⚠️ صوت مُولّد بالذكاء الاصطناعي'}
   };
   function appliquer(){
     var t=T[LANG]||T.fr;
@@ -86,6 +87,7 @@
     document.getElementById('k-kicker').textContent=t.kick;
     document.getElementById('k-title').innerHTML=t.title[0]+'<em>'+t.title[1]+'</em>';
     document.getElementById('k-sub').textContent=t.sub;
+    document.getElementById('k-aiv').textContent=t.aiv;
     document.getElementById('orbLabel').textContent=t.parle;
     document.getElementById('k-secret').textContent=t.secret;
   }

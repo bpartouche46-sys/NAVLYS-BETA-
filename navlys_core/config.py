@@ -35,8 +35,11 @@ class Config:
         )
         # Passerelle OpenRouter — désormais OPTIONNELLE : filet de secours
         # anti-coupure (résilience) si Anthropic est indisponible.
+        # Lecture tolérante des noms maison (règle n°4 + doctrine « on crée
+        # nos propres noms de clés » : nom custom = couche anti-hacker).
         self.openrouter_key = _first("OPENROUTER_API_KEY", "OPENROUTER_KEY",
-                                     "OPEN_ROUTER_API_KEY")
+                                     "OPEN_ROUTER_API_KEY", "OPEN_API_ROUTER",
+                                     "OPEN_API_ROUTER_KEY")
         if not self.anthropic_key and not self.openrouter_key:
             raise RuntimeError(
                 "Aucune clé LLM : renseigne ANTHROPIC_API_KEY (recommandé, direct) "

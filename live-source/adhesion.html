@@ -160,7 +160,7 @@ h2::after{content:"";flex:1;height:1px;background:var(--line)}
       🎬 tes avatars vidéo : <b>24 à 29 €/mois</b>
     </p>
     <p style="color:#fff;font-family:'Cormorant Garamond';font-size:1.15rem;margin:6px 0">Soit <b style="color:var(--or)">60 à 110 €/mois</b> — en cinq comptes, cinq mots de passe, souvent en anglais.</p>
-    <p style="color:#fff;font-family:'Cormorant Garamond';font-size:1.15rem;margin:6px 0">L'univers NAVLYS <b>entier</b> : ta cotisation dès <b style="color:var(--ice)">19,99 € HT</b>. Une seule maison. Ta langue. Ta voix. Ton prénom.</p>
+    <p style="color:#fff;font-family:'Cormorant Garamond';font-size:1.15rem;margin:6px 0">L'univers NAVLYS <b>entier</b> : ta cotisation dès <b style="color:var(--ice)">9,99 € HT</b>. Une seule maison. Ta langue. Ta voix. Ton prénom.</p>
     <p class="note" style="font-size:.78rem;margin-top:8px;font-style:italic">Fourchettes honnêtes relevées en juillet 2026 sur les tarifs publics des acteurs de référence — une comparaison, pas une promesse.</p>
   </div>
   <p class="note">Ton abonnement t'ouvre l'univers NAVLYS — dedans, <b>c'est toi qui commandes</b>.
@@ -198,13 +198,13 @@ h2::after{content:"";flex:1;height:1px;background:var(--line)}
 (function(){
   'use strict';
   var $=function(id){return document.getElementById(id);};
-  /* Grille TRÈS SIMPLE (BM, gravé 2026-07-06) : 3 offres. 9,99 €/mois en vedette,
+  /* Grille officielle 4 rangs (Découverte/Matelot/Capitaine/Commodore). Matelot 9,99 €/mois en vedette,
      tout inclus, espace extensible à la voix. À vie réglé une fois. */
   var FORMULES=[
     {code:'essai',   nom:'Découverte',     montant:0,    quota:99, inclu:'Découverte gratuite : tout l\'univers à l\'essai, à la voix, sur ton téléphone. 100 photos · 20 documents scannés · 1 vidéo · 1 Go.', badge:'0 €'},
-    {code:'univers', nom:'Univers NAVLYS', montant:19.99, quota:99, inclu:'Le bouquet INFINI d\'applications, dès l\'entrée — toutes les apps, à la voix, à un prix qui défie le monde. Espace généreux — 5 000 photos · 1 500 documents · 12 vidéos · 15 Go — extensible à la voix : dis « augmente mon espace ». Engagement 1 an, payé en 12 fois sans frais.', badge:'populaire'},
-    {code:'pro',     nom:'NAVLYS Pro',      montant:29.99, quota:99, inclu:'Toutes les applications + espace XXL — 15 000 photos · 5 000 documents · 40 vidéos · 60 Go — et génération photo/vidéo prioritaire. Engagement 1 an, payé en 12 fois sans frais.', badge:'plus de puissance'},
-    {code:'signature',nom:'NAVLYS Signature',montant:49.99, quota:99, inclu:'Toutes les applications + espace MAXI, priorité absolue, accès anticipé aux nouveautés et concierge dédié. Engagement 1 an, payé en 12 fois sans frais.', badge:'le plus complet'},
+    {code:'matelot', nom:'Matelot', montant:9.99, quota:99, inclu:'Le quotidien : les apps essentielles + TON SITE À VIE + pilotage 100% voix + tes briefings. Statut ambassadeur inclus. Espace confortable — 5 000 photos · 1 500 documents · 12 vidéos · 15 Go — extensible à la voix : dis « augmente mon espace ». Engagement 1 an, payé en 12 fois sans frais.', badge:'populaire'},
+    {code:'capitaine',nom:'Capitaine',    montant:29.99, quota:99, inclu:'Le bouquet : TOUTES les apps + la communauté Équipage + espace XXL — 15 000 photos · 5 000 documents · 40 vidéos · 60 Go — génération photo/vidéo prioritaire. Engagement 1 an, payé en 12 fois sans frais.', badge:'le plus complet'},
+    {code:'commodore',nom:'Commodore',    montant:49.99, quota:99, inclu:'L\'univers complet : tout Capitaine + priorité absolue + concierge dédié + accès anticipé aux nouveautés. Engagement 1 an, payé en 12 fois sans frais.', badge:'priorité'},
     {code:'integral',nom:'Accès Fondateur', montant:299, quota:99, avie:true, inclu:'Toutes les applications, sans mensualité, tant que NAVLYS existe. Espace généreux (comme Univers), extensible à la voix en option. Un seul règlement.', badge:'sans mensualité'}
   ];
   var CADEAUX=[
@@ -466,6 +466,7 @@ h2::after{content:"";flex:1;height:1px;background:var(--line)}
   </nav>
   <div>NAVLYS — navlys.com · Paiement sécurisé via Paddle.com (Merchant of Record).</div>
 </footer>
+<script src="/navlys-i18n.js" defer></script>
 <script src="/navlys-alive.js" defer></script>
 <script>
 /* 1bis · Ton site web — domaine perso nom-prenom.com (+0,99 € HT/mois groupé).
@@ -531,5 +532,6 @@ h2::after{content:"";flex:1;height:1px;background:var(--line)}
   });
 })();
 </script>
+<script src="/navlys-bg.js" defer></script>
 </body>
 </html>

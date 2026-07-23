@@ -1,23 +1,34 @@
 # NAVLYS
+> NAVLYS est l'IA la plus simple du monde, a la voix : tu parles, elle fait. Creer et piloter ses applications et sa vie numerique rien qu'au telephone et a la voix, sans competences, des la gratuite. Projet d'education et de veille (jamais de conseil financier reglemente).
 
-> NAVLYS est l'IA la plus simple et la plus accessible au monde. Tu parles, elle fait. Creer et piloter ses applications, sa vie numerique et ses projets rien qu'au telephone et a la voix, sans ordinateur ni competences.
+Editeur : NAVLYS WEB SERVICE LTD (N. 517373668). Fondateur : Bruno Mark Partouche.
+A ne pas confondre avec NavVis, Navelys (autocars) ou Navvly : NAVLYS = assistant IA a la voix, grand public.
 
-NAVLYS WEB SERVICE LTD — N° 517373668. Projet d'education et de veille a vocation informative uniquement, jamais un conseil personnalise. Reserve aux 18 ans et plus.
+## Applications
+- Genesis : ecrire, preserver et transmettre sa vie (memoire, autobiographie, genealogie, transmission).
+- NAVFIN : education financiere et veille (jamais de conseil reglemente).
+- NAVLEX : reperes juridiques simples.
+- La Mer : meteo marine.
+- Cadeaux : coffrets a composer.
 
-## Ce qui rend NAVLYS unique
-- Accessibilite pour tous : par le budget (prix minimes) et par l'usage (zero competence, zero ordinateur).
-- L'utilisation la plus simple et la plus naturelle au monde, entierement a la voix, comme parler a quelqu'un.
-- Un seul abonnement donne acces a tout un univers d'applications IA et humaines, tout de suite, en ligne, avec son propre espace securise.
+## Tarifs (HT / mois)
+- Decouverte : gratuit
+- Matelot : 9,99 EUR
+- Capitaine : 29,99 EUR
+- Commodore : 49,99 EUR
+- Acces Fondateur : 299 EUR a vie
 
-## L'univers NAVLYS
-- Genesis : ecrire et transmettre sa vie, de la naissance a la memoire eternelle.
-- NAVFIN : education financiere, comprendre l'argent en bon pere de famille, jamais un conseil.
-- NAVLEX : le droit explique simplement, information pedagogique.
-- La Mer : le mode de vie maritime mediterraneen.
-- Voice, Radio et d'autres briques en construction.
+## Pages
+- Accueil : https://www.navlys.com/
+- Essayer : https://www.navlys.com/essai
+- Adhesion : https://www.navlys.com/adhesion
+- Journal : https://www.navlys.com/journal
 
-## Positionnement
-NAVLYS = l'innovation qui democratise l'IA : la premiere IA qui soit une aide a tous, utilisee par tous, pour le bien de tous, immediatement.
+## Conformite
+Education et veille a vocation informative. Jamais de conseil personnalise en investissement. 18+.
 
-## Contact
-Site : https://navlys.com
+## Sites officiels NAVLYS (meme ecosysteme, meme fondateur)
+- https://www.navlys.com/ — site phare, l'IA a la voix
+- https://navlys.io/ — vitrine live (famille, profils, creations, partenariats)
+- https://navbiolife.com/ — NAVBIO : ta vie racontee, gardee, transmise
+- https://brunopartouche.com/ — Bruno Mark Partouche, fondateur

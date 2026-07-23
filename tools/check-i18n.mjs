@@ -31,7 +31,7 @@ for (const l of LANGS) {
 }
 
 const norm = (s) => s.replace(/\s+/g, ' ').trim();
-const BRANDS = /Univers Intégral|Univers Plus|Univers NAVLYS|NAVLYS|NAVLEX|NAVBIO|Next Gen|Bruno Partouche|Méditerranée|©/g;
+const BRANDS = /Univers Intégral|Univers Plus|Univers NAVLYS|NAVLYS|NAVLEX|NAVBIO|Next Gen|Bruno Partouche|Méditerranée|Mousse|Matelot|Équipage|Capitaine|©/g;
 const isFrenchLooking = (raw) => {
   const t = raw.replace(BRANDS, ' ');
   return /[àâçéèêëîïôùûü]/i.test(t) || /\b(le|la|les|ton|ta|tes|pour|avec|dans|chaque|toute?|jamais|gratuit|choisis|réglé|toi|nous|vie)\b/i.test(t);

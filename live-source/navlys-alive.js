@@ -161,7 +161,7 @@ window.NAVLYS_setVideo = function(v, rate, srcs){
     ctx.shadowBlur=0; ctx.globalCompositeOperation='source-over';
     requestAnimationFrame(frame);
   }
-  requestAnimationFrame(frame);
+  /* boucle canvas desactivee (perf) : le fond video universel suffit */
 
   /* ---------- voile tres leger pour la lisibilite ---------- */
   var veil=document.createElement('div'); veil.id='nv-veil'; document.body.appendChild(veil);
@@ -171,8 +171,7 @@ window.NAVLYS_setVideo = function(v, rate, srcs){
   v.autoplay=true; v.muted=true; v.loop=true; v.playsInline=true; v.setAttribute('playsinline','');
   // fond = voile NAVLYS + présentations, RALENTI mais fluide + HD ; aucun fichier => décor vivant
   v.addEventListener('nv-novideo', function(){ v.remove(); });
-  window.NAVLYS_setVideo(v, 0.6);
-  document.body.appendChild(v);
+  /* 2e video retiree (redondante avec le fond video universel) */
 
   /* ---------- bulles promo (apparaissent / disparaissent) ---------- */
   var promos=[
@@ -208,6 +207,7 @@ window.NAVLYS_setVideo = function(v, rate, srcs){
   document.body.appendChild(btn);
   var panel=document.createElement('div'); panel.id='nv-sav';
   panel.innerHTML='<div class="hd"><span class="dot"></span> NAVLYS · Aide &amp; SAV</div>'+
+    '<div class="nv-aiv" style="font-size:11px;line-height:1.3;opacity:.85;padding:4px 12px;color:#a8e3ff">⚠️ Voix générée par IA</div>'+
     '<div class="bd" id="nv-bd"><div class="b n">Bonjour 👋 Je suis là pour t\'aider sur NAVLYS — une question, une idée ? Écris-moi.<br><span class="lt" id="nv-hello">🔊 écouter Bruno</span></div></div>'+
     '<div class="ft"><textarea id="nv-q" placeholder="Ta question…"></textarea><button class="mic" id="nv-mic" title="Parle — je t\'écoute">🎙️</button><button class="snd" id="nv-snd">→</button></div>'+
     '<div id="nv-fb-open">💡 Améliorer</div>';
@@ -714,6 +714,7 @@ window.NAVLYS_setVideo = function(v, rate, srcs){
     '<div class="lbl">Mon espace</div>'+
     '<button id="nv-account">👤 <span>Identité &amp; Compte</span></button>'+
     '<button id="nv-pay">💳 <span>Abonnement &amp; Paiement</span></button>'+
+    '<button id="nv-monsite">🌐 <span>Mon site public</span></button>'+
     '<button id="nv-settings">🎛️ <span>Réglages</span></button>'+
     '<div class="sep"></div>'+
     '<div class="lbl">Langue</div>'+
@@ -739,6 +740,7 @@ window.NAVLYS_setVideo = function(v, rate, srcs){
 
   // actions menu
   gearM.querySelector('#nv-account').onclick=function(){ closeAll(); location.href='/profil'; };
+  (function(){ var b=gearM.querySelector('#nv-monsite'); if(b) b.onclick=function(){ closeAll(); location.href='/membres'; }; })();
   gearM.querySelector('#nv-pay').onclick=function(){ closeAll(); location.href='/adhesion'; };
   gearM.querySelector('#nv-settings').onclick=function(){ toast('Réglages personnels — en chemin 🎛️'); };
   gearM.querySelector('#nv-help').onclick=function(){ closeAll(); var b=document.getElementById('nv-sav-btn'); if(b) b.click(); };
