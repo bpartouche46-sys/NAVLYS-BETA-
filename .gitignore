@@ -31,3 +31,4 @@ signing-key-info.txt
 node_modules/
 package.json
 package-lock.json
+extract-tmp.mjs
