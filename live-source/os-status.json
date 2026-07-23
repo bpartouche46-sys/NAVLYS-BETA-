@@ -61,6 +61,6 @@
     "/depot"
   ],
   "qa": "green",
-  "qa_maj": "2026-07-23 17:38 UTC",
-  "qa_detail": "19/19 pages 200, 42/42 liens internes 200, 0 fuite reelle (sk- faux positif, JWT expose = cle anon publique normale), chat+voix(audio/mpeg)+router OK. Obs non bloquante: navlys-bg.js absent du HTML de /, /experience, /os (fonds alternatifs: <video> /experience, img.bg /)."
+  "qa_maj": "2026-07-23 19:38 UTC",
+  "qa_detail": "19/19 pages 200, 41/41 liens internes 200, chat(ok:true)+voix(audio/mpeg)+router(ok) OK, 0 fuite reelle (sk- = faux positif confirme). Fond video: navlys-bg.js sur /finance; / et /experience utilisent fonds alternatifs (img.bg / + <video> navlys-cine.mp4 /experience) — non bloquant."
 }
