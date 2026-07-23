@@ -3,180 +3,197 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#f7f3ea">
 <title>NAVLYS Next Gen — Ta vie, racontée. Gardée. Transmise.</title>
-<meta name="description" content="NAVLYS Next Gen — la biographie vivante. Écris ta vie : elle s'enrichit, se partage, se transmet. Pour les tiens, et ceux qui viendront. Lancement le 1er août 2026.">
-<link rel="canonical" href="https://navlys.com/next-gen">
-<script>document.documentElement.className+=' nav-js';</script>
+<meta name="description" content="NAVLYS Next Gen — la biographie vivante. Écris ta vie : elle s'enrichit, se partage, se transmet. Pour les tiens, et ceux qui viendront. Ouverture le 1er août 2026. Un projet d'éducation et de mémoire.">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://www.navlys.com/next-gen">
+<link rel="alternate" hreflang="fr" href="https://www.navlys.com/next-gen">
+<link rel="alternate" hreflang="en" href="https://www.navlys.com/en">
+<link rel="alternate" hreflang="es" href="https://www.navlys.com/es">
+<link rel="alternate" hreflang="x-default" href="https://www.navlys.com/next-gen">
+<meta property="og:title" content="NAVLYS Next Gen — Ta vie, racontée. Gardée. Transmise.">
+<meta property="og:description" content="La biographie vivante. Écris ta vie : elle s'enrichit, se partage, se transmet.">
+<meta property="og:url" content="https://www.navlys.com/next-gen">
+<meta property="og:image" content="https://www.navlys.com/assets/hero-yacht.jpg">
+<meta property="og:type" content="website">
+<link rel="icon" type="image/png" href="/assets/coins/navlys-coin-core.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:ital@0;1&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","@id":"https://www.navlys.com/next-gen#webpage","url":"https://www.navlys.com/next-gen","name":"NAVLYS Next Gen — Ta vie, racontée. Gardée. Transmise.","description":"La biographie vivante : écris ta vie, elle s'enrichit, se partage, se transmet. Ouverture le 1er août 2026.","inLanguage":"fr","isPartOf":{"@type":"WebSite","name":"NAVLYS","url":"https://www.navlys.com/"},"about":{"@type":"Organization","@id":"https://www.navlys.com/#organization","name":"NAVLYS","founder":{"@type":"Person","name":"Bruno Mark Partouche"}}}
+</script>
 <style>
-:root{--noir:#06080b;--bronze:#B87333;--or:#C9A961;--or-pale:#f3e4c4;--ice:#7DD3FC;--ice-clair:#a8e3ff;--ice-deep:#3a8db5;--perle:#e7eef2;--perle-doux:#bcc9d1;--brume:#7c8b95}
-*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth;background:#02040a}
-body{background:transparent;color:var(--perle);font-family:'Cormorant Garamond',serif;font-size:19px;line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden;min-height:100vh;position:relative;-webkit-text-size-adjust:100%}
-body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(55% 45% at 14% 6%,rgba(125,211,252,.12),transparent 60%),radial-gradient(48% 42% at 86% 30%,rgba(201,169,97,.08),transparent 62%),radial-gradient(60% 55% at 50% 120%,rgba(125,211,252,.05),transparent 64%);animation:resp 18s ease-in-out infinite alternate}
-@keyframes resp{from{opacity:.7}to{opacity:1}}
-.nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(2,4,10,.84);backdrop-filter:blur(16px);border-bottom:1px solid rgba(125,211,252,.16);padding:12px 18px;display:flex;justify-content:space-between;align-items:center;gap:12px}
-.nav a.logo{font-family:'Cinzel',serif;font-size:14px;letter-spacing:.3em;color:var(--or);text-transform:uppercase;font-weight:600;text-decoration:none}
-.nav .links{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
-.nav .links a{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--perle-doux);text-decoration:none;transition:.25s}
-.nav .links a:hover{color:var(--ice)}
-.wrap{position:relative;z-index:2;max-width:880px;margin:0 auto;padding:0 24px}
-header{min-height:92vh;display:flex;flex-direction:column;justify-content:center;padding:90px 0 50px}
-.kicker{font-family:'Cinzel',serif;font-size:13px;letter-spacing:.4em;color:var(--ice);text-transform:uppercase;margin-bottom:18px;text-align:center}.kicker span{color:var(--or)}
-.prelude{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(20px,2.6vw,26px);letter-spacing:.06em;color:rgba(168,227,255,.9);text-shadow:0 0 12px rgba(125,211,252,.4);text-align:center;margin:30px 0 18px;animation:prelude-fade 2.4s ease .6s forwards;opacity:0}
-@keyframes prelude-fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-.brandline{font-family:'Cinzel',serif;font-weight:600;font-size:clamp(46px,9vw,92px);letter-spacing:.12em;text-transform:uppercase;text-align:center;background:linear-gradient(100deg,#f3e4c4,#C9A961 35%,#fff7e6 50%,#C9A961 65%,#B87333);background-size:220% auto;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;margin:14px auto 10px;line-height:1.05;filter:drop-shadow(0 0 18px rgba(184,115,51,.32));animation:brand-shine 9s linear infinite,brand-rise 1.6s ease 1.2s forwards;opacity:0}
-@keyframes brand-shine{to{background-position:220% center}}
-@keyframes brand-rise{from{opacity:0;transform:translateY(20px) scale(.96)}to{opacity:1;transform:translateY(0) scale(1)}}
-h1{font-family:'Cormorant Garamond',serif;font-weight:400;font-size:clamp(30px,5vw,52px);line-height:1.08;color:var(--perle);text-align:center;margin:0 auto 22px;max-width:820px}
-h1 em{font-style:italic;color:var(--or-pale)}
-.lead{font-style:italic;font-size:clamp(22px,3vw,30px);line-height:1.5;color:var(--perle-doux);max-width:760px;margin:20px auto 10px;text-align:center}
-section{padding:74px 0;border-top:1px solid rgba(184,115,51,.16)}
-section h2{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(32px,5vw,50px);line-height:1.12;color:var(--perle);margin-bottom:26px;text-align:center}
-section h2 em{color:var(--or);font-style:italic}
-.manifeste .body{font-size:clamp(19px,2.4vw,23px);line-height:1.7;color:var(--perle-doux);max-width:720px;margin:0 auto 24px}
-.manifeste .body em{color:var(--or-pale)}
-.signature{text-align:center;margin-top:42px;font-family:'Cinzel',serif;color:var(--or);letter-spacing:.3em;font-size:16px}.signature::before{content:"— ";color:var(--brume)}
-.intro{text-align:center;font-style:italic;color:var(--perle-doux);font-size:clamp(17px,2.3vw,20px);margin-bottom:36px}
-.chemins-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),1fr));gap:20px;margin-top:24px}
-.chemin{padding:26px;background:rgba(2,4,10,.55);border:1px solid rgba(184,115,51,.2);border-radius:14px;transition:.4s}
-.chemin:hover{border-color:rgba(125,211,252,.5);transform:translateY(-3px);box-shadow:0 12px 32px rgba(125,211,252,.15)}
-.chemin .num{font-family:'Cinzel',serif;color:var(--ice);font-size:13px;letter-spacing:.3em;margin-bottom:10px}
-.chemin h3{font-weight:500;font-size:clamp(21px,3vw,26px);color:var(--or-pale);margin-bottom:10px;line-height:1.2}
-.chemin p{font-style:italic;color:var(--perle-doux);font-size:16px;line-height:1.55}
-/* CARTE LANCEMENT qui respire ice blue */
-.launch{display:flex;justify-content:center;padding:10px 0 0}
-.launch-card{position:relative;overflow:hidden;max-width:680px;width:100%;background:linear-gradient(160deg,rgba(2,8,20,.92),rgba(2,4,10,.96) 60%);border:2px solid rgba(125,211,252,.7);border-radius:22px;padding:30px 30px;text-align:center;animation:breath 3.6s ease-in-out infinite alternate;box-shadow:0 0 40px rgba(125,211,252,.5),0 0 120px rgba(125,211,252,.26),inset 0 0 30px rgba(125,211,252,.06)}
-@keyframes breath{0%{box-shadow:0 0 30px rgba(125,211,252,.32),0 0 90px rgba(125,211,252,.18),inset 0 0 22px rgba(125,211,252,.04);border-color:rgba(125,211,252,.5);transform:scale(1)}100%{box-shadow:0 0 65px rgba(125,211,252,.8),0 0 160px rgba(125,211,252,.42),inset 0 0 42px rgba(125,211,252,.13);border-color:rgba(168,227,255,.95);transform:scale(1.012)}}
-.card-anim{position:absolute;inset:0;width:100%;height:100%;z-index:0;opacity:.5;border-radius:22px;pointer-events:none}
-.launch-card>*:not(.card-anim){position:relative;z-index:1}
-.badge{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.4em;color:var(--ice-clair);text-transform:uppercase;margin-bottom:12px;display:inline-block;padding:5px 14px;background:rgba(125,211,252,.18);border-radius:14px;border:1px solid rgba(125,211,252,.4)}
-.launch-card h2{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(24px,3.6vw,34px);line-height:1.15;color:var(--perle);margin-bottom:14px;border:0}
-.launch-card h2 em{color:var(--ice-clair);font-style:italic}
-.countdown{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-bottom:20px}
-.cdblk{min-width:66px;padding:12px 9px;background:rgba(2,8,20,.65);border:1.5px solid rgba(125,211,252,.5);border-radius:12px;animation:cd-glow 3.6s ease-in-out infinite alternate}
-.cdblk .n{font-family:'JetBrains Mono',monospace;font-size:28px;font-weight:700;color:var(--ice-clair);line-height:1;text-shadow:0 0 14px rgba(125,211,252,.7)}
-.cdblk .u{font-family:'Cinzel',serif;font-size:9px;letter-spacing:.3em;color:var(--brume);text-transform:uppercase;margin-top:6px}
-@keyframes cd-glow{0%{box-shadow:0 0 10px rgba(125,211,252,.22);border-color:rgba(125,211,252,.4)}100%{box-shadow:0 0 26px rgba(125,211,252,.5);border-color:rgba(168,227,255,.85)}}
-.btn-row{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:8px}
-.btn-row>*{flex:1 1 0;min-width:150px;display:flex;align-items:center;justify-content:center;gap:9px;padding:13px 14px;border-radius:10px;border:1px solid rgba(125,211,252,.35);background:rgba(125,211,252,.06);color:var(--perle);font-family:'Cinzel',serif;font-size:12px;letter-spacing:.12em;cursor:pointer;text-decoration:none;transition:.3s;font-weight:500}
-.btn-row>*:hover{background:rgba(125,211,252,.18);border-color:rgba(125,211,252,.7);transform:translateY(-1px);box-shadow:0 0 20px rgba(125,211,252,.3)}
-.btn-row .primary{background:linear-gradient(135deg,var(--ice-deep),var(--ice));color:#fff;border:none}
-.email-form{display:none;margin-top:10px}
-.email-form.show{display:block}
-.email-form input{width:100%;padding:13px 14px;border-radius:10px;border:1px solid rgba(125,211,252,.35);background:rgba(2,8,20,.6);color:var(--perle);font-family:'JetBrains Mono',monospace;font-size:15px;outline:none;margin-bottom:9px}
-.email-form button{width:100%;padding:13px;border:none;background:linear-gradient(135deg,var(--ice-deep),var(--ice));color:#fff;border-radius:10px;font-family:'Cinzel',serif;font-size:12px;letter-spacing:.18em;cursor:pointer;box-shadow:0 0 18px rgba(125,211,252,.35)}
-#msg{margin-top:10px;font-style:italic;font-size:14px;min-height:18px;color:var(--ice-clair)}
-.cgu{font-style:italic;font-size:12.5px;color:var(--brume);margin-top:12px;line-height:1.6}
-footer{padding:56px 0 90px;border-top:1px solid rgba(184,115,51,.16);text-align:center}
-.brand-foot{font-size:22px;color:var(--perle)}.brand-foot span{color:var(--or)}
-.meta-foot{font-family:'Cinzel',serif;font-size:12px;letter-spacing:.25em;color:var(--brume);margin:8px 0 22px;text-transform:uppercase}
-.disclaimer{font-style:italic;color:var(--brume);font-size:14px;line-height:1.7;max-width:600px;margin:0 auto;padding:16px;border:1px solid rgba(184,115,51,.18);border-radius:10px;background:rgba(2,4,10,.5)}
-@media(max-width:600px){.btn-row>*{min-width:100%}}
-/* ── Animations NAVLYS : révélations au scroll + micro-interactions (sobres) ── */
-.nav-js .reveal{opacity:0}
-.reveal.in{opacity:1;animation:navRise .8s cubic-bezier(.22,.61,.36,1) backwards}
-@keyframes navRise{from{opacity:0;transform:translateY(22px)}}
-.navBreathe{animation:navBreathe 5s ease-in-out infinite}
-@keyframes navBreathe{0%,100%{opacity:.86}50%{opacity:1}}
-.chemin .num{transition:letter-spacing .3s ease,color .3s ease}
-.chemin:hover .num{letter-spacing:.4em;color:var(--ice-clair)}
-.chemin h3{transition:color .3s ease}
-.chemin:hover h3{color:#fff7e6}
-@media (prefers-reduced-motion:reduce){
-  .nav-js .reveal,.reveal.in{opacity:1!important;animation:none!important;transform:none!important}
-  .navBreathe{animation:none!important}
-}
+:root{--creme:#f7f3ea;--creme2:#efe8da;--encre:#1a2b4a;--encre2:#2c3e5c;--or:#c9a86a;--or2:#b8945a;--sauge:#b7c7bd;--gris:#5b6b7a;}
+*{box-sizing:border-box}
+body{margin:0;background:var(--creme);color:#26313f;font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+h1,h2,h3,.serif{font-family:'Playfair Display',Georgia,serif}
+a{color:inherit}
+.nav{position:sticky;top:0;z-index:40;display:flex;align-items:center;gap:22px;padding:14px 26px;background:rgba(247,243,234,.82);backdrop-filter:blur(10px);border-bottom:1px solid rgba(26,43,74,.08)}
+.nav .brand{font-family:'Playfair Display',serif;font-weight:700;letter-spacing:.18em;color:var(--encre);font-size:20px;text-decoration:none}
+.nav .links{margin-left:auto;display:flex;gap:20px;align-items:center;flex-wrap:wrap}
+.nav .links a{text-decoration:none;color:var(--encre2);font-size:14px;font-weight:500}
+.nav .links a.cta{background:var(--encre);color:#fff;padding:9px 16px;border-radius:999px}
+.hero{position:relative;min-height:78vh;display:flex;align-items:center;overflow:hidden}
+.hero img.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:70% center;transform-origin:60% 50%;animation:breathe 24s ease-in-out infinite alternate;will-change:transform}
+@keyframes breathe{from{transform:scale(1.0)}to{transform:scale(1.09)}}
+@media(prefers-reduced-motion:reduce){.hero img.bg{animation:none}}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,rgba(247,243,234,.97) 0%,rgba(247,243,234,.9) 38%,rgba(247,243,234,.45) 62%,rgba(247,243,234,.05) 82%)}
+.hero .in{position:relative;z-index:2;max-width:1180px;margin:0 auto;padding:64px 30px;width:100%}
+.hero .k{font-size:13px;letter-spacing:.24em;text-transform:uppercase;color:var(--or2);font-weight:600}
+.hero .prelude{font-family:'Playfair Display',serif;font-style:italic;font-size:clamp(18px,2.4vw,24px);color:var(--gris);margin:14px 0 4px}
+.hero h1{font-size:clamp(40px,8vw,88px);line-height:1.0;color:var(--encre);margin:.1em 0 .1em;font-weight:700;letter-spacing:.01em}
+.hero h1 em{font-style:italic;color:var(--or2)}
+.rule{width:120px;height:2px;background:linear-gradient(90deg,var(--or),transparent);margin:16px 0 20px}
+.hero .lead{font-family:'Playfair Display',serif;font-style:italic;font-size:clamp(20px,3vw,30px);color:var(--encre2);max-width:640px;margin:0}
+.launch{margin:30px 0 0}
+.launch-card{background:#fff;border:1.5px solid var(--or);border-radius:20px;padding:30px;max-width:680px;box-shadow:0 16px 40px rgba(201,168,106,.18)}
+.badge{display:inline-block;font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--or2);font-weight:600;padding:5px 14px;background:var(--creme2);border-radius:999px;border:1px solid rgba(201,168,106,.4)}
+.launch-card h2{font-family:'Playfair Display',serif;font-weight:600;font-size:clamp(24px,3.6vw,34px);color:var(--encre);margin:14px 0 18px}
+.launch-card h2 em{color:var(--or2);font-style:italic}
+.countdown{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:22px}
+.cdblk{min-width:70px;padding:12px 10px;background:var(--creme);border:1px solid rgba(26,43,74,.12);border-radius:12px;text-align:center}
+.cdblk .n{font-family:'Playfair Display',serif;font-size:30px;font-weight:700;color:var(--encre);line-height:1}
+.cdblk .u{font-size:10px;letter-spacing:.2em;color:var(--gris);text-transform:uppercase;margin-top:6px}
+.btn-row{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:14px}
+.btn-row a,.btn-row button{display:inline-block;text-decoration:none;font-weight:600;font-size:14.5px;border-radius:999px;padding:12px 20px;cursor:pointer;border:1.5px solid var(--encre);background:transparent;color:var(--encre);font-family:'Inter',sans-serif}
+.btn-row a.primary{background:var(--encre);color:#fff;border-color:var(--encre)}
+.email-form{display:none;margin-top:8px;gap:10px}
+.email-form.show{display:flex;flex-wrap:wrap}
+.email-form input[type=email]{flex:1;min-width:200px;padding:12px 14px;border:1px solid rgba(26,43,74,.2);border-radius:999px;font-size:15px;font-family:'Inter',sans-serif;background:#fff;color:var(--encre)}
+.email-form button{background:linear-gradient(100deg,var(--or),#e6c98a);color:#22303f;font-weight:600;border:0;border-radius:999px;padding:12px 22px;cursor:pointer;font-family:'Inter',sans-serif}
+#msg{margin-top:10px;font-size:14px;min-height:18px}
+.cgu{margin-top:14px;font-size:12.5px;color:var(--gris);line-height:1.5}
+section{max-width:1080px;margin:0 auto;padding:70px 30px}
+.eyebrow{font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:var(--or2);font-weight:600}
+h2{font-size:clamp(30px,5vw,50px);color:var(--encre);margin:.15em 0 0;font-weight:600}
+h2 em{color:var(--or2);font-style:italic}
+h2+.rule{margin-top:16px}
+.manifeste .body{font-family:'Playfair Display',serif;font-size:clamp(19px,2.4vw,24px);color:var(--encre2);line-height:1.6;font-weight:500;max-width:780px;margin:22px 0 0}
+.manifeste .body em{color:var(--or2);font-style:italic}
+.signature{margin-top:30px;font-family:'Playfair Display',serif;letter-spacing:.28em;color:var(--or2);font-size:16px}
+.signature::before{content:"— "}
+.intro{font-family:'Playfair Display',serif;font-style:italic;color:var(--encre2);font-size:clamp(18px,2.4vw,22px);margin-top:8px}
+.chemins-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(240px,100%),1fr));gap:18px;margin-top:30px}
+.chemin{background:#fff;border:1px solid rgba(26,43,74,.09);border-radius:16px;padding:24px;box-shadow:0 10px 30px rgba(26,43,74,.05)}
+.chemin .num{font-family:'Playfair Display',serif;color:var(--or2);font-size:14px;letter-spacing:.2em;margin-bottom:8px;font-weight:700}
+.chemin h3{font-family:'Playfair Display',serif;font-weight:600;font-size:22px;color:var(--encre);margin:0 0 8px}
+.chemin p{font-size:15.5px;color:#4a5769;line-height:1.55;margin:0}
+.cta-band{background:var(--encre);color:#f2ede3;border-radius:20px;padding:44px;text-align:center;margin-top:36px}
+.cta-band .eyebrow{color:#e6c98a}
+.cta-band h2{color:#fff}
+.cta-band .rule{margin:16px auto 18px}
+.cta-band a{display:inline-block;background:linear-gradient(100deg,var(--or),#e6c98a);color:#22303f;font-weight:600;text-decoration:none;padding:15px 30px;border-radius:999px;margin-top:8px}
+footer{max-width:1080px;margin:0 auto;padding:40px 30px 80px;color:#6b7683;font-size:13px;border-top:1px solid rgba(26,43,74,.08)}
+footer .brand-foot{font-family:'Playfair Display',serif;color:var(--encre);font-size:16px}
+footer .brand-foot span{font-weight:700;letter-spacing:.14em}
+footer .meta-foot{margin-top:6px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#8a94a2}
+footer .disc{font-style:italic;line-height:1.6;max-width:840px;margin-top:16px}
+footer .cz{margin-top:14px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#8a94a2}
+.nv-wa2{position:fixed;left:18px;bottom:18px;width:54px;height:54px;border-radius:50%;background:#fff;border:1px solid var(--or);display:flex;align-items:center;justify-content:center;box-shadow:0 8px 22px rgba(26,43,74,.18);z-index:60}
+.nv-wa2 svg{width:28px;height:28px}
+@media(max-width:640px){.hero::after{background:linear-gradient(180deg,rgba(247,243,234,.92),rgba(247,243,234,.55) 60%,rgba(247,243,234,.88))}}
 </style>
-<script src="/vercel-speed-insights.js" defer></script>
 </head>
 <body>
 <nav class="nav">
-  <a class="logo" href="/">NAVLYS</a>
+  <a class="brand" href="/">NAVLYS</a>
   <div class="links">
     <a href="/">Accueil</a>
     <a href="/ecris-ta-vie">Écris ta vie</a>
-    <a href="/profil">Mon espace</a>
     <a href="/strategie">Le Stratège</a>
-    <a href="#lancement">Rejoindre</a>
+    <a href="/en">EN</a>
+    <a class="cta" href="#lancement">Rejoindre</a>
   </div>
 </nav>
 
-<header><div class="wrap">
-<div class="kicker">NAVLYS NEXT GEN · <span>Biographie vivante · Mémoire · Transmission</span></div>
-<p class="prelude">il y a bien longtemps, dans une vie lointaine&hellip;</p>
-<div class="brandline">Next Gen</div>
-<h1>Ta vie, <em>racontée</em>. Gardée. Transmise.</h1>
-<p class="lead">Pas un livre. Pas un album. Une biographie vivante qui s'enrichit, se partage, se transmet. Pour les tiens, et pour ceux qui viendront.</p>
+<header class="hero">
+  <img class="bg" src="/assets/hero-yacht.jpg" alt="Univers NAVLYS en mer" fetchpriority="high">
+  <div class="in">
+    <p class="k">NAVLYS Next Gen · Biographie vivante · Mémoire · Transmission</p>
+    <p class="prelude">il y a bien longtemps, dans une vie lointaine&hellip;</p>
+    <h1>Ta vie, <em>racontée</em>. Gardée. Transmise.</h1>
+    <div class="rule"></div>
+    <p class="lead">Pas un livre. Pas un album. Une biographie vivante qui s'enrichit, se partage, se transmet — pour les tiens, et pour ceux qui viendront.</p>
 
-<div class="launch" id="lancement">
-  <div class="launch-card">
-    <canvas class="card-anim" id="cardAnim"></canvas>
-    <div class="badge navBreathe">Lancement</div>
-    <h2>Ouverture le <em>1er août 2026</em></h2>
-    <div class="countdown" id="cd">
-      <div class="cdblk"><div class="n" id="cd-d">—</div><div class="u">Jours</div></div>
-      <div class="cdblk"><div class="n" id="cd-h">—</div><div class="u">Heures</div></div>
-      <div class="cdblk"><div class="n" id="cd-m">—</div><div class="u">Min</div></div>
-      <div class="cdblk"><div class="n" id="cd-s">—</div><div class="u">Sec</div></div>
+    <div class="launch" id="lancement">
+      <div class="launch-card">
+        <span class="badge">Lancement</span>
+        <h2>Ouverture le <em>1er août 2026</em></h2>
+        <div class="countdown" id="cd">
+          <div class="cdblk"><div class="n" id="cd-d">—</div><div class="u">Jours</div></div>
+          <div class="cdblk"><div class="n" id="cd-h">—</div><div class="u">Heures</div></div>
+          <div class="cdblk"><div class="n" id="cd-m">—</div><div class="u">Min</div></div>
+          <div class="cdblk"><div class="n" id="cd-s">—</div><div class="u">Sec</div></div>
+        </div>
+        <div class="btn-row">
+          <a class="primary" href="/ecris-ta-vie">✦ Écris ta vie</a>
+          <a href="/strategie">🎯 Le Stratège — 100 % lucide</a>
+          <a class="primary" href="/next-gen-exemple-bm">🎬 Voir un exemple réel</a>
+          <button type="button" onclick="document.getElementById('emailForm').classList.toggle('show')">📧 Être prévenu</button>
+        </div>
+        <form class="email-form" id="emailForm" onsubmit="signEmail(event)">
+          <input type="text" id="website" style="display:none" tabindex="-1" autocomplete="off">
+          <input type="email" id="email" placeholder="ton@email.com" required>
+          <button type="submit">Réserver ma place</button>
+        </form>
+        <div id="msg"></div>
+        <div class="cgu">Éducation &amp; mémoire personnelle. Tes contenus restent ta propriété. Pas de revente de données, pas de pub.</div>
+      </div>
     </div>
-    <div class="btn-row">
-      <a class="primary" href="/ecris-ta-vie">✦ Écris ta vie</a>
-      <a href="/strategie">🎯 Le Stratège — 100 % lucide</a>
-      <a class="primary" href="/next-gen-exemple-bm">🎬 Voir un exemple réel</a>
-      <button onclick="document.getElementById('emailForm').classList.toggle('show')">📧 Être prévenu</button>
-    </div>
-    <form class="email-form" id="emailForm" onsubmit="signEmail(event)">
-      <input type="text" id="website" style="display:none" tabindex="-1" autocomplete="off">
-      <input type="email" id="email" placeholder="ton@email.com" required>
-      <button type="submit">Réserver ma place</button>
-    </form>
-    <div id="msg"></div>
-    <div class="cgu">Éducation & mémoire personnelle. Tes contenus restent ta propriété. Pas de revente de données, pas de pub.</div>
   </div>
-</div>
-</div></header>
+</header>
 
-<section class="manifeste"><div class="wrap">
-<h2>Manifeste <em>Next Gen</em></h2>
-<p class="body reveal">On porte tous une histoire. <em>Des moments, des passages, des choix, des silences.</em> Cette histoire, elle s'efface si on ne la garde pas.</p>
-<p class="body reveal">NAVLYS Next Gen n'est pas un livre figé. C'est <em>une biographie vivante</em> : qui se construit avec toi, qui s'enrichit chaque saison, qui se partage avec ceux que tu choisis, et qui se transmet — pour que tes enfants, tes petits-enfants, et même les inconnus que tu n'as jamais rencontrés, puissent lire ce que tu as vécu.</p>
-<p class="body reveal">Ce n'est pas que des mots. Ce sont aussi <em>tes photos, tes voix, tes vidéos, tes objets fétiches, tes lieux, tes recettes, tes chansons</em>. Tout ce qui fait ta couleur. Tout ce qui fait ta sève.</p>
-<p class="body reveal">Parce que la transmission, ce n'est pas l'héritage notarié. C'est <em>le rire qu'on raconte 30 ans après, l'odeur d'une cuisine qu'on retrouve dans un parfum, le geste qu'un petit-fils refait sans savoir d'où il vient</em>.</p>
-<p class="body reveal">NAVLYS Next Gen, c'est ta vie qui devient un héritage qu'on peut <em>encore toucher du doigt</em>.</p>
-<div class="signature">BM</div>
-</div></section>
+<section class="manifeste">
+  <p class="eyebrow">Le manifeste</p>
+  <h2>Manifeste <em>Next Gen</em></h2>
+  <div class="rule"></div>
+  <p class="body">On porte tous une histoire. <em>Des moments, des passages, des choix, des silences.</em> Cette histoire, elle s'efface si on ne la garde pas.</p>
+  <p class="body">NAVLYS Next Gen n'est pas un livre figé. C'est <em>une biographie vivante</em> : qui se construit avec toi, qui s'enrichit chaque saison, qui se partage avec ceux que tu choisis, et qui se transmet — pour que tes enfants, tes petits-enfants, et même les inconnus que tu n'as jamais rencontrés, puissent lire ce que tu as vécu.</p>
+  <p class="body">Ce n'est pas que des mots. Ce sont aussi <em>tes photos, tes voix, tes vidéos, tes objets fétiches, tes lieux, tes recettes, tes chansons</em>. Tout ce qui fait ta couleur. Tout ce qui fait ta sève.</p>
+  <p class="body">Parce que la transmission, ce n'est pas l'héritage notarié. C'est <em>le rire qu'on raconte 30 ans après, l'odeur d'une cuisine qu'on retrouve dans un parfum, le geste qu'un petit-fils refait sans savoir d'où il vient</em>.</p>
+  <p class="body">NAVLYS Next Gen, c'est ta vie qui devient un héritage qu'on peut <em>encore toucher du doigt</em>.</p>
+  <div class="signature">BM</div>
+</section>
 
-<section class="chemins"><div class="wrap">
-<h2>Les <em>5 chemins</em></h2>
-<p class="intro reveal">Une seule application, 5 façons d'entrer dans ta biographie.</p>
-<div class="chemins-grid">
-  <div class="chemin reveal"><div class="num">1</div><h3>La Vie</h3><p>Les grandes étapes de ton parcours : enfance, jeunesse, rencontres, voyages, métiers, épreuves, victoires.</p></div>
-  <div class="chemin reveal"><div class="num">2</div><h3>La Mémoire</h3><p>Les moments qui t'ont fait. Les voix, les visages, les odeurs. Sauvegardés en haute qualité, à vie.</p></div>
-  <div class="chemin reveal"><div class="num">3</div><h3>La Transmission</h3><p>Ce que tu veux léguer. Tes valeurs, tes leçons, tes recettes. Reçus par ceux que tu choisis.</p></div>
-  <div class="chemin reveal"><div class="num">4</div><h3>Le Bien-être</h3><p>Écrire ta vie soigne. Réflexologie, reiki, méditations à puiser dans ton propre récit.</p></div>
-  <div class="chemin reveal"><div class="num">5</div><h3>La Passion</h3><p>Ce qui te fait vibrer aujourd'hui — musique, mer, sport, art, métier. Mis en lumière, partagé.</p></div>
-</div>
-</div></section>
+<section class="chemins">
+  <p class="eyebrow">L'univers Next Gen</p>
+  <h2>Les <em>5 chemins</em></h2>
+  <p class="intro">Une seule application, 5 façons d'entrer dans ta biographie.</p>
+  <div class="chemins-grid">
+    <div class="chemin"><div class="num">01</div><h3>La Vie</h3><p>Les grandes étapes de ton parcours : enfance, jeunesse, rencontres, voyages, métiers, épreuves, victoires.</p></div>
+    <div class="chemin"><div class="num">02</div><h3>La Mémoire</h3><p>Les moments qui t'ont fait. Les voix, les visages, les odeurs. Sauvegardés en haute qualité, à vie.</p></div>
+    <div class="chemin"><div class="num">03</div><h3>La Transmission</h3><p>Ce que tu veux léguer. Tes valeurs, tes leçons, tes recettes. Reçus par ceux que tu choisis.</p></div>
+    <div class="chemin"><div class="num">04</div><h3>Le Bien-être</h3><p>Écrire ta vie soigne. Réflexologie, reiki, méditations à puiser dans ton propre récit.</p></div>
+    <div class="chemin"><div class="num">05</div><h3>La Passion</h3><p>Ce qui te fait vibrer aujourd'hui — musique, mer, sport, art, métier. Mis en lumière, partagé.</p></div>
+  </div>
 
-<footer><div class="wrap">
-<div class="brand-foot"><span>NAVLYS</span> Next Gen — Ta vie, racontée</div>
-<div class="meta-foot">Biographie vivante · Mémoire · Transmission</div>
-<div class="disclaimer">NAVLYS Next Gen est un service de biographie vivante à usage personnel et familial. Les contenus que tu déposes restent ta propriété. NAVLYS assure le stockage sécurisé et la transmission selon tes choix. Pas de revente de tes données. Pas de pub.<br><br>©2026 NAVLYS Next Gen par Bruno Mark Partouche</div>
-</div></footer>
+  <div class="cta-band">
+    <p class="eyebrow">Ouverture le 1er août 2026</p>
+    <h2>Ta vie mérite d'être gardée.</h2>
+    <div class="rule"></div>
+    <a href="/ecris-ta-vie">Écris ta vie →</a>
+  </div>
+</section>
+
+<footer>
+  <div class="brand-foot"><span>NAVLYS</span> Next Gen — Ta vie, racontée</div>
+  <div class="meta-foot">Biographie vivante · Mémoire · Transmission</div>
+  <div class="disc">NAVLYS Next Gen est un service de biographie vivante à usage personnel et familial, à vocation d'<b>éducation et de mémoire</b>. Les contenus que tu déposes restent ta propriété. NAVLYS assure le stockage sécurisé et la transmission selon tes choix. Pas de revente de tes données. Pas de pub. Chacun reste seul responsable de ses décisions.</div>
+  <div class="cz">NAVLYS WEB SERVICE LTD · N° 517373668 · 18+ · © 2026 NAVLYS — tous droits réservés</div>
+</footer>
+
+<a class="nv-wa2" href="https://wa.me/15559913239" target="_blank" rel="noopener" aria-label="Parler à NAVLYS sur WhatsApp" title="Parler à NAVLYS sur WhatsApp"><svg viewBox="0 0 24 24" fill="#25D366" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15l-1.4 5 5.1-1.3A10 10 0 1 0 12 2Zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.6-.6-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8 0-1.3.7-1.9 1-2.2.2-.2.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.4 0 .5l-.3.5c-.1.2-.3.3-.1.6.1.3.7 1.1 1.4 1.8.9.8 1.7 1 2 1.2.2.1.4.1.5-.1l.6-.7c.2-.2.3-.2.6-.1l1.8.9c.3.1.4.2.5.3.1.2.1.7-.1 1.3Z"/></svg></a>
 
 <script>
 var ENDPOINT='https://hhrlgyvtqluxpywjiwkd.supabase.co/functions/v1/inscription';
-// Compte à rebours -> 1er août 2026 00:00 (Paris, UTC+2)
 var TARGET = Date.parse('2026-08-01T00:00:00+02:00');
 function pad(n,l){return String(n).padStart(l||2,'0');}
 function tick(){
   var diff=Math.max(0,TARGET-Date.now());
   var d=Math.floor(diff/86400000),h=Math.floor((diff%86400000)/3600000),m=Math.floor((diff%3600000)/60000),s=Math.floor((diff%60000)/1000);
-  document.getElementById('cd-d').textContent=d;
-  document.getElementById('cd-h').textContent=pad(h);
-  document.getElementById('cd-m').textContent=pad(m);
-  document.getElementById('cd-s').textContent=pad(s);
+  var ed=document.getElementById('cd-d'),eh=document.getElementById('cd-h'),em=document.getElementById('cd-m'),es=document.getElementById('cd-s');
+  if(ed)ed.textContent=d; if(eh)eh.textContent=pad(h); if(em)em.textContent=pad(m); if(es)es.textContent=pad(s);
 }
 tick(); setInterval(tick,1000);
 
@@ -185,66 +202,15 @@ window.signEmail=function(e){
   var msg=document.getElementById('msg');
   if(document.getElementById('website').value){return;}
   var email=(document.getElementById('email').value||'').trim();
-  if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){msg.style.color='#ef7b7b';msg.textContent='Vérifie ton email.';return;}
+  if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){msg.style.color='#c0392b';msg.textContent='Vérifie ton email.';return;}
   msg.style.color='';msg.textContent='Envoi…';
   fetch(ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:email,source:'next-gen',interet:'NAVLYS Next Gen'})})
     .then(function(r){return r.json();}).then(function(d){
-      if(d&&d.ok){msg.style.color='#54d6a0';msg.textContent='✓ Ta place est réservée. À très vite.';document.getElementById('emailForm').reset();}
-      else{msg.style.color='#ef7b7b';msg.textContent=(d&&d.error)||'Réessaie dans un instant.';}
-    }).catch(function(){msg.style.color='#ef7b7b';msg.textContent='Connexion impossible. Réessaie.';});
+      if(d&&d.ok){msg.style.color='#1a7a4a';msg.textContent='✓ Ta place est réservée. À très vite.';document.getElementById('emailForm').reset();}
+      else{msg.style.color='#c0392b';msg.textContent=(d&&d.error)||'Réessaie dans un instant.';}
+    }).catch(function(){msg.style.color='#c0392b';msg.textContent='Connexion impossible. Réessaie.';});
 };
-
-// Animation neuronale ice-blue dans la carte (autonome, légère)
-(function(){
-  var c=document.getElementById('cardAnim'); if(!c) return;
-  var x=c.getContext('2d'), DPR=Math.min(window.devicePixelRatio||1,2), nodes=[], W=0, H=0;
-  function size(){var r=c.getBoundingClientRect();W=r.width;H=r.height;c.width=W*DPR;c.height=H*DPR;x.setTransform(DPR,0,0,DPR,0,0);build();}
-  function build(){nodes=[];var n=Math.max(18,Math.round(W/26));for(var i=0;i<n;i++){nodes.push({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.25,vy:(Math.random()-.5)*.25,ph:Math.random()*6.28});}}
-  function frame(t){
-    if(!W){requestAnimationFrame(frame);return;}
-    x.clearRect(0,0,W,H);x.globalCompositeOperation='lighter';
-    for(var i=0;i<nodes.length;i++){var a=nodes[i];a.x+=a.vx;a.y+=a.vy;if(a.x<0||a.x>W)a.vx*=-1;if(a.y<0||a.y>H)a.vy*=-1;}
-    x.lineWidth=.6;
-    for(var i=0;i<nodes.length;i++)for(var j=i+1;j<nodes.length;j++){var dx=nodes[i].x-nodes[j].x,dy=nodes[i].y-nodes[j].y,dd=dx*dx+dy*dy;if(dd<5200){x.beginPath();x.moveTo(nodes[i].x,nodes[i].y);x.lineTo(nodes[j].x,nodes[j].y);x.strokeStyle='rgba(125,211,252,'+(.10*(1-dd/5200))+')';x.stroke();}}
-    var s=t*.001;
-    for(var i=0;i<nodes.length;i++){var a=nodes[i],tw=.5+.5*Math.sin(s*3+a.ph);x.beginPath();x.arc(a.x,a.y,1.7,0,6.28);x.fillStyle='rgba(168,227,255,'+(.4+.5*tw)+')';x.shadowColor='rgba(125,211,252,.9)';x.shadowBlur=6;x.fill();x.shadowBlur=0;}
-    x.globalCompositeOperation='source-over';requestAnimationFrame(frame);
-  }
-  window.addEventListener('resize',size);size();requestAnimationFrame(frame);
-})();
-
-/* révélations au scroll — vanilla, sûr (échoue en montrant tout) */
-(function(){
-  try{
-    var els=document.querySelectorAll('.reveal');
-    if(!els.length)return;
-    var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    var i;
-    if(reduce||!('IntersectionObserver' in window)){
-      for(i=0;i<els.length;i++)els[i].classList.add('in');
-      return;
-    }
-    var obs=new IntersectionObserver(function(entries){
-      var d=0;
-      for(var k=0;k<entries.length;k++){
-        var e=entries[k];
-        if(e.isIntersecting){
-          e.target.style.animationDelay=(d*70)+'ms';
-          e.target.classList.add('in');
-          obs.unobserve(e.target);
-          d++;
-        }
-      }
-    },{threshold:0.12,rootMargin:'0px 0px -6% 0px'});
-    for(i=0;i<els.length;i++)obs.observe(els[i]);
-  }catch(err){
-    var all=document.querySelectorAll('.reveal');
-    for(var j=0;j<all.length;j++)all[j].classList.add('in');
-  }
-})();
 </script>
-<script src="/navlys-i18n.js" defer></script>
-<script src="/navlys-alive.js" defer></script>
-<script src="/navlys-bg.js" defer></script>
+<script src="/navlys-voix.js" defer></script>
 </body>
 </html>
