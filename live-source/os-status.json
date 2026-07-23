@@ -61,6 +61,6 @@
   "/depot"
  ],
  "qa": "green",
- "qa_maj": "2026-07-23 04:38 UTC",
- "qa_detail": "19/19 pages 200 · 45/45 liens/assets 200 · chat+voix+router OK · 0 fuite secret · fond video OK pages cles (accueil/legales = setup dedie gsap/alive)"
+ "qa_maj": "2026-07-23 08:38 UTC",
+ "qa_detail": "19/19 pages 200 · 47/47 liens+assets 200 · chat+voix(audio/mpeg)+router OK · 0 fuite secret · fond video OK sur pages themees (cine/labo/finance/mer); accueil+legales = hero gsap dedie"
 }
