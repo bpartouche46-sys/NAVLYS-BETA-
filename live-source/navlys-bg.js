@@ -4,6 +4,9 @@
   var LIST=['/videos/navlys-cine.mp4']; // extensible : plusieurs vidéos s'enchaînent
   function mount(){
     if(document.querySelector('.nv-bgvideo'))return;
+    // Si la page a déjà SA propre vidéo (hero/fond), ne pas superposer un 2e fond -> évite le clignotement
+    var own=document.querySelector('video');
+    if(own && !own.classList.contains('nv-bgvideo'))return;
     var v=document.createElement('video');
     v.className='nv-bgvideo';v.muted=true;v.defaultMuted=true;v.autoplay=true;v.playsInline=true;
     v.setAttribute('muted','');v.setAttribute('playsinline','');v.setAttribute('autoplay','');
