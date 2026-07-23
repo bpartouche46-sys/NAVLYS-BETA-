@@ -3,44 +3,51 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#f7f3ea">
 <title>La Mer de Bruno — Césarée · vagues & vents 3 jours</title>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Cormorant+Garamond:ital,wght@0,400;1,400&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
-<link rel="icon" type="image/svg+xml" href="/media/navlys_favicon.svg">
+<link rel="canonical" href="https://www.navlys.com/mer">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="/assets/coins/navlys-coin-core.png">
 <style>
-:root{--noir:#03040a;--ice:#7DD3FC;--ice-clair:#a8e3ff;--or:#C9A961;--or-pale:#f3e4c4;--perle:#e7eef2;--mut:#9fb3c8;--line:rgba(125,211,252,.18);--ok:#34d399;--warn:#fbbf24;--non:#fca5a5}
+:root{--creme:#f7f3ea;--encre:#1a2b4a;--encre2:#2c3e5c;--or:#c9a86a;--or2:#b8945a;--mut:#6b7683;--line:rgba(26,43,74,.12);--ok:#1a7f4b;--warn:#b7791f;--non:#c0392b}
 *{margin:0;padding:0;box-sizing:border-box}
-html{background:var(--noir)}
-body{background:var(--noir);color:var(--perle);font-family:'Atkinson Hyperlegible',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
-.wrap{max-width:760px;margin:0 auto;padding:34px 16px 90px}
-.k{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:var(--ice);text-align:center}
-h1{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:400;font-size:clamp(30px,8vw,46px);text-align:center;color:#eafaff;margin:8px 0 4px}
-.sub{text-align:center;color:var(--mut);font-size:.98rem;max-width:36em;margin:0 auto 22px;line-height:1.7}
-.regles{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:8px}
-.champ{background:rgba(6,8,16,.7);border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+html{background:var(--creme)}
+body{background:var(--creme);color:#26313f;font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+.nav{position:sticky;top:0;z-index:40;display:flex;align-items:center;gap:20px;padding:14px 26px;background:rgba(247,243,234,.85);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.nav .brand{font-family:'Playfair Display',serif;font-weight:700;letter-spacing:.18em;color:var(--encre);font-size:19px}
+.nav a{margin-left:auto;text-decoration:none;color:var(--encre2);font-size:14px;font-weight:500}.nav a+a{margin-left:18px}
+.wrap{max-width:760px;margin:0 auto;padding:40px 16px 90px}
+.k{font-family:'Inter',sans-serif;font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--or2);text-align:center;font-weight:600}
+h1{font-family:'Playfair Display',serif;font-style:italic;font-weight:600;font-size:clamp(30px,8vw,50px);text-align:center;color:var(--encre);margin:8px 0 6px}
+.rule{width:110px;height:2px;background:linear-gradient(90deg,var(--or),transparent);margin:0 auto 18px}
+.sub{text-align:center;color:var(--mut);font-size:1rem;max-width:38em;margin:0 auto 24px;line-height:1.7}
+.regles{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:8px}
+.champ{background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px 14px;box-shadow:0 6px 18px rgba(26,43,74,.05)}
 .champ label{display:block;font-size:.78rem;color:var(--mut);margin-bottom:5px;line-height:1.35}
-.champ input{width:100%;background:none;border:none;outline:none;color:var(--ice-clair);font-size:1.15rem;font-weight:700;font-variant-numeric:tabular-nums}
-.att{color:var(--mut);font-size:.85rem;margin-top:6px;text-align:center}
-.jour{margin-top:26px}
-.jour h2{font-family:'Cinzel',serif;font-weight:600;font-size:14px;letter-spacing:.16em;text-transform:uppercase;color:var(--or);display:flex;align-items:center;gap:12px;margin-bottom:6px}
+.champ input{width:100%;background:none;border:none;outline:none;color:var(--encre);font-size:1.2rem;font-weight:700;font-variant-numeric:tabular-nums}
+.att{color:var(--mut);font-size:.88rem;margin-top:8px;text-align:center}
+.jour{margin-top:28px}
+.jour h2{font-family:'Playfair Display',serif;font-weight:600;font-size:19px;color:var(--encre);display:flex;align-items:center;gap:12px;margin-bottom:8px}
 .jour h2::after{content:"";flex:1;height:1px;background:var(--line)}
 .best{font-size:.95rem;color:var(--ok);margin:4px 0 10px;font-weight:700}
 .best.no{color:var(--non)}
-.tbl{width:100%;border-collapse:collapse;font-size:.92rem}
-.tbl th{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ice);text-align:left;padding:8px 6px;border-bottom:1px solid var(--line);white-space:nowrap}
-.tbl td{padding:9px 6px;border-bottom:1px solid rgba(125,211,252,.08);font-variant-numeric:tabular-nums;white-space:nowrap}
-.v-ok{color:var(--ok);font-weight:700}
-.v-warn{color:var(--warn);font-weight:700}
-.v-non{color:var(--non);font-weight:700}
+.tbl{width:100%;border-collapse:collapse;font-size:.94rem;background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 8px 22px rgba(26,43,74,.05)}
+.tbl th{font-family:'Inter',sans-serif;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--or2);text-align:left;padding:10px 8px;border-bottom:1px solid var(--line);white-space:nowrap;font-weight:700}
+.tbl td{padding:10px 8px;border-bottom:1px solid rgba(26,43,74,.06);font-variant-numeric:tabular-nums;white-space:nowrap;color:#33414f}
+.v-ok{color:var(--ok);font-weight:700}.v-warn{color:var(--warn);font-weight:700}.v-non{color:var(--non);font-weight:700}
 .fl{display:inline-block;font-size:1.05rem}
 .scroll{overflow-x:auto}
-.disc{text-align:center;color:var(--mut);font-size:.85rem;margin-top:32px;line-height:1.75;max-width:40em;margin-left:auto;margin-right:auto}
+.disc{text-align:center;color:var(--mut);font-size:.86rem;margin-top:32px;line-height:1.75;max-width:40em;margin-left:auto;margin-right:auto;font-style:italic}
+.nv-wa2{position:fixed;left:18px;bottom:18px;width:54px;height:54px;border-radius:50%;background:#fff;border:1px solid var(--or);display:flex;align-items:center;justify-content:center;box-shadow:0 8px 22px rgba(26,43,74,.18);z-index:60}.nv-wa2 svg{width:28px;height:28px}
 </style>
 <script src="/vercel-speed-insights.js" defer></script>
 </head>
 <body>
+<nav class="nav"><span class="brand">NAVLYS</span><a href="/">Accueil</a><a href="/adhesion">Offres</a><a href="/essai">Essayer</a></nav>
 <div class="wrap">
   <div class="k">⚓ La mer de Bruno · Césarée · Méditerranée</div>
   <h1>Vagues &amp; vents — 3 jours</h1>
+  <div class="rule"></div>
   <p class="sub">Prévision marine en direct (Open-Meteo, point large de Césarée) pour ton catamaran de 4 × 2 m.
   Verdict par créneau selon TES seuils : ✅ tu sors · ⚠️ limite · ⛔ reste au port.</p>
 
@@ -114,7 +121,7 @@ h1{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:400;font
   function charger(){
     var uM='https://marine-api.open-meteo.com/v1/marine?latitude='+LAT+'&longitude='+LON+'&hourly=wave_height&timezone='+TZ+'&forecast_days=3';
     var uV='https://api.open-meteo.com/v1/forecast?latitude='+LAT+'&longitude='+LON+'&hourly=wind_speed_10m,wind_direction_10m,wind_gusts_10m&timezone='+TZ+'&forecast_days=3&wind_speed_unit=kmh';
-    function planB(){ /* relais interne NAVLYS si l'accès direct est bloqué */
+    function planB(){
       fetch('https://hhrlgyvtqluxpywjiwkd.supabase.co/functions/v1/mer')
         .then(function(r){return r.json();})
         .then(function(d){ if(d&&d.ok&&d.heures){ DATA={heures:d.heures}; rendre(); }
@@ -140,7 +147,6 @@ h1{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:400;font
   charger();
 })();
 </script>
-<script src="/navlys-alive.js" defer></script>
-<script src="/navlys-bg.js" defer></script>
+<a class="nv-wa2" href="https://wa.me/15559913239" target="_blank" rel="noopener" aria-label="WhatsApp NAVLYS" title="WhatsApp NAVLYS"><svg viewBox="0 0 24 24" fill="#25D366" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15l-1.4 5 5.1-1.3A10 10 0 1 0 12 2Zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.6-.6-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8 0-1.3.7-1.9 1-2.2.2-.2.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.4 0 .5l-.3.5c-.1.2-.3.3-.1.6.1.3.7 1.1 1.4 1.8.9.8 1.7 1 2 1.2.2.1.4.1.5-.1l.6-.7c.2-.2.3-.2.6-.1l1.8.9c.3.1.4.2.5.3.1.2.1.7-.1 1.3Z"/></svg></a>
 </body>
 </html>
