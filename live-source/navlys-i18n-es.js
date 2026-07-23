@@ -1,5 +1,5 @@
 /* NAVLYS_DICT_ES — généré par tools/make-dict.mjs (ne pas éditer à la main).
-   Couverture : 374/1612 clés (23.2 %). Le reste retombe sur le FR. */
+   Couverture : 375/1613 clés (23.2 %). Le reste retombe sur le FR. */
 window.NAVLYS_DICT_ES = {
   "Accueil": "Inicio",
   "Influenceurs": "Influencers",
@@ -32,6 +32,7 @@ window.NAVLYS_DICT_ES = {
   "Connexion difficile, réessaie dans un instant. 🌊": "Conexión difícil, inténtalo de nuevo en un momento. 🌊",
   "🔊 écouter": "🔊 escuchar",
   "🔊 réécouter": "🔊 volver a escuchar",
+  "⚠️ Voix générée par IA": "⚠️ Voz generada por IA",
   "Ouverture le 1er août": "Apertura el 1 de agosto",
   "· accès anticipé": "· acceso anticipado",
   "GRATUIT": "GRATIS",

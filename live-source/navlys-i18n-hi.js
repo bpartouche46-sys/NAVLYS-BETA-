@@ -1,5 +1,5 @@
 /* NAVLYS_DICT_HI — généré par tools/make-dict.mjs (ne pas éditer à la main).
-   Couverture : 373/1612 clés (23.1 %). Le reste retombe sur le FR. */
+   Couverture : 374/1613 clés (23.2 %). Le reste retombe sur le FR. */
 window.NAVLYS_DICT_HI = {
   "Accueil": "होम",
   "Influenceurs": "इन्फ़्लुएंसर",
@@ -32,6 +32,7 @@ window.NAVLYS_DICT_HI = {
   "Connexion difficile, réessaie dans un instant. 🌊": "कनेक्शन में दिक्कत है, थोड़ी देर में फिर कोशिश करो। 🌊",
   "🔊 écouter": "🔊 सुनो",
   "🔊 réécouter": "🔊 फिर से सुनो",
+  "⚠️ Voix générée par IA": "⚠️ एआई-जनित आवाज़",
   "Ouverture le 1er août": "1 अगस्त को शुरुआत",
   "· accès anticipé": "· जल्दी पहुँच",
   "GRATUIT": "मुफ़्त",

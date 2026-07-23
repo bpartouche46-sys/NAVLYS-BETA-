@@ -1,5 +1,5 @@
 /* NAVLYS_DICT_ZH — généré par tools/make-dict.mjs (ne pas éditer à la main).
-   Couverture : 373/1612 clés (23.1 %). Le reste retombe sur le FR. */
+   Couverture : 374/1613 clés (23.2 %). Le reste retombe sur le FR. */
 window.NAVLYS_DICT_ZH = {
   "Accueil": "首页",
   "Influenceurs": "网红",
@@ -32,6 +32,7 @@ window.NAVLYS_DICT_ZH = {
   "Connexion difficile, réessaie dans un instant. 🌊": "连接有点问题，请稍后再试。🌊",
   "🔊 écouter": "🔊 收听",
   "🔊 réécouter": "🔊 重新收听",
+  "⚠️ Voix générée par IA": "⚠️ AI 生成的语音",
   "Ouverture le 1er août": "8月1日开放",
   "· accès anticipé": "· 抢先体验",
   "GRATUIT": "免费",

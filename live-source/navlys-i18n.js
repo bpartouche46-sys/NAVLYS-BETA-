@@ -70,6 +70,7 @@
     "Connexion difficile, réessaie dans un instant. 🌊": "Connection trouble, try again in a moment. 🌊",
     "🔊 écouter": "🔊 listen",
     "🔊 réécouter": "🔊 replay",
+    "⚠️ Voix générée par IA": "⚠️ AI-generated voice",
 
     /* ---- chrome : compte à rebours ---- */
     "Ouverture le 1er août": "Opening August 1st",
@@ -1739,6 +1740,7 @@
 "Связь неустойчива, попробуй ещё раз через мгновение. 🌊",
 "🔊 слушать",
 "🔊 послушать снова",
+"⚠️ Голос сгенерирован ИИ",
 "Запуск 1 августа",
 "· ранний доступ",
 "БЕСПЛАТНО",

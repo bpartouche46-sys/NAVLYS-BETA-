@@ -31,6 +31,7 @@ window.NAVLYS_DICT_AR = {
 "Connexion difficile, réessaie dans un instant. 🌊": "الاتصال متعثّر، حاول مجددًا بعد لحظة. 🌊",
 "🔊 écouter": "🔊 استمع",
 "🔊 réécouter": "🔊 أعد الاستماع",
+"⚠️ Voix générée par IA": "⚠️ صوت مُولّد بالذكاء الاصطناعي",
 "Ouverture le 1er août": "الافتتاح في 1 أغسطس",
 "· accès anticipé": "· وصول مبكر",
 "GRATUIT": "مجاني",

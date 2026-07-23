@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#02040a">
+<title>NAVLYS OS — Control Center</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" type="image/png" href="/assets/coins/navlys-coin-core.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/navlys-ui.css">
+<style>
+.osw{max-width:1080px;margin:0 auto;padding:74px 18px 70px}
+.osh{text-align:center;margin-bottom:8px}
+.osh .k{font-family:'Cinzel',serif;letter-spacing:.2em;text-transform:uppercase;font-size:12px;color:var(--ice)}
+.osh h1{font-family:'Cinzel',serif;font-weight:600;font-size:clamp(26px,5vw,44px);color:var(--perle);margin:.2em 0 0}
+.osh h1 em{color:var(--or);font-style:normal}
+.osh .maj{color:var(--brume);font-style:italic;font-size:14px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px;margin-top:22px}
+.card{background:rgba(8,11,22,.66);border:1px solid rgba(233,211,160,.2);border-radius:16px;padding:18px 20px;backdrop-filter:blur(8px)}
+.card h2{font-family:'Cinzel',serif;font-size:14px;letter-spacing:.08em;color:var(--or);margin:0 0 10px;display:flex;align-items:center;gap:8px}
+.card ul{margin:0;padding-left:18px}
+.card li{font-family:'Cormorant Garamond',serif;font-size:16.5px;line-height:1.5;color:var(--perle);margin-bottom:6px}
+.card li.blk{color:#ff9a9a}.card li.ok{color:#8fe3b0}
+.deci{background:linear-gradient(120deg,rgba(201,150,47,.18),rgba(125,211,252,.12));border-color:rgba(233,211,160,.5)}
+.pill{display:inline-block;font-size:12px;color:var(--ice);border:1px solid rgba(125,211,252,.3);border-radius:999px;padding:3px 10px;margin:3px 4px 0 0;font-family:'Cinzel',serif;letter-spacing:.06em}
+.agents .a{border-bottom:1px solid rgba(233,211,160,.12);padding:8px 0}
+.agents .r{font-family:'Cinzel',serif;font-size:13px;color:var(--perle)}
+.agents .c{font-family:'Cormorant Garamond',serif;font-size:15px;color:var(--brume)}
+.stat{display:flex;gap:18px;flex-wrap:wrap;justify-content:center;margin-top:14px}
+.stat .s{text-align:center}.stat .n{font-family:'Cinzel',serif;font-size:26px;color:var(--or)}.stat .l{font-size:12px;color:var(--brume);text-transform:uppercase;letter-spacing:.1em}
+.osfoot{text-align:center;color:var(--brume);font-size:12px;font-style:italic;margin-top:28px}
+a.dl{color:var(--ice)}
+</style>
+</head>
+<body>
+<script>(function(){try{if('serviceWorker' in navigator){navigator.serviceWorker.getRegistrations().then(function(rs){rs.forEach(function(r){r.unregister();});});}}catch(e){}})();</script>
+<nav class="nv-nav" aria-label="navigation"><a href="/">accueil</a><a href="/labo">lab</a><a href="/cine">cinéma</a><a href="/depot">dépôt</a></nav>
+<div class="osw">
+  <div class="osh">
+    <p class="k">NAVLYS OS · centre de commandement</p>
+    <h1>le <em>Control Center</em></h1>
+    <p class="maj" id="maj">chargement…</p>
+  </div>
+  <div class="stat" id="stat"></div>
+  <div class="grid">
+    <div class="card deci"><h2>🎯 1 décision à prendre</h2><div id="deci" style="font-family:'Cormorant Garamond',serif;font-size:17px;color:var(--perle)">…</div></div>
+    <div class="card"><h2>📌 Priorités du jour</h2><ul id="prio"></ul></div>
+    <div class="card"><h2>🚧 Blocages</h2><ul id="blk"></ul></div>
+    <div class="card"><h2>✅ Fait</h2><ul id="fait"></ul></div>
+    <div class="card agents"><h2>🤖 Les agents (pôles)</h2><div id="agents"></div></div>
+    <div class="card"><h2>💻 Pages live</h2><div id="pages"></div></div>
+  </div>
+  <p class="osfoot">Mémoire vivante partagée : <a class="dl" href="/depot">navlys.com/depot</a>. Rafraîchi automatiquement par le CORE. © 2026 NAVLYS.</p>
+</div>
+<script>
+fetch('/os-status.json?cb='+Date.now()).then(function(r){return r.json();}).then(function(d){
+  document.getElementById('maj').textContent='Mission : '+(d.mission||'')+' · maj '+(d.maj||'');
+  var stat=document.getElementById('stat');
+  [['dépôts',d.depots_total],['outils créa',d.outils_gen],['pages live',(d.pages_live||[]).length],['cycles 10/10','24/7']].forEach(function(x){
+    var s=document.createElement('div');s.className='s';s.innerHTML='<div class="n">'+(x[1]!=null?x[1]:'—')+'</div><div class="l">'+x[0]+'</div>';stat.appendChild(s);});
+  document.getElementById('deci').textContent=d.decision||'—';
+  function fill(id,arr,cls){var u=document.getElementById(id);(arr||[]).forEach(function(t){var li=document.createElement('li');if(cls)li.className=cls;li.textContent=t;u.appendChild(li);});}
+  fill('prio',d.priorites);fill('blk',d.blocages,'blk');fill('fait',d.fait,'ok');
+  var ag=document.getElementById('agents');(d.agents||[]).forEach(function(a){var el=document.createElement('div');el.className='a';el.innerHTML='<div class="r">'+a.role+'</div><div class="c">'+a.charge+'</div>';ag.appendChild(el);});
+  var pg=document.getElementById('pages');(d.pages_live||[]).forEach(function(p){var s=document.createElement('a');s.className='pill';s.href=p;s.textContent=p;pg.appendChild(s);});
+}).catch(function(){document.getElementById('maj').textContent='statut indisponible';});
+</script>
+</body>
+</html>

@@ -70,6 +70,7 @@ footer{margin-top:60px;padding:34px 0 40px;border-top:1px solid var(--ligne);tex
 .rev{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease}.rev.in{opacity:1;transform:none}
 @media(prefers-reduced-motion:reduce){.rev{opacity:1;transform:none}*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
 </style>
+<script src="/vercel-speed-insights.js" defer></script>
 </head>
 <body>
 <div class="bg"></div>
@@ -138,7 +139,7 @@ footer{margin-top:60px;padding:34px 0 40px;border-top:1px solid var(--ligne);tex
     <div class="linkbox">
       <input id="shareLink" type="text" readonly value="https://navlys.com/?ref=NOM">
       <button class="btn p" id="copyBtn" type="button" data-i18n="copy_btn">Copier</button>
-      <a class="btn wa" id="waBtn" href="https://wa.me/15559913239?text=Bonjour%20NAVLYS%2C%20je%20veux%20devenir%20ambassadeur" target="_blank" rel="noopener" data-i18n="wa_btn">WhatsApp</a>
+      <a class="btn wa" id="waBtn" href="https://wa.me/33756833469?text=Bonjour%20NAVLYS%2C%20je%20veux%20devenir%20ambassadeur" target="_blank" rel="noopener" data-i18n="wa_btn">WhatsApp</a>
     </div>
     <p class="hint" data-i18n="share_hint">En partageant, tu acceptes les conditions du programme d'affiliation NAVLYS.</p>
   </section>
@@ -159,7 +160,7 @@ footer{margin-top:60px;padding:34px 0 40px;border-top:1px solid var(--ligne);tex
   <footer>
     <div class="fl">
       <a href="index.html" data-i18n="foot_home">← Accueil</a>
-      <a href="mentions-legales.html" data-i18n="foot_ml">Mentions légales</a>
+      <a href="conditions.html" data-i18n="foot_ml">Mentions légales</a>
       <a href="cgv.html" data-i18n="foot_cgv">CGV</a>
       <a href="confidentialite.html" data-i18n="foot_conf">Confidentialité</a>
     </div>
@@ -194,7 +195,7 @@ function applyLang(l){
 document.getElementById('lang').addEventListener('click',function(e){ var b=e.target.closest('button'); if(b) applyLang(b.getAttribute('data-l')); });
 function slugify(s){ return (s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-zA-Z0-9]/g,''); }
 function shareUrl(){ var n=slugify(document.getElementById('firstName').value); return 'https://navlys.com/?ref='+(n||'NOM'); }
-function waText(){ var t={fr:"Bonjour NAVLYS, je veux devenir ambassadeur",en:"Hello NAVLYS, I want to become an ambassador",es:"Hola NAVLYS, quiero ser embajador",it:"Ciao NAVLYS, voglio diventare ambasciatore"}; return 'https://wa.me/15559913239?text='+encodeURIComponent(t[curLang]||t.fr); }
+function waText(){ var t={fr:"Bonjour NAVLYS, je veux devenir ambassadeur",en:"Hello NAVLYS, I want to become an ambassador",es:"Hola NAVLYS, quiero ser embajador",it:"Ciao NAVLYS, voglio diventare ambasciatore"}; return 'https://wa.me/33756833469?text='+encodeURIComponent(t[curLang]||t.fr); }
 function updateLink(){ document.getElementById('shareLink').value=shareUrl(); document.getElementById('waBtn').href=waText(); }
 var firstName=document.getElementById('firstName');
 firstName.addEventListener('input',function(){ try{ localStorage.setItem('navlys_ref_name', firstName.value); }catch(e){} updateLink(); });
