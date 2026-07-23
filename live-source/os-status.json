@@ -61,6 +61,6 @@
     "/depot"
   ],
   "qa": "green",
-  "qa_maj": "2026-07-23 21:37 UTC",
-  "qa_detail": "19/19 pages 200 · 41/41 liens internes 200 · chat(ok:true)+voix(audio/mpeg)+router(ok) OK sur host Supabase · 0 fuite reelle (sk- = faux positif, aucun service_role/token/cle) · fond video navlys-bg.js OK sur pages statiques, autres pages SPA (fond injecte au runtime) — non bloquant."
+  "qa_maj": "2026-07-23 22:38 UTC",
+  "qa_detail": "19/19 pages 200 · 41/41 liens internes 200 · chat(ok:true)+voix(audio/mpeg)+router(ok) OK host Supabase · 0 fuite reelle (sk- = CSS mask-image, aucun service_role/token/cle) · fond video navlys-bg.js OK pages statiques ; pages SPA = fond injecte au runtime (non bloquant)."
 }
