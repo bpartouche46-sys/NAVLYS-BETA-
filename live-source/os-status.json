@@ -61,6 +61,6 @@
     "/depot"
   ],
   "qa": "green",
-  "qa_maj": "2026-07-23 16:38 UTC",
-  "qa_detail": "19/19 pages 200, 41/41 liens internes 200, 0 fuite de secret, chat/voix/router OK. Obs: navlys-bg.js absent du HTML brut de /, /experience, /os (present sur /finance) — a verifier visuellement (rendu JS)."
+  "qa_maj": "2026-07-23 17:38 UTC",
+  "qa_detail": "19/19 pages 200, 42/42 liens internes 200, 0 fuite reelle (sk- faux positif, JWT expose = cle anon publique normale), chat+voix(audio/mpeg)+router OK. Obs non bloquante: navlys-bg.js absent du HTML de /, /experience, /os (fonds alternatifs: <video> /experience, img.bg /)."
 }
