@@ -3,45 +3,74 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#02040a">
-<title>Le Journal NAVLYS — nouveautes, articles et histoires, chaque jour</title>
-<meta name="description" content="Le Journal NAVLYS : chaque jour, de nouvelles idees, des articles pedagogiques d education et de veille, des nouveautes produit et des histoires. L IA la plus simple du monde, a la voix.">
+<meta name="theme-color" content="#f7f3ea">
+<title>Le Journal NAVLYS — nouveautés, articles et histoires, chaque jour</title>
+<meta name="description" content="Le Journal NAVLYS : chaque jour, de nouvelles idées, des articles pédagogiques d'éducation et de veille, des nouveautés produit et des histoires. L'IA la plus simple du monde, à la voix.">
 <meta name="robots" content="index,follow,max-snippet:-1">
 <link rel="canonical" href="https://www.navlys.com/journal">
+<link rel="alternate" hreflang="fr" href="https://www.navlys.com/journal">
+<link rel="alternate" hreflang="x-default" href="https://www.navlys.com/journal">
+<meta property="og:title" content="Le Journal NAVLYS — nouveautés, articles et histoires">
+<meta property="og:description" content="Chaque jour, des idées, des nouveautés et des histoires. Éducation et veille, à la voix.">
+<meta property="og:url" content="https://www.navlys.com/journal">
+<meta property="og:image" content="https://www.navlys.com/assets/hero-yacht.jpg">
+<meta property="og:type" content="website">
 <link rel="icon" type="image/png" href="/assets/coins/navlys-coin-core.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/navlys-ui.css">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Blog","@id":"https://www.navlys.com/journal#blog","name":"Le Journal NAVLYS","url":"https://www.navlys.com/journal","description":"Chaque jour, des idées, des articles pédagogiques d'éducation et de veille, des nouveautés et des histoires.","inLanguage":"fr","publisher":{"@type":"Organization","name":"NAVLYS","@id":"https://www.navlys.com/#organization","url":"https://www.navlys.com/","logo":"https://www.navlys.com/assets/coins/navlys-coin-core.png"}}
+</script>
 <style>
-.jw{max-width:820px;margin:0 auto;padding:84px 20px 70px}
-.jhead{text-align:center;margin-bottom:34px}
-.jhead .k{font-family:'Cinzel',serif;letter-spacing:.22em;text-transform:uppercase;font-size:12px;color:var(--ice)}
-.jhead h1{font-family:'Cinzel',serif;font-weight:600;font-size:clamp(30px,6vw,52px);color:var(--perle);margin:.25em 0 .1em}
-.jhead h1 em{color:var(--or);font-style:normal}
-.jhead p{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:20px;color:var(--perle);opacity:.9}
-#entries{display:flex;flex-direction:column;gap:18px}
-.jc{background:rgba(8,11,22,.55);border:1px solid rgba(233,211,160,.18);border-radius:18px;padding:24px 24px 20px;animation:jf .6s ease}
+:root{--creme:#f7f3ea;--creme2:#efe8da;--encre:#1a2b4a;--encre2:#2c3e5c;--or:#c9a86a;--or2:#b8945a;--gris:#5b6b7a;}
+*{box-sizing:border-box}
+body{margin:0;background:var(--creme);color:#26313f;font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+h1,h2,h3,.serif{font-family:'Playfair Display',Georgia,serif}
+a{color:inherit}
+.nav{position:sticky;top:0;z-index:40;display:flex;align-items:center;gap:22px;padding:14px 26px;background:rgba(247,243,234,.82);backdrop-filter:blur(10px);border-bottom:1px solid rgba(26,43,74,.08)}
+.nav .brand{font-family:'Playfair Display',serif;font-weight:700;letter-spacing:.18em;color:var(--encre);font-size:20px;text-decoration:none}
+.nav a.lk{margin-left:auto;text-decoration:none;color:var(--encre2);font-size:14px;font-weight:500}
+.nav a.lk+a.lk{margin-left:20px}
+.nav .cta{background:var(--encre);color:#fff;padding:9px 16px;border-radius:999px;text-decoration:none;font-size:14px;font-weight:500}
+.jw{max-width:820px;margin:0 auto;padding:70px 22px 70px}
+.jhead{text-align:center;margin-bottom:40px}
+.jhead .k{font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:var(--or2);font-weight:600}
+.jhead h1{font-size:clamp(34px,7vw,60px);color:var(--encre);margin:.18em 0 .12em;font-weight:700;line-height:1.02}
+.jhead h1 em{color:var(--or2);font-style:normal}
+.rule{width:120px;height:2px;background:linear-gradient(90deg,var(--or),transparent);margin:14px auto 0}
+.jhead p.lead{font-family:'Playfair Display',serif;font-style:italic;font-size:clamp(19px,3vw,26px);color:var(--encre2);max-width:600px;margin:18px auto 0}
+#entries{display:flex;flex-direction:column;gap:20px}
+.jc{background:#fff;border:1px solid rgba(26,43,74,.09);border-radius:18px;padding:26px 26px 22px;box-shadow:0 10px 30px rgba(26,43,74,.05);animation:jf .6s ease}
 @keyframes jf{from{opacity:0;transform:translateY(10px)}to{opacity:1}}
-.jm{display:flex;align-items:center;gap:12px;margin-bottom:10px}
-.jb{font-family:'Cinzel',serif;letter-spacing:.12em;text-transform:uppercase;font-size:10px;color:#0a0803;background:linear-gradient(100deg,#c9962f,#ffd77a);padding:4px 10px;border-radius:999px}
-.jm time{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ice)}
-.jc h2{font-family:'Cinzel',serif;font-weight:600;font-size:clamp(20px,3.4vw,26px);color:var(--or);margin:.1em 0 .35em;line-height:1.15}
-.jc p{font-family:'Cormorant Garamond',serif;font-size:clamp(18px,2.6vw,21px);line-height:1.55;color:#f4ecdb;white-space:pre-wrap}
-.jcta{text-align:center;margin-top:38px}
-.jfoot{margin-top:40px;text-align:center;color:var(--brume);font-size:12px;font-style:italic;max-width:640px;margin-left:auto;margin-right:auto}
+.jm{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.jb{font-family:'Inter',sans-serif;font-weight:600;letter-spacing:.1em;text-transform:uppercase;font-size:10px;color:#3a2c08;background:linear-gradient(100deg,var(--or),#e6c98a);padding:5px 11px;border-radius:999px}
+.jm time{font-weight:500;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--gris)}
+.jc h2{font-family:'Playfair Display',serif;font-weight:600;font-size:clamp(21px,3.4vw,28px);color:var(--encre);margin:.1em 0 .4em;line-height:1.18}
+.jc p{font-size:clamp(16px,2.4vw,18.5px);line-height:1.62;color:#3a4859;white-space:pre-wrap}
+.jcta{text-align:center;margin-top:44px}
+.jcta a{display:inline-block;text-decoration:none;font-weight:600;font-size:15px;border-radius:999px;padding:14px 28px;background:var(--encre);color:#fff}
+.jfoot{margin-top:44px;text-align:center;color:var(--gris);font-size:12.5px;font-style:italic;max-width:680px;margin-left:auto;margin-right:auto;line-height:1.6;border-top:1px solid rgba(26,43,74,.08);padding-top:26px}
+.nv-wa2{position:fixed;left:18px;bottom:18px;width:54px;height:54px;border-radius:50%;background:#fff;border:1px solid var(--or);display:flex;align-items:center;justify-content:center;box-shadow:0 8px 22px rgba(26,43,74,.18);z-index:60}
+.nv-wa2 svg{width:28px;height:28px}
 </style>
 </head>
 <body>
 <script>(function(){try{if('serviceWorker' in navigator){navigator.serviceWorker.getRegistrations().then(function(rs){rs.forEach(function(r){r.unregister();});});}}catch(e){}})();</script>
-<nav class="nv-nav" aria-label="navigation"><a href="/">accueil</a><a href="/essai">essaie</a><a href="/#tarifs">tarifs</a><a href="/adhesion">entrer</a></nav>
+<nav class="nav">
+  <a class="brand" href="/">NAVLYS</a>
+  <a class="lk" href="/essai">Essayer</a>
+  <a class="lk" href="/adhesion">Offres</a>
+  <a class="cta" href="/adhesion">Monter à bord</a>
+</nav>
 <div class="jw">
   <div class="jhead">
     <p class="k">nouveau chaque jour</p>
     <h1>le <em>Journal</em> NAVLYS</h1>
-    <p>des idees, des nouveautes et des histoires — au moins trois par jour.</p>
+    <div class="rule"></div>
+    <p class="lead">Des idées, des nouveautés et des histoires — au moins trois par jour.</p>
   </div>
   <div id="entries">
-    <article class="jc" data-cat="journal-ia"><div class="jm"><span class="jb">Journal IA</span><time>23 juillet 2026</time></div><h2>Parler plutôt que taper : l&#x27;IA vocale libère ceux qui ont horreur du clavier</h2><p>Tu as une excellente idée mais l&#x27;idée de te mettre devant un écran te donne des sueurs froides ? L&#x27;IA à la voix change la donne. Plus besoin de maîtriser le clavier ou l&#x27;orthographe : tu parles simplement, comme tu le ferais au téléphone. Ça fonctionne pour envoyer un message, chercher une info, ou même créer du contenu. Ceux qui souffrent de dyslexie, de fatigue à l&#x27;écran ou qui préfèrent juste communiquer naturellement trouvent enfin une porte d&#x27;entrée au numérique sans stress. C&#x27;est une belle nouvelle parce que ça rappelle une vérité simple : la technologie devrait s&#x27;adapter à toi, pas l&#x27;inverse.</p></article>
+<article class="jc" data-cat="journal-ia"><div class="jm"><span class="jb">Journal IA</span><time>23 juillet 2026</time></div><h2>Parler plutôt que taper : l&#x27;IA vocale libère ceux qui ont horreur du clavier</h2><p>Tu as une excellente idée mais l&#x27;idée de te mettre devant un écran te donne des sueurs froides ? L&#x27;IA à la voix change la donne. Plus besoin de maîtriser le clavier ou l&#x27;orthographe : tu parles simplement, comme tu le ferais au téléphone. Ça fonctionne pour envoyer un message, chercher une info, ou même créer du contenu. Ceux qui souffrent de dyslexie, de fatigue à l&#x27;écran ou qui préfèrent juste communiquer naturellement trouvent enfin une porte d&#x27;entrée au numérique sans stress. C&#x27;est une belle nouvelle parce que ça rappelle une vérité simple : la technologie devrait s&#x27;adapter à toi, pas l&#x27;inverse.</p></article>
     <article class="jc" data-cat="quoi-neuf"><div class="jm"><span class="jb">Quoi de neuf</span><time>23 juillet 2026</time></div><h2>Le Journal NAVLYS s&#x27;actualise chaque jour, rien que pour toi</h2><p>À partir d&#x27;aujourd&#x27;hui, tu retrouves chaque matin des idées fraîches, des nouveautés et des histoires inspirantes directement dans ton Journal. Tout est écrit simplement pour que tu comprennes d&#x27;un coup, et tu peux tout écouter à la voix si tu préfères. Voilà comment rester curieux sans te surcharger : juste l&#x27;essentiel, mis à jour, et toujours à portée de main.</p></article>
     <article class="jc" data-cat="histoire-soir"><div class="jm"><span class="jb">Histoire du soir</span><time>23 juillet 2026</time></div><h2>Le Secret du Vieux Pêcheur</h2><p>Chaque soir, un vieux pêcheur s&#x27;endort en regardant le soleil rougir la Méditerranée. Un jour, son petit-fils lui demande : « Pourquoi tu ne jettes plus tes filets ? » Le pêcheur sourit et montre l&#x27;horizon : « Regarde comme c&#x27;est beau maintenant. Plus je vieillis, plus je comprends que certains moments, on les garde juste pour les yeux. » Le petit-fils s&#x27;assoit près de lui, et tous deux restent silencieux, écoutant les vagues bercer le jour qui s&#x27;éteint. À cet instant, l&#x27;enfant comprit quelque chose qu&#x27;on ne peut pas attraper avec un filet : la richesse de simplement être là. Et quand la dernière lumière disparut, il serra la main de son grand-père, réchauffée par le soleil.</p></article>
 <article class="jc" data-cat="Journal IA"><div class="jm"><span class="jb">Journal IA</span><time>22 juillet 2026</time></div><h2>Raconte ta famille à haute voix : l&#x27;histoire de tes ancêtres sans effort</h2><p>Tu veux connaître l&#x27;histoire de ta famille mais les arbres généalogiques te donnent le tournis ? Avec NAVLYS à la voix, c&#x27;est simple : tu parles, et ça s&#x27;organise tout seul. Imagine pouvoir raconter ce que grand-mère t&#x27;a confié, ce que tu sais de tes ancêtres, juste en parlant naturellement. La voix transforme tes souvenirs en histoire structurée, sans clics ni formulaires compliqués. Tu peux retrouver les connexions entre les générations, les dates, les lieux, juste par la conversation. C&#x27;est comme avoir quelqu&#x27;un qui écoute vraiment et qui note tout pour toi. Ta généalogie devient accessible, vivante, et surtout... à ta portée.</p></article>
@@ -61,12 +90,11 @@
       <div class="jm"><span class="jb">Histoire du soir</span><time>21 July 2026</time></div>
       <h2>Le Phare Veille</h2>
       <p>Depuis des années, le vieux phare dressait sa silhouette blanche sur la falaise, gardien fidèle de la mer. Ce soir-là, un petit bateau de pêche fendait les vagues doucement, ses voiles fatiguées par une longue journée. Le phare tourna lentement, et sa lumière douce balaya l&#x27;obscurité, guidant le bateau vers le port comme une mère appelle son enfant. Le marin sourit en voyant ce rayon chaleureux, car il savait qu&#x27;il rentrait enfin à la maison. En arrivant au port endormi, il entendit le bruit rassurant de la chaîne de l&#x27;ancre et regarda une dernière fois le phare qui continuait sa ronde infatigable. Merci mon ami lumineux, murmura-t-il, avant de s&#x27;endormir sous les étoiles.</p>
-    </article>
-  </div>
-  <div class="jcta"><a class="nv-cta" href="/essai">essayer NAVLYS maintenant</a></div>
-  <p class="jfoot">NAVLYS — projet d'education et de veille a vocation informative. Jamais un conseil personnalise ni une promesse de gains. &copy; 2026 NAVLYS — tous droits reserves.</p>
+    </article>  </div>
+  <div class="jcta"><a href="/essai">Essayer NAVLYS maintenant →</a></div>
+  <p class="jfoot">NAVLYS est un projet d'éducation et de veille à vocation informative — jamais un conseil personnalisé ni une promesse de gains. Chacun reste seul responsable de ses décisions. © 2026 NAVLYS — tous droits réservés.</p>
 </div>
+<a class="nv-wa2" href="https://wa.me/15559913239" target="_blank" rel="noopener" aria-label="Parler à NAVLYS sur WhatsApp" title="Parler à NAVLYS sur WhatsApp"><svg viewBox="0 0 24 24" fill="#25D366" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15l-1.4 5 5.1-1.3A10 10 0 1 0 12 2Zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.6-.6-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8 0-1.3.7-1.9 1-2.2.2-.2.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.4 0 .5l-.3.5c-.1.2-.3.3-.1.6.1.3.7 1.1 1.4 1.8.9.8 1.7 1 2 1.2.2.1.4.1.5-.1l.6-.7c.2-.2.3-.2.6-.1l1.8.9c.3.1.4.2.5.3.1.2.1.7-.1 1.3Z"/></svg></a>
 <script src="/navlys-voix.js" defer></script>
-<script src="/navlys-bg.js" defer></script>
 </body>
 </html>
