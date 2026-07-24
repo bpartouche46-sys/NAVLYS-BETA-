@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#f7f3ea">
+<title>NAVLYS — le film · tu parles, elle fait</title>
+<meta name="description" content="Le film NAVLYS en 30 secondes : une phrase dite à voix haute, un résultat réel. L'IA la plus simple du monde, à la voix — lancement le 1er août 2026.">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://www.navlys.com/teaser">
+<link rel="icon" type="image/png" href="/assets/coins/navlys-coin-core.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ——— NAVLYS · LE FILM (30 s) — charte crème/encre/or, 100 % autonome, zéro dépendance ——— */
+:root{--creme:#f7f3ea;--creme2:#efe8da;--encre:#1a2b4a;--encre2:#2c3e5c;--or:#c9a86a;--or2:#b8945a;--bronze:#a87f45;--gris:#5b6b7a}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{background:var(--creme);color:var(--encre);font-family:'Inter',system-ui,sans-serif;overflow:hidden;-webkit-font-smoothing:antialiased}
+.serif{font-family:'Playfair Display',Georgia,serif}
+#scene{position:fixed;inset:0;display:flex;align-items:center;justify-content:center}
+/* grain + vignette douce = texture cinéma sans image externe */
+#scene::before{content:"";position:absolute;inset:0;pointer-events:none;z-index:50;
+  background:radial-gradient(120% 90% at 50% 45%,transparent 55%,rgba(26,43,74,.10));}
+#scene::after{content:"";position:absolute;inset:-50%;pointer-events:none;z-index:51;opacity:.05;
+  background-image:repeating-conic-gradient(rgba(26,43,74,.6) 0% .0001%,transparent .0002% .0004%);
+  animation:grain .6s steps(4) infinite}
+@keyframes grain{50%{transform:translate(1.5%,-1%)}}
+/* filet or de respiration en bas */
+.filet{position:fixed;left:50%;bottom:8vh;transform:translateX(-50%);width:110px;height:2px;z-index:40;
+  background:linear-gradient(90deg,transparent,var(--or),transparent);opacity:0;animation:filetIn 1.6s ease 1s forwards}
+@keyframes filetIn{to{opacity:.9}}
+/* ————— ACTES : chacun apparaît/disparaît par animation-delay ————— */
+.acte{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:6vh 8vw;opacity:0;visibility:hidden}
+/* ACTE 1 · 0.8s → 7s : la question */
+#a1{animation:acte 6.4s ease .6s both}
+#a1 .l1{font-size:clamp(26px,4.4vw,56px);font-weight:500;font-style:italic;color:var(--encre2);
+  opacity:0;animation:rise 1.4s cubic-bezier(.22,1,.36,1) 1s forwards}
+#a1 .l2{margin-top:2.4vh;font-size:clamp(30px,5.2vw,66px);font-weight:700;color:var(--encre);
+  opacity:0;animation:rise 1.4s cubic-bezier(.22,1,.36,1) 2.4s forwards}
+#a1 .l2 em{font-style:normal;color:var(--or2)}
+/* ACTE 2 · 7.4s → 15.6s : une phrase DITE — karaoké mot à mot (accessibilité) */
+#a2{animation:acte 8.4s ease 7.2s both}
+#a2 .qui{font-size:12.5px;letter-spacing:.32em;text-transform:uppercase;color:var(--or2);font-weight:600;margin-bottom:3.2vh;
+  opacity:0;animation:fade .9s ease 7.8s forwards}
+.bulle{position:relative;max-width:820px;background:#fffdf8;border:1px solid rgba(26,43,74,.10);border-radius:26px;
+  padding:4.2vh 4.8vw;box-shadow:0 24px 60px rgba(26,43,74,.10);
+  opacity:0;transform:translateY(22px) scale(.97);animation:pop 1s cubic-bezier(.22,1,.36,1) 8s forwards}
+.bulle::after{content:"";position:absolute;left:50%;bottom:-11px;width:22px;height:22px;background:#fffdf8;
+  border-right:1px solid rgba(26,43,74,.10);border-bottom:1px solid rgba(26,43,74,.10);transform:translateX(-50%) rotate(45deg)}
+.mots{font-family:'Playfair Display',serif;font-size:clamp(22px,3.6vw,42px);font-weight:600;line-height:1.5;color:rgba(26,43,74,.16)}
+.mots span{opacity:.22;transition:none;animation:dit .5s ease forwards}
+@keyframes dit{to{opacity:1;color:var(--encre)}}
+.mots span.or{animation-name:ditor}
+@keyframes ditor{to{opacity:1;color:var(--or2)}}
+/* chaque mot prend vie à son tour, comme prononcé */
+.mots span:nth-child(1){animation-delay:8.7s}.mots span:nth-child(2){animation-delay:9.05s}
+.mots span:nth-child(3){animation-delay:9.4s}.mots span:nth-child(4){animation-delay:9.75s}
+.mots span:nth-child(5){animation-delay:10.1s}.mots span:nth-child(6){animation-delay:10.45s}
+.mots span:nth-child(7){animation-delay:10.8s}.mots span:nth-child(8){animation-delay:11.2s}
+.mots span:nth-child(9){animation-delay:11.6s}.mots span:nth-child(10){animation-delay:12s}
+.mots span:nth-child(11){animation-delay:12.4s}.mots span:nth-child(12){animation-delay:12.8s}
+#a2 .micro{margin-top:3.4vh;display:inline-flex;align-items:center;gap:10px;color:var(--gris);font-size:14px;
+  opacity:0;animation:fade 1s ease 9s forwards}
+.pastille{width:10px;height:10px;border-radius:50%;background:var(--or);animation:pulse 1.2s ease-in-out 9s infinite}
+@keyframes pulse{50%{transform:scale(1.55);opacity:.55}}
+/* ACTE 3 · 16s → 23.6s : elle FAIT — les résultats naissent */
+#a3{animation:acte 7.8s ease 15.9s both}
+#a3 .t{font-family:'Playfair Display',serif;font-size:clamp(24px,3.8vw,44px);font-weight:700;color:var(--encre);margin-bottom:4.6vh;
+  opacity:0;animation:rise 1.1s cubic-bezier(.22,1,.36,1) 16.4s forwards}
+#a3 .t em{font-style:normal;color:var(--or2)}
+.fruits{display:flex;gap:2vw;flex-wrap:wrap;justify-content:center}
+.fruit{width:min(240px,26vw);background:#fffdf8;border:1px solid rgba(26,43,74,.10);border-radius:20px;padding:3.2vh 1.6vw;
+  box-shadow:0 18px 44px rgba(26,43,74,.08);opacity:0;transform:translateY(30px)}
+.fruit:nth-child(1){animation:pop 1s cubic-bezier(.22,1,.36,1) 17.2s forwards}
+.fruit:nth-child(2){animation:pop 1s cubic-bezier(.22,1,.36,1) 17.9s forwards}
+.fruit:nth-child(3){animation:pop 1s cubic-bezier(.22,1,.36,1) 18.6s forwards}
+.fruit .ico{font-size:34px;line-height:1}
+.fruit .n{font-family:'Playfair Display',serif;font-weight:700;font-size:clamp(15px,1.6vw,20px);color:var(--encre);margin-top:1.4vh}
+.fruit .d{font-size:13.5px;color:var(--gris);margin-top:.7vh;line-height:1.45}
+.fruit .ok{display:inline-block;margin-top:1.6vh;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--or2);
+  border:1px solid rgba(184,148,90,.45);border-radius:100px;padding:5px 12px}
+/* ACTE 4 · 24s → fin : la signature */
+#a4{animation:acteFin 8s ease 23.9s both}
+#a4 .marque{font-family:'Playfair Display',serif;font-weight:700;font-size:clamp(52px,10vw,120px);letter-spacing:.14em;
+  background:linear-gradient(100deg,var(--bronze),var(--or) 42%,#e8d5ae 50%,var(--or) 58%,var(--bronze));background-size:220%;
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+  opacity:0;animation:rise 1.4s cubic-bezier(.22,1,.36,1) 24.4s forwards,flow 7s linear 24.4s infinite}
+@keyframes flow{to{background-position:220% center}}
+#a4 .base{margin-top:1.8vh;font-family:'Playfair Display',serif;font-style:italic;font-size:clamp(17px,2.6vw,30px);color:var(--encre2);
+  opacity:0;animation:rise 1.2s ease 25.4s forwards}
+#a4 .quand{margin-top:4.2vh;display:inline-block;font-size:clamp(13px,1.7vw,17px);letter-spacing:.26em;text-transform:uppercase;
+  color:var(--or2);font-weight:600;border-top:1px solid rgba(184,148,90,.5);border-bottom:1px solid rgba(184,148,90,.5);
+  padding:1.4vh 2.6vw;opacity:0;animation:fade 1.2s ease 26.6s forwards}
+#a4 .ou{margin-top:2.6vh;font-size:15px;color:var(--gris);opacity:0;animation:fade 1.2s ease 27.4s forwards}
+/* ————— cinématiques communes ————— */
+@keyframes acte{0%{opacity:0;visibility:visible}8%{opacity:1}90%{opacity:1}100%{opacity:0;visibility:hidden}}
+@keyframes acteFin{0%{opacity:0;visibility:visible}10%{opacity:1}100%{opacity:1;visibility:visible}}
+@keyframes rise{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
+@keyframes fade{to{opacity:1}}
+@keyframes pop{to{opacity:1;transform:none}}
+/* lecture réduite : tout visible sans animation */
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;visibility:visible!important;opacity:1!important;transform:none!important}
+  .acte{position:static;padding:4vh 6vw}body{overflow:auto}
+}
+</style>
+</head>
+<body>
+<main id="scene" aria-label="Le film NAVLYS : tu parles, elle fait — lancement le 1er août 2026">
+  <div class="filet" aria-hidden="true"></div>
+
+  <section class="acte" id="a1">
+    <p class="serif l1">Et si créer était aussi simple…</p>
+    <p class="serif l2">…que <em>parler</em>&nbsp;?</p>
+  </section>
+
+  <section class="acte" id="a2">
+    <p class="qui">Quelque part, quelqu'un dit simplement</p>
+    <div class="bulle" aria-live="polite">
+      <p class="mots">
+        <span>«&nbsp;Crée-moi</span> <span>une</span> <span>page</span> <span>pour</span>
+        <span>vendre</span> <span>mes</span> <span>gâteaux,</span> <span>en</span>
+        <span class="or">trois</span> <span class="or">langues.</span> <span>&nbsp;»</span>
+      </p>
+    </div>
+    <div class="micro"><span class="pastille"></span> NAVLYS écoute — chaque mot s'allume quand il est dit</div>
+  </section>
+
+  <section class="acte" id="a3">
+    <p class="t">Elle ne répond pas. <em>Elle fait.</em></p>
+    <div class="fruits">
+      <div class="fruit"><div class="ico">🖥️</div><div class="n">Ta page, en ligne</div><div class="d">Ton propre site sécurisé, à ton nom.</div><span class="ok">créée</span></div>
+      <div class="fruit"><div class="ico">🌍</div><div class="n">En trois langues</div><div class="d">FR · EN · ES — traduites, prêtes.</div><span class="ok">traduites</span></div>
+      <div class="fruit"><div class="ico">📱</div><div class="n">Depuis ton téléphone</div><div class="d">Sans ordinateur, sans compétences.</div><span class="ok">à la voix</span></div>
+    </div>
+  </section>
+
+  <section class="acte" id="a4">
+    <h1 class="marque">NAVLYS</h1>
+    <p class="base">l'IA la plus simple du monde, à la voix</p>
+    <span class="quand">Lancement · 1er août 2026</span>
+    <p class="ou">navlys.com — l'entrée est gratuite</p>
+  </section>
+</main>
+</body>
+</html>
