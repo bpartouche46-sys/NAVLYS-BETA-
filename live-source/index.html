@@ -3,160 +3,277 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#f7f3ea">
-<title>NAVLYS — l'IA la plus simple du monde, à la voix</title>
-<meta name="description" content="NAVLYS, l'IA la plus simple du monde : tu parles, il fait. Crée et pilote tes applications, ta vie numérique et tes projets rien qu'au téléphone et à la voix. Un projet d'éducation et de veille.">
-<meta name="robots" content="index,follow">
-<link rel="canonical" href="https://www.navlys.com/">
-<link rel="alternate" hreflang="fr" href="https://www.navlys.com/">
-<link rel="alternate" hreflang="en" href="https://www.navlys.com/en">
-<link rel="alternate" hreflang="es" href="https://www.navlys.com/es">
-<link rel="alternate" hreflang="x-default" href="https://www.navlys.com/">
-<meta property="og:title" content="NAVLYS — l'IA la plus simple du monde, à la voix">
-<meta property="og:description" content="Tu parles, il fait. Ton univers, à la voix.">
-<meta property="og:url" content="https://www.navlys.com/">
-<meta property="og:image" content="https://www.navlys.com/assets/hero-yacht.jpg">
-<meta property="og:type" content="website">
+<meta name="theme-color" content="#02040a">
+<title>NAVLYS — l'IA la plus simple du monde, à la voix | crée ton univers en 14 langues</title>
+<meta name="description" content="NAVLYS est l'IA la plus simple et la plus accessible au monde : crée et pilote tes applications, ta vie numérique et tes projets rien qu'au téléphone et à la voix, sans ordinateur ni compétences, dès 0,99 €. Éducation et veille.">
+<meta name="keywords" content="IA à la voix, créer un site avec l'IA, assistant vocal, IA accessible, application sans code, NAVLYS, multilingue, éducation financière, autobiographie numérique">
+<link rel="canonical" href="https://navlys.com/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="alternate" hreflang="fr" href="https://navlys.com/">
+<link rel="alternate" hreflang="x-default" href="https://navlys.com/">
 <link rel="icon" type="image/png" href="/assets/coins/navlys-coin-core.png">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<script type="application/ld+json">
-{"@context":"https://schema.org","@type":"Organization","@id":"https://www.navlys.com/#organization","name":"NAVLYS","alternateName":"NAVLYS WEB SERVICE","url":"https://www.navlys.com/","logo":"https://www.navlys.com/assets/coins/navlys-coin-core.png","description":"L'IA la plus simple du monde, à la voix. Projet d'éducation et de veille.","founder":{"@type":"Person","name":"Bruno Mark Partouche"},"foundingDate":"2026","sameAs":["https://brunopartouche.com","https://navbiolife.com","https://navlys.io","https://twitter.com/amarock52"]}
-</script>
+<meta property="og:title" content="NAVLYS — l'IA la plus simple du monde, à la voix">
+<meta property="og:description" content="Crée et pilote tes applications et ta vie numérique rien qu'au téléphone et à la voix, sans compétences, dès 0,99 €. Éducation et veille.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://navlys.com/">
+<meta property="og:image" content="https://navlys.com/og-navlys.jpg">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta property="og:locale" content="fr_FR"><meta property="og:site_name" content="NAVLYS">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="NAVLYS — l'IA la plus simple du monde, à la voix">
+<meta name="twitter:description" content="Crée ton univers IA à la voix, sans compétences, dès 0,99 €.">
+<meta name="twitter:image" content="https://navlys.com/og-navlys.jpg">
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/navlys-ui.css">
 <style>
-:root{--creme:#f7f3ea;--creme2:#efe8da;--encre:#1a2b4a;--encre2:#2c3e5c;--or:#c9a86a;--or2:#b8945a;--sauge:#b7c7bd;--gris:#5b6b7a;}
-*{box-sizing:border-box}
-body{margin:0;background:var(--creme);color:#26313f;font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
-h1,h2,h3,.serif{font-family:'Playfair Display',Georgia,serif}
-a{color:inherit}
-.nav{position:sticky;top:0;z-index:40;display:flex;align-items:center;gap:22px;padding:14px 26px;background:rgba(247,243,234,.82);backdrop-filter:blur(10px);border-bottom:1px solid rgba(26,43,74,.08)}
-.nav .brand{font-family:'Playfair Display',serif;font-weight:700;letter-spacing:.18em;color:var(--encre);font-size:20px}
-.nav a{margin-left:auto;text-decoration:none;color:var(--encre2);font-size:14px;font-weight:500}
-.nav a+a{margin-left:20px}
-.nav .cta{background:var(--encre);color:#fff;padding:9px 16px;border-radius:999px}
-/* HERO */
-.hero{position:relative;min-height:82vh;display:flex;align-items:center;overflow:hidden}
-.hero img.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:70% center;transform-origin:60% 50%;animation:breathe 24s ease-in-out infinite alternate;will-change:transform}
-@keyframes breathe{from{transform:scale(1.0)}to{transform:scale(1.09)}}
-@media(prefers-reduced-motion:reduce){.hero img.bg{animation:none}}
-.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,rgba(247,243,234,.96) 0%,rgba(247,243,234,.86) 34%,rgba(247,243,234,.35) 55%,rgba(247,243,234,0) 78%)}
-.hero .in{position:relative;z-index:2;max-width:1180px;margin:0 auto;padding:0 30px;width:100%}
-.hero .k{font-size:13px;letter-spacing:.28em;text-transform:uppercase;color:var(--or2);font-weight:600}
-.hero h1{font-size:clamp(52px,10vw,120px);line-height:.98;color:var(--encre);margin:.12em 0 .1em;font-weight:700;letter-spacing:.02em}
-.rule{width:120px;height:2px;background:linear-gradient(90deg,var(--or),transparent);margin:14px 0 20px}
-.hero .lead{font-family:'Playfair Display',serif;font-style:italic;font-size:clamp(22px,3.4vw,34px);color:var(--encre2);max-width:600px;margin:0}
-.hero .sub{font-size:17px;color:#42506a;max-width:520px;margin:14px 0 26px}
-.btns a{display:inline-block;text-decoration:none;font-weight:600;font-size:15px;border-radius:999px;padding:14px 26px;margin:0 10px 10px 0}
-.btns .p{background:var(--encre);color:#fff}
-.btns .s{background:transparent;color:var(--encre);border:1.5px solid var(--encre)}
-/* SECTIONS */
-section{max-width:1080px;margin:0 auto;padding:74px 30px}
-.eyebrow{font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:var(--or2);font-weight:600}
-h2{font-size:clamp(30px,5vw,50px);color:var(--encre);margin:.15em 0 0;font-weight:600}
-h2+.rule{margin-top:16px}
-.big{font-family:'Playfair Display',serif;font-size:clamp(22px,3vw,30px);color:var(--encre2);line-height:1.5;font-weight:500;max-width:760px;margin:22px 0 0}
-.points{list-style:none;padding:0;margin:26px 0 0;display:grid;gap:14px}
-.points li{font-size:clamp(19px,2.4vw,24px);color:#2c3a4e;font-weight:500;padding-left:26px;position:relative}
-.points li::before{content:"";position:absolute;left:0;top:.62em;width:9px;height:9px;border-radius:50%;background:var(--or)}
-.points li b{color:var(--encre);font-weight:600}
-.fleet{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;margin-top:30px}
-.card{background:#fff;border:1px solid rgba(26,43,74,.09);border-radius:16px;padding:22px;box-shadow:0 10px 30px rgba(26,43,74,.05)}
-.card .t{font-family:'Playfair Display',serif;font-size:22px;color:var(--encre);font-weight:600}
-.card .d{font-size:15.5px;color:#4a5769;margin-top:8px;line-height:1.5}
-.tier{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-top:30px}
-.plan{background:#fff;border:1px solid rgba(26,43,74,.1);border-radius:16px;padding:22px;text-align:center}
-.plan.f{border-color:var(--or);box-shadow:0 12px 30px rgba(201,168,106,.18)}
-.plan .n{font-family:'Playfair Display',serif;font-size:20px;color:var(--encre)}
-.plan .pr{font-family:'Playfair Display',serif;font-size:30px;color:var(--or2);margin-top:6px;font-weight:700}
-.plan .pr small{font-size:13px;color:#8a94a2}
-.plan .m{font-size:13px;color:#6b7683;margin-top:6px}
-.sail{display:flex;justify-content:center;align-items:flex-end;height:66px;margin-bottom:4px}
-.sail svg{display:block}
-.cta-band{background:var(--encre);color:#f2ede3;border-radius:20px;padding:44px;text-align:center;margin-top:36px}
-.cta-band h2{color:#fff}
-.cta-band .rule{margin:16px auto 18px}
-.cta-band a{display:inline-block;background:linear-gradient(100deg,var(--or),#e6c98a);color:#22303f;font-weight:600;text-decoration:none;padding:15px 30px;border-radius:999px;margin-top:8px}
-footer{max-width:1080px;margin:0 auto;padding:40px 30px 70px;color:#6b7683;font-size:13px;border-top:1px solid rgba(26,43,74,.08)}
-footer .disc{font-style:italic;line-height:1.6;max-width:820px}
-footer .cz{margin-top:14px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#8a94a2}
-footer a.aff{color:var(--or2);text-decoration:none}
-.nv-wa2{position:fixed;left:18px;bottom:18px;width:54px;height:54px;border-radius:50%;background:#fff;border:1px solid var(--or);display:flex;align-items:center;justify-content:center;box-shadow:0 8px 22px rgba(26,43,74,.18);z-index:60}
-.nv-wa2 svg{width:28px;height:28px}
-@media(max-width:640px){.hero::after{background:linear-gradient(180deg,rgba(247,243,234,.9),rgba(247,243,234,.5) 60%,rgba(247,243,234,.85))}}
+.nv-skip{position:absolute;left:-999px;top:0;z-index:1000;background:#c9962f;color:#0a0803;padding:10px 16px;border-radius:0 0 10px 0;font-family:'Cinzel',serif;font-size:13px}
+.nv-skip:focus{left:0}
+:where(a,button,.nv-cta,.nv-card,summary,[tabindex]):focus-visible{outline:2px solid #7dd3fc;outline-offset:3px;border-radius:8px}
+.nv-prix{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px;max-width:960px;margin:8px auto 0}
+.nv-prix .p{background:rgba(8,11,22,.62);border:1px solid rgba(233,211,160,.22);border-radius:18px;padding:22px 18px;text-align:center;transition:border-color .3s,transform .3s}
+.nv-prix .p:hover{border-color:rgba(233,211,160,.6);transform:translateY(-4px)}
+.nv-prix .p.star{border-color:rgba(125,211,252,.55);box-shadow:0 0 30px rgba(125,211,252,.18)}
+.nv-prix .lvl{font-family:'Cinzel',serif;letter-spacing:.12em;text-transform:uppercase;font-size:13px;color:var(--ice)}
+.nv-prix .ht{font-family:'Cinzel',serif;font-size:34px;color:var(--or);margin:8px 0 2px;line-height:1}
+.nv-prix .ht small{font-size:14px;color:var(--brume)}
+.nv-prix .ttc{font-size:13px;color:var(--brume);font-style:italic}
+.nv-prix .d{color:var(--perle);font-size:14px;margin-top:10px;min-height:34px}
+.nv-prix .tag{display:inline-block;margin-top:6px;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#7dd3fc}
+.nv-prixnote{text-align:center;color:var(--brume);font-size:12.5px;font-style:italic;max-width:760px;margin:18px auto 0}
+.nv-conf{max-width:900px;margin:12px auto 0;padding:16px 18px;border:1px solid rgba(125,211,252,.2);border-radius:14px;background:rgba(8,11,22,.5);color:var(--perle);font-size:13.5px;line-height:1.55;text-align:center}
 </style>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Organization","name":"NAVLYS","legalName":"NAVLYS WEB SERVICE LTD","identifier":"517373668","url":"https://navlys.com","logo":"https://navlys.com/assets/coins/navlys-coin-core.png","image":"https://navlys.com/og-navlys.jpg","slogan":"l'IA la plus simple du monde","description":"NAVLYS est l'IA la plus simple et accessible au monde : créer et piloter ses applications et sa vie numérique rien qu'au téléphone et à la voix. Projet d'éducation et de veille.","sameAs":["https://brunopartouche.com","https://navbiolife.com"]}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebSite","name":"NAVLYS","url":"https://navlys.com","inLanguage":"fr","description":"L'IA accessible à tous, à la voix, dans 14 langues."}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"SoftwareApplication","name":"NAVLYS","applicationCategory":"BusinessApplication","operatingSystem":"Web, iOS, Android","description":"IA à la voix pour créer et piloter ses applications et sa vie numérique sans compétences.","offers":{"@type":"AggregateOffer","priceCurrency":"EUR","lowPrice":"0.99","highPrice":"49.99","offerCount":"4","offers":[
+{"@type":"Offer","name":"Mousse","price":"0.99","priceCurrency":"EUR"},
+{"@type":"Offer","name":"Matelot","price":"9.99","priceCurrency":"EUR"},
+{"@type":"Offer","name":"Équipage","price":"29.99","priceCurrency":"EUR"},
+{"@type":"Offer","name":"Capitaine","price":"49.99","priceCurrency":"EUR"}]}}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"Qu'est-ce que NAVLYS","acceptedAnswer":{"@type":"Answer","text":"NAVLYS est l'IA la plus simple du monde : tu parles, elle fait. Tu crées et pilotes tes applications, ta vie numérique et tes projets rien qu'au téléphone et à la voix, sans ordinateur ni compétences."}},
+{"@type":"Question","name":"Combien coûte NAVLYS","acceptedAnswer":{"@type":"Answer","text":"L'accès commence dès 0,99 € HT par mois, sans engagement (offre Mousse). Viennent ensuite Matelot 9,99 €, Équipage 29,99 € et Capitaine 49,99 €. Tu obtiens ton espace, ton propre site sécurisé et l'accès à l'univers d'applications NAVLYS."}},
+{"@type":"Question","name":"Faut-il des compétences techniques","acceptedAnswer":{"@type":"Answer","text":"Non. NAVLYS est conçu pour être utilisé sans aucune compétence et sans ordinateur : tu parles, en français ou dans ta langue, et l'IA agit."}},
+{"@type":"Question","name":"Dans quelles langues NAVLYS fonctionne-t-il","acceptedAnswer":{"@type":"Answer","text":"NAVLYS vise l'accessibilité mondiale et se décline en plusieurs langues afin de rendre l'intelligence artificielle accessible au plus grand nombre."}},
+{"@type":"Question","name":"Mes données sont-elles privées et sécurisées","acceptedAnswer":{"@type":"Answer","text":"Oui. Ton espace, tes contenus et tes créations restent privés et t'appartiennent, sur ton propre site sécurisé, et tu peux les exporter quand tu veux."}},
+{"@type":"Question","name":"Les prix NAVLYS sont-ils en HT ou en TTC","acceptedAnswer":{"@type":"Answer","text":"Les tarifs sont annoncés en euros HT, dès 0,99 € par mois et sans engagement. Le montant TTC, avec la TVA applicable selon le pays, est indiqué clairement au moment du paiement et sur la facture."}},
+{"@type":"Question","name":"Comment créer un site rien qu'à la voix avec NAVLYS","acceptedAnswer":{"@type":"Answer","text":"Tu ouvres NAVLYS sur ton téléphone, tu dis ce que tu veux créer, l'IA construit ta page et ton site sécurisé, puis tu ajustes à la voix. Aucune compétence ni ordinateur n'est requis."}},
+{"@type":"Question","name":"NAVLYS donne-t-il des conseils financiers","acceptedAnswer":{"@type":"Answer","text":"Non. NAVLYS est un projet d'éducation et de veille à vocation informative. Il ne fournit jamais de conseil personnalisé en investissement ni de gestion d'argent, et ne remplace pas un professionnel. Chacun reste seul responsable de ses décisions."}},
+{"@type":"Question","name":"NAVLYS fonctionne-t-il vraiment sans ordinateur","acceptedAnswer":{"@type":"Answer","text":"Oui. NAVLYS a été pensé pour le téléphone et la voix : aucun ordinateur ni installation n'est nécessaire. Tu parles, l'IA agit, et tout se pilote depuis ton mobile."}},
+{"@type":"Question","name":"En quoi NAVLYS est-il différent d'une autre intelligence artificielle","acceptedAnswer":{"@type":"Answer","text":"NAVLYS mise sur la simplicité et la voix : pas d'écran complexe, pas de compétences, pas d'ordinateur. L'objectif est de rendre l'intelligence artificielle accessible à toutes et tous, dans sa propre langue, directement au téléphone."}},
+{"@type":"Question","name":"Puis-je essayer NAVLYS sans engagement","acceptedAnswer":{"@type":"Answer","text":"Oui. NAVLYS est sans engagement, avec une offre découverte dès 0,99 € HT par mois. Pendant la phase de lancement, l'accès peut être offert, et tu gardes toujours la maîtrise de ton espace et de tes contenus."}},
+{"@type":"Question","name":"À partir de quel âge peut-on utiliser NAVLYS","acceptedAnswer":{"@type":"Answer","text":"NAVLYS est réservé aux personnes majeures (18+). C'est un projet d'éducation et de veille, jamais un conseil personnalisé, et chacun reste seul responsable de ses décisions."}}
+]}
+</script>
 </head>
 <body>
-<nav class="nav">
-  <span class="brand">NAVLYS</span>
-  <a href="/essai">Essayer</a>
-  <a href="/adhesion">Offres</a>
-  <a href="/en">EN</a>
-  <a class="cta" href="/adhesion">Monter à bord</a>
+<a href="#univers" class="nv-skip">aller au contenu</a>
+<script>/* purge ancien service worker + cache */
+(function(){try{if('serviceWorker' in navigator){navigator.serviceWorker.getRegistrations().then(function(rs){rs.forEach(function(r){r.unregister();});});}if(window.caches&&caches.keys){caches.keys().then(function(ks){ks.forEach(function(k){caches.delete(k);});});}}catch(e){}})();</script>
+
+<nav class="nv-nav" aria-label="navigation principale">
+  <a href="#univers">univers</a><a href="#comment">comment</a><a href="#tarifs">tarifs</a><a href="#video">video</a><a href="/cadeaux">cadeaux</a><a href="/adhesion">entrer</a>
 </nav>
 
-<header class="hero">
-  <img class="bg" src="/assets/hero-yacht.jpg" alt="Yacht de luxe NAVLYS en mer" fetchpriority="high">
-  <div class="in">
-    <p class="k">l'IA la plus simple du monde</p>
-    <h1>NAVLYS</h1>
-    <div class="rule"></div>
-    <p class="lead">Tu parles, il fait.</p>
-    <p class="sub">Ton univers d'applications, ta vie numérique, tes projets — rien qu'au téléphone et à la voix. Sans ordinateur, sans compétences.</p>
-    <div class="btns"><a class="p" href="/essai">Essaie à la voix</a><a class="s" href="/adhesion">Découvrir les offres</a></div>
+<!-- HERO : vraie video bateaux en fond + H1 SEO -->
+<header class="nv-hero">
+  <video class="nv-vidbg" src="/videos/reel-hero.mp4" autoplay muted loop playsinline preload="auto" poster="/videos/poster-hero.jpg" aria-hidden="true" tabindex="-1"></video>
+  <div class="nv-veil"></div>
+  <div class="nv-hero-in">
+    <video class="nv-coin" src="/brand/navlys_coin_spin.mp4" autoplay muted loop playsinline poster="/assets/coins/navlys-coin-avers-bronze.png" aria-label="Logo NAVLYS animé"></video>
+    <div class="nv-brand" role="img" aria-label="NAVLYS">NAVLYS</div>
+    <h1 class="nv-h1">l'IA la plus simple du monde, à la voix</h1>
+    <p class="nv-sub">tu parles, <b>elle fait</b> · rien qu'au téléphone, sans compétences, dès 0,99 €</p>
+    <a class="nv-cta" href="/adhesion" style="margin-top:26px">entrer gratuitement</a>
   </div>
 </header>
 
-<section>
-  <p class="eyebrow">Qu'est-ce que NAVLYS</p>
-  <h2>Une seule voix. Un univers.</h2>
-  <div class="rule"></div>
-  <ul class="points">
-    <li><b>Simplicité radicale</b> — tu parles, il fait.</li>
-    <li><b>Pour tous</b> — débutants, familles, seniors.</li>
-    <li><b>Ton espace sécurisé</b> et ton propre site.</li>
-    <li><b>Éducation &amp; veille</b> — jamais de conseil réglementé.</li>
-  </ul>
-</section>
+<main class="nv-wrap">
 
-<section>
-  <p class="eyebrow">L'univers</p>
-  <h2>Un univers, une flotte.</h2>
-  <div class="rule"></div>
-  <p class="big">Chaque application est un voilier qui porte son nom. Le plus grand, le plus majestueux, c'est NAVLYS.</p>
-  <div class="fleet">
-    <div class="card"><div class="t">Genesis</div><div class="d">Raconte et transmets ta vie — de la naissance à l'au-delà.</div></div>
-    <div class="card"><div class="t">NAVFIN</div><div class="d">Le marché, expliqué simplement. Éducation, jamais de conseil.</div></div>
-    <div class="card"><div class="t">NAVLEX</div><div class="d">Le droit en mots clairs, à la voix.</div></div>
-    <div class="card"><div class="t">La Mer</div><div class="d">La météo marine, pour prendre le large.</div></div>
-    <div class="card"><div class="t">Cadeaux</div><div class="d">Des coffrets à offrir, créés pour l'occasion.</div></div>
-  </div>
-</section>
+  <section id="univers" class="nv-sec nv-reveal">
+    <p class="nv-k">tes applications</p>
+    <h2 class="nv-t">un seul <em>univers</em>, à la voix</h2>
+    <div class="nv-grid">
+      <a class="nv-card" href="/next-gen"><img src="/assets/coins/navlys-coin-genesis.png" alt="NAVLYS Genesis — écrire et transmettre sa vie" width="60" height="60" loading="lazy"><span class="n">genesis</span><span class="b">ta vie</span></a>
+      <a class="nv-card" href="/finance"><img src="/assets/coins/navlys-coin-navfin.png" alt="NAVFIN — éducation financière NAVLYS" width="60" height="60" loading="lazy"><span class="n">navfin</span><span class="b">apprendre</span></a>
+      <a class="nv-card" href="/navlex"><img src="/assets/coins/navlys-coin-navlex.png" alt="NAVLEX — le droit expliqué simplement" width="60" height="60" loading="lazy"><span class="n">navlex</span><span class="b">le droit</span></a>
+      <a class="nv-card" href="/mer"><img src="/assets/coins/navlys-coin-la-mer.png" alt="La Mer — mode de vie maritime NAVLYS" width="60" height="60" loading="lazy"><span class="n">la mer</span><span class="b">le large</span></a>
+      <a class="nv-card" href="/cadeaux"><img src="/assets/coins/navlys-coin-genesis.png" alt="Coffrets cadeaux NAVLYS à composer" width="60" height="60" loading="lazy"><span class="n">cadeaux</span><span class="b">compose</span></a>
+      <a class="nv-card" href="/adhesion"><img src="/assets/coins/navlys-coin-core.png" alt="Entrer dans NAVLYS dès 0,99 €" width="60" height="60" loading="lazy"><span class="n">entrer</span><span class="b">0,99</span></a>
+    </div>
+  </section>
 
-<section>
-  <p class="eyebrow">Monte à bord</p>
-  <h2>Choisis ta place.</h2>
-  <div class="rule"></div>
-  <div class="tier">
-    <div class="plan"><div class="sail"><svg viewBox="0 0 60 70" height="30" aria-hidden="true"><path d="M10 54 L50 54 L45 62 L15 62 Z" fill="#1a2b4a"/><path d="M30 20 L30 52" stroke="#1a2b4a" stroke-width="2"/><path d="M30 22 C42 32 42 46 30 50 Z" fill="#c9a86a"/></svg></div><div class="n">Découverte</div><div class="pr">Gratuit</div><div class="m">le dériveur — pour essayer</div></div>
-    <div class="plan"><div class="sail"><svg viewBox="0 0 60 70" height="42" aria-hidden="true"><path d="M10 54 L50 54 L45 62 L15 62 Z" fill="#1a2b4a"/><path d="M30 12 L30 52" stroke="#1a2b4a" stroke-width="2"/><path d="M30 14 C43 26 43 46 30 50 Z" fill="#c9a86a"/><path d="M30 14 L18 50 L30 50 Z" fill="#2c3e5c"/></svg></div><div class="n">Matelot</div><div class="pr">9,99 €<small> HT/mois</small></div><div class="m">le voilier — sans engagement</div></div>
-    <div class="plan f"><div class="sail"><svg viewBox="0 0 60 70" height="54" aria-hidden="true"><path d="M8 54 L52 54 L46 62 L14 62 Z" fill="#1a2b4a"/><path d="M30 6 L30 52" stroke="#1a2b4a" stroke-width="2"/><path d="M30 8 C46 24 46 46 30 50 Z" fill="#c9a86a"/><path d="M30 8 L15 50 L30 50 Z" fill="#2c3e5c"/></svg></div><div class="n">Capitaine</div><div class="pr">29,99 €<small> HT/mois</small></div><div class="m">le grand voilier — le plus choisi</div></div>
-    <div class="plan"><div class="sail"><svg viewBox="0 0 60 70" height="66" aria-hidden="true"><path d="M6 54 L54 54 L47 62 L13 62 Z" fill="#1a2b4a"/><path d="M32 2 L32 52" stroke="#1a2b4a" stroke-width="2"/><path d="M32 4 C50 22 50 46 32 50 Z" fill="#c9a86a"/><path d="M32 4 L14 50 L32 50 Z" fill="#2c3e5c"/><path d="M20 30 C12 36 12 46 20 50 Z" fill="#b8945a"/></svg></div><div class="n">Commodore</div><div class="pr">49,99 €<small> HT/mois</small></div><div class="m">le yacht — tout l'univers</div></div>
-  </div>
-  <div class="cta-band">
-    <p class="eyebrow" style="color:#e6c98a">Lancement 1er août 2026</p>
-    <h2>L'IA est le vent. Tu tiens la barre.</h2>
-    <div class="rule"></div>
-    <a href="/adhesion">Monter à bord →</a>
-  </div>
-</section>
+  <section id="comment" class="nv-sec nv-reveal">
+    <p class="nv-k">simple comme parler</p>
+    <h2 class="nv-t">comment <em>ça marche</em></h2>
+    <div class="nv-grid">
+      <div class="nv-card"><h3 class="n">1 · tu parles</h3><p class="b" style="margin-top:8px">Dis à NAVLYS ce que tu veux faire, en français ou dans ta langue. Pas de menus compliqués, pas de code : juste ta voix et ton téléphone.</p></div>
+      <div class="nv-card"><h3 class="n">2 · elle fait</h3><p class="b" style="margin-top:8px">L'assistant comprend ta demande et agit : il crée ta page, prépare ta leçon, organise ta journée, garde tes souvenirs, décrypte l'actualité.</p></div>
+      <div class="nv-card"><h3 class="n">3 · tout t'appartient</h3><p class="b" style="margin-top:8px">Ton espace, tes contenus et tes créations restent privés et à toi, sur ton propre site sécurisé, exportables quand tu veux.</p></div>
+    </div>
+    <p style="text-align:center;color:var(--perle);max-width:760px;margin:24px auto 0;font-style:italic">NAVLYS rend l'intelligence artificielle accessible à tous : par le budget, dès 0,99 €, et par l'usage, sans aucune compétence. C'est l'IA pour tous, immédiatement — l'humain reste toujours la pièce centrale.</p>
+  </section>
 
-<footer>
-  <div class="disc">NAVLYS est un projet d'<b>éducation et de veille</b> à vocation informative — jamais un conseil personnalisé en investissement, en droit ou en gestion d'argent, et ne remplace pas un professionnel. Chacun reste seul responsable de ses décisions. Tes contenus restent privés et t'appartiennent.</div>
-  <div style="margin-top:12px"><a class="aff" href="/affiliation">Programme d'affiliation (FR·UK·UE)</a></div>
-  <div class="cz">NAVLYS WEB SERVICE LTD · N° 517373668 · 18+ · © 2026 NAVLYS — tous droits réservés</div>
+  <section id="pour-qui" class="nv-sec nv-reveal">
+    <p class="nv-k">pour qui</p>
+    <h2 class="nv-t">l'IA à la voix, <em>pour toi</em></h2>
+    <p style="color:var(--perle);max-width:820px;margin:0 auto 20px;text-align:center">NAVLYS a été pensé pour les personnes que la technologie a laissées de côté autant que pour celles qui veulent aller vite. Si tu sais parler, tu sais utiliser NAVLYS. Voici pour qui c'est fait&nbsp;:</p>
+    <div class="nv-grid">
+      <div class="nv-card"><h3 class="n">celles et ceux qui débutent</h3><p class="b" style="margin-top:8px">Pas d'ordinateur, pas de menus, pas de code. Tu parles à ton téléphone dans ta langue et l'assistant vocal agit. L'accessibilité est la raison d'être de NAVLYS.</p></div>
+      <div class="nv-card"><h3 class="n">les familles</h3><p class="b" style="margin-top:8px">Garder les souvenirs, écrire son histoire, transmettre aux générations suivantes&nbsp;: l'app <a href="/next-gen" style="color:var(--or)">Genesis</a> t'aide à raconter et à préserver ta vie, simplement.</p></div>
+      <div class="nv-card"><h3 class="n">les curieux et les apprenants</h3><p class="b" style="margin-top:8px">Comprendre l'économie, la finance ou le droit sans jargon, en mode éducation et veille. Explore <a href="/finance" style="color:var(--or)">NAVFIN</a>, <a href="/navlex" style="color:var(--or)">NAVLEX</a> et le <a href="/lab" style="color:var(--or)">laboratoire NAVLYS</a>.</p></div>
+    </div>
+  </section>
+
+  <section id="cas-usage" class="nv-sec nv-reveal">
+    <p class="nv-k">cas d'usage</p>
+    <h2 class="nv-t">ce que tu peux <em>faire à la voix</em></h2>
+    <div style="max-width:840px;margin:0 auto">
+      <h3 style="color:var(--or);font-family:'Cinzel',serif;font-size:18px;margin-top:20px">Créer ton site personnel</h3>
+      <p style="color:var(--perle)">Dis simplement qui tu es et ce que tu veux montrer&nbsp;: NAVLYS prépare ta page et ton propre site sécurisé, sans que tu touches une ligne de code. Tes contenus restent privés et t'appartiennent, exportables quand tu veux.</p>
+      <h3 style="color:var(--or);font-family:'Cinzel',serif;font-size:18px;margin-top:20px">Écrire et transmettre ta vie</h3>
+      <p style="color:var(--perle)">Avec <a href="/next-gen" style="color:var(--or)">Genesis</a>, tu racontes tes souvenirs à la voix&nbsp;: naissance, parcours, autobiographie, transmission aux tiens. NAVLYS classe, date et met en forme pour que rien ne se perde.</p>
+      <h3 style="color:var(--or);font-family:'Cinzel',serif;font-size:18px;margin-top:20px">Apprendre et rester informé</h3>
+      <p style="color:var(--perle)">Fais-toi expliquer une notion d'économie ou de droit, ou demande un décryptage clair de l'actualité. NAVLYS reste un projet d'éducation et de veille&nbsp;: il informe, il n'ordonne jamais à ta place.</p>
+      <h3 style="color:var(--or);font-family:'Cinzel',serif;font-size:18px;margin-top:20px">Composer un cadeau qui dure</h3>
+      <p style="color:var(--perle)">Offre un espace NAVLYS à un proche&nbsp;: découvre les <a href="/cadeaux" style="color:var(--or)">coffrets cadeaux</a> à composer, pour partager l'IA la plus simple du monde avec ceux que tu aimes.</p>
+    </div>
+  </section>
+
+  <section id="guide-voix" class="nv-sec nv-reveal">
+    <p class="nv-k">mini-guide</p>
+    <h2 class="nv-t">créer un site <em>rien qu'à la voix</em></h2>
+    <p style="color:var(--perle);max-width:820px;margin:0 auto 18px;text-align:center">Trois étapes suffisent. Aucune compétence, aucun ordinateur&nbsp;: juste ta voix et ton téléphone.</p>
+    <div style="max-width:840px;margin:0 auto">
+      <h3 style="color:var(--or);font-family:'Cinzel',serif;font-size:18px;margin-top:18px">Étape 1 · tu ouvres NAVLYS et tu parles</h3>
+      <p style="color:var(--perle)">Depuis ton téléphone, tu entres dans NAVLYS dès 0,99 € et tu dis ce que tu veux&nbsp;: « crée-moi un site pour présenter mon activité ». En français ou dans ta langue.</p>
+      <h3 style="color:var(--or);font-family:'Cinzel',serif;font-size:18px;margin-top:18px">Étape 2 · l'IA construit pour toi</h3>
+      <p style="color:var(--perle)">L'assistant comprend, pose au besoin une question simple, puis met en page ton site sécurisé. Tu ajustes toujours à la voix&nbsp;: « change le titre », « ajoute une photo ».</p>
+      <h3 style="color:var(--or);font-family:'Cinzel',serif;font-size:18px;margin-top:18px">Étape 3 · tout t'appartient</h3>
+      <p style="color:var(--perle)">Ton site est à toi, privé et exportable. Tu le partages par un lien ou un QR code, et tu le fais évoluer quand tu veux — toujours sans code.</p>
+    </div>
+  </section>
+
+  <section id="tarifs" class="nv-sec nv-reveal">
+    <p class="nv-k">tarifs · sans engagement</p>
+    <h2 class="nv-t">choisis ton <em>bord</em></h2>
+    <p style="color:var(--perle);max-width:820px;margin:0 auto 22px;text-align:center">Une seule grille, claire, en euros HT. Tu montes de palier quand tu veux, tu arrêtes quand tu veux.</p>
+    <div class="nv-prix">
+      <div class="p star">
+        <div class="lvl">Mousse</div>
+        <div class="ht">0,99 <small>€ HT/mois</small></div>
+        <div class="ttc">≈ 1,19 € TTC*</div>
+        <div class="d">ton espace + ton site sécurisé + statut ambassadeur.</div>
+        <div class="tag">pour entrer</div>
+      </div>
+      <div class="p">
+        <div class="lvl">Matelot</div>
+        <div class="ht">9,99 <small>€ HT/mois</small></div>
+        <div class="ttc">≈ 11,99 € TTC*</div>
+        <div class="d">tout Mousse + plus d'apps et d'usage à la voix.</div>
+        <div class="tag">pour avancer</div>
+      </div>
+      <div class="p">
+        <div class="lvl">Équipage</div>
+        <div class="ht">29,99 <small>€ HT/mois</small></div>
+        <div class="ttc">≈ 35,99 € TTC*</div>
+        <div class="d">l'univers complet, pour aller loin et vite.</div>
+        <div class="tag">pour créer</div>
+      </div>
+      <div class="p">
+        <div class="lvl">Capitaine</div>
+        <div class="ht">49,99 <small>€ HT/mois</small></div>
+        <div class="ttc">≈ 59,99 € TTC*</div>
+        <div class="d">le pont supérieur : priorité et pleine puissance.</div>
+        <div class="tag">pour mener</div>
+      </div>
+    </div>
+    <p class="nv-prixnote">*Prix annoncés en euros HT, sans engagement. Le montant TTC — avec la TVA applicable selon ton pays — t'est indiqué clairement au moment du paiement et sur ta facture. Les valeurs TTC ci-dessus sont données à titre indicatif (TVA 20 %).</p>
+    <div style="text-align:center;margin-top:22px"><a class="nv-cta" href="/adhesion">entrer dès 0,99 €</a></div>
+  </section>
+
+  <section id="video" class="nv-sec nv-reveal">
+    <p class="nv-k">navlys en mouvement</p>
+    <h2 class="nv-t">le bateau, puis tout l'<em>univers</em></h2>
+    <div class="nv-show">
+      <video src="/videos/navlys-univers.mp4" autoplay muted loop playsinline preload="metadata" poster="/videos/poster-univers.jpg" aria-label="Spot NAVLYS : de la mer à tout l'univers d'applications"></video>
+      <div class="lg">le bateau · puis tout l'univers navlys</div>
+    </div>
+  </section>
+
+  <section id="offre" class="nv-sec nv-reveal" style="text-align:center">
+    <p class="nv-k">coffrets cadeaux</p>
+    <h2 class="nv-brand" style="font-size:clamp(26px,5.5vw,48px)">un an offert</h2>
+    <p style="color:var(--perle);font-style:italic;margin-top:6px">sur les coffrets famille · compose le tien</p>
+    <div style="margin-top:14px"><span class="nv-soon">ouverture bientôt</span></div>
+    <div style="margin-top:22px"><a class="nv-cta" href="/cadeaux">composer mon cadeau</a></div>
+  </section>
+
+  <section id="faq" class="nv-sec nv-reveal">
+    <p class="nv-k">questions</p>
+    <h2 class="nv-t">on te répond <em>simplement</em></h2>
+    <div style="max-width:800px;margin:0 auto">
+      <h3 style="color:var(--or);font-family:'Cinzel',serif;font-size:18px;margin-top:18px">Qu'est-ce que NAVLYS ?</h3>
+      <p style="color:var(--perle)">NAVLYS est l'IA la plus simple du monde : tu parles, elle fait. Tu crées et pilotes tes applications, ta vie numérique et tes projets rien qu'au téléphone et à la voix, sans ordinateur ni compétences.</p>
+      <h3 style="color:var(--or);font-family:'Cinzel',serif;font-size:18px;margin-top:18px">Combien ça coûte ?</h3>
+      <p style="color:var(--perle)">L'accès commence dès 0,99 € HT par mois (offre Mousse), sans engagement, avec ton espace et ton propre site sécurisé. Voir la grille complète ci-dessus&nbsp;: Mousse, Matelot, Équipage, Capitaine.</p>
+      <h3 style="color:var(--or);font-family:'Cinzel',serif;font-size:18px;margin-top:18px">Faut-il des compétences ?</h3>
+      <p style="color:var(--perle)">Non. NAVLYS s'utilise sans aucune compétence et sans ordinateur : tu parles, l'IA agit.</p>
+      <h3 style="color:var(--or);font-family:'Cinzel',serif;font-size:18px;margin-top:18px">Dans quelles langues NAVLYS fonctionne-t-il ?</h3>
+      <p style="color:var(--perle)">NAVLYS vise l'accessibilité mondiale et se décline en plusieurs langues, pour rendre l'intelligence artificielle disponible au plus grand nombre, dans sa propre langue et à la voix.</p>
+      <h3 style="color:var(--or);font-family:'Cinzel',serif;font-size:18px;margin-top:18px">Mes données sont-elles privées et sécurisées ?</h3>
+      <p style="color:var(--perle)">Oui. Ton espace, tes contenus et tes créations restent privés et t'appartiennent, sur ton propre site sécurisé. Tu peux les exporter quand tu veux&nbsp;: tu gardes la maîtrise.</p>
+      <h3 style="color:var(--or);font-family:'Cinzel',serif;font-size:18px;margin-top:18px">Les prix sont-ils en HT ou en TTC ?</h3>
+      <p style="color:var(--perle)">Les tarifs sont annoncés en € HT, dès 0,99 € par mois et sans engagement. Le montant TTC — avec la TVA applicable selon ton pays — t'est indiqué clairement au moment du paiement et sur ta facture.</p>
+      <h3 style="color:var(--or);font-family:'Cinzel',serif;font-size:18px;margin-top:18px">Comment créer un site rien qu'à la voix ?</h3>
+      <p style="color:var(--perle)">Tu ouvres NAVLYS sur ton téléphone, tu dis ce que tu veux, l'IA construit ta page et ton site sécurisé, puis tu ajustes à la voix. Aucune compétence, aucun ordinateur — voir le mini-guide ci-dessus.</p>
+      <h3 style="color:var(--or);font-family:'Cinzel',serif;font-size:18px;margin-top:18px">NAVLYS fonctionne-t-il vraiment sans ordinateur ?</h3>
+      <p style="color:var(--perle)">Oui. NAVLYS a été pensé pour le téléphone et la voix&nbsp;: aucun ordinateur ni installation n'est nécessaire. Tu parles, l'IA agit, et tout se pilote depuis ton mobile.</p>
+      <h3 style="color:var(--or);font-family:'Cinzel',serif;font-size:18px;margin-top:18px">En quoi NAVLYS est-il différent d'une autre intelligence artificielle ?</h3>
+      <p style="color:var(--perle)">NAVLYS mise sur la simplicité et la voix&nbsp;: pas d'écran complexe, pas de compétences, pas d'ordinateur. L'objectif est de rendre l'intelligence artificielle accessible à toutes et tous, dans sa propre langue, directement au téléphone.</p>
+      <h3 style="color:var(--or);font-family:'Cinzel',serif;font-size:18px;margin-top:18px">Puis-je essayer NAVLYS sans engagement ?</h3>
+      <p style="color:var(--perle)">Oui. NAVLYS est sans engagement, avec une offre découverte dès 0,99 € HT par mois. Pendant la phase de lancement, l'accès peut être offert&nbsp;: tu gardes toujours la maîtrise de ton espace et de tes contenus.</p>
+      <h3 style="color:var(--or);font-family:'Cinzel',serif;font-size:18px;margin-top:18px">À partir de quel âge peut-on utiliser NAVLYS ?</h3>
+      <p style="color:var(--perle)">NAVLYS est réservé aux personnes majeures (18+). C'est un projet d'éducation et de veille, jamais un conseil personnalisé, et chacun reste seul responsable de ses décisions.</p>
+      <h3 style="color:var(--or);font-family:'Cinzel',serif;font-size:18px;margin-top:18px">Est-ce un conseil financier ?</h3>
+      <p style="color:var(--perle)">Non. NAVLYS est un projet d'éducation et de veille à vocation informative. Il ne fournit jamais de conseil personnalisé en investissement, ni de gestion d'argent, et ne remplace pas un professionnel. Chacun reste seul responsable de ses décisions.</p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="nv-foot">
+  <img src="/qr/qr-navlys.png" alt="Scanne pour ouvrir navlys.com sur ton téléphone" width="104" height="104" loading="lazy" style="border-radius:12px;margin-bottom:12px;box-shadow:0 0 22px rgba(201,150,47,.4)">
+  <div style="font-family:'Cinzel',serif;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--ice);margin-bottom:14px">scanne · entre dans navlys</div>
+  <div class="nv-conf">NAVLYS est un projet d'<b>éducation et de veille</b> à vocation informative — <b>jamais un conseil personnalisé</b> en investissement, en droit ou en gestion d'argent, et ne remplace pas un professionnel. Chacun reste seul responsable de ses décisions. Tes contenus restent privés et t'appartiennent.</div>
+  <div class="cz" style="margin-top:14px">NAVLYS WEB SERVICE LTD · N° 517373668 · 18+ · © 2026 NAVLYS — tous droits réservés</div>
 </footer>
 
-<a class="nv-wa2" href="https://wa.me/15559913239" target="_blank" rel="noopener" aria-label="Parler à NAVLYS sur WhatsApp" title="Parler à NAVLYS sur WhatsApp"><svg viewBox="0 0 24 24" fill="#25D366" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15l-1.4 5 5.1-1.3A10 10 0 1 0 12 2Zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.6-.6-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8 0-1.3.7-1.9 1-2.2.2-.2.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.4 0 .5l-.3.5c-.1.2-.3.3-.1.6.1.3.7 1.1 1.4 1.8.9.8 1.7 1 2 1.2.2.1.4.1.5-.1l.6-.7c.2-.2.3-.2.6-.1l1.8.9c.3.1.4.2.5.3.1.2.1.7-.1 1.3Z"/></svg></a>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+(function(){
+  var nvRM=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.querySelectorAll('video').forEach(function(v){v.muted=true;if(nvRM){try{v.pause();v.removeAttribute('autoplay');}catch(e){}}else{try{v.play().catch(function(){});}catch(e){}}});
+  if(nvRM){document.querySelectorAll('.nv-reveal').forEach(function(el){el.style.opacity=1;el.style.transform='none';});return;}
+  try{
+    var lenis=new Lenis({lerp:.1,smoothWheel:true});(function raf(t){lenis.raf(t);requestAnimationFrame(raf);})();
+    if(window.gsap&&window.ScrollTrigger){gsap.registerPlugin(ScrollTrigger);lenis.on('scroll',ScrollTrigger.update);
+      gsap.utils.toArray('.nv-reveal').forEach(function(el){gsap.to(el,{opacity:1,y:0,duration:.9,ease:'power3.out',scrollTrigger:{trigger:el,start:'top 85%'}});});
+    } else {document.querySelectorAll('.nv-reveal').forEach(function(el){el.style.opacity=1;el.style.transform='none';});}
+  }catch(e){document.querySelectorAll('.nv-reveal').forEach(function(el){el.style.opacity=1;el.style.transform='none';});}
+})();
+</script>
+<script src="/navlys-i18n.js" defer></script>
 <script src="/navlys-voix.js" defer></script>
 </body>
 </html>
