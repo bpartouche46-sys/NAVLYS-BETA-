@@ -220,7 +220,7 @@ async function contenuPage(chemin: string): Promise<string> {
   try {
     const r = await fetch("https://navlys.com" + chemin);
     if (!r.ok) return "";
-    return htmlVersTexte(await r.text()).slice(0, 3000);
+    return htmlVersTexte(await r.text()).slice(0, 6000);
   } catch { return ""; }
 }
 const SYSTEME_AVIS = `Tu es une IA externe indépendante (comme ChatGPT ou Gemini) qui découvre navlys.com pour la
@@ -338,7 +338,7 @@ async function avisIA() {
     if (t) contenus.push(`— PAGE ${p} —\n${t}`);
   }
   if (!contenus.length) { await journal("Avis IA quotidien : pages injoignables, rien testé."); return { ok: false, lecons: 0 }; }
-  const contexte = contenus.join("\n\n").slice(0, 9000);
+  const contexte = contenus.join("\n\n").slice(0, 18000);
 
   // Un thunk par IA du panel — familles distinctes, exécutés en parallèle.
   const membres: { fournisseur: string; modele: string; famille: string; run: () => Promise<string> }[] = [
