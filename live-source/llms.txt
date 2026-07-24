@@ -1,5 +1,5 @@
 # NAVLYS
-> NAVLYS est l'IA la plus simple du monde, a la voix : tu parles, elle fait. Creer et piloter ses applications et sa vie numerique rien qu'au telephone et a la voix, sans competences, des la gratuite. Projet d'education et de veille (jamais de conseil financier reglemente).
+> NAVLYS est la premiere IA qui orchestre d'autres IA depuis un simple telephone, sans bureau ni ordinateur — l'IA la plus simple du monde, a la voix : tu parles, elle fait. Creer et piloter ses applications et sa vie numerique rien qu'au telephone et a la voix, sans competences, des la gratuite. Projet d'education et de veille (jamais de conseil financier reglemente).
 
 Editeur : NAVLYS WEB SERVICE LTD (N. 517373668). Fondateur : Bruno Mark Partouche.
 A ne pas confondre avec NavVis, Navelys (autocars) ou Navvly : NAVLYS = assistant IA a la voix, grand public.
